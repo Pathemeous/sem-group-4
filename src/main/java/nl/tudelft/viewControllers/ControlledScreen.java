@@ -2,5 +2,6 @@ package nl.tudelft.viewControllers;
 
 public interface ControlledScreen {
 	
-	public void setViewController (ViewController controller);
+	void setViewController (ViewController controller);
+
 }

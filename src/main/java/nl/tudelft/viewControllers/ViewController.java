@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 
 public class ViewController extends StackPane {
 
-	private HashMap<String, Node> screens = new HashMap<String, Node>();
+	private HashMap<String, Node> screens = new HashMap<>();
 	
 	public void addScreen(String name, Node screen) {
 		screens.put(name, screen);
