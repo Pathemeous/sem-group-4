@@ -1,19 +1,17 @@
 package nl.tudelft.semgroup4;
 
-
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import nl.tudelft.viewControllers.ViewController;
-
-public class App extends Application {
-	
+		
+public class App extends Application {	
 	public static final String GAME = "game";
 	public static final String GAME_FXML = "/views/game.fxml";
 	public static final String HOME = "home";
 	public static final String HOME_FXML = "/views/home.fxml";
-
+    
 	public static void main(String[] args) {
 		launch(args);
 	}
@@ -34,3 +32,6 @@ public class App extends Application {
         viewController.prefHeightProperty().bind(scene.heightProperty());
 	}
 }
+
+
+
