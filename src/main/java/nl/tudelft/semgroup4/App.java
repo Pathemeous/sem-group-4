@@ -1,12 +1,7 @@
 package nl.tudelft.semgroup4;
 
-import java.io.IOException;
-
-import org.xml.sax.SAXException;
-
 import javafx.animation.AnimationTimer;
 import javafx.application.Application;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -17,6 +12,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
+import org.xml.sax.SAXException;
+
+import java.io.IOException;
 
 public class App extends Application {
 
@@ -39,7 +37,7 @@ public class App extends Application {
 		root.getChildren().add( layer1 );
 
 		//create background image
-		Image background = new Image("/nl/tudelft/semgroup4/startscreen.png");
+		Image background = new Image("startscreen.png");
 		ImageView imgView = new ImageView();
 		imgView.setImage(background);
 		imgView.setFitHeight(800);
