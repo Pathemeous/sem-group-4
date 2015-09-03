@@ -1,4 +1,4 @@
-package nl.tudelft.sem-group-4;
+package nl.tudelft.semgroup4;
 
 /**
  * Hello world!

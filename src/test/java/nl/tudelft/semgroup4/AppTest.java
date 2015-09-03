@@ -1,4 +1,5 @@
-package nl.tudelft.sem-group-4;
+package nl.tudelft.semgroup4;
+
 
 import junit.framework.Test;
 import junit.framework.TestCase;
