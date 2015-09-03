@@ -1,5 +1,7 @@
 package nl.tudelft.model.pickups;
 
-public class Utility {
+import nl.tudelft.model.Level;
+
+public class Utility extends Pickup<Level> {
 
 }

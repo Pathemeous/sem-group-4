@@ -1,5 +1,7 @@
 package nl.tudelft.model.pickups;
 
-public class Powerup {
+import nl.tudelft.model.Player;
 
+public class Powerup extends Pickup<Player> {
+	
 }

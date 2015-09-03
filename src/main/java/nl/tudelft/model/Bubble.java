@@ -1,5 +1,7 @@
 package nl.tudelft.model;
 
-public class Bubble {
+import nl.tudelft.viewControllers.GameController;
+
+public class Bubble extends GameController {
 
 }
