@@ -1,16 +1,16 @@
 package nl.tudelft.viewControllers;
 
-import java.io.IOException;
-import java.util.HashMap;
-
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 
+import java.io.IOException;
+import java.util.HashMap;
+
 public class ViewController extends StackPane {
 
-	private HashMap<String, Node> screens = new HashMap<String, Node>();
+	private HashMap<String, Node> screens = new HashMap<>();
 	
 	public void addScreen(String name, Node screen) {
 		screens.put(name, screen);
@@ -25,8 +25,8 @@ public class ViewController extends StackPane {
 	public boolean loadScreen(String name, String resource){
 		try{
 			FXMLLoader loader = new FXMLLoader(getClass().getResource(resource));
-			Parent loadScreen = (Parent)loader.load();
-			ControlledScreen viewController = ((ControlledScreen) loader.getController());
+			Parent loadScreen = loader.load();
+			ControlledScreen viewController = loader.getController();
 			viewController.setViewController(this);
 			
 			addScreen(name, loadScreen);
@@ -55,8 +55,4 @@ public class ViewController extends StackPane {
 			return false;
 		}
 	}
-	
-//	public boolean unloadScreen (String name){
-//		return true;
-//	}
 }
