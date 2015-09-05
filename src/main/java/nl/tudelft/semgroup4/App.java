@@ -11,7 +11,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class App extends BasicGame {
-	Image weapon;
+	Image weapon, background, playerImage, wall;	
 	Player player;
 	Input input = new Input(0);
 
@@ -19,10 +19,10 @@ public class App extends BasicGame {
 		App game = new App("Bubble Trouble");
 		try {
 			AppGameContainer container = new AppGameContainer(game);
-			container.setTargetFrameRate(60);			
-			container.start();	
-			
-			
+			container.setTargetFrameRate(60);
+			container.setUpdateOnlyWhenVisible(true);
+			container.setDisplayMode(1200, 800, false);
+			container.start();				
 
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
@@ -36,19 +36,28 @@ public class App extends BasicGame {
 	}	
 
 	@Override
-	public void init(GameContainer container) throws SlickException {		
-		player = new Player(container.getWidth() / 2, 443, new Image("src/main/resources/img/player_still.bmp"));
+	public void init(GameContainer container) throws SlickException {
+		wall = new Image("src/main/resources/img/wall2.JPG");
+		playerImage =  new Image("src/main/resources/img/player_still.bmp");		
+		player = new Player(container.getWidth() / 2, container.getHeight() - playerImage.getHeight(), playerImage);
+		background = new Image("src/main/resources/img/level1.jpg");
+		
 		//weapon = new Image("resources/player_still.bmp");
 	}	
 
 	@Override
-	public void render(GameContainer container, Graphics arg1) throws SlickException {
-		arg1.drawImage(player.getImage(), player.getX(), player.getY());
+	public void render(GameContainer container, Graphics g) throws SlickException {
+		g.scale((float) 1.8, (float) 2.3);
+		g.drawImage(background, 0,0);
+		g.resetTransform();
+		for(int i = 0; i <= 4; i++) {
+			g.drawImage(wall, 0, i * wall.getHeight() );
+			g.drawImage(wall, container.getWidth() - wall.getWidth(), i * wall.getHeight() );
+		}
+		g.scale(2, 2);
+		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));		
 		//arg1.drawImage(weapon, player.getX(), player.getY());
-
-
 	}
-
 
 	@Override
 	public void update(GameContainer container, int arg1) throws SlickException {		
@@ -67,7 +76,5 @@ public class App extends BasicGame {
 			player.setImage(new Image("src/main/resources/img/player_still.bmp"));
 		}
 		player.tick();
-		
-
 	}
 }
