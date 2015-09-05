@@ -1,6 +1,9 @@
 package nl.tudelft.semgroup4;
 
+import java.util.LinkedList;
+
 import nl.tudelft.model.Collision;
+import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 
@@ -18,6 +21,7 @@ public class App extends BasicGame {
 	Wall wall;
 	Player player;
 	Input input = new Input(0);
+	LinkedList<GameObject> objectList;
 
 	public static void main(String[] args) {
 		App game = new App("Bubble Trouble");
@@ -43,16 +47,19 @@ public class App extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
+		objectList = new LinkedList<>();
 		wallImage = new Image("src/main/resources/img/wall2.JPG");
 		playerImage =  new Image("src/main/resources/img/player_still.png");
 		background = new Image("src/main/resources/img/level1.jpg");
-		
-		wall = new Wall(wallImage, 0, 0, wallImage.getWidth(), wallImage.getHeight(), 0);
+
+		for(int i = 0; i <= 5; i++) {
+			objectList.add(new Wall(wallImage, 0, i * wallImage.getHeight(), wallImage.getWidth(), wallImage.getHeight(), 0)) ;
+			objectList.add(new Wall(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight(),
+					wallImage.getWidth(), wallImage.getHeight(), 0));
+		}
+
 		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight(),
-				playerImage.getWidth(), playerImage.getHeight(), 0);
-		
-		//weapon = new Image("resources/player_still.bmp");
+				playerImage.getWidth(), playerImage.getHeight(), 0);		
 	}	
 
 	@Override
@@ -61,12 +68,11 @@ public class App extends BasicGame {
 		g.drawImage(background, 0,0);
 		g.resetTransform();
 		for(int i = 0; i <= 4; i++) {
-			g.drawImage(wallImage, 0, i * wall.getHeight() );
-			g.drawImage(wallImage, container.getWidth() - wall.getWidth(), i * wall.getHeight() );
+			g.drawImage(wallImage, 0, i * wallImage.getHeight() );
+			g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );
 		}
 		g.scale(2, 2);
-		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));		
-		//arg1.drawImage(weapon, player.getX(), player.getY());
+		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));			
 	}
 
 	@Override
@@ -85,9 +91,9 @@ public class App extends BasicGame {
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			player.setImage(new Image("src/main/resources/img/player_still.png"));
 		}
-		
-		if(Collision.Colission(wall, player)) {
-			System.out.println("asdad");
+
+		if(Collision.Colission(player, objectList)) {
+			System.out.println("COLLISION");
 		}
 		player.tick();
 	}
