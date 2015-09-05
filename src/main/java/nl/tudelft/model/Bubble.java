@@ -22,7 +22,7 @@ public class Bubble extends GameObject {
     }
 
     public void move() {
-        this.y_location=width*speed*Math.abs((int)(Math.sin(counter)));
+        this.y_location=width*speed*Math.abs((int)((Math.sin(counter)*100)));
         counter++;
     }
 }
