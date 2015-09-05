@@ -45,5 +45,11 @@ public class GameObject {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+	public int getWidth() {
+		return width;
+	}
+	public void setWidth(int width) {
+		this.width = width;
+	}
 
 }

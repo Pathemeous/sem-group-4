@@ -7,6 +7,7 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 
+import nl.tudelft.model.pickups.Projectile;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -20,6 +21,7 @@ public class App extends BasicGame {
 	Image weapon, background, playerImage, wallImage;
 	Wall wall;
 	Player player;
+	Projectile projectile;
 	Input input = new Input(0);
 	LinkedList<GameObject> objectList;
 
@@ -51,6 +53,8 @@ public class App extends BasicGame {
 		wallImage = new Image("src/main/resources/img/wall2.JPG");
 		playerImage =  new Image("src/main/resources/img/player_still.png");
 		background = new Image("src/main/resources/img/level1.jpg");
+		weapon = new Image("src/main/resources/img/arrow.png");
+
 
 		for(int i = 0; i <= 5; i++) {
 			objectList.add(new Wall(wallImage, 0, i * wallImage.getHeight(), wallImage.getWidth(), wallImage.getHeight(), 0)) ;
@@ -59,7 +63,9 @@ public class App extends BasicGame {
 		}
 
 		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight(),
-				playerImage.getWidth(), playerImage.getHeight(), 0);		
+				playerImage.getWidth(), playerImage.getHeight(), 0);
+
+		projectile = new Projectile(weapon, container.getWidth() / 2, container.getHeight(), weapon.getWidth(), weapon.getHeight(), 0);
 	}	
 
 	@Override
@@ -72,7 +78,8 @@ public class App extends BasicGame {
 			g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );
 		}
 		g.scale(2, 2);
-		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));			
+		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));
+		g.drawImage(weapon, projectile.getX_location() /2, (float) (projectile.getY_location()/2.1));
 	}
 
 	@Override
@@ -85,8 +92,8 @@ public class App extends BasicGame {
 			player.setImage(new Image("src/main/resources/img/player_right.png"));
 			player.setX(4);
 		}
-		if(input.isKeyPressed(Input.KEY_SPACE)) {			
-			System.out.println("PEW PEW");
+		if(input.isKeyDown(Input.KEY_SPACE)) {
+			projectile.fire(player);
 		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			player.setImage(new Image("src/main/resources/img/player_still.png"));
@@ -96,5 +103,6 @@ public class App extends BasicGame {
 			System.out.println("COLLISION");
 		}
 		player.tick();
+		projectile.tick();
 	}
 }
