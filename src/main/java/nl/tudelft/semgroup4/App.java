@@ -61,6 +61,8 @@ public class App extends BasicGame {
 					wallImage.getWidth(), wallImage.getHeight(), 0));
 			objectList.add(new Wall(wallImage, 0, container.getHeight() - wallImage.getWidth(),
 					wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
+			objectList.add(new Wall(wallImage, 0, 0,
+					wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
 		}
 
 		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35,
@@ -82,8 +84,10 @@ public class App extends BasicGame {
 			g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );			
 		}
 		wallImage.setRotation(90);
-		for(int i = 0; i <= 8; i++) {	
+		for(int i = 0; i <= 8; i++) {
+			g.drawImage(wallImage, i * wallImage.getHeight(), 0 - 73);
 			g.drawImage(wallImage, i * wallImage.getHeight(), container.getHeight()- 108);
+			
 		}
 		wallImage.setRotation(0);
 		g.resetTransform(); 
@@ -107,7 +111,6 @@ public class App extends BasicGame {
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			player.setImage(new Image("src/main/resources/img/player_still.png"));
 		}
-
 		Collision.Colission(player, objectList);
 			
 		
