@@ -2,6 +2,7 @@ package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Player;
 
+import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
 import org.newdawn.slick.GameContainer;
@@ -37,8 +38,10 @@ public class App extends BasicGame {
 
 	@Override
 	public void init(GameContainer container) throws SlickException {
+		GL11.glEnable(GL11.GL_BLEND);
+		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 		wall = new Image("src/main/resources/img/wall2.JPG");
-		playerImage =  new Image("src/main/resources/img/player_still.bmp");		
+		playerImage =  new Image("src/main/resources/img/player_still.png");
 		player = new Player(container.getWidth() / 2, container.getHeight() - playerImage.getHeight(), playerImage);
 		background = new Image("src/main/resources/img/level1.jpg");
 		
@@ -62,18 +65,18 @@ public class App extends BasicGame {
 	@Override
 	public void update(GameContainer container, int arg1) throws SlickException {		
 		if(input.isKeyDown(Input.KEY_LEFT)) {
-			player.setImage(new Image("src/main/resources/img/player_left.bmp"));
+			player.setImage(new Image("src/main/resources/img/player_left.png"));
 			player.setX(-4);
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)) {
-			player.setImage(new Image("src/main/resources/img/player_right.bmp"));
+			player.setImage(new Image("src/main/resources/img/player_right.png"));
 			player.setX(4);
 		}
 		if(input.isKeyPressed(Input.KEY_SPACE)) {			
 			System.out.println("PEW PEW");
 		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
-			player.setImage(new Image("src/main/resources/img/player_still.bmp"));
+			player.setImage(new Image("src/main/resources/img/player_still.png"));
 		}
 		player.tick();
 	}
