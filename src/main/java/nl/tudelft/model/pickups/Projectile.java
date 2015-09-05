@@ -2,7 +2,6 @@ package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
-import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.Image;
 
 public class Projectile extends GameObject {
