@@ -14,8 +14,8 @@ public class Player {
 	}
 	
 	public void tick() {
-		if(x > 617) {
-			x = 617;
+		if(x > 1154) {
+			x = 1154;
 		}
 		if(x < 0) {
 			x = 0;

@@ -1,11 +1,15 @@
 package nl.tudelft.model;
 
-public class GameObject {
-	
-	
+import java.awt.Rectangle;
+
+public class GameObject {	
 	private int x_location;
 	private int y_location;
 	private int speed;
+	
+	public Rectangle getBounds(int width, int height){
+		return new Rectangle(getX_location(), y_location, width, height);
+	}
 	
 	public int getX_location() {
 		return x_location;
