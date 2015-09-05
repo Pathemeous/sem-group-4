@@ -59,7 +59,8 @@ public class App extends BasicGame {
 		}
 
 		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight(),
-				playerImage.getWidth(), playerImage.getHeight(), 0);		
+				playerImage.getWidth(), playerImage.getHeight(), 0);	
+		objectList.add(player);
 	}	
 
 	@Override
