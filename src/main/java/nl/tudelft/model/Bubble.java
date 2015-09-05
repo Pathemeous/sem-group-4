@@ -1,9 +1,8 @@
 package nl.tudelft.model;
 
-import nl.tudelft.viewControllers.GameController;
 import org.newdawn.slick.GameContainer;
 
-public class Bubble extends GameController {
+public class Bubble extends GameObject {
     private int x;
     private int y;
     private int size;
@@ -19,10 +18,9 @@ public class Bubble extends GameController {
     }
 
     public void tick() {
-        if (x > 617||x<0) {
+        if (x > 617 || x < 0) {
             dir *= -1;
         }
     }
-
 
 }
