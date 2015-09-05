@@ -13,13 +13,15 @@ import org.newdawn.slick.SlickException;
 public class App extends BasicGame {
 	Image weapon;
 	Player player;
+	Input input = new Input(0);
 
 	public static void main(String[] args) {
 		App game = new App("Bubble Trouble");
 		try {
 			AppGameContainer container = new AppGameContainer(game);
-			container.setTargetFrameRate(60);
-			container.start();	         
+			container.setTargetFrameRate(60);			
+			container.start();	
+			
 			
 
 		} catch (SlickException e) {
@@ -34,13 +36,13 @@ public class App extends BasicGame {
 	}	
 
 	@Override
-	public void init(GameContainer arg0) throws SlickException {		
-		player = new Player(arg0.getWidth() / 2, 443, new Image("src/main/resources/img/player_still.bmp"));
+	public void init(GameContainer container) throws SlickException {		
+		player = new Player(container.getWidth() / 2, 443, new Image("src/main/resources/img/player_still.bmp"));
 		//weapon = new Image("resources/player_still.bmp");
 	}	
 
 	@Override
-	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
+	public void render(GameContainer container, Graphics arg1) throws SlickException {
 		arg1.drawImage(player.getImage(), player.getX(), player.getY());
 		//arg1.drawImage(weapon, player.getX(), player.getY());
 
@@ -49,9 +51,7 @@ public class App extends BasicGame {
 
 
 	@Override
-	public void update(GameContainer arg0, int arg1) throws SlickException {
-		Input input = new Input(1);
-		
+	public void update(GameContainer container, int arg1) throws SlickException {		
 		if(input.isKeyDown(Input.KEY_LEFT)) {
 			player.setImage(new Image("src/main/resources/img/player_left.bmp"));
 			player.setX(-4);
@@ -60,14 +60,14 @@ public class App extends BasicGame {
 			player.setImage(new Image("src/main/resources/img/player_right.bmp"));
 			player.setX(4);
 		}
-//		if(input.isKeyPressed(Input.KEY_SPACE)) {
-//			
-//			System.out.println("PEW PEW");
-//		}
+		if(input.isKeyPressed(Input.KEY_SPACE)) {			
+			System.out.println("PEW PEW");
+		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			player.setImage(new Image("src/main/resources/img/player_still.bmp"));
 		}
-
+		player.tick();
+		
 
 	}
 }

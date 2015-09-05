@@ -13,12 +13,21 @@ public class Player {
 		this.y = y;
 	}
 	
-	public void setY(int volY) {
-		y += volY;
+	public void tick() {
+		if(x > 617) {
+			x = 617;
+		}
+		if(x < 0) {
+			x = 0;
+		}		
 	}
 	
-	public void setX(int volX) {
-		x += volX;
+	public void setY(int velY) {
+		y += velY;
+	}
+	
+	public void setX(int velX) {
+		x += velX;
 	}
 	
 	/**
@@ -48,4 +57,5 @@ public class Player {
 	public int getY() {
 		return y;
 	}
+
 }
