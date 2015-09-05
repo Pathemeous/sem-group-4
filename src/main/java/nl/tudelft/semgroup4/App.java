@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4;
 
+import java.io.File;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Collision;
@@ -7,6 +8,7 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 
+import org.lwjgl.LWJGLUtil;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.BasicGame;
@@ -24,6 +26,8 @@ public class App extends BasicGame {
 	LinkedList<GameObject> objectList;
 
 	public static void main(String[] args) {
+		System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "src/libs"), LWJGLUtil.getPlatformName()).getAbsolutePath());
+		
 		App game = new App("Bubble Trouble");
 		try {
 			AppGameContainer container = new AppGameContainer(game);
