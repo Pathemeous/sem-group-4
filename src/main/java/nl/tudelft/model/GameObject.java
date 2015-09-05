@@ -2,13 +2,29 @@ package nl.tudelft.model;
 
 import java.awt.Rectangle;
 
+import org.newdawn.slick.Image;
+
 public class GameObject {	
-	private int x_location;
-	private int y_location;
-	private int speed;
+	public int x_location;
+	public int y_location;
+	public int speed;
+	public Image image;
+	public int width;
+	public int height;
 	
-	public Rectangle getBounds(int width, int height){
-		return new Rectangle(getX_location(), y_location, width, height);
+	public GameObject(Image image, int x, int y, int width, int height, int speed) {
+		this.image = image;
+		this.x_location = x;
+		this.y_location = y;
+		this.width = width;
+		this.height = height;
+		this.speed = speed;
+		
+	}
+	
+
+	public Rectangle getBounds(){
+		return new Rectangle(x_location, y_location, width, height);
 	}
 	
 	public int getX_location() {
@@ -29,4 +45,5 @@ public class GameObject {
 	public void setSpeed(int speed) {
 		this.speed = speed;
 	}
+
 }
