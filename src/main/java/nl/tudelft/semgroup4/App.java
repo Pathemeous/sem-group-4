@@ -78,10 +78,8 @@ public class App extends BasicGame {
 			g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );
 		}
 		g.scale(2, 2);
+		g.drawImage(weapon, projectile.getX_location() / 2, (float) (projectile.getY_location() / 2.1));
 		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));
-		if(projectile.getFired()) {
-			g.drawImage(weapon, projectile.getX_location() / 2, (float) (projectile.getY_location() / 2.1));
-		}
 	}
 
 	@Override
