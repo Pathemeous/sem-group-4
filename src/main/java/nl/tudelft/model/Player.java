@@ -2,32 +2,28 @@ package nl.tudelft.model;
 
 import org.newdawn.slick.Image;
 
-public class Player {
-	private int x;
-	private int y;
-	private Image image;
+public class Player extends GameObject {
+
 	
-	public Player(int x, int y, Image image) {
-		this.image = image;
-		this.x = x;
-		this.y = y;
+	public Player(Image image, int x_location, int y_location, int width, int height, int speed) {
+		super(image, x_location, y_location, width, height, speed);
 	}
 	
 	public void tick() {
-		if(x > 1154) {
-			x = 1154;
+		if(x_location > 1154) {
+			x_location = 1154;
 		}
-		if(x < 0) {
-			x = 0;
+		if(x_location < 0) {
+			x_location = 0;
 		}		
 	}
 	
 	public void setY(int velY) {
-		y += velY;
+		y_location+= velY;
 	}
 	
 	public void setX(int velX) {
-		x += velX;
+		x_location+= velX;
 	}
 	
 	/**
@@ -48,14 +44,14 @@ public class Player {
 	 * @return the x
 	 */
 	public int getX() {
-		return x;
+		return x_location;
 	}
 
 	/**
 	 * @return the y
 	 */
 	public int getY() {
-		return y;
+		return y_location;
 	}
 
 }

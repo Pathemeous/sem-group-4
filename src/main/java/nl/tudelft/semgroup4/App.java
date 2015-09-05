@@ -1,6 +1,8 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.model.Collision;
 import nl.tudelft.model.Player;
+import nl.tudelft.model.Wall;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.AppGameContainer;
@@ -12,7 +14,8 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class App extends BasicGame {
-	Image weapon, background, playerImage, wall;	
+	Image weapon, background, playerImage, wallImage;
+	Wall wall;
 	Player player;
 	Input input = new Input(0);
 
@@ -40,10 +43,14 @@ public class App extends BasicGame {
 	public void init(GameContainer container) throws SlickException {
 		GL11.glEnable(GL11.GL_BLEND);
 		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		wall = new Image("src/main/resources/img/wall2.JPG");
+
+		wallImage = new Image("src/main/resources/img/wall2.JPG");
 		playerImage =  new Image("src/main/resources/img/player_still.png");
-		player = new Player(container.getWidth() / 2, container.getHeight() - playerImage.getHeight(), playerImage);
 		background = new Image("src/main/resources/img/level1.jpg");
+		
+		wall = new Wall(wallImage, 0, 0, wallImage.getWidth(), wallImage.getHeight(), 0);
+		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight(),
+				playerImage.getWidth(), playerImage.getHeight(), 0);
 		
 		//weapon = new Image("resources/player_still.bmp");
 	}	
@@ -54,8 +61,8 @@ public class App extends BasicGame {
 		g.drawImage(background, 0,0);
 		g.resetTransform();
 		for(int i = 0; i <= 4; i++) {
-			g.drawImage(wall, 0, i * wall.getHeight() );
-			g.drawImage(wall, container.getWidth() - wall.getWidth(), i * wall.getHeight() );
+			g.drawImage(wallImage, 0, i * wall.getHeight() );
+			g.drawImage(wallImage, container.getWidth() - wall.getWidth(), i * wall.getHeight() );
 		}
 		g.scale(2, 2);
 		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));		
@@ -77,6 +84,10 @@ public class App extends BasicGame {
 		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			player.setImage(new Image("src/main/resources/img/player_still.png"));
+		}
+		
+		if(Collision.Colission(wall, player)) {
+			System.out.println("asdad");
 		}
 		player.tick();
 	}
