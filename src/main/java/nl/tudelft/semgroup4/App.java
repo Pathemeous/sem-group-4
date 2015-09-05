@@ -39,8 +39,7 @@ public class App extends BasicGame {
 	}	
 
 	public App(String title) {
-		super(title);
-		// TODO Auto-generated constructor stub
+		super(title);		
 	}	
 
 	@Override
@@ -56,9 +55,11 @@ public class App extends BasicGame {
 			objectList.add(new Wall(wallImage, 0, i * wallImage.getHeight(), wallImage.getWidth(), wallImage.getHeight(), 0)) ;
 			objectList.add(new Wall(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight(),
 					wallImage.getWidth(), wallImage.getHeight(), 0));
+			objectList.add(new Wall(wallImage, 0, container.getHeight() - wallImage.getWidth(),
+					wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
 		}
 
-		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight(),
+		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35,
 				playerImage.getWidth(), playerImage.getHeight(), 0);	
 		objectList.add(player);
 	}	
@@ -67,11 +68,18 @@ public class App extends BasicGame {
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		g.scale((float) 1.8, (float) 2.3);
 		g.drawImage(background, 0,0);
-		g.resetTransform();
+		
 		for(int i = 0; i <= 4; i++) {
+			g.resetTransform();
 			g.drawImage(wallImage, 0, i * wallImage.getHeight() );
-			g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );
+			g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );			
 		}
+		wallImage.setRotation(90);
+		for(int i = 0; i <= 8; i++) {	
+			g.drawImage(wallImage, i * wallImage.getHeight(), container.getHeight()- 108);
+		}
+		wallImage.setRotation(0);
+		g.resetTransform(); 
 		g.scale(2, 2);
 		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));			
 	}
