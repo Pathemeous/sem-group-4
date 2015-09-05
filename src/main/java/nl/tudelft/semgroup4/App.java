@@ -53,7 +53,7 @@ public class App extends BasicGame {
 
 		for(int i = 0; i <= 5; i++) {
 			objectList.add(new Wall(wallImage, 0, i * wallImage.getHeight(), wallImage.getWidth(), wallImage.getHeight(), 0)) ;
-			objectList.add(new Wall(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight(),
+			objectList.add(new Wall(wallImage, container.getWidth() -  55, i * wallImage.getHeight(),
 					wallImage.getWidth(), wallImage.getHeight(), 0));
 			objectList.add(new Wall(wallImage, 0, container.getHeight() - wallImage.getWidth(),
 					wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
@@ -66,9 +66,12 @@ public class App extends BasicGame {
 
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
+//		for(int i = 0; i < objectList.size(); i++) {
+//			g.drawImage(objectList.get(i).image, objectList.get(i).getX_location(), objectList.get(i).getY_location());
+//		}
 		g.scale((float) 1.8, (float) 2.3);
 		g.drawImage(background, 0,0);
-		
+
 		for(int i = 0; i <= 4; i++) {
 			g.resetTransform();
 			g.drawImage(wallImage, 0, i * wallImage.getHeight() );
@@ -101,9 +104,9 @@ public class App extends BasicGame {
 			player.setImage(new Image("src/main/resources/img/player_still.png"));
 		}
 
-		if(Collision.Colission(player, objectList)) {
-			System.out.println("COLLISION");
-		}
+		Collision.Colission(player, objectList);
+			
+		
 		player.tick();
 	}
 }

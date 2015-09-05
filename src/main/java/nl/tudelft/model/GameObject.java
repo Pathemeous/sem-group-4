@@ -23,6 +23,30 @@ public class GameObject {
 	}
 	
 
+	/**
+	 * @return the image
+	 */
+	public Image getImage() {
+		return image;
+	}
+
+
+	/**
+	 * @return the width
+	 */
+	public int getWidth() {
+		return width;
+	}
+
+
+	/**
+	 * @return the height
+	 */
+	public int getHeight() {
+		return height;
+	}
+
+
 	public Rectangle getBounds(){
 		return new Rectangle(x_location, y_location, width, height);
 	}
