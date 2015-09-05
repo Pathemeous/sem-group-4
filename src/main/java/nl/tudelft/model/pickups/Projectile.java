@@ -17,32 +17,41 @@ public class Projectile extends GameObject {
         top = false;
     }
 
-    public void tick() {
-        if(this.hit || (this.top && counter > 90)) {
-            this.x_location = 0;
-            this.y_location = 0;
-            this.fired = false;
-            this.counter = 0;
-            this.hit = false;
-        }
-        else if(this.top && counter <= 90) {
-            counter++;
-        }
-        else if (this.fired){
-            if(this.y_location-4<=0) {
-                this.setY_location(0);
-                this.top=true;
+    public void tick(Player p) {
+        if(this.fired) {
+            if (this.hit || (this.top && counter > 90)) {
+                reset(p);
+            } else if (this.top && counter <= 90) {
+                counter++;
+            } else {
+                if (this.y_location - 6 <= 0) {
+                    this.setY_location(0);
+                    this.top = true;
+                } else {
+                    this.y_location -= 6;
+                }
             }
-            else {
-                this.y_location -= 4;
-            }
+        }
+        else {
+            reset(p);
         }
     }
 
+    public void reset(Player p) {
+        this.x_location = (p.getX_location() + p.getWidth() / 2) + 8;
+        this.y_location = p.getY_location();
+        this.fired = false;
+        this.top = false;
+        this.counter = 0;
+        this.hit = false;
+    }
     public void fire(Player p) {
         if(this.fired==true) return;
         this.fired = true;
-        this.x_location = (p.getX_location()+p.getWidth()/2)+8;
-        this.setY_location(1200);
+        this.x_location = (p.getX_location()+p.getWidth() / 2) + 8;
+        this.y_location = p.getY_location();
+    }
+    public boolean getFired() {
+        return this.fired;
     }
 }

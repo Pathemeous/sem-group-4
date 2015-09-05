@@ -71,7 +71,7 @@ public class App extends BasicGame {
 	@Override
 	public void render(GameContainer container, Graphics g) throws SlickException {
 		g.scale((float) 1.8, (float) 2.3);
-		g.drawImage(background, 0,0);
+		g.drawImage(background, 0, 0);
 		g.resetTransform();
 		for(int i = 0; i <= 4; i++) {
 			g.drawImage(wallImage, 0, i * wallImage.getHeight() );
@@ -79,7 +79,9 @@ public class App extends BasicGame {
 		}
 		g.scale(2, 2);
 		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));
-		g.drawImage(weapon, projectile.getX_location() /2, (float) (projectile.getY_location()/2.1));
+		if(projectile.getFired()) {
+			g.drawImage(weapon, projectile.getX_location() / 2, (float) (projectile.getY_location() / 2.1));
+		}
 	}
 
 	@Override
@@ -103,6 +105,6 @@ public class App extends BasicGame {
 			System.out.println("COLLISION");
 		}
 		player.tick();
-		projectile.tick();
+		projectile.tick(player);
 	}
 }
