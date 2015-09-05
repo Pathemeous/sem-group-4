@@ -1,37 +1,73 @@
 package nl.tudelft.semgroup4;
 
-import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import nl.tudelft.viewControllers.ViewController;
-		
-public class App extends Application {	
-	public static final String GAME = "game";
-	public static final String GAME_FXML = "/views/game.fxml";
-	public static final String HOME = "home";
-	public static final String HOME_FXML = "/views/home.fxml";
-    
+import nl.tudelft.model.Player;
+
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
+public class App extends BasicGame {
+	Image weapon;
+	Player player;
+
 	public static void main(String[] args) {
-		launch(args);
+		App game = new App("Bubble Trouble");
+		try {
+			AppGameContainer container = new AppGameContainer(game);
+			container.setTargetFrameRate(60);
+			container.start();	         
+			
+
+		} catch (SlickException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}	
+
+	public App(String title) {
+		super(title);
+		// TODO Auto-generated constructor stub
+	}	
+
+	@Override
+	public void init(GameContainer arg0) throws SlickException {		
+		player = new Player(arg0.getWidth() / 2, 443, new Image("src/main/resources/img/player_still.bmp"));
+		//weapon = new Image("resources/player_still.bmp");
+	}	
+
+	@Override
+	public void render(GameContainer arg0, Graphics arg1) throws SlickException {
+		arg1.drawImage(player.getImage(), player.getX(), player.getY());
+		//arg1.drawImage(weapon, player.getX(), player.getY());
+
+
 	}
 
-	public void start(Stage stage) {
-		ViewController viewController = new ViewController();
+
+	@Override
+	public void update(GameContainer arg0, int arg1) throws SlickException {
+		Input input = new Input(1);
 		
-		viewController.loadScreen(App.HOME, App.HOME_FXML);
-		viewController.setScreen(App.HOME);
-		
-		Group root = new Group(viewController);
-		Scene scene = new Scene(root, 600, 400);
-		stage.setTitle("Bubble trouble");
-		stage.setScene(scene);
-		stage.show();
-		
-		viewController.prefWidthProperty().bind(scene.widthProperty());
-        viewController.prefHeightProperty().bind(scene.heightProperty());
+		if(input.isKeyDown(Input.KEY_LEFT)) {
+			player.setImage(new Image("src/main/resources/img/player_left.bmp"));
+			player.setX(-4);
+		}
+		if(input.isKeyDown(Input.KEY_RIGHT)) {
+			player.setImage(new Image("src/main/resources/img/player_right.bmp"));
+			player.setX(4);
+		}
+//		if(input.isKeyPressed(Input.KEY_SPACE)) {
+//			
+//			System.out.println("PEW PEW");
+//		}
+		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
+			player.setImage(new Image("src/main/resources/img/player_still.bmp"));
+		}
+
+
 	}
 }
-
-
-
