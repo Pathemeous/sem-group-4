@@ -1,112 +1,134 @@
 package nl.tudelft.semgroup4;
 
-import nl.tudelft.model.Collision;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
+import nl.tudelft.semgroup4.collision.CollisionHandler;
+import nl.tudelft.semgroup4.collision.CollisionHelper;
+import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import org.lwjgl.LWJGLUtil;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.*;
 
 import java.io.File;
 import java.util.LinkedList;
+import java.util.List;
 
 public class App extends BasicGame {
-	Image weapon, background, playerImage, wallImage;
-	Wall wall;
-	Player player;
-	Input input = new Input(0);
-	LinkedList<GameObject> objectList;
+    Image weapon;
+    Image background;
+    Image playerImage;
+    Image wallImage;
+    Wall wall;
+    Player player;
+    Input input = new Input(0);
+    LinkedList<GameObject> objectList;
 
-	public static void main(String[] args) {
-		System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());
+    final CollisionHandler<GameObject, GameObject> collisionHandler;
 
-		App game = new App("Bubble Trouble");
-		try {
-			AppGameContainer container = new AppGameContainer(game);
-			container.setTargetFrameRate(60);
-			container.setUpdateOnlyWhenVisible(true);
-			container.setDisplayMode(1200, 800, false);
-			container.start();
+    public static void main(String[] args) {
+        System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());
 
-		} catch (SlickException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
+        App game = new App("Bubble Trouble");
+        try {
+            AppGameContainer container = new AppGameContainer(game);
+            container.setTargetFrameRate(60);
+            container.setUpdateOnlyWhenVisible(true);
+            container.setDisplayMode(1200, 800, false);
+            container.start();
 
-	public App(String title) {
-		super(title);		
-	}	
+        } catch (SlickException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+    }
 
-	@Override
-	public void init(GameContainer container) throws SlickException {
-		GL11.glEnable(GL11.GL_BLEND);
-		GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-		objectList = new LinkedList<>();
-		wallImage = new Image("src/main/resources/img/wall2.JPG");
-		playerImage =  new Image("src/main/resources/img/player_still.png");
-		background = new Image("src/main/resources/img/level1.jpg");
+    public App(String title) {
+        super(title);
+        collisionHandler = new DefaultCollisionHandler();
+    }
 
-		for(int i = 0; i <= 5; i++) {
-			objectList.add(new Wall(wallImage, 0, i * wallImage.getHeight(), wallImage.getWidth(), wallImage.getHeight(), 0)) ;
-			objectList.add(new Wall(wallImage, container.getWidth() -  55, i * wallImage.getHeight(),
-					wallImage.getWidth(), wallImage.getHeight(), 0));
-			objectList.add(new Wall(wallImage, 0, container.getHeight() - wallImage.getWidth(),
-					wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
-			objectList.add(new Wall(wallImage, 0, 0,
-					wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
-		}
+    @Override
+    public void init(GameContainer container) throws SlickException {
+        GL11.glEnable(GL11.GL_BLEND);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        objectList = new LinkedList<>();
+        wallImage = new Image("src/main/resources/img/wall2.JPG");
+        playerImage =  new Image("src/main/resources/img/player_still.png");
+        background = new Image("src/main/resources/img/level1.jpg");
 
-		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35,
-				playerImage.getWidth(), playerImage.getHeight(), 0);	
-		objectList.add(player);
-	}	
+        for(int i = 0; i <= 5; i++) {
+            objectList.add(new Wall(wallImage, 0, i * wallImage.getHeight(), wallImage.getWidth(), wallImage.getHeight(), 0)) ;
+            objectList.add(new Wall(wallImage, container.getWidth() -  55, i * wallImage.getHeight(),
+                    wallImage.getWidth(), wallImage.getHeight(), 0));
+            objectList.add(new Wall(wallImage, 0, container.getHeight() - wallImage.getWidth(),
+                    wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
+            objectList.add(new Wall(wallImage, 0, 0,
+                    wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
+        }
 
-	@Override
-	public void render(GameContainer container, Graphics g) throws SlickException {
-//		for(int i = 0; i < objectList.size(); i++) {
-//			g.drawImage(objectList.get(i).image, objectList.get(i).getX_location(), objectList.get(i).getY_location());
-//		}
-		g.scale((float) 1.8, (float) 2.3);
-		g.drawImage(background, 0,0);
+        player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35,
+                playerImage.getWidth(), playerImage.getHeight(), 0);
+        objectList.add(player);
+    }
 
-		for(int i = 0; i <= 4; i++) {
-			g.resetTransform();
-			g.drawImage(wallImage, 0, i * wallImage.getHeight() );
-			g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );			
-		}
-		wallImage.setRotation(90);
-		for(int i = 0; i <= 8; i++) {
-			g.drawImage(wallImage, i * wallImage.getHeight(), 0 - 73);
-			g.drawImage(wallImage, i * wallImage.getHeight(), container.getHeight()- 108);
-			
-		}
-		wallImage.setRotation(0);
-		g.resetTransform(); 
-		g.scale(2, 2);
-		g.drawImage(player.getImage(), player.getX() /2, (float) (player.getY()/2.1));			
-	}
+    @Override
+    public void render(GameContainer container, Graphics g) throws SlickException {
+//          for(int i = 0; i < objectList.size(); i++) {
+//               g.drawImage(objectList.get(i).image, objectList.get(i).getX_location(), objectList.get(i).getY_location());
+//          }
+        g.scale((float) 1.8, (float) 2.3);
+        g.drawImage(background, 0,0);
 
-	@Override
-	public void update(GameContainer container, int arg1) throws SlickException {		
-		if(input.isKeyDown(Input.KEY_LEFT)) {
-			player.setImage(new Image("src/main/resources/img/player_left.png"));
-			player.setX(-4);
-		}
-		if(input.isKeyDown(Input.KEY_RIGHT)) {
-			player.setImage(new Image("src/main/resources/img/player_right.png"));
-			player.setX(4);
-		}
-		if(input.isKeyPressed(Input.KEY_SPACE)) {			
-			System.out.println("PEW PEW");
-		}
-		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
-			player.setImage(new Image("src/main/resources/img/player_still.png"));
-		}
-		Collision.Colission(player, objectList);
-			
-		
-		player.tick();
-	}
+        for(int i = 0; i <= 4; i++) {
+            g.resetTransform();
+            g.drawImage(wallImage, 0, i * wallImage.getHeight() );
+            g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );
+        }
+        wallImage.setRotation(90);
+        for(int i = 0; i <= 8; i++) {
+            g.drawImage(wallImage, i * wallImage.getHeight(), 0 - 73);
+            g.drawImage(wallImage, i * wallImage.getHeight(), container.getHeight()- 108);
+
+        }
+        wallImage.setRotation(0);
+        g.resetTransform();
+        g.scale(2, 2);
+        g.drawImage(player.getImage(), player.getX() / 2, (float) (player.getY() / 2.1));
+    }
+
+    @Override
+    public void update(GameContainer container, int arg1) throws SlickException {
+        if(input.isKeyDown(Input.KEY_LEFT)) {
+            player.setImage(new Image("src/main/resources/img/player_left.png"));
+            player.setX(-4);
+        }
+        if(input.isKeyDown(Input.KEY_RIGHT)) {
+            player.setImage(new Image("src/main/resources/img/player_right.png"));
+            player.setX(4);
+        }
+        if(input.isKeyPressed(Input.KEY_SPACE)) {
+            System.out.println("PEW PEW");
+        }
+        if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
+            player.setImage(new Image("src/main/resources/img/player_still.png"));
+        }
+
+        // collision
+        List<GameObject> collidesWithList = CollisionHelper.collideObjectWithList(player, objectList);
+        for (GameObject collidesWith : collidesWithList) {
+            collisionHandler.onCollision(player, collidesWith);
+        }
+
+        player.tick();
+    }
+
+    /**
+     * game will use CollisionHandler returned in this method.
+     * @return the CollisionHandler that will be used.
+     */
+    protected CollisionHandler getNewCollisionHandler() {
+        return new DefaultCollisionHandler();
+    }
+
 }
