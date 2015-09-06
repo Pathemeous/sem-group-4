@@ -1,22 +1,15 @@
 package nl.tudelft.semgroup4;
 
-import java.io.File;
-import java.util.LinkedList;
-
 import nl.tudelft.model.Collision;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
-
 import org.lwjgl.LWJGLUtil;
 import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.AppGameContainer;
-import org.newdawn.slick.BasicGame;
-import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
+import org.newdawn.slick.*;
+
+import java.io.File;
+import java.util.LinkedList;
 
 public class App extends BasicGame {
 	Image weapon, background, playerImage, wallImage;
@@ -26,21 +19,21 @@ public class App extends BasicGame {
 	LinkedList<GameObject> objectList;
 
 	public static void main(String[] args) {
-		System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "src/libs"), LWJGLUtil.getPlatformName()).getAbsolutePath());
-		
+		System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());
+
 		App game = new App("Bubble Trouble");
 		try {
 			AppGameContainer container = new AppGameContainer(game);
 			container.setTargetFrameRate(60);
 			container.setUpdateOnlyWhenVisible(true);
 			container.setDisplayMode(1200, 800, false);
-			container.start();				
+			container.start();
 
 		} catch (SlickException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-	}	
+	}
 
 	public App(String title) {
 		super(title);		
