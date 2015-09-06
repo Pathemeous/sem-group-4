@@ -65,7 +65,7 @@ public class App extends BasicGame {
 		player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight(),
 				playerImage.getWidth(), playerImage.getHeight(), 0);
 
-		projectile = new Projectile(weapon, container.getWidth() / 2, container.getHeight(), weapon.getWidth(), weapon.getHeight(), 0);
+		projectile = new Projectile(weapon, container.getWidth() / 2, container.getHeight(), weapon.getWidth(), weapon.getHeight(), 6);
 	}	
 
 	@Override
