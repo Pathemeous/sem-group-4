@@ -119,8 +119,6 @@ public class App extends BasicGame {
         for (GameObject collidesWith : collidesWithList) {
             collisionHandler.onCollision(player, collidesWith);
         }
-
-        player.tick();
     }
 
     /**

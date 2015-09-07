@@ -9,15 +9,6 @@ public class Player extends GameObject {
 		super(image, x_location, y_location, width, height, speed);
 	}
 	
-	public void tick() {
-		if(x_location > 1154) {
-			x_location = 1154;
-		}
-		if(x_location < 0) {
-			x_location = 0;
-		}		
-	}
-	
 	public void setY(int velY) {
 		y_location+= velY;
 	}
