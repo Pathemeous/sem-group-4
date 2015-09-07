@@ -94,6 +94,7 @@
                         <id>checkstyle-validation</id>
                         <phase>validate</phase>
                         <configuration>
+                            <configLocation>checkstyle.xml</configLocation>
                             <consoleOutput>false</consoleOutput>
                             <failOnViolation>false</failOnViolation>
                             <failsOnError>false</failsOnError>
