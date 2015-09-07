@@ -60,4 +60,13 @@ public class Player extends GameObject {
             this.lives--;
         }
     }
+    
+    /**
+     * Adds points to the player score.
+     * 
+     * @param points int - The amount of points that should be added to the player score.
+     */
+    public void addScore(int points) {
+        this.score += points;
+    }
 }
