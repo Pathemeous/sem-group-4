@@ -1,9 +1,6 @@
 package nl.tudelft.semgroup4;
 
-import nl.tudelft.model.GameObject;
-import nl.tudelft.model.Player;
-import nl.tudelft.model.Wall;
-import nl.tudelft.model.Weapon;
+import nl.tudelft.model.*;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -77,8 +74,8 @@ public class App extends BasicGame {
         }
 
         // todo input
-        player = new Player(playerImage.copy(), container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35, input);
         weapon = new Weapon(weaponImage.copy(), player);
+        player = new Player(playerImage.copy(), container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35, input, weapon);
         objectList.add(player);
     }
 
@@ -89,6 +86,9 @@ public class App extends BasicGame {
 
         for (GameObject gameObject : objectList) {
             gameObject.render(container, g);
+        }
+        for (GameObject projectile : weapon.getAL()) {
+            projectile.render(container, g);
         }
 
     }
@@ -102,6 +102,9 @@ public class App extends BasicGame {
         }
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
+        }
+        for (Projectile projectile : weapon.getAL()) {
+            projectile.update(container, delta);
         }
     }
 

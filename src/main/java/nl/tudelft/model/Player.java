@@ -8,11 +8,13 @@ import org.newdawn.slick.SlickException;
 public class Player extends GameObject {
 
 	private final Input input;
+	private Weapon weapon;
 	
 
-	public Player(Image image, int locX, int locY, Input input) {
+	public Player(Image image, int locX, int locY, Input input, Weapon weapon) {
 		super(image, locX, locY);
 		this.input = input;
+		this.weapon = weapon;
 	}
 
 	@Override
@@ -25,8 +27,8 @@ public class Player extends GameObject {
 			setImage(new Image("src/main/resources/img/player_right.png"));
             setLocX((int) (getBounds().getX() + 4));
 		}
-		if(input.isKeyPressed(Input.KEY_SPACE)) {
-			System.out.println("PEW PEW");
+		if(input.isKeyDown(Input.KEY_SPACE)) {
+			weapon.fire(0);
 		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			setImage(new Image("src/main/resources/img/player_still.png"));

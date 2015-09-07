@@ -16,11 +16,18 @@ public class Weapon {
         pl=p;
     }
 
-    public Fire(int delta) {
+    public void fire(int delta) {
         if(projectiles.isEmpty()) {
-            projectiles.add(new Projectile(img, pl.locX, pl.locY, pl.getWidth(), 6));
+            projectiles.add(new Projectile(img, pl.locX, pl.locY, pl.getWidth(), 6, this));
             projectiles.get(0).fire();
         }
     }
 
+    public void remove(Projectile proj) {
+        projectiles.remove(proj);
+    }
+
+    public ArrayList<Projectile> getAL() {
+        return this.projectiles;
+    }
 }
