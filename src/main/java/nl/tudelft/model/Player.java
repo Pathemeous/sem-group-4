@@ -51,4 +51,10 @@ public class Player extends GameObject {
 	public int getScore() {
 		return this.score;
 	}
+
+    public void removeLife() {
+        if (this.lives > 0) {
+            this.lives--;
+        }
+    }
 }
