@@ -22,11 +22,21 @@ public class Player extends GameObject {
 			x_location = 0;
 		}		
 	}
-	
+
+	/**
+	 * Increments the y_location of the player with a certain value.
+	 * 
+	 * @param velY The amount of pixels that the player changes.
+	 */
 	public void setY(int velY) {
 		y_location+= velY;
 	}
 	
+	/**
+	 * Increments the x_location of the player with a certain value.
+	 * 
+	 * @param velX The amount of pixels that the player changes.
+	 */
 	public void setX(int velX) {
 		x_location+= velX;
 	}
