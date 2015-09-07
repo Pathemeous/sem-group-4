@@ -52,6 +52,9 @@ public class Player extends GameObject {
 		return this.score;
 	}
 
+	/**
+	 * Removes a player life iff it has at least life remaining.
+	 */
     public void removeLife() {
         if (this.lives > 0) {
             this.lives--;
