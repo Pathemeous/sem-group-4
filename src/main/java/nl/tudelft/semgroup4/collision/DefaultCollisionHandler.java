@@ -24,9 +24,9 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
         System.out.println("Player <-> wall collision");
         if (wall.x_location < player.x_location) {
-            player.setX_location(wall.x_location + wall.getImage().getWidth());
+            player.setX_location(wall.x_location + wall.getWidth());
         } else {
-            player.setX_location(wall.x_location - 26);
+            player.setX_location(wall.x_location - player.getWidth());
         }
     };
 
