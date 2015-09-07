@@ -42,4 +42,8 @@ public class Player extends GameObject {
 			setImage(imageStill);
 		}
 	}
+
+	public Weapon getWeapon() {
+		return this.weapon;
+	}
 }

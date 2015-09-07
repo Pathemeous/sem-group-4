@@ -77,13 +77,14 @@ public class App extends BasicGame {
         }
 
         // todo input
-        weapon = new Weapon(weaponImage.copy(), player);
-
-        objectList.add( new Player(
-        		playerImage.copy(),
-        		playerImageLeft.copy(),
-        		playerImageRight.copy(),        		
-        		container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - wallImageHorizontal.getWidth(), input, weapon));
+        weapon = new Weapon(weaponImage.copy());
+        Player player = new Player(
+                playerImage.copy(),
+                playerImageLeft.copy(),
+                playerImageRight.copy(),
+                container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - wallImageHorizontal.getWidth(), input, weapon);
+        objectList.add(player);
+        weapon.setPlayer(player);
     }
 
     @Override
