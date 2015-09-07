@@ -7,6 +7,7 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends GameObject {
 	
+    //TODO: Remove magic numbers and at them to a general file for setup/config.
 	private int score = 0;
 	private int lives = 3;
 	private final Input input;
