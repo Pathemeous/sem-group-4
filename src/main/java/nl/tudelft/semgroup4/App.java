@@ -18,11 +18,9 @@ public class App extends BasicGame {
     Image weapon;
     Image background;
     Image playerImage;
-    Image wallImage;
-    Wall wall;
     Player player;
-    Input input = new Input(0);
     LinkedList<GameObject> objectList;
+    Input input = new Input(0);
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
 
@@ -45,7 +43,7 @@ public class App extends BasicGame {
 
     public App(String title) {
         super(title);
-        collisionHandler = new DefaultCollisionHandler();
+        collisionHandler = getNewCollisionHandler();
     }
 
     @Override
@@ -53,74 +51,56 @@ public class App extends BasicGame {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
-        wallImage = new Image("src/main/resources/img/wall2.JPG");
-        playerImage =  new Image("src/main/resources/img/player_still.png");
         background = new Image("src/main/resources/img/level1.jpg");
+        playerImage =  new Image("src/main/resources/img/player_still.png");
 
-        for(int i = 0; i <= 5; i++) {
-            objectList.add(new Wall(wallImage, 0, i * wallImage.getHeight(), wallImage.getWidth(), wallImage.getHeight(), 0)) ;
-            objectList.add(new Wall(wallImage, container.getWidth() -  55, i * wallImage.getHeight(),
-                    wallImage.getWidth(), wallImage.getHeight(), 0));
-            objectList.add(new Wall(wallImage, 0, container.getHeight() - wallImage.getWidth(),
-                    wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
-            objectList.add(new Wall(wallImage, 0, 0,
-                    wallImage.getHeight() * 2 * i, wallImage.getWidth(), 0));
+        Image wallImageVertical = new Image("src/main/resources/img/wall2.JPG");
+        Image wallImageHorizontal = wallImageVertical.copy();
+//        wallImageHorizontal.setCenterOfRotation(wallImageHorizontal.getWidth() / 2, wallImageHorizontal.getHeight() / 2);
+        wallImageHorizontal.setCenterOfRotation(0, 0);
+        wallImageHorizontal.setRotation(-90);
+
+        {
+            for (int i = 0; i * wallImageVertical.getHeight() < container.getHeight(); i++) {
+                objectList.add(new Wall(wallImageVertical, 0, i * wallImageVertical.getHeight()));
+                objectList.add(new Wall(wallImageVertical, container.getWidth() - wallImageVertical.getWidth(), i * wallImageVertical.getHeight()));
+            }
+
+            // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
+            for (int i = 0; i * wallImageHorizontal.getHeight() < container.getWidth(); i++) {
+                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), wallImageHorizontal.getWidth()));
+                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), container.getHeight()));
+            }
         }
 
-        player = new Player(playerImage,container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35,
-                playerImage.getWidth(), playerImage.getHeight(), 0);
+        // todo input
+        player = new Player(playerImage.copy(), container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35, input);
+
         objectList.add(player);
     }
 
     @Override
     public void render(GameContainer container, Graphics g) throws SlickException {
-//          for(int i = 0; i < objectList.size(); i++) {
-//               g.drawImage(objectList.get(i).image, objectList.get(i).getX_location(), objectList.get(i).getY_location());
-//          }
-        g.scale((float) 1.8, (float) 2.3);
-        g.drawImage(background, 0,0);
 
-        for(int i = 0; i <= 4; i++) {
-            g.resetTransform();
-            g.drawImage(wallImage, 0, i * wallImage.getHeight() );
-            g.drawImage(wallImage, container.getWidth() - wallImage.getWidth(), i * wallImage.getHeight() );
-        }
-        wallImage.setRotation(90);
-        for(int i = 0; i <= 8; i++) {
-            g.drawImage(wallImage, i * wallImage.getHeight(), 0 - 73);
-            g.drawImage(wallImage, i * wallImage.getHeight(), container.getHeight()- 108);
+        g.drawImage(background, 0,0, container.getWidth(), container.getHeight(), 0, 0, background.getWidth(), background.getHeight());
 
+        for (GameObject gameObject : objectList) {
+            gameObject.render(container, g);
         }
-        wallImage.setRotation(0);
-        g.resetTransform();
-        g.scale(2, 2);
-        g.drawImage(player.getImage(), player.getX() / 2, (float) (player.getY() / 2.1));
+
     }
 
     @Override
-    public void update(GameContainer container, int arg1) throws SlickException {
-        if(input.isKeyDown(Input.KEY_LEFT)) {
-            player.setImage(new Image("src/main/resources/img/player_left.png"));
-            player.setX(-4);
-        }
-        if(input.isKeyDown(Input.KEY_RIGHT)) {
-            player.setImage(new Image("src/main/resources/img/player_right.png"));
-            player.setX(4);
-        }
-        if(input.isKeyPressed(Input.KEY_SPACE)) {
-            System.out.println("PEW PEW");
-        }
-        if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
-            player.setImage(new Image("src/main/resources/img/player_still.png"));
-        }
-
+    public void update(GameContainer container, int delta) throws SlickException {
         // collision
         List<GameObject> collidesWithList = CollisionHelper.collideObjectWithList(player, objectList);
         for (GameObject collidesWith : collidesWithList) {
             collisionHandler.onCollision(player, collidesWith);
         }
 
-        player.tick();
+        for (GameObject gameObject : objectList) {
+            gameObject.update(container, delta);
+        }
     }
 
     /**
