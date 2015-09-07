@@ -20,9 +20,11 @@ public class StartScreen extends BasicGameState {
 	Image titleScreen;
 	Input input;
 	
+	
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {	
+	public void init(GameContainer container, StateBasedGame game) throws SlickException {			
 		input = container.getInput();
+		//initializes all the areas where the buttons are to see if the mouse is on one of those areas
 		mouseOverOnePlayer = new MouseOverArea(container, titleScreen, 211, 391, 364, 88);
 		mouseOverTwoPlayer = new MouseOverArea(container, titleScreen, 211, 476, 364, 88);
 		mouseOverOptions = new MouseOverArea(container, titleScreen, 211, 573, 364, 88);		
@@ -38,9 +40,10 @@ public class StartScreen extends BasicGameState {
 	}
 
 	@Override
-	public void update(GameContainer container, StateBasedGame game, int ticks) throws SlickException {		
-		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			
+	public void update(GameContainer container, StateBasedGame game, int ticks) throws SlickException {	
+		//checks if the left mouse button is pressed and where it was pressed to determine 
+		//what action to perform
+		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {			
 			if(mouseOverOnePlayer.isMouseOver()) {
 				game.enterState(1);
 			}
@@ -53,15 +56,8 @@ public class StartScreen extends BasicGameState {
 			else if(mouseOverQuit.isMouseOver()) {
 				container.exit();
 			}
-		}
+		}		
 		
-		
-		//used for finding button placement 
-		//dimensions for buttons:
-		//1) 211, 380  width = 575 -211 = 364, height = 88
-		//2) 211, 476 ...
-		System.out.println("x = " + input.getMouseX());
-		System.out.println("y = " + input.getMouseY());
 	}
 	
 
