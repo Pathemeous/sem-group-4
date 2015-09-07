@@ -24,7 +24,7 @@ public class Weapon {
     }
 
     public void remove(Projectile proj) {
-        projectiles.remove(proj);
+        if(projectiles.contains(proj)) projectiles.remove(proj);
     }
 
     public ArrayList<Projectile> getAL() {
