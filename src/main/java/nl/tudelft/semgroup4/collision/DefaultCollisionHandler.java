@@ -1,8 +1,10 @@
 package nl.tudelft.semgroup4.collision;
 
+import nl.tudelft.model.Bubble;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
+
 import org.newdawn.slick.geom.Rectangle;
 
 
@@ -21,6 +23,12 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
                 playerWallHandler.onCollision((Player)objA, (Wall)objB);
             }
         }
+
+        if (objA instanceof Player) {
+            if (objB instanceof Bubble) {
+                playerBubbleHandler.onCollision((Player)objA, (Bubble)objB);
+            }
+        }
     }
 
     final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
@@ -33,6 +41,13 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         } else {
             player.setLocX((int) (wallRect.getX() - playerRect.getWidth()));
         }
+    };
+
+    final CollisionHandler<Player, Bubble> playerBubbleHandler = (player, bubble) -> {
+        System.out.println("Player <-> bubble collision");
+
+        // TODO: Add code to reset the level.
+        player.removeLife();
     };
 
 }
