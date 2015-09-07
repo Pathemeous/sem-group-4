@@ -34,6 +34,7 @@ public class MainApp extends StateBasedGame {
 
 	@Override
 	public void initStatesList(GameContainer arg0) throws SlickException {
+		addState(new StartScreen());
 		addState(new App(this.getTitle()));
 		enterState(0);
 		
