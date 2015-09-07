@@ -7,8 +7,8 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends GameObject {
 	
-	private int score;
-	private int lives;
+	private int score = 0;
+	private int lives = 3;
 	private final Input input;
 
 	public Player(Image image, int locX, int locY, Input input) {
