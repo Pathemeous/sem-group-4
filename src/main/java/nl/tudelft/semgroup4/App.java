@@ -15,8 +15,6 @@ import java.util.List;
 public class App extends BasicGame {
     Image weaponImage;
     Image background;
-    Image playerImage;
-    Player player;
     Weapon weapon;
     LinkedList<GameObject> objectList;
     Input input = new Input(0);
@@ -52,7 +50,12 @@ public class App extends BasicGame {
         objectList = new LinkedList<>();
         background = new Image("src/main/resources/img/level1.jpg");
         weaponImage = new Image("src/main/resources/img/arrow.png");
-        playerImage =  new Image("src/main/resources/img/player_still.png");
+        Image playerImage =  new Image("src/main/resources/img/player_still.png");
+        playerImage = playerImage.getScaledCopy(2);
+        Image playerImageRight =  new Image("src/main/resources/img/player_right.png");
+        playerImageRight = playerImageRight.getScaledCopy(2);
+        Image playerImageLeft =  new Image("src/main/resources/img/player_left.png");
+        playerImageLeft = playerImageLeft.getScaledCopy(2);
 
         Image wallImageVertical = new Image("src/main/resources/img/wall2.JPG");
         Image wallImageHorizontal = wallImageVertical.copy();
@@ -75,8 +78,12 @@ public class App extends BasicGame {
 
         // todo input
         weapon = new Weapon(weaponImage.copy(), player);
-        player = new Player(playerImage.copy(), container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35, input, weapon);
-        objectList.add(player);
+
+        objectList.add( new Player(
+        		playerImage.copy(),
+        		playerImageLeft.copy(),
+        		playerImageRight.copy(),        		
+        		container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - wallImageHorizontal.getWidth(), input, weapon));
     }
 
     @Override
@@ -96,9 +103,10 @@ public class App extends BasicGame {
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         // collision
-        List<GameObject> collidesWithList = CollisionHelper.collideObjectWithList(player, objectList);
-        for (GameObject collidesWith : collidesWithList) {
-            collisionHandler.onCollision(player, collidesWith);
+        for (GameObject collidesWithA : objectList) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, objectList)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+        	}
         }
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);

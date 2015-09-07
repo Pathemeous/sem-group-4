@@ -8,30 +8,38 @@ import org.newdawn.slick.SlickException;
 public class Player extends GameObject {
 
 	private final Input input;
-	private Weapon weapon;
-	
 
-	public Player(Image image, int locX, int locY, Input input, Weapon weapon) {
+	private Weapon weapon;
+
+	private final Image imageLeft;
+	private final Image imageRight;
+	private final Image imageStill;
+
+	public Player(Image image, Image imageLeft, Image imageRight, int locX, int locY, Input input, Weapon weapon) {
 		super(image, locX, locY);
 		this.input = input;
 		this.weapon = weapon;
+
+		this.imageStill = image;
+		this.imageLeft = imageLeft;
+		this.imageRight= imageRight;
 	}
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
 		if(input.isKeyDown(Input.KEY_LEFT)) {
-			setImage(new Image("src/main/resources/img/player_left.png"));
+			setImage(imageLeft);
 			setLocX((int) (getBounds().getX() - 4));
 		}
 		if(input.isKeyDown(Input.KEY_RIGHT)) {
-			setImage(new Image("src/main/resources/img/player_right.png"));
+			setImage(imageRight);
             setLocX((int) (getBounds().getX() + 4));
 		}
 		if(input.isKeyDown(Input.KEY_SPACE)) {
 			weapon.fire(0);
 		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
-			setImage(new Image("src/main/resources/img/player_still.png"));
+			setImage(imageStill);
 		}
 	}
 }
