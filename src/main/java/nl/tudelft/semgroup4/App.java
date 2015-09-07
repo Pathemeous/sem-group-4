@@ -6,46 +6,32 @@ import nl.tudelft.model.Wall;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+
 import org.lwjgl.LWJGLUtil;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.*;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
 
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-public class App extends BasicGame {
+public class App extends BasicGameState {
     Image weapon;
     Image background;     
     LinkedList<GameObject> objectList;
     Input input = new Input(0);
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
-
-    public static void main(String[] args) {
-        System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());
-
-        App game = new App("Bubble Trouble");
-        try {
-            AppGameContainer container = new AppGameContainer(game);
-            container.setTargetFrameRate(60);
-            container.setUpdateOnlyWhenVisible(true);
-            container.setDisplayMode(1200, 800, false);
-            container.start();
-
-        } catch (SlickException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
+   
 
     public App(String title) {
-        super(title);
+        super();
         collisionHandler = getNewCollisionHandler();
     }
-
-    @Override
-    public void init(GameContainer container) throws SlickException {
+    
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
@@ -83,9 +69,8 @@ public class App extends BasicGame {
         		playerImageRight.copy(),        		
         		container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - wallImageHorizontal.getWidth(), input));
     }
-
-    @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
         g.drawImage(background, 0,0, container.getWidth(), container.getHeight(), 0, 0, background.getWidth(), background.getHeight());
 
@@ -94,9 +79,7 @@ public class App extends BasicGame {
         }
 
     }
-
-    @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
         // collision
         for (GameObject collidesWithA : objectList) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, objectList)) {
@@ -116,5 +99,16 @@ public class App extends BasicGame {
     protected CollisionHandler getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
+
+
+
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	
+
 
 }
