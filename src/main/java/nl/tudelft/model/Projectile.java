@@ -1,20 +1,21 @@
-package nl.tudelft.model.pickups;
+package nl.tudelft.model;
 
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
+import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public class Projectile extends GameObject {
 
     private boolean fired, top, hit;
-    private int counter;
+    private int counter, speed, width;
 
     /**
      * @param image - The texture used for the weapon/projectile
      * @param x - The x coord
      * @param y - The y coord
      * @param width - The width of the texture used
-     * @param height - The height of the texture used
      * @param speed - The speed
      *
      * Constructor for the class "Projectile".
@@ -24,12 +25,13 @@ public class Projectile extends GameObject {
      *              hit - Has the projectile hit an object (bubble)
      *              top - Has the projectile hit the top
      */
-    public Projectile(Image image, int x, int y, int width, int height, int speed) {
-        super(image, x, y, width, height, speed);
+    public Projectile(Image image, int x, int y, int width, int speed) {
+        super(image, x, y);
         fired = false;
         counter = 0;
         hit = false;
         top = false;
+        this.speed = speed;
     }
 
     /**
@@ -53,14 +55,14 @@ public class Projectile extends GameObject {
             //If the projectile has been fired but has hasn't hit the top nor has it been hit
             else {
                 //If the projectile would hit or exceed the top this tick
-                if (this.y_location - speed <= 0) {
+                if (this.locY - speed <= 0) {
                     //Set the location to the top of the screen and set the boolean top to true
-                    this.setY_location(0);
+                    this.setLocY(0);
                     this.top = true;
                 }
                 //Else move the projectile up "speed" pixels
                 else {
-                    this.y_location -= speed;
+                    this.locY -= speed;
                 }
             }
         }
@@ -76,8 +78,8 @@ public class Projectile extends GameObject {
      */
     public void reset(Player p) {
         //Set every variable to the starting variables
-        this.x_location = (p.getX_location() + p.getWidth() / 2) + 8;
-        this.y_location = p.getY_location();
+        this.locX = p.x() + p.getWidth() / 2) + 8;
+        this.locY = p.getY_location();
         this.fired = false;
         this.top = false;
         this.counter = 0;
@@ -92,7 +94,11 @@ public class Projectile extends GameObject {
     public void fire(Player p) {
         if(this.fired==true) return;
         this.fired = true;
-        this.x_location = (p.getX_location()+p.getWidth() / 2) + 8;
-        this.y_location = p.getY_location();
+        this.locX = (locX+p.getWidth() / 2) + 8;
+    }
+
+    @Override
+    public void update(GameContainer container, int delta) throws SlickException {
+
     }
 }

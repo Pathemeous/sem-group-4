@@ -1,73 +1,63 @@
 package nl.tudelft.model;
 
-import java.awt.Rectangle;
-
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
-public class GameObject {	
-	public int x_location;
-	public int y_location;
-	public int speed;
-	public Image image;
-	public int width;
-	public int height;
+public abstract class GameObject {
+
+    protected int locX;
+	protected int locY;
+    protected Image image;
 	
-	public GameObject(Image image, int x, int y, int width, int height, int speed) {
+	public GameObject(Image image, int x, int y) {
 		this.image = image;
-		this.x_location = x;
-		this.y_location = y;
-		this.width = width;
-		this.height = height;
-		this.speed = speed;
-		
-	}
-	
-
-	/**
-	 * @return the image
-	 */
-	public Image getImage() {
-		return image;
+		this.locX = x;
+		this.locY = y;
 	}
 
+    public void render(GameContainer container, Graphics g) throws SlickException {
+        g.drawImage(getImage(), locX, locY);
+    }
 
-	/**
-	 * @return the width
-	 */
-	public int getWidth() {
-		return width;
+    public abstract void update(GameContainer container, int delta) throws SlickException;
+
+    /**
+     * @return the image
+     */
+    protected Image getImage() {
+        return image;
+    }
+
+    /**
+     * @param image
+     */
+    protected void setImage(Image image) {
+        this.image = image;
+    }
+
+    public void setLocX(int locX) {
+        this.locX = locX;
+    }
+
+    public void setLocY(int locY) {
+        this.locY = locY;
+    }
+
+    public Rectangle getBounds(){
+		return new Rectangle(
+                locX, locY,
+                getImage().getWidth(), getImage().getHeight());
 	}
 
+    public int getWidth() {
+        return this.getImage().getWidth();
+    }
 
-	/**
-	 * @return the height
-	 */
-	public int getHeight() {
-		return height;
-	}
-
-
-	public Rectangle getBounds(){
-		return new Rectangle(x_location, y_location, width, height);
-	}
-	
-	public int getX_location() {
-		return x_location;
-	}
-	public void setX_location(int x_location) {
-		this.x_location = x_location;
-	}
-	public int getY_location() {
-		return y_location;
-	}
-	public void setY_location(int y_location) {
-		this.y_location = y_location;
-	}
-	public int getSpeed() {
-		return speed;
-	}
-	public void setSpeed(int speed) {
-		this.speed = speed;
-	}
+    public int getHeight() {
+        return this.getImage().getHeight();
+    }
 
 }

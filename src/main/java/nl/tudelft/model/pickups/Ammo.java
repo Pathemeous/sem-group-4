@@ -2,6 +2,6 @@ package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.Player;
 
-public class Weapon extends Pickup<Player> {
+public class Ammo extends Pickup<Player> {
 	
 }
