@@ -12,7 +12,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class StartScreen extends BasicGameState {
-	MouseOverArea mouseOver;
+	MouseOverArea mouseOverStart;
 	ComponentListener listener;
 	Image titleScreen;
 	Input input;
@@ -20,7 +20,7 @@ public class StartScreen extends BasicGameState {
 	@Override
 	public void init(GameContainer container, StateBasedGame game) throws SlickException {	
 		input = container.getInput();
-		mouseOver = new MouseOverArea(container, titleScreen, 211, 391, 230, 80);
+		mouseOverStart = new MouseOverArea(container, titleScreen, 211, 391, 230, 80);
 		titleScreen = new Image("src/main/resources/img/titleScreen.png");
 		
 	}
@@ -34,7 +34,7 @@ public class StartScreen extends BasicGameState {
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int ticks) throws SlickException {		
 		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-			if(mouseOver.isMouseOver()) {
+			if(mouseOverStart.isMouseOver()) {
 				game.enterState(1);
 			}
 		}			

@@ -16,14 +16,13 @@ public class MainApp extends StateBasedGame {
 	}
 
 	public static void main(String[] args) {
-	        System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());
-
-	       
+	        System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());	       
 	        try {
 	            AppGameContainer container = new AppGameContainer(new MainApp("Bubble Trouble"));
 	            container.setTargetFrameRate(60);
 	            container.setUpdateOnlyWhenVisible(true);
 	            container.setDisplayMode(1200, 800, false);
+	            container.setVSync(true);
 	            container.start();
 
 	        } catch (SlickException e) {
