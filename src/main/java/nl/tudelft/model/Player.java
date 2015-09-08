@@ -59,7 +59,7 @@ public class Player extends GameObject {
         }
         if (input.isKeyDown(Input.KEY_SPACE)) {
             input.disableKeyRepeat();
-            weapon.fire(this.locX, this.locY, this.getWidth());
+            weapon.fire((int)this.locX, (int)this.locY, this.getWidth());
         }
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
             setImage(imageStill);

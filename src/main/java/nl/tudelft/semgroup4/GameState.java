@@ -1,6 +1,14 @@
 package nl.tudelft.semgroup4;
 
-import nl.tudelft.model.*;
+
+import java.util.LinkedList;
+
+import nl.tudelft.model.Bubble;
+import nl.tudelft.model.GameObject;
+import nl.tudelft.model.Player;
+import nl.tudelft.model.Projectile;
+import nl.tudelft.model.Wall;
+import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -9,13 +17,10 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-import java.util.LinkedList;
 
 public class GameState extends BasicGameState {
     LinkedList<GameObject> objectList, toDelete, toAdd;
@@ -40,16 +45,39 @@ public class GameState extends BasicGameState {
         {
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
                 objectList.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
-                objectList.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth(), i * Resources.vwallImage.getHeight()));
+                objectList.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth()
+                		, i * Resources.vwallImage.getHeight()));
             }
 
             // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
             for (int i = 0; i * Resources.wallImage.getHeight() < container.getWidth(); i++) {
                 objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
-                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), container.getHeight() - Resources.wallImage.getHeight()));
+                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 
+                		container.getHeight() - Resources.wallImage.getHeight()));
             }
+            
+            //objectList.add(new Wall(Resources.wallImage, 1000, 400));
         }
+        
+        objectList.add(new Bubble(Resources.bubbleImage6.copy(), Resources.vwallImage.getWidth() + 100, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() - 400, 6));
 
+        objectList.add(new Bubble(Resources.bubbleImage5.copy(), Resources.vwallImage.getWidth() + 200, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 5));
+        
+        objectList.add(new Bubble(Resources.bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4));
+        
+        objectList.add(new Bubble(Resources.bubbleImage3.copy(), Resources.vwallImage.getWidth() + 400, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 3));
+        
+        objectList.add(new Bubble(Resources.bubbleImage2.copy(), Resources.vwallImage.getWidth() + 500, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 2));
+          
+        objectList.add(new Bubble(Resources.bubbleImage1.copy(), Resources.vwallImage.getWidth() + 600, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 1));
+        
+        
         // todo input
         weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete, toAdd);
         objectList.add( new Player(
