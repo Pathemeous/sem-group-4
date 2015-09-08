@@ -87,18 +87,18 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     final CollisionHandler<Bubble, Player> playerBubbleHandler = (bubble, player) -> {
-        //System.out.println("Player <-> bubble collision");
+        System.out.println("Player <-> bubble collision");
 
         // TODO: Add code to reset the level.
         player.removeLife();
     };
     
     final CollisionHandler<Projectile, Wall> projectileWallHandler = (projectile, wall) -> {
-        //System.out.println("Projectile <-> wall collision");
         final Shape projectileRect = projectile.getBounds();
         final Shape wallRect = wall.getBounds();
 
         if (wallRect.getY() < projectileRect.getY()) {
+        	System.out.println("Projectile <-> wall collision");
             projectile.reset();
         }
     };

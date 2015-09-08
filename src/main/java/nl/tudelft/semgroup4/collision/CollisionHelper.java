@@ -23,20 +23,34 @@ public class CollisionHelper {
             List<GameObject> objects, QuadTree quad) {
         List<GameObject> out = new ArrayList<>();
         
-        List<GameObject> returnObjects = new ArrayList<>();
-        quad.retrieve(returnObjects, objectA.getBounds());
-        
-        for (GameObject objectB : returnObjects) {
-        
-            // do not collide with self
-            if (objectA == objectB) {
-                continue;
-            }
+        if (quad == null) {
+        	for (GameObject objectB : objects) {
+        		// do not collide with self
+                if (objectA == objectB) {
+                    continue;
+                }
 
-            if (objectA.getBounds().intersects(objectB.getBounds())) {
-                out.add(objectB);
+                if (objectA.getBounds().intersects(objectB.getBounds())) {
+                    out.add(objectB);
+                }
+        	}
+        } else {
+        	List<GameObject> returnObjects = new ArrayList<>();
+            quad.retrieve(returnObjects, objectA.getBounds());
+            
+            for (GameObject objectB : returnObjects) {
+            
+                // do not collide with self
+                if (objectA == objectB) {
+                    continue;
+                }
+
+                if (objectA.getBounds().intersects(objectB.getBounds())) {
+                    out.add(objectB);
+                }
             }
         }
+        
         return out;
     }
 

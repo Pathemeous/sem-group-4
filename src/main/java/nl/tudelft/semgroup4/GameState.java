@@ -125,7 +125,7 @@ public class GameState extends BasicGameState {
         }
         
         for (GameObject collidesWithA : projectiles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
