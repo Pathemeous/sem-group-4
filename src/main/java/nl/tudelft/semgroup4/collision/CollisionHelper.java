@@ -1,9 +1,10 @@
 package nl.tudelft.semgroup4.collision;
 
-import nl.tudelft.model.GameObject;
-
 import java.util.ArrayList;
 import java.util.List;
+
+import nl.tudelft.model.Bubble;
+import nl.tudelft.model.GameObject;
 
 /**
  * Helper class for anything Collision-related that does not deserve his own class

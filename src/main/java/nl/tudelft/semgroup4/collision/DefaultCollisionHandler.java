@@ -45,14 +45,30 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
     
     private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (bubble, wall) -> {
-    	System.out.println("Collision!");
-    	if (wall.getWallType() == WallType.HORIZONTAL_WALL) {
+//    	if (wall.getWallType() == WallType.HORIZONTAL_WALL) {
+//    		bubble.setVerticalSpeed(-1*bubble.getVerticalSpeed());
+//    	} else {
+//    		bubble.setHorizontalSpeed(-1*bubble.getHorizontalSpeed());
+//    	}
+    	System.out.println("Wall Y: "+wall.getLocY() + ", Wall X: "+wall.getLocX() + "Height: "+wall.getBounds().getHeight());
+    	System.out.println("Bubble Y: "+bubble.getLocY() + ", Bubble X: "+bubble.getLocX() + "Height: "+bubble.getBounds().getHeight());
+    	// left collision
+    	if (wall.getLocX() < bubble.getLocX() && (wall.getLocX()+wall.getBounds().getWidth()) <= bubble.getLocX() ) {
+    		System.out.println("LEft collision");
     		bubble.setHorizontalSpeed(-1*bubble.getHorizontalSpeed());
-    	} else {
+    	} // top collision
+    	else if (wall.getLocY() < bubble.getLocY() && (wall.getLocY()+wall.getBounds().getHeight()) <= bubble.getLocY()) {
+    		System.out.println("Top collision");
     		bubble.setVerticalSpeed(-1*bubble.getVerticalSpeed());
+    	} // bottom collision
+    	else if (wall.getLocY() >= bubble.getLocY() && (bubble.getLocX()+bubble.getBounds().getWidth()) >= wall.getLocX()) {
+    		System.out.println("Bottom collision");
+    		bubble.setVerticalSpeed(-1*bubble.getVerticalSpeed());
+    	} // right collision
+    	else {
+    		System.out.println("Right collision");
+    		bubble.setHorizontalSpeed(0);
     	}
-//    	bubble.setHorizontalSpeed(0);
-//    	bubble.setVerticalSpeed(0);
     };
 
 }
