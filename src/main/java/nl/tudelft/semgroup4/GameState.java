@@ -4,47 +4,36 @@ import nl.tudelft.model.*;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
-import org.lwjgl.LWJGLUtil;
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.*;
 
-import java.io.File;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.BasicGameState;
+import org.newdawn.slick.state.StateBasedGame;
+
 import java.util.LinkedList;
 
 
-public class App extends BasicGame {
-    Image weaponImage;
+public class GameState extends BasicGameState {
     Image background;
-    Weapon weapon;
     LinkedList<GameObject> objectList;
     Input input = new Input(0);
 
+    Image weaponImage;
+    Weapon weapon;
+
     final CollisionHandler<GameObject, GameObject> collisionHandler;
+   
 
-    public static void main(String[] args) {
-        System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());
-
-        App game = new App("Bubble Trouble");
-        try {
-            AppGameContainer container = new AppGameContainer(game);
-            container.setTargetFrameRate(60);
-            container.setUpdateOnlyWhenVisible(true);
-            container.setDisplayMode(1200, 800, false);
-            container.start();
-
-        } catch (SlickException e) {
-            // TODO Auto-generated catch block
-            e.printStackTrace();
-        }
-    }
-
-    public App(String title) {
-        super(title);
+    public GameState(String title) {
+        super();
         collisionHandler = getNewCollisionHandler();
     }
-
-    @Override
-    public void init(GameContainer container) throws SlickException {
+    
+    public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
@@ -53,7 +42,6 @@ public class App extends BasicGame {
         Image playerImage =  new Image("src/main/resources/img/player_still.png");
         Image playerImageRight =  new Image("src/main/resources/img/player_right.png");
         Image playerImageLeft =  new Image("src/main/resources/img/player_left.png");
-
         Image wallImageVertical = new Image("src/main/resources/img/wall2.JPG");
         Image wallImageHorizontal = wallImageVertical.copy();
 //        wallImageHorizontal.setCenterOfRotation(wallImageHorizontal.getWidth() / 2, wallImageHorizontal.getHeight() / 2);
@@ -82,9 +70,8 @@ public class App extends BasicGame {
                 container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - wallImageHorizontal.getWidth(), input, weapon);
         objectList.add(player);
     }
-
-    @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    
+    public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
         g.drawImage(background, 0,0, container.getWidth(), container.getHeight(), 0, 0, background.getWidth(), background.getHeight());
 
@@ -97,9 +84,7 @@ public class App extends BasicGame {
         }
 
     }
-
-    @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
         // collision
         for (GameObject collidesWithA : objectList) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, objectList)) {
@@ -109,7 +94,9 @@ public class App extends BasicGame {
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
         }
+        
     }
+        
 
     /**
      * game will use CollisionHandler returned in this method.
@@ -118,5 +105,16 @@ public class App extends BasicGame {
     protected CollisionHandler getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
+
+
+
+	@Override
+	public int getID() {
+		// TODO Auto-generated method stub
+		return 1;
+	}
+
+	
+
 
 }
