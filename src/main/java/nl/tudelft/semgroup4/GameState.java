@@ -1,10 +1,15 @@
 package nl.tudelft.semgroup4;
 
+
+import java.util.LinkedList;
+
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
+import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.Wall.WallType;
+import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -18,11 +23,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.util.LinkedList;
-
 public class GameState extends BasicGameState {
-    LinkedList<GameObject> objectList;
+    LinkedList<GameObject> objectList, toDelete, toAdd;
     Input input = new Input(0);
+    Weapon weapon;
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
    
@@ -36,6 +40,8 @@ public class GameState extends BasicGameState {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
+        toDelete = new LinkedList<>();
+        toAdd = new LinkedList<>();
 
         {
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
@@ -54,11 +60,12 @@ public class GameState extends BasicGameState {
         objectList.add(new Bubble(bubbleImage.copy(), Resources.vwallImage.getWidth() + 100, container.getHeight() - Resources.wallImage.getHeight() - bubbleImage.getWidth() -200));
 
         // todo input
+        weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete, toAdd);
         objectList.add( new Player(
                 Resources.playerImageStill.copy(),
                 Resources.playerImageLeft.copy(),
                 Resources.playerImageRight.copy(),
-        		container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input));
+        		container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input, weapon));
     }
     
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
@@ -81,7 +88,21 @@ public class GameState extends BasicGameState {
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
         }
-        
+
+        for (GameObject gameObject : toAdd) {
+            objectList.add(gameObject);
+            if(gameObject instanceof Projectile) {
+                Projectile proj = (Projectile)gameObject;
+                proj.fire();
+                weapon.getAL().add(proj);
+            }
+        }
+        for (GameObject gameObject : toDelete) {
+            if(objectList.contains(gameObject)) objectList.remove(gameObject);
+            if(weapon.getAL().contains(gameObject)) weapon.getAL().remove(gameObject);
+        }
+        toAdd.clear();
+        toDelete.clear();
     }
         
 

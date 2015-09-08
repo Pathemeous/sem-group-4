@@ -22,7 +22,8 @@ public class SEMRectangle extends Rectangle {
         if(shape instanceof Rectangle) {
             Rectangle other = (Rectangle)shape;
             return     this.getX() < other.getX() + other.getWidth()
-                    && this.getX() + this.getWidth()  > other.getX() && this.getY() < other.getY() + other.getHeight()
+                    && this.getX() + this.getWidth()  > other.getX()
+                    && this.getY() < other.getY() + other.getHeight()
                     && this.getY() + this.getHeight() > other.getY();
         } else {
             return super.intersects(shape);
