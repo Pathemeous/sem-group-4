@@ -7,20 +7,14 @@ import nl.tudelft.model.pickups.Pickup;
 public class Level {
 
 	private int id;
-	private ArrayList<Wall> walls;
-	private ArrayList<Bubble> bubbles;
-	private ArrayList<Projectile> projectiles;
-	private ArrayList<Pickup> pickups;
+	private ArrayList<GameObject> objs;
 	private double time;
 	private double speed;
 
-	public Level(int id, ArrayList<Wall> walls, ArrayList<Bubble> bubbles,
-			ArrayList<Projectile> projectiles, ArrayList<Pickup> pickups,
-			double time, double speed) {
-		this.walls = walls;
-		this.bubbles = bubbles;
-		this.projectiles = projectiles;
-		this.pickups = pickups;
+    public Level(int id, ArrayList<GameObject> objs, double time, double speed) {
+        this.objs = objs;
+        this.time = time;
+        this.speed = speed;
 	}
 
 	public int getId() {
