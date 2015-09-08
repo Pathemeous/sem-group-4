@@ -7,12 +7,12 @@ import nl.tudelft.model.pickups.Pickup;
 public class Level {
 
 	private int id;
-	private ArrayList<GameObject> objs;
+	private ArrayList<GameObject> objects;
 	private double time;
 	private double speed;
 
-    public Level(int id, ArrayList<GameObject> objs, double time, double speed) {
-        this.objs = objs;
+    public Level(int id, ArrayList<GameObject> objects, double time, double speed) {
+        this.objects = objects;
         this.time = time;
         this.speed = speed;
 	}
@@ -45,7 +45,7 @@ public class Level {
 	 * @return true iff there are no bubbles remaining in this level.
 	 */
 	public boolean isCompleted() {
-		for (GameObject ob : this.objs) {
+		for (GameObject ob : this.objects) {
 		    if (ob instanceof Bubble) {
 		        return false;
 		    }
