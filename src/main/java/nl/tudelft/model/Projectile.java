@@ -42,7 +42,7 @@ public class Projectile extends GameObject {
      * Fire method for the class "Projectile". This method is called when the projectile is fired.
      */
     public void fire() {
-        this.locX = (locX+(width/2))-2;
+        this.locX = (locX+(width/2))-(image.getWidth()/2);
     }
 
     @Override
