@@ -20,7 +20,9 @@ public class PauseScreen {
 	public void show(Graphics g, GameContainer container, Input input, StateBasedGame game, GameState gameState) {
 		g.setColor(Color.yellow);
 		g.setAntiAlias(true);
-		
+		Color color = new Color(0f,0f,0f,0.5f);
+        g.setColor(color);
+        g.fillRect(0,0, container.getWidth(), container.getHeight());
 		g.drawImage(pauseText, container.getWidth() / 2 - pauseText.getWidth() / 2, container.getHeight() / 3);
 		g.drawImage(quitText, container.getWidth() / 2 - quitText.getWidth() / 2, container.getHeight() / 2);
 		
