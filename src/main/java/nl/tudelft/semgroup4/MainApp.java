@@ -22,7 +22,7 @@ public class MainApp extends StateBasedGame {
 	            container.setTargetFrameRate(60);
 	            container.setUpdateOnlyWhenVisible(true);
 	            container.setDisplayMode(1200, 800, false);
-	            container.setVSync(true);
+	            container.setVSync(true);	            
 	            container.start();
 
 	        } catch (SlickException e) {
@@ -32,9 +32,10 @@ public class MainApp extends StateBasedGame {
 	    }
 
 	@Override
-	public void initStatesList(GameContainer arg0) throws SlickException {
-		addState(new StartScreen());
-		addState(new App(this.getTitle()));
+
+	public void initStatesList(GameContainer container) throws SlickException {
+		addState(new StartScreenState());
+		addState(new GameState(this.getTitle()));
 		enterState(0);
 		
 	}

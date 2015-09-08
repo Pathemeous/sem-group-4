@@ -10,19 +10,22 @@ import org.newdawn.slick.gui.ComponentListener;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-public class StartScreen extends BasicGameState {
-	MouseOverArea mouseOverOnePlayer;
-	MouseOverArea mouseOverTwoPlayer;
-	MouseOverArea mouseOverOptions;
-	MouseOverArea mouseOverQuit;
-	ComponentListener listener;
-	Image titleScreen;
-	Input input;
+/**
+ * 
+ * @author TUDelft SID
+ *
+ */
+public class StartScreenState extends BasicGameState {
+	private MouseOverArea mouseOverOnePlayer;
+	private MouseOverArea mouseOverTwoPlayer;
+	private MouseOverArea mouseOverOptions;
+	private MouseOverArea mouseOverQuit;
+	private Image titleScreen;
+	private Input input;
 	
 	
 	@Override
-	public void init(GameContainer container, StateBasedGame game) throws SlickException {			
+	public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {			
 		input = container.getInput();
 		//initializes all the areas where the buttons are to see if the mouse is on one of those areas
 		mouseOverOnePlayer = new MouseOverArea(container, titleScreen, 211, 391, 364, 88);
@@ -43,17 +46,17 @@ public class StartScreen extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int ticks) throws SlickException {	
 		//checks if the left mouse button is pressed and where it was pressed to determine 
 		//what action to perform
-		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {			
-			if(mouseOverOnePlayer.isMouseOver()) {
+		if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {			
+			if (mouseOverOnePlayer.isMouseOver()) {
 				game.enterState(1);
 			}
-			else if(mouseOverTwoPlayer.isMouseOver()) {
+			else if (mouseOverTwoPlayer.isMouseOver()) {
 				System.out.println("Two player game started");
 			}
-			else if(mouseOverOptions.isMouseOver()) {
+			else if (mouseOverOptions.isMouseOver()) {
 				System.out.println("Options menu opened");
 			}
-			else if(mouseOverQuit.isMouseOver()) {
+			else if (mouseOverQuit.isMouseOver()) {
 				container.exit();
 			}
 		}		

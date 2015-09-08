@@ -17,7 +17,7 @@ import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
 
-public class App extends BasicGameState {
+public class GameState extends BasicGameState {
     Image weapon;
     Image background;     
     LinkedList<GameObject> objectList;
@@ -26,12 +26,12 @@ public class App extends BasicGameState {
     final CollisionHandler<GameObject, GameObject> collisionHandler;
    
 
-    public App(String title) {
+    public GameState(String title) {
         super();
         collisionHandler = getNewCollisionHandler();
     }
     
-    public void init(GameContainer container, StateBasedGame game) throws SlickException {
+    public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
@@ -42,6 +42,8 @@ public class App extends BasicGameState {
         playerImageRight = playerImageRight.getScaledCopy(2);
         Image playerImageLeft =  new Image("src/main/resources/img/player_left.png");
         playerImageLeft = playerImageLeft.getScaledCopy(2);
+        
+        
 
         Image wallImageVertical = new Image("src/main/resources/img/wall2.JPG");
         Image wallImageHorizontal = wallImageVertical.copy();
@@ -79,7 +81,7 @@ public class App extends BasicGameState {
         }
 
     }
-    public void update(GameContainer container, StateBasedGame game, int delta) throws SlickException {
+    public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
         // collision
         for (GameObject collidesWithA : objectList) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, objectList)) {
@@ -90,7 +92,9 @@ public class App extends BasicGameState {
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
         }
+        
     }
+        
 
     /**
      * game will use CollisionHandler returned in this method.
