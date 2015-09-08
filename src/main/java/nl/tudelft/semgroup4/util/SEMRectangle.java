@@ -4,6 +4,9 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 /**
+ * This class overrides the intersects(Shape) method. The original
+ * implementation also returns true when two rectangles touch.
+ * We don't want this behavior.
  * Created by justin on 08/09/15.
  */
 public class SEMRectangle extends Rectangle {
@@ -12,6 +15,9 @@ public class SEMRectangle extends Rectangle {
         super(x, y, width, height);
     }
 
+    /**
+     * @return same as super, except when two rectangles are touching. When two rectangles touch returns false.
+     */
     public boolean intersects(Shape shape) {
         if(shape instanceof Rectangle) {
             Rectangle other = (Rectangle)shape;

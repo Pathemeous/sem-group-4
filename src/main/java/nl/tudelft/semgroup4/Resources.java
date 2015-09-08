@@ -4,6 +4,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
+ * This class holds the resources
  * Created by justin on 08/09/15.
  */
 public class Resources {
