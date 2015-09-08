@@ -13,6 +13,7 @@ public class Resources {
 
     public static Image wallImage;
     public static Image vwallImage;
+    public static Image weaponImage;
 
     public static Image titleScreenBackground;
     public static Image backgroundImage;
@@ -41,6 +42,8 @@ public class Resources {
 
         titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
+
+        weaponImage = new Image("src/main/resources/img/arrow.png");
 
     }
 

@@ -2,6 +2,7 @@ package nl.tudelft.semgroup4.collision;
 
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
+import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import org.newdawn.slick.geom.Shape;
 
@@ -21,6 +22,11 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
                 playerWallHandler.onCollision((Player)objA, (Wall)objB);
             }
         }
+        if (objA instanceof Projectile) {
+            if (objB instanceof Wall) {
+                projectileWallHandler.onCollision((Projectile)objA, (Wall)objB);
+            }
+        }
     }
 
     final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
@@ -32,6 +38,16 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
             player.setLocX((int) (wallRect.getX() + wallRect.getWidth()));
         } else {
             player.setLocX((int) (wallRect.getX() - playerRect.getWidth()));
+        }
+    };
+
+    final CollisionHandler<Projectile, Wall> projectileWallHandler = (projectile, wall) -> {
+        System.out.println("Projectile <-> wall collision");
+        final Shape projectileRect = projectile.getBounds();
+        final Shape wallRect = wall.getBounds();
+
+        if (wallRect.getY() < projectileRect.getY()) {
+            projectile.reset();
         }
     };
 
