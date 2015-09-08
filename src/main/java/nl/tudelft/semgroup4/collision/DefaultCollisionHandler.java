@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4.collision;
 
+import nl.tudelft.model.Bubble;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
@@ -22,6 +23,13 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
                 playerWallHandler.onCollision((Player)objA, (Wall)objB);
             }
         }
+
+        if (objA instanceof Player) {
+            if (objB instanceof Bubble) {
+                playerBubbleHandler.onCollision((Player)objA, (Bubble)objB);
+            }
+        }
+
         if (objA instanceof Projectile) {
             if (objB instanceof Wall) {
                 projectileWallHandler.onCollision((Projectile)objA, (Wall)objB);
@@ -41,6 +49,13 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         }
     };
 
+    final CollisionHandler<Player, Bubble> playerBubbleHandler = (player, bubble) -> {
+        System.out.println("Player <-> bubble collision");
+
+        // TODO: Add code to reset the level.
+        player.removeLife();
+    };
+    
     final CollisionHandler<Projectile, Wall> projectileWallHandler = (projectile, wall) -> {
         System.out.println("Projectile <-> wall collision");
         final Shape projectileRect = projectile.getBounds();
