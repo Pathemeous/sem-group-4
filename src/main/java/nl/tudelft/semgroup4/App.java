@@ -10,7 +10,6 @@ import org.newdawn.slick.*;
 
 import java.io.File;
 import java.util.LinkedList;
-import java.util.List;
 
 public class App extends BasicGame {
     Image weaponImage;
