@@ -10,11 +10,10 @@ public class Weapon {
 
     private ArrayList<Projectile> projectiles;
     private Image img;
-    private LinkedList<GameObject> obj, del, add;
+    private LinkedList<GameObject> del, add;
 
-    public Weapon(Image image, LinkedList<GameObject> objectList, LinkedList<GameObject> toDel, LinkedList<GameObject> toAdd) {
+    public Weapon(Image image, LinkedList<GameObject> toDel, LinkedList<GameObject> toAdd) {
         img = image;
-        obj = objectList;
         del = toDel;
         add = toAdd;
         projectiles = new ArrayList<Projectile>();
@@ -27,6 +26,7 @@ public class Weapon {
     }
 
     public void remove(Projectile proj) {
+    	projectiles.remove(proj);
         del.add(proj);
     }
 

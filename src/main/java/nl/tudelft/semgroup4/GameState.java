@@ -3,6 +3,7 @@ package nl.tudelft.semgroup4;
 
 import java.util.LinkedList;
 
+import nl.tudelft.model.Bubble;
 import nl.tudelft.model.BubbleManager;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
@@ -22,7 +23,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    LinkedList<GameObject> objectList, toDelete, toAdd;
+    LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles;
     Input input = new Input(0);
     Weapon weapon;
 
@@ -37,21 +38,24 @@ public class GameState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        objectList = new LinkedList<>();
+        walls = new LinkedList<>();
+        projectiles = new LinkedList<>();
+        players = new LinkedList<>();
+        bubbles = new LinkedList<>();
         toDelete = new LinkedList<>();
         toAdd = new LinkedList<>();
 
         {
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
-                objectList.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
-                objectList.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth()
+                walls.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
+                walls.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth()
                 		, i * Resources.vwallImage.getHeight()));
             }
 
             // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
             for (int i = 0; i * Resources.wallImage.getHeight() < container.getWidth(); i++) {
-                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
-                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 
+                walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
+                walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 
                 		container.getHeight() - Resources.wallImage.getHeight()));
             }
             
@@ -61,8 +65,8 @@ public class GameState extends BasicGameState {
         new BubbleManager(toDelete, toAdd).createBubbles(container);
         
         // todo input
-        weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete, toAdd);
-        objectList.add( new Player(
+        weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd);
+        players.add( new Player(
                 Resources.playerImageStill.copy(),
                 Resources.playerImageLeft.copy(),
                 Resources.playerImageRight.copy(),
@@ -73,34 +77,77 @@ public class GameState extends BasicGameState {
 
         g.drawImage(Resources.backgroundImage, 0,0, container.getWidth(), container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(), Resources.backgroundImage.getHeight());
 
-        for (GameObject gameObject : objectList) {
+        for (GameObject gameObject : walls) {
+            gameObject.render(container, g);
+        }
+        for (GameObject gameObject : bubbles) {
+            gameObject.render(container, g);
+        }
+        for (GameObject gameObject : players) {
+            gameObject.render(container, g);
+        }
+        for (GameObject gameObject : projectiles) {
             gameObject.render(container, g);
         }
 
     }
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
         // collision
-        for (GameObject collidesWithA : objectList) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, objectList)) {
+        for (GameObject collidesWithA : bubbles) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+        	}
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+        	}
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
+        
+        for (GameObject collidesWithA : projectiles) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+        	}
+        }
+        
+        for (GameObject collidesWithA : players) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+        	}
+        }
+        
+        
+        
+        
+        
 
-        for (GameObject gameObject : objectList) {
+        for (GameObject gameObject : players) {
+            gameObject.update(container, delta);
+        }
+        for (GameObject gameObject : bubbles) {
+            gameObject.update(container, delta);
+        }
+        for (GameObject gameObject : projectiles) {
             gameObject.update(container, delta);
         }
 
         for (GameObject gameObject : toAdd) {
-            objectList.add(gameObject);
             if(gameObject instanceof Projectile) {
+            	projectiles.add(gameObject);
                 Projectile proj = (Projectile)gameObject;
                 proj.fire();
                 weapon.getAL().add(proj);
+            } else if(gameObject instanceof Bubble) {
+            	bubbles.add(gameObject);
             }
         }
         for (GameObject gameObject : toDelete) {
-            if(objectList.contains(gameObject)) objectList.remove(gameObject);
-            if(weapon.getAL().contains(gameObject)) weapon.getAL().remove(gameObject);
+        	if (gameObject instanceof Bubble) {
+        		bubbles.remove(gameObject);
+        	} else if (gameObject instanceof Projectile) {
+        		projectiles.remove(gameObject);
+        	}
         }
         toAdd.clear();
         toDelete.clear();
