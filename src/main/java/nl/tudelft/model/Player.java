@@ -39,6 +39,7 @@ public class Player extends GameObject {
             setLocX((int) (getBounds().getX() + 4));
 		}
 		if(input.isKeyDown(Input.KEY_SPACE)) {
+			input.disableKeyRepeat();
 			weapon.fire(this.locX, this.locY, this.getWidth());
 		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
