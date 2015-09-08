@@ -2,8 +2,6 @@ package nl.tudelft.model;
 
 import java.util.ArrayList;
 
-import nl.tudelft.model.pickups.Pickup;
-
 public class Level {
 
 	private int id;
