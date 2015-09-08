@@ -63,26 +63,23 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
     
     private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (bubble, wall) -> {
-    	float offset = bubble.getMaxMovement();
-    	System.out.println("Offset: "+offset);
-    	System.out.println("Wall 	("+wall.getLocX() + ", "+wall.getLocY()+"), Width: "+wall.getBounds().getWidth() + ", Height: "+wall.getBounds().getHeight());
-    	System.out.println("Ball	("+bubble.getLocX() + ", "+bubble.getLocY()+"), Width: "+bubble.getBounds().getWidth());
+    	float offset = bubble.getMaxSpeed();
     	
     	// left collision
     	if (wall.getLocX() < bubble.getLocX() && (wall.getLocX()+wall.getBounds().getWidth()-offset) <= bubble.getLocX() ) {
-    		System.out.println("Left collision");
+    		//System.out.println("Left collision");
     		bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
     	} // top collision
     	else if (wall.getLocY() < bubble.getLocY() && (wall.getLocY()+wall.getBounds().getHeight()-offset) <= bubble.getLocY()) {
-    		System.out.println("Top collision");
+    		//System.out.println("Top collision");
     		bubble.setVerticalSpeed(-Math.abs(bubble.getVerticalSpeed()));
     	} // bottom collision
     	else if ((wall.getLocY()+offset) >= bubble.getLocY() && (bubble.getLocX()+bubble.getBounds().getWidth()) >= wall.getLocX()+offset) {
-    		System.out.println("Bottom collision");
+    		//System.out.println("Bottom collision");
     		bubble.setVerticalSpeed(Math.abs(bubble.getMaxVerticalSpeed()));
     	} // right collision
     	else {
-    		System.out.println("Right collision");
+    		//System.out.println("Right collision");
     		bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
     	}
     	System.out.println();

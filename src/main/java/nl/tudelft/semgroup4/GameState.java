@@ -56,7 +56,7 @@ public class GameState extends BasicGameState {
                 		container.getHeight() - Resources.wallImage.getHeight()));
             }
             
-            //objectList.add(new Wall(Resources.wallImage, 400, 400));
+            //objectList.add(new Wall(Resources.wallImage, 1000, 400));
         }
         
         Image bubbleImage6 = new Image("src/main/resources/img/rball6.png");

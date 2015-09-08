@@ -1,12 +1,16 @@
 package nl.tudelft.model;
 
 import org.newdawn.slick.GameContainer;
-import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
+/**
+ * Bubble is a subclass of GameObject and represents a single bubble in the game.
+ * @author Casper
+ *
+ */
 public class Bubble extends GameObject {
 
 	private float verticalSpeed;
@@ -14,10 +18,17 @@ public class Bubble extends GameObject {
 	private float maxVerticalSpeed;
 	private float gravity;
 	
+	/**
+	 * Constructor for Bubble. Initiliazes the image of bubble with the given x and y, and sets the speed and gravity on 
+	 * predetermined values. Only the maxVerticalSpeed is based on the size of the bubble (which ranges from 1 through 6)
+	 * @param image : image of the bubble
+	 * @param x : the x location of the top left corner of the bubble
+	 * @param y : the y location of the top left corner of the bubble
+	 * @param size : the size of the bubble; can range from 1-6
+	 */
     public Bubble(Image image, float x, float y, int size) {
         super(image,x,y);
         verticalSpeed = 0.0f;
-        //maxVerticalSpeed = 10.0f;
         horizontalSpeed = 2.0f;
         gravity = 0.1f;
         
@@ -44,24 +55,25 @@ public class Bubble extends GameObject {
         	maxVerticalSpeed = 0.0f; 
         }
     }
-
+    
+    /**
+     * This method is called every tick, to update the ball.
+     */
 	@Override
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		move();
 	}
 	
+	/**
+	 * Method which is called to make the ball move. It moves in a direction based on its horizontalspeed and verticalspeed.
+	 * The verticalspeed is afterwards decreased with the gravity.
+	 */
 	private void move() {
 		float x = getLocX();
 		float y = getLocY();
 		
 		float newX = 0;
-		
-//		if (Math.round(horizontalSpeed) == 0) {
-//			newX = x + 1;
-//		} else {
-//			newX = x + (int)Math.round(horizontalSpeed);
-//		}
 		newX = x + horizontalSpeed;
 		
 		float newY = 0;
@@ -72,33 +84,60 @@ public class Bubble extends GameObject {
 		verticalSpeed -= gravity;
 	}
 	
+	/**
+	 * 
+	 * @return the vertical speed of the bubble
+	 */
 	public float getVerticalSpeed() {
 		return verticalSpeed;
 	}
 	
+	/**
+	 * 
+	 * @return the horizontal speed of the bubble
+	 */
 	public float getHorizontalSpeed() {
 		return horizontalSpeed;
 	}
 	
+	/**
+	 * 
+	 * @return the maximum vertical speed the bubble can reach
+	 */
 	public float getMaxVerticalSpeed() {
 		return maxVerticalSpeed;
 	}
 	
+	/**
+	 * Sets the vertical speed of the bubble
+	 * @param newSpeed : the new speed
+	 */
 	public void setVerticalSpeed(float newSpeed) {
 		verticalSpeed = newSpeed;
 	}
 	
+	/**
+	 * Sets the horizontal speed of the bubble
+	 * @param newSpeed : the new speed
+	 */
 	public void setHorizontalSpeed(float newSpeed) {
 		horizontalSpeed = newSpeed;
 	}
 	
-	public float getMaxMovement() {
+	/**
+	 * @return the maximum speed the bubble can have at any time in any direction
+	 */
+	public float getMaxSpeed() {
 		if(horizontalSpeed > maxVerticalSpeed) {
 			return horizontalSpeed;
 		} 
 		return maxVerticalSpeed;
 	}
 	
+	/**
+	 * Overrides the getbounds method of GameObject, Bubble's superclass, so the shape of the bubble is 
+	 * an instance of Circle instead of Rectangle
+	 */
 	@Override
 	public Shape getBounds() {
 		int width = getImage().getWidth();
