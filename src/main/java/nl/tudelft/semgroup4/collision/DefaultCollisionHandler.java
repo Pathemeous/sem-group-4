@@ -1,6 +1,7 @@
 package nl.tudelft.semgroup4.collision;
 
 import nl.tudelft.model.Bubble;
+import nl.tudelft.model.BubbleManager;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
@@ -85,7 +86,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     final CollisionHandler<Player, Bubble> playerBubbleHandler = (player, bubble) -> {
-        System.out.println("Player <-> bubble collision");
+        //System.out.println("Player <-> bubble collision");
 
         // TODO: Add code to reset the level.
         player.removeLife();
@@ -104,6 +105,14 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     final CollisionHandler<Projectile, Bubble> projectileBubbleHandler = (projectile, bubble) -> {
     	System.out.println("Projectile <-> Bubble collision");
     	projectile.reset();
+    	
+    	BubbleManager manager = bubble.getBubbleManager();
+    	manager.remove(bubble);
+    	
+    	if(bubble.getSize() > 1) {
+    		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
+    		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
+    	}
     };
 
 }

@@ -3,7 +3,7 @@ package nl.tudelft.semgroup4;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.Bubble;
+import nl.tudelft.model.BubbleManager;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
@@ -16,7 +16,6 @@ import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -59,24 +58,7 @@ public class GameState extends BasicGameState {
             //objectList.add(new Wall(Resources.wallImage, 1000, 400));
         }
         
-        objectList.add(new Bubble(Resources.bubbleImage6.copy(), Resources.vwallImage.getWidth() + 100, 
-        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() - 400, 6));
-
-        objectList.add(new Bubble(Resources.bubbleImage5.copy(), Resources.vwallImage.getWidth() + 200, 
-        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 5));
-        
-        objectList.add(new Bubble(Resources.bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
-        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4));
-        
-        objectList.add(new Bubble(Resources.bubbleImage3.copy(), Resources.vwallImage.getWidth() + 400, 
-        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 3));
-        
-        objectList.add(new Bubble(Resources.bubbleImage2.copy(), Resources.vwallImage.getWidth() + 500, 
-        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 2));
-          
-        objectList.add(new Bubble(Resources.bubbleImage1.copy(), Resources.vwallImage.getWidth() + 600, 
-        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 1));
-        
+        new BubbleManager(toDelete, toAdd).createBubbles(container);
         
         // todo input
         weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete, toAdd);

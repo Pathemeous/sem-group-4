@@ -17,6 +17,8 @@ public class Bubble extends GameObject {
 	private float horizontalSpeed;
 	private float maxVerticalSpeed;
 	private float gravity;
+	private int size;
+	private BubbleManager manager;
 	
 	/**
 	 * Constructor for Bubble. Initiliazes the image of bubble with the given x and y, and sets the speed and gravity on 
@@ -26,8 +28,10 @@ public class Bubble extends GameObject {
 	 * @param y : the y location of the top left corner of the bubble
 	 * @param size : the size of the bubble; can range from 1-6
 	 */
-    public Bubble(Image image, float x, float y, int size) {
+    public Bubble(Image image, float x, float y, int size, BubbleManager manager) {
         super(image,x,y);
+        this.manager = manager;
+        this.size = size;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
         gravity = 0.1f;
@@ -132,6 +136,14 @@ public class Bubble extends GameObject {
 			return horizontalSpeed;
 		} 
 		return maxVerticalSpeed;
+	}
+	
+	public BubbleManager getBubbleManager() {
+		return manager;
+	}
+	
+	public int getSize() {
+		return size;
 	}
 	
 	/**
