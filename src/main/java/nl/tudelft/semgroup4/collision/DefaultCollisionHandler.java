@@ -46,7 +46,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         final Rectangle projectileRect = projectile.getBounds();
         final Rectangle wallRect = wall.getBounds();
 
-        if (wallRect.getY() < 100 && wallRect.getY() < projectileRect.getY()) {
+        if (wallRect.getY() < projectileRect.getY()) {
             projectile.reset();
         }
     };

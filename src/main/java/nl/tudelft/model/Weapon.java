@@ -5,6 +5,7 @@ import org.newdawn.slick.Image;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+
 public class Weapon {
 
     private ArrayList<Projectile> projectiles;
@@ -26,8 +27,8 @@ public class Weapon {
     }
 
     public void remove(Projectile proj) {
-        if(projectiles.contains(proj)) projectiles.remove(proj);
-        if(obj.contains(proj)) obj.remove(proj);
+        projectiles.remove(proj);
+        obj.remove(proj);
     }
 
     public ArrayList<Projectile> getAL() {

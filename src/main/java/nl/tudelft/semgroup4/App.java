@@ -11,6 +11,7 @@ import org.newdawn.slick.*;
 import java.io.File;
 import java.util.LinkedList;
 
+
 public class App extends BasicGame {
     Image weaponImage;
     Image background;
@@ -50,11 +51,8 @@ public class App extends BasicGame {
         background = new Image("src/main/resources/img/level1.jpg");
         weaponImage = new Image("src/main/resources/img/arrow.png");
         Image playerImage =  new Image("src/main/resources/img/player_still.png");
-        playerImage = playerImage.getScaledCopy(2);
         Image playerImageRight =  new Image("src/main/resources/img/player_right.png");
-        playerImageRight = playerImageRight.getScaledCopy(2);
         Image playerImageLeft =  new Image("src/main/resources/img/player_left.png");
-        playerImageLeft = playerImageLeft.getScaledCopy(2);
 
         Image wallImageVertical = new Image("src/main/resources/img/wall2.JPG");
         Image wallImageHorizontal = wallImageVertical.copy();
@@ -90,11 +88,12 @@ public class App extends BasicGame {
 
         g.drawImage(background, 0,0, container.getWidth(), container.getHeight(), 0, 0, background.getWidth(), background.getHeight());
 
-        for (GameObject gameObject : objectList) {
-            gameObject.render(container, g);
-        }
         for (GameObject projectile : weapon.getAL()) {
             projectile.render(container, g);
+        }
+
+        for (GameObject gameObject : objectList) {
+            gameObject.render(container, g);
         }
 
     }

@@ -46,8 +46,4 @@ public class Player extends GameObject {
 			projectile.update(container, delta);
 		}
 	}
-
-	public Weapon getWeapon() {
-		return this.weapon;
-	}
 }
