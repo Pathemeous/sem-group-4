@@ -4,8 +4,7 @@ import nl.tudelft.model.Bubble;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
-
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 
 /**
@@ -33,8 +32,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
     final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
         System.out.println("Player <-> wall collision");
-        final Rectangle playerRect = player.getBounds();
-        final Rectangle wallRect = wall.getBounds();
+        final Shape playerRect = player.getBounds();
+        final Shape wallRect = wall.getBounds();
 
         if (wallRect.getX() < playerRect.getX()) {
             player.setLocX((int) (wallRect.getX() + wallRect.getWidth()));
