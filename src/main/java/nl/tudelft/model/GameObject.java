@@ -41,6 +41,13 @@ public abstract class GameObject {
     public void setLocX(int locX) {
         this.locX = locX;
     }
+    
+    public int getLocX () {
+    	return locX;
+    }
+    public int getLocY () {
+    	return locY;
+    }
 
     public void setLocY(int locY) {
         this.locY = locY;

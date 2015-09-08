@@ -1,8 +1,11 @@
 package nl.tudelft.semgroup4.collision;
 
+import nl.tudelft.model.Bubble;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
+import nl.tudelft.model.Wall.WallType;
+
 import org.newdawn.slick.geom.Rectangle;
 
 
@@ -21,9 +24,14 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
                 playerWallHandler.onCollision((Player)objA, (Wall)objB);
             }
         }
+        if (objA instanceof Bubble) {
+        	if (objB instanceof Wall) {
+        		bubbleWallHandler.onCollision((Bubble)objA, (Wall)objB);
+        	}
+        }
     }
 
-    final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
+    private final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
         System.out.println("Player <-> wall collision");
         final Rectangle playerRect = player.getBounds();
         final Rectangle wallRect = wall.getBounds();
@@ -33,6 +41,17 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         } else {
             player.setLocX((int) (wallRect.getX() - playerRect.getWidth()));
         }
+    };
+    
+    private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (bubble, wall) -> {
+    	System.out.println("Collision!");
+    	if (wall.getWallType() == WallType.HORIZONTAL_WALL) {
+    		bubble.setHorizontalSpeed(-1*bubble.getHorizontalSpeed());
+    	} else {
+    		bubble.setVerticalSpeed(-1*bubble.getVerticalSpeed());
+    	}
+//    	bubble.setHorizontalSpeed(0);
+//    	bubble.setVerticalSpeed(0);
     };
 
 }

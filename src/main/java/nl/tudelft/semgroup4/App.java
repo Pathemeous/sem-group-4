@@ -1,26 +1,36 @@
 package nl.tudelft.semgroup4;
 
-import nl.tudelft.model.GameObject;
-import nl.tudelft.model.Player;
-import nl.tudelft.model.Wall;
-import nl.tudelft.semgroup4.collision.CollisionHandler;
-import nl.tudelft.semgroup4.collision.CollisionHelper;
-import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
-import org.lwjgl.LWJGLUtil;
-import org.lwjgl.opengl.GL11;
-import org.newdawn.slick.*;
-
 import java.io.File;
 import java.util.LinkedList;
 import java.util.List;
+
+import nl.tudelft.model.Bubble;
+import nl.tudelft.model.GameObject;
+import nl.tudelft.model.Player;
+import nl.tudelft.model.Wall;
+import nl.tudelft.model.Wall.WallType;
+import nl.tudelft.semgroup4.collision.CollisionHandler;
+import nl.tudelft.semgroup4.collision.CollisionHelper;
+import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+
+import org.lwjgl.LWJGLUtil;
+import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.AppGameContainer;
+import org.newdawn.slick.BasicGame;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public class App extends BasicGame {
     Image weapon;
     Image background;
     Image playerImage;
+    private Image bubbleImage;
     Player player;
+    private Bubble bubble;
     LinkedList<GameObject> objectList;
-    Input input = new Input(0);
+    
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
 
@@ -53,6 +63,7 @@ public class App extends BasicGame {
         objectList = new LinkedList<>();
         background = new Image("src/main/resources/img/level1.jpg");
         playerImage =  new Image("src/main/resources/img/player_still.png");
+        bubbleImage = new Image("src/main/resources/img/rball6.bmp");
 
         Image wallImageVertical = new Image("src/main/resources/img/wall2.JPG");
         Image wallImageHorizontal = wallImageVertical.copy();
@@ -62,19 +73,22 @@ public class App extends BasicGame {
 
         {
             for (int i = 0; i * wallImageVertical.getHeight() < container.getHeight(); i++) {
-                objectList.add(new Wall(wallImageVertical, 0, i * wallImageVertical.getHeight()));
-                objectList.add(new Wall(wallImageVertical, container.getWidth() - wallImageVertical.getWidth(), i * wallImageVertical.getHeight()));
+                objectList.add(new Wall(wallImageVertical, 0, i * wallImageVertical.getHeight(), WallType.VERTICAL_WALL));
+                objectList.add(new Wall(wallImageVertical, container.getWidth() - wallImageVertical.getWidth(), i * wallImageVertical.getHeight(), WallType.VERTICAL_WALL));
             }
 
             // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
             for (int i = 0; i * wallImageHorizontal.getHeight() < container.getWidth(); i++) {
-                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), wallImageHorizontal.getWidth()));
-                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), container.getHeight()));
+                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), wallImageHorizontal.getWidth(), WallType.HORIZONTAL_WALL));
+                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), container.getHeight(), WallType.HORIZONTAL_WALL));
             }
         }
+        
+        bubble = new Bubble(bubbleImage.copy(), wallImageVertical.getWidth() + 10, container.getHeight() - wallImageHorizontal.getWidth() - bubbleImage.getWidth());
+        objectList.add(bubble);
 
         // todo input
-        player = new Player(playerImage.copy(), container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35, input);
+        player = new Player(playerImage.copy(), container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - 35);
 
         objectList.add(player);
     }
@@ -94,8 +108,12 @@ public class App extends BasicGame {
     public void update(GameContainer container, int delta) throws SlickException {
         // collision
         List<GameObject> collidesWithList = CollisionHelper.collideObjectWithList(player, objectList);
+        List<GameObject> collidesWithListBubble = CollisionHelper.collideObjectWithList(bubble, objectList);
         for (GameObject collidesWith : collidesWithList) {
             collisionHandler.onCollision(player, collidesWith);
+        }
+        for (GameObject collidesWith : collidesWithListBubble) {
+        	collisionHandler.onCollision(bubble, collidesWith);
         }
 
         for (GameObject gameObject : objectList) {

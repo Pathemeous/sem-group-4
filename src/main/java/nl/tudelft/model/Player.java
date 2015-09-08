@@ -7,16 +7,14 @@ import org.newdawn.slick.SlickException;
 
 public class Player extends GameObject {
 
-	private final Input input;
-	
-
-	public Player(Image image, int locX, int locY, Input input) {
+	public Player(Image image, int locX, int locY) {
 		super(image, locX, locY);
-		this.input = input;
 	}
 
 	@Override
 	public void update(GameContainer container, int delta) throws SlickException {
+		Input input = container.getInput();
+		
 		if(input.isKeyDown(Input.KEY_LEFT)) {
 			setImage(new Image("src/main/resources/img/player_left.png"));
 			setLocX((int) (getBounds().getX() - 4));

@@ -6,28 +6,44 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class Bubble extends GameObject {
-    private GameContainer gc;
-    private int counter;
-    private int size;
-    private int speed;
 
-
-
-    public Bubble(Image image, int x, int y, int size) {
+	private int verticalSpeed;
+	private int horizontalSpeed;
+	
+    public Bubble(Image image, int x, int y) {
         super(image,x,y);
-        this.size = size;
-        this.counter=0;
+        verticalSpeed = 50;
+        horizontalSpeed = 4;
     }
 
-    @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
-        super.render(container, g);
-    }
-
-    @Override
-    public void update(GameContainer container, int delta) {
-        this.locY = getImage().getWidth() * speed * Math.abs((int)((Math.sin(counter)*100)));
-        counter++;
-    }
-
+	@Override
+	public void update(GameContainer container, int delta)
+			throws SlickException {
+		move();
+	}
+	
+	private void move() {
+		int x = getLocX();
+		int y = getLocY();
+		
+		setLocX( x + horizontalSpeed);
+		setLocY( y - verticalSpeed);
+		verticalSpeed -= 2;
+	}
+	
+	public int getVerticalSpeed() {
+		return verticalSpeed;
+	}
+	
+	public int getHorizontalSpeed() {
+		return horizontalSpeed;
+	}
+	
+	public void setVerticalSpeed(int newSpeed) {
+		verticalSpeed = newSpeed;
+	}
+	
+	public void setHorizontalSpeed(int newSpeed) {
+		horizontalSpeed = newSpeed;
+	}
 }
