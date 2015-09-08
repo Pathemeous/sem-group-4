@@ -10,20 +10,19 @@ public class Weapon {
 
     private ArrayList<Projectile> projectiles;
     private Image img;
-    private LinkedList<GameObject> obj, del;
+    private LinkedList<GameObject> obj, del, add;
 
-    public Weapon(Image image, LinkedList<GameObject> objectList, LinkedList<GameObject> toDel) {
+    public Weapon(Image image, LinkedList<GameObject> objectList, LinkedList<GameObject> toDel, LinkedList<GameObject> toAdd) {
         img = image;
         obj = objectList;
         del = toDel;
+        add = toAdd;
         projectiles = new ArrayList<Projectile>();
     }
 
     public void fire(int locX, int locY, int width) {
         if(projectiles.isEmpty()) {
-            projectiles.add(new Projectile(img, locX, locY, width, 6, this));
-            obj.add(projectiles.get(0));
-            projectiles.get(0).fire();
+            add.add(new Projectile(img,locX,locY,width,6,this));
         }
     }
 

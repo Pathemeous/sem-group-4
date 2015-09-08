@@ -41,9 +41,5 @@ public class Player extends GameObject {
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			setImage(imageStill);
 		}
-		// updating weapon and its projectiles
-		for (Projectile projectile : weapon.getAL()) {
-			projectile.update(container, delta);
-		}
 	}
 }

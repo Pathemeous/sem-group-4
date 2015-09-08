@@ -18,8 +18,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
 
 public class GameState extends BasicGameState {
-    LinkedList<GameObject> objectList;
-    LinkedList<GameObject> toDelete;
+    LinkedList<GameObject> objectList, toDelete, toAdd;
     Input input = new Input(0);
     Weapon weapon;
 
@@ -36,6 +35,7 @@ public class GameState extends BasicGameState {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
         toDelete = new LinkedList<>();
+        toAdd = new LinkedList<>();
 
         {
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
@@ -51,7 +51,7 @@ public class GameState extends BasicGameState {
         }
 
         // todo input
-        weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete);
+        weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete, toAdd);
         objectList.add( new Player(
                 Resources.playerImageStill.copy(),
                 Resources.playerImageLeft.copy(),
@@ -79,13 +79,24 @@ public class GameState extends BasicGameState {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
+
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
+        }
+
+        for (GameObject gameObject : toAdd) {
+            objectList.add(gameObject);
+            if(gameObject instanceof Projectile) {
+                Projectile proj = (Projectile)gameObject;
+                proj.fire();
+                weapon.getAL().add(proj);
+            }
         }
         for (GameObject gameObject : toDelete) {
             if(objectList.contains(gameObject)) objectList.remove(gameObject);
             if(weapon.getAL().contains(gameObject)) weapon.getAL().remove(gameObject);
         }
+        toAdd.clear();
         toDelete.clear();
     }
         
