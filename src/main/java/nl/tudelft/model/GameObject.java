@@ -20,6 +20,11 @@ public abstract class GameObject {
 	}
 
     public void render(GameContainer container, Graphics g) throws SlickException {
+        if(this instanceof Player) {
+            Player tmp = (Player)this;
+            g.drawAnimation(tmp.getAnimation(), locX, locY);
+            return;
+        }
         g.drawImage(getImage(), locX, locY);
     }
 

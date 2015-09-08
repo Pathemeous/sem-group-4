@@ -54,9 +54,11 @@ public class GameState extends BasicGameState {
         weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete, toAdd);
         objectList.add( new Player(
                 Resources.playerImageStill.copy(),
-                Resources.playerImageLeft.copy(),
-                Resources.playerImageRight.copy(),
-        		container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input, weapon));
+                Resources.playerStill.copy(),
+                Resources.playerWalkLeft.copy(),
+                Resources.playerWalkRight.copy(),
+        		container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
+                input, weapon));
     }
     
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {

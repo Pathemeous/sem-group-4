@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -20,7 +21,13 @@ public class Resources {
 
     public static Image playerImageStill;
     public static Image playerImageLeft;
+    public static Image playerImageLeft2;
     public static Image playerImageRight;
+    public static Image playerImageRight2;
+
+    public static Animation playerWalkLeft;
+    public static Animation playerWalkRight;
+    public static Animation playerStill;
 
 
     /**
@@ -38,12 +45,23 @@ public class Resources {
 
         playerImageStill =  new Image("src/main/resources/img/player_still.png");
         playerImageLeft =  new Image("src/main/resources/img/player_left.png");
+        playerImageLeft2 = new Image("src/main/resources/img/player_left_1.png");
         playerImageRight =  new Image("src/main/resources/img/player_right.png");
+        playerImageRight2 = new Image("src/main/resources/img/player_right_1.png");
 
         titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
 
         weaponImage = new Image("src/main/resources/img/arrow.png");
+
+        playerStill = new Animation();
+        playerStill.addFrame(playerImageStill, 1);
+        playerWalkLeft = new Animation();
+        playerWalkLeft.addFrame(playerImageLeft, 4);
+        playerWalkLeft.addFrame(playerImageLeft2, 4);
+        playerWalkRight = new Animation();
+        playerWalkRight.addFrame(playerImageRight, 4);
+        playerWalkRight.addFrame(playerImageRight2, 4);
 
     }
 
