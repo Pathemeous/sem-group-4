@@ -7,21 +7,20 @@ import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 
-import org.lwjgl.LWJGLUtil;
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.*;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-import java.io.File;
 import java.util.LinkedList;
-import java.util.List;
+
 
 public class GameState extends BasicGameState {
     Image weapon;
     Image background;     
     LinkedList<GameObject> objectList;
-    Input input = new Input(0);
+    Input input;
+    boolean paused;
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
    
@@ -35,6 +34,7 @@ public class GameState extends BasicGameState {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
+        input = container.getInput();
         background = new Image("src/main/resources/img/level1.jpg");
         Image playerImage =  new Image("src/main/resources/img/player_still.png");
         playerImage = playerImage.getScaledCopy(2);
@@ -82,7 +82,14 @@ public class GameState extends BasicGameState {
 
     }
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
-        // collision
+        
+    	if (input.isKeyPressed(Input.KEY_ESCAPE)) { 
+			input.disableKeyRepeat();
+			System.out.println("PAUSED");
+			paused = !paused;
+		}
+		if(!paused) {
+			// collision 
         for (GameObject collidesWithA : objectList) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, objectList)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
@@ -91,9 +98,10 @@ public class GameState extends BasicGameState {
 
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
-        }
+        	}       
+		}
         
-    }
+   }
         
 
     /**
