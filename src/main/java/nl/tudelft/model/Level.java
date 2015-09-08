@@ -58,9 +58,9 @@ public class Level implements Updateable {
     /**
      * Checks whether the level has failed.
      * 
-     * A level has failed when a) the timer runs out; b) a player collides with a bubble.
+     * <p>A level has failed when a) the timer runs out; b) a player collides with a bubble.</p>
      * 
-     * @return
+     * @return boolean - true if the timer hits zero or below.
      */
     public boolean hasFailed() {
         return this.time <= 0;
