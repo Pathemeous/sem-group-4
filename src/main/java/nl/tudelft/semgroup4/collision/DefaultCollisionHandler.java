@@ -5,9 +5,7 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
-import nl.tudelft.model.Wall.WallType;
 
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 
@@ -44,10 +42,16 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
                 projectileWallHandler.onCollision((Projectile)objA, (Wall)objB);
             }
         }
+        
+        if (objA instanceof Projectile) {
+        	if (objB instanceof Bubble) {
+        		
+        	}
+        }
     }
 
     private final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
-        System.out.println("Player <-> wall collision");
+        //System.out.println("Player <-> wall collision");
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -59,11 +63,14 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
     
     private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (bubble, wall) -> {
-    	int offset = 5;
+    	float offset = bubble.getMaxMovement();
+    	System.out.println("Offset: "+offset);
+    	System.out.println("Wall 	("+wall.getLocX() + ", "+wall.getLocY()+"), Width: "+wall.getBounds().getWidth() + ", Height: "+wall.getBounds().getHeight());
+    	System.out.println("Ball	("+bubble.getLocX() + ", "+bubble.getLocY()+"), Width: "+bubble.getBounds().getWidth());
     	
     	// left collision
     	if (wall.getLocX() < bubble.getLocX() && (wall.getLocX()+wall.getBounds().getWidth()-offset) <= bubble.getLocX() ) {
-    		System.out.println("LEft collision");
+    		System.out.println("Left collision");
     		bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
     	} // top collision
     	else if (wall.getLocY() < bubble.getLocY() && (wall.getLocY()+wall.getBounds().getHeight()-offset) <= bubble.getLocY()) {
@@ -78,17 +85,18 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     		System.out.println("Right collision");
     		bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
     	}
+    	System.out.println();
     };
 
     final CollisionHandler<Player, Bubble> playerBubbleHandler = (player, bubble) -> {
-        System.out.println("Player <-> bubble collision");
+        //System.out.println("Player <-> bubble collision");
 
         // TODO: Add code to reset the level.
         player.removeLife();
     };
     
     final CollisionHandler<Projectile, Wall> projectileWallHandler = (projectile, wall) -> {
-        System.out.println("Projectile <-> wall collision");
+        //System.out.println("Projectile <-> wall collision");
         final Shape projectileRect = projectile.getBounds();
         final Shape wallRect = wall.getBounds();
 

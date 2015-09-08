@@ -8,7 +8,6 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
-import nl.tudelft.model.Wall.WallType;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
@@ -45,20 +44,46 @@ public class GameState extends BasicGameState {
 
         {
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
-                objectList.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight(), WallType.VERTICAL_WALL));
-                objectList.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth(), i * Resources.vwallImage.getHeight(), WallType.VERTICAL_WALL));
+                objectList.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
+                objectList.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth()
+                		, i * Resources.vwallImage.getHeight()));
             }
 
             // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
             for (int i = 0; i * Resources.wallImage.getHeight() < container.getWidth(); i++) {
-                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0, WallType.HORIZONTAL_WALL));
-                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), container.getHeight() - Resources.wallImage.getHeight(), WallType.HORIZONTAL_WALL));
+                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
+                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 
+                		container.getHeight() - Resources.wallImage.getHeight()));
             }
+            
+            //objectList.add(new Wall(Resources.wallImage, 400, 400));
         }
         
-        Image bubbleImage = new Image("src/main/resources/img/rball6.png");
-        objectList.add(new Bubble(bubbleImage.copy(), Resources.vwallImage.getWidth() + 100, container.getHeight() - Resources.wallImage.getHeight() - bubbleImage.getWidth() -200));
+        Image bubbleImage6 = new Image("src/main/resources/img/rball6.png");
+        objectList.add(new Bubble(bubbleImage6.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() - 400, 6));
 
+        Image bubbleImage5 = new Image("src/main/resources/img/rball5.png");
+        objectList.add(new Bubble(bubbleImage5.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 5));
+        
+        Image bubbleImage4 = new Image("src/main/resources/img/rball4.png");
+        objectList.add(new Bubble(bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 4));
+        
+        Image bubbleImage3 = new Image("src/main/resources/img/yball3.png");
+        objectList.add(new Bubble(bubbleImage3.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 3));
+        
+        Image bubbleImage2 = new Image("src/main/resources/img/yball2.png");
+        objectList.add(new Bubble(bubbleImage2.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 2));
+        
+        Image bubbleImage1 = new Image("src/main/resources/img/yball1.png");
+        objectList.add(new Bubble(bubbleImage1.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 1));
+        
+        
         // todo input
         weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete, toAdd);
         objectList.add( new Player(

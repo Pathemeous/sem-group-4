@@ -14,12 +14,35 @@ public class Bubble extends GameObject {
 	private float maxVerticalSpeed;
 	private float gravity;
 	
-    public Bubble(Image image, float x, float y) {
+    public Bubble(Image image, float x, float y, int size) {
         super(image,x,y);
-        verticalSpeed = 4.0f;
-        maxVerticalSpeed = 10.0f;
+        verticalSpeed = 0.0f;
+        //maxVerticalSpeed = 10.0f;
         horizontalSpeed = 2.0f;
         gravity = 0.1f;
+        
+        switch(size) {
+        case 6: 
+        	maxVerticalSpeed = 10.0f; 
+        	break;
+        case 5: 
+        	maxVerticalSpeed = 9.0f; 
+        	break;
+        case 4: 
+        	maxVerticalSpeed = 8.0f; 
+        	break;
+        case 3: 
+        	maxVerticalSpeed = 7.0f; 
+        	break;
+        case 2: 
+        	maxVerticalSpeed = 6.0f; 
+        	break;
+        case 1: 
+        	maxVerticalSpeed = 5.0f; 
+        	break;
+        default: 
+        	maxVerticalSpeed = 0.0f; 
+        }
     }
 
 	@Override
@@ -67,6 +90,13 @@ public class Bubble extends GameObject {
 	
 	public void setHorizontalSpeed(float newSpeed) {
 		horizontalSpeed = newSpeed;
+	}
+	
+	public float getMaxMovement() {
+		if(horizontalSpeed > maxVerticalSpeed) {
+			return horizontalSpeed;
+		} 
+		return maxVerticalSpeed;
 	}
 	
 	@Override
