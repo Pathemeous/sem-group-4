@@ -45,7 +45,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         
         if (objA instanceof Projectile) {
         	if (objB instanceof Bubble) {
-        		
+        		projectileBubbleHandler.onCollision((Projectile)objA, (Bubble)objB);
         	}
         }
     }
@@ -82,11 +82,10 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     		//System.out.println("Right collision");
     		bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
     	}
-    	System.out.println();
     };
 
     final CollisionHandler<Player, Bubble> playerBubbleHandler = (player, bubble) -> {
-        //System.out.println("Player <-> bubble collision");
+        System.out.println("Player <-> bubble collision");
 
         // TODO: Add code to reset the level.
         player.removeLife();
@@ -100,6 +99,11 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         if (wallRect.getY() < projectileRect.getY()) {
             projectile.reset();
         }
+    };
+    
+    final CollisionHandler<Projectile, Bubble> projectileBubbleHandler = (projectile, bubble) -> {
+    	System.out.println("Projectile <-> Bubble collision");
+    	projectile.reset();
     };
 
 }

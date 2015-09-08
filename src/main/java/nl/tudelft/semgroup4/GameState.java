@@ -59,29 +59,23 @@ public class GameState extends BasicGameState {
             //objectList.add(new Wall(Resources.wallImage, 1000, 400));
         }
         
-        Image bubbleImage6 = new Image("src/main/resources/img/rball6.png");
-        objectList.add(new Bubble(bubbleImage6.copy(), Resources.vwallImage.getWidth() + 300, 
-        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() - 400, 6));
+        objectList.add(new Bubble(Resources.bubbleImage6.copy(), Resources.vwallImage.getWidth() + 100, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() - 400, 6));
 
-        Image bubbleImage5 = new Image("src/main/resources/img/rball5.png");
-        objectList.add(new Bubble(bubbleImage5.copy(), Resources.vwallImage.getWidth() + 300, 
-        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 5));
+        objectList.add(new Bubble(Resources.bubbleImage5.copy(), Resources.vwallImage.getWidth() + 200, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 5));
         
-        Image bubbleImage4 = new Image("src/main/resources/img/rball4.png");
-        objectList.add(new Bubble(bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
-        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 4));
+        objectList.add(new Bubble(Resources.bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4));
         
-        Image bubbleImage3 = new Image("src/main/resources/img/yball3.png");
-        objectList.add(new Bubble(bubbleImage3.copy(), Resources.vwallImage.getWidth() + 300, 
-        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 3));
+        objectList.add(new Bubble(Resources.bubbleImage3.copy(), Resources.vwallImage.getWidth() + 400, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 3));
         
-        Image bubbleImage2 = new Image("src/main/resources/img/yball2.png");
-        objectList.add(new Bubble(bubbleImage2.copy(), Resources.vwallImage.getWidth() + 300, 
-        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 2));
-        
-        Image bubbleImage1 = new Image("src/main/resources/img/yball1.png");
-        objectList.add(new Bubble(bubbleImage1.copy(), Resources.vwallImage.getWidth() + 300, 
-        		container.getHeight() - Resources.wallImage.getHeight() - bubbleImage6.getWidth() -400, 1));
+        objectList.add(new Bubble(Resources.bubbleImage2.copy(), Resources.vwallImage.getWidth() + 500, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 2));
+          
+        objectList.add(new Bubble(Resources.bubbleImage1.copy(), Resources.vwallImage.getWidth() + 600, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 1));
         
         
         // todo input

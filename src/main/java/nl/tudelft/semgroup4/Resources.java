@@ -21,6 +21,13 @@ public class Resources {
     public static Image playerImageStill;
     public static Image playerImageLeft;
     public static Image playerImageRight;
+    
+    public static Image bubbleImage1;
+    public static Image bubbleImage2;
+    public static Image bubbleImage3;
+    public static Image bubbleImage4;
+    public static Image bubbleImage5;
+    public static Image bubbleImage6;
 
 
     /**
@@ -44,6 +51,13 @@ public class Resources {
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
 
         weaponImage = new Image("src/main/resources/img/arrow.png");
+        
+        bubbleImage1 = new Image("src/main/resources/img/yball1.png");
+        bubbleImage2 = new Image("src/main/resources/img/yball2.png");
+        bubbleImage3 = new Image("src/main/resources/img/yball3.png");
+        bubbleImage4 = new Image("src/main/resources/img/rball4.png");
+        bubbleImage5 = new Image("src/main/resources/img/rball5.png");
+        bubbleImage6 = new Image("src/main/resources/img/rball6.png");
 
     }
 
