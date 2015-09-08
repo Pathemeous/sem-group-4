@@ -79,7 +79,7 @@ public class GameState extends BasicGameState {
 
     }
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
-        
+        //checks if the escape key is pressed, if so, the gameState pauses 
     	if (input.isKeyPressed(Input.KEY_ESCAPE)) { 
 			input.disableKeyRepeat();
 			paused = !paused;
