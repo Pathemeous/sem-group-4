@@ -13,7 +13,6 @@ public class Game implements Updateable {
     private ArrayList<Player> players;
     private Level curLevel;
     private int prevLives = 0;
-    private int curLives;
     
     /**
      * Creates a Game with its levels and players.
@@ -32,8 +31,7 @@ public class Game implements Updateable {
         if (!this.levelIt.hasNext() || this.players.isEmpty()) {
             throw new IllegalArgumentException();
         }
-        this.curLevel = this.levelIt.next();
-        this.curLives = this.getPlayerLives();        
+        this.curLevel = this.levelIt.next();      
     }
     
     /**
@@ -44,10 +42,42 @@ public class Game implements Updateable {
         this.curLevel = level;
     }
     
+    /**
+     * Returns the current level.
+     * @return Level - the current level.
+     */
+    private Level getCurLevel() {
+        return this.curLevel;
+    }
+    
+    /**
+     * Sets the previous lives
+     * @param amount - the amount of lives
+     */
+    private void setPrevLives(int amount) {
+        this.prevLives = amount;
+    }
+    
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        // TODO Auto-generated method stub
-        
+           if (playerDied()) {
+               levelReset();
+           }
+    }
+    
+    /**
+     * Checks whether a player has died since the last check.
+     * This method is used by the {@link Game#update(GameContainer, int)} method
+     * @return boolean true iff a player has died since this method was last called.
+     */
+    private boolean playerDied() {
+        int curLives = getPlayerLives();
+        if (curLives < prevLives) {
+            setPrevLives(curLives);
+            return true;
+        }
+        setPrevLives(curLives);
+        return false;
     }
     
     /**
@@ -61,11 +91,29 @@ public class Game implements Updateable {
     private int getPlayerLives() {
         int result = 0;
         for (Player player : players) {
-            // TODO: add player.getLives() method.
+            result += player.getLives();
         }
         return result;
     }
     
+    /**
+     * Resets the current level if the players have lives left,
+     * ends the game if they do not.
+     */
+    private void levelReset() {
+        if (getPlayerLives() > 0) {
+            // TODO Implement level.reset();
+            //getCurLevel().reset();
+        } else {
+            gameOver();
+        }
+    }
+    
+    /**
+     * Tries to set the next level as the current level.
+     * If there is no next level, the game is completed and 
+     * {@link gameCompleted()} is called.
+     */
     public void levelCompleted() {
         if (levelIt.hasNext()) {
             setCurLevel(levelIt.next());
@@ -74,10 +122,18 @@ public class Game implements Updateable {
         }
     }
     
+    /**
+     * The game has been completed
+     */
     private void gameCompleted() {
         // TODO
     }
     
+    /**
+     * The game has been lost.
+     * 
+     * This happens when the players run out of lives.
+     */
     public void gameOver() {
         // TODO
     }
