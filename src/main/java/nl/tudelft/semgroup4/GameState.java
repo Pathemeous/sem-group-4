@@ -63,10 +63,6 @@ public class GameState extends BasicGameState {
 
         g.drawImage(Resources.backgroundImage, 0,0, container.getWidth(), container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(), Resources.backgroundImage.getHeight());
 
-        for (GameObject projectile : weapon.getAL()) {
-            projectile.render(container, g);
-        }
-
         for (GameObject gameObject : objectList) {
             gameObject.render(container, g);
         }

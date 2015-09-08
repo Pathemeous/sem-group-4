@@ -6,8 +6,7 @@ import org.newdawn.slick.SlickException;
 
 public class Projectile extends GameObject {
 
-    private boolean top, hit, fired;
-    private int counter, speed, width;
+    private int speed, width;
     private Weapon wp;
 
     /**
@@ -26,10 +25,6 @@ public class Projectile extends GameObject {
      */
     public Projectile(Image image, int x, int y, int width, int speed, Weapon wp) {
         super(image, x, y);
-        counter = 0;
-        hit = false;
-        top = false;
-        fired = false;
         this.speed = speed;
         this.width = width;
         this.wp = wp;
@@ -52,21 +47,6 @@ public class Projectile extends GameObject {
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        if (this.top && counter <= 90) {
-            counter++;
-        }
-        //If the projectile has been fired but has hasn't hit the top nor has it been hit
-        else {
-            //If the projectile would hit or exceed the top this tick
-            if (this.locY - speed <= 0) {
-                //Set the location to the top of the screen and set the boolean top to true
-                this.setLocY(0);
-                this.top = true;
-            }
-            //Else move the projectile up "speed" pixels
-            else {
-                this.locY -= speed;
-            }
-        }
+        this.locY -= speed;
     }
 }
