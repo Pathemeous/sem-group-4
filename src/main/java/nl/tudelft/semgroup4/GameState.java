@@ -19,6 +19,7 @@ import java.util.LinkedList;
 
 public class GameState extends BasicGameState {
     LinkedList<GameObject> objectList;
+    LinkedList<GameObject> toDelete;
     Input input = new Input(0);
     Weapon weapon;
 
@@ -34,6 +35,7 @@ public class GameState extends BasicGameState {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
+        toDelete = new LinkedList<>();
 
         {
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
@@ -49,7 +51,7 @@ public class GameState extends BasicGameState {
         }
 
         // todo input
-        weapon = new Weapon(Resources.weaponImage.copy(), objectList);
+        weapon = new Weapon(Resources.weaponImage.copy(), objectList, toDelete);
         objectList.add( new Player(
                 Resources.playerImageStill.copy(),
                 Resources.playerImageLeft.copy(),
@@ -80,7 +82,11 @@ public class GameState extends BasicGameState {
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
         }
-        
+        for (GameObject gameObject : toDelete) {
+            if(objectList.contains(gameObject)) objectList.remove(gameObject);
+            if(weapon.getAL().contains(gameObject)) weapon.getAL().remove(gameObject);
+        }
+        toDelete.clear();
     }
         
 
