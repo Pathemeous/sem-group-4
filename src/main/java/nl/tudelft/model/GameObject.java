@@ -7,7 +7,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
-public abstract class GameObject {
+public abstract class GameObject implements Updateable, Renderable {
 
     protected int locX;
 	protected int locY;
@@ -19,10 +19,12 @@ public abstract class GameObject {
 		this.locY = y;
 	}
 
+	@Override
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.drawImage(getImage(), locX, locY);
     }
 
+    @Override
     public abstract void update(GameContainer container, int delta) throws SlickException;
 
     /**
