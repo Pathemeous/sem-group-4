@@ -10,6 +10,7 @@ public class Player extends GameObject {
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;
     private int lives = 3;
+    private int counter = 0;
     private final Input input;
 
     private Weapon weapon;
@@ -57,13 +58,14 @@ public class Player extends GameObject {
             setImage(imageRight);
             setLocX((int) (getBounds().getX() + 4));
         }
-        if (input.isKeyDown(Input.KEY_SPACE)) {
-            input.disableKeyRepeat();
+        if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
+            counter++;
             weapon.fire((int)this.locX, (int)this.locY, this.getWidth());
         }
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
             setImage(imageStill);
         }
+        counter = (counter <= 60 && counter != 0) ? counter+1 : (counter > 60) ? 0 : counter;
     }
 
     /**
