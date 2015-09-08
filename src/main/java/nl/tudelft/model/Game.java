@@ -12,6 +12,10 @@ public class Game implements Updateable {
     private int prevLives;
     private int curLives;
     
+    public Game(ArrayList<Level> levels) {
+        this.levels = levels;
+    }
+    
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         // TODO Auto-generated method stub
