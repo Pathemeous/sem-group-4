@@ -84,7 +84,6 @@ public class App extends BasicGame {
                 playerImageRight.copy(),
                 container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - wallImageHorizontal.getWidth(), input, weapon);
         objectList.add(player);
-        weapon.setPlayer(player);
     }
 
     @Override

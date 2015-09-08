@@ -36,7 +36,7 @@ public class Player extends GameObject {
             setLocX((int) (getBounds().getX() + 4));
 		}
 		if(input.isKeyDown(Input.KEY_SPACE)) {
-			weapon.fire(0);
+			weapon.fire(this.locX, this.locY, this.getWidth());
 		}
 		if(!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))){
 			setImage(imageStill);

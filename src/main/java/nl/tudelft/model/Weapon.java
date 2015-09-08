@@ -8,27 +8,21 @@ public class Weapon {
 
     private ArrayList<Projectile> projectiles;
     private Image img;
-    private Player player;
 
     public Weapon(Image image) {
         img = image;
         projectiles = new ArrayList<Projectile>();
-        this.player = null;
     }
 
-    public void fire(int delta) {
+    public void fire(int locX, int locY, int width) {
         if(projectiles.isEmpty()) {
-            projectiles.add(new Projectile(img, player.locX, player.locY, player.getWidth(), 6, player.getWeapon()));
+            projectiles.add(new Projectile(img, locX, locY, width, 6, this));
             projectiles.get(0).fire();
         }
     }
 
     public void remove(Projectile proj) {
         if(projectiles.contains(proj)) projectiles.remove(proj);
-    }
-
-    public void setPlayer(Player p) {
-        this.player = p;
     }
 
     public ArrayList<Projectile> getAL() {
