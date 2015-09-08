@@ -58,7 +58,6 @@ public class Resources {
         bubbleImage4 = new Image("src/main/resources/img/rball4.png");
         bubbleImage5 = new Image("src/main/resources/img/rball5.png");
         bubbleImage6 = new Image("src/main/resources/img/rball6.png");
-
     }
 
 }

@@ -1,6 +1,7 @@
 package nl.tudelft.semgroup4.collision;
 
 import nl.tudelft.model.Bubble;
+import nl.tudelft.model.BubbleManager;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
@@ -19,22 +20,22 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
     @Override
     public void onCollision(GameObject objA, GameObject objB) {
-        if (objA instanceof Player) {
-            if (objB instanceof Wall) {
-                playerWallHandler.onCollision((Player)objA, (Wall)objB);
-            }
-        }
-        
         if (objA instanceof Bubble) {
         	if (objB instanceof Wall) {
         		bubbleWallHandler.onCollision((Bubble)objA, (Wall)objB);
         	}
         }
 
-        if (objA instanceof Player) {
-            if (objB instanceof Bubble) {
-                playerBubbleHandler.onCollision((Player)objA, (Bubble)objB);
+        if (objA instanceof Bubble) {
+            if (objB instanceof Player) {
+                playerBubbleHandler.onCollision((Bubble)objA, (Player)objB);
             }
+        }
+        
+        if (objA instanceof Bubble) {
+        	if (objB instanceof Projectile) {
+        		projectileBubbleHandler.onCollision((Bubble)objA, (Projectile)objB);
+        	}
         }
 
         if (objA instanceof Projectile) {
@@ -43,10 +44,10 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
             }
         }
         
-        if (objA instanceof Projectile) {
-        	if (objB instanceof Bubble) {
-        		projectileBubbleHandler.onCollision((Projectile)objA, (Bubble)objB);
-        	}
+        if (objA instanceof Player) {
+            if (objB instanceof Wall) {
+                playerWallHandler.onCollision((Player)objA, (Wall)objB);
+            }
         }
     }
 
@@ -84,8 +85,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     	}
     };
 
-    final CollisionHandler<Player, Bubble> playerBubbleHandler = (player, bubble) -> {
-        System.out.println("Player <-> bubble collision");
+    final CollisionHandler<Bubble, Player> playerBubbleHandler = (bubble, player) -> {
+        //System.out.println("Player <-> bubble collision");
 
         // TODO: Add code to reset the level.
         player.removeLife();
@@ -101,9 +102,17 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         }
     };
     
-    final CollisionHandler<Projectile, Bubble> projectileBubbleHandler = (projectile, bubble) -> {
+    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (bubble, projectile) -> {
     	System.out.println("Projectile <-> Bubble collision");
     	projectile.reset();
+    	
+    	BubbleManager manager = bubble.getBubbleManager();
+    	manager.remove(bubble);
+    	
+    	if(bubble.getSize() > 1) {
+    		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
+    		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
+    	}
     };
 
 }
