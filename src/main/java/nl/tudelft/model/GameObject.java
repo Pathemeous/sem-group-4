@@ -53,4 +53,12 @@ public abstract class GameObject {
                 getImage().getWidth(), getImage().getHeight());
 	}
 
+    public int getWidth() {
+        return this.getImage().getWidth();
+    }
+
+    public int getHeight() {
+        return this.getImage().getHeight();
+    }
+
 }
