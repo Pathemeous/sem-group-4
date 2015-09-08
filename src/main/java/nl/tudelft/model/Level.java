@@ -45,7 +45,12 @@ public class Level {
 	 * @return true iff there are no bubbles remaining in this level.
 	 */
 	public boolean isCompleted() {
-		return this.bubbles.isEmpty();
+		for (GameObject ob : this.objs) {
+		    if (ob instanceof Bubble) {
+		        return false;
+		    }
+		}
+		return true;
 	}
 	
 	/**
