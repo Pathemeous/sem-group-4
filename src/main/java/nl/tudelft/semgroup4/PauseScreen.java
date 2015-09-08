@@ -1,0 +1,34 @@
+package nl.tudelft.semgroup4;
+
+import org.newdawn.slick.Color;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.state.StateBasedGame;
+
+public class PauseScreen {
+	private MouseOverArea mouseOver;
+	private Image pauseText = Resources.pauseText;
+	private Image quitText = Resources.quitText;
+	
+	public PauseScreen(MouseOverArea mouseOver) {		
+		this.mouseOver = mouseOver;		
+	}	
+
+	public void show(Graphics g, GameContainer container, Input input, StateBasedGame game, GameState gameState) {
+		g.setColor(Color.yellow);
+		g.setAntiAlias(true);
+		
+		g.drawImage(pauseText, container.getWidth() / 2 - pauseText.getWidth() / 2, container.getHeight() / 3);
+		g.drawImage(quitText, container.getWidth() / 2 - quitText.getWidth() / 2, container.getHeight() / 2);
+		
+		if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+			if(mouseOver.isMouseOver()) {
+				gameState.paused = false;
+				game.enterState(0);
+			}
+		}
+	}
+}

@@ -20,6 +20,9 @@ public class Resources {
     public static Image playerImageStill;
     public static Image playerImageLeft;
     public static Image playerImageRight;
+    
+    public static Image quitText;
+    public static Image pauseText;
 
 
     /**
@@ -41,6 +44,9 @@ public class Resources {
 
         titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
+        
+        pauseText = new Image("src/main/resources/img/pausedText.png");
+        quitText = new Image("src/main/resources/img/quitText.png");
 
     }
 

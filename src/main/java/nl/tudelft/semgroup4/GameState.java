@@ -14,6 +14,8 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.command.MouseButtonControl;
+import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -24,7 +26,8 @@ public class GameState extends BasicGameState {
     LinkedList<GameObject> objectList;
     Input input;
     boolean paused;
-
+    PauseScreen pauseScreen;
+    MouseOverArea mouseOver;
     final CollisionHandler<GameObject, GameObject> collisionHandler;
    
 
@@ -37,8 +40,11 @@ public class GameState extends BasicGameState {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
-        input = container.getInput();
-
+        input = container.getInput();        
+        mouseOver = new MouseOverArea(container, Resources.quitText, container.getHeight()/2,
+        		container.getHeight() / 2, Resources.quitText.getWidth(), Resources.quitText.getHeight());
+        pauseScreen = new PauseScreen(mouseOver);
+        
         {
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
                 objectList.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
@@ -67,11 +73,8 @@ public class GameState extends BasicGameState {
         for (GameObject gameObject : objectList) {
             gameObject.render(container, g);
         }
-        if(paused) {
-        	g.setColor(Color.yellow);    
-        	g.scale(2, 2);
-        	g.setAntiAlias(true);
-        	g.drawString("PAUSED", container.getWidth() / 4, container.getHeight() / 4);
+        if(paused) {        	
+        	pauseScreen.show(g, container, input, game, this);
         }
 
     }
@@ -79,9 +82,9 @@ public class GameState extends BasicGameState {
         
     	if (input.isKeyPressed(Input.KEY_ESCAPE)) { 
 			input.disableKeyRepeat();
-			System.out.println("PAUSED");
 			paused = !paused;
 		}
+    	
 		if(!paused) {
 			// collision 
         for (GameObject collidesWithA : objectList) {
