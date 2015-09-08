@@ -36,6 +36,14 @@ public class Game implements Updateable {
         this.curLives = this.getPlayerLives();        
     }
     
+    /**
+     * Sets the current level.
+     * @param level Level object to set as the current level.
+     */
+    private void setCurLevel(Level level) {
+        this.curLevel = level;
+    }
+    
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         // TODO Auto-generated method stub
@@ -55,14 +63,18 @@ public class Game implements Updateable {
         for (Player player : players) {
             // TODO: add player.getLives() method.
         }
-    }
-    
-    private Level getNextLevel() {
-        // TODO
-        return new Level();
+        return result;
     }
     
     public void levelCompleted() {
+        if (levelIt.hasNext()) {
+            setCurLevel(levelIt.next());
+        } else {
+            gameCompleted();
+        }
+    }
+    
+    private void gameCompleted() {
         // TODO
     }
     
