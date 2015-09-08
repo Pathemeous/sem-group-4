@@ -50,8 +50,8 @@ public class GameState extends BasicGameState {
             }
         }
         
-        Image bubbleImage = new Image("src/main/resources/img/rball6.bmp");
-        objectList.add(new Bubble(bubbleImage.copy(), Resources.vwallImage.getWidth() + 300, container.getHeight() - Resources.wallImage.getWidth() - bubbleImage.getWidth() ));
+        Image bubbleImage = new Image("src/main/resources/img/rball6.png");
+        objectList.add(new Bubble(bubbleImage.copy(), Resources.vwallImage.getWidth() + 100, container.getHeight() - Resources.wallImage.getHeight() - bubbleImage.getWidth() -200));
 
         // todo input
         objectList.add( new Player(

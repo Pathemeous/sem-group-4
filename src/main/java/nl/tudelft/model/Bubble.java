@@ -9,13 +9,17 @@ import org.newdawn.slick.geom.Shape;
 
 public class Bubble extends GameObject {
 
-	private int verticalSpeed;
-	private int horizontalSpeed;
+	private float verticalSpeed;
+	private float horizontalSpeed;
+	private float maxVerticalSpeed;
+	private float gravity;
 	
-    public Bubble(Image image, int x, int y) {
+    public Bubble(Image image, float x, float y) {
         super(image,x,y);
-        verticalSpeed = 4;
-        horizontalSpeed = 4;
+        verticalSpeed = 4.0f;
+        maxVerticalSpeed = 10.0f;
+        horizontalSpeed = 2.0f;
+        gravity = 0.1f;
     }
 
 	@Override
@@ -25,43 +29,56 @@ public class Bubble extends GameObject {
 	}
 	
 	private void move() {
-		int x = getLocX();
-		int y = getLocY();
+		float x = getLocX();
+		float y = getLocY();
 		
-		//setLocX( x + horizontalSpeed);
-		setLocY( y - verticalSpeed);
-//		verticalSpeed -= 2;
+		float newX = 0;
+		
+//		if (Math.round(horizontalSpeed) == 0) {
+//			newX = x + 1;
+//		} else {
+//			newX = x + (int)Math.round(horizontalSpeed);
+//		}
+		newX = x + horizontalSpeed;
+		
+		float newY = 0;
+		newY = y - verticalSpeed;
+
+		setLocX( newX );
+		setLocY( newY );
+		verticalSpeed -= gravity;
 	}
 	
-	public int getVerticalSpeed() {
+	public float getVerticalSpeed() {
 		return verticalSpeed;
 	}
 	
-	public int getHorizontalSpeed() {
+	public float getHorizontalSpeed() {
 		return horizontalSpeed;
 	}
 	
-	public void setVerticalSpeed(int newSpeed) {
+	public float getMaxVerticalSpeed() {
+		return maxVerticalSpeed;
+	}
+	
+	public void setVerticalSpeed(float newSpeed) {
 		verticalSpeed = newSpeed;
 	}
 	
-	public void setHorizontalSpeed(int newSpeed) {
+	public void setHorizontalSpeed(float newSpeed) {
 		horizontalSpeed = newSpeed;
 	}
 	
-//	@Override
-//	public Shape getBounds() {
-//		int width = getImage().getWidth();
-//		int height = getImage().getHeight();
-//		int centerPointX = getLocX() + (int)(0.5*(double)width);
-//		int centerPointY = getLocY() + (int)(0.5*(double)height);
-//		float radius = (float)0.5*width;
-////		System.out.println("X: "+getLocX() + ", Y: "+getLocY() + ", width: "+width + ", height: "+height);
-////		System.out.println("Centerpoint X: "+centerPointX);
-////		System.out.println("Centerpoint Y: "+centerPointY);
-////		System.out.println("Radius: "+radius);
-//		
-//		return new Circle(centerPointX, centerPointY, radius);
-//	}
+	@Override
+	public Shape getBounds() {
+		int width = getImage().getWidth();
+		int height = getImage().getHeight();
+		
+		float centerPointX = getLocX() + 0.5f*width;
+		float centerPointY = getLocY() + 0.5f*height;
+		float radius = (float)0.5*width;
+		
+		return new Circle(centerPointX, centerPointY, radius);
+	}
 	
 }

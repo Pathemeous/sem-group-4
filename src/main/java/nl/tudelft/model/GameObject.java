@@ -9,11 +9,11 @@ import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObject {
 
-    protected int locX;
-	protected int locY;
+    protected float locX;
+	protected float locY;
     protected Image image;
 	
-	public GameObject(Image image, int x, int y) {
+	public GameObject(Image image, float x, float y) {
 		this.image = image;
 		this.locX = x;
 		this.locY = y;
@@ -39,18 +39,18 @@ public abstract class GameObject {
         this.image = image;
     }
 
-    public void setLocX(int locX) {
+    public void setLocX(float locX) {
         this.locX = locX;
     }
     
-    public int getLocX () {
+    public float getLocX () {
     	return locX;
     }
-    public int getLocY () {
+    public float getLocY () {
     	return locY;
     }
 
-    public void setLocY(int locY) {
+    public void setLocY(float locY) {
         this.locY = locY;
     }
 
