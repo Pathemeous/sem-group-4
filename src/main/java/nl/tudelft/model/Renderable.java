@@ -10,6 +10,6 @@ import org.newdawn.slick.SlickException;
  */
 /** package **/ interface Renderable {
     
-    public void render(GameContainer container, Graphics grapics) throws SlickException;
+    public void render(GameContainer container, Graphics graphics) throws SlickException;
 
 }
