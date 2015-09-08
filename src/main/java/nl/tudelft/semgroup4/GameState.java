@@ -8,6 +8,8 @@ import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -64,6 +66,12 @@ public class GameState extends BasicGameState {
 
         for (GameObject gameObject : objectList) {
             gameObject.render(container, g);
+        }
+        if(paused) {
+        	g.setColor(Color.yellow);    
+        	g.scale(2, 2);
+        	g.setAntiAlias(true);
+        	g.drawString("PAUSED", container.getWidth() / 4, container.getHeight() / 4);
         }
 
     }
