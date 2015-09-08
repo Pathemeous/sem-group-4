@@ -48,32 +48,24 @@ public class Projectile extends GameObject {
      */
     public void fire() {
         this.locX = (locX+(width / 2)) + 8;
-        this.fired = true;
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        if(fired) {
-            //If the projectile is either hit or it's at the top and the counter has reached 1.5 seconds
-            if (this.hit || (this.top && counter > 90)) {
-                reset();
+        if (this.top && counter <= 90) {
+            counter++;
+        }
+        //If the projectile has been fired but has hasn't hit the top nor has it been hit
+        else {
+            //If the projectile would hit or exceed the top this tick
+            if (this.locY - speed <= 0) {
+                //Set the location to the top of the screen and set the boolean top to true
+                this.setLocY(0);
+                this.top = true;
             }
-            //If the projectile is at the top but hasn't reached 1.5 seconds yet, increment the counter
-            else if (this.top && counter <= 90) {
-                counter++;
-            }
-            //If the projectile has been fired but has hasn't hit the top nor has it been hit
+            //Else move the projectile up "speed" pixels
             else {
-                //If the projectile would hit or exceed the top this tick
-                if (this.locY - speed <= 0) {
-                    //Set the location to the top of the screen and set the boolean top to true
-                    this.setLocY(0);
-                    this.top = true;
-                }
-                //Else move the projectile up "speed" pixels
-                else {
-                    this.locY -= speed;
-                }
+                this.locY -= speed;
             }
         }
     }

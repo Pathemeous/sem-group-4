@@ -76,7 +76,7 @@ public class App extends BasicGame {
         }
 
         // todo input
-        weapon = new Weapon(weaponImage.copy());
+        weapon = new Weapon(weaponImage.copy(), objectList);
         Player player = new Player(
                 playerImage.copy(),
                 playerImageLeft.copy(),
@@ -109,9 +109,6 @@ public class App extends BasicGame {
         }
         for (GameObject gameObject : objectList) {
             gameObject.update(container, delta);
-        }
-        for (Projectile projectile : weapon.getAL()) {
-            projectile.update(container, delta);
         }
     }
 
