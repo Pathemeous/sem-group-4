@@ -9,6 +9,7 @@ import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.BasicGameState;
@@ -16,13 +17,9 @@ import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.LinkedList;
 
-
 public class GameState extends BasicGameState {
-    Image background;
     LinkedList<GameObject> objectList;
     Input input = new Input(0);
-
-    Image weaponImage;
     Weapon weapon;
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
@@ -37,43 +34,32 @@ public class GameState extends BasicGameState {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         objectList = new LinkedList<>();
-        background = new Image("src/main/resources/img/level1.jpg");
-        weaponImage = new Image("src/main/resources/img/arrow.png");
-        Image playerImage =  new Image("src/main/resources/img/player_still.png");
-        Image playerImageRight =  new Image("src/main/resources/img/player_right.png");
-        Image playerImageLeft =  new Image("src/main/resources/img/player_left.png");
-        Image wallImageVertical = new Image("src/main/resources/img/wall2.JPG");
-        Image wallImageHorizontal = wallImageVertical.copy();
-//        wallImageHorizontal.setCenterOfRotation(wallImageHorizontal.getWidth() / 2, wallImageHorizontal.getHeight() / 2);
-        wallImageHorizontal.setCenterOfRotation(0, 0);
-        wallImageHorizontal.setRotation(-90);
 
         {
-            for (int i = 0; i * wallImageVertical.getHeight() < container.getHeight(); i++) {
-                objectList.add(new Wall(wallImageVertical, 0, i * wallImageVertical.getHeight()));
-                objectList.add(new Wall(wallImageVertical, container.getWidth() - wallImageVertical.getWidth(), i * wallImageVertical.getHeight()));
+            for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
+                objectList.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
+                objectList.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth(), i * Resources.vwallImage.getHeight()));
             }
 
             // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
-            for (int i = 0; i * wallImageHorizontal.getHeight() < container.getWidth(); i++) {
-                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), wallImageHorizontal.getWidth()));
-                objectList.add(new Wall(wallImageHorizontal, i * wallImageHorizontal.getHeight(), container.getHeight()));
+            for (int i = 0; i * Resources.wallImage.getHeight() < container.getWidth(); i++) {
+                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
+                objectList.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), container.getHeight() - Resources.wallImage.getHeight()));
             }
         }
 
         // todo input
-        weapon = new Weapon(weaponImage.copy(), objectList);
-        Player player = new Player(
-                playerImage.copy(),
-                playerImageLeft.copy(),
-                playerImageRight.copy(),
-                container.getWidth() / 2, container.getHeight() - playerImage.getHeight() - wallImageHorizontal.getWidth(), input, weapon);
-        objectList.add(player);
+        weapon = new Weapon(Resources.weaponImage.copy(), objectList);
+        objectList.add( new Player(
+                Resources.playerImageStill.copy(),
+                Resources.playerImageLeft.copy(),
+                Resources.playerImageRight.copy(),
+        		container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input, weapon));
     }
     
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
-        g.drawImage(background, 0,0, container.getWidth(), container.getHeight(), 0, 0, background.getWidth(), background.getHeight());
+        g.drawImage(Resources.backgroundImage, 0,0, container.getWidth(), container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(), Resources.backgroundImage.getHeight());
 
         for (GameObject projectile : weapon.getAL()) {
             projectile.render(container, g);

@@ -1,10 +1,11 @@
 package nl.tudelft.model;
 
+import nl.tudelft.semgroup4.util.SEMRectangle;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public abstract class GameObject {
 
@@ -46,8 +47,8 @@ public abstract class GameObject {
         this.locY = locY;
     }
 
-    public Rectangle getBounds(){
-		return new Rectangle(
+    public Shape getBounds() {
+		return new SEMRectangle(
                 locX, locY,
                 getImage().getWidth(), getImage().getHeight());
 	}

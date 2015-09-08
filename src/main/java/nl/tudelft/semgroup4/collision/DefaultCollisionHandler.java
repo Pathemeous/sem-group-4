@@ -4,7 +4,7 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
-import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 
 /**
@@ -31,8 +31,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
     final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
         System.out.println("Player <-> wall collision");
-        final Rectangle playerRect = player.getBounds();
-        final Rectangle wallRect = wall.getBounds();
+        final Shape playerRect = player.getBounds();
+        final Shape wallRect = wall.getBounds();
 
         if (wallRect.getX() < playerRect.getX()) {
             player.setLocX((int) (wallRect.getX() + wallRect.getWidth()));
@@ -43,8 +43,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
     final CollisionHandler<Projectile, Wall> projectileWallHandler = (projectile, wall) -> {
         System.out.println("Projectile <-> wall collision");
-        final Rectangle projectileRect = projectile.getBounds();
-        final Rectangle wallRect = wall.getBounds();
+        final Shape projectileRect = projectile.getBounds();
+        final Shape wallRect = wall.getBounds();
 
         if (wallRect.getY() < projectileRect.getY()) {
             projectile.reset();
