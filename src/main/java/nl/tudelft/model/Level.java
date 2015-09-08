@@ -2,7 +2,10 @@ package nl.tudelft.model;
 
 import java.util.ArrayList;
 
-public class Level {
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
+
+public class Level implements Updateable {
 
     private ArrayList<GameObject> objects;
     private double time;
@@ -61,6 +64,12 @@ public class Level {
      */
     public boolean hasFailed() {
         return this.time <= 0;
+    }
+
+    @Override
+    public void update(GameContainer container, int delta) throws SlickException {
+        // TODO Auto-generated method stub
+        
     }
 
 }
