@@ -64,6 +64,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
     
     private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (bubble, wall) -> {
+    	//System.out.println("Bubble wall collision!");
     	float offset = bubble.getMaxSpeed();
     	
     	// left collision
@@ -103,16 +104,20 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
     
     final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (bubble, projectile) -> {
-    	System.out.println("Projectile <-> Bubble collision");
+    	//System.out.println("Projectile <-> Bubble collision");
     	projectile.reset();
     	
     	BubbleManager manager = bubble.getBubbleManager();
-    	manager.remove(bubble);
-    	
-    	if(bubble.getSize() > 1) {
-    		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
-    		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
+    	if(!projectile.getHitBubble()) {
+    		projectile.setHitBubble(true);
+    		manager.remove(bubble);
+        	
+        	if(bubble.getSize() > 2) {
+        		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
+        		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
+        	}
     	}
+    	
     };
 
 }

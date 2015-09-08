@@ -13,12 +13,14 @@ import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -26,6 +28,7 @@ public class GameState extends BasicGameState {
     LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles;
     Input input = new Input(0);
     Weapon weapon;
+    QuadTree quad;
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
    
@@ -37,7 +40,8 @@ public class GameState extends BasicGameState {
     
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);     
+        quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
         walls = new LinkedList<>();
         projectiles = new LinkedList<>();
         players = new LinkedList<>();
@@ -92,34 +96,45 @@ public class GameState extends BasicGameState {
 
     }
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
+    	//LinkedList<GameObject> allObjects = new LinkedList<>();
+    	quad.clear();
+    	for (GameObject obj : walls) {
+    	  quad.insert(obj);
+    	}
+    	for (GameObject obj : bubbles) {
+      	  quad.insert(obj);
+      	}
+    	for (GameObject obj : projectiles) {
+      	  quad.insert(obj);
+      	}
+    	for (GameObject obj : players) {
+      	  quad.insert(obj);
+      	}
+    	
         // collision
         for (GameObject collidesWithA : bubbles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls)) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players)) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles)) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles, quad)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
         
         for (GameObject collidesWithA : projectiles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls)) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
         
         for (GameObject collidesWithA : players) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls)) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
-        
-        
-        
-        
         
 
         for (GameObject gameObject : players) {
