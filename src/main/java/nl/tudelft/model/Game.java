@@ -1,16 +1,17 @@
 package nl.tudelft.model;
 
-import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedList;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Game implements Updateable {
+public class Game implements Updateable, Renderable {
 
-    private ArrayList<Level> levels;
+    private LinkedList<Level> levels;
     private Iterator<Level> levelIt;
-    private ArrayList<Player> players;
+    private LinkedList<Player> players;
     private Level curLevel;
     private int prevLives = 0;
 
@@ -19,14 +20,14 @@ public class Game implements Updateable {
      * contain at least one object.
      * 
      * @param levels
-     *            ArrayList<Level> - List containing all levels that the game consists of.
+     *            LinkedList - List containing all levels that the game consists of.
      * @param players
-     *            ArrayList<Player> - List containing all players that take part in this game.
+     *            LinkedList - List containing all players that take part in this game.
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(ArrayList<Level> levels,
-            ArrayList<Player> players) throws IllegalArgumentException {
+    public Game(LinkedList<Level> levels,
+            LinkedList<Player> players) throws IllegalArgumentException {
         this.levels = levels;
         this.players = players;
 
@@ -36,6 +37,15 @@ public class Game implements Updateable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
+    }
+
+    @Override
+    public void render(GameContainer container, Graphics graphics) throws SlickException {
+        getCurLevel().render(container, graphics);
+
+        for (GameObject gameObject : players) {
+            gameObject.render(container, graphics);
+        }
     }
 
     /**
@@ -69,6 +79,10 @@ public class Game implements Updateable {
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
+        for (GameObject gameObject : players) {
+            gameObject.update(container, delta);
+        }
+        
         if (playerDied()) {
             levelReset();
         }

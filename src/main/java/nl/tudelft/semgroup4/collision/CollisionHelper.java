@@ -20,7 +20,7 @@ public class CollisionHelper {
      */
     public static List<GameObject> collideObjectWithList(
             GameObject objectA,
-            List<GameObject> objects) {
+            List<? extends GameObject> objects) {
 
         List<GameObject> out = new ArrayList<>();
 

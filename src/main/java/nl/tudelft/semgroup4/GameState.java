@@ -1,11 +1,14 @@
 package nl.tudelft.semgroup4;
 
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.BubbleManager;
+import nl.tudelft.model.Game;
 import nl.tudelft.model.GameObject;
+import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
@@ -23,9 +26,14 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles;
+    LinkedList<GameObject> toDelete, toAdd;
+    LinkedList<Wall> walls;
+    LinkedList<Bubble> bubbles;
+    LinkedList<Projectile> projectiles;
+    LinkedList<Player> players;
     Input input = new Input(0);
     Weapon weapon;
+    private Game theGame;
 
     final CollisionHandler<GameObject, GameObject> collisionHandler;
    
@@ -66,29 +74,26 @@ public class GameState extends BasicGameState {
         
         // todo input
         weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd);
-        players.add( new Player(
+        Player firstPlayer = new Player(
                 Resources.playerImageStill.copy(),
                 Resources.playerImageLeft.copy(),
                 Resources.playerImageRight.copy(),
-        		container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input, weapon));
+                container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input, weapon);
+        players.add(firstPlayer);
+        
+        double time = 120;
+        
+        Level firstLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time);
+        
+        LinkedList<Level> levelList = new LinkedList<>();
+        levelList.add(firstLevel);
+        LinkedList<Player> playerList = new LinkedList<>();
+        playerList.add(firstPlayer);
+        theGame = new Game(levelList, playerList);
     }
     
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
-
-        g.drawImage(Resources.backgroundImage, 0,0, container.getWidth(), container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(), Resources.backgroundImage.getHeight());
-
-        for (GameObject gameObject : walls) {
-            gameObject.render(container, g);
-        }
-        for (GameObject gameObject : bubbles) {
-            gameObject.render(container, g);
-        }
-        for (GameObject gameObject : players) {
-            gameObject.render(container, g);
-        }
-        for (GameObject gameObject : projectiles) {
-            gameObject.render(container, g);
-        }
+        theGame.render(container, g);
 
     }
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
@@ -119,12 +124,10 @@ public class GameState extends BasicGameState {
         
         
         
-        
+        theGame.update(container, delta);
         
 
-        for (GameObject gameObject : players) {
-            gameObject.update(container, delta);
-        }
+        
         for (GameObject gameObject : bubbles) {
             gameObject.update(container, delta);
         }
