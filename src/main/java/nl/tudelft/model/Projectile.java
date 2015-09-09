@@ -1,8 +1,11 @@
 package nl.tudelft.model;
 
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 public class Projectile extends GameObject {
 
@@ -11,12 +14,16 @@ public class Projectile extends GameObject {
     private boolean hitBubble;
     private int tickCount;
     private boolean hitWall;
+    private final int playerWidth;
+    private final int playerHeight;
+    private final int startHeight;
 
     /**
      * @param image - The texture used for the weapon/projectile
      * @param x - The x coord
      * @param y - The y coord
-     * @param width - The width of the texture used
+     * @param playerWidth - The width of the player
+     * @param playerHeight - The height of the player
      * @param speed - The speed
      *
      * Constructor for the class "Projectile".
@@ -26,14 +33,16 @@ public class Projectile extends GameObject {
      *              hit - Has the projectile hit an object (bubble)
      *              top - Has the projectile hit the top
      */
-    public Projectile(Image image, int x, int y, int width, int speed, Weapon wp) {
+    public Projectile(Image image, int x, int y, int playerWidth, int playerHeight, int speed, Weapon wp) {
         super(image, x, y);
         this.speed = speed;
-        this.width = width;
+        this.playerWidth = playerWidth;
+        this.playerHeight = playerHeight;
         this.wp = wp;
         hitBubble = false;
         hitWall = false;
         tickCount = 0;
+        startHeight = y;
     }
 
     /**
@@ -64,7 +73,21 @@ public class Projectile extends GameObject {
      * Fire method for the class "Projectile". This method is called when the projectile is fired.
      */
     public void fire() {
-        this.locX = (locX+(width/2))-(image.getWidth()/2);
+        this.locX = (locX+(playerWidth/2))-(image.getWidth()/2);
+    }
+
+    @Override
+    public void render(GameContainer container, Graphics g) throws SlickException {
+//        super.render(container, g);
+        final Image img = getImage();
+
+        float drawHeight = getActualHeight();
+        
+        g.drawImage(img,
+                getLocX(), getLocY(),
+                getLocX() + img.getWidth(), getLocY() + drawHeight,
+                0, 0,
+                img.getWidth(), drawHeight);
     }
 
     @Override
@@ -76,5 +99,19 @@ public class Projectile extends GameObject {
         if(tickCount < 90 && tickCount != 0) {
         	tickCount++;
         }
+    }
+
+    /**
+     * The sprite we use is an image of the full length of the projectile.
+     * We only draw a certain height, returned by this method.
+     * @return The visible height of the projectile.
+     */
+    private float getActualHeight(){
+        return (startHeight - getLocY() + playerHeight) % getHeight();
+    }
+
+    @Override
+    public Shape getBounds() {
+        return new Rectangle(getLocX(), getLocY(), getWidth(), getActualHeight());
     }
 }

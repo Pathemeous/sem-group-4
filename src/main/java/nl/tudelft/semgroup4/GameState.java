@@ -1,8 +1,6 @@
 package nl.tudelft.semgroup4;
 
 
-import java.util.LinkedList;
-
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.BubbleManager;
 import nl.tudelft.model.GameObject;
@@ -16,7 +14,6 @@ import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.util.QuadTree;
-
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -25,6 +22,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
+
+import java.util.LinkedList;
 
 public class GameState extends BasicGameState {
     LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles, pickups;
@@ -74,10 +73,9 @@ public class GameState extends BasicGameState {
         // todo input
         weapon = new Weapon(Resources.weaponImageRegular.copy(), toDelete, toAdd, WeaponType.REGULAR);
         players.add( new Player(
-                Resources.playerImageStill.copy(),
-                Resources.playerImageLeft.copy(),
-                Resources.playerImageRight.copy(),
-        		container.getWidth() / 2, container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input, weapon));
+                container.getWidth() / 2,
+                container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
+                input, weapon));
     }
     
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
@@ -90,10 +88,10 @@ public class GameState extends BasicGameState {
         for (GameObject gameObject : bubbles) {
             gameObject.render(container, g);
         }
-        for (GameObject gameObject : players) {
+        for (GameObject gameObject : projectiles) {
             gameObject.render(container, g);
         }
-        for (GameObject gameObject : projectiles) {
+        for (GameObject gameObject : players) {
             gameObject.render(container, g);
         }
         for (GameObject gameObject : pickups) {

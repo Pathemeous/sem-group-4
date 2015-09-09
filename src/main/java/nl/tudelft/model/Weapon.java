@@ -57,9 +57,9 @@ public class Weapon extends PickupContent {
     	return sticky;
     }
 
-    public void fire(int locX, int locY, int width) {
+    public void fire(int locX, int locY, int width, int height) {
         if(projectiles.size() < maxCount) {
-        	Projectile proj = new Projectile(img, locX, locY, width, 6, this);
+        	Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             add.add(proj);
             projectiles.add(proj);
         }

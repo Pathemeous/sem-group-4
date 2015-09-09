@@ -4,8 +4,11 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
+import nl.tudelft.semgroup4.Resources;
 
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -22,22 +25,15 @@ public class Player extends GameObject {
     private final Input input;
 
     private Weapon weapon;
-
-    private final Image imageLeft;
-    private final Image imageRight;
-    private final Image imageStill;
     
     private LinkedList<Powerup> powerups;
+    private Animation animationCurrent;
+    private final Animation animationLeft;
+    private final Animation animationRight;
 
     /**
      * Constructor for the Player class.
      * 
-     * @param image
-     *            Image - The image for standing still.
-     * @param imageLeft
-     *            Image - The image for moving left.
-     * @param imageRight
-     *            Image - The image for moving right.
      * @param locX
      *            int - The x-coordinate where the player should spawn.
      * @param locY
@@ -47,35 +43,46 @@ public class Player extends GameObject {
      * @param weapon
      *            Weapon - the default Weapon object to start off with.
      */
-    public Player(Image image, Image imageLeft, Image imageRight, int locX, int locY, Input input,
+    public Player(int locX, int locY, Input input,
             Weapon weapon) {
-        super(image, locX, locY);
-        powerups = new LinkedList<>();
-        speed = 4;
+        super(Resources.playerImageStill.copy(), locX, locY);
+		powerups = new LinkedList<>();
+		speed = 4;
+
         this.input = input;
         this.weapon = weapon;
 
-        this.imageStill = image;
-        this.imageLeft = imageLeft;
-        this.imageRight = imageRight;
+        this.animationCurrent = null;
+        this.animationLeft = Resources.playerWalkLeft;
+        this.animationRight = Resources.playerWalkRight;
+    }
+
+    @Override
+    public void render(GameContainer container, Graphics g) throws SlickException {
+        Animation curAnimation = getAnimationCurrent();
+        if (curAnimation == null) {
+            g.drawImage(getImage(), getLocX(), getLocY());
+        } else {
+            g.drawAnimation(curAnimation, getLocX(), getLocY());
+        }
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         if (input.isKeyDown(Input.KEY_LEFT)) {
-            setImage(imageLeft);
-            setLocX((int) (getBounds().getX() - speed));
+            setAnimationCurrent(animationLeft);
+            setLocX((int) (getBounds().getX() - 4));
         }
         if (input.isKeyDown(Input.KEY_RIGHT)) {
-            setImage(imageRight);
-            setLocX((int) (getBounds().getX() + speed));
+            setAnimationCurrent(animationRight);
+            setLocX((int) (getBounds().getX() + 4));
         }
         if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
             counter++;
-            weapon.fire((int)this.locX, (int)this.locY, this.getWidth());
+            weapon.fire((int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
         }
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
-            setImage(imageStill);
+            setAnimationCurrent(null);
         }
         counter = (counter <= 10 && counter != 0) ? counter+1 : (counter > 10) ? 0 : counter;
         
@@ -208,5 +215,23 @@ public class Player extends GameObject {
      */
     public void addScore(int points) {
         this.score += points;
+    }
+
+    /**
+     * Get current animation for the player.
+     *
+     * When null, should draw its imageStill.
+     * @return Animation of current animation of the player.
+     */
+    public Animation getAnimationCurrent() {
+        return animationCurrent;
+    }
+
+    /**
+     * Sets the current Animation of the player.
+     * @param animationCurrent The new animation.
+     */
+    public void setAnimationCurrent(Animation animationCurrent) {
+        this.animationCurrent = animationCurrent;
     }
 }
