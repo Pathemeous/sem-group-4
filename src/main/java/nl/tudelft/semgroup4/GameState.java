@@ -75,6 +75,12 @@ public class GameState extends BasicGameState {
         }
         
         new BubbleManager(toDelete, toAdd).createBubbles(container);
+        for (GameObject obj : toAdd) {
+            if (obj instanceof Bubble) {
+                bubbles.add((Bubble) obj);
+            }
+        }
+        toAdd.clear();
         
         // todo input
         weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd);

@@ -48,15 +48,15 @@ public class Game implements Updateable, Renderable {
         System.out.println("hasNext: " + levelIt.hasNext());
         System.out.println(curLevel.getID());
 
-//        if (playerDied()) {
-//            levelReset();
-//        }
+        if (playerDied()) {
+            levelReset();
+        }
 
         getCurLevel().update(container, delta);
-//        
-//        if(getCurLevel().isCompleted()) {
-//            nextLevel();
-//        }
+        System.out.println(getCurLevel().isCompleted());
+        if(getCurLevel().isCompleted()) {
+            nextLevel();
+        }
     }
 
     @Override
