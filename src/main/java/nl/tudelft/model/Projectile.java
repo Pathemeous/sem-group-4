@@ -102,12 +102,15 @@ public class Projectile extends GameObject {
     }
 
     /**
-     * The sprite we use is an image of the full length of the projectile.
-     * We only draw a certain height, returned by this method.
+     * The sprite may be longer than the actual bounds that should be visible.
+     * This method returns the visible height of the image, according to startHeight
+     * and playerHeight.
      * @return The visible height of the projectile.
      */
-    private float getActualHeight(){
-        return (startHeight - getLocY() + playerHeight) % getHeight();
+    private float getActualHeight() {
+        float height = getHeight();
+        float maxHeight = startHeight - getLocY() + playerHeight;
+        return Math.min(height, maxHeight);
     }
 
     @Override

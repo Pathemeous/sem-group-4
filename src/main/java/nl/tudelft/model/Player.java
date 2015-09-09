@@ -66,6 +66,11 @@ public class Player extends GameObject {
         } else {
             g.drawAnimation(curAnimation, getLocX(), getLocY());
         }
+        if (hasShield()) {
+            g.drawImage(Resources.power_shield, getLocX(), getLocY());
+        } else if (isInvincible()) {
+            g.drawImage(Resources.power_invincible, getLocX(), getLocY());
+        }
     }
 
     @Override

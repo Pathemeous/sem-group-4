@@ -67,12 +67,6 @@ public class Game implements Updateable, Renderable {
 
         for (GameObject gameObject : players) {
             gameObject.render(container, graphics);
-            Player player = (Player)gameObject;
-            if(player.hasShield()) {
-              graphics.drawImage(Resources.power_shield, player.getLocX(), player.getLocY());
-            } else if(player.isInvincible()) {
-              graphics.drawImage(Resources.power_invincible, player.getLocX(), player.getLocY());
-            }
         }
     }
 
