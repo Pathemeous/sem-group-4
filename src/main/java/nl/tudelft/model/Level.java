@@ -46,6 +46,11 @@ public class Level implements Updateable, Renderable {
     }
 
     @Override
+    public void update(GameContainer container, int delta) throws SlickException {
+        // TODO Auto-generated method stub
+    }
+
+    @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
 
         graphics.drawImage(Resources.backgroundImage, 0, 0, container.getWidth(), container.getHeight(),
@@ -102,12 +107,6 @@ public class Level implements Updateable, Renderable {
      */
     public boolean hasFailed() {
         return this.time <= 0;
-    }
-
-    @Override
-    public void update(GameContainer container, int delta) throws SlickException {
-        // TODO Auto-generated method stub
-
     }
 
 }
