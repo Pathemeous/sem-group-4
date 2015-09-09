@@ -8,6 +8,7 @@ public class Projectile extends GameObject {
 
     private int speed, width;
     private Weapon wp;
+    private boolean hitBubble;
 
     /**
      * @param image - The texture used for the weapon/projectile
@@ -28,6 +29,7 @@ public class Projectile extends GameObject {
         this.speed = speed;
         this.width = width;
         this.wp = wp;
+        hitBubble = false;
     }
 
     /**
@@ -36,6 +38,14 @@ public class Projectile extends GameObject {
     public void reset() {
         //Set every variable to the starting variables
         wp.remove(this);
+    }
+    
+    public void setHitBubble (boolean hit) {
+    	hitBubble = hit;
+    }
+    
+    public boolean getHitBubble () {
+    	return hitBubble;
     }
 
     /**

@@ -61,13 +61,13 @@ public class Level implements Updateable, Renderable {
         graphics.drawImage(Resources.backgroundImage, 0, 0, container.getWidth(), container.getHeight(),
                 0, 0, Resources.backgroundImage.getWidth(), Resources.backgroundImage.getHeight());
 
+        for (GameObject gameObject : projectiles) {
+            gameObject.render(container, graphics);
+        }
         for (GameObject gameObject : walls) {
             gameObject.render(container, graphics);
         }
         for (GameObject gameObject : bubbles) {
-            gameObject.render(container, graphics);
-        }
-        for (GameObject gameObject : projectiles) {
             gameObject.render(container, graphics);
         }
     }
