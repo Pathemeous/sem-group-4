@@ -65,7 +65,7 @@ public class Player extends GameObject {
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
             setImage(imageStill);
         }
-        counter = (counter <= 30 && counter != 0) ? counter+1 : (counter > 30) ? 0 : counter;
+        counter = (counter <= 30 && counter != 0) ? counter+1 : 0;
     }
 
     /**
