@@ -32,9 +32,9 @@ public class BubbleManager {
 //		bubbles.add(new Bubble(Resources.bubbleImage5.copy(), Resources.vwallImage.getWidth() + 200, 
 //        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 5, pickups, this));
 //        
-//		bubbles.add(new Bubble(Resources.bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
-//        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4, pickups, this));
-//        
+		bubbles.add(new Bubble(Resources.bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
+        		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4, pickups, this));
+        
 		bubbles.add(new Bubble(Resources.bubbleImage3.copy(), Resources.vwallImage.getWidth() + 400, 
       		container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 3, pickups, this));
 //        

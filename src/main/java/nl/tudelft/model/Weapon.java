@@ -58,7 +58,6 @@ public class Weapon extends PickupContent {
     }
 
     public void fire(int locX, int locY, int width) {
-    	System.out.println("Fire! Projectile number: "+projectiles.size());
         if(projectiles.size() < maxCount) {
         	Projectile proj = new Projectile(img, locX, locY, width, 6, this);
             add.add(proj);
@@ -69,9 +68,5 @@ public class Weapon extends PickupContent {
     public void remove(Projectile proj) {
     	projectiles.remove(proj);
         del.add(proj);
-    }
-
-    public ArrayList<Projectile> getAL() {
-        return this.projectiles;
     }
 }

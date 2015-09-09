@@ -69,11 +69,11 @@ public class Bubble extends GameObject {
         	maxVerticalSpeed = 0.0f; 
         }
         
-       int random = Helpers.randInt(6, 10);
-       if (random > 5 && size > 1) {
+       int random = Helpers.randInt(1, 10);
+       if (random > 1 && size > 1) {
     	   containsPickup = true;
     	   
-    	   pickup = new Pickup(Resources.pickup, x, y, manager.getToDelete(), manager.getToAdd());
+    	   pickup = new Pickup(null, x, y, manager.getToDelete(), manager.getToAdd());
     	   this.pickups.add(pickup);
        }
     }
@@ -85,6 +85,21 @@ public class Bubble extends GameObject {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		move();
+	}
+	
+	public void split() {
+		manager.remove(this);
+		
+		if(containsPickup()) {
+			getPickup().setInBubble(false);
+			getPickup().setLocX(getLocX());
+			getPickup().setLocY(getLocY());
+		}
+    	
+    	if(getSize() > 1) {
+    		manager.create(getLocX(), getLocY(), getSize()-1, true);
+    		manager.create(getLocX(), getLocY(), getSize()-1, false);
+    	}
 	}
 	
 	/**

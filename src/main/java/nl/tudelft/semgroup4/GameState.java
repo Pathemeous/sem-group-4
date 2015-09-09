@@ -72,7 +72,7 @@ public class GameState extends BasicGameState {
         new BubbleManager(toDelete, toAdd, pickups).createBubbles(container);
         
         // todo input
-        weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd, WeaponType.STICKY);
+        weapon = new Weapon(Resources.weaponImageRegular.copy(), toDelete, toAdd, WeaponType.REGULAR);
         players.add( new Player(
                 Resources.playerImageStill.copy(),
                 Resources.playerImageLeft.copy(),

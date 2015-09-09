@@ -46,7 +46,7 @@ public class Projectile extends GameObject {
     		wp.remove(this);
     	} else if(tickCount == 0) {
     		tickCount++;
-    	} else if(tickCount == 60) {
+    	} else if(tickCount == 90) {
     		wp.remove(this);
     		tickCount = 0;
     	}
@@ -73,7 +73,7 @@ public class Projectile extends GameObject {
     		this.locY -= speed;
     	}
         
-        if(tickCount < 60 && tickCount != 0) {
+        if(tickCount < 90 && tickCount != 0) {
         	tickCount++;
         }
     }

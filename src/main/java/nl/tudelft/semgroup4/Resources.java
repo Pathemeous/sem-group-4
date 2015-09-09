@@ -13,7 +13,10 @@ public class Resources {
 
     public static Image wallImage;
     public static Image vwallImage;
-    public static Image weaponImage;
+    
+    public static Image weaponImageRegular;
+    public static Image weaponImageSticky;
+    public static Image weaponImageFlower;
 
     public static Image titleScreenBackground;
     public static Image backgroundImage;
@@ -29,8 +32,17 @@ public class Resources {
     public static Image bubbleImage5;
     public static Image bubbleImage6;
     
-    public static Image pickup;
-
+    public static Image pickup_weapon_regular;
+    public static Image pickup_weapon_double;
+    public static Image pickup_weapon_sticky;
+    public static Image pickup_weapon_flowers;
+    public static Image pickup_power_shield;
+    public static Image pickup_power_invincible;
+    public static Image pickup_power_speedup;
+    public static Image pickup_power_points;
+    
+    public static Image power_shield;
+    public static Image power_invincible;
 
     /**
      * initialises the resources
@@ -52,7 +64,9 @@ public class Resources {
         titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
 
-        weaponImage = new Image("src/main/resources/img/arrow.png");
+        weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
+        weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
+        weaponImageFlower = new Image("src/main/resources/img/weapon_flowers.png");
         
         bubbleImage1 = new Image("src/main/resources/img/yball1.png");
         bubbleImage2 = new Image("src/main/resources/img/yball2.png");
@@ -61,7 +75,17 @@ public class Resources {
         bubbleImage5 = new Image("src/main/resources/img/rball5.png");
         bubbleImage6 = new Image("src/main/resources/img/rball6.png");
         
-        pickup = new Image("src/main/resources/img/rball2.png");
+        pickup_weapon_regular = new Image("src/main/resources/img/pickup_regular_weapon.png");
+        pickup_weapon_double = new Image("src/main/resources/img/pickup_regular_weapon.png");
+        pickup_weapon_sticky = new Image("src/main/resources/img/pickup_sticky.png");
+        pickup_weapon_flowers = new Image("src/main/resources/img/pickup_flowers.png");
+        pickup_power_shield = new Image("src/main/resources/img/pickup_shield.png");
+        pickup_power_invincible = new Image("src/main/resources/img/pickup_invincible.png");
+        pickup_power_points = new Image("src/main/resources/img/pickup_points.png");
+        pickup_power_speedup = new Image("src/main/resources/img/rball2.png");
+        
+        power_invincible = new Image("src/main/resources/img/powerup_invincible.png");
+        power_shield = new Image("src/main/resources/img/powerup_shield.png");
     }
 
 }
