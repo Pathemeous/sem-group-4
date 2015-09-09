@@ -1,5 +1,11 @@
 package nl.tudelft.model;
 
+import java.util.LinkedList;
+
+import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.util.Helpers;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -19,6 +25,9 @@ public class Bubble extends GameObject {
 	private float gravity;
 	private int size;
 	private BubbleManager manager;
+	private LinkedList<GameObject> pickups;
+	private boolean containsPickup;
+	private Pickup pickup;
 	
 	/**
 	 * Constructor for Bubble. Initiliazes the image of bubble with the given x and y, and sets the speed and gravity on 
@@ -28,29 +37,30 @@ public class Bubble extends GameObject {
 	 * @param y : the y location of the top left corner of the bubble
 	 * @param size : the size of the bubble; can range from 1-6
 	 */
-    public Bubble(Image image, float x, float y, int size, BubbleManager manager) {
+    public Bubble(Image image, float x, float y, int size, LinkedList<GameObject> pickups, BubbleManager manager) {
         super(image,x,y);
         this.manager = manager;
         this.size = size;
+        this.pickups = pickups;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
         gravity = 0.1f;
         
         switch(size) {
         case 6: 
-        	maxVerticalSpeed = 9.0f; 
+        	maxVerticalSpeed = 10.0f; 
         	break;
         case 5: 
-        	maxVerticalSpeed = 8.0f; 
+        	maxVerticalSpeed = 9.0f; 
         	break;
         case 4: 
-        	maxVerticalSpeed = 7.0f; 
+        	maxVerticalSpeed = 8.0f; 
         	break;
         case 3: 
-        	maxVerticalSpeed = 6.0f; 
+        	maxVerticalSpeed = 7.0f; 
         	break;
         case 2: 
-        	maxVerticalSpeed = 5.0f; 
+        	maxVerticalSpeed = 6.0f; 
         	break;
         case 1: 
         	maxVerticalSpeed = 5.0f; 
@@ -58,6 +68,14 @@ public class Bubble extends GameObject {
         default: 
         	maxVerticalSpeed = 0.0f; 
         }
+        
+       int random = Helpers.randInt(1, 10);
+       if (random > 1 && size > 1) {
+    	   containsPickup = true;
+    	   
+    	   pickup = new Pickup(null, x, y, manager.getToDelete(), manager.getToAdd());
+    	   this.pickups.add(pickup);
+       }
     }
     
     /**
@@ -67,6 +85,21 @@ public class Bubble extends GameObject {
 	public void update(GameContainer container, int delta)
 			throws SlickException {
 		move();
+	}
+	
+	public void split() {
+		manager.remove(this);
+		
+		if(containsPickup()) {
+			getPickup().setInBubble(false);
+			getPickup().setLocX(getLocX());
+			getPickup().setLocY(getLocY());
+		}
+    	
+    	if(getSize() > 1) {
+    		manager.create(getLocX(), getLocY(), getSize()-1, true);
+    		manager.create(getLocX(), getLocY(), getSize()-1, false);
+    	}
 	}
 	
 	/**
@@ -86,6 +119,14 @@ public class Bubble extends GameObject {
 		setLocX( newX );
 		setLocY( newY );
 		verticalSpeed -= gravity;
+	}
+	
+	public Pickup getPickup() {
+		return pickup;
+	}
+	
+	public boolean containsPickup() {
+		return containsPickup;
 	}
 	
 	/**

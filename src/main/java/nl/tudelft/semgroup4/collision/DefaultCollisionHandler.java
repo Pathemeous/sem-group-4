@@ -6,6 +6,11 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
+import nl.tudelft.model.Weapon;
+import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.PickupContent;
+import nl.tudelft.model.pickups.Powerup;
+import nl.tudelft.model.pickups.Utility;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -49,6 +54,18 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
                 playerWallHandler.onCollision((Player)objA, (Wall)objB);
             }
         }
+        
+        if (objA instanceof Player) {
+        	if (objB instanceof Pickup) {
+        		playerPickupHandler.onCollision((Player)objA, (Pickup)objB);
+        	}
+        }
+        
+        if (objA instanceof Pickup) {
+        	if (objB instanceof Wall) {
+        		pickupWallHandler.onCollision((Pickup)objA, (Wall)objB);
+        	}
+        }
     }
 
     private final CollisionHandler<Player, Wall> playerWallHandler = (player, wall) -> {
@@ -90,7 +107,17 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         //System.out.println("Player <-> bubble collision");
 
         // TODO: Add code to reset the level.
-        player.removeLife();
+    	if(player.isInvincible()) {
+    		// nothing happens
+    	} else if(player.hasShield()) {
+    		player.removeShield();
+    		System.out.println("Player collided with bubble but has a shield!");
+    		// add code so the bubble splits when the player has a shield and is hit
+    		bubble.split();
+    	} else {
+    		System.out.println("Player died");
+    		player.removeLife();
+    	}
     };
     
     final CollisionHandler<Projectile, Wall> projectileWallHandler = (projectile, wall) -> {
@@ -107,17 +134,41 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     	//System.out.println("Projectile <-> Bubble collision");
     	projectile.reset();
     	
-    	BubbleManager manager = bubble.getBubbleManager();
     	if(!projectile.getHitBubble()) {
     		projectile.setHitBubble(true);
-    		manager.remove(bubble);
-        	
-        	if(bubble.getSize() > 1) {
-        		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
-        		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
-        	}
+    		bubble.split();
     	}
-    	
+    };
+    
+    final CollisionHandler<Pickup, Wall> pickupWallHandler = (pickup, wall) -> {
+    	final Shape pickupRect = pickup.getBounds();
+        final Shape wallRect = wall.getBounds();
+
+        if (wallRect.getY() >= pickupRect.getY()) {
+            pickup.setLocY((int) (wallRect.getY() - pickupRect.getHeight()));
+            pickup.setOnGround(true);
+        }
+    };
+    
+    final CollisionHandler<Player, Pickup> playerPickupHandler = (player, pickup) -> {
+    	pickup.remove();
+    	PickupContent content = pickup.getContent();
+    	if(content instanceof Weapon) {
+    		// set new weapon
+    		Weapon weapon = (Weapon)content;
+    		System.out.println("Pickup a weapon of type: "+weapon.getType());
+    		player.setWeapon(weapon);
+    	} else if(content instanceof Powerup) {
+    		Powerup powerup = (Powerup)content;
+    		System.out.println("Pickup a power up of type: "+powerup.getPowerType());
+    		
+    		player.addPowerup(powerup);
+    		// use powerup
+    	} else {
+    		System.out.println("Pickup a utility");
+    		Utility util = (Utility)content;
+    		// get level from player and apply utility
+    	}
     };
 
 }

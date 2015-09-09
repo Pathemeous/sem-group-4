@@ -1,6 +1,14 @@
 package nl.tudelft.model;
 
+import java.util.LinkedList;
+
+import nl.tudelft.model.pickups.Powerup;
+import nl.tudelft.model.pickups.Powerup.PowerType;
+import nl.tudelft.semgroup4.Resources;
+
+import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
@@ -9,25 +17,24 @@ public class Player extends GameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;
+    private int speed;
     private int lives = 3;
     private int counter = 0;
+    private int invincibilityCounter = 0;
+    private int speedupCounter = 0;
+    private boolean hasSpeedup = false;
     private final Input input;
 
     private Weapon weapon;
-
-    private final Image imageLeft;
-    private final Image imageRight;
-    private final Image imageStill;
+    
+    private LinkedList<Powerup> powerups;
+    private Animation animationCurrent;
+    private final Animation animationLeft;
+    private final Animation animationRight;
 
     /**
      * Constructor for the Player class.
      * 
-     * @param image
-     *            Image - The image for standing still.
-     * @param imageLeft
-     *            Image - The image for moving left.
-     * @param imageRight
-     *            Image - The image for moving right.
      * @param locX
      *            int - The x-coordinate where the player should spawn.
      * @param locY
@@ -37,35 +44,146 @@ public class Player extends GameObject {
      * @param weapon
      *            Weapon - the default Weapon object to start off with.
      */
-    public Player(Image image, Image imageLeft, Image imageRight, int locX, int locY, Input input,
+    public Player(int locX, int locY, Input input,
             Weapon weapon) {
-        super(image, locX, locY);
+        super(Resources.playerImageStill.copy(), locX, locY);
+		powerups = new LinkedList<>();
+		speed = 4;
+
         this.input = input;
         this.weapon = weapon;
 
-        this.imageStill = image;
-        this.imageLeft = imageLeft;
-        this.imageRight = imageRight;
+        this.animationCurrent = null;
+        this.animationLeft = Resources.playerWalkLeft;
+        this.animationRight = Resources.playerWalkRight;
+    }
+
+    @Override
+    public void render(GameContainer container, Graphics g) throws SlickException {
+        Animation curAnimation = getAnimationCurrent();
+        if (curAnimation == null) {
+            g.drawImage(getImage(), getLocX(), getLocY());
+        } else {
+            g.drawAnimation(curAnimation, getLocX(), getLocY());
+        }
     }
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
         if (input.isKeyDown(Input.KEY_LEFT)) {
-            setImage(imageLeft);
+            setAnimationCurrent(animationLeft);
             setLocX((int) (getBounds().getX() - 4));
         }
         if (input.isKeyDown(Input.KEY_RIGHT)) {
-            setImage(imageRight);
+            setAnimationCurrent(animationRight);
             setLocX((int) (getBounds().getX() + 4));
         }
         if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
             counter++;
-            weapon.fire((int)this.locX, (int)this.locY, this.getWidth());
+            weapon.fire((int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
         }
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
-            setImage(imageStill);
+            setAnimationCurrent(null);
         }
-        counter = (counter <= 30 && counter != 0) ? counter+1 : 0;
+        counter = (counter <= 10 && counter != 0) ? counter+1 : (counter > 10) ? 0 : counter;
+        
+        
+        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) 
+        		? invincibilityCounter+1 : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
+        
+        if(invincibilityCounter == 600) {
+        	removeInvicibility();
+        	invincibilityCounter = 0;
+        }
+        
+        speedupCounter = (speedupCounter <= 600 && speedupCounter != 0) 
+        		? speedupCounter+1 : (speedupCounter > 600) ? 0 : speedupCounter;
+        
+        if(speedupCounter == 600) {
+        	speed = (int)(0.5*speed);
+        	speedupCounter = 0;
+        	hasSpeedup = false;
+        }
+    }
+    
+    public void addPowerup(Powerup up) {
+    	switch(up.getPowerType()) {
+    	case SHIELD:
+    		if(!isInvincible() && !hasShield()) {
+    			powerups.add(up);
+    		}
+    		break;
+    	case INVINCIBLE:
+    		if(hasShield()) {
+    			removeShield();
+    		}
+    		invincibilityCounter = 1;
+    		if(isInvincible()) {
+    			removeInvicibility();
+    		}
+    		powerups.add(up);
+    		break;
+    	case SPEEDUP:
+    		speedupCounter = 1;
+    		speed = 2*speed;
+    		hasSpeedup = true;
+    		break;
+    	case POINTS:
+    		score += 100;
+    		break;
+    	}
+    }
+    
+    public boolean isInvincible() {
+    	for(Powerup up : powerups) {
+    		if(up.getPowerType() == PowerType.INVINCIBLE) 
+    			return true;
+    	}
+    	return false;
+    }
+    
+    private void removeInvicibility() {
+    	powerups.remove(getInvincibility());
+    }
+    
+    private Powerup getInvincibility() {
+    	for(Powerup up : powerups) {
+    		if(up.getPowerType() == PowerType.INVINCIBLE) 
+    			return up;
+    	}
+    	return null;
+    }
+    
+    public boolean hasShield() {
+    	for(Powerup up : powerups) {
+    		if(up.getPowerType() == PowerType.SHIELD) 
+    			return true;
+    	}
+    	return false;
+    }
+    
+    private Powerup getShield() {
+    	for(Powerup up : powerups) {
+    		if(up.getPowerType() == PowerType.SHIELD) 
+    			return up;
+    	}
+    	return null;
+    }
+    
+    public boolean hasSpeedup() {
+    	for(Powerup up : powerups) {
+    		if(up.getPowerType() == PowerType.SPEEDUP) 
+    			return true;
+    	}
+    	return false;
+    }
+    
+    public void removeShield() {
+    	powerups.remove(getShield());
+    }
+    
+    public void setWeapon(Weapon weapon) {
+    	this.weapon = weapon;
     }
 
     /**
@@ -103,5 +221,23 @@ public class Player extends GameObject {
      */
     public void addScore(int points) {
         this.score += points;
+    }
+
+    /**
+     * Get current animation for the player.
+     *
+     * When null, should draw its imageStill.
+     * @return Animation of current animation of the player.
+     */
+    public Animation getAnimationCurrent() {
+        return animationCurrent;
+    }
+
+    /**
+     * Sets the current Animation of the player.
+     * @param animationCurrent The new animation.
+     */
+    public void setAnimationCurrent(Animation animationCurrent) {
+        this.animationCurrent = animationCurrent;
     }
 }
