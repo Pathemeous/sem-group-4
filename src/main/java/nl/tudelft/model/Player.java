@@ -85,7 +85,7 @@ public class Player extends GameObject {
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
             setAnimationCurrent(null);
         }
-        counter = (counter <= 10 && counter != 0) ? counter+1 : (counter > 10) ? 0 : counter;
+        counter = (counter <= 10 && counter != 0) ? counter+1 : 0;
         
         
         invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) 
