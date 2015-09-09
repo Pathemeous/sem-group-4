@@ -28,6 +28,8 @@ public class Resources {
     public static Image bubbleImage4;
     public static Image bubbleImage5;
     public static Image bubbleImage6;
+    
+    public static Image pickup;
 
 
     /**
@@ -58,6 +60,8 @@ public class Resources {
         bubbleImage4 = new Image("src/main/resources/img/rball4.png");
         bubbleImage5 = new Image("src/main/resources/img/rball5.png");
         bubbleImage6 = new Image("src/main/resources/img/rball6.png");
+        
+        pickup = new Image("src/main/resources/img/rball2.png");
     }
 
 }

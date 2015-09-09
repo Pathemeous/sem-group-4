@@ -1,5 +1,11 @@
 package nl.tudelft.model;
 
+import java.util.LinkedList;
+import java.util.Random;
+
+import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.Resources;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -19,6 +25,9 @@ public class Bubble extends GameObject {
 	private float gravity;
 	private int size;
 	private BubbleManager manager;
+	private LinkedList<GameObject> pickups;
+	private boolean containsPickup;
+	private Pickup pickup;
 	
 	/**
 	 * Constructor for Bubble. Initiliazes the image of bubble with the given x and y, and sets the speed and gravity on 
@@ -28,10 +37,11 @@ public class Bubble extends GameObject {
 	 * @param y : the y location of the top left corner of the bubble
 	 * @param size : the size of the bubble; can range from 1-6
 	 */
-    public Bubble(Image image, float x, float y, int size, BubbleManager manager) {
+    public Bubble(Image image, float x, float y, int size, LinkedList<GameObject> pickups, BubbleManager manager) {
         super(image,x,y);
         this.manager = manager;
         this.size = size;
+        this.pickups = pickups;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
         gravity = 0.1f;
@@ -58,7 +68,21 @@ public class Bubble extends GameObject {
         default: 
         	maxVerticalSpeed = 0.0f; 
         }
+        
+       int random = randInt(1, 10);
+       if (random > 5 && size > 1) {
+    	   containsPickup = true;
+    	   
+    	   pickup = new Pickup(Resources.pickup, x, y);
+    	   this.pickups.add(pickup);
+       }
     }
+    
+    private int randInt(int min, int max) {
+	    Random rand = new Random();
+	    int randomNum = rand.nextInt((max - min) + 1) + min;
+	    return randomNum;
+	}
     
     /**
      * This method is called every tick, to update the ball.
@@ -86,6 +110,14 @@ public class Bubble extends GameObject {
 		setLocX( newX );
 		setLocY( newY );
 		verticalSpeed -= gravity;
+	}
+	
+	public Pickup getPickup() {
+		return pickup;
+	}
+	
+	public boolean containsPickup() {
+		return containsPickup;
 	}
 	
 	/**

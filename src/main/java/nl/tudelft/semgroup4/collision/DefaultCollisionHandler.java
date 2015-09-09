@@ -6,6 +6,7 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
+import nl.tudelft.model.pickups.Pickup;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -48,6 +49,12 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
             if (objB instanceof Wall) {
                 playerWallHandler.onCollision((Player)objA, (Wall)objB);
             }
+        }
+        
+        if (objA instanceof Pickup) {
+        	if (objB instanceof Wall) {
+        		pickupWallHandler.onCollision((Pickup)objA, (Wall)objB);
+        	}
         }
     }
 
@@ -111,13 +118,27 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     	if(!projectile.getHitBubble()) {
     		projectile.setHitBubble(true);
     		manager.remove(bubble);
+    		
+    		if(bubble.containsPickup()) {
+    			bubble.getPickup().setInBubble(false);
+    			bubble.getPickup().setLocX(bubble.getLocX());
+    			bubble.getPickup().setLocY(bubble.getLocY());
+    		}
         	
         	if(bubble.getSize() > 1) {
         		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
         		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
         	}
     	}
-    	
+    };
+    
+    final CollisionHandler<Pickup, Wall> pickupWallHandler = (pickup, wall) -> {
+    	final Shape pickupRect = pickup.getBounds();
+        final Shape wallRect = wall.getBounds();
+
+        if (wallRect.getY() >= pickupRect.getY()) {
+            pickup.setLocY((int) (wallRect.getY() - pickupRect.getHeight()));
+        }
     };
 
 }

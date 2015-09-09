@@ -10,6 +10,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.Weapon;
+import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -25,7 +26,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles;
+    LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles, pickups;
     Input input = new Input(0);
     Weapon weapon;
     QuadTree quad;
@@ -46,6 +47,7 @@ public class GameState extends BasicGameState {
         projectiles = new LinkedList<>();
         players = new LinkedList<>();
         bubbles = new LinkedList<>();
+        pickups = new LinkedList<>();
         toDelete = new LinkedList<>();
         toAdd = new LinkedList<>();
 
@@ -66,7 +68,7 @@ public class GameState extends BasicGameState {
             //objectList.add(new Wall(Resources.wallImage, 1000, 400));
         }
         
-        new BubbleManager(toDelete, toAdd).createBubbles(container);
+        new BubbleManager(toDelete, toAdd, pickups).createBubbles(container);
         
         // todo input
         weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd);
@@ -92,6 +94,12 @@ public class GameState extends BasicGameState {
         }
         for (GameObject gameObject : projectiles) {
             gameObject.render(container, g);
+        }
+        for (GameObject gameObject : pickups) {
+        	Pickup pickup = (Pickup)gameObject;
+        	if(!pickup.isInBubble()) {
+        		gameObject.render(container, g);
+        	}
         }
 
     }
@@ -136,6 +144,12 @@ public class GameState extends BasicGameState {
         	}
         }
         
+        for (GameObject collidesWithA : pickups) {
+        	for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
+        		collisionHandler.onCollision(collidesWithA, collidesWithB);
+        	}
+        }
+        
 
         for (GameObject gameObject : players) {
             gameObject.update(container, delta);
@@ -144,6 +158,9 @@ public class GameState extends BasicGameState {
             gameObject.update(container, delta);
         }
         for (GameObject gameObject : projectiles) {
+            gameObject.update(container, delta);
+        }
+        for (GameObject gameObject : pickups) {
             gameObject.update(container, delta);
         }
 
