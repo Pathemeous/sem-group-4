@@ -87,10 +87,10 @@ public class GameState extends BasicGameState {
         for (GameObject gameObject : bubbles) {
             gameObject.render(container, g);
         }
-        for (GameObject gameObject : players) {
+        for (GameObject gameObject : projectiles) {
             gameObject.render(container, g);
         }
-        for (GameObject gameObject : projectiles) {
+        for (GameObject gameObject : players) {
             gameObject.render(container, g);
         }
 
