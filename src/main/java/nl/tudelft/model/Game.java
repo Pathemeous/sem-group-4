@@ -9,8 +9,8 @@ import org.newdawn.slick.SlickException;
 
 public class Game implements Updateable, Renderable {
 
-    private LinkedList<Level> levels;
-    private Iterator<Level> levelIt;
+    private final LinkedList<Level> levels;
+    private final Iterator<Level> levelIt;
     private LinkedList<Player> players;
     private Level curLevel;
     private int prevLives = 0;
@@ -26,8 +26,8 @@ public class Game implements Updateable, Renderable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(LinkedList<Level> levels,
-            LinkedList<Player> players) throws IllegalArgumentException {
+    public Game(LinkedList<Level> levels, LinkedList<Player> players)
+            throws IllegalArgumentException {
         this.levels = levels;
         this.players = players;
 
@@ -37,6 +37,7 @@ public class Game implements Updateable, Renderable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
+        System.out.println("hasNext after Constructor: " + levelIt.hasNext());
     }
 
     @Override
@@ -44,12 +45,18 @@ public class Game implements Updateable, Renderable {
         for (GameObject gameObject : players) {
             gameObject.update(container, delta);
         }
-        
-        if (playerDied()) {
-            levelReset();
-        }
-        
+        System.out.println("hasNext: " + levelIt.hasNext());
+        System.out.println(curLevel.getID());
+
+//        if (playerDied()) {
+//            levelReset();
+//        }
+
         getCurLevel().update(container, delta);
+//        
+//        if(getCurLevel().isCompleted()) {
+//            nextLevel();
+//        }
     }
 
     @Override
@@ -92,7 +99,7 @@ public class Game implements Updateable, Renderable {
 
     /**
      * Checks whether a player has died since the last check. This method is used by the
-     * {@link Game#update(GameContainer, int)} method
+     * {@link Game#update(GameContainer, int)} method.
      * 
      * @return boolean true iff a player has died since this method was last called.
      */
@@ -109,7 +116,9 @@ public class Game implements Updateable, Renderable {
     /**
      * Returns the amount of lives that the players have left.
      * 
-     * <p>When the players run out of lives, the game is over.</p>
+     * <p>
+     * When the players run out of lives, the game is over.
+     * </p>
      * 
      * @return int - the total amount of lives left until the game is over.
      */
@@ -137,7 +146,7 @@ public class Game implements Updateable, Renderable {
      * Tries to set the next level as the current level. If there is no next level, the game is
      * completed and {@link gameCompleted()} is called.
      */
-    public void levelCompleted() {
+    public void nextLevel() {
         if (levelIt.hasNext()) {
             setCurLevel(levelIt.next());
         } else {
@@ -155,7 +164,9 @@ public class Game implements Updateable, Renderable {
     /**
      * The game has been lost.
      * 
-     * <p>This happens when the players run out of lives.</p>
+     * <p>
+     * This happens when the players run out of lives.
+     * </p>
      */
     public void gameOver() {
         // TODO

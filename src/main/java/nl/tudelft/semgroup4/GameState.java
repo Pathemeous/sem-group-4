@@ -87,10 +87,14 @@ public class GameState extends BasicGameState {
         
         double time = 120;
         
-        Level firstLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time);
+        Level firstLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time, 1);
+        Level secondLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time, 2);
+        Level thirdLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time, 3);
         
         LinkedList<Level> levelList = new LinkedList<>();
         levelList.add(firstLevel);
+        levelList.add(secondLevel);
+        levelList.add(thirdLevel);
         LinkedList<Player> playerList = new LinkedList<>();
         playerList.add(firstPlayer);
         theGame = new Game(levelList, playerList);

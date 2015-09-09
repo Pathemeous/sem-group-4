@@ -19,6 +19,8 @@ public class Level implements Updateable, Renderable {
     LinkedList<GameObject> toAdd;
     private double time;
     private double speed;
+    
+    private int id;
 
     /**
      * Creates a level object with an object list, a timer and a speed.
@@ -32,7 +34,7 @@ public class Level implements Updateable, Renderable {
      */
     public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
             LinkedList<Player> players, LinkedList<Bubble> bubbles, LinkedList<GameObject> toDelete,
-            LinkedList<GameObject> toAdd, double time) {
+            LinkedList<GameObject> toAdd, double time, int id) {
         this.walls = walls;
         this.projectiles = projectiles;
         this.players = players;
@@ -40,6 +42,8 @@ public class Level implements Updateable, Renderable {
         this.toDelete = toDelete;
         this.toAdd = toAdd;
         this.time = time;
+        
+        this.id = id;
         
         // TODO Set default speed properly
         this.speed = 1;
@@ -70,6 +74,10 @@ public class Level implements Updateable, Renderable {
         for (GameObject gameObject : bubbles) {
             gameObject.render(container, graphics);
         }
+    }
+    
+    public int getID() {
+        return this.id;
     }
 
     public void setTime(double time) {
