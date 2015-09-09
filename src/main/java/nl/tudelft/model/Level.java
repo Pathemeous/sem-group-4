@@ -2,68 +2,74 @@ package nl.tudelft.model;
 
 import java.util.ArrayList;
 
-import nl.tudelft.model.pickups.Projectile;
-import nl.tudelft.model.pickups.Pickup;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.SlickException;
 
-public class Level {
+public class Level implements Updateable {
 
-	private int id;
-	private ArrayList<Wall> walls;
-	private ArrayList<Bubble> bubbles;
-	private ArrayList<Projectile> projectiles;
-	private ArrayList<Pickup> pickups;
-	private double time;
-	private double speed;
+    private ArrayList<GameObject> objects;
+    private double time;
+    private double speed;
 
-	public Level(int id, ArrayList<Wall> walls, ArrayList<Bubble> bubbles,
-			ArrayList<Projectile> projectiles, ArrayList<Pickup> pickups,
-			double time, double speed) {
-		this.walls = walls;
-		this.bubbles = bubbles;
-		this.projectiles = projectiles;
-		this.pickups = pickups;
-	}
+    /**
+     * Creates a level object with an object list, a timer and a speed.
+     * @param objects ArrayList<GameObject> - list of all objects in the game.
+     * @param time double - the time that the users have to finish the level.
+     * @param speed double - the level speed.
+     */
+    public Level(ArrayList<GameObject> objects, double time, double speed) {
+        this.objects = objects;
+        this.time = time;
+        this.speed = speed;
+    }
 
-	public int getId() {
-		return this.id;
-	}
+    public void setTime(double time) {
+        this.time = time;
+    }
 
-	public void setTime(double time) {
-		this.time = time;
-	}
+    public double getTime() {
+        return this.time;
+    }
 
-	public double getTime() {
-		return this.time;
-	}
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
 
-	public void setSpeed(double speed) {
-		this.speed = speed;
-	}
+    public double getSpeed() {
+        return this.speed;
+    }
 
-	public double getSpeed() {
-		return this.speed;
-	}
-	
-	/**
-	 * Checks whether the level is completed.
-	 * 
-	 * A level is completed when there are no bubbles left.
-	 * 
-	 * @return true iff there are no bubbles remaining in this level.
-	 */
-	public boolean isCompleted() {
-		return this.bubbles.isEmpty();
-	}
-	
-	/**
-	 * Checks whether the level has failed.
-	 * 
-	 * A level has failed when a) the timer runs out; b) a player collides with a bubble. 
-	 * 
-	 * @return
-	 */
-	public boolean hasFailed() {
-		return this.time <= 0;
-	}
+    /**
+     * Checks whether the level is completed.
+     * 
+     * <p>A level is completed when there are no bubbles left.</p>
+     * 
+     * @return true iff there are no bubbles remaining in this level.
+     */
+    public boolean isCompleted() {
+        for (GameObject ob : this.objects) {
+            if (ob instanceof Bubble) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Checks whether the level has failed.
+     * 
+     * <p>A level has failed when a) the timer runs out; b) a player collides with a bubble.</p>
+     * 
+     * @return boolean - true if the timer hits zero or below.
+     */
+    public boolean hasFailed() {
+        return this.time <= 0;
+    }
+
+    @Override
+    public void update(GameContainer container, int delta) throws SlickException {
+        // TODO Auto-generated method stub
+        
+    }
 
 }

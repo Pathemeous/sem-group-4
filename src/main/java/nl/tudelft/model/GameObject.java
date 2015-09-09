@@ -7,22 +7,24 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
-public abstract class GameObject {
+public abstract class GameObject implements Updateable, Renderable {
 
-    protected int locX;
-	protected int locY;
+    protected float locX;
+	protected float locY;
     protected Image image;
 	
-	public GameObject(Image image, int x, int y) {
+	public GameObject(Image image, float x, float y) {
 		this.image = image;
 		this.locX = x;
 		this.locY = y;
 	}
 
+	@Override
     public void render(GameContainer container, Graphics g) throws SlickException {
         g.drawImage(getImage(), locX, locY);
     }
 
+    @Override
     public abstract void update(GameContainer container, int delta) throws SlickException;
 
     /**
@@ -39,11 +41,18 @@ public abstract class GameObject {
         this.image = image;
     }
 
-    public void setLocX(int locX) {
+    public void setLocX(float locX) {
         this.locX = locX;
     }
+    
+    public float getLocX () {
+    	return locX;
+    }
+    public float getLocY () {
+    	return locY;
+    }
 
-    public void setLocY(int locY) {
+    public void setLocY(float locY) {
         this.locY = locY;
     }
 
@@ -52,5 +61,13 @@ public abstract class GameObject {
                 locX, locY,
                 getImage().getWidth(), getImage().getHeight());
 	}
+
+    public int getWidth() {
+        return this.getImage().getWidth();
+    }
+
+    public int getHeight() {
+        return this.getImage().getHeight();
+    }
 
 }

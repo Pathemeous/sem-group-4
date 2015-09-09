@@ -6,6 +6,7 @@ import org.newdawn.slick.SlickException;
 
 public class Wall extends GameObject {
 
+
 	public Wall(Image image, int locX, int locY) {
 		super(image, locX, locY);
 	}
