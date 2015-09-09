@@ -40,6 +40,19 @@ public class Game implements Updateable, Renderable {
     }
 
     @Override
+    public void update(GameContainer container, int delta) throws SlickException {
+        for (GameObject gameObject : players) {
+            gameObject.update(container, delta);
+        }
+        
+        if (playerDied()) {
+            levelReset();
+        }
+        
+        getCurLevel().update(container, delta);
+    }
+
+    @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         getCurLevel().render(container, graphics);
 
@@ -75,17 +88,6 @@ public class Game implements Updateable, Renderable {
      */
     private void setPrevLives(int amount) {
         this.prevLives = amount;
-    }
-
-    @Override
-    public void update(GameContainer container, int delta) throws SlickException {
-        for (GameObject gameObject : players) {
-            gameObject.update(container, delta);
-        }
-        
-        if (playerDied()) {
-            levelReset();
-        }
     }
 
     /**
