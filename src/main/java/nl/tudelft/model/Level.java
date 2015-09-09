@@ -47,7 +47,12 @@ public class Level implements Updateable, Renderable {
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        // TODO Auto-generated method stub
+        for (GameObject gameObject : bubbles) {
+            gameObject.update(container, delta);
+        }
+        for (GameObject gameObject : projectiles) {
+            gameObject.update(container, delta);
+        }
     }
 
     @Override

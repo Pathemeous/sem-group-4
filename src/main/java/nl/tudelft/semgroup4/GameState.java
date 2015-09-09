@@ -124,16 +124,7 @@ public class GameState extends BasicGameState {
         
         
         
-        theGame.update(container, delta);
-        
-
-        
-        for (GameObject gameObject : bubbles) {
-            gameObject.update(container, delta);
-        }
-        for (GameObject gameObject : projectiles) {
-            gameObject.update(container, delta);
-        }
+        theGame.update(container, delta);        
 
         for (GameObject gameObject : toAdd) {
             if(gameObject instanceof Projectile) {
