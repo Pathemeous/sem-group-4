@@ -128,12 +128,12 @@ public class GameState extends BasicGameState {
 
         for (GameObject gameObject : toAdd) {
             if(gameObject instanceof Projectile) {
-            	projectiles.add(gameObject);
+            	projectiles.add((Projectile)gameObject);
                 Projectile proj = (Projectile)gameObject;
                 proj.fire();
                 weapon.getAL().add(proj);
             } else if(gameObject instanceof Bubble) {
-            	bubbles.add(gameObject);
+            	bubbles.add( (Bubble)gameObject);
             }
         }
         for (GameObject gameObject : toDelete) {
