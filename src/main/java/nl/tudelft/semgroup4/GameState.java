@@ -65,7 +65,7 @@ public class GameState extends BasicGameState {
             }
 
             // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
-            for (int i = 0; i * Resources.wallImage.getHeight() < container.getWidth(); i++) {
+            for (int i = 0; i * Resources.wallImage.getWidth() < container.getWidth(); i++) {
                 walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
                 walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 
                 		container.getHeight() - Resources.wallImage.getHeight()));
