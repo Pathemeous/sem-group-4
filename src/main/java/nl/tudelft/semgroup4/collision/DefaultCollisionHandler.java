@@ -112,7 +112,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     		projectile.setHitBubble(true);
     		manager.remove(bubble);
         	
-        	if(bubble.getSize() > 2) {
+        	if(bubble.getSize() > 1) {
         		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
         		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
         	}

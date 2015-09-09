@@ -101,9 +101,9 @@ public class GameState extends BasicGameState {
     	for (GameObject obj : walls) {
     	  quad.insert(obj);
     	}
-    	for (GameObject obj : bubbles) {
-      	  quad.insert(obj);
-      	}
+//    	for (GameObject obj : bubbles) {
+//      	  quad.insert(obj);
+//      	}
     	for (GameObject obj : projectiles) {
       	  quad.insert(obj);
       	}
@@ -168,7 +168,6 @@ public class GameState extends BasicGameState {
         toDelete.clear();
     }
         
-
     /**
      * game will use CollisionHandler returned in this method.
      * @return the CollisionHandler that will be used.
@@ -184,8 +183,4 @@ public class GameState extends BasicGameState {
 		// TODO Auto-generated method stub
 		return 1;
 	}
-
-	
-
-
 }
