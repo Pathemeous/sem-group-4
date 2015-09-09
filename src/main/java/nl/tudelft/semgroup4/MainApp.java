@@ -18,6 +18,9 @@ public class MainApp extends StateBasedGame {
 
 	public static void main(String[] args) {
 		Input.disableControllers();
+		//Set the library path for the natvies which we need to use for LWJGL
+		//OSX compatibility is fixed by checking the platform name agains the string "macosx"
+		//and if it matches changing it to "osx"
 		System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"),
 				(LWJGLUtil.getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName()).getAbsolutePath());
 		try {
