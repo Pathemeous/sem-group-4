@@ -3,8 +3,8 @@ package nl.tudelft.semgroup4.collision;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.model.Bubble;
 import nl.tudelft.model.GameObject;
+import nl.tudelft.semgroup4.util.QuadTree;
 
 /**
  * Helper class for anything Collision-related that does not deserve his own class
@@ -20,20 +20,37 @@ public class CollisionHelper {
      */
     public static List<GameObject> collideObjectWithList(
             GameObject objectA,
-            List<GameObject> objects) {
-
+            List<GameObject> objects, QuadTree quad) {
         List<GameObject> out = new ArrayList<>();
+        
+        if (quad == null) {
+        	for (GameObject objectB : objects) {
+        		// do not collide with self
+                if (objectA == objectB) {
+                    continue;
+                }
 
-        for (GameObject objectB : objects) {
-            // do not collide with self
-            if (objectA == objectB) {
-                continue;
-            }
+                if (objectA.getBounds().intersects(objectB.getBounds())) {
+                    out.add(objectB);
+                }
+        	}
+        } else {
+        	List<GameObject> returnObjects = new ArrayList<>();
+            quad.retrieve(returnObjects, objectA.getBounds());
+            
+            for (GameObject objectB : returnObjects) {
+            
+                // do not collide with self
+                if (objectA == objectB) {
+                    continue;
+                }
 
-            if (objectA.getBounds().intersects(objectB.getBounds())) {
-                out.add(objectB);
+                if (objectA.getBounds().intersects(objectB.getBounds())) {
+                    out.add(objectB);
+                }
             }
         }
+        
         return out;
     }
 
