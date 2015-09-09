@@ -13,19 +13,31 @@ import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+
 import nl.tudelft.semgroup4.util.QuadTree;
 import org.lwjgl.opengl.GL11;
+import org.newdawn.slick.Color;
+import org.newdawn.slick.Font;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import org.newdawn.slick.command.MouseButtonControl;
+import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.util.LinkedList;
 
+
 public class GameState extends BasicGameState {
+	
+    LinkedList<GameObject> objectList;
+    boolean paused;
+    PauseScreen pauseScreen;
+    MouseOverArea mouseOver;
     LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles, pickups;
     Input input = new Input(0);
     Weapon weapon;
@@ -41,7 +53,13 @@ public class GameState extends BasicGameState {
     
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);     
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); 
+        
+        input = container.getInput();        
+        mouseOver = new MouseOverArea(container, Resources.quitText, container.getHeight()/2,
+        		container.getHeight() / 2, Resources.quitText.getWidth(), Resources.quitText.getHeight());
+        pauseScreen = new PauseScreen(mouseOver);
+            
         quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
         walls = new LinkedList<>();
         projectiles = new LinkedList<>();
@@ -106,94 +124,108 @@ public class GameState extends BasicGameState {
         		gameObject.render(container, g);
         	}
         }
+        if(paused) {        	
+        	pauseScreen.show(g, container, input, game, this);
+        }
 
     }
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
-    	//LinkedList<GameObject> allObjects = new LinkedList<>();
-    	quad.clear();
-    	for (GameObject obj : walls) {
-    	  quad.insert(obj);
-    	}
-//    	for (GameObject obj : bubbles) {
-//      	  quad.insert(obj);
-//      	}
-    	for (GameObject obj : projectiles) {
-      	  quad.insert(obj);
-      	}
-    	for (GameObject obj : players) {
-      	  quad.insert(obj);
-      	}
+        //checks if the escape key is pressed, if so, the gameState pauses 
+    	if (input.isKeyPressed(Input.KEY_ESCAPE)) { 
+			input.disableKeyRepeat();
+			paused = !paused;
+		}
     	
-        // collision
-        for (GameObject collidesWithA : bubbles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-        	}
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-        	}
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-        	}
-        }
-        
-        for (GameObject collidesWithA : projectiles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-        	}
-        }
-        
-        for (GameObject collidesWithA : players) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-        	}
-        }
-        for (GameObject collidesWithA : players) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-        	}
-        }
-        
-        for (GameObject collidesWithA : pickups) {
-        	for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
-        		collisionHandler.onCollision(collidesWithA, collidesWithB);
-        	}
-        }
-        
+		if(!paused) {
+			// collision 
+	    	//LinkedList<GameObject> allObjects = new LinkedList<>();
+	    	quad.clear();
+	    	for (GameObject obj : walls) {
+	    	  quad.insert(obj);
+	    	}
+	//    	for (GameObject obj : bubbles) {
+	//      	  quad.insert(obj);
+	//      	}
+	    	for (GameObject obj : projectiles) {
+	      	  quad.insert(obj);
+	      	}
+	    	for (GameObject obj : players) {
+	      	  quad.insert(obj);
+	      	}
+	    	
+	    	// collision
+	        for (GameObject collidesWithA : bubbles) {
+	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
+	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+	        	}
+	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
+	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+	        	}
+	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles, quad)) {
+	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+	        	}
+	        }
+	        
+	        for (GameObject collidesWithA : projectiles) {
+	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
+	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+	        	}
+	        }
+	        
+	        for (GameObject collidesWithA : players) {
+	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
+	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+	        	}
+	        }
+	        for (GameObject collidesWithA : players) {
+	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
+	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+	        	}
+	        }
+	        
+	        for (GameObject collidesWithA : pickups) {
+	        	for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
+	        		collisionHandler.onCollision(collidesWithA, collidesWithB);
+	        	}
+	        }
+	        
 
-        for (GameObject gameObject : players) {
-            gameObject.update(container, delta);
-        }
-        for (GameObject gameObject : bubbles) {
-            gameObject.update(container, delta);
-        }
-        for (GameObject gameObject : projectiles) {
-            gameObject.update(container, delta);
-        }
-        for (GameObject gameObject : pickups) {
-            gameObject.update(container, delta);
-        }
+	        for (GameObject gameObject : players) {
+	            gameObject.update(container, delta);
+	        }
+	        for (GameObject gameObject : bubbles) {
+	            gameObject.update(container, delta);
+	        }
+	        for (GameObject gameObject : projectiles) {
+	            gameObject.update(container, delta);
+	        }
+	        for (GameObject gameObject : pickups) {
+	            gameObject.update(container, delta);
+	        }
 
-        for (GameObject gameObject : toAdd) {
-            if(gameObject instanceof Projectile) {
-            	projectiles.add(gameObject);
-                Projectile proj = (Projectile)gameObject;
-                proj.fire();
-            } else if(gameObject instanceof Bubble) {
-            	bubbles.add(gameObject);
-            }
-        }
-        for (GameObject gameObject : toDelete) {
-        	if (gameObject instanceof Bubble) {
-        		bubbles.remove(gameObject);
-        	} else if (gameObject instanceof Projectile) {
-        		projectiles.remove(gameObject);
-        	} else if (gameObject instanceof Pickup) {
-        		pickups.remove(gameObject);
-        	}
-        }
-        toAdd.clear();
-        toDelete.clear();
+	        for (GameObject gameObject : toAdd) {
+	            if(gameObject instanceof Projectile) {
+	            	projectiles.add(gameObject);
+	                Projectile proj = (Projectile)gameObject;
+	                proj.fire();
+	            } else if(gameObject instanceof Bubble) {
+	            	bubbles.add(gameObject);
+	            }
+	        }
+	        for (GameObject gameObject : toDelete) {
+	        	if (gameObject instanceof Bubble) {
+	        		bubbles.remove(gameObject);
+	        	} else if (gameObject instanceof Projectile) {
+	        		projectiles.remove(gameObject);
+	        	} else if (gameObject instanceof Pickup) {
+	        		pickups.remove(gameObject);
+	        	}
+	        }
+	        toAdd.clear();
+	        toDelete.clear();
+	    	
+	        
+		}
     }
         
     /**

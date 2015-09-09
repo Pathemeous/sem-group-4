@@ -25,6 +25,7 @@ public class MainApp extends StateBasedGame {
 			container.setUpdateOnlyWhenVisible(true);
 			container.setDisplayMode(1200, 800, false);
 			container.setVSync(true);
+			container.setSmoothDeltas(true);
 			container.start();
 
 		} catch (SlickException e) {

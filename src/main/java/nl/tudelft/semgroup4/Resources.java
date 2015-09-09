@@ -25,6 +25,11 @@ public class Resources {
     public static Image backgroundImage;
 
     public static Image playerImageStill;
+    
+    public static Image quitText;
+    public static Image pauseText;
+    public static Image playerImageRight2;
+
     public static ArrayList<Image> playerImageLeft;
     public static ArrayList<Image> playerImageRight;
 
@@ -81,6 +86,9 @@ public class Resources {
 
         titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
+        
+        pauseText = new Image("src/main/resources/img/pausedText.png");
+        quitText = new Image("src/main/resources/img/quitText.png");
 
         weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
