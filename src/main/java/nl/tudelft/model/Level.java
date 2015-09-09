@@ -9,7 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Level implements Updateable, Renderable {
+public class Level implements Updateable, Renderable, Modifiable {
 
     LinkedList<Wall> walls;
     LinkedList<Projectile> projectiles;
@@ -74,6 +74,40 @@ public class Level implements Updateable, Renderable {
         for (GameObject gameObject : bubbles) {
             gameObject.render(container, graphics);
         }
+    }
+
+    @Override
+    public boolean toAdd(GameObject obj) {
+        if (obj instanceof Projectile) {
+            projectiles.add((Projectile)obj);
+            return projectiles.contains(obj);
+        }
+        if (obj instanceof Bubble) {
+            bubbles.add((Bubble)obj);
+            return bubbles.contains(obj);
+        }
+        if (obj instanceof Wall) {
+            walls.add((Wall)obj);
+            return walls.contains(obj);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean toRemove(GameObject obj) {
+        if (obj instanceof Projectile) {
+            projectiles.remove(obj);
+            return !projectiles.contains(obj);
+        }
+        if (obj instanceof Bubble) {
+            bubbles.remove(obj);
+            return !bubbles.contains(obj);
+        }
+        if (obj instanceof Wall) {
+            walls.remove(obj);
+            return !walls.contains(obj);
+        }
+        return false;
     }
     
     public int getID() {
