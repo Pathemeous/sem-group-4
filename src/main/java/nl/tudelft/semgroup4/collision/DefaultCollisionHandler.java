@@ -6,7 +6,10 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
+import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.PickupContent;
+import nl.tudelft.model.pickups.Powerup;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -49,6 +52,12 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
             if (objB instanceof Wall) {
                 playerWallHandler.onCollision((Player)objA, (Wall)objB);
             }
+        }
+        
+        if (objA instanceof Player) {
+        	if (objB instanceof Pickup) {
+        		playerPickupHandler.onCollision((Player)objA, (Pickup)objB);
+        	}
         }
         
         if (objA instanceof Pickup) {
@@ -138,7 +147,23 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
         if (wallRect.getY() >= pickupRect.getY()) {
             pickup.setLocY((int) (wallRect.getY() - pickupRect.getHeight()));
+            pickup.setOnGround(true);
         }
+    };
+    
+    final CollisionHandler<Player, Pickup> playerPickupHandler = (player, pickup) -> {
+    	pickup.remove();
+    	PickupContent content = pickup.getContent();
+    	if(content instanceof Weapon) {
+    		// set new weapon
+    		Weapon weapon = (Weapon)content;
+    		System.out.println("Pickup a weapon of type: "+weapon.getType());
+    		player.setWeapon(weapon);
+    	} else if(content instanceof Powerup) {
+    		// use powerup
+    	} else {
+    		// get level from player and apply powerup 
+    	}
     };
 
 }

@@ -9,6 +9,8 @@ public class Projectile extends GameObject {
     private int speed, width;
     private Weapon wp;
     private boolean hitBubble;
+    private int tickCount;
+    private boolean hitWall;
 
     /**
      * @param image - The texture used for the weapon/projectile
@@ -30,14 +32,24 @@ public class Projectile extends GameObject {
         this.width = width;
         this.wp = wp;
         hitBubble = false;
+        hitWall = false;
+        tickCount = 0;
     }
 
     /**
      * Reset method for the class "Projectile". This method is called when the projectile needs to "disappear".
      */
     public void reset() {
+    	hitWall = true;
         //Set every variable to the starting variables
-        wp.remove(this);
+    	if(!wp.isSticky() || hitBubble) {
+    		wp.remove(this);
+    	} else if(tickCount == 0) {
+    		tickCount++;
+    	} else if(tickCount == 60) {
+    		wp.remove(this);
+    		tickCount = 0;
+    	}
     }
     
     public void setHitBubble (boolean hit) {
@@ -57,6 +69,12 @@ public class Projectile extends GameObject {
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        this.locY -= speed;
+    	if(!hitWall) {
+    		this.locY -= speed;
+    	}
+        
+        if(tickCount < 60 && tickCount != 0) {
+        	tickCount++;
+        }
     }
 }

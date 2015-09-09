@@ -1,10 +1,10 @@
 package nl.tudelft.model;
 
 import java.util.LinkedList;
-import java.util.Random;
 
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -69,20 +69,14 @@ public class Bubble extends GameObject {
         	maxVerticalSpeed = 0.0f; 
         }
         
-       int random = randInt(1, 10);
+       int random = Helpers.randInt(6, 10);
        if (random > 5 && size > 1) {
     	   containsPickup = true;
     	   
-    	   pickup = new Pickup(Resources.pickup, x, y);
+    	   pickup = new Pickup(Resources.pickup, x, y, manager.getToDelete(), manager.getToAdd());
     	   this.pickups.add(pickup);
        }
     }
-    
-    private int randInt(int min, int max) {
-	    Random rand = new Random();
-	    int randomNum = rand.nextInt((max - min) + 1) + min;
-	    return randomNum;
-	}
     
     /**
      * This method is called every tick, to update the ball.

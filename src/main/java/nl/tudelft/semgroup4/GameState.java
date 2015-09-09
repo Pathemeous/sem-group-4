@@ -11,6 +11,7 @@ import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -71,7 +72,7 @@ public class GameState extends BasicGameState {
         new BubbleManager(toDelete, toAdd, pickups).createBubbles(container);
         
         // todo input
-        weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd);
+        weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd, WeaponType.STICKY);
         players.add( new Player(
                 Resources.playerImageStill.copy(),
                 Resources.playerImageLeft.copy(),
@@ -143,6 +144,11 @@ public class GameState extends BasicGameState {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
+        for (GameObject collidesWithA : players) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+        	}
+        }
         
         for (GameObject collidesWithA : pickups) {
         	for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
@@ -169,7 +175,6 @@ public class GameState extends BasicGameState {
             	projectiles.add(gameObject);
                 Projectile proj = (Projectile)gameObject;
                 proj.fire();
-                weapon.getAL().add(proj);
             } else if(gameObject instanceof Bubble) {
             	bubbles.add(gameObject);
             }
@@ -179,6 +184,8 @@ public class GameState extends BasicGameState {
         		bubbles.remove(gameObject);
         	} else if (gameObject instanceof Projectile) {
         		projectiles.remove(gameObject);
+        	} else if (gameObject instanceof Pickup) {
+        		pickups.remove(gameObject);
         	}
         }
         toAdd.clear();
