@@ -91,13 +91,13 @@ public class Resources {
         bubbleImage6 = new Image("src/main/resources/img/rball6.png");
         
         pickup_weapon_regular = new Image("src/main/resources/img/pickup_regular_weapon.png");
-        pickup_weapon_double = new Image("src/main/resources/img/pickup_regular_weapon.png");
+        pickup_weapon_double = new Image("src/main/resources/img/pickup_weapon_double.png");
         pickup_weapon_sticky = new Image("src/main/resources/img/pickup_sticky.png");
         pickup_weapon_flowers = new Image("src/main/resources/img/pickup_flowers.png");
         pickup_power_shield = new Image("src/main/resources/img/pickup_shield.png");
         pickup_power_invincible = new Image("src/main/resources/img/pickup_invincible.png");
         pickup_power_points = new Image("src/main/resources/img/pickup_points.png");
-        pickup_power_speedup = new Image("src/main/resources/img/rball2.png");
+        pickup_power_speedup = new Image("src/main/resources/img/pickup_speed.png");
         
         power_invincible = new Image("src/main/resources/img/powerup_invincible.png");
         power_shield = new Image("src/main/resources/img/powerup_shield.png");

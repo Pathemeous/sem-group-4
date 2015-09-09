@@ -93,6 +93,12 @@ public class GameState extends BasicGameState {
         }
         for (GameObject gameObject : players) {
             gameObject.render(container, g);
+            Player player = (Player)gameObject;
+            if(player.hasShield()) {
+            	g.drawImage(Resources.power_shield, player.getLocX(), player.getLocY());
+            } else if(player.isInvincible()) {
+            	g.drawImage(Resources.power_invincible, player.getLocX(), player.getLocY());
+            }
         }
         for (GameObject gameObject : pickups) {
         	Pickup pickup = (Pickup)gameObject;

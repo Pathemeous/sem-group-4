@@ -48,19 +48,19 @@ public class Bubble extends GameObject {
         
         switch(size) {
         case 6: 
-        	maxVerticalSpeed = 9.0f; 
+        	maxVerticalSpeed = 10.0f; 
         	break;
         case 5: 
-        	maxVerticalSpeed = 8.0f; 
+        	maxVerticalSpeed = 9.0f; 
         	break;
         case 4: 
-        	maxVerticalSpeed = 7.0f; 
+        	maxVerticalSpeed = 8.0f; 
         	break;
         case 3: 
-        	maxVerticalSpeed = 6.0f; 
+        	maxVerticalSpeed = 7.0f; 
         	break;
         case 2: 
-        	maxVerticalSpeed = 5.0f; 
+        	maxVerticalSpeed = 6.0f; 
         	break;
         case 1: 
         	maxVerticalSpeed = 5.0f; 

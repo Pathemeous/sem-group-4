@@ -22,6 +22,7 @@ public class Player extends GameObject {
     private int counter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
+    private boolean hasSpeedup = false;
     private final Input input;
 
     private Weapon weapon;
@@ -101,13 +102,14 @@ public class Player extends GameObject {
         if(speedupCounter == 600) {
         	speed = (int)(0.5*speed);
         	speedupCounter = 0;
+        	hasSpeedup = false;
         }
     }
     
     public void addPowerup(Powerup up) {
     	switch(up.getPowerType()) {
     	case SHIELD:
-    		if(!isInvincible()) {
+    		if(!isInvincible() && !hasShield()) {
     			powerups.add(up);
     		}
     		break;
@@ -116,11 +118,15 @@ public class Player extends GameObject {
     			removeShield();
     		}
     		invincibilityCounter = 1;
+    		if(isInvincible()) {
+    			removeInvicibility();
+    		}
     		powerups.add(up);
     		break;
     	case SPEEDUP:
     		speedupCounter = 1;
     		speed = 2*speed;
+    		hasSpeedup = true;
     		break;
     	case POINTS:
     		score += 100;

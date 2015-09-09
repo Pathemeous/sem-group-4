@@ -109,13 +109,13 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         // TODO: Add code to reset the level.
     	if(player.isInvincible()) {
     		// nothing happens
-    		System.out.println("Player collided with bubble but is invincible!");
     	} else if(player.hasShield()) {
     		player.removeShield();
     		System.out.println("Player collided with bubble but has a shield!");
     		// add code so the bubble splits when the player has a shield and is hit
     		bubble.split();
     	} else {
+    		System.out.println("Player died");
     		player.removeLife();
     	}
     };
@@ -137,18 +137,6 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     	if(!projectile.getHitBubble()) {
     		projectile.setHitBubble(true);
     		bubble.split();
-//    		manager.remove(bubble);
-//    		
-//    		if(bubble.containsPickup()) {
-//    			bubble.getPickup().setInBubble(false);
-//    			bubble.getPickup().setLocX(bubble.getLocX());
-//    			bubble.getPickup().setLocY(bubble.getLocY());
-//    		}
-//        	
-//        	if(bubble.getSize() > 1) {
-//        		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, true);
-//        		manager.create(bubble.getLocX(), bubble.getLocY(), bubble.getSize()-1, false);
-//        	}
     	}
     };
     
