@@ -18,7 +18,8 @@ public class MainApp extends StateBasedGame {
 
 	public static void main(String[] args) {
 		Input.disableControllers();
-		System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"), LWJGLUtil.getPlatformName()).getAbsolutePath());
+		System.setProperty("org.lwjgl.librarypath", new File(new File(System.getProperty("user.dir"), "target/natives"),
+				(LWJGLUtil.getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName()).getAbsolutePath());
 		try {
 			AppGameContainer container = new AppGameContainer(new MainApp("Bubble Trouble"));
 			container.setTargetFrameRate(60);
