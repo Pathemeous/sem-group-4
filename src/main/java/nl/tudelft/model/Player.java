@@ -66,7 +66,7 @@ public class Player extends GameObject {
         }
         if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
             counter++;
-            weapon.fire((int)this.locX, (int)this.locY, this.getWidth());
+            weapon.fire((int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
         }
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
             setAnimationCurrent(null);
