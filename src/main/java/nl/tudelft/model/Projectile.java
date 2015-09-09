@@ -12,6 +12,8 @@ public class Projectile extends GameObject {
     private int speed, width;
     private Weapon wp;
     private boolean hitBubble;
+    private int tickCount;
+    private boolean hitWall;
     private final int playerWidth;
     private final int playerHeight;
     private final int startHeight;
@@ -38,6 +40,8 @@ public class Projectile extends GameObject {
         this.playerHeight = playerHeight;
         this.wp = wp;
         hitBubble = false;
+        hitWall = false;
+        tickCount = 0;
         startHeight = y;
     }
 
@@ -45,8 +49,16 @@ public class Projectile extends GameObject {
      * Reset method for the class "Projectile". This method is called when the projectile needs to "disappear".
      */
     public void reset() {
+    	hitWall = true;
         //Set every variable to the starting variables
-        wp.remove(this);
+    	if(!wp.isSticky() || hitBubble) {
+    		wp.remove(this);
+    	} else if(tickCount == 0) {
+    		tickCount++;
+    	} else if(tickCount == 90) {
+    		wp.remove(this);
+    		tickCount = 0;
+    	}
     }
     
     public void setHitBubble (boolean hit) {
@@ -70,7 +82,7 @@ public class Projectile extends GameObject {
         final Image img = getImage();
 
         float drawHeight = getActualHeight();
-
+        
         g.drawImage(img,
                 getLocX(), getLocY(),
                 getLocX() + img.getWidth(), getLocY() + drawHeight,
@@ -80,7 +92,13 @@ public class Projectile extends GameObject {
 
     @Override
     public void update(GameContainer container, int delta) throws SlickException {
-        this.locY -= speed;
+    	if(!hitWall) {
+    		this.locY -= speed;
+    	}
+        
+        if(tickCount < 90 && tickCount != 0) {
+        	tickCount++;
+        }
     }
 
     /**
@@ -89,7 +107,7 @@ public class Projectile extends GameObject {
      * @return The visible height of the projectile.
      */
     private float getActualHeight(){
-        return startHeight - getLocY() + playerHeight;
+        return (startHeight - getLocY() + playerHeight) % getHeight();
     }
 
     @Override

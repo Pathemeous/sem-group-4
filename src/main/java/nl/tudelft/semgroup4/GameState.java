@@ -8,6 +8,8 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.Weapon;
+import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -24,7 +26,7 @@ import org.newdawn.slick.state.StateBasedGame;
 import java.util.LinkedList;
 
 public class GameState extends BasicGameState {
-    LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles;
+    LinkedList<GameObject> toDelete, toAdd, walls, players, bubbles, projectiles, pickups;
     Input input = new Input(0);
     Weapon weapon;
     QuadTree quad;
@@ -45,6 +47,7 @@ public class GameState extends BasicGameState {
         projectiles = new LinkedList<>();
         players = new LinkedList<>();
         bubbles = new LinkedList<>();
+        pickups = new LinkedList<>();
         toDelete = new LinkedList<>();
         toAdd = new LinkedList<>();
 
@@ -65,10 +68,10 @@ public class GameState extends BasicGameState {
             //objectList.add(new Wall(Resources.wallImage, 1000, 400));
         }
         
-        new BubbleManager(toDelete, toAdd).createBubbles(container);
+        new BubbleManager(toDelete, toAdd, pickups).createBubbles(container);
         
         // todo input
-        weapon = new Weapon(Resources.weaponImage.copy(), toDelete, toAdd);
+        weapon = new Weapon(Resources.weaponImageRegular.copy(), toDelete, toAdd, WeaponType.REGULAR);
         players.add( new Player(
                 container.getWidth() / 2,
                 container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
@@ -90,6 +93,18 @@ public class GameState extends BasicGameState {
         }
         for (GameObject gameObject : players) {
             gameObject.render(container, g);
+            Player player = (Player)gameObject;
+            if(player.hasShield()) {
+            	g.drawImage(Resources.power_shield, player.getLocX(), player.getLocY());
+            } else if(player.isInvincible()) {
+            	g.drawImage(Resources.power_invincible, player.getLocX(), player.getLocY());
+            }
+        }
+        for (GameObject gameObject : pickups) {
+        	Pickup pickup = (Pickup)gameObject;
+        	if(!pickup.isInBubble()) {
+        		gameObject.render(container, g);
+        	}
         }
 
     }
@@ -133,6 +148,17 @@ public class GameState extends BasicGameState {
                 collisionHandler.onCollision(collidesWithA, collidesWithB);	
         	}
         }
+        for (GameObject collidesWithA : players) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);	
+        	}
+        }
+        
+        for (GameObject collidesWithA : pickups) {
+        	for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
+        		collisionHandler.onCollision(collidesWithA, collidesWithB);
+        	}
+        }
         
 
         for (GameObject gameObject : players) {
@@ -144,13 +170,15 @@ public class GameState extends BasicGameState {
         for (GameObject gameObject : projectiles) {
             gameObject.update(container, delta);
         }
+        for (GameObject gameObject : pickups) {
+            gameObject.update(container, delta);
+        }
 
         for (GameObject gameObject : toAdd) {
             if(gameObject instanceof Projectile) {
             	projectiles.add(gameObject);
                 Projectile proj = (Projectile)gameObject;
                 proj.fire();
-                weapon.getAL().add(proj);
             } else if(gameObject instanceof Bubble) {
             	bubbles.add(gameObject);
             }
@@ -160,6 +188,8 @@ public class GameState extends BasicGameState {
         		bubbles.remove(gameObject);
         	} else if (gameObject instanceof Projectile) {
         		projectiles.remove(gameObject);
+        	} else if (gameObject instanceof Pickup) {
+        		pickups.remove(gameObject);
         	}
         }
         toAdd.clear();
