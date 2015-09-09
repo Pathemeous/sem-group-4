@@ -19,9 +19,9 @@ public class Weapon {
         projectiles = new ArrayList<Projectile>();
     }
 
-    public void fire(int locX, int locY, int width) {
+    public void fire(int locX, int locY, int width, int height) {
         if(projectiles.isEmpty()) {
-            add.add(new Projectile(img,locX,locY,width,6,this));
+            add.add(new Projectile(img, locX, locY, width, height, 6, this));
         }
     }
 
