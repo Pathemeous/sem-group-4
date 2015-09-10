@@ -1,6 +1,9 @@
-package nl.tudelft.model;
+package nl.tudelft.semgroup4;
 
 
+import nl.tudelft.model.Game;
+import nl.tudelft.model.Level;
+import nl.tudelft.model.Player;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

@@ -1,15 +1,15 @@
 package nl.tudelft.model;
 
-import java.util.LinkedList;
-
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;
-
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
+
+import java.util.LinkedList;
 
 /**
  * Bubble is a subclass of GameObject and represents a single bubble in the game.
@@ -234,7 +234,7 @@ public class Bubble extends GameObject {
 	public int getSize() {
 		return size;
 	}
-	
+
 	/**
 	 * Overrides the getbounds method of GameObject, Bubble's superclass, so the shape of the bubble is 
 	 * an instance of Circle instead of Rectangle

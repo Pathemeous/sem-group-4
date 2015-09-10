@@ -1,4 +1,6 @@
-package nl.tudelft.model;
+package nl.tudelft.semgroup4;
+
+import nl.tudelft.model.GameObject;
 
 /**
  * The Modifiable interface should be implemented by the Level object, allowing other objects to
