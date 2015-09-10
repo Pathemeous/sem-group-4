@@ -83,7 +83,7 @@ LinkedList<Player> playerList = new LinkedList<>();
         int dashboardMargin = 10;
         dashboard = new Dashboard(theGame,
                 2 * dashboardMargin,
-                container.getWidth() - 2 * dashboardMargin,
+                container.getWidth() - 4 * dashboardMargin,
                 container.getHeight());
     }
     
