@@ -165,10 +165,9 @@ public class Game implements Renderable {
     /**
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
-    private void levelReset() {
+    public void levelReset() {
         if (getPlayerLives() > 0) {
-            // TODO Implement level.reset();
-            // getCurLevel().reset();
+            setCurLevel(levelFact.getLevel(getCurLevel().getID()));
         } else {
             gameOver();
         }
