@@ -121,7 +121,7 @@ public class Bubble extends GameObject {
         
        int random = Helpers.randInt(1, 10);
        if (random > 1 && size > 1) {           
-           pickup = new Pickup(null, getLocX(), getLocY(), manager.getToDelete(), manager.getToAdd());
+           Pickup pickup = new Pickup(null, getLocX(), getLocY());
            container.toAdd(pickup);
        }
     	
