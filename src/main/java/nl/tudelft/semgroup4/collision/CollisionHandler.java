@@ -7,8 +7,8 @@ import nl.tudelft.model.GameObject;
  *
  * Created by justin on 06/09/15.
  */
-public interface CollisionHandler<O1 extends GameObject, O2 extends GameObject> {
+public interface CollisionHandler<Game, O1 extends GameObject, O2 extends GameObject> {
 
-    void onCollision(O1 objA, O2 objB);
+    void onCollision(Game game, O1 objA, O2 objB);
 
 }

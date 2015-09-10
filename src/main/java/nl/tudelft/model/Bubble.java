@@ -19,86 +19,125 @@ import org.newdawn.slick.geom.Shape;
  */
 public class Bubble extends GameObject {
 
-	private float verticalSpeed;
-	private float horizontalSpeed;
+    private float gravity = 0.1f;
+	private float verticalSpeed = 0.0f;
+	private float horizontalSpeed = 2.0f;
+    private boolean isHit = false;
 	private float maxVerticalSpeed;
-	private float gravity;
 	private int size;
-	private BubbleManager manager;
-	private LinkedList<GameObject> pickups;
-	private boolean containsPickup;
-	private Pickup pickup;
 	
-	/**
-	 * Constructor for Bubble. Initiliazes the image of bubble with the given x and y, and sets the speed and gravity on 
-	 * predetermined values. Only the maxVerticalSpeed is based on the size of the bubble (which ranges from 1 through 6)
-	 * @param image : image of the bubble
-	 * @param x : the x location of the top left corner of the bubble
-	 * @param y : the y location of the top left corner of the bubble
-	 * @param size : the size of the bubble; can range from 1-6
-	 */
-    public Bubble(Image image, float x, float y, int size, LinkedList<GameObject> pickups, BubbleManager manager) {
-        super(image,x,y);
-        this.manager = manager;
+	
+    /**
+     * Constructor for Bubble. This is a shorthanded version initialising the bubble moving to the
+     * right. See {@link #Bubble(float, float, int, boolean)} for the complete constructor.
+     * 
+     * @param x
+     *            float - The x-coordinate where the bubble should spawn.
+     * @param y
+     *            float - The y-coordinate where the bubble should spawn.
+     * @param size
+     *            int - The size of the bubble, in the range [1, 6] (inclusive).
+     * @throws IllegalArgumentException
+     *             - if the <code>size</code> is out of the defined range.
+     */
+    public Bubble(float x, float y, int size) throws IllegalArgumentException {
+        this(x, y, size, true);
+        
+    }
+    
+    /**
+     * The complete constructor for Bubble.
+     * <p>A bubble can be initialised moving either right or left.</p>
+     * <p>The bubble has a size, which will determine its image and its maximum vertical speed (and thus height)</p>
+     * @param x float - The x-coordinate where the bubble should spawn.
+     * @param y float - The y-coordinate where the bubble should spawn.
+     * @param size int - The size of the bubble, in the range [1, 6] (inclusive).
+     * @param goRight boolean - true if the bubble should initialise moving to the right.
+     * @throws IllegalArgumentException - if the <code>size</code> is out of the defined range.
+     */
+    public Bubble(float x, float y, int size, boolean goRight) throws IllegalArgumentException {
+        super(getBubbleImage(size), x ,y);
         this.size = size;
-        this.pickups = pickups;
-        verticalSpeed = 0.0f;
-        horizontalSpeed = 2.0f;
-        gravity = 0.1f;
+        
+        if (!goRight) {
+            horizontalSpeed = -horizontalSpeed;
+        }
         
         switch(size) {
         case 6: 
-        	maxVerticalSpeed = 10.0f; 
-        	break;
+            maxVerticalSpeed = 10.0f;
+            break;
         case 5: 
-        	maxVerticalSpeed = 9.0f; 
-        	break;
+            maxVerticalSpeed = 9.0f;
+            break;
         case 4: 
-        	maxVerticalSpeed = 8.0f; 
-        	break;
+            maxVerticalSpeed = 8.0f;
+            break;
         case 3: 
-        	maxVerticalSpeed = 7.0f; 
-        	break;
+            maxVerticalSpeed = 7.0f;
+            break;
         case 2: 
-        	maxVerticalSpeed = 6.0f; 
-        	break;
+            maxVerticalSpeed = 6.0f;
+            break;
         case 1: 
-        	maxVerticalSpeed = 5.0f; 
-        	break;
+            maxVerticalSpeed = 5.0f;
+            break;
         default: 
-        	maxVerticalSpeed = 0.0f; 
+            throw new IllegalArgumentException();
         }
         
-       int random = Helpers.randInt(1, 10);
-       if (random > 1 && size > 1) {
-    	   containsPickup = true;
-    	   
-    	   pickup = new Pickup(null, x, y, manager.getToDelete(), manager.getToAdd());
-    	   this.pickups.add(pickup);
-       }
+    }
+    
+    private static Image getBubbleImage(int size) throws IllegalArgumentException {
+        switch (size) {
+            case 1:
+                return Resources.bubbleImage1;
+            case 2:
+                return Resources.bubbleImage2;
+            case 3:
+                return Resources.bubbleImage3;
+            case 4:
+                return Resources.bubbleImage4;
+            case 5:
+                return Resources.bubbleImage5;
+            case 6:
+                return Resources.bubbleImage6;
+            default:
+                throw new IllegalArgumentException();
+        }
     }
     
     /**
      * This method is called every tick, to update the ball.
      */
 	@Override
-	public void update(GameContainer container, int delta)
+	public <T extends Modifiable> void update(T container, int delta)
 			throws SlickException {
 		move();
+		
+        if (isHit) {
+            split(container);
+        }
 	}
 	
-	public void split() {
-		manager.remove(this);
-		
-		if(containsPickup()) {
-			getPickup().setInBubble(false);
-			getPickup().setLocX(getLocX());
-			getPickup().setLocY(getLocY());
-		}
+	public <T extends Modifiable> void split(T container) {
+		container.toRemove(this);
+        
+       int random = Helpers.randInt(1, 10);
+       if (random > 1 && size > 1) {           
+           Pickup pickup = new Pickup(null, getLocX(), getLocY());
+           container.toAdd(pickup);
+       }
     	
     	if(getSize() > 1) {
-    		manager.create(getLocX(), getLocY(), getSize()-1, true);
-    		manager.create(getLocX(), getLocY(), getSize()-1, false);
+    		Bubble bubbleLeft = new Bubble(getLocX(), getLocY(), getSize()-1, false);
+    		Bubble bubbleRight = new Bubble(getLocX(), getLocY(), getSize()-1, true);
+    		
+    		bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
+    		bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
+    		
+    		container.toAdd(bubbleLeft);
+    		container.toAdd(bubbleRight);
     	}
 	}
 	
@@ -121,12 +160,8 @@ public class Bubble extends GameObject {
 		verticalSpeed -= gravity;
 	}
 	
-	public Pickup getPickup() {
-		return pickup;
-	}
-	
-	public boolean containsPickup() {
-		return containsPickup;
+	public void setIsHit() {
+	    this.isHit = true;
 	}
 	
 	/**
@@ -177,10 +212,6 @@ public class Bubble extends GameObject {
 			return horizontalSpeed;
 		} 
 		return maxVerticalSpeed;
-	}
-	
-	public BubbleManager getBubbleManager() {
-		return manager;
 	}
 	
 	public int getSize() {

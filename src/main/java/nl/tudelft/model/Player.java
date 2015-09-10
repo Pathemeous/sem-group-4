@@ -66,10 +66,15 @@ public class Player extends GameObject {
         } else {
             g.drawAnimation(curAnimation, getLocX(), getLocY());
         }
+        if (hasShield()) {
+            g.drawImage(Resources.power_shield, getLocX(), getLocY());
+        } else if (isInvincible()) {
+            g.drawImage(Resources.power_invincible, getLocX(), getLocY());
+        }
     }
 
     @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         if (input.isKeyDown(Input.KEY_LEFT)) {
             setAnimationCurrent(animationLeft);
             setLocX((int) (getBounds().getX() - 4));
@@ -80,12 +85,15 @@ public class Player extends GameObject {
         }
         if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
             counter++;
-            weapon.fire((int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
+            weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
         }
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
             setAnimationCurrent(null);
         }
-        counter = (counter <= 10 && counter != 0) ? counter+1 : (counter > 10) ? 0 : counter;
+        
+        this.weapon.update(container, delta);
+        
+        counter = (counter <= 10 && counter != 0) ? counter+1 : 0;
         
         
         invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) 

@@ -20,12 +20,12 @@ public abstract class GameObject implements Updateable, Renderable {
 	}
 
 	@Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
-        g.drawImage(getImage(), locX, locY);
+    public void render(GameContainer container, Graphics graphics) throws SlickException {
+        graphics.drawImage(getImage(), locX, locY);
     }
 
     @Override
-    public abstract void update(GameContainer container, int delta) throws SlickException;
+    public abstract <T extends Modifiable> void update(T container, int delta) throws SlickException;
 
     /**
      * @return the image
