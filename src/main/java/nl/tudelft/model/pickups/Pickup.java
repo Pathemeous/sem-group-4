@@ -8,14 +8,12 @@ import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 
 public class Pickup extends GameObject {
 	
-	private boolean inBubble;
 	private boolean onGround;
 	private PickupContent pickup;
 	private LinkedList<GameObject> toDelete;
@@ -28,7 +26,6 @@ public class Pickup extends GameObject {
 	
 	public Pickup(Image image, float x, float y, LinkedList<GameObject> toDelete, LinkedList<GameObject> toAdd) {
 		super(image, x, y);
-		inBubble = true;
 		onGround = false;
 		this.toDelete = toDelete;
 		this.toAdd = toAdd;
@@ -86,31 +83,18 @@ public class Pickup extends GameObject {
 	@Override
 	public <T extends Modifiable> void update(T container, int delta)
 			throws SlickException {
-		if(!inBubble) {
-			setLocY (getLocY() + 1);
-		}
+	    setLocY (getLocY() + 1);
 		if(onGround) {
 			tickCount ++; 
 			
 			if(tickCount == 180) {
-				remove();
+				container.toRemove(this);
 			}
 		}
 	}
 	
-	public void remove() {
-		toDelete.add(this);
-	}
-	
 	public PickupContent getContent() {
 		return pickup;
-	}
-	
-	public void setInBubble(boolean inBubble) {
-		this.inBubble = inBubble;
-	}
-	public boolean isInBubble() {
-		return inBubble;
 	}
 	
 	public void setOnGround(boolean onGround) {
