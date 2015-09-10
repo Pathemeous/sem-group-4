@@ -13,7 +13,7 @@ public class Powerup extends PickupContent {
 	
 	public Powerup() {
 		// some logic to determine which power up it is
-		int random = Helpers.randInt(1, 4);
+		int random = Helpers.randInt(1, 5);
 		
 		switch(random) {
 		case 1: type = PowerType.SHIELD; break;
