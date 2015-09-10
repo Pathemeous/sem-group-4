@@ -6,7 +6,6 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
@@ -25,7 +24,9 @@ public class Bubble extends GameObject {
     private boolean isHit = false;
 	private float maxVerticalSpeed;
 	private int size;
-	
+	private boolean slowBalls = false;
+	private boolean freeze = false;
+	private int tickCount = 0;
 	
     /**
      * Constructor for Bubble. This is a shorthanded version initialising the bubble moving to the
@@ -113,25 +114,32 @@ public class Bubble extends GameObject {
 	@Override
 	public <T extends Modifiable> void update(T container, int delta)
 			throws SlickException {
-		move();
+		if((!slowBalls || tickCount % 2 == 0) && !freeze) {
+			move();
+		}
 		
         if (isHit) {
             split(container);
         }
+		
+		tickCount++;
 	}
 	
-	public <T extends Modifiable> void split(T container) {
+	public <T extends Modifiable> LinkedList<Bubble> split(T container) {
+		LinkedList<Bubble> newBubbles = new LinkedList<>();
 		container.toRemove(this);
         
-       int random = Helpers.randInt(1, 10);
-       if (random > 1 && size > 1) {           
-           Pickup pickup = new Pickup(null, getLocX(), getLocY());
-           container.toAdd(pickup);
-       }
+		int random = Helpers.randInt(1, 10);
+		if (random > 1 && size > 1) {           
+			Pickup pickup = new Pickup(null, getLocX(), getLocY());
+			container.toAdd(pickup);
+		}
     	
     	if(getSize() > 1) {
     		Bubble bubbleLeft = new Bubble(getLocX(), getLocY(), getSize()-1, false);
-    		Bubble bubbleRight = new Bubble(getLocX(), getLocY(), getSize()-1, true);
+    		Bubble bubbleRight = new Bubble(getLocX()+(bubbleLeft.getBounds().getWidth()/2), getLocY(), getSize()-1, true);
+    		newBubbles.add(bubbleLeft);
+    		newBubbles.add(bubbleRight);
     		
     		bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
     		bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
@@ -139,6 +147,7 @@ public class Bubble extends GameObject {
     		container.toAdd(bubbleLeft);
     		container.toAdd(bubbleRight);
     	}
+    	return newBubbles;
 	}
 	
 	/**
@@ -158,6 +167,14 @@ public class Bubble extends GameObject {
 		setLocX( newX );
 		setLocY( newY );
 		verticalSpeed -= gravity;
+	}
+	
+	public void slowBubbleDown(boolean slowDown) {
+		slowBalls = slowDown;
+	}
+	
+	public void freeze(boolean freeze) {
+		this.freeze = freeze;
 	}
 	
 	public void setIsHit() {

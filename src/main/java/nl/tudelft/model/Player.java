@@ -17,11 +17,13 @@ public class Player extends GameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;
-    private int speed;
+    private final int REGULAR_SPEED = 4;
+    private int speed = REGULAR_SPEED;
     private int lives = 3;
     private int counter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
+    private final int SPEEDUP = 2;
     private boolean hasSpeedup = false;
     private final Input input;
 
@@ -77,11 +79,11 @@ public class Player extends GameObject {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         if (input.isKeyDown(Input.KEY_LEFT)) {
             setAnimationCurrent(animationLeft);
-            setLocX((int) (getBounds().getX() - 4));
+            setLocX((int) (getBounds().getX() - speed));
         }
         if (input.isKeyDown(Input.KEY_RIGHT)) {
             setAnimationCurrent(animationRight);
-            setLocX((int) (getBounds().getX() + 4));
+            setLocX((int) (getBounds().getX() + speed));
         }
         if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
             counter++;
@@ -108,7 +110,7 @@ public class Player extends GameObject {
         		? speedupCounter+1 : (speedupCounter > 600) ? 0 : speedupCounter;
         
         if(speedupCounter == 600) {
-        	speed = (int)(0.5*speed);
+        	speed = REGULAR_SPEED;
         	speedupCounter = 0;
         	hasSpeedup = false;
         }
@@ -133,11 +135,16 @@ public class Player extends GameObject {
     		break;
     	case SPEEDUP:
     		speedupCounter = 1;
-    		speed = 2*speed;
-    		hasSpeedup = true;
+    		if(!hasSpeedup) {
+    			speed = SPEEDUP*speed;
+        		hasSpeedup = true;
+    		}
     		break;
     	case POINTS:
     		score += 100;
+    		break;
+    	case LIFE: 
+    		lives++;
     		break;
     	}
     }

@@ -91,7 +91,7 @@ public class GameState extends BasicGameState {
 			input.disableKeyRepeat();
 			paused = !paused;
 		}
-    	
+    	    	
 		if(!paused) {
 	        theGame.update(delta);   
 		}
