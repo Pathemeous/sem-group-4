@@ -23,6 +23,7 @@ public class Player extends GameObject {
     private int counter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
+    private boolean isFirstPlayer;
     private final int SPEEDUP = 2;
     private boolean hasSpeedup = false;
     private final Input input;
@@ -47,10 +48,11 @@ public class Player extends GameObject {
      *            Weapon - the default Weapon object to start off with.
      */
     public Player(int locX, int locY, Input input,
-            Weapon weapon) {
+            Weapon weapon, boolean isFirstPlayer) {
         super(Resources.playerImageStill.copy(), locX, locY);
 		powerups = new LinkedList<>();
 		speed = 4;
+		this.isFirstPlayer = isFirstPlayer;
 
         this.input = input;
         this.weapon = weapon;
@@ -77,19 +79,20 @@ public class Player extends GameObject {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if (input.isKeyDown(Input.KEY_LEFT)) {
+        if ((input.isKeyDown(Input.KEY_LEFT) && isFirstPlayer) || (input.isKeyDown(Input.KEY_A) && !isFirstPlayer)) {
             setAnimationCurrent(animationLeft);
             setLocX((int) (getBounds().getX() - speed));
         }
-        if (input.isKeyDown(Input.KEY_RIGHT)) {
+        if ((input.isKeyDown(Input.KEY_RIGHT) && isFirstPlayer) || (input.isKeyDown(Input.KEY_D) && !isFirstPlayer)) {
             setAnimationCurrent(animationRight);
             setLocX((int) (getBounds().getX() + speed));
         }
-        if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
+        if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer) || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer) && counter == 0) {
             counter++;
             weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
         }
-        if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
+        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer) || 
+        		(!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
             setAnimationCurrent(null);
         }
         

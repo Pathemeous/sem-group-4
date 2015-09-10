@@ -103,11 +103,14 @@ public class GameState extends BasicGameState {
                     
                     // todo input
                     weapon = new Weapon(Resources.weaponImageRegular.copy(), WeaponType.REGULAR);
-                    Player firstPlayer = new Player(
-                        container.getWidth() / 2,
+                    Player secondPlayer = new Player(
+                        container.getWidth() / 2 - 100,
                         container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
-                        input, weapon);
-                    players.add(firstPlayer);
+                        input, weapon, false);
+                    Player firstPlayer = new Player(
+                            container.getWidth() / 2,
+                            container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
+                            input, weapon, true);
                     
                     double time = 120;
                     
@@ -121,6 +124,7 @@ public class GameState extends BasicGameState {
                     levelList.add(thirdLevel);
                     LinkedList<Player> playerList = new LinkedList<>();
                     playerList.add(firstPlayer);
+                    playerList.add(secondPlayer);
                     theGame = new Game(levelList, playerList);
                 }
             
