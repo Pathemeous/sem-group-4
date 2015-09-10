@@ -45,8 +45,8 @@ public class GameState extends BasicGameState {
     
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); 
+        ((StartScreenState)mainApp.getState(0)).setAlreadyAdded(false);
         input = container.getInput();
         mouseOver = new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
                 container.getHeight() / 2, Resources.quitText.getWidth(),
@@ -97,6 +97,7 @@ public class GameState extends BasicGameState {
 
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
         //checks if the escape key is pressed, if so, the gameState pauses 
+    	
     	if (input.isKeyPressed(Input.KEY_ESCAPE)) { 
 			input.disableKeyRepeat();
 			paused = !paused;
