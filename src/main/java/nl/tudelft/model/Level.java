@@ -89,10 +89,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             gameObject.render(container, graphics);
         }
         for (GameObject gameObject : pickups) {
-          Pickup pickup = (Pickup)gameObject;
-          if(!pickup.isInBubble()) {
             gameObject.render(container, graphics);
-          }
         }
     }
 
