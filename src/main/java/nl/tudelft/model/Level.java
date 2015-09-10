@@ -13,14 +13,11 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     LinkedList<Wall> walls;
     LinkedList<Projectile> projectiles;
-    LinkedList<Player> players;
     LinkedList<Pickup> pickups;
     LinkedList<Bubble> bubbles;
-    LinkedList<GameObject> toDelete;
-    LinkedList<GameObject> toAdd;
     private double time;
     private double speed;
-    
+
     private int id;
 
     /**
@@ -44,18 +41,14 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            double - the time the player has to complete the level in seconds.
      */
     public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
-            LinkedList<Player> players, LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles,
-            LinkedList<GameObject> toDelete, LinkedList<GameObject> toAdd, double time, int id) {
+            LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, double time, int id) {
         this.walls = walls;
         this.projectiles = projectiles;
-        this.players = players;
         this.bubbles = bubbles;
-        this.toDelete = toDelete;
-        this.toAdd = toAdd;
         this.time = time;
-        
+
         this.id = id;
-        
+
         // TODO Set default speed properly
         this.speed = 1;
     }

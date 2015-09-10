@@ -45,7 +45,7 @@ public class GameState extends BasicGameState {
     boolean paused;
     PauseScreen pauseScreen;
     MouseOverArea mouseOver;
-    LinkedList<GameObject> pickups;
+    LinkedList<Pickup> pickups;
     Input input = new Input(0);
     Weapon weapon;
     private Game theGame;
@@ -119,9 +119,9 @@ public class GameState extends BasicGameState {
                     
                     double time = 120;
                     
-                    Level firstLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time, 1);
-                    Level secondLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time, 2);
-                    Level thirdLevel = new Level(walls, projectiles, players, bubbles, toDelete, toAdd, time, 3);
+                    Level firstLevel = new Level(walls, projectiles, pickups, bubbles, time, 1);
+                    Level secondLevel = new Level(walls, projectiles, pickups, bubbles, time, 2);
+                    Level thirdLevel = new Level(walls, projectiles, pickups, bubbles, time, 3);
                     
                     LinkedList<Level> levelList = new LinkedList<>();
                     levelList.add(firstLevel);
