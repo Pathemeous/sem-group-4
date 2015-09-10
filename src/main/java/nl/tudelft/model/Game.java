@@ -16,7 +16,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class Game implements Renderable {
 
     private final int containerWidth, containerHeight;
-    private final LinkedList<Level> levels = new LinkedList<>();
+    private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
     private LinkedList<Player> players;
     private Level curLevel;
@@ -39,10 +39,9 @@ public class Game implements Renderable {
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
-        levels.add(levelFact.getLevel(1));
+        levels = levelFact.getAllLevels();
         
         this.players = players;
-        System.out.println(this.containerWidth);
 
         this.levelIt = this.levels.iterator();
 
@@ -50,9 +49,6 @@ public class Game implements Renderable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
-        
-        System.out.println(this.curLevel.getWalls().size());
-        System.out.println(this.curLevel.getBubbles().size());
 
         collisionHandler = getNewCollisionHandler();
     }

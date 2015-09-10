@@ -9,9 +9,23 @@ import java.util.LinkedList;
 public class LevelFactory {
 
     private Game game;
+    private int levelCount = 1;
 
     public LevelFactory(Game game) {
         this.game = game;
+    }
+    
+    /**
+     * Returns a list containing all levels that the factory can make.
+     * @return LinkedList<Level> All levels ordered from low to high id.
+     */
+    public LinkedList<Level> getAllLevels() {
+        LinkedList<Level> result = new LinkedList<>();
+        
+        for (int i = 1; i <= levelCount; i++) {
+            result.add(getLevel(i));
+        }
+        return result;
     }
 
     /**
