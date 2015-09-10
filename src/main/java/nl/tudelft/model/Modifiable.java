@@ -7,7 +7,7 @@ package nl.tudelft.model;
  * @author Pathemeous
  *
  */
-interface Modifiable {
+public interface Modifiable {
     
     /**
      * Adds an object to the class, provided that it fits in there.
