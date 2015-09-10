@@ -26,7 +26,7 @@ public class Pickup extends GameObject {
 		super(image, x, y);
 		onGround = false;
 		
-		int random = Helpers.randInt(1, 6);
+		int random = Helpers.randInt(1, 10);
 		if(random < 4) {
 			int randomWeaponNr = Helpers.randInt(1, 4);
 			// new weapon
@@ -53,7 +53,7 @@ public class Pickup extends GameObject {
 				break;
 			}
 			
-		} else if (random > 3) {
+		} else if (random > 3 && random < 7) {
 			// new powerup
 			pickup = new Powerup();
 			Powerup up = (Powerup)pickup;
@@ -70,9 +70,32 @@ public class Pickup extends GameObject {
 			case SPEEDUP:
 				setImage(Resources.pickup_power_speedup);
 				break;
+			case LIFE:
+				setImage(Resources.pickup_utility_life);
+				break;
 			}
 		} else {
 			// new utility
+			pickup = new Utility();
+			Utility util = (Utility)pickup;
+			
+			switch(util.getType()) {
+			case FREEZE: 
+				setImage(Resources.pickup_utility_freeze);
+				break;
+			case LEVELWON:
+				setImage(Resources.pickup_utility_levelwon);
+				break;
+			case SLOW:
+				setImage(Resources.pickup_utility_slow);
+				break;
+			case SPLIT:
+				setImage(Resources.pickup_utility_split);
+				break;
+			case TIME:
+				setImage(Resources.pickup_utility_time);
+				break;
+			}
 		}
 	}
 

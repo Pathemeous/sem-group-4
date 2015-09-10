@@ -3,6 +3,7 @@ package nl.tudelft.semgroup4.collision;
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.GameObject;
+import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
@@ -122,8 +123,10 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     };
     
     final CollisionHandler<Game, Bubble, Projectile> projectileBubbleHandler = (game, bubble, projectile) -> {
-    	projectile.setHitBubble();
-    	bubble.setIsHit();
+    	if(!projectile.getHitBubble()) {
+    		projectile.setHitBubble();
+    		bubble.setIsHit();
+    	}
     };
     
     final CollisionHandler<Game, Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
@@ -143,18 +146,13 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     	if(content instanceof Weapon) {
     		// set new weapon
     		Weapon weapon = (Weapon)content;
-    		System.out.println("Pickup a weapon of type: "+weapon.getType());
     		player.setWeapon(weapon);
     	} else if(content instanceof Powerup) {
     		Powerup powerup = (Powerup)content;
-    		System.out.println("Pickup a power up of type: "+powerup.getPowerType());
-    		
     		player.addPowerup(powerup);
-    		// use powerup
     	} else {
-    		System.out.println("Pickup a utility");
     		Utility util = (Utility)content;
-    		// get level from player and apply utility
+    		game.getCurLevel().applyUtility(util);
     	}
     };
 
