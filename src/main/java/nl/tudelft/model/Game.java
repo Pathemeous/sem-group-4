@@ -3,6 +3,7 @@ package nl.tudelft.model;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
@@ -15,12 +16,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class Game implements Renderable {
+public class Game implements Renderable, Modifiable {
 
     private final int containerWidth, containerHeight;
     private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
     private LinkedList<Player> players;
+    private LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
     private final CollisionHandler<Game, GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
@@ -109,10 +111,14 @@ public class Game implements Renderable {
         
         // Updates
         for (GameObject gameObject : players) {
-            gameObject.update(getCurLevel(), delta);
+            gameObject.update(this, delta);
         }
 
         getCurLevel().update(getCurLevel(), delta);
+        
+        for (Player player : playerToDelete) {
+            players.remove(player);
+        }
         
         
         // Logic        
@@ -227,6 +233,28 @@ public class Game implements Renderable {
         return this.containerHeight;
     }
 
+    /**
+     * Addition of anything to the Game object is prohibited.
+     * Calling this method will delegate any non-player objects to the current level.
+     */
+    @Override
+    public void toAdd(GameObject obj) {
+        if (!(obj instanceof Player)) {
+            curLevel.toAdd(obj);
+        }
+    }
+
+    /**
+     * Can be used to remove Players from the Game object.
+     * This is the only type of GameObject stored in Game.
+     */
+    @Override
+    public void toRemove(GameObject obj) {
+        if (obj instanceof Player) {
+            playerToDelete.add((Player)obj);
+        }
+        
+    }
     /**
      * Gets the list of players.
      *
