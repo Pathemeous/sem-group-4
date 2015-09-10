@@ -3,7 +3,6 @@ package nl.tudelft.model;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;

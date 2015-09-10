@@ -86,19 +86,22 @@ public class Level implements Updateable, Renderable, Modifiable {
         }
         
         for (GameObject obj : toRemove) {
-          if (obj instanceof Projectile) {
-              projectiles.remove(obj);
-          }
-          if (obj instanceof Bubble) {
-              bubbles.remove(obj);
-          }
-          if (obj instanceof Pickup) {
-              pickups.remove(obj);
-          }
-          if (obj instanceof Wall) {
-              walls.remove(obj);
-          }
-        }
+            if (obj instanceof Projectile) {
+                projectiles.remove(obj);
+            }
+            if (obj instanceof Bubble) {
+                bubbles.remove(obj);
+            }
+            if (obj instanceof Pickup) {
+                pickups.remove(obj);
+            }
+            if (obj instanceof Wall) {
+                walls.remove(obj);
+            }
+         }
+        
+        toAdd.clear();
+        toRemove.clear();
     }
 
     @Override
