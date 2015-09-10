@@ -37,7 +37,6 @@ import java.util.LinkedList;
 
 
 public class GameState extends BasicGameState {
-    LinkedList<GameObject> toDelete, toAdd;
     LinkedList<Wall> walls;
     LinkedList<Bubble> bubbles;
     LinkedList<Projectile> projectiles;
@@ -74,8 +73,6 @@ public class GameState extends BasicGameState {
         players = new LinkedList<>();
         bubbles = new LinkedList<>();
         pickups = new LinkedList<>();
-        toDelete = new LinkedList<>();
-        toAdd = new LinkedList<>();
 
             for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
                 walls.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
@@ -199,29 +196,7 @@ public class GameState extends BasicGameState {
 	        }
 	        
 	        // Updates
-	        theGame.update(delta);
-
-	        // Addition and Deletion
-	        for (GameObject gameObject : toAdd) {
-	            if(gameObject instanceof Projectile) {
-	            	projectiles.add((Projectile)gameObject);
-	                Projectile proj = (Projectile)gameObject;
-	                proj.fire();
-	            } else if(gameObject instanceof Bubble) {
-	            	bubbles.add((Bubble)gameObject);
-	            }
-	        }
-	        for (GameObject gameObject : toDelete) {
-	        	if (gameObject instanceof Bubble) {
-	        		bubbles.remove(gameObject);
-	        	} else if (gameObject instanceof Projectile) {
-	        		projectiles.remove(gameObject);
-	        	} else if (gameObject instanceof Pickup) {
-	        		pickups.remove(gameObject);
-	        	}
-	        }
-	        toAdd.clear();
-	        toDelete.clear();	        
+	        theGame.update(delta);   
 		}
     }
         
