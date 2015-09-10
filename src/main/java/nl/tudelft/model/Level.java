@@ -73,6 +73,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         for (GameObject obj : toAdd) {
           if (obj instanceof Projectile) {
               projectiles.add((Projectile)obj);
+              ((Projectile)obj).fire();
           }
           if (obj instanceof Bubble) {
               bubbles.add((Bubble)obj);
