@@ -20,7 +20,7 @@ public class Player extends GameObject {
     private final int REGULAR_SPEED = 4;
     private int speed = REGULAR_SPEED;
     private int lives = 3;
-    private int counter = 0;
+    private int fireCounter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
     private boolean isFirstPlayer;
@@ -85,8 +85,8 @@ public class Player extends GameObject {
             setLocX((int) (getBounds().getX() + speed));
         }
         if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer) || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {
-        	if(counter == 0) {
-        		counter++;
+        	if(fireCounter == 0) {
+        		fireCounter++;
                 weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
         	}
         }
@@ -97,7 +97,7 @@ public class Player extends GameObject {
         
         this.weapon.update(container, delta);
         
-        counter = (counter <= 10 && counter != 0) ? counter+1 : 0;
+        fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter+1 : 0;
         
         
         invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) 
@@ -113,6 +113,19 @@ public class Player extends GameObject {
         if(speedupCounter == 600) {
         	removeSpeedup();
         }
+    }
+    
+    /**
+     * Resets the player state to reflect the clean start of a level.
+     * <p>
+     * This means that a player loses all his powerups, his weapons and
+     * makes sure that the weapon firedelay is set to zero.
+     */
+    public void reset() {
+        clearAllPowerups();
+        fireCounter = 0;
+        setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
+        
     }
     
     private void removeSpeedup() {
