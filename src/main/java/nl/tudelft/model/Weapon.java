@@ -18,7 +18,7 @@ public class Weapon extends PickupContent implements Updateable {
     private boolean sticky;
     private int maxCount;
 
-    public Weapon(Image image, LinkedList<GameObject> toDel, LinkedList<GameObject> toAdd, WeaponType type) {
+    public Weapon(Image image, WeaponType type) {
     	this.type = type;
     	sticky = false;
     	

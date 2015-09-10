@@ -33,22 +33,22 @@ public class Pickup extends GameObject {
 			switch(randomWeaponNr) {
 			// regular weapon
 			case 1: 
-				pickup = new Weapon(Resources.weaponImageRegular, toDelete, toAdd, WeaponType.REGULAR);
+				pickup = new Weapon(Resources.weaponImageRegular, WeaponType.REGULAR);
 				setImage(Resources.pickup_weapon_regular);
 				break;
 			// Double shoot
 			case 2: 
-				pickup = new Weapon(Resources.weaponImageRegular, toDelete, toAdd, WeaponType.DOUBLE);
+				pickup = new Weapon(Resources.weaponImageRegular, WeaponType.DOUBLE);
 				setImage(Resources.pickup_weapon_double);
 				break;
 			// Sticky weapon
 			case 3: 
-				pickup = new Weapon(Resources.weaponImageSticky, toDelete, toAdd, WeaponType.STICKY);
+				pickup = new Weapon(Resources.weaponImageSticky, WeaponType.STICKY);
 				setImage(Resources.pickup_weapon_sticky);
 				break;
 			// Flower weapon
 			case 4: 
-				pickup = new Weapon(Resources.weaponImageFlower, toDelete, toAdd, WeaponType.FLOWER);
+				pickup = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
 				setImage(Resources.pickup_weapon_flowers);
 				break;
 			}
