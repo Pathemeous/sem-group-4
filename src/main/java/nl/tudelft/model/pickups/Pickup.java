@@ -3,6 +3,7 @@ package nl.tudelft.model.pickups;
 import java.util.LinkedList;
 
 import nl.tudelft.model.GameObject;
+import nl.tudelft.model.Modifiable;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;
@@ -83,7 +84,7 @@ public class Pickup extends GameObject {
 	}
 
 	@Override
-	public void update(GameContainer container, int delta)
+	public <T extends Modifiable> void update(T container, int delta)
 			throws SlickException {
 		if(!inBubble) {
 			setLocY (getLocY() + 1);
