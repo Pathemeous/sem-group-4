@@ -20,7 +20,7 @@ import java.awt.*;
 /**
  * Created by justin on 10/09/15.
  */
-public class Dashboard implements Renderable, Updateable {
+public class Dashboard implements Renderable {
 
     private static float margin = 10;
     private static float border = 2;
@@ -46,8 +46,16 @@ public class Dashboard implements Renderable, Updateable {
     private int livesLeft = 0;
     private int livesRight = 0;
 
-    /* package */ Dashboard(Game game) {
+    private final int left;
+    private final int right;
+    private final int bottom;
+
+    /* package */ Dashboard(Game game, int left, int right, int bottom) {
         this.game = game;
+
+        this.left = left;
+        this.right = right;
+        this.bottom = bottom;
 
         try {
             // naar resources
@@ -62,23 +70,13 @@ public class Dashboard implements Renderable, Updateable {
         }
 
         timeBarBackground = new Rectangle(
-                getLeft() + margin, 0,
-                getRight() - getLeft() - 2 * margin, timeBarHeight);
+                left + margin, 0,
+                right - left - 2 * margin, timeBarHeight);
         timeBar = new Rectangle(
                 timeBarBackground.getX() + border, 0,
                 timeBarBackground.getWidth() - 2 * border, timeBarBackground.getHeight() - 2 * border);
     }
-
-    private float getLeft() {
-        return 2 * margin;
-    }
-    private float getRight() {
-        return 1200 - 2 * margin;
-    }
-    private float getBottom() {
-        return 300;
-    }
-
+    
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         final Level curLevel = game.getCurLevel();
@@ -86,33 +84,33 @@ public class Dashboard implements Renderable, Updateable {
 
         { /* temp !*/
             graphics.setColor(new Color(0.0f, 1.0f, 0.0f, 1.0f));
-            graphics.drawRect(getLeft(), 0, getRight() - getLeft(), getBottom());
+            graphics.drawRect(left, 0, right - left, bottom);
         }
 
-        float offset = getBottom();
+        float offset = bottom;
         {
             // bottom bar
             {
                 // left side
                 graphics.drawImage(dashboardPlayerContainerLeft,
-                        getLeft() + margin,
-                        getBottom() - margin - dashboardPlayerContainerLeft.getHeight());
+                        left + margin,
+                        bottom - margin - dashboardPlayerContainerLeft.getHeight());
                 String scoreString = String.valueOf(scoreLeft);
                 ttf.drawString(
-                        getLeft() + margin + dashboardPlayerContainerLeft.getWidth() - 2 * margin - ttf.getWidth(scoreString),
-                        getBottom() - margin - dashboardPlayerContainerLeft.getHeight() / 2 - ttf.getHeight(scoreString) / 2,
+                        left + margin + dashboardPlayerContainerLeft.getWidth() - 2 * margin - ttf.getWidth(scoreString),
+                        bottom - margin - dashboardPlayerContainerLeft.getHeight() / 2 - ttf.getHeight(scoreString) / 2,
                         scoreString,
                         Color.darkGray);
             }
             {
                 // right side
                 graphics.drawImage(dashboardPlayerContainerRight,
-                        getRight() - margin - dashboardPlayerContainerRight.getWidth(),
-                        getBottom() - margin - dashboardPlayerContainerRight.getHeight());
+                        right - margin - dashboardPlayerContainerRight.getWidth(),
+                        bottom - margin - dashboardPlayerContainerRight.getHeight());
                 String scoreString = String.valueOf(scoreRight);
                 ttf.drawString(
-                        getRight() - margin - dashboardPlayerContainerRight.getWidth() + 125 - ttf.getWidth(scoreString),
-                        getBottom() - margin - dashboardPlayerContainerRight.getHeight() / 2 - ttf.getHeight(scoreString) / 2,
+                        right - margin - dashboardPlayerContainerRight.getWidth() + 125 - ttf.getWidth(scoreString),
+                        bottom - margin - dashboardPlayerContainerRight.getHeight() / 2 - ttf.getHeight(scoreString) / 2,
                         scoreString,
                         Color.darkGray);
             }
@@ -124,14 +122,14 @@ public class Dashboard implements Renderable, Updateable {
                 {
                     // left
                     graphics.drawImage(dashboardLivesContainer,
-                            getLeft() + margin,
+                            left + margin,
                             offset - margin - dashboardLivesContainer.getHeight());
                     int lifeWidth = (dashboardlivesFull.getWidth() * livesLeft) / 9;
                     // flames for lives
                     graphics.drawImage(dashboardlivesFull,
-                            getLeft() + margin,
+                            left + margin,
                             offset - margin - dashboardLivesContainer.getHeight(),
-                            getLeft() + margin + lifeWidth,
+                            left + margin + lifeWidth,
                             offset - margin,
                             0,
                             0,
@@ -139,9 +137,9 @@ public class Dashboard implements Renderable, Updateable {
                             dashboardlivesFull.getHeight());
                     // x-ses for non-lives
                     graphics.drawImage(dashboardlivesEmpty,
-                            getLeft() + margin + lifeWidth,
+                            left + margin + lifeWidth,
                             offset - margin - dashboardLivesContainer.getHeight(),
-                            getLeft() + margin + dashboardLivesContainer.getWidth(),
+                            left + margin + dashboardLivesContainer.getWidth(),
                             offset - margin,
                             0,
                             0,
@@ -152,13 +150,13 @@ public class Dashboard implements Renderable, Updateable {
                     // right
                     int lifeWidth = (dashboardlivesFull.getWidth() * livesRight) / 9;
                     graphics.drawImage(dashboardLivesContainer,
-                            getRight() - margin - dashboardLivesContainer.getWidth(),
+                            right - margin - dashboardLivesContainer.getWidth(),
                             offset - margin - dashboardLivesContainer.getHeight());
                     // flames for lives
                     graphics.drawImage(dashboardlivesFull,
-                            getRight() - margin - lifeWidth,
+                            right - margin - lifeWidth,
                             offset - margin - dashboardLivesContainer.getHeight(),
-                            getRight() - margin,
+                            right - margin,
                             offset - margin,
                             dashboardlivesFull.getWidth() - lifeWidth,
                             0,
@@ -166,9 +164,9 @@ public class Dashboard implements Renderable, Updateable {
                             dashboardlivesFull.getHeight());
                     // x-ses for non-lives
                     graphics.drawImage(dashboardlivesEmpty,
-                            getRight() - margin - dashboardLivesContainer.getWidth(),
+                            right - margin - dashboardLivesContainer.getWidth(),
                             offset - margin - dashboardLivesContainer.getHeight(),
-                            getRight() - margin - lifeWidth,
+                            right - margin - lifeWidth,
                             offset - margin,
                             0,
                             0,
@@ -195,22 +193,21 @@ public class Dashboard implements Renderable, Updateable {
         {
             // middle (level)
             graphics.drawImage(levelContainer,
-                    (getRight() - getLeft()) / 2 - levelContainer.getWidth() / 2,
-                    getBottom() - margin - levelContainer.getHeight());
+                    (right - left) / 2 - levelContainer.getWidth() / 2,
+                    bottom - margin - levelContainer.getHeight());
 
             String levelIdString = String.valueOf(levelId);
             ttf.drawString(
-                    (getRight() - getLeft()) / 2 - ttf.getWidth(levelIdString) / 2,
-                    getBottom() - margin - (levelContainer.getHeight() / 4) - ttf.getHeight(levelIdString) / 2,
+                    (right - left) / 2 - ttf.getWidth(levelIdString) / 2,
+                    bottom - margin - (levelContainer.getHeight() / 4) - ttf.getHeight(levelIdString) / 2,
                     levelIdString,
                     Color.red);
         }
 
     }
 
-    @Override
-    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        timeBar.setWidth((getRight() - getLeft() - margin * 2) * ((float) game.getCurLevel().getTime() / 120f));
+    public void update(int delta) throws SlickException {
+        timeBar.setWidth((right - left - margin * 2) * ((float) game.getCurLevel().getTime() / 120f));
 
         List<Player> players = game.getPlayers();
         if (players.size() > 1) {
