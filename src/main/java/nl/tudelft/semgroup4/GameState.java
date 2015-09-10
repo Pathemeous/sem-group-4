@@ -18,8 +18,8 @@ import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
-
 import nl.tudelft.semgroup4.util.QuadTree;
+
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.Font;
@@ -27,7 +27,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-
 import org.newdawn.slick.command.MouseButtonControl;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.geom.Rectangle;
@@ -90,13 +89,25 @@ public class GameState extends BasicGameState {
                 walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 
                 		container.getHeight() - Resources.wallImage.getHeight()));
             }
-            new BubbleManager(toDelete, toAdd, pickups).createBubbles(container);
-            for (GameObject obj : toAdd) {
-              if (obj instanceof Bubble) {
-                  bubbles.add((Bubble) obj);
-              }
-            }
-            toAdd.clear();
+            
+            // Create Bubbles for level
+            bubbles.add(new Bubble(Resources.bubbleImage6.copy(), Resources.vwallImage.getWidth() + 100, 
+                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() - 400, 6));
+
+            bubbles.add(new Bubble(Resources.bubbleImage5.copy(), Resources.vwallImage.getWidth() + 200, 
+                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 5));
+            
+            bubbles.add(new Bubble(Resources.bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
+                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4));
+            
+            bubbles.add(new Bubble(Resources.bubbleImage3.copy(), Resources.vwallImage.getWidth() + 400, 
+                container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 3));
+            
+            bubbles.add(new Bubble(Resources.bubbleImage2.copy(), Resources.vwallImage.getWidth() + 500, 
+                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 2));
+              
+            bubbles.add(new Bubble(Resources.bubbleImage1.copy(), Resources.vwallImage.getWidth() + 600, 
+                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 1));
                     
                     // todo input
                     weapon = new Weapon(Resources.weaponImageRegular.copy(), toDelete, toAdd, WeaponType.REGULAR);
@@ -124,13 +135,6 @@ public class GameState extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
       theGame.render(container, g);
-
-        for (GameObject gameObject : pickups) {
-          Pickup pickup = (Pickup)gameObject;
-          if(!pickup.isInBubble()) {
-            gameObject.render(container, g);
-          }
-        }
         
         if(paused) {          
           pauseScreen.show(g, container, input, game, this);
