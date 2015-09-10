@@ -69,7 +69,6 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     }
 
     private final CollisionHandler<Game, Player, Wall> playerWallHandler = (game, player, wall) -> {
-        //System.out.println("Player <-> wall collision");
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -81,41 +80,33 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     };
     
     private final CollisionHandler<Game, Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
-    	//System.out.println("Bubble wall collision!");
     	float offset = bubble.getMaxSpeed();
     	
     	// left collision
     	if (wall.getLocX() < bubble.getLocX() && (wall.getLocX()+wall.getBounds().getWidth()-offset) <= bubble.getLocX() ) {
-    		//System.out.println("Left collision");
     		bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
     	} // top collision
     	else if (wall.getLocY() < bubble.getLocY() && (wall.getLocY()+wall.getBounds().getHeight()-offset) <= bubble.getLocY()) {
-    		//System.out.println("Top collision");
     		bubble.setVerticalSpeed(-Math.abs(bubble.getVerticalSpeed()));
     	} // bottom collision
     	else if ((wall.getLocY()+offset) >= bubble.getLocY() && (bubble.getLocX()+bubble.getBounds().getWidth()) >= wall.getLocX()+offset) {
-    		//System.out.println("Bottom collision");
     		bubble.setVerticalSpeed(Math.abs(bubble.getMaxVerticalSpeed()));
     	} // right collision
     	else {
-    		//System.out.println("Right collision");
     		bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
     	}
     };
 
     final CollisionHandler<Game, Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
-        //System.out.println("Player <-> bubble collision");
 
         // TODO: Add code to reset the level.
     	if(player.isInvincible()) {
     		// nothing happens
     	} else if(player.hasShield()) {
+    	    // The shield is removed and the bubble is split (tagged as isHit).
     		player.removeShield();
-    		System.out.println("Player collided with bubble but has a shield!");
-    		// add code so the bubble splits when the player has a shield and is hit
     		bubble.setIsHit();
     	} else {
-    		System.out.println("Player died");
     		player.removeLife();
     	}
     };
@@ -124,6 +115,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         final Shape projectileRect = projectile.getBounds();
         final Shape wallRect = wall.getBounds();
 
+        // This structure makes the projectile ignore any walls below it (such as the floor wall).
         if (wallRect.getY() < projectileRect.getY()) {
             projectile.setHitWall();
         }
