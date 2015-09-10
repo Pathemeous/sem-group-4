@@ -63,8 +63,11 @@ public class LevelFactory {
                 - Resources.vwallImage.getWidth(), 0));
 
         walls.add(new Wall(Resources.wallImage, 0, 0));
-        walls.add(new Wall(Resources.wallImage, 0, game.getContainerHeight()
-                - Resources.wallImage.getHeight()));
+        for (int i = 1; i <= 5; i++) {
+            // five walls of space for the UI
+            walls.add(new Wall(Resources.wallImage, 0, game.getContainerHeight()
+                    - Resources.wallImage.getHeight() * i ));
+        }
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();

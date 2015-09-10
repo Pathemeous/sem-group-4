@@ -60,16 +60,22 @@ public class GameState extends BasicGameState {
 
 LinkedList<Player> playerList = new LinkedList<>();
 
-        Player firstPlayer = new Player(container.getWidth() / 2, container.getHeight()
-                - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input,
-                weapon, true);
+        // players are initialized with a certain Y coordinate, this should be refactored to be more flexible
+        Player firstPlayer = new Player(
+                container.getWidth() / 2,
+                container.getHeight() - Resources.playerImageStill.getHeight() - 5 * Resources.wallImage.getHeight(),
+                input,
+                weapon,
+                true);
         playerList.add(firstPlayer);
 
         if(!singlePlayer) {
             Player secondPlayer = new Player(
                     container.getWidth() / 2 + 100,
-                    container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
-                    input, weapon, false);
+                    container.getHeight() - Resources.playerImageStill.getHeight() - 5 *  Resources.wallImage.getHeight(),
+                    input,
+                    weapon,
+                    false);
             playerList.add(secondPlayer);
         }
 
