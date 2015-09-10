@@ -19,7 +19,8 @@ public class Level implements Updateable, Renderable, Modifiable {
     LinkedList<Pickup> pickups;
     LinkedList<Bubble> bubbles;
     LinkedList<GameObject> toRemove = new LinkedList<>(), toAdd = new LinkedList<>();
-    private double time;
+    private int time;
+    private final int maxTime;
     private double speed;
     private int utilSlowCounter = 0;
     private boolean slowBalls = false;
@@ -51,12 +52,13 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            double - the time the player has to complete the level in seconds.
      */
     public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
-            LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, double time, int id) {
+            LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, int time, int id) {
         this.walls = walls;
         this.projectiles = projectiles;
         this.bubbles = bubbles;
         this.pickups = pickups;
         this.time = time;
+        this.maxTime = time;
 
         this.id = id;
 
@@ -114,6 +116,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         toRemove.clear();
         
         time -= delta;
+        System.out.println(time);
         
         slowBalls();
         freezeBalls();
@@ -257,12 +260,16 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.id;
     }
 
-    public void setTime(double time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public double getTime() {
+    public int getTime() {
         return this.time;
+    }
+    
+    public int getMaxTime() {
+        return this.maxTime;
     }
 
     public void setSpeed(double speed) {
