@@ -78,6 +78,10 @@ public class Player extends GameObject {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+        if (getLives() == 0) {
+            container.toRemove(this);
+        }
+        
         if ((input.isKeyDown(Input.KEY_LEFT) && isFirstPlayer) || (input.isKeyDown(Input.KEY_A) && !isFirstPlayer)) {
             setAnimationCurrent(animationLeft);
             setLocX((int) (getBounds().getX() - speed));
