@@ -113,6 +113,8 @@ public class Level implements Updateable, Renderable, Modifiable {
         toAdd.clear();
         toRemove.clear();
         
+        time -= delta;
+        
         slowBalls();
         freezeBalls();
     }
