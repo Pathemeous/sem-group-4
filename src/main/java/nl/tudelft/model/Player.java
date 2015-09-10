@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
 import nl.tudelft.semgroup4.Modifiable;
@@ -43,18 +44,15 @@ public class Player extends GameObject {
      *            int - The y-coordinate where the player should spawn.
      * @param input
      *            Input - The input to enable the user to move.
-     * @param weapon
-     *            Weapon - the default Weapon object to start off with.
      */
-    public Player(int locX, int locY, Input input,
-            Weapon weapon, boolean isFirstPlayer) {
+    public Player(int locX, int locY, Input input, boolean isFirstPlayer) {
         super(Resources.playerImageStill.copy(), locX, locY);
 		powerups = new LinkedList<>();
 		speed = 4;
 		this.isFirstPlayer = isFirstPlayer;
 
         this.input = input;
-        this.weapon = weapon;
+        this.weapon = new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR);
 
         this.animationCurrent = null;
         this.animationLeft = Resources.playerWalkLeft;
