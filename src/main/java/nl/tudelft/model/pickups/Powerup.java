@@ -6,7 +6,7 @@ import nl.tudelft.semgroup4.util.Helpers;
 public class Powerup extends PickupContent {
 
 	public enum PowerType {
-		SHIELD, INVINCIBLE, SPEEDUP, POINTS
+		SHIELD, INVINCIBLE, SPEEDUP, POINTS, LIFE
 	}
 	
 	private PowerType type;
@@ -20,6 +20,7 @@ public class Powerup extends PickupContent {
 		case 2: type = PowerType.INVINCIBLE; break;
 		case 3: type = PowerType.SPEEDUP; break;
 		case 4: type = PowerType.POINTS; break;
+		case 5: type = PowerType.LIFE; break;
 		}
 	}
 	

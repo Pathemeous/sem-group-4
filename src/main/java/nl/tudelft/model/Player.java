@@ -139,6 +139,9 @@ public class Player extends GameObject {
     	case POINTS:
     		score += 100;
     		break;
+    	case LIFE: 
+    		lives++;
+    		break;
     	}
     }
     

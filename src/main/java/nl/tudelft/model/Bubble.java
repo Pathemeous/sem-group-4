@@ -25,7 +25,9 @@ public class Bubble extends GameObject {
     private boolean isHit = false;
 	private float maxVerticalSpeed;
 	private int size;
-	
+	private boolean slowBalls = false;
+	private boolean freeze = false;
+	private int tickCount = 0;
 	
     /**
      * Constructor for Bubble. This is a shorthanded version initialising the bubble moving to the
@@ -113,14 +115,18 @@ public class Bubble extends GameObject {
 	@Override
 	public <T extends Modifiable> void update(T container, int delta)
 			throws SlickException {
-		move();
+		if((!slowBalls || tickCount % 2 == 0) && !freeze) {
+			move();
+		}
 		
         if (isHit) {
             split(container);
         }
+		
+		tickCount++;
 	}
 	
-	public <T extends Modifiable> void split(T container) {
+	private <T extends Modifiable> void split(T container) {
 		container.toRemove(this);
         
        int random = Helpers.randInt(1, 10);
@@ -131,7 +137,7 @@ public class Bubble extends GameObject {
     	
     	if(getSize() > 1) {
     		Bubble bubbleLeft = new Bubble(getLocX(), getLocY(), getSize()-1, false);
-    		Bubble bubbleRight = new Bubble(getLocX(), getLocY(), getSize()-1, true);
+    		Bubble bubbleRight = new Bubble(getLocX()+(bubbleLeft.getBounds().getWidth()/2), getLocY(), getSize()-1, true);
     		
     		bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
     		bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
@@ -158,6 +164,14 @@ public class Bubble extends GameObject {
 		setLocX( newX );
 		setLocY( newY );
 		verticalSpeed -= gravity;
+	}
+	
+	public void slowBubbleDown(boolean slowDown) {
+		slowBalls = slowDown;
+	}
+	
+	public void freeze(boolean freeze) {
+		this.freeze = freeze;
 	}
 	
 	public void setIsHit() {
