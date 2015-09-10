@@ -1,5 +1,8 @@
 package nl.tudelft.model;
 
+import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.semgroup4.Updateable;
 import nl.tudelft.semgroup4.util.SEMRectangle;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

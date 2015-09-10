@@ -1,17 +1,16 @@
 package nl.tudelft.model;
 
-import java.util.LinkedList;
-
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
+import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
-
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+
+import java.util.LinkedList;
 
 public class Player extends GameObject {
 

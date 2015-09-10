@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.semgroup4;
 
 import org.newdawn.slick.SlickException;
 
@@ -6,13 +6,13 @@ import org.newdawn.slick.SlickException;
  * The Updateable interface should be implemented by all objects that require to update
  * on every game tick.
  */
-/** package **/ interface Updateable {
+public interface Updateable {
 
     /**
      * Performs all on-tick updates for the implementing class.
      * 
      * <p>
-     * This method is part of the {@link nl.tudelft.model.Updateable} interface.
+     * This method is part of the {@link Updateable} interface.
      * </p>
      * 
      * @param container
