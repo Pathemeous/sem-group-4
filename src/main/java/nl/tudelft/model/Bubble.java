@@ -111,8 +111,9 @@ public class Bubble extends GameObject {
 			throws SlickException {
 		move();
 		
-		// TODO create boolean and surround with if to check for hit.
-		split(container);
+        if (isHit) {
+            split(container);
+        }
 	}
 	
 	public <T extends Modifiable> void split(T container) {
