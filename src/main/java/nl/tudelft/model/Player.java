@@ -106,18 +106,27 @@ public class Player extends GameObject {
         		? invincibilityCounter+1 : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
         
         if(invincibilityCounter == 600) {
-        	removeInvicibility();
-        	invincibilityCounter = 0;
+        	removeInvincibility();
         }
         
         speedupCounter = (speedupCounter <= 600 && speedupCounter != 0) 
         		? speedupCounter+1 : (speedupCounter > 600) ? 0 : speedupCounter;
         
         if(speedupCounter == 600) {
-        	speed = REGULAR_SPEED;
-        	speedupCounter = 0;
-        	hasSpeedup = false;
+        	removeSpeedup();
         }
+    }
+    
+    private void removeSpeedup() {
+    	speed = REGULAR_SPEED;
+    	speedupCounter = 0;
+    	hasSpeedup = false;
+    }
+    
+    private void clearAllPowerups() {
+    	removeSpeedup();
+    	removeInvincibility();
+    	removeShield();
     }
     
     public void addPowerup(Powerup up) {
@@ -133,7 +142,7 @@ public class Player extends GameObject {
     		}
     		invincibilityCounter = 1;
     		if(isInvincible()) {
-    			removeInvicibility();
+    			removeInvincibility();
     		}
     		powerups.add(up);
     		break;
@@ -161,8 +170,9 @@ public class Player extends GameObject {
     	return false;
     }
     
-    private void removeInvicibility() {
+    private void removeInvincibility() {
     	powerups.remove(getInvincibility());
+    	invincibilityCounter = 0;
     }
     
     private Powerup getInvincibility() {
