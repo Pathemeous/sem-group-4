@@ -26,13 +26,12 @@ public class Dashboard implements Renderable {
     private static float border = 2;
     private static float timeBarHeight = 30;
 
-    // hier blijven
-    private Image dashboardPlayerContainerLeft;
-    private Image dashboardPlayerContainerRight;
-    private Image dashboardLivesContainer;
-    private Image dashboardlivesFull;
-    private Image dashboardlivesEmpty;
-    private Image levelContainer;
+    private Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft.copy();
+    private Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight.copy();
+    private Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
+    private Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
+    private Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
+    private Image levelContainer = Resources.levelContainer.copy();
 
     private final Game game;
     private final Rectangle timeBarBackground;
@@ -57,18 +56,6 @@ public class Dashboard implements Renderable {
         this.right = right;
         this.bottom = bottom;
 
-        try {
-            // naar resources
-            dashboardPlayerContainerLeft = new Image("src/main/resources/img/dashboard/player_container_1.png");
-            dashboardPlayerContainerRight = new Image("src/main/resources/img/dashboard/player_container_2.png");
-            dashboardLivesContainer = new Image("src/main/resources/img/dashboard/lives_container.png");
-            dashboardlivesFull = new Image("src/main/resources/img/dashboard/lives_full.png");
-            dashboardlivesEmpty = new Image("src/main/resources/img/dashboard/lives_empty.png");
-            levelContainer = new Image("src/main/resources/img/dashboard/level_container.png");
-        } catch (SlickException e) {
-            e.printStackTrace();
-        }
-
         timeBarBackground = new Rectangle(
                 left + margin, 0,
                 right - left - 2 * margin, timeBarHeight);
@@ -81,11 +68,6 @@ public class Dashboard implements Renderable {
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         final Level curLevel = game.getCurLevel();
         curLevel.getTime();
-
-        { /* temp !*/
-            graphics.setColor(new Color(0.0f, 1.0f, 0.0f, 1.0f));
-            graphics.drawRect(left, 0, right - left, bottom);
-        }
 
         float offset = bottom;
         {

@@ -24,11 +24,17 @@ public class Resources {
     public static Image titleScreenBackground;
     public static Image backgroundImage;
 
+    public static Image dashboardPlayerContainerLeft;
+    public static Image dashboardPlayerContainerRight;
+    public static Image dashboardLivesContainer;
+    public static Image dashboardlivesFull;
+    public static Image dashboardlivesEmpty;
+    public static Image levelContainer;
+
     public static Image playerImageStill;
     
     public static Image quitText;
     public static Image pauseText;
-    public static Image playerImageRight2;
 
     public static ArrayList<Image> playerImageLeft;
     public static ArrayList<Image> playerImageRight;
@@ -92,7 +98,14 @@ public class Resources {
 
         titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
-        
+
+        dashboardPlayerContainerLeft = new Image("src/main/resources/img/dashboard/player_container_1.png");
+        dashboardPlayerContainerRight = new Image("src/main/resources/img/dashboard/player_container_2.png");
+        dashboardLivesContainer = new Image("src/main/resources/img/dashboard/lives_container.png");
+        dashboardlivesFull = new Image("src/main/resources/img/dashboard/lives_full.png");
+        dashboardlivesEmpty = new Image("src/main/resources/img/dashboard/lives_empty.png");
+        levelContainer = new Image("src/main/resources/img/dashboard/level_container.png");
+
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
 
