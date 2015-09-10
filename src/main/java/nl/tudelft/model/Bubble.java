@@ -200,10 +200,6 @@ public class Bubble extends GameObject {
 		return maxVerticalSpeed;
 	}
 	
-	public BubbleManager getBubbleManager() {
-		return manager;
-	}
-	
 	public int getSize() {
 		return size;
 	}
