@@ -76,7 +76,7 @@ public class Resources {
             isInitted = true;
         }
         
-        weaponFire =  new Sound("src/main/resources/sound/arrow.ogg");
+        weaponFire =  new Sound("src/main/resources/sound/weaponFire.ogg");
         bubblePop = new Sound("src/main/resources/sound/pop.ogg");
 
         wallImage =  new Image("src/main/resources/img/wall2_h.png");

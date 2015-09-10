@@ -18,6 +18,7 @@ public class Weapon extends PickupContent implements Updateable {
     private WeaponType type;
     private boolean sticky;
     private int maxCount;
+    private boolean alreadySound;
 
     public Weapon(Image image, WeaponType type) {
     	this.type = type;
@@ -62,9 +63,14 @@ public class Weapon extends PickupContent implements Updateable {
     	return sticky;
     }
 
-    public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {
-    	Resources.weaponFire.play();    
+    public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {   
+    	if(!alreadySound) {
+    		Resources.weaponFire.loop();
+    		alreadySound = true;
+    	}
         if(projectiles.size() < maxCount) {
+        	
+        	 
         	Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);
@@ -73,6 +79,13 @@ public class Weapon extends PickupContent implements Updateable {
     }
 
     public <T extends Modifiable> void remove(T container, Projectile proj) {
+    	System.out.println(projectiles.size());
+    	if(projectiles.size() == 1) {
+    		Resources.weaponFire.stop();
+    		alreadySound = false;
+    	}
+    	
+    	
     	projectiles.remove(proj);
         container.toRemove(proj);
     }
