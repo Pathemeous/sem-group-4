@@ -14,7 +14,6 @@ public class Weapon extends PickupContent implements Updateable {
 
     private ArrayList<Projectile> projectiles;
     private Image img;
-    private LinkedList<GameObject> del, add;
     private WeaponType type;
     private boolean sticky;
     private int maxCount;
@@ -41,8 +40,6 @@ public class Weapon extends PickupContent implements Updateable {
     	
     	
         img = image;
-        del = toDel;
-        add = toAdd;
         projectiles = new ArrayList<Projectile>();
     }
 
@@ -64,16 +61,16 @@ public class Weapon extends PickupContent implements Updateable {
     	return sticky;
     }
 
-    public void fire(int locX, int locY, int width, int height) {
+    public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {
         if(projectiles.size() < maxCount) {
         	Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
-            add.add(proj);
+            container.toAdd(proj);
             projectiles.add(proj);
         }
     }
 
-    public void remove(Projectile proj) {
+    public <T extends Modifiable> void remove(T container, Projectile proj) {
     	projectiles.remove(proj);
-        del.add(proj);
+        container.toRemove(proj);
     }
 }

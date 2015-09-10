@@ -90,6 +90,9 @@ public class Player extends GameObject {
         if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
             setAnimationCurrent(null);
         }
+        
+        this.weapon.update(container, delta);
+        
         counter = (counter <= 10 && counter != 0) ? counter+1 : 0;
         
         
