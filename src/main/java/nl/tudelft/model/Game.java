@@ -12,6 +12,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable {
 
@@ -20,10 +21,10 @@ public class Game implements Renderable {
     private final Iterator<Level> levelIt;
     private LinkedList<Player> players;
     private Level curLevel;
-    private int prevLives = 0;
     private final CollisionHandler<Game, GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
     private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
+    private final StateBasedGame mainApp;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -34,8 +35,9 @@ public class Game implements Renderable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(LinkedList<Player> players, int containerWidth, int containerHeight)
+    public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth, int containerHeight)
             throws IllegalArgumentException {
+        this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
@@ -112,11 +114,7 @@ public class Game implements Renderable {
         getCurLevel().update(getCurLevel(), delta);
         
         
-        // Logic
-        if (playerDied()) {
-            levelReset();
-        }
-        
+        // Logic        
         if(getCurLevel().isCompleted()) {
             nextLevel();
         }
@@ -151,32 +149,6 @@ public class Game implements Renderable {
     }
 
     /**
-     * Sets the previous lives.
-     * 
-     * @param amount
-     *            - the amount of lives
-     */
-    private void setPrevLives(int amount) {
-        this.prevLives = amount;
-    }
-
-    /**
-     * Checks whether a player has died since the last check. This method is used by the
-     * {@link Game#update(GameContainer, int)} method.
-     * 
-     * @return boolean true iff a player has died since this method was last called.
-     */
-    private boolean playerDied() {
-        int curLives = getPlayerLives();
-        if (curLives < prevLives) {
-            setPrevLives(curLives);
-            return true;
-        }
-        setPrevLives(curLives);
-        return false;
-    }
-
-    /**
      * Returns the amount of lives that the players have left.
      * 
      * <p>
@@ -196,10 +168,9 @@ public class Game implements Renderable {
     /**
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
-    private void levelReset() {
+    public void levelReset() {
         if (getPlayerLives() > 0) {
-            // TODO Implement level.reset();
-            // getCurLevel().reset();
+            setCurLevel(levelFact.getLevel(getCurLevel().getID()));
         } else {
             gameOver();
         }
@@ -225,14 +196,14 @@ public class Game implements Renderable {
     }
 
     /**
-     * The game has been lost.
+     * The game has been lost. Returns to the main screen.
      * 
      * <p>
      * This happens when the players run out of lives.
      * </p>
      */
     public void gameOver() {
-        // TODO
+        mainApp.enterState(0);
     }
 
     /**
