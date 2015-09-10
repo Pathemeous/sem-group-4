@@ -16,12 +16,13 @@ import org.newdawn.slick.geom.Rectangle;
 public class Game implements Renderable {
 
     private final int containerWidth, containerHeight;
-    private final LinkedList<Level> levels;
+    private final LinkedList<Level> levels = new LinkedList<>();
     private final Iterator<Level> levelIt;
     private LinkedList<Player> players;
     private Level curLevel;
     private int prevLives = 0;
     private final CollisionHandler<Game, GameObject, GameObject> collisionHandler;
+    private final LevelFactory levelFact;
     private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
 
     /**
@@ -35,12 +36,16 @@ public class Game implements Renderable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(LinkedList<Level> levels, LinkedList<Player> players, int containerWidth, int containerHeight)
+    public Game(/*LinkedList<Level> levels, */LinkedList<Player> players, int containerWidth, int containerHeight)
             throws IllegalArgumentException {
-        this.levels = levels;
+        this.levelFact = new LevelFactory(this);
+        levels.add(levelFact.getLevel(1));
+        
+//        this.levels = levels;
         this.players = players;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
+        System.out.println(this.containerWidth);
 
         this.levelIt = this.levels.iterator();
 
@@ -48,6 +53,9 @@ public class Game implements Renderable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
+        
+        System.out.println(this.curLevel.getWalls().size());
+        System.out.println(this.curLevel.getBubbles().size());
 
         collisionHandler = getNewCollisionHandler();
     }

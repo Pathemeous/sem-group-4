@@ -44,18 +44,20 @@ public class LevelFactory {
 
         LinkedList<Wall> walls = new LinkedList<>();
 
-        for (int i = 0; i * Resources.vwallImage.getHeight() < game.getContainerHeight(); i++) {
-            walls.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
+//        for (int i = 0; i * Resources.vwallImage.getHeight() < game.getContainerHeight(); i++) {
+            System.out.println("reached first wallLoop");
+            walls.add(new Wall(Resources.vwallImage, 0, 0/*i*  Resources.vwallImage.getHeight()*/));
             walls.add(new Wall(Resources.vwallImage, game.getContainerWidth()
-                    - Resources.vwallImage.getWidth(), i * Resources.vwallImage.getHeight()));
-        }
+                    - Resources.vwallImage.getWidth(), 0/*i*  Resources.vwallImage.getHeight()*/));
+//        }
 
         // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
-        for (int i = 0; i * Resources.wallImage.getWidth() < game.getContainerWidth(); i++) {
-            walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
-            walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), game
+//        for (int i = 0; i * Resources.wallImage.getWidth() < game.getContainerWidth(); i++) {
+            System.out.println("reached second wallLoop");
+            walls.add(new Wall(Resources.wallImage, 0/*i * Resources.wallImage.getWidth()*/, 0));
+            walls.add(new Wall(Resources.wallImage, 0/*i * Resources.wallImage.getWidth()*/, game
                     .getContainerHeight() - Resources.wallImage.getHeight()));
-        }
+//        }
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
