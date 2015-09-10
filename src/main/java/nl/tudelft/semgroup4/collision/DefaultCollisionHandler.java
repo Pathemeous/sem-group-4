@@ -105,8 +105,10 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     		// nothing happens
     	} else if(player.hasShield()) {
     	    // The shield is removed and the bubble is split (tagged as isHit).
-    		player.removeShield();
-    		bubble.setIsHit();
+    		if(!player.removingShield()) {
+    			player.setShieldInactive();
+        		bubble.setIsHit();
+    		}
     	} else {
     		player.removeLife();
     		game.levelReset();

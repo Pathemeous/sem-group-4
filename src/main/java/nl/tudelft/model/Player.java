@@ -20,6 +20,7 @@ public class Player extends GameObject {
     private int speed = REGULAR_SPEED;
     private int lives = 3;
     private int counter = 0;
+    private int removingShieldCounter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
     private boolean isFirstPlayer;
@@ -70,9 +71,11 @@ public class Player extends GameObject {
             g.drawAnimation(curAnimation, getLocX(), getLocY());
         }
         if (hasShield()) {
-            g.drawImage(Resources.power_shield, getLocX(), getLocY());
+        	if(removingShieldCounter % 2 == 0)
+        		g.drawImage(Resources.power_shield, getLocX(), getLocY());
         } else if (isInvincible()) {
-            g.drawImage(Resources.power_invincible, getLocX(), getLocY());
+        	if((invincibilityCounter > 540 && invincibilityCounter % 2 == 0) || invincibilityCounter < 540)
+        		g.drawImage(Resources.power_invincible, getLocX(), getLocY());
         }
     }
 
@@ -121,6 +124,14 @@ public class Player extends GameObject {
         	speed = REGULAR_SPEED;
         	speedupCounter = 0;
         	hasSpeedup = false;
+        }
+        
+        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0) 
+        		? removingShieldCounter+1 : (removingShieldCounter > 600) ? 0 : removingShieldCounter;
+        
+        if(removingShieldCounter == 120) {
+        	removeShield();
+        	removingShieldCounter = 0;
         }
     }
     
@@ -201,7 +212,15 @@ public class Player extends GameObject {
     	return false;
     }
     
-    public void removeShield() {
+    public void setShieldInactive() {
+    	removingShieldCounter = 1;
+    }
+    
+    public boolean removingShield() {
+    	return removingShieldCounter != 0;
+    }
+    
+    private void removeShield() {
     	powerups.remove(getShield());
     }
     
