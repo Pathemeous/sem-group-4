@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.Pickup;
@@ -215,11 +216,20 @@ public class Level implements Updateable, Renderable, Modifiable {
     		slowBalls = true;
     		break;
     	case SPLIT:
-    		
+    		splitAllBubbles(bubbles);
     		break;
     	case TIME: 
     		time += 20;
     		break;
+    	}
+    }
+    
+    private void splitAllBubbles(LinkedList<Bubble> bubbles) {
+    	for (Bubble bubble : bubbles) {
+    		if(bubble.getSize() > 1) {
+    			LinkedList<Bubble> newBubbles = bubble.split(this);
+    			splitAllBubbles(newBubbles);
+    		}
     	}
     }
     

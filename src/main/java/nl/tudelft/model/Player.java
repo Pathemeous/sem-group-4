@@ -22,6 +22,7 @@ public class Player extends GameObject {
     private int counter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
+    private final int SPEEDUP = 5;
     private boolean hasSpeedup = false;
     private final Input input;
 
@@ -108,7 +109,7 @@ public class Player extends GameObject {
         		? speedupCounter+1 : (speedupCounter > 600) ? 0 : speedupCounter;
         
         if(speedupCounter == 600) {
-        	speed = (int)(0.5*speed);
+        	speed = (int)(speed / SPEEDUP);
         	speedupCounter = 0;
         	hasSpeedup = false;
         }
@@ -133,7 +134,7 @@ public class Player extends GameObject {
     		break;
     	case SPEEDUP:
     		speedupCounter = 1;
-    		speed = 2*speed;
+    		speed = SPEEDUP*speed;
     		hasSpeedup = true;
     		break;
     	case POINTS:

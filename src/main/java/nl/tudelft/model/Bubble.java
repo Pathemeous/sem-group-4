@@ -6,7 +6,6 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
@@ -126,18 +125,21 @@ public class Bubble extends GameObject {
 		tickCount++;
 	}
 	
-	private <T extends Modifiable> void split(T container) {
+	public <T extends Modifiable> LinkedList<Bubble> split(T container) {
+		LinkedList<Bubble> newBubbles = new LinkedList<>();
 		container.toRemove(this);
         
-       int random = Helpers.randInt(1, 10);
-       if (random > 1 && size > 1) {           
-           Pickup pickup = new Pickup(null, getLocX(), getLocY());
-           container.toAdd(pickup);
-       }
+		int random = Helpers.randInt(1, 10);
+		if (random > 1 && size > 1) {           
+			Pickup pickup = new Pickup(null, getLocX(), getLocY());
+			container.toAdd(pickup);
+		}
     	
     	if(getSize() > 1) {
     		Bubble bubbleLeft = new Bubble(getLocX(), getLocY(), getSize()-1, false);
     		Bubble bubbleRight = new Bubble(getLocX()+(bubbleLeft.getBounds().getWidth()/2), getLocY(), getSize()-1, true);
+    		newBubbles.add(bubbleLeft);
+    		newBubbles.add(bubbleRight);
     		
     		bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
     		bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
@@ -145,6 +147,7 @@ public class Bubble extends GameObject {
     		container.toAdd(bubbleLeft);
     		container.toAdd(bubbleRight);
     	}
+    	return newBubbles;
 	}
 	
 	/**
