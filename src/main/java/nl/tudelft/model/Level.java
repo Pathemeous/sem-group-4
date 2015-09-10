@@ -209,6 +209,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     		frozenBalls = true;
     		break;
     	case LEVELWON:
+    		splitAllBubbles(bubbles, true);
     		// execute method here where the level is won (maybe split all the balls till they're gona first)
     		break;
     	case SLOW:
@@ -216,7 +217,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     		slowBalls = true;
     		break;
     	case SPLIT:
-    		splitAllBubbles(bubbles);
+    		splitAllBubbles(bubbles, false);
     		break;
     	case TIME: 
     		time += 20;
@@ -224,11 +225,11 @@ public class Level implements Updateable, Renderable, Modifiable {
     	}
     }
     
-    private void splitAllBubbles(LinkedList<Bubble> bubbles) {
+    private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
     	for (Bubble bubble : bubbles) {
-    		if(bubble.getSize() > 1) {
+    		if(bubble.getSize() > 1 || endLevel) {
     			LinkedList<Bubble> newBubbles = bubble.split(this);
-    			splitAllBubbles(newBubbles);
+    			splitAllBubbles(newBubbles, endLevel);
     		}
     	}
     }
