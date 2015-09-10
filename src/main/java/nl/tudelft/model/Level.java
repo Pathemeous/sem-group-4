@@ -50,12 +50,12 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         for (GameObject gameObject : bubbles) {
-            gameObject.update(container, delta);
+            gameObject.update(this, delta);
         }
         for (GameObject gameObject : projectiles) {
-            gameObject.update(container, delta);
+            gameObject.update(this, delta);
         }
     }
 

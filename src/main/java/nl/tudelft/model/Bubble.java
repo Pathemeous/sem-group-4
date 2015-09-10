@@ -82,7 +82,7 @@ public class Bubble extends GameObject {
      * This method is called every tick, to update the ball.
      */
 	@Override
-	public void update(GameContainer container, int delta)
+	public <T extends Modifiable> void update(T container, int delta)
 			throws SlickException {
 		move();
 	}

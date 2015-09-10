@@ -1,6 +1,5 @@
 package nl.tudelft.model;
 
-import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.SlickException;
 
 /**

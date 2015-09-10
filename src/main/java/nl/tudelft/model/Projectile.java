@@ -91,7 +91,7 @@ public class Projectile extends GameObject {
     }
 
     @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
     	if(!hitWall) {
     		this.locY -= speed;
     	}

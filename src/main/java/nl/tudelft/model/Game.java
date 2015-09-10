@@ -43,7 +43,7 @@ public class Game implements Updateable, Renderable {
     }
 
     @Override
-    public void update(GameContainer container, int delta) throws SlickException {
+    public void update(Class<? extends Modifiable> container, int delta) throws SlickException {
         for (GameObject gameObject : players) {
             gameObject.update(container, delta);
         }

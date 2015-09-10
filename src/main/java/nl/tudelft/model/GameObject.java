@@ -25,7 +25,7 @@ public abstract class GameObject implements Updateable, Renderable {
     }
 
     @Override
-    public abstract void update(GameContainer container, int delta) throws SlickException;
+    public abstract <T extends Modifiable> void update(T container, int delta) throws SlickException;
 
     /**
      * @return the image
