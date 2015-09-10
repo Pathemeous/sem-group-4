@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
+import nl.tudelft.semgroup4.Resources;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -62,6 +63,7 @@ public class Weapon extends PickupContent implements Updateable {
     }
 
     public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {
+    	Resources.weaponFire.play();    
         if(projectiles.size() < maxCount) {
         	Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             proj.fire();

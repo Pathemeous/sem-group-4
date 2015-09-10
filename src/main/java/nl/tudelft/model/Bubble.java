@@ -121,6 +121,7 @@ public class Bubble extends GameObject {
 	}
 	
 	public <T extends Modifiable> void split(T container) {
+		Resources.bubblePop.play();
 		container.toRemove(this);
         
        int random = Helpers.randInt(1, 10);

@@ -2,7 +2,9 @@ package nl.tudelft.semgroup4;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 
 import java.util.ArrayList;
 
@@ -54,6 +56,9 @@ public class Resources {
     
     public static Image power_shield;
     public static Image power_invincible;
+    
+    public static Sound bubblePop;
+    public static Sound weaponFire;
 
     /**
      * Initialises the resources.
@@ -64,6 +69,9 @@ public class Resources {
         } else {
             isInitted = true;
         }
+        
+        weaponFire =  new Sound("src/main/resources/sound/arrow.ogg");
+        bubblePop = new Sound("src/main/resources/sound/pop.ogg");
 
         wallImage =  new Image("src/main/resources/img/wall2_h.png");
         vwallImage =  new Image("src/main/resources/img/wall2_v.png");
