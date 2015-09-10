@@ -121,7 +121,7 @@ public class GameState extends BasicGameState {
                     levelList.add(thirdLevel);
                     LinkedList<Player> playerList = new LinkedList<>();
                     playerList.add(firstPlayer);
-                    theGame = new Game(levelList, playerList);
+                    theGame = new Game(levelList, playerList, container.getWidth(), container.getHeight());
                 }
             
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
