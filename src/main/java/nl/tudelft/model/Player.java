@@ -17,11 +17,14 @@ public class Player extends GameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;
-    private int speed;
+    private final int REGULAR_SPEED = 4;
+    private int speed = REGULAR_SPEED;
     private int lives = 3;
     private int counter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
+    private boolean isFirstPlayer;
+    private final int SPEEDUP = 2;
     private boolean hasSpeedup = false;
     private final Input input;
 
@@ -45,10 +48,11 @@ public class Player extends GameObject {
      *            Weapon - the default Weapon object to start off with.
      */
     public Player(int locX, int locY, Input input,
-            Weapon weapon) {
+            Weapon weapon, boolean isFirstPlayer) {
         super(Resources.playerImageStill.copy(), locX, locY);
 		powerups = new LinkedList<>();
 		speed = 4;
+		this.isFirstPlayer = isFirstPlayer;
 
         this.input = input;
         this.weapon = weapon;
@@ -75,19 +79,22 @@ public class Player extends GameObject {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if (input.isKeyDown(Input.KEY_LEFT)) {
+        if ((input.isKeyDown(Input.KEY_LEFT) && isFirstPlayer) || (input.isKeyDown(Input.KEY_A) && !isFirstPlayer)) {
             setAnimationCurrent(animationLeft);
-            setLocX((int) (getBounds().getX() - 4));
+            setLocX((int) (getBounds().getX() - speed));
         }
-        if (input.isKeyDown(Input.KEY_RIGHT)) {
+        if ((input.isKeyDown(Input.KEY_RIGHT) && isFirstPlayer) || (input.isKeyDown(Input.KEY_D) && !isFirstPlayer)) {
             setAnimationCurrent(animationRight);
-            setLocX((int) (getBounds().getX() + 4));
+            setLocX((int) (getBounds().getX() + speed));
         }
-        if (input.isKeyDown(Input.KEY_SPACE) && counter == 0) {
-            counter++;
-            weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
+        if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer) || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {
+        	if(counter == 0) {
+        		counter++;
+                weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
+        	}
         }
-        if (!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT))) {
+        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer) || 
+        		(!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
             setAnimationCurrent(null);
         }
         
@@ -108,7 +115,7 @@ public class Player extends GameObject {
         		? speedupCounter+1 : (speedupCounter > 600) ? 0 : speedupCounter;
         
         if(speedupCounter == 600) {
-        	speed = (int)(0.5*speed);
+        	speed = REGULAR_SPEED;
         	speedupCounter = 0;
         	hasSpeedup = false;
         }
@@ -133,11 +140,16 @@ public class Player extends GameObject {
     		break;
     	case SPEEDUP:
     		speedupCounter = 1;
-    		speed = 2*speed;
-    		hasSpeedup = true;
+    		if(!hasSpeedup) {
+    			speed = SPEEDUP*speed;
+        		hasSpeedup = true;
+    		}
     		break;
     	case POINTS:
     		score += 100;
+    		break;
+    	case LIFE: 
+    		lives++;
     		break;
     	}
     }

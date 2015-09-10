@@ -1,10 +1,10 @@
 package nl.tudelft.model;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.Utility;
 import nl.tudelft.semgroup4.Resources;
 
 import org.newdawn.slick.GameContainer;
@@ -20,6 +20,12 @@ public class Level implements Updateable, Renderable, Modifiable {
     LinkedList<GameObject> toRemove = new LinkedList<>(), toAdd = new LinkedList<>();
     private double time;
     private double speed;
+    private int utilSlowCounter = 0;
+    private boolean slowBalls = false;
+    private final int UTIL_SLOWDOWN_TIME = 300;
+    private int utilFreezeCounter = 0;
+    private boolean frozenBalls = false;
+    private final int UTIL_FREEZE_TIME = 300;
 
     private int id;
 
@@ -105,6 +111,39 @@ public class Level implements Updateable, Renderable, Modifiable {
         
         toAdd.clear();
         toRemove.clear();
+        
+        slowBalls();
+        freezeBalls();
+    }
+    
+    private void slowBalls() {
+    	utilSlowCounter = (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0) ? utilSlowCounter+1 : 0;
+        if(slowBalls) {
+        	for(Bubble bubble : bubbles) {
+    			bubble.slowBubbleDown(true);
+    		}
+        }
+        if(utilSlowCounter == UTIL_SLOWDOWN_TIME) {
+        	slowBalls = false;
+        	for (Bubble bubble : bubbles) {
+        		bubble.slowBubbleDown(false);
+        	}
+        }
+    }
+    
+    private void freezeBalls() {
+    	utilFreezeCounter = (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0) ? utilFreezeCounter+1 : 0;
+        if(frozenBalls) {
+        	for(Bubble bubble : bubbles) {
+    			bubble.freeze(true);
+    		}
+        }
+        if(utilFreezeCounter == UTIL_FREEZE_TIME) {
+        	frozenBalls = false;
+        	for (Bubble bubble : bubbles) {
+        		bubble.freeze(false);
+        	}
+        }
     }
 
     @Override
@@ -161,6 +200,38 @@ public class Level implements Updateable, Renderable, Modifiable {
 //            return !walls.contains(obj);
 //        }
 //        return false;
+    }
+    
+    public void applyUtility(Utility util) {
+    	switch(util.getType()) {
+    	case FREEZE: 
+    		utilFreezeCounter++;
+    		frozenBalls = true;
+    		break;
+    	case LEVELWON:
+    		splitAllBubbles(bubbles, true);
+    		// execute method here where the level is won (maybe split all the balls till they're gona first)
+    		break;
+    	case SLOW:
+    		utilSlowCounter++;
+    		slowBalls = true;
+    		break;
+    	case SPLIT:
+    		splitAllBubbles(bubbles, false);
+    		break;
+    	case TIME: 
+    		time += 20;
+    		break;
+    	}
+    }
+    
+    private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
+    	for (Bubble bubble : bubbles) {
+    		if(bubble.getSize() > 1 || endLevel) {
+    			LinkedList<Bubble> newBubbles = bubble.split(this);
+    			splitAllBubbles(newBubbles, endLevel);
+    		}
+    	}
     }
     
     public LinkedList<Wall> getWalls() {

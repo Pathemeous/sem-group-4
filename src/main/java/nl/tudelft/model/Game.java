@@ -15,28 +15,32 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Game implements Renderable {
 
+    private final int containerWidth, containerHeight;
     private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
     private LinkedList<Player> players;
     private Level curLevel;
     private int prevLives = 0;
     private final CollisionHandler<Game, GameObject, GameObject> collisionHandler;
+    private final LevelFactory levelFact;
     private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
      * 
-     * @param levels
-     *            LinkedList - List containing all levels that the game consists of.
      * @param players
      *            LinkedList - List containing all players that take part in this game.
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(LinkedList<Level> levels, LinkedList<Player> players)
+    public Game(LinkedList<Player> players, int containerWidth, int containerHeight)
             throws IllegalArgumentException {
-        this.levels = levels;
+        this.containerWidth = containerWidth;
+        this.containerHeight = containerHeight;
+        this.levelFact = new LevelFactory(this);
+        levels = levelFact.getAllLevels();
+        
         this.players = players;
 
         this.levelIt = this.levels.iterator();
@@ -238,6 +242,14 @@ public class Game implements Renderable {
      */
     protected CollisionHandler getNewCollisionHandler() {
         return new DefaultCollisionHandler();
+    }
+    
+    public int getContainerWidth() {
+        return this.containerWidth;
+    }
+    
+    public int getContainerHeight() {
+        return this.containerHeight;
     }
 
 }
