@@ -15,7 +15,7 @@ public interface Modifiable {
      * @param obj GameObject - The object that the caller wants added.
      * @return boolean - true if the addition was successful, false if it was not.
      */
-    public boolean toAdd(GameObject obj);
+    public void toAdd(GameObject obj);
     
     /**
      * Removes an object from the class, provided that it is in there.
@@ -23,6 +23,6 @@ public interface Modifiable {
      * @param obj GameObject - The object that the caller wants removed
      * @return boolean - true if the object is no longer in the class, whether it was removed by this call or already absent.
      */
-    public boolean toRemove(GameObject obj);
+    public void toRemove(GameObject obj);
 
 }

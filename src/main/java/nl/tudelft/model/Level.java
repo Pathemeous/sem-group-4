@@ -2,6 +2,8 @@ package nl.tudelft.model;
 
 import java.util.LinkedList;
 
+import javax.swing.text.StyledEditorKit.ForegroundAction;
+
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Resources;
 
@@ -15,6 +17,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     LinkedList<Projectile> projectiles;
     LinkedList<Pickup> pickups;
     LinkedList<Bubble> bubbles;
+    LinkedList<GameObject> toRemove = new LinkedList<>(), toAdd = new LinkedList<>();
     private double time;
     private double speed;
 
@@ -65,6 +68,37 @@ public class Level implements Updateable, Renderable, Modifiable {
         for (GameObject gameObject : pickups) {
             gameObject.update(this, delta);
         }
+        
+        // Update the object lists.
+        for (GameObject obj : toAdd) {
+          if (obj instanceof Projectile) {
+              projectiles.add((Projectile)obj);
+          }
+          if (obj instanceof Bubble) {
+              bubbles.add((Bubble)obj);
+          }
+          if (obj instanceof Pickup) {
+              pickups.add((Pickup)obj);
+          }
+          if (obj instanceof Wall) {
+              walls.add((Wall)obj);
+          }
+        }
+        
+        for (GameObject obj : toRemove) {
+          if (obj instanceof Projectile) {
+              projectiles.remove(obj);
+          }
+          if (obj instanceof Bubble) {
+              bubbles.remove(obj);
+          }
+          if (obj instanceof Pickup) {
+              pickups.remove(obj);
+          }
+          if (obj instanceof Wall) {
+              walls.remove(obj);
+          }
+        }
     }
 
     @Override
@@ -88,37 +122,39 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     @Override
-    public boolean toAdd(GameObject obj) {
-        if (obj instanceof Projectile) {
-            projectiles.add((Projectile)obj);
-            return projectiles.contains(obj);
-        }
-        if (obj instanceof Bubble) {
-            bubbles.add((Bubble)obj);
-            return bubbles.contains(obj);
-        }
-        if (obj instanceof Wall) {
-            walls.add((Wall)obj);
-            return walls.contains(obj);
-        }
-        return false;
+    public void toAdd(GameObject obj) {
+        toAdd.add(obj);
+//        if (obj instanceof Projectile) {
+//            projectiles.add((Projectile)obj);
+//            return projectiles.contains(obj);
+//        }
+//        if (obj instanceof Bubble) {
+//            bubbles.add((Bubble)obj);
+//            return bubbles.contains(obj);
+//        }
+//        if (obj instanceof Wall) {
+//            walls.add((Wall)obj);
+//            return walls.contains(obj);
+//        }
+//        return false;
     }
 
     @Override
-    public boolean toRemove(GameObject obj) {
-        if (obj instanceof Projectile) {
-            projectiles.remove(obj);
-            return !projectiles.contains(obj);
-        }
-        if (obj instanceof Bubble) {
-            bubbles.remove(obj);
-            return !bubbles.contains(obj);
-        }
-        if (obj instanceof Wall) {
-            walls.remove(obj);
-            return !walls.contains(obj);
-        }
-        return false;
+    public void toRemove(GameObject obj) {
+        toRemove.add(obj);
+//        if (obj instanceof Projectile) {
+//            projectiles.remove(obj);
+//            return !projectiles.contains(obj);
+//        }
+//        if (obj instanceof Bubble) {
+//            bubbles.remove(obj);
+//            return !bubbles.contains(obj);
+//        }
+//        if (obj instanceof Wall) {
+//            walls.remove(obj);
+//            return !walls.contains(obj);
+//        }
+//        return false;
     }
     
     public LinkedList<Wall> getWalls() {
