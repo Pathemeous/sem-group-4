@@ -119,6 +119,7 @@ public class Game implements Renderable, Modifiable {
         for (Player player : playerToDelete) {
             players.remove(player);
         }
+        playerToDelete.clear();
         
         
         // Logic        
