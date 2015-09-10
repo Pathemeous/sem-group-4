@@ -109,6 +109,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     		bubble.setIsHit();
     	} else {
     		player.removeLife();
+    		game.levelReset();
     	}
     };
     
