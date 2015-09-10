@@ -178,6 +178,9 @@ public class Game implements Renderable, Modifiable {
      */
     public void levelReset() {
         if (getPlayerLives() > 0) {
+            for (Player player : players) {
+                player.reset();
+            }
             setCurLevel(levelFact.getLevel(getCurLevel().getID()));
         } else {
             gameOver();

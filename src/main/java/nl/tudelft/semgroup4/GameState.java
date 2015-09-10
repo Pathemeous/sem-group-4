@@ -32,7 +32,6 @@ public class GameState extends BasicGameState {
     MouseOverArea mouseOver;
     LinkedList<Pickup> pickups;
     Input input = new Input(0);
-    Weapon weapon;
     private Game theGame;
     private Dashboard dashboard;
     private boolean singlePlayer;
@@ -55,17 +54,16 @@ public class GameState extends BasicGameState {
         pauseScreen = new PauseScreen(mouseOver);
 
         // todo input
-        weapon = new Weapon(Resources.weaponImageRegular.copy(), WeaponType.REGULAR);
 
 
-LinkedList<Player> playerList = new LinkedList<>();
+
+        LinkedList<Player> playerList = new LinkedList<>();
 
         // players are initialized with a certain Y coordinate, this should be refactored to be more flexible
         Player firstPlayer = new Player(
                 container.getWidth() / 2,
                 container.getHeight() - Resources.playerImageStill.getHeight() - 5 * Resources.wallImage.getHeight(),
                 input,
-                weapon,
                 true);
         playerList.add(firstPlayer);
 
@@ -74,7 +72,6 @@ LinkedList<Player> playerList = new LinkedList<>();
                     container.getWidth() / 2 + 100,
                     container.getHeight() - Resources.playerImageStill.getHeight() - 5 *  Resources.wallImage.getHeight(),
                     input,
-                    weapon,
                     false);
             playerList.add(secondPlayer);
         }

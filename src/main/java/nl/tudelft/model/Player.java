@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
 import nl.tudelft.semgroup4.Modifiable;
@@ -19,7 +20,8 @@ public class Player extends GameObject {
     private final int REGULAR_SPEED = 4;
     private int speed = REGULAR_SPEED;
     private int lives = 3;
-    private int counter = 0;
+    private int fireCounter = 0;
+    private int removingShieldCounter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
     private boolean isFirstPlayer;
@@ -43,18 +45,15 @@ public class Player extends GameObject {
      *            int - The y-coordinate where the player should spawn.
      * @param input
      *            Input - The input to enable the user to move.
-     * @param weapon
-     *            Weapon - the default Weapon object to start off with.
      */
-    public Player(int locX, int locY, Input input,
-            Weapon weapon, boolean isFirstPlayer) {
+    public Player(int locX, int locY, Input input, boolean isFirstPlayer) {
         super(Resources.playerImageStill.copy(), locX, locY);
 		powerups = new LinkedList<>();
 		speed = 4;
 		this.isFirstPlayer = isFirstPlayer;
 
         this.input = input;
-        this.weapon = weapon;
+        this.weapon = new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR);
 
         this.animationCurrent = null;
         this.animationLeft = Resources.playerWalkLeft;
@@ -70,9 +69,11 @@ public class Player extends GameObject {
             g.drawAnimation(curAnimation, getLocX(), getLocY());
         }
         if (hasShield()) {
-            g.drawImage(Resources.power_shield, getLocX(), getLocY());
+        	if(removingShieldCounter % 2 == 0)
+        		g.drawImage(Resources.power_shield, getLocX(), getLocY());
         } else if (isInvincible()) {
-            g.drawImage(Resources.power_invincible, getLocX(), getLocY());
+        	if((invincibilityCounter > 540 && invincibilityCounter % 2 == 0) || invincibilityCounter < 540)
+        		g.drawImage(Resources.power_invincible, getLocX(), getLocY());
         }
     }
 
@@ -91,8 +92,8 @@ public class Player extends GameObject {
             setLocX((int) (getBounds().getX() + speed));
         }
         if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer) || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {
-        	if(counter == 0) {
-        		counter++;
+        	if(fireCounter == 0) {
+        		fireCounter++;
                 weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
         	}
         }
@@ -103,25 +104,55 @@ public class Player extends GameObject {
         
         this.weapon.update(container, delta);
         
-        counter = (counter <= 10 && counter != 0) ? counter+1 : 0;
+        fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter+1 : 0;
         
         
         invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) 
         		? invincibilityCounter+1 : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
         
         if(invincibilityCounter == 600) {
-        	removeInvicibility();
-        	invincibilityCounter = 0;
+        	removeInvincibility();
         }
         
         speedupCounter = (speedupCounter <= 600 && speedupCounter != 0) 
         		? speedupCounter+1 : (speedupCounter > 600) ? 0 : speedupCounter;
         
         if(speedupCounter == 600) {
-        	speed = REGULAR_SPEED;
-        	speedupCounter = 0;
-        	hasSpeedup = false;
+        	removeSpeedup();
         }
+        
+        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0) 
+        		? removingShieldCounter+1 : (removingShieldCounter > 600) ? 0 : removingShieldCounter;
+        
+        if(removingShieldCounter == 120) {
+        	removeShield();
+        	removingShieldCounter = 0;
+        }
+    }
+    
+    /**
+     * Resets the player state to reflect the clean start of a level.
+     * <p>
+     * This means that a player loses all his powerups, his weapons and
+     * makes sure that the weapon firedelay is set to zero.
+     */
+    public void reset() {
+        clearAllPowerups();
+        fireCounter = 0;
+        setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
+        
+    }
+    
+    private void removeSpeedup() {
+    	speed = REGULAR_SPEED;
+    	speedupCounter = 0;
+    	hasSpeedup = false;
+    }
+    
+    private void clearAllPowerups() {
+    	removeSpeedup();
+    	removeInvincibility();
+    	removeShield();
     }
     
     public void addPowerup(Powerup up) {
@@ -137,7 +168,7 @@ public class Player extends GameObject {
     		}
     		invincibilityCounter = 1;
     		if(isInvincible()) {
-    			removeInvicibility();
+    			removeInvincibility();
     		}
     		powerups.add(up);
     		break;
@@ -165,8 +196,9 @@ public class Player extends GameObject {
     	return false;
     }
     
-    private void removeInvicibility() {
+    private void removeInvincibility() {
     	powerups.remove(getInvincibility());
+    	invincibilityCounter = 0;
     }
     
     private Powerup getInvincibility() {
@@ -201,7 +233,15 @@ public class Player extends GameObject {
     	return false;
     }
     
-    public void removeShield() {
+    public void setShieldInactive() {
+    	removingShieldCounter = 1;
+    }
+    
+    public boolean removingShield() {
+    	return removingShieldCounter != 0;
+    }
+    
+    private void removeShield() {
     	powerups.remove(getShield());
     }
     
