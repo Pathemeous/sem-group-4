@@ -99,7 +99,7 @@ public class LevelFactory {
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
-        double time = 120;
+        double time = 120000;
         
         return new Level(walls, projectiles, pickups, bubbles, time, id);
 
@@ -118,7 +118,7 @@ public class LevelFactory {
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
-        double time = 120;
+        double time = 120000;
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
     }
