@@ -56,74 +56,25 @@ public class GameState extends BasicGameState {
     
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA); 
-        
-        input = container.getInput();        
-        mouseOver = new MouseOverArea(container, Resources.quitText, container.getHeight()/2,
-        		container.getHeight() / 2, Resources.quitText.getWidth(), Resources.quitText.getHeight());
+        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+
+        input = container.getInput();
+        mouseOver = new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
+                container.getHeight() / 2, Resources.quitText.getWidth(),
+                Resources.quitText.getHeight());
         pauseScreen = new PauseScreen(mouseOver);
-        System.out.println(container.getWidth());
-            
-//        walls = new LinkedList<>();
-//        projectiles = new LinkedList<>();
-//        players = new LinkedList<>();
-//        bubbles = new LinkedList<>();
-//        pickups = new LinkedList<>();
-//
-//            for (int i = 0; i * Resources.vwallImage.getHeight() < container.getHeight(); i++) {
-//                walls.add(new Wall(Resources.vwallImage, 0, i * Resources.vwallImage.getHeight()));
-//                walls.add(new Wall(Resources.vwallImage, container.getWidth() - Resources.vwallImage.getWidth()
-//                		, i * Resources.vwallImage.getHeight()));
-//            }
-//
-//            // NOTE: als je rotate dan staan width/height not voor dezeflde dimensies
-//            for (int i = 0; i * Resources.wallImage.getWidth() < container.getWidth(); i++) {
-//                walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 0));
-//                walls.add(new Wall(Resources.wallImage, i * Resources.wallImage.getWidth(), 
-//                		container.getHeight() - Resources.wallImage.getHeight()));
-//            }
-//            
-//            // Create Bubbles for level
-//            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 100, 
-//                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() - 400, 6));
-//
-//            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 200, 
-//                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 5));
-//            
-//            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 300, 
-//                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4));
-//            
-//            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 400, 
-//                container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 3));
-//            
-//            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 500, 
-//                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 2));
-//              
-//            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 600, 
-//                    container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 1));
-//                    
-                    // todo input
-                    weapon = new Weapon(Resources.weaponImageRegular.copy(), WeaponType.REGULAR);
-                    Player firstPlayer = new Player(
-                        container.getWidth() / 2,
-                        container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
-                        input, weapon);
-//                    
-//                    double time = 120;
-//                    
-//                    Level firstLevel = new Level(walls, projectiles, pickups, bubbles, time, 1);
-//                    Level secondLevel = new Level(walls, projectiles, pickups, bubbles, time, 2);
-//                    Level thirdLevel = new Level(walls, projectiles, pickups, bubbles, time, 3);
-//                    
-//                    LinkedList<Level> levelList = new LinkedList<>();
-//                    levelList.add(firstLevel);
-//                    levelList.add(secondLevel);
-//                    levelList.add(thirdLevel);
-                    LinkedList<Player> playerList = new LinkedList<>();
-                    playerList.add(firstPlayer);
-                    theGame = new Game(/*levelList, */playerList, container.getWidth(), container.getHeight());
-                }
-            
+
+        // todo input
+        weapon = new Weapon(Resources.weaponImageRegular.copy(), WeaponType.REGULAR);
+        Player firstPlayer = new Player(container.getWidth() / 2, container.getHeight()
+                - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input,
+                weapon);
+
+        LinkedList<Player> playerList = new LinkedList<>();
+        playerList.add(firstPlayer);
+        theGame = new Game(playerList, container.getWidth(), container.getHeight());
+    }
+
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
       theGame.render(container, g);

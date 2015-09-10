@@ -29,22 +29,19 @@ public class Game implements Renderable {
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
      * 
-     * @param levels
-     *            LinkedList - List containing all levels that the game consists of.
      * @param players
      *            LinkedList - List containing all players that take part in this game.
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(/*LinkedList<Level> levels, */LinkedList<Player> players, int containerWidth, int containerHeight)
+    public Game(LinkedList<Player> players, int containerWidth, int containerHeight)
             throws IllegalArgumentException {
+        this.containerWidth = containerWidth;
+        this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
         levels.add(levelFact.getLevel(1));
         
-//        this.levels = levels;
         this.players = players;
-        this.containerWidth = containerWidth;
-        this.containerHeight = containerHeight;
         System.out.println(this.containerWidth);
 
         this.levelIt = this.levels.iterator();
