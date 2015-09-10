@@ -145,7 +145,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     };
     
     final CollisionHandler<Game, Player, Pickup> playerPickupHandler = (game, player, pickup) -> {
-        // TODO Add deletion of the pickup through the Game object.
+        game.getCurLevel().toRemove(pickup);
         
     	PickupContent content = pickup.getContent();
     	if(content instanceof Weapon) {

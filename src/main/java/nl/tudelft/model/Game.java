@@ -147,7 +147,7 @@ public class Game implements Renderable {
      * 
      * @return Level - the current level.
      */
-    private Level getCurLevel() {
+    public Level getCurLevel() {
         return this.curLevel;
     }
 
