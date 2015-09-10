@@ -232,10 +232,13 @@ public class Game implements Renderable, Modifiable {
 
     /**
      * Addition of anything to the Game object is prohibited.
-     * Calling this method will not do anything.
+     * Calling this method will delegate any non-player objects to the current level.
      */
     @Override
     public void toAdd(GameObject obj) {
+        if (!(obj instanceof Player)) {
+            curLevel.toAdd(obj);
+        }
     }
 
     /**
