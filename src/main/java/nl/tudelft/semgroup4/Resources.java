@@ -51,6 +51,12 @@ public class Resources {
     public static Image pickup_power_invincible;
     public static Image pickup_power_speedup;
     public static Image pickup_power_points;
+    public static Image pickup_utility_split;
+    public static Image pickup_utility_freeze;
+    public static Image pickup_utility_slow;
+    public static Image pickup_utility_levelwon;
+    public static Image pickup_utility_time;
+    public static Image pickup_utility_life;
     
     public static Image power_shield;
     public static Image power_invincible;
@@ -109,6 +115,12 @@ public class Resources {
         pickup_power_invincible = new Image("src/main/resources/img/pickup_invincible.png");
         pickup_power_points = new Image("src/main/resources/img/pickup_points.png");
         pickup_power_speedup = new Image("src/main/resources/img/pickup_speed.png");
+        pickup_utility_split = new Image("src/main/resources/img/pickup_split.png");
+        pickup_utility_freeze = new Image("src/main/resources/img/pickup_freeze.png");
+        pickup_utility_slow = new Image("src/main/resources/img/pickup_slow_down.png");
+        pickup_utility_levelwon = new Image("src/main/resources/img/pickup_level_won.png");
+        pickup_utility_time = new Image("src/main/resources/img/pickup_time.png");
+        pickup_utility_life = new Image("src/main/resources/img/pickup_life.png");
         
         power_invincible = new Image("src/main/resources/img/powerup_invincible.png");
         power_shield = new Image("src/main/resources/img/powerup_shield.png");
