@@ -85,7 +85,7 @@ LinkedList<Player> playerList = new LinkedList<>();
             playerList.add(secondPlayer);
         }
 
-        theGame = new Game(playerList, container.getWidth(), container.getHeight());
+        theGame = new Game(mainApp, playerList, container.getWidth(), container.getHeight());
     }
     
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {

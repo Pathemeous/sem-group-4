@@ -12,6 +12,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable {
 
@@ -23,6 +24,7 @@ public class Game implements Renderable {
     private final CollisionHandler<Game, GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
     private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
+    private final StateBasedGame mainApp;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -33,8 +35,9 @@ public class Game implements Renderable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(LinkedList<Player> players, int containerWidth, int containerHeight)
+    public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth, int containerHeight)
             throws IllegalArgumentException {
+        this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
@@ -193,14 +196,14 @@ public class Game implements Renderable {
     }
 
     /**
-     * The game has been lost.
+     * The game has been lost. Returns to the main screen.
      * 
      * <p>
      * This happens when the players run out of lives.
      * </p>
      */
     public void gameOver() {
-        // TODO
+        mainApp.enterState(0);
     }
 
     /**
