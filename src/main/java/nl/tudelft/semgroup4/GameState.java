@@ -47,11 +47,13 @@ public class GameState extends BasicGameState {
     Input input = new Input(0);
     Weapon weapon;
     private Game theGame;
+    private boolean singlePlayer;
     QuadTree quad;
    
 
-    public GameState(String title) {
+    public GameState(String title, boolean singlePlayer) {
         super();
+        this.singlePlayer = singlePlayer;
     }
     
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
@@ -66,15 +68,26 @@ public class GameState extends BasicGameState {
 
         // todo input
         weapon = new Weapon(Resources.weaponImageRegular.copy(), WeaponType.REGULAR);
+
+
+LinkedList<Player> playerList = new LinkedList<>();
+
         Player firstPlayer = new Player(container.getWidth() / 2, container.getHeight()
                 - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(), input,
-                weapon);
-
-        LinkedList<Player> playerList = new LinkedList<>();
+                weapon, true);
         playerList.add(firstPlayer);
+
+        if(!singlePlayer) {
+            Player secondPlayer = new Player(
+                    container.getWidth() / 2 + 100,
+                    container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
+                    input, weapon, false);
+            playerList.add(secondPlayer);
+        }
+
         theGame = new Game(playerList, container.getWidth(), container.getHeight());
     }
-
+    
     public void render(GameContainer container, StateBasedGame game, Graphics g) throws SlickException {
 
       theGame.render(container, g);
@@ -99,7 +112,11 @@ public class GameState extends BasicGameState {
 
 	@Override
 	public int getID() {
-		// TODO Auto-generated method stub
-		return 1;
+		if(singlePlayer) {
+			return 1;
+		} else {
+			return 2;
+		}
+		
 	}
 }
