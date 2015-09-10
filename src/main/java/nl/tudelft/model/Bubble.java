@@ -59,6 +59,10 @@ public class Bubble extends GameObject {
         super(getBubbleImage(size), x ,y);
         this.size = size;
         
+        if (!goRight) {
+            horizontalSpeed = -horizontalSpeed;
+        }
+        
         switch(size) {
         case 6: 
             maxVerticalSpeed = 10.0f;
