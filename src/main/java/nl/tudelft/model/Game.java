@@ -112,11 +112,7 @@ public class Game implements Renderable {
         getCurLevel().update(getCurLevel(), delta);
         
         
-        // Logic
-        if (playerDied()) {
-            levelReset();
-        }
-        
+        // Logic        
         if(getCurLevel().isCompleted()) {
             nextLevel();
         }
@@ -148,32 +144,6 @@ public class Game implements Renderable {
      */
     public Level getCurLevel() {
         return this.curLevel;
-    }
-
-    /**
-     * Sets the previous lives.
-     * 
-     * @param amount
-     *            - the amount of lives
-     */
-    private void setPrevLives(int amount) {
-        this.prevLives = amount;
-    }
-
-    /**
-     * Checks whether a player has died since the last check. This method is used by the
-     * {@link Game#update(GameContainer, int)} method.
-     * 
-     * @return boolean true iff a player has died since this method was last called.
-     */
-    private boolean playerDied() {
-        int curLives = getPlayerLives();
-        if (curLives < prevLives) {
-            setPrevLives(curLives);
-            return true;
-        }
-        setPrevLives(curLives);
-        return false;
     }
 
     /**
