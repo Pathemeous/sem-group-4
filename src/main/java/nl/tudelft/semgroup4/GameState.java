@@ -195,7 +195,7 @@ public class GameState extends BasicGameState {
 	        }
 	        
 	        // Updates
-	        theGame.update(container, delta);
+	        theGame.update(delta);
 	        
 	        for (GameObject gameObject : pickups) {
 	            gameObject.update(container, delta);

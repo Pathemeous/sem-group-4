@@ -9,7 +9,7 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Game implements Updateable, Renderable {
+public class Game implements Renderable {
 
     private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
@@ -42,10 +42,9 @@ public class Game implements Updateable, Renderable {
         System.out.println("hasNext after Constructor: " + levelIt.hasNext());
     }
 
-    @Override
-    public void update(Class<? extends Modifiable> container, int delta) throws SlickException {
+    public void update(int delta) throws SlickException {
         for (GameObject gameObject : players) {
-            gameObject.update(container, delta);
+            gameObject.update(getCurLevel(), delta);
         }
         System.out.println("hasNext: " + levelIt.hasNext());
         System.out.println(curLevel.getID());
@@ -54,7 +53,7 @@ public class Game implements Updateable, Renderable {
             levelReset();
         }
 
-        getCurLevel().update(container, delta);
+        getCurLevel().update(getCurLevel(), delta);
         System.out.println(getCurLevel().isCompleted());
         if(getCurLevel().isCompleted()) {
             nextLevel();
