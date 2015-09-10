@@ -71,15 +71,10 @@ public class Game implements Renderable {
         
         // collision : CollisionMap
         for (GameObject collidesWithA : bubbles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
-            }
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
-            }
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
-            }
+        	// bubbles check against walls, players and projectiles
+        	for( GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, null, quad) ) {
+        		collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
+        	}
         }
         
         for (GameObject collidesWithA : projectiles) {
