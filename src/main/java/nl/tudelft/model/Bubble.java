@@ -150,6 +150,10 @@ public class Bubble extends GameObject {
 		verticalSpeed -= gravity;
 	}
 	
+	public void setIsHit() {
+	    this.isHit = true;
+	}
+	
 	/**
 	 * 
 	 * @return the vertical speed of the bubble

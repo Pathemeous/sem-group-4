@@ -48,21 +48,24 @@ public class Projectile extends GameObject {
     /**
      * Reset method for the class "Projectile". This method is called when the projectile needs to "disappear".
      */
-    public void reset() {
-    	hitWall = true;
+    public <T extends Modifiable> void reset(T container) {
         //Set every variable to the starting variables
     	if(!wp.isSticky() || hitBubble) {
-    		wp.remove(this);
+    		wp.remove(container, this);
     	} else if(tickCount == 0) {
     		tickCount++;
     	} else if(tickCount == 90) {
-    		wp.remove(this);
+    		wp.remove(container, this);
     		tickCount = 0;
     	}
     }
     
-    public void setHitBubble (boolean hit) {
-    	hitBubble = hit;
+    public void setHitWall() {
+        hitWall = true;
+    }
+    
+    public void setHitBubble () {
+    	hitBubble = true;
     }
     
     public boolean getHitBubble () {
@@ -94,11 +97,18 @@ public class Projectile extends GameObject {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
     	if(!hitWall) {
     		this.locY -= speed;
+    	} else {
+            if(tickCount < 90 && tickCount != 0) {
+                tickCount++;
+            } else {
+                reset(container);
+            }
+    	}
+    	
+    	if (hitBubble) {
+    	    reset(container);
     	}
         
-        if(tickCount < 90 && tickCount != 0) {
-        	tickCount++;
-        }
     }
 
     /**

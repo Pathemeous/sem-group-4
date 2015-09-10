@@ -113,7 +113,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     		player.removeShield();
     		System.out.println("Player collided with bubble but has a shield!");
     		// add code so the bubble splits when the player has a shield and is hit
-    		bubble.split();
+    		bubble.setIsHit();
     	} else {
     		System.out.println("Player died");
     		player.removeLife();
@@ -125,19 +125,13 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         final Shape wallRect = wall.getBounds();
 
         if (wallRect.getY() < projectileRect.getY()) {
-        	//System.out.println("Projectile <-> wall collision");
-            projectile.reset();
+            projectile.setHitWall();
         }
     };
     
     final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (bubble, projectile) -> {
-    	//System.out.println("Projectile <-> Bubble collision");
-    	projectile.reset();
-    	
-    	if(!projectile.getHitBubble()) {
-    		projectile.setHitBubble(true);
-    		bubble.split();
-    	}
+    	projectile.setHitBubble();
+    	bubble.setIsHit();
     };
     
     final CollisionHandler<Pickup, Wall> pickupWallHandler = (pickup, wall) -> {
@@ -151,6 +145,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
     
     final CollisionHandler<Player, Pickup> playerPickupHandler = (player, pickup) -> {
+        // TODO Add container modifiable method
     	pickup.remove();
     	PickupContent content = pickup.getContent();
     	if(content instanceof Weapon) {
