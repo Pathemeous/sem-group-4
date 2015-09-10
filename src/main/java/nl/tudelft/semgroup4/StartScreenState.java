@@ -42,7 +42,8 @@ public class StartScreenState extends BasicGameState {
 	public void update(GameContainer container, StateBasedGame game, int ticks) throws SlickException {
 		if(!alreadyAdded) {
 			alreadyAdded = true;
-			game.getState(1).init(container, game);			
+			game.getState(1).init(container, game);	
+			game.getState(2).init(container, game);
 		}
 		//checks if the left mouse button is pressed and where it was pressed to determine 
 		//what action to perform
