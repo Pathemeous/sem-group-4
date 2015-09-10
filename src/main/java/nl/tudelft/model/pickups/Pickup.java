@@ -16,19 +16,15 @@ public class Pickup extends GameObject {
 	
 	private boolean onGround;
 	private PickupContent pickup;
-	private LinkedList<GameObject> toDelete;
-	private LinkedList<GameObject> toAdd;
 	private int tickCount;
 	
 	public enum WeaponType {
 		REGULAR, DOUBLE, STICKY, FLOWER
 	}
 	
-	public Pickup(Image image, float x, float y, LinkedList<GameObject> toDelete, LinkedList<GameObject> toAdd) {
+	public Pickup(Image image, float x, float y) {
 		super(image, x, y);
 		onGround = false;
-		this.toDelete = toDelete;
-		this.toAdd = toAdd;
 		
 		int random = Helpers.randInt(1, 6);
 		if(random < 4) {
