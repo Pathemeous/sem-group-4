@@ -46,7 +46,7 @@ public class MainApp extends StateBasedGame {
 		Resources.init();
 		addState(new StartScreenState());
 		addState(new GameState(this.getTitle(), true));
-		addState(new GameState(this.getTitle(), false));
+		//addState(new GameState(this.getTitle(), false));
 		enterState(0);
 	}
 }

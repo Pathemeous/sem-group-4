@@ -87,9 +87,11 @@ public class Player extends GameObject {
             setAnimationCurrent(animationRight);
             setLocX((int) (getBounds().getX() + speed));
         }
-        if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer) || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer) && counter == 0) {
-            counter++;
-            weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
+        if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer) || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {
+        	if(counter == 0) {
+        		counter++;
+                weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
+        	}
         }
         if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer) || 
         		(!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
