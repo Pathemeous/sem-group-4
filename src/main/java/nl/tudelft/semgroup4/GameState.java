@@ -5,7 +5,6 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Bubble;
-import nl.tudelft.model.BubbleManager;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Level;
@@ -49,13 +48,10 @@ public class GameState extends BasicGameState {
     Weapon weapon;
     private Game theGame;
     QuadTree quad;
-
-    final CollisionHandler<GameObject, GameObject> collisionHandler;
    
 
     public GameState(String title) {
         super();
-        collisionHandler = getNewCollisionHandler();
     }
     
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
@@ -67,7 +63,6 @@ public class GameState extends BasicGameState {
         		container.getHeight() / 2, Resources.quitText.getWidth(), Resources.quitText.getHeight());
         pauseScreen = new PauseScreen(mouseOver);
             
-        quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
         walls = new LinkedList<>();
         projectiles = new LinkedList<>();
         players = new LinkedList<>();
@@ -147,68 +142,9 @@ public class GameState extends BasicGameState {
 		}
     	
 		if(!paused) {
-			// collision 
-	    	quad.clear();
-	    	for (GameObject obj : walls) {
-	    	  quad.insert(obj);
-	    	}
-	    	for (GameObject obj : projectiles) {
-	      	  quad.insert(obj);
-	      	}
-	    	for (GameObject obj : players) {
-	      	  quad.insert(obj);
-	      	}
-	    	
-	    	// collision
-	        for (GameObject collidesWithA : bubbles) {
-	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-	        	}
-	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
-	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-	        	}
-	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles, quad)) {
-	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-	        	}
-	        }
-	        
-	        for (GameObject collidesWithA : projectiles) {
-	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
-	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-	        	}
-	        }
-	        
-	        for (GameObject collidesWithA : players) {
-	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-	        	}
-	        }
-	        for (GameObject collidesWithA : players) {
-	            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
-	                collisionHandler.onCollision(collidesWithA, collidesWithB);	
-	        	}
-	        }
-	        
-	        for (GameObject collidesWithA : pickups) {
-	        	for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
-	        		collisionHandler.onCollision(collidesWithA, collidesWithB);
-	        	}
-	        }
-	        
-	        // Updates
 	        theGame.update(delta);   
 		}
     }
-        
-    /**
-     * game will use CollisionHandler returned in this method.
-     * @return the CollisionHandler that will be used.
-     */
-    protected CollisionHandler getNewCollisionHandler() {
-        return new DefaultCollisionHandler();
-    }
-
-
 
 	@Override
 	public int getID() {

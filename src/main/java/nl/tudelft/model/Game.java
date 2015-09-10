@@ -4,10 +4,15 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.collision.CollisionHandler;
+import nl.tudelft.semgroup4.collision.CollisionHelper;
+import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Rectangle;
 
 public class Game implements Renderable {
 
@@ -16,6 +21,8 @@ public class Game implements Renderable {
     private LinkedList<Player> players;
     private Level curLevel;
     private int prevLives = 0;
+    private final CollisionHandler<GameObject, GameObject> collisionHandler;
+    private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -39,22 +46,79 @@ public class Game implements Renderable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
-        System.out.println("hasNext after Constructor: " + levelIt.hasNext());
+
+        collisionHandler = getNewCollisionHandler();
     }
 
     public void update(int delta) throws SlickException {
+        LinkedList<? extends GameObject> walls, projectiles, bubbles, pickups;
+        walls = getCurLevel().getWalls();
+        projectiles = getCurLevel().getProjectiles();
+        bubbles = getCurLevel().getBubbles();
+        pickups = getCurLevel().getPickups();
+        
+
+        // collision: QuadTree
+        quad.clear();
+        for (GameObject obj : walls) {
+          quad.insert(obj);
+        }
+        for (GameObject obj : projectiles) {
+          quad.insert(obj);
+        }
+        for (GameObject obj : players) {
+          quad.insert(obj);
+        }
+        
+        // collision : CollisionMap
+        for (GameObject collidesWithA : bubbles) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+            }
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+            }
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles, quad)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+            }
+        }
+        
+        for (GameObject collidesWithA : projectiles) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+            }
+        }
+        
+        for (GameObject collidesWithA : players) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+            }
+        }
+        for (GameObject collidesWithA : players) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+            }
+        }
+        
+        for (GameObject collidesWithA : pickups) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
+                collisionHandler.onCollision(collidesWithA, collidesWithB);
+            }
+        }
+        
+        // Updates
         for (GameObject gameObject : players) {
             gameObject.update(getCurLevel(), delta);
         }
-        System.out.println("hasNext: " + levelIt.hasNext());
-        System.out.println(curLevel.getID());
 
+        getCurLevel().update(getCurLevel(), delta);
+        
+        
+        // Logic
         if (playerDied()) {
             levelReset();
         }
-
-        getCurLevel().update(getCurLevel(), delta);
-        System.out.println(getCurLevel().isCompleted());
+        
         if(getCurLevel().isCompleted()) {
             nextLevel();
         }
@@ -171,6 +235,15 @@ public class Game implements Renderable {
      */
     public void gameOver() {
         // TODO
+    }
+
+    /**
+     * game will use CollisionHandler returned in this method.
+     * 
+     * @return the CollisionHandler that will be used.
+     */
+    protected CollisionHandler getNewCollisionHandler() {
+        return new DefaultCollisionHandler();
     }
 
 }

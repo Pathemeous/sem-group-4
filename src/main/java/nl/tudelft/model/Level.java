@@ -120,6 +120,22 @@ public class Level implements Updateable, Renderable, Modifiable {
         return false;
     }
     
+    public LinkedList<Wall> getWalls() {
+        return this.walls;
+    }
+    
+    public LinkedList<Projectile> getProjectiles() {
+        return this.projectiles;
+    }
+    
+    public LinkedList<Bubble> getBubbles() {
+        return this.bubbles;
+    }
+    
+    public LinkedList<Pickup> getPickups() {
+        return this.pickups;
+    }
+    
     public int getID() {
         return this.id;
     }
