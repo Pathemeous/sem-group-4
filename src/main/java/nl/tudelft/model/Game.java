@@ -93,14 +93,14 @@ public class Game implements Renderable {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
         }
-        for (GameObject collidesWithA : players) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
+        for (GameObject collidesWithA : pickups) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
         }
         
         for (GameObject collidesWithA : pickups) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }

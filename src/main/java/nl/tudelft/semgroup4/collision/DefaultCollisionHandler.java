@@ -55,9 +55,9 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
             }
         }
         
-        if (objA instanceof Player) {
-        	if (objB instanceof Pickup) {
-        		playerPickupHandler.onCollision(game, (Player)objA, (Pickup)objB);
+        if (objA instanceof Pickup) {
+        	if (objB instanceof Player) {
+        		playerPickupHandler.onCollision(game, (Pickup)objA, (Player)objB);
         	}
         }
         
@@ -144,7 +144,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     };
     
-    final CollisionHandler<Game, Player, Pickup> playerPickupHandler = (game, player, pickup) -> {
+    final CollisionHandler<Game, Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
         // TODO Add deletion of the pickup through the Game object.
         
     	PickupContent content = pickup.getContent();
