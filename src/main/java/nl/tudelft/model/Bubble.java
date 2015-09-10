@@ -19,12 +19,12 @@ import org.newdawn.slick.geom.Shape;
  */
 public class Bubble extends GameObject {
 
-	private float verticalSpeed;
-	private float horizontalSpeed;
+    private float gravity = 0.1f;
+	private float verticalSpeed = 0.0f;
+	private float horizontalSpeed = 2.0f;
+    private boolean isHit = false;
 	private float maxVerticalSpeed;
-	private float gravity;
 	private int size;
-	private boolean isHit = false;
 	
 	
     /**
@@ -58,9 +58,6 @@ public class Bubble extends GameObject {
     public Bubble(float x, float y, int size, boolean goRight) throws IllegalArgumentException {
         super(getBubbleImage(size), x ,y);
         this.size = size;
-        verticalSpeed = 0.0f;
-        horizontalSpeed = 2.0f;
-        gravity = 0.1f;
         
         switch(size) {
         case 6: 
