@@ -293,15 +293,11 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     /**
-     * Checks whether the level has failed.
-     * 
-     * <p>
-     * A level has failed when a) the timer runs out; b) a player collides with a bubble.
-     * </p>
+     * Checks whether the level timer has expired.
      * 
      * @return boolean - true if the timer hits zero or below.
      */
-    public boolean hasFailed() {
+    public boolean timerExpired() {
         return this.time <= 0;
     }
 

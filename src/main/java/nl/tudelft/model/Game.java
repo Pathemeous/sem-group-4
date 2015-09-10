@@ -125,6 +125,12 @@ public class Game implements Renderable, Modifiable {
         if(getCurLevel().isCompleted()) {
             nextLevel();
         }
+        if (getCurLevel().timerExpired()) {
+            for (Player player : players) {
+                player.removeLife();
+                levelReset();
+            }
+        }
     }
 
     @Override
