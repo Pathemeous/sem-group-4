@@ -15,6 +15,7 @@ import org.newdawn.slick.geom.Rectangle;
 
 public class Game implements Renderable {
 
+    private final int containerWidth, containerHeight;
     private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
     private LinkedList<Player> players;
@@ -34,10 +35,12 @@ public class Game implements Renderable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(LinkedList<Level> levels, LinkedList<Player> players)
+    public Game(LinkedList<Level> levels, LinkedList<Player> players, int containerWidth, int containerHeight)
             throws IllegalArgumentException {
         this.levels = levels;
         this.players = players;
+        this.containerWidth = containerWidth;
+        this.containerHeight = containerHeight;
 
         this.levelIt = this.levels.iterator();
 
@@ -243,6 +246,14 @@ public class Game implements Renderable {
      */
     protected CollisionHandler getNewCollisionHandler() {
         return new DefaultCollisionHandler();
+    }
+    
+    public int getContainerWidth() {
+        return this.containerWidth;
+    }
+    
+    public int getContainerHeight() {
+        return this.containerHeight;
     }
 
 }
