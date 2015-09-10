@@ -91,26 +91,26 @@ public class GameState extends BasicGameState {
             }
             
             // Create Bubbles for level
-            bubbles.add(new Bubble(Resources.bubbleImage6.copy(), Resources.vwallImage.getWidth() + 100, 
+            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 100, 
                     container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() - 400, 6));
 
-            bubbles.add(new Bubble(Resources.bubbleImage5.copy(), Resources.vwallImage.getWidth() + 200, 
+            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 200, 
                     container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 5));
             
-            bubbles.add(new Bubble(Resources.bubbleImage4.copy(), Resources.vwallImage.getWidth() + 300, 
+            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 300, 
                     container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 4));
             
-            bubbles.add(new Bubble(Resources.bubbleImage3.copy(), Resources.vwallImage.getWidth() + 400, 
+            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 400, 
                 container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 3));
             
-            bubbles.add(new Bubble(Resources.bubbleImage2.copy(), Resources.vwallImage.getWidth() + 500, 
+            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 500, 
                     container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 2));
               
-            bubbles.add(new Bubble(Resources.bubbleImage1.copy(), Resources.vwallImage.getWidth() + 600, 
+            bubbles.add(new Bubble(Resources.vwallImage.getWidth() + 600, 
                     container.getHeight() - Resources.wallImage.getHeight() - Resources.bubbleImage6.getWidth() -400, 1));
                     
                     // todo input
-                    weapon = new Weapon(Resources.weaponImageRegular.copy(), toDelete, toAdd, WeaponType.REGULAR);
+                    weapon = new Weapon(Resources.weaponImageRegular.copy(), WeaponType.REGULAR);
                     Player firstPlayer = new Player(
                         container.getWidth() / 2,
                         container.getHeight() - Resources.playerImageStill.getHeight() - Resources.wallImage.getHeight(),
