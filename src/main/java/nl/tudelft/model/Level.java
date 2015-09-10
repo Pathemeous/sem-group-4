@@ -45,6 +45,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         this.walls = walls;
         this.projectiles = projectiles;
         this.bubbles = bubbles;
+        this.pickups = pickups;
         this.time = time;
 
         this.id = id;

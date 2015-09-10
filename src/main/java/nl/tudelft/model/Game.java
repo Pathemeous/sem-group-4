@@ -21,7 +21,7 @@ public class Game implements Renderable {
     private LinkedList<Player> players;
     private Level curLevel;
     private int prevLives = 0;
-    private final CollisionHandler<GameObject, GameObject> collisionHandler;
+    private final CollisionHandler<Game, GameObject, GameObject> collisionHandler;
     private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
 
     /**
@@ -73,36 +73,36 @@ public class Game implements Renderable {
         // collision : CollisionMap
         for (GameObject collidesWithA : bubbles) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, projectiles, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
         }
         
         for (GameObject collidesWithA : projectiles) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
         }
         
         for (GameObject collidesWithA : players) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
         }
         for (GameObject collidesWithA : players) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, pickups, null)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB); 
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
             }
         }
         
         for (GameObject collidesWithA : pickups) {
             for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
-                collisionHandler.onCollision(collidesWithA, collidesWithB);
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
         
