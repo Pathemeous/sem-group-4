@@ -68,6 +68,9 @@ public class Level implements Updateable, Renderable, Modifiable {
         for (GameObject gameObject : pickups) {
             gameObject.update(this, delta);
         }
+        for (GameObject gameObject: walls) {
+            gameObject.update(this, delta);
+        }
         
         // Update the object lists.
         for (GameObject obj : toAdd) {
