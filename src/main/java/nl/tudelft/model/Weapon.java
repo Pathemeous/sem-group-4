@@ -7,9 +7,10 @@ import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 
-public class Weapon extends PickupContent {
+public class Weapon extends PickupContent implements Updateable {
 
     private ArrayList<Projectile> projectiles;
     private Image img;
@@ -43,6 +44,12 @@ public class Weapon extends PickupContent {
         del = toDel;
         add = toAdd;
         projectiles = new ArrayList<Projectile>();
+    }
+
+    @Override
+    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+        // TODO Auto-generated method stub
+        
     }
     
     public WeaponType getType() {
