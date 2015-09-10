@@ -47,9 +47,9 @@ public class LevelFactory {
     public Level getLevel(int id) throws IllegalArgumentException {
         switch (id) {
             case 1:
-                return getLevel2();
-            case 2:
                 return getLevel1();
+            case 2:
+                return getLevel2();
             default:
                 throw new IllegalArgumentException();
         }
