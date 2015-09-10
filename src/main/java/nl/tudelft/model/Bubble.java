@@ -126,8 +126,14 @@ public class Bubble extends GameObject {
        }
     	
     	if(getSize() > 1) {
-    		container.toAdd(new Bubble(getLocX(), getLocY(), getSize()-1, true));
-    		container.toAdd(new Bubble(getLocX(), getLocY(), getSize()-1, false));
+    		Bubble bubbleLeft = new Bubble(getLocX(), getLocY(), getSize()-1, false);
+    		Bubble bubbleRight = new Bubble(getLocX(), getLocY(), getSize()-1, true);
+    		
+    		bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
+    		bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed()/1.5f);
+    		
+    		container.toAdd(bubbleLeft);
+    		container.toAdd(bubbleRight);
     	}
 	}
 	
