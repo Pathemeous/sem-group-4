@@ -1,8 +1,8 @@
 package nl.tudelft.model;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 
+import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Resources;
 
 import org.newdawn.slick.GameContainer;
@@ -14,6 +14,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     LinkedList<Wall> walls;
     LinkedList<Projectile> projectiles;
     LinkedList<Player> players;
+    LinkedList<Pickup> pickups;
     LinkedList<Bubble> bubbles;
     LinkedList<GameObject> toDelete;
     LinkedList<GameObject> toAdd;
@@ -24,17 +25,27 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Creates a level object with an object list, a timer and a speed.
-     * @param walls LinkedList - list containing all walls in this level.
-     * @param projectiles LinkedList - list containing all projectiles in this level.
-     * @param players LinkedList - list containing all players in this level.
-     * @param bubbles LinkedList - list containing all bubbles in this level.
-     * @param toDelete LinkedList - list containing all deletable objects in this level.
-     * @param toAdd LinkedList - list containing all addable objects in this level.
-     * @param time double - the time the player has to complete the level in seconds.
+     * 
+     * @param walls
+     *            LinkedList - list containing all walls in this level.
+     * @param projectiles
+     *            LinkedList - list containing all projectiles in this level.
+     * @param players
+     *            LinkedList - list containing all players in this level.
+     * @param pickups
+     *            LinkedList - list containing all pickups in this level.
+     * @param bubbles
+     *            LinkedList - list containing all bubbles in this level.
+     * @param toDelete
+     *            LinkedList - list containing all deletable objects in this level.
+     * @param toAdd
+     *            LinkedList - list containing all addable objects in this level.
+     * @param time
+     *            double - the time the player has to complete the level in seconds.
      */
     public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
-            LinkedList<Player> players, LinkedList<Bubble> bubbles, LinkedList<GameObject> toDelete,
-            LinkedList<GameObject> toAdd, double time, int id) {
+            LinkedList<Player> players, LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles,
+            LinkedList<GameObject> toDelete, LinkedList<GameObject> toAdd, double time, int id) {
         this.walls = walls;
         this.projectiles = projectiles;
         this.players = players;
@@ -57,6 +68,9 @@ public class Level implements Updateable, Renderable, Modifiable {
         for (GameObject gameObject : projectiles) {
             gameObject.update(this, delta);
         }
+        for (GameObject gameObject : pickups) {
+            gameObject.update(this, delta);
+        }
     }
 
     @Override
@@ -73,6 +87,12 @@ public class Level implements Updateable, Renderable, Modifiable {
         }
         for (GameObject gameObject : bubbles) {
             gameObject.render(container, graphics);
+        }
+        for (GameObject gameObject : pickups) {
+          Pickup pickup = (Pickup)gameObject;
+          if(!pickup.isInBubble()) {
+            gameObject.render(container, graphics);
+          }
         }
     }
 
