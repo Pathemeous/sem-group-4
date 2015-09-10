@@ -1,11 +1,12 @@
 package nl.tudelft.model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
 
+import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Updateable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 

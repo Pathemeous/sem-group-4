@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import nl.tudelft.semgroup4.Modifiable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
