@@ -78,7 +78,6 @@ public class Weapon extends PickupContent implements Updateable {
     }
 
     public <T extends Modifiable> void remove(T container, Projectile proj) {
-        System.out.println(projectiles.size());
         if (projectiles.size() == 1) {
             Resources.weaponFire.stop();
             alreadySound = false;
