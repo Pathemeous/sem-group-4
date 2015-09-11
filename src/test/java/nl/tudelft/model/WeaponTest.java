@@ -1,10 +1,10 @@
 package nl.tudelft.model;
 
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.verify;
-import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;

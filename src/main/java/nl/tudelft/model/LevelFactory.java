@@ -15,7 +15,7 @@ public class LevelFactory {
     }
     
     public Game getGame() {
-    	return this.game;
+        return this.game;
     }
 
     /**
