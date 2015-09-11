@@ -102,6 +102,7 @@
                 <executions>
                     <execution>
                         <id>unpacknatives</id>
+                        <phase>validate</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>
@@ -123,7 +124,7 @@
                         <configuration>
                             <configLocation>checkstyle.xml</configLocation>
                             <consoleOutput>true</consoleOutput>
-                            <failOnViolation>true</failOnViolation>
+                            <failOnViolation>false</failOnViolation>
                         </configuration>
                         <goals>
                             <goal>check</goal>
