@@ -10,9 +10,11 @@ public class Powerup extends PickupContent {
 
     private PowerType type;
 
+    /**
+     * Creates a random power up.
+     */
     public Powerup(int random) {
         // some logic to determine which power up it is
-
         if (random == 10) {
             type = PowerType.LIFE;
         } else if (random > 8) {

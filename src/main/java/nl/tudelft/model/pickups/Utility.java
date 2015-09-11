@@ -10,8 +10,10 @@ public class Utility extends PickupContent {
 
     private UtilityType type;
 
+    /**
+     * Creates a random utility.
+     */
     public Utility(int random) {
-
         if (random == 20) {
             type = UtilityType.LEVELWON;
         } else if (random > 16) {

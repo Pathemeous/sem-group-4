@@ -21,16 +21,16 @@ public class Level implements Updateable, Renderable, Modifiable {
     private LinkedList<Bubble> bubbles;
     private LinkedList<GameObject> toRemove = new LinkedList<>();
     private LinkedList<GameObject> toAdd = new LinkedList<>();
-    private final int EXTRA_TIME = 20000;
+    private final int extraTime = 20000;
     private int time;
     private final int maxTime;
     private double speed;
     private int utilSlowCounter = 0;
     private boolean slowBalls = false;
-    private final int UTIL_SLOWDOWN_TIME = 300;
+    private final int utilSlowdownTime = 300;
     private int utilFreezeCounter = 0;
     private boolean frozenBalls = false;
-    private final int UTIL_FREEZE_TIME = 300;
+    private final int utilFreezeTime = 300;
 
     private int id;
 
@@ -121,14 +121,15 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     private void slowBalls() {
-        utilSlowCounter = (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0) ? utilSlowCounter + 1
-                : 0;
+        utilSlowCounter =
+                (utilSlowCounter <= utilSlowdownTime && utilSlowCounter != 0) ? utilSlowCounter + 1
+                        : 0;
         if (slowBalls) {
             for (Bubble bubble : bubbles) {
                 bubble.slowBubbleDown(true);
             }
         }
-        if (utilSlowCounter == UTIL_SLOWDOWN_TIME) {
+        if (utilSlowCounter == utilSlowdownTime) {
             slowBalls = false;
             for (Bubble bubble : bubbles) {
                 bubble.slowBubbleDown(false);
@@ -137,15 +138,15 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     private void freezeBalls() {
-        utilFreezeCounter = (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0)
-                ? utilFreezeCounter + 1
-                : 0;
+        utilFreezeCounter =
+                (utilFreezeCounter <= utilFreezeTime && utilFreezeCounter != 0)
+                        ? utilFreezeCounter + 1 : 0;
         if (frozenBalls) {
             for (Bubble bubble : bubbles) {
                 bubble.freeze(true);
             }
         }
-        if (utilFreezeCounter == UTIL_FREEZE_TIME) {
+        if (utilFreezeCounter == utilFreezeTime) {
             frozenBalls = false;
             for (Bubble bubble : bubbles) {
                 bubble.freeze(false);
@@ -210,7 +211,15 @@ public class Level implements Updateable, Renderable, Modifiable {
         // return false;
     }
 
-    public void applyUtility(Utility util) {
+    /**
+     * Applies the effects of the utility to the state of the level.
+     * 
+     * @param util
+     *            Utility - The utility to apply.
+     * @throws IllegalArgumentException
+     *             - If the utility type is not correct.
+     */
+    public void applyUtility(Utility util) throws IllegalArgumentException {
         switch (util.getType()) {
             case FREEZE:
                 utilFreezeCounter++;
@@ -229,8 +238,10 @@ public class Level implements Updateable, Renderable, Modifiable {
                 splitAllBubbles(bubbles, false);
                 break;
             case TIME:
-                time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
+                time = (time + extraTime < maxTime) ? time + extraTime : maxTime;
                 break;
+            default:
+                throw new IllegalArgumentException();
         }
     }
 

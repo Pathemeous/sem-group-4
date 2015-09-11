@@ -25,9 +25,9 @@ public class Projectile extends GameObject {
     /**
      * @param image
      *            - The texture used for the weapon/projectile
-     * @param xLoc
+     * @param locX
      *            - The x coord
-     * @param yLoc
+     * @param locY
      *            - The y coord
      * @param playerWidth
      *            - The width of the player
@@ -43,9 +43,9 @@ public class Projectile extends GameObject {
      *            screen hit - Has the projectile hit an object (bubble) top - Has the projectile
      *            hit the top
      */
-    public Projectile(Image image, int xLoc, int yLoc, int playerWidth, int playerHeight, int speed,
-            Weapon wp) {
-        super(image, xLoc, yLoc);
+    public Projectile(Image image, int locX, int locY, int playerWidth, int playerHeight,
+            int speed, Weapon wp) {
+        super(image, locX, locY);
         this.speed = speed;
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
@@ -53,9 +53,9 @@ public class Projectile extends GameObject {
         hitBubble = false;
         hitWall = false;
         tickCount = 0;
-        startHeight = yLoc;
-        
-        if(wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {
+        startHeight = locY;
+
+        if (wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {
             Resources.weaponFire.loop();
         }
     }
@@ -71,12 +71,12 @@ public class Projectile extends GameObject {
      */
     public <T extends Modifiable> void reset(T container) {
         Resources.weaponFire.stop();
-        //Set every variable to the starting variables
-        if(!wp.isSticky() || hitBubble) {
+        // Set every variable to the starting variables
+        if (!wp.isSticky() || hitBubble) {
             wp.remove(container, this);
-        } else if(tickCount == 0) {
+        } else if (tickCount == 0) {
             tickCount++;
-        } else if(tickCount == 90) {
+        } else if (tickCount == 90) {
             wp.remove(container, this);
             tickCount = 0;
         }
@@ -103,14 +103,14 @@ public class Projectile extends GameObject {
     }
 
     @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics graphics) throws SlickException {
         // super.render(container, g);
         final Image img = getImage();
 
         float drawHeight = getActualHeight();
 
-        g.drawImage(img, getLocX(), getLocY(), getLocX() + img.getWidth(), getLocY() + drawHeight,
-                0, 0, img.getWidth(), drawHeight);
+        graphics.drawImage(img, getLocX(), getLocY(), getLocX() + img.getWidth(), getLocY()
+                + drawHeight, 0, 0, img.getWidth(), drawHeight);
     }
 
     @Override
