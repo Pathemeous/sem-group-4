@@ -1,16 +1,16 @@
 package nl.tudelft.model;
 
+
 import java.util.ArrayList;
 
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
-import nl.tudelft.semgroup4.Resources;
-
 import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.Updateable;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
 
 public class Weapon extends PickupContent implements Updateable {
 
@@ -23,26 +23,25 @@ public class Weapon extends PickupContent implements Updateable {
     private boolean alreadySound;
 
     public Weapon(Image image, WeaponType type) {
-    	this.type = type;
-    	sticky = false;
-    	
-    	switch(type) {
-    	case REGULAR: 
-    		maxCount = 1; 
-    		break;
-    	case DOUBLE: 
-    		maxCount = 2; 
-    		break;
-    	case STICKY: 
-    		maxCount = 1; 
-    		sticky = true;
-    		break;
-    	case FLOWER: 
-    		maxCount = 10; 
-    		break;
-    	}
-    	
-    	
+        this.type = type;
+        sticky = false;
+
+        switch (type) {
+            case REGULAR:
+                maxCount = 1;
+                break;
+            case DOUBLE:
+                maxCount = 2;
+                break;
+            case STICKY:
+                maxCount = 1;
+                sticky = true;
+                break;
+            case FLOWER:
+                maxCount = 10;
+                break;
+        }
+
         img = image;
         projectiles = new ArrayList<Projectile>();
     }
@@ -50,30 +49,29 @@ public class Weapon extends PickupContent implements Updateable {
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         // TODO Auto-generated method stub
-        
-    }
-    
-    public WeaponType getType() {
-    	return type;
-    }
-    
-    public int getMaxCount() {
-    	return maxCount;
-    }
-    
-    public boolean isSticky () {
-    	return sticky;
+
     }
 
-    public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {   
-    	if(!alreadySound) {
-    		Resources.weaponFire.loop();
-    		alreadySound = true;
-    	}
-        if(projectiles.size() < maxCount) {
-        	
-        	 
-        	Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
+    public WeaponType getType() {
+        return type;
+    }
+
+    public int getMaxCount() {
+        return maxCount;
+    }
+
+    public boolean isSticky() {
+        return sticky;
+    }
+
+    public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {
+        if (!alreadySound) {
+            Resources.weaponFire.loop();
+            alreadySound = true;
+        }
+        if (projectiles.size() < maxCount) {
+
+            Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);
             projectiles.add(proj);
@@ -81,25 +79,25 @@ public class Weapon extends PickupContent implements Updateable {
     }
 
     public <T extends Modifiable> void remove(T container, Projectile proj) {
-    	System.out.println(projectiles.size());
-    	if(projectiles.size() == 1) {
-    		Resources.weaponFire.stop();
-    		alreadySound = false;
-    	}
-    	
-    	
-    	projectiles.remove(proj);
+        if (projectiles.size() == 1) {
+            Resources.weaponFire.stop();
+            alreadySound = false;
+        }
+
+        projectiles.remove(proj);
         container.toRemove(proj);
     }
-    
+
     /**
-     *  Sets the player that this weapon belongs to.
-     * @param player Player - the player that owns this weapon.
+     * Sets the player that this weapon belongs to.
+     * 
+     * @param player
+     *            Player - the player that owns this weapon.
      */
     public void setPlayer(Player player) {
         this.player = player;
     }
-    
+
     public Player getPlayer() {
         return this.player;
     }

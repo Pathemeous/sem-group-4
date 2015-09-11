@@ -1,24 +1,26 @@
 package nl.tudelft.model;
 
+import java.util.LinkedList;
+
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Utility;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.Updateable;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-import java.util.LinkedList;
-
 public class Level implements Updateable, Renderable, Modifiable {
 
-    LinkedList<Wall> walls;
-    LinkedList<Projectile> projectiles;
-    LinkedList<Pickup> pickups;
-    LinkedList<Bubble> bubbles;
-    LinkedList<GameObject> toRemove = new LinkedList<>(), toAdd = new LinkedList<>();
+    private LinkedList<Wall> walls;
+    private LinkedList<Projectile> projectiles;
+    private LinkedList<Pickup> pickups;
+    private LinkedList<Bubble> bubbles;
+    private LinkedList<GameObject> toRemove = new LinkedList<>();
+    private LinkedList<GameObject> toAdd = new LinkedList<>();
     private final int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
@@ -39,18 +41,14 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            LinkedList - list containing all walls in this level.
      * @param projectiles
      *            LinkedList - list containing all projectiles in this level.
-     * @param players
-     *            LinkedList - list containing all players in this level.
      * @param pickups
      *            LinkedList - list containing all pickups in this level.
      * @param bubbles
      *            LinkedList - list containing all bubbles in this level.
-     * @param toDelete
-     *            LinkedList - list containing all deletable objects in this level.
-     * @param toAdd
-     *            LinkedList - list containing all addable objects in this level.
      * @param time
      *            double - the time the player has to complete the level in seconds.
+     * @param id
+     *            int - the number of this level.
      */
     public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
             LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, int time, int id) {
@@ -78,26 +76,26 @@ public class Level implements Updateable, Renderable, Modifiable {
         for (GameObject gameObject : pickups) {
             gameObject.update(this, delta);
         }
-        for (GameObject gameObject: walls) {
+        for (GameObject gameObject : walls) {
             gameObject.update(this, delta);
         }
-        
+
         // Update the object lists.
         for (GameObject obj : toAdd) {
-          if (obj instanceof Projectile) {
-              projectiles.add((Projectile)obj);
-          }
-          if (obj instanceof Bubble) {
-              bubbles.add((Bubble)obj);
-          }
-          if (obj instanceof Pickup) {
-              pickups.add((Pickup)obj);
-          }
-          if (obj instanceof Wall) {
-              walls.add((Wall)obj);
-          }
+            if (obj instanceof Projectile) {
+                projectiles.add((Projectile) obj);
+            }
+            if (obj instanceof Bubble) {
+                bubbles.add((Bubble) obj);
+            }
+            if (obj instanceof Pickup) {
+                pickups.add((Pickup) obj);
+            }
+            if (obj instanceof Wall) {
+                walls.add((Wall) obj);
+            }
         }
-        
+
         for (GameObject obj : toRemove) {
             if (obj instanceof Projectile) {
                 projectiles.remove(obj);
@@ -111,52 +109,55 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof Wall) {
                 walls.remove(obj);
             }
-         }
-        
+        }
+
         toAdd.clear();
         toRemove.clear();
-        
+
         time -= delta;
-        
+
         slowBalls();
         freezeBalls();
     }
-    
+
     private void slowBalls() {
-    	utilSlowCounter = (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0) ? utilSlowCounter+1 : 0;
-        if(slowBalls) {
-        	for(Bubble bubble : bubbles) {
-    			bubble.slowBubbleDown(true);
-    		}
+        utilSlowCounter = (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0) ? utilSlowCounter + 1
+                : 0;
+        if (slowBalls) {
+            for (Bubble bubble : bubbles) {
+                bubble.slowBubbleDown(true);
+            }
         }
-        if(utilSlowCounter == UTIL_SLOWDOWN_TIME) {
-        	slowBalls = false;
-        	for (Bubble bubble : bubbles) {
-        		bubble.slowBubbleDown(false);
-        	}
+        if (utilSlowCounter == UTIL_SLOWDOWN_TIME) {
+            slowBalls = false;
+            for (Bubble bubble : bubbles) {
+                bubble.slowBubbleDown(false);
+            }
         }
     }
-    
+
     private void freezeBalls() {
-    	utilFreezeCounter = (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0) ? utilFreezeCounter+1 : 0;
-        if(frozenBalls) {
-        	for(Bubble bubble : bubbles) {
-    			bubble.freeze(true);
-    		}
+        utilFreezeCounter = (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0) ? utilFreezeCounter + 1
+                : 0;
+        if (frozenBalls) {
+            for (Bubble bubble : bubbles) {
+                bubble.freeze(true);
+            }
         }
-        if(utilFreezeCounter == UTIL_FREEZE_TIME) {
-        	frozenBalls = false;
-        	for (Bubble bubble : bubbles) {
-        		bubble.freeze(false);
-        	}
+        if (utilFreezeCounter == UTIL_FREEZE_TIME) {
+            frozenBalls = false;
+            for (Bubble bubble : bubbles) {
+                bubble.freeze(false);
+            }
         }
     }
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
 
-        graphics.drawImage(Resources.backgroundImage, 0, 0, container.getWidth(), container.getHeight(),
-                0, 0, Resources.backgroundImage.getWidth(), Resources.backgroundImage.getHeight());
+        graphics.drawImage(Resources.backgroundImage, 0, 0, container.getWidth(),
+                container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(),
+                Resources.backgroundImage.getHeight());
 
         for (GameObject gameObject : projectiles) {
             gameObject.render(container, graphics);
@@ -175,88 +176,89 @@ public class Level implements Updateable, Renderable, Modifiable {
     @Override
     public void toAdd(GameObject obj) {
         toAdd.add(obj);
-//        if (obj instanceof Projectile) {
-//            projectiles.add((Projectile)obj);
-//            return projectiles.contains(obj);
-//        }
-//        if (obj instanceof Bubble) {
-//            bubbles.add((Bubble)obj);
-//            return bubbles.contains(obj);
-//        }
-//        if (obj instanceof Wall) {
-//            walls.add((Wall)obj);
-//            return walls.contains(obj);
-//        }
-//        return false;
+        // if (obj instanceof Projectile) {
+        // projectiles.add((Projectile)obj);
+        // return projectiles.contains(obj);
+        // }
+        // if (obj instanceof Bubble) {
+        // bubbles.add((Bubble)obj);
+        // return bubbles.contains(obj);
+        // }
+        // if (obj instanceof Wall) {
+        // walls.add((Wall)obj);
+        // return walls.contains(obj);
+        // }
+        // return false;
     }
 
     @Override
     public void toRemove(GameObject obj) {
         toRemove.add(obj);
-//        if (obj instanceof Projectile) {
-//            projectiles.remove(obj);
-//            return !projectiles.contains(obj);
-//        }
-//        if (obj instanceof Bubble) {
-//            bubbles.remove(obj);
-//            return !bubbles.contains(obj);
-//        }
-//        if (obj instanceof Wall) {
-//            walls.remove(obj);
-//            return !walls.contains(obj);
-//        }
-//        return false;
+        // if (obj instanceof Projectile) {
+        // projectiles.remove(obj);
+        // return !projectiles.contains(obj);
+        // }
+        // if (obj instanceof Bubble) {
+        // bubbles.remove(obj);
+        // return !bubbles.contains(obj);
+        // }
+        // if (obj instanceof Wall) {
+        // walls.remove(obj);
+        // return !walls.contains(obj);
+        // }
+        // return false;
     }
-    
+
     public void applyUtility(Utility util) {
-    	switch(util.getType()) {
-    	case FREEZE: 
-    		utilFreezeCounter++;
-    		frozenBalls = true;
-    		break;
-    	case LEVELWON:
-    		splitAllBubbles(bubbles, true);
-    		// execute method here where the level is won (maybe split all the balls till they're gona first)
-    		break;
-    	case SLOW:
-    		utilSlowCounter++;
-    		slowBalls = true;
-    		break;
-    	case SPLIT:
-    		splitAllBubbles(bubbles, false);
-    		break;
-    	case TIME: 
-    		time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
-    		break;
-    	}
+        switch (util.getType()) {
+            case FREEZE:
+                utilFreezeCounter++;
+                frozenBalls = true;
+                break;
+            case LEVELWON:
+                splitAllBubbles(bubbles, true);
+                // execute method here where the level is won (maybe split all the balls till
+                // they're gona first)
+                break;
+            case SLOW:
+                utilSlowCounter++;
+                slowBalls = true;
+                break;
+            case SPLIT:
+                splitAllBubbles(bubbles, false);
+                break;
+            case TIME:
+                time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
+                break;
+        }
     }
-    
+
     private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
-    	for (Bubble bubble : bubbles) {
-    		if(bubble.getSize() > 1 || endLevel) {
-    			LinkedList<Bubble> newBubbles = bubble.split(this);
-    			splitAllBubbles(newBubbles, endLevel);
-    		}
-    	}
+        for (Bubble bubble : bubbles) {
+            if (bubble.getSize() > 1 || endLevel) {
+                LinkedList<Bubble> newBubbles = bubble.split(this);
+                splitAllBubbles(newBubbles, endLevel);
+            }
+        }
     }
-    
+
     public LinkedList<Wall> getWalls() {
         return this.walls;
     }
-    
+
     public LinkedList<Projectile> getProjectiles() {
         return this.projectiles;
     }
-    
+
     public LinkedList<Bubble> getBubbles() {
         return this.bubbles;
     }
-    
+
     public LinkedList<Pickup> getPickups() {
         return this.pickups;
     }
-    
-    public int getID() {
+
+    public int getId() {
         return this.id;
     }
 
@@ -267,7 +269,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     public int getTime() {
         return this.time;
     }
-    
+
     public int getMaxTime() {
         return this.maxTime;
     }
