@@ -202,8 +202,9 @@ public class Game implements Renderable, Modifiable {
     public void nextLevel() {
         if (levelIt.hasNext()) {
             resetPlayers();
+            int score = (getCurLevel().getTime() / getCurLevel().getMaxTime() ) * 500;
             for (Player player : players) {
-                player.addScore(250);
+                player.addScore(score);
             }
             setCurLevel(levelIt.next());
         } else {
