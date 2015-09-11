@@ -1,6 +1,8 @@
 package nl.tudelft.model;
 
 import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Resources;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -44,12 +46,17 @@ public class Projectile extends GameObject {
         hitWall = false;
         tickCount = 0;
         startHeight = y;
+        
+        if(wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {
+        	Resources.weaponFire.loop();
+        }
     }
 
     /**
      * Reset method for the class "Projectile". This method is called when the projectile needs to "disappear".
      */
     public <T extends Modifiable> void reset(T container) {
+    	Resources.weaponFire.stop();
         //Set every variable to the starting variables
     	if(!wp.isSticky() || hitBubble) {
     		wp.remove(container, this);
