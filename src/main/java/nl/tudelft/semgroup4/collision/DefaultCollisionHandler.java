@@ -69,11 +69,11 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
-
+        
         if (wallRect.getX() < playerRect.getX()) {
-            player.setLocX((int) (wallRect.getX() + wallRect.getWidth()));
+        	player.setLocX(player.getLocX() + (wallRect.getX() + wallRect.getWidth() - playerRect.getX()));
         } else {
-            player.setLocX((int) (wallRect.getX() - playerRect.getWidth()));
+            player.setLocX(player.getLocX() - (playerRect.getX() + playerRect.getWidth() - wallRect.getX()));
         }
     };
 

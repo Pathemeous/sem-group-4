@@ -7,17 +7,22 @@ import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 
 public class Player extends GameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;
+    private final int BOUNDINGBOX_OFFSET_X = 10;
+    private final int BOUNDINGBOX_OFFSET_Y = 15;
     private final int REGULAR_SPEED = 4;
     private int speed = REGULAR_SPEED;
     private int lives = 3;
@@ -73,15 +78,25 @@ public class Player extends GameObject {
             graphics.drawAnimation(curAnimation, getLocX(), getLocY());
         }
         if (hasShield()) {
-            if (removingShieldCounter % 2 == 0) {
-                graphics.drawImage(Resources.power_shield, getLocX(), getLocY());
-            }
+        	if(removingShieldCounter % 2 == 0) {
+        		//g.drawImage(Resources.power_shield, getLocX(), getLocY());
+        		graphics.setColor(Color.yellow);
+        		graphics.draw(getBounds());
+        	}
         } else if (isInvincible()) {
             if ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0)
                     || invincibilityCounter < 540) {
                 graphics.drawImage(Resources.power_invincible, getLocX(), getLocY());
             }
         }
+        graphics.setColor(Color.green);
+    }
+    
+    @Override
+    public Shape getBounds() {
+		return new SemRectangle(
+                locX+BOUNDINGBOX_OFFSET_X, locY + BOUNDINGBOX_OFFSET_Y,
+                getImage().getWidth()-(2*BOUNDINGBOX_OFFSET_X), getImage().getHeight()-BOUNDINGBOX_OFFSET_Y);
     }
 
     @Override
@@ -93,12 +108,12 @@ public class Player extends GameObject {
         if ((input.isKeyDown(Input.KEY_LEFT) && isFirstPlayer)
                 || (input.isKeyDown(Input.KEY_A) && !isFirstPlayer)) {
             setAnimationCurrent(animationLeft);
-            setLocX((int) (getBounds().getX() - speed));
+            setLocX(locX - speed);
         }
         if ((input.isKeyDown(Input.KEY_RIGHT) && isFirstPlayer)
                 || (input.isKeyDown(Input.KEY_D) && !isFirstPlayer)) {
             setAnimationCurrent(animationRight);
-            setLocX((int) (getBounds().getX() + speed));
+            setLocX(locX + speed);
         }
         if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer)
                 || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {

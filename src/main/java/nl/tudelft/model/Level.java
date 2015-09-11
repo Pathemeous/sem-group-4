@@ -21,6 +21,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     private LinkedList<Bubble> bubbles;
     private LinkedList<GameObject> toRemove = new LinkedList<>();
     private LinkedList<GameObject> toAdd = new LinkedList<>();
+    private final int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
     private double speed;
@@ -227,7 +228,7 @@ public class Level implements Updateable, Renderable, Modifiable {
                 splitAllBubbles(bubbles, false);
                 break;
             case TIME:
-                time += 20;
+                time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
                 break;
         }
     }
