@@ -11,7 +11,7 @@ public class Powerup extends PickupContent {
 
     /**
      * Creates a random power up.
-     * @param a random variable which determines what type the powerup will get.
+     * @param random - a random variable which determines what type the powerup will get.
      */
     public Powerup(int random) {
         // some logic to determine which power up it is

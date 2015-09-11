@@ -1,14 +1,17 @@
 package nl.tudelft.model;
 
-import org.newdawn.slick.SlickException;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
-import static org.mockito.Mockito.*;
+import org.newdawn.slick.SlickException;
 
 public class WeaponTest extends OpenGLTestCase {
 
@@ -16,6 +19,9 @@ public class WeaponTest extends OpenGLTestCase {
         return new TestSuite(WeaponTest.class);
     }
 
+    /**
+     * Test for the player getter.
+     */
     public void testGetPlayer() {
         Player player = mock(Player.class);
         assertNotNull(player);
@@ -25,23 +31,32 @@ public class WeaponTest extends OpenGLTestCase {
         assertEquals(weapon.getPlayer(), player);
     }
 
+    /**
+     * Test for the weapon type getter.
+     */
     public void testGetType() {
         Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
         assertEquals(weapon.getType(), Pickup.WeaponType.REGULAR);
         assertFalse(weapon.getType().equals(Pickup.WeaponType.FLOWER));
     }
 
+    /**
+     * Test for the max shots getter.
+     */
     public void testGetMaxCount() {
         Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
-        Weapon weapon2 = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.FLOWER);
-        Weapon weapon3 = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.DOUBLE);
-        Weapon weapon4 = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.STICKY);
         assertEquals(weapon.getMaxCount(), 1);
+        Weapon weapon2 = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.FLOWER);
         assertEquals(weapon2.getMaxCount(), 10);
+        Weapon weapon3 = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.DOUBLE);
         assertEquals(weapon3.getMaxCount(), 2);
+        Weapon weapon4 = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.STICKY);
         assertEquals(weapon4.getMaxCount(), 1);
     }
 
+    /**
+     * Test for the is sticky getter.
+     */
     public void testIsSticky() {
         Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.DOUBLE);
         Weapon weapon1 = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.STICKY);
@@ -49,6 +64,9 @@ public class WeaponTest extends OpenGLTestCase {
         assertTrue(weapon1.isSticky());
     }
 
+    /**
+     * First test for fire.
+     */
     public void testFire1() {
         Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
         Projectile projectile = mock(Projectile.class);
@@ -61,6 +79,10 @@ public class WeaponTest extends OpenGLTestCase {
         verify(projectile, never()).fire();
     }
 
+    /**
+     * Second test for fire.
+     * @throws SlickException - Resource not found.
+     */
     public void testFire2() throws SlickException {
         Resources.init();
         Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
@@ -71,6 +93,9 @@ public class WeaponTest extends OpenGLTestCase {
         assertEquals(weapon.getNumberOfProjectiles(), 1);
     }
 
+    /**
+     * Test for remove.
+     */
     public void testRemove() {
         Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
         Projectile projectile = mock(Projectile.class);

@@ -1,15 +1,15 @@
 package nl.tudelft.model;
 
+import static org.mockito.Mockito.mock;
+
 import java.util.LinkedList;
 
-import org.newdawn.slick.SlickException;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import nl.tudelft.model.LevelFactory;
 import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
-import static org.mockito.Mockito.*;
+import org.newdawn.slick.SlickException;
 
 public class LevelFactoryTest extends OpenGLTestCase {
 
@@ -17,12 +17,19 @@ public class LevelFactoryTest extends OpenGLTestCase {
         return new TestSuite(LevelFactoryTest.class);
     }
 
+    /**
+     * Test to check the level factory constructor.
+     */
     public void testLevelFactory() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
         assertEquals(factory.getGame(), mockedGame);
     }
 
+    /**
+     * Test to check the getter for all levels.
+     * @throws SlickException - Resource not found.
+     */
     public void testGetAllLevels() throws SlickException {
         Resources.init();
         Game mockedGame = mock(Game.class);
@@ -33,6 +40,9 @@ public class LevelFactoryTest extends OpenGLTestCase {
         assertEquals(list.size(), 4);
     }
 
+    /**
+     * Test for the level 1 getter.
+     */
     public void testGetLevel1() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
@@ -40,6 +50,9 @@ public class LevelFactoryTest extends OpenGLTestCase {
         assertEquals(lvl.getId(), 1);
     }
 
+    /**
+     * Test for the level 2 getter.
+     */
     public void testGetLevel2() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
@@ -47,6 +60,9 @@ public class LevelFactoryTest extends OpenGLTestCase {
         assertEquals(lvl.getId(), 2);
     }
 
+    /**
+     * Test for the level 3 getter.
+     */
     public void testGetLevel3() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
@@ -54,6 +70,9 @@ public class LevelFactoryTest extends OpenGLTestCase {
         assertEquals(lvl.getId(), 3);
     }
 
+    /**
+     * Test for the level 4 getter.
+     */
     public void testGetLevel4() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
