@@ -5,13 +5,10 @@ import java.util.ArrayList;
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
-import nl.tudelft.semgroup4.Updateable;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
-public class Weapon extends PickupContent implements Updateable {
+public class Weapon extends PickupContent {
 
     private Player player;
     private ArrayList<Projectile> projectiles;
@@ -54,12 +51,6 @@ public class Weapon extends PickupContent implements Updateable {
 
         img = image;
         projectiles = new ArrayList<Projectile>();
-    }
-
-    @Override
-    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        // TODO Auto-generated method stub
-
     }
 
     public WeaponType getType() {
@@ -121,5 +112,9 @@ public class Weapon extends PickupContent implements Updateable {
 
     public Player getPlayer() {
         return this.player;
+    }
+    
+    public ArrayList<Projectile> getProjectiles() {
+        return this.projectiles;
     }
 }

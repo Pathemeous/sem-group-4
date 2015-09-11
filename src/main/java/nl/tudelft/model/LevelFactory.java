@@ -13,6 +13,10 @@ public class LevelFactory {
     public LevelFactory(Game game) {
         this.game = game;
     }
+    
+    public Game getGame() {
+        return this.game;
+    }
 
     /**
      * Returns a list containing all levels that the factory can make.
