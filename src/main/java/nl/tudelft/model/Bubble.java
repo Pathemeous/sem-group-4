@@ -33,17 +33,17 @@ public class Bubble extends GameObject {
      * Constructor for Bubble. This is a shorthanded version initialising the bubble moving to the
      * right. See {@link #Bubble(float, float, int, boolean)} for the complete constructor.
      * 
-     * @param x
+     * @param locX
      *            float - The x-coordinate where the bubble should spawn.
-     * @param y
+     * @param locY
      *            float - The y-coordinate where the bubble should spawn.
      * @param size
      *            int - The size of the bubble, in the range [1, 6] (inclusive).
      * @throws IllegalArgumentException
      *             - if the <code>size</code> is out of the defined range.
      */
-    public Bubble(float x, float y, int size) throws IllegalArgumentException {
-        this(x, y, size, true);
+    public Bubble(float locX, float locY, int size) throws IllegalArgumentException {
+        this(locX, locY, size, true);
 
     }
 
@@ -57,9 +57,9 @@ public class Bubble extends GameObject {
      * thus height)
      * </p>
      * 
-     * @param x
+     * @param locX
      *            float - The x-coordinate where the bubble should spawn.
-     * @param y
+     * @param locY
      *            float - The y-coordinate where the bubble should spawn.
      * @param size
      *            int - The size of the bubble, in the range [1, 6] (inclusive).
@@ -68,8 +68,8 @@ public class Bubble extends GameObject {
      * @throws IllegalArgumentException
      *             - if the <code>size</code> is out of the defined range.
      */
-    public Bubble(float x, float y, int size, boolean goRight) throws IllegalArgumentException {
-        super(getBubbleImage(size), x, y);
+    public Bubble(float locX, float locY, int size, boolean goRight) throws IllegalArgumentException {
+        super(getBubbleImage(size), locX, locY);
         this.size = size;
 
         if (!goRight) {
@@ -169,14 +169,14 @@ public class Bubble extends GameObject {
      * gravity.
      */
     private void move() {
-        float x = getLocX();
-        float y = getLocY();
+        float xLoc = getLocX();
+        float yLoc = getLocY();
 
         float newX = 0;
-        newX = x + horizontalSpeed;
+        newX = xLoc + horizontalSpeed;
 
         float newY = 0;
-        newY = y - verticalSpeed;
+        newY = yLoc - verticalSpeed;
 
         setLocX(newX);
         setLocY(newY);
