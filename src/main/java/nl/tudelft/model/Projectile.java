@@ -24,9 +24,9 @@ public class Projectile extends GameObject {
     /**
      * @param image
      *            - The texture used for the weapon/projectile
-     * @param x
+     * @param xLoc
      *            - The x coord
-     * @param y
+     * @param yLoc
      *            - The y coord
      * @param playerWidth
      *            - The width of the player
@@ -34,15 +34,17 @@ public class Projectile extends GameObject {
      *            - The height of the player
      * @param speed
      *            - The speed
+     * @param wp
+     *            Weapon - The weapon that this projectile was shot by.
      *
      *            Constructor for the class "Projectile". New in this class: fired - Is the
      *            projectile fired counter - How long the projectile has been at the top of the
      *            screen hit - Has the projectile hit an object (bubble) top - Has the projectile
      *            hit the top
      */
-    public Projectile(Image image, int x, int y, int playerWidth, int playerHeight, int speed,
+    public Projectile(Image image, int xLoc, int yLoc, int playerWidth, int playerHeight, int speed,
             Weapon wp) {
-        super(image, x, y);
+        super(image, xLoc, yLoc);
         this.speed = speed;
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
@@ -50,12 +52,17 @@ public class Projectile extends GameObject {
         hitBubble = false;
         hitWall = false;
         tickCount = 0;
-        startHeight = y;
+        startHeight = yLoc;
     }
 
     /**
      * Reset method for the class "Projectile". This method is called when the projectile needs to
      * "disappear".
+     * 
+     * @param <T>
+     *            implements Modifiable.
+     * @param container
+     *            T - The container that this object may request changes to.
      */
     public <T extends Modifiable> void reset(T container) {
         // Set every variable to the starting variables

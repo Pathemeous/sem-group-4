@@ -14,6 +14,8 @@ public class SemRectangle extends Rectangle {
     }
 
     /**
+     * @param shape
+     *            Shape - the shape to intersect with.
      * @return same as super, except when two rectangles are touching. When two rectangles touch
      *         returns false.
      */

@@ -35,8 +35,14 @@ public class Game implements Renderable, Modifiable {
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
      * 
+     * @param mainApp
+     *            StateBasedGame - the mainApp that manages the states.
      * @param players
      *            LinkedList - List containing all players that take part in this game.
+     * @param containerWidth
+     *            int - width of the game field.
+     * @param containerHeight
+     *            int - height of the game field.
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
@@ -61,11 +67,12 @@ public class Game implements Renderable, Modifiable {
     }
 
     public void update(int delta) throws SlickException {
-        final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();;
+        final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();
+        ;
         final LinkedList<? extends GameObject> projectiles = getCurLevel().getProjectiles();
         final LinkedList<? extends GameObject> bubbles = getCurLevel().getBubbles();
         final LinkedList<? extends GameObject> pickups = getCurLevel().getPickups();
-        
+
         // collision: QuadTree
         quad.clear();
         for (GameObject obj : walls) {

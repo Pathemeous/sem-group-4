@@ -40,18 +40,14 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            LinkedList - list containing all walls in this level.
      * @param projectiles
      *            LinkedList - list containing all projectiles in this level.
-     * @param players
-     *            LinkedList - list containing all players in this level.
      * @param pickups
      *            LinkedList - list containing all pickups in this level.
      * @param bubbles
      *            LinkedList - list containing all bubbles in this level.
-     * @param toDelete
-     *            LinkedList - list containing all deletable objects in this level.
-     * @param toAdd
-     *            LinkedList - list containing all addable objects in this level.
      * @param time
      *            double - the time the player has to complete the level in seconds.
+     * @param id
+     *            int - the number of this level.
      */
     public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
             LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, int time, int id) {

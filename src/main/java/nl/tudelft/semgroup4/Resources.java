@@ -77,6 +77,7 @@ public class Resources {
 
     /**
      * Initialises the resources.
+     * @throws SlickException - If the Game engine crashes.
      */
     public static void init() throws SlickException {
         if (isInitted) {

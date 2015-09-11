@@ -19,6 +19,8 @@ public class AppTest extends TestCase {
     }
 
     /**
+     * Generate test suite
+     * 
      * @return the suite of tests being tested.
      */
     public static Test suite() {

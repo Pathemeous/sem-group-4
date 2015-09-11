@@ -46,6 +46,8 @@ public class Player extends GameObject {
      *            int - The y-coordinate where the player should spawn.
      * @param input
      *            Input - The input to enable the user to move.
+     * @param isFirstPlayer
+     *            boolean - checks whether the player is number one or two.
      */
     public Player(int locX, int locY, Input input, boolean isFirstPlayer) {
         super(Resources.playerImageStill.copy(), locX, locY);
@@ -63,21 +65,21 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics graphics) throws SlickException {
         Animation curAnimation = getAnimationCurrent();
         if (curAnimation == null) {
-            g.drawImage(getImage(), getLocX(), getLocY());
+            graphics.drawImage(getImage(), getLocX(), getLocY());
         } else {
-            g.drawAnimation(curAnimation, getLocX(), getLocY());
+            graphics.drawAnimation(curAnimation, getLocX(), getLocY());
         }
         if (hasShield()) {
             if (removingShieldCounter % 2 == 0) {
-                g.drawImage(Resources.power_shield, getLocX(), getLocY());
+                graphics.drawImage(Resources.power_shield, getLocX(), getLocY());
             }
         } else if (isInvincible()) {
             if ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0)
                     || invincibilityCounter < 540) {
-                g.drawImage(Resources.power_invincible, getLocX(), getLocY());
+                graphics.drawImage(Resources.power_invincible, getLocX(), getLocY());
             }
         }
     }

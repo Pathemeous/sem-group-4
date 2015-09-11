@@ -6,7 +6,6 @@ import java.util.List;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.semgroup4.util.QuadTree;
 
-
 /**
  * Helper class for anything Collision-related that does not deserve his own class Created by justin
  * on 06/09/15.
@@ -16,8 +15,12 @@ public class CollisionHelper {
     /**
      * Returns a map of colliding objects.
      *
+     * @param objectA
+     *            GameObject - the colliding object.
      * @param objects
-     *            the objects to check
+     *            List - the objects to check.
+     * @param quad
+     *            Quadtree - the quadtree used to find collisions.
      * @return a Pair of which the Key is the 'objectA' colliding object and the value 'right'
      */
     public static List<GameObject> collideObjectWithList(GameObject objectA,
