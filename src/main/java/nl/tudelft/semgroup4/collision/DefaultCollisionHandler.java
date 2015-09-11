@@ -105,10 +105,14 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     		// nothing happens
     	} else if(player.hasShield()) {
     	    // The shield is removed and the bubble is split (tagged as isHit).
-    		player.removeShield();
-    		bubble.setIsHit();
+    		if(!player.removingShield()) {
+    			player.setShieldInactive();
+        		bubble.setIsHit();
+    		}
     	} else {
     		player.removeLife();
+    		player.addScore(-1000);
+    		game.levelReset();
     	}
     };
     
@@ -125,6 +129,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     final CollisionHandler<Game, Bubble, Projectile> projectileBubbleHandler = (game, bubble, projectile) -> {
     	if(!projectile.getHitBubble()) {
     		projectile.setHitBubble();
+    		projectile.getWeapon().getPlayer().addScore(50);
     		bubble.setIsHit();
     	}
     };
@@ -147,6 +152,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     		// set new weapon
     		Weapon weapon = (Weapon)content;
     		player.setWeapon(weapon);
+    		weapon.setPlayer(player);
     	} else if(content instanceof Powerup) {
     		Powerup powerup = (Powerup)content;
     		player.addPowerup(powerup);

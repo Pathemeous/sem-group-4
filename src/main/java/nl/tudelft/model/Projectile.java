@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import nl.tudelft.semgroup4.Modifiable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -126,5 +127,9 @@ public class Projectile extends GameObject {
     @Override
     public Shape getBounds() {
         return new Rectangle(getLocX(), getLocY(), getWidth(), getActualHeight());
+    }
+    
+    public Weapon getWeapon() {
+        return this.wp;
     }
 }

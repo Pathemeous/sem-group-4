@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import nl.tudelft.semgroup4.Modifiable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 

@@ -1,18 +1,20 @@
 package nl.tudelft.model;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.semgroup4.Resources;
 
+import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Updateable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 
 public class Weapon extends PickupContent implements Updateable {
 
+    private Player player;
     private ArrayList<Projectile> projectiles;
     private Image img;
     private WeaponType type;
@@ -88,5 +90,17 @@ public class Weapon extends PickupContent implements Updateable {
     	
     	projectiles.remove(proj);
         container.toRemove(proj);
+    }
+    
+    /**
+     *  Sets the player that this weapon belongs to.
+     * @param player Player - the player that owns this weapon.
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
+    public Player getPlayer() {
+        return this.player;
     }
 }

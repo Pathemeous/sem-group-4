@@ -1,15 +1,16 @@
 package nl.tudelft.model;
 
-import java.util.ArrayList;
-import java.util.LinkedList;
-
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Utility;
+import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Resources;
-
+import nl.tudelft.semgroup4.Updateable;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import java.util.LinkedList;
 
 public class Level implements Updateable, Renderable, Modifiable {
 
@@ -18,7 +19,8 @@ public class Level implements Updateable, Renderable, Modifiable {
     LinkedList<Pickup> pickups;
     LinkedList<Bubble> bubbles;
     LinkedList<GameObject> toRemove = new LinkedList<>(), toAdd = new LinkedList<>();
-    private double time;
+    private int time;
+    private final int maxTime;
     private double speed;
     private int utilSlowCounter = 0;
     private boolean slowBalls = false;
@@ -50,12 +52,13 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            double - the time the player has to complete the level in seconds.
      */
     public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
-            LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, double time, int id) {
+            LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, int time, int id) {
         this.walls = walls;
         this.projectiles = projectiles;
         this.bubbles = bubbles;
         this.pickups = pickups;
         this.time = time;
+        this.maxTime = time;
 
         this.id = id;
 
@@ -111,6 +114,8 @@ public class Level implements Updateable, Renderable, Modifiable {
         
         toAdd.clear();
         toRemove.clear();
+        
+        time -= delta;
         
         slowBalls();
         freezeBalls();
@@ -254,12 +259,16 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.id;
     }
 
-    public void setTime(double time) {
+    public void setTime(int time) {
         this.time = time;
     }
 
-    public double getTime() {
+    public int getTime() {
         return this.time;
+    }
+    
+    public int getMaxTime() {
+        return this.maxTime;
     }
 
     public void setSpeed(double speed) {
@@ -284,15 +293,11 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     /**
-     * Checks whether the level has failed.
-     * 
-     * <p>
-     * A level has failed when a) the timer runs out; b) a player collides with a bubble.
-     * </p>
+     * Checks whether the level timer has expired.
      * 
      * @return boolean - true if the timer hits zero or below.
      */
-    public boolean hasFailed() {
+    public boolean timerExpired() {
         return this.time <= 0;
     }
 
