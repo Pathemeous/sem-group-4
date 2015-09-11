@@ -187,7 +187,12 @@ public class Player extends GameObject {
         removeShield();
     }
 
-    public void addPowerup(Powerup up) {
+    /**
+     * Give the player the powerup.
+     * @param up Powerup - the powerup to give to the player.
+     * @throws IllegalArgumentException - If the powerup type is incorrect.
+     */
+    public void addPowerup(Powerup up) throws IllegalArgumentException {
         switch (up.getPowerType()) {
             case SHIELD:
                 if (!isInvincible() && !hasShield()) {
@@ -219,6 +224,8 @@ public class Player extends GameObject {
                     lives++;
                 }
                 break;
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
