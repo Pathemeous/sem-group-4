@@ -143,6 +143,8 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     };
  
     final CollisionHandler<Game, Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
+    	System.out.println("picked up item!");
+    	
         game.getCurLevel().toRemove(pickup);
         
     	PickupContent content = pickup.getContent();

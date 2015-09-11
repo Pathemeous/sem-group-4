@@ -98,14 +98,9 @@ public class Game implements Renderable, Modifiable {
             }
         }
         for (GameObject collidesWithA : pickups) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
+        	// collision with walls and players
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
-            }
-        }
-        
-        for (GameObject collidesWithA : pickups) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
         
@@ -178,15 +173,22 @@ public class Game implements Renderable, Modifiable {
         }
         return result;
     }
+    
+    /**
+     * Calls {@link Player#reset()} on all players in the game.
+     */
+    private void resetPlayers() {
+        for (Player player : players) {
+            player.reset();
+        }
+    }
 
     /**
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
         if (getPlayerLives() > 0) {
-            for (Player player : players) {
-                player.reset();
-            }
+            resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getID()));
         } else {
             gameOver();
@@ -199,6 +201,7 @@ public class Game implements Renderable, Modifiable {
      */
     public void nextLevel() {
         if (levelIt.hasNext()) {
+            resetPlayers();
             setCurLevel(levelIt.next());
         } else {
             gameCompleted();
