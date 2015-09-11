@@ -130,8 +130,6 @@ public class Player extends GameObject {
             setAnimationCurrent(null);
         }
 
-        this.weapon.update(container, delta);
-
         fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
 
         invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0)
