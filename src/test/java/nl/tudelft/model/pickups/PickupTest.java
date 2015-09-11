@@ -1,13 +1,15 @@
 package nl.tudelft.model.pickups;
 
-import nl.tudelft.model.Weapon;
-import nl.tudelft.semgroup4.OpenGLTestCase;
-import nl.tudelft.semgroup4.Resources;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
+import nl.tudelft.model.OpenGLTestCase;
+import nl.tudelft.model.Weapon;
+import nl.tudelft.semgroup4.Resources;
 import org.newdawn.slick.SlickException;
 
 public class PickupTest extends OpenGLTestCase {
-    
+
     /**
      * This method tests the constructor to see if the right pickup is generated based on the
      * number that is put in.
@@ -25,14 +27,14 @@ public class PickupTest extends OpenGLTestCase {
             }
         }
     }
-    
+
     /**
      * Test the images.
      * @throws SlickException : slick exception.
      */
     public void testImages() throws SlickException {
         Resources.init();
-        
+
         for (int i = 0; i < 1000; i++) {
             Pickup pickup = new Pickup(null, 0, 0, 4);
             Powerup content = (Powerup)pickup.getContent();
@@ -52,13 +54,13 @@ public class PickupTest extends OpenGLTestCase {
                 case SPEEDUP:
                     assertEquals(pickup.getImage(), Resources.pickup_power_speedup);
                     break;
-                default: 
+                default:
                     break;
             }
-            
+
             Pickup pickup2 = new Pickup(null, 0, 0, 7);
             Utility content2 = (Utility)pickup2.getContent();
-            
+
             switch (content2.getType()) {
                 case FREEZE:
                     assertEquals(pickup2.getImage(), Resources.pickup_utility_freeze);
@@ -80,7 +82,7 @@ public class PickupTest extends OpenGLTestCase {
             }
         }
     }
-    
+
     /**
      * Tests if the update method of Pickup adds one to the Y location.
      * @throws SlickException : exception from Slick.

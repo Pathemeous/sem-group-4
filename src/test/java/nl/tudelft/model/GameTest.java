@@ -1,7 +1,10 @@
 package nl.tudelft.model;
 
-import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
@@ -9,10 +12,8 @@ import java.util.LinkedList;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
-
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 

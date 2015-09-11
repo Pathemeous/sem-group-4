@@ -1,15 +1,18 @@
 package nl.tudelft.model;
 
-import static org.mockito.internal.verification.VerificationModeFactory.times;
+import static junit.framework.TestCase.assertNotNull;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
 import org.newdawn.slick.SlickException;
 

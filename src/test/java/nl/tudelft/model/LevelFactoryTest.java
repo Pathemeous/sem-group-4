@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 
 import java.util.LinkedList;
@@ -7,7 +8,6 @@ import java.util.LinkedList;
 
 import junit.framework.Test;
 import junit.framework.TestSuite;
-import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
 import org.newdawn.slick.SlickException;
 
