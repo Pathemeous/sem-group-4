@@ -11,6 +11,7 @@ public class Utility extends PickupContent {
 
     /**
      * Creates a random utility.
+     * @param random : random variable which determines what type the utility will get.
      */
     public Utility(int random) {
         if (random == 20) {
