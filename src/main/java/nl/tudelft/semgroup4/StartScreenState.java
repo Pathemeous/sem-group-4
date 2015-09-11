@@ -8,11 +8,7 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-/**
- * 
- * @author TUDelft SID
- *
- */
+
 public class StartScreenState extends BasicGameState {
     private MouseOverArea mouseOverOnePlayer;
     private MouseOverArea mouseOverTwoPlayer;

@@ -18,7 +18,7 @@ public class PauseScreen {
     }
 
     /**
-     * makes the background opaque and opens the pause screen
+     * makes the background opaque and opens the pause screen.
      * 
      * @param g
      *            graphics to draw with

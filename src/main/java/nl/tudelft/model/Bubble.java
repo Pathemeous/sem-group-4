@@ -196,6 +196,7 @@ public class Bubble extends GameObject {
     }
 
     /**
+     * Accesses the verticalSpeed value.
      * 
      * @return the vertical speed of the bubble
      */
@@ -204,6 +205,7 @@ public class Bubble extends GameObject {
     }
 
     /**
+     * Accesses the horizontalSpeed value.
      * 
      * @return the horizontal speed of the bubble
      */
@@ -212,6 +214,7 @@ public class Bubble extends GameObject {
     }
 
     /**
+     * Accesses the maxVerticalSpeed value.
      * 
      * @return the maximum vertical speed the bubble can reach
      */
@@ -220,7 +223,7 @@ public class Bubble extends GameObject {
     }
 
     /**
-     * Sets the vertical speed of the bubble
+     * Sets the vertical speed of the bubble.
      * 
      * @param newSpeed
      *            : the new speed
@@ -230,7 +233,7 @@ public class Bubble extends GameObject {
     }
 
     /**
-     * Sets the horizontal speed of the bubble
+     * Sets the horizontal speed of the bubble.
      * 
      * @param newSpeed
      *            : the new speed
@@ -240,6 +243,8 @@ public class Bubble extends GameObject {
     }
 
     /**
+     * Accesses the maxSpeed value.
+     * 
      * @return the maximum speed the bubble can have at any time in any direction
      */
     public float getMaxSpeed() {
@@ -255,7 +260,7 @@ public class Bubble extends GameObject {
 
     /**
      * Overrides the getbounds method of GameObject, Bubble's superclass, so the shape of the bubble
-     * is an instance of Circle instead of Rectangle
+     * is an instance of Circle instead of Rectangle.
      */
     @Override
     public Shape getBounds() {

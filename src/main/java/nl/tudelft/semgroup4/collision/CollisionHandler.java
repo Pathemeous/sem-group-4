@@ -4,7 +4,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.GameObject;
 
 /**
- * Interface that defines a collision handler
+ * Interface that defines a collision handler.
  */
 public interface CollisionHandler<O1 extends GameObject, O2 extends GameObject> {
 
