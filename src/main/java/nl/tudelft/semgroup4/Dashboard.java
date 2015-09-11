@@ -189,7 +189,7 @@ public class Dashboard implements Renderable {
     }
 
     public void update(int delta) throws SlickException {
-        timeBar.setWidth((right - left - margin * 2) * ((float) game.getCurLevel().getTime() / 120f));
+        timeBar.setWidth((right - left - margin * 2) * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));
 
         List<Player> players = game.getPlayers();
         // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven zolang Game leeft
