@@ -78,11 +78,11 @@ public class Player extends GameObject {
             graphics.drawAnimation(curAnimation, getLocX(), getLocY());
         }
         if (hasShield()) {
-        	if(removingShieldCounter % 2 == 0) {
-        		//g.drawImage(Resources.power_shield, getLocX(), getLocY());
-        		graphics.setColor(Color.yellow);
-        		graphics.draw(getBounds());
-        	}
+            if (removingShieldCounter % 2 == 0) {
+                // g.drawImage(Resources.power_shield, getLocX(), getLocY());
+                graphics.setColor(Color.yellow);
+                graphics.draw(getBounds());
+            }
         } else if (isInvincible()) {
             if ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0)
                     || invincibilityCounter < 540) {
@@ -91,12 +91,12 @@ public class Player extends GameObject {
         }
         graphics.setColor(Color.green);
     }
-    
+
     @Override
     public Shape getBounds() {
-		return new SemRectangle(
-                locX+BOUNDINGBOX_OFFSET_X, locY + BOUNDINGBOX_OFFSET_Y,
-                getImage().getWidth()-(2*BOUNDINGBOX_OFFSET_X), getImage().getHeight()-BOUNDINGBOX_OFFSET_Y);
+        return new SemRectangle(locX + BOUNDINGBOX_OFFSET_X, locY + BOUNDINGBOX_OFFSET_Y,
+                getImage().getWidth() - (2 * BOUNDINGBOX_OFFSET_X), getImage().getHeight()
+                        - BOUNDINGBOX_OFFSET_Y);
     }
 
     @Override
