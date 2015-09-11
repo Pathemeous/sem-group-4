@@ -130,8 +130,6 @@ public class Player extends GameObject {
             setAnimationCurrent(null);
         }
 
-        this.weapon.update(container, delta);
-
         fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
 
         invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0)
@@ -373,8 +371,8 @@ public class Player extends GameObject {
 
     /**
      * returns whether the shield is being removed.
-     * 
-     * @return
+     *
+     * @return boolean - True if the shield is being removed, false if not.
      */
     public boolean removingShield() {
         return removingShieldCounter != 0;

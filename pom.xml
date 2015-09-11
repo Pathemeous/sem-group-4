@@ -4,7 +4,7 @@
     <groupId>nl.tudelft.sem-group-4</groupId>
     <artifactId>sem-group-4</artifactId>
     <packaging>jar</packaging>
-    <version>0.1</version>
+    <version>1.0</version>
     <name>sem-group-4</name>
     <url>http://maven.apache.org</url>
     <properties>
@@ -20,7 +20,7 @@
                 <artifactId>maven-checkstyle-plugin</artifactId>
                 <version>2.16</version>
                 <configuration>
-                    <configLocation>google_checks.xml</configLocation>
+                    <configLocation>checkstyle.xml</configLocation>
                     <includeTestSourceDirectory>true</includeTestSourceDirectory>
                 </configuration>
             </plugin>
@@ -40,6 +40,23 @@
                         <ruleset>rulesets/java/design.xml</ruleset>
                     </rulesets>
                     <skipEmptyReport>false</skipEmptyReport>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>findbugs-maven-plugin</artifactId>
+                <version>3.0.2</version>
+                <configuration>
+                    <!--
+                        Enables analysis which takes more memory but finds more bugs.
+                        If you run out of memory, changes the value of the effort element
+                        to 'low'.
+                    -->
+                    <effort>Max</effort>
+                    <!-- Reports all bugs (other values are medium and max) -->
+                    <threshold>Low</threshold>
+                    <!-- Produces XML report -->
+                    <xmlOutput>true</xmlOutput>
                 </configuration>
             </plugin>
             <plugin>
@@ -106,7 +123,7 @@
                         <configuration>
                             <configLocation>checkstyle.xml</configLocation>
                             <consoleOutput>true</consoleOutput>
-                            <failOnViolation>false</failOnViolation>
+                            <failOnViolation>true</failOnViolation>
                         </configuration>
                         <goals>
                             <goal>check</goal>

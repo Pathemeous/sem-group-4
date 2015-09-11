@@ -190,7 +190,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return int - the total amount of lives left until the game is over.
      */
-    private int getPlayerLives() {
+    public int getPlayerLives() {
         int result = 0;
         for (Player player : players) {
             result += player.getLives();
@@ -201,7 +201,7 @@ public class Game implements Renderable, Modifiable {
     /**
      * Calls {@link Player#reset()} on all players in the game.
      */
-    private void resetPlayers() {
+    public void resetPlayers() {
         for (Player player : players) {
             player.reset();
         }
