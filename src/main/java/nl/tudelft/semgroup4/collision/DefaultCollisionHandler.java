@@ -87,16 +87,16 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         if (wall.getLocX() < bubble.getLocX()
                 && (wall.getLocX() + wall.getBounds().getWidth() - offset) <= bubble.getLocX()) {
             bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
-        } // top collision
-        else if (wall.getLocY() < bubble.getLocY()
+        } else if (wall.getLocY() < bubble.getLocY()
                 && (wall.getLocY() + wall.getBounds().getHeight() - offset) <= bubble.getLocY()) {
+            // top collision
             bubble.setVerticalSpeed(-Math.abs(bubble.getVerticalSpeed()));
-        } // bottom collision
-        else if ((wall.getLocY() + offset) >= bubble.getLocY()
+        } else if ((wall.getLocY() + offset) >= bubble.getLocY()
                 && (bubble.getLocX() + bubble.getBounds().getWidth()) >= wall.getLocX() + offset) {
+            // bottom collision
             bubble.setVerticalSpeed(Math.abs(bubble.getMaxVerticalSpeed()));
-        } // right collision
-        else {
+        } else {
+            // right collision
             bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
         }
     };

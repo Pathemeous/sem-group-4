@@ -80,9 +80,8 @@ public class QuadTree {
             } else if (bottomQuadrant) {
                 index = 2;
             }
-        }
-        // Object can completely fit within the right quadrants
-        else if (pRect.getX() > verticalMidpoint) {
+        } else if (pRect.getX() > verticalMidpoint) {
+            // Object can completely fit within the right quadrants
             if (topQuadrant) {
                 index = 0;
             } else if (bottomQuadrant) {
