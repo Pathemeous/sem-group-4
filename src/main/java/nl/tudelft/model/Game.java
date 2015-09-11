@@ -26,7 +26,7 @@ public class Game implements Renderable, Modifiable {
     private LinkedList<Player> players;
     private LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
-    private final CollisionHandler<Game, GameObject, GameObject> collisionHandler;
+    private final CollisionHandler<GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
     private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
     private final StateBasedGame mainApp;
@@ -241,7 +241,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected CollisionHandler getNewCollisionHandler() {
+    protected CollisionHandler<GameObject, GameObject> getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
 

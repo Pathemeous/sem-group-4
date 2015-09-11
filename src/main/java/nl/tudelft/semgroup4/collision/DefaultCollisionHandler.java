@@ -22,7 +22,7 @@ import org.newdawn.slick.geom.Shape;
  *
  * Created by justin on 06/09/15.
  */
-public class DefaultCollisionHandler implements CollisionHandler<Game, GameObject, GameObject> {
+public class DefaultCollisionHandler implements CollisionHandler<GameObject, GameObject> {
 
     @Override
     public void onCollision(Game game, GameObject objA, GameObject objB) {
@@ -69,7 +69,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     }
 
-    private final CollisionHandler<Game, Player, Wall> playerWallHandler = (game, player, wall) -> {
+    private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -80,7 +80,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     };
 
-    private final CollisionHandler<Game, Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
+    private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
         // left collision
@@ -101,7 +101,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     };
 
-    final CollisionHandler<Game, Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
+    final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
 
         // TODO: Add code to reset the level.
         if (player.isInvincible()) {
@@ -120,7 +120,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     };
 
-    final CollisionHandler<Game, Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
+    final CollisionHandler<Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
         final Shape projectileRect = projectile.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -130,7 +130,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     };
 
-    final CollisionHandler<Game, Bubble, Projectile> projectileBubbleHandler = (game, bubble,
+    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (game, bubble,
             projectile) -> {
         if (!projectile.getHitBubble()) {
             projectile.setHitBubble();
@@ -139,7 +139,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     };
 
-    final CollisionHandler<Game, Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
+    final CollisionHandler<Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
         final Shape pickupRect = pickup.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -149,7 +149,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         }
     };
 
-    final CollisionHandler<Game, Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
+    final CollisionHandler<Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
         game.getCurLevel().toRemove(pickup);
 
         PickupContent content = pickup.getContent();
