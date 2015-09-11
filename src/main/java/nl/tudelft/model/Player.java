@@ -235,6 +235,10 @@ public class Player extends GameObject {
     	return false;
     }
     
+    public boolean isFirstPlayer() {
+        return this.isFirstPlayer;
+    }
+
     public void setShieldInactive() {
     	removingShieldCounter = 1;
     }
