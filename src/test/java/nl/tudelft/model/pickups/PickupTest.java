@@ -6,6 +6,7 @@ import static org.junit.Assert.assertTrue;
 import nl.tudelft.model.OpenGLTestCase;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.Resources;
+import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
 public class PickupTest extends OpenGLTestCase {
@@ -14,6 +15,7 @@ public class PickupTest extends OpenGLTestCase {
      * This method tests the constructor to see if the right pickup is generated based on the
      * number that is put in.
      */
+    @Test
     public void testPickup() {
         for (int i = 1; i < 11; i++) {
             Pickup pickup = new Pickup(null, 0, 0, i);
@@ -32,6 +34,7 @@ public class PickupTest extends OpenGLTestCase {
      * Test the images.
      * @throws SlickException : slick exception.
      */
+    @Test
     public void testImages() throws SlickException {
         Resources.init();
 
@@ -87,11 +90,12 @@ public class PickupTest extends OpenGLTestCase {
      * Tests if the update method of Pickup adds one to the Y location.
      * @throws SlickException : exception from Slick.
      */
+    @Test
     public void testUpdateLocation() throws SlickException {
         Pickup pickup = new Pickup(null, 0, 0, 1);
         pickup.setOnGround(true);
         float locY = pickup.getLocY();
         pickup.update(null, 0);
-        assertEquals(pickup.getLocY(), locY + 1);
+        assertEquals(pickup.getLocY(), locY + 1, 0.0f);
     }
 }

@@ -5,21 +5,16 @@ import static org.mockito.Mockito.mock;
 
 import java.util.LinkedList;
 
-
-import junit.framework.Test;
-import junit.framework.TestSuite;
 import nl.tudelft.semgroup4.Resources;
+import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
 public class LevelFactoryTest extends OpenGLTestCase {
 
-    public static Test suite() {
-        return new TestSuite(LevelFactoryTest.class);
-    }
-
     /**
      * Test to check the level factory constructor.
      */
+    @Test
     public void testLevelFactory() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
@@ -30,6 +25,7 @@ public class LevelFactoryTest extends OpenGLTestCase {
      * Test to check the getter for all levels.
      * @throws SlickException - Resource not found.
      */
+    @Test
     public void testGetAllLevels() throws SlickException {
         Resources.init();
         Game mockedGame = mock(Game.class);
@@ -43,6 +39,7 @@ public class LevelFactoryTest extends OpenGLTestCase {
     /**
      * Test for the level 1 getter.
      */
+    @Test
     public void testGetLevel1() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
@@ -53,6 +50,7 @@ public class LevelFactoryTest extends OpenGLTestCase {
     /**
      * Test for the level 2 getter.
      */
+    @Test
     public void testGetLevel2() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
@@ -63,6 +61,7 @@ public class LevelFactoryTest extends OpenGLTestCase {
     /**
      * Test for the level 3 getter.
      */
+    @Test
     public void testGetLevel3() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);
@@ -73,6 +72,7 @@ public class LevelFactoryTest extends OpenGLTestCase {
     /**
      * Test for the level 4 getter.
      */
+    @Test
     public void testGetLevel4() {
         Game mockedGame = mock(Game.class);
         LevelFactory factory = new LevelFactory(mockedGame);

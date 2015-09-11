@@ -1,14 +1,16 @@
 package nl.tudelft.model.pickups;
 
-import junit.framework.TestCase;
-import nl.tudelft.model.pickups.Powerup.PowerType;
+import static org.junit.Assert.assertEquals;
 
-public class PowerupTest extends TestCase {
-    
-    
+import nl.tudelft.model.pickups.Powerup.PowerType;
+import org.junit.Test;
+
+public class PowerupTest {
+
     /**
      * Tests the powerup constructor.
      */
+    @Test
     public void testPowerup() {
         for (int random = 1; random <= 10; random++) {
             Powerup up = new Powerup(random);

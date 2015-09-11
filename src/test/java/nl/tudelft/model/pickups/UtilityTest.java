@@ -1,13 +1,16 @@
 package nl.tudelft.model.pickups;
 
-import junit.framework.TestCase;
-import nl.tudelft.model.pickups.Utility.UtilityType;
+import static org.junit.Assert.assertEquals;
 
-public class UtilityTest extends TestCase {
+import nl.tudelft.model.pickups.Utility.UtilityType;
+import org.junit.Test;
+
+public class UtilityTest {
     
     /**
      * Tests the utility constructor.
      */
+    @Test
     public void testUtility() {
         for (int i = 1; i <= 20; i++) {
             Utility util = new Utility(i);

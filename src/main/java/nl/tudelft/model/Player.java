@@ -170,46 +170,35 @@ public class Player extends GameObject {
         fireCounter = 0;
         setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
         this.weapon.setPlayer(this);
-
     }
 
+    /**
+     *  Removes the speedup from the player.
+     */
     public void removeSpeedup() {
         speed = REGULAR_SPEED;
         speedupCounter = 0;
         hasSpeedup = false;
     }
 
+    /**
+     * Removes all powerups from.
+     */
     public void clearAllPowerups() {
         removeSpeedup();
         removeInvincibility();
         removeShield();
     }
 
-    public int getInvincibilityCounter() {
-		return invincibilityCounter;
-	}
+    /**
+     * This methods returns the current list of powerups.
+     * @return the current powerups
+     */
+    public LinkedList<Powerup> getPowerups() {
+        return powerups;
+    }
 
-	public void setInvincibilityCounter(int invincibilityCounter) {
-		this.invincibilityCounter = invincibilityCounter;
-	}
-
-	public LinkedList<Powerup> getPowerups() {
-		return powerups;
-	}
-
-	public void setPowerups(LinkedList<Powerup> powerups) {
-		this.powerups = powerups;
-	}
-
-	public void setScore(int score) {
-		this.score = score;
-	}
-
-	public void setLives(int lives) {
-		this.lives = lives;
-	}
-
-	/**
+    /**
      * Give the player the powerup.
      * 
      * @param up
@@ -333,17 +322,17 @@ public class Player extends GameObject {
     }
     /**
      * sets the speed of this player.
-     * @param x
+     * @param newSpeed the new speed
      */
-    public final void setSpeed(int x) {
-    	this.speed = x;
+    public final void setSpeed(int newSpeed) {
+        this.speed = newSpeed;
     }
     /**
      * returns the speed of the player.
-     * @return
+     * @return the current speed
      */
     public int getSpeed() {
-    	return this.speed;
+        return this.speed;
     }
 
     /**
@@ -359,7 +348,7 @@ public class Player extends GameObject {
      * @return powerups
      */
     public final LinkedList<Powerup> getPowerUps() {
-    	return powerups;
+        return powerups;
     }
 
     /**
@@ -387,7 +376,6 @@ public class Player extends GameObject {
 
     /**
      * Sets the weapon of the player.
-     * 
      * @param weapon
      *            Weapon - the Weapon to use.
      */
@@ -396,11 +384,11 @@ public class Player extends GameObject {
     }
     
     /**
-     * returns the weapon of the player
-     * @return
+     * Returns the weapon of the player.
+     * @return the current weapon
      */
     public Weapon getWeapon() {
-    	return this.weapon;
+        return this.weapon;
     }
 
     /**
@@ -467,14 +455,14 @@ public class Player extends GameObject {
      * @return firecounter
      */
     public final int getFireCounter() {
-    	return this.fireCounter;
+        return this.fireCounter;
     }
     
     /**
      * sets the firecounter of this player.
-     * @param x
+     * @param newCounter the new counter
      */
-    public final void setFireCounter(int x) {
-    	this.fireCounter = x;
+    public final void setFireCounter(int newCounter) {
+        this.fireCounter = newCounter;
     }
 }
