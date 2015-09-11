@@ -20,7 +20,7 @@ public class OptionsState extends BasicGameState {
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics g) {
-           
+           g.drawImage(Resources.soundText, container.getWidth() / 3, container.getHeight() /2); 
     }
 
     @Override

@@ -33,7 +33,11 @@ public class Resources {
     public static Image levelContainer;
 
     public static Image playerImageStill;
-
+    
+    public static Image on;
+    public static Image off;
+    public static Image soundText;
+    
     public static Image quitText;
     public static Image pauseText;
 
@@ -123,6 +127,10 @@ public class Resources {
         dashboardlivesFull = new Image("src/main/resources/img/dashboard/lives_full.png");
         dashboardlivesEmpty = new Image("src/main/resources/img/dashboard/lives_empty.png");
         levelContainer = new Image("src/main/resources/img/dashboard/level_container.png");
+        
+        on = new Image("src/main/resources/img/on.png");
+        off = new Image("src/main/resources/img/off.png");
+        soundText = new Image("src/main/resources/img/sound.png");
 
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
