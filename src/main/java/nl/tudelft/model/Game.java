@@ -61,12 +61,11 @@ public class Game implements Renderable, Modifiable {
     }
 
     public void update(int delta) throws SlickException {
-        LinkedList<? extends GameObject> walls, projectiles, bubbles, pickups;
-        walls = getCurLevel().getWalls();
-        projectiles = getCurLevel().getProjectiles();
-        bubbles = getCurLevel().getBubbles();
-        pickups = getCurLevel().getPickups();
-
+        final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();;
+        final LinkedList<? extends GameObject> projectiles = getCurLevel().getProjectiles();
+        final LinkedList<? extends GameObject> bubbles = getCurLevel().getBubbles();
+        final LinkedList<? extends GameObject> pickups = getCurLevel().getPickups();
+        
         // collision: QuadTree
         quad.clear();
         for (GameObject obj : walls) {

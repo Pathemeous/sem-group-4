@@ -118,7 +118,7 @@ public class LevelFactory {
     private Level getLevel3() {
         final int id = 3;
 
-        LinkedList<Wall> walls = wallInit();
+        final LinkedList<Wall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
@@ -141,7 +141,7 @@ public class LevelFactory {
     private Level getLevel4() {
         final int id = 4;
 
-        LinkedList<Wall> walls = wallInit();
+        final LinkedList<Wall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
