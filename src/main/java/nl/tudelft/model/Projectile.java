@@ -1,6 +1,7 @@
 package nl.tudelft.model;
 
 import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Resources;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -53,6 +54,10 @@ public class Projectile extends GameObject {
         hitWall = false;
         tickCount = 0;
         startHeight = yLoc;
+        
+        if(wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {
+            Resources.weaponFire.loop();
+        }
     }
 
     /**
@@ -65,15 +70,17 @@ public class Projectile extends GameObject {
      *            T - The container that this object may request changes to.
      */
     public <T extends Modifiable> void reset(T container) {
-        // Set every variable to the starting variables
-        if (!wp.isSticky() || hitBubble) {
+        Resources.weaponFire.stop();
+        //Set every variable to the starting variables
+        if(!wp.isSticky() || hitBubble) {
             wp.remove(container, this);
-        } else if (tickCount == 0) {
+        } else if(tickCount == 0) {
             tickCount++;
-        } else if (tickCount == 90) {
+        } else if(tickCount == 90) {
             wp.remove(container, this);
             tickCount = 0;
         }
+
     }
 
     public void setHitWall() {
