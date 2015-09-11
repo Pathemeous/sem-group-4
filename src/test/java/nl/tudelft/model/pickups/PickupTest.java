@@ -16,14 +16,6 @@ import org.newdawn.slick.SlickException;
 
 public class PickupTest extends TestCase {
     
-    public PickupTest(String testName) {
-        super(testName);
-    }
-    
-    public static Test suite() {
-        return new TestSuite(PickupTest.class);
-    }
-    
     public void setUp() throws LWJGLException {
         System.setProperty(
                 "org.lwjgl.librarypath",

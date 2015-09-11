@@ -48,14 +48,16 @@ public class QuadTree {
     private void split() {
         int subWidth = (int) (bounds.getWidth() / 2);
         int subHeight = (int) (bounds.getHeight() / 2);
-        int x = (int) bounds.getX();
-        int y = (int) bounds.getY();
+        int locX = (int) bounds.getX();
+        int locY = (int) bounds.getY();
 
-        nodes[0] = new QuadTree(level + 1, new Rectangle(x + subWidth, y, subWidth, subHeight));
-        nodes[1] = new QuadTree(level + 1, new Rectangle(x, y, subWidth, subHeight));
-        nodes[2] = new QuadTree(level + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
-        nodes[3] = new QuadTree(level + 1, new Rectangle(x + subWidth, y + subHeight, subWidth,
+        nodes[0] = new QuadTree(level + 1,
+                new Rectangle(locX + subWidth, locY, subWidth, subHeight));
+        nodes[1] = new QuadTree(level + 1, new Rectangle(locX, locY, subWidth, subHeight));
+        nodes[2] = new QuadTree(level + 1, new Rectangle(locX, locY + subHeight, subWidth,
                 subHeight));
+        nodes[3] = new QuadTree(level + 1, new Rectangle(locX + subWidth, locY + subHeight,
+                subWidth, subHeight));
     }
 
     /*
@@ -114,13 +116,13 @@ public class QuadTree {
                 split();
             }
 
-            int i = 0;
-            while (i < objects.size()) {
-                int index = getIndex(objects.get(i).getBounds());
+            int count = 0;
+            while (count < objects.size()) {
+                int index = getIndex(objects.get(count).getBounds());
                 if (index != -1) {
-                    nodes[index].insert(objects.remove(i));
+                    nodes[index].insert(objects.remove(count));
                 } else {
-                    i++;
+                    count++;
                 }
             }
         }
