@@ -10,6 +10,9 @@ public class Powerup extends PickupContent {
 
     private PowerType type;
 
+    /**
+     * Creates a random power up.
+     */
     public Powerup() {
         // some logic to determine which power up it is
         int random = Helpers.randInt(1, 10);

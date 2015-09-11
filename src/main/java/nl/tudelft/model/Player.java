@@ -21,9 +21,10 @@ public class Player extends GameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;
-    private final int BOUNDINGBOX_OFFSET_X = 10;
-    private final int BOUNDINGBOX_OFFSET_Y = 15;
-    private final int REGULAR_SPEED = 4;
+    private static final int BOUNDINGBOX_OFFSET_X = 10;
+    private static final int BOUNDINGBOX_OFFSET_Y = 15;
+    private static final int REGULAR_SPEED = 4;
+    private static final int SPEEDUP = 2;
     private int speed = REGULAR_SPEED;
     private int lives = 3;
     private int fireCounter = 0;
@@ -31,7 +32,6 @@ public class Player extends GameObject {
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
     private boolean isFirstPlayer;
-    private final int SPEEDUP = 2;
     private boolean hasSpeedup = false;
     private final Input input;
 

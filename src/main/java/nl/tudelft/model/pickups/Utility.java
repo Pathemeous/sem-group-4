@@ -10,6 +10,9 @@ public class Utility extends PickupContent {
 
     private UtilityType type;
 
+    /**
+     * Creates a random utility.
+     */
     public Utility() {
         int random = Helpers.randInt(1, 20);
         
