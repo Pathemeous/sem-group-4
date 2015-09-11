@@ -17,7 +17,7 @@ public class LevelFactory {
     /**
      * Returns a list containing all levels that the factory can make.
      * 
-     * @return LinkedList<Level> All levels ordered from low to high id.
+     * @return LinkedList - All levels ordered from low to high id.
      */
     public LinkedList<Level> getAllLevels() {
         LinkedList<Level> result = new LinkedList<>();

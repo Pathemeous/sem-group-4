@@ -69,11 +69,13 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
-        
+
         if (wallRect.getX() < playerRect.getX()) {
-        	player.setLocX(player.getLocX() + (wallRect.getX() + wallRect.getWidth() - playerRect.getX()));
+            player.setLocX(player.getLocX()
+                    + (wallRect.getX() + wallRect.getWidth() - playerRect.getX()));
         } else {
-            player.setLocX(player.getLocX() - (playerRect.getX() + playerRect.getWidth() - wallRect.getX()));
+            player.setLocX(player.getLocX()
+                    - (playerRect.getX() + playerRect.getWidth() - wallRect.getX()));
         }
     };
 
@@ -127,8 +129,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
         }
     };
 
-    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (game, bubble,
-            projectile) -> {
+    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (game, bubble, projectile) -> {
         if (!projectile.getHitBubble()) {
             projectile.setHitBubble();
             projectile.getWeapon().getPlayer().addScore(50);

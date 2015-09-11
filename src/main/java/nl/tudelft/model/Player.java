@@ -123,8 +123,10 @@ public class Player extends GameObject {
                         this.getHeight());
             }
         }
-        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer)
-                || (!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
+        if ((!(input.isKeyDown(Input.KEY_LEFT)
+                || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer)
+                || (!(input.isKeyDown(Input.KEY_A)
+                || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
             setAnimationCurrent(null);
         }
 
@@ -132,7 +134,8 @@ public class Player extends GameObject {
 
         fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
 
-        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) ? invincibilityCounter + 1
+        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0)
+                ? invincibilityCounter + 1
                 : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
 
         if (invincibilityCounter == 600) {
@@ -146,7 +149,8 @@ public class Player extends GameObject {
             removeSpeedup();
         }
 
-        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0) ? removingShieldCounter + 1
+        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0)
+                ? removingShieldCounter + 1
                 : (removingShieldCounter > 600) ? 0 : removingShieldCounter;
 
         if (removingShieldCounter == 120) {

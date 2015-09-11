@@ -137,7 +137,8 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     private void freezeBalls() {
-        utilFreezeCounter = (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0) ? utilFreezeCounter + 1
+        utilFreezeCounter = (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0)
+                ? utilFreezeCounter + 1
                 : 0;
         if (frozenBalls) {
             for (Bubble bubble : bubbles) {
