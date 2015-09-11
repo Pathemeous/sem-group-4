@@ -32,14 +32,14 @@ public abstract class GameObject implements Updateable, Renderable {
             throws SlickException;
 
     /**
-     * @return the image
+     * @return image Image - The object's image.
      */
     protected Image getImage() {
         return image;
     }
 
     /**
-     * @param image
+     * @param image Image - the new image.
      */
     protected void setImage(Image image) {
         this.image = image;
