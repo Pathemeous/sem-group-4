@@ -168,10 +168,10 @@ public class Player extends GameObject {
     		if(hasShield()) {
     			removeShield();
     		}
-    		invincibilityCounter = 1;
     		if(isInvincible()) {
     			removeInvincibility();
     		}
+    		invincibilityCounter = 1;
     		powerups.add(up);
     		break;
     	case SPEEDUP:
