@@ -17,10 +17,20 @@ public abstract class GameObject implements Updateable, Renderable {
     protected float locY;
     protected Image image;
 
-    public GameObject(Image image, float x, float y) {
+    /**
+     * Constructs a GameObject by setting its position and an image to render.
+     * 
+     * @param image
+     *            Image - The sprite that this object should be rendered with.
+     * @param locX
+     *            float - the x-coordinate that this object should be rendered at.
+     * @param locY
+     *            float - the y-coordinate that this object should be rendered at.
+     */
+    public GameObject(Image image, float locX, float locY) {
         this.image = image;
-        this.locX = x;
-        this.locY = y;
+        this.locX = locX;
+        this.locY = locY;
     }
 
     @Override
@@ -42,7 +52,8 @@ public abstract class GameObject implements Updateable, Renderable {
     }
 
     /**
-     * @param image Image - the new image.
+     * @param image
+     *            Image - the new image.
      */
     protected void setImage(Image image) {
         this.image = image;
