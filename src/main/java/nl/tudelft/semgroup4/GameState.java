@@ -39,14 +39,25 @@ public class GameState extends BasicGameState {
         this.singlePlayer = singlePlayer;
     }
 
+    /**
+     * Starts the state.
+     * 
+     * @param container
+     *            GameContainer - The container in which the game exists.
+     * @param mainApp
+     *            StateBasedGame - the main state manager
+     * @throws SlickException
+     *             - If the Game Engine fails.
+     */
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         ((StartScreenState) mainApp.getState(0)).setAlreadyAdded(false);
         input = container.getInput();
-        mouseOver = new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
-                container.getHeight() / 2, Resources.quitText.getWidth(),
-                Resources.quitText.getHeight());
+        mouseOver =
+                new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
+                        container.getHeight() / 2, Resources.quitText.getWidth(),
+                        Resources.quitText.getHeight());
         pauseScreen = new PauseScreen(mouseOver);
         // Resources.titleScreenMusic.stop();
 
@@ -54,38 +65,66 @@ public class GameState extends BasicGameState {
 
         LinkedList<Player> playerList = new LinkedList<>();
 
-        // players are initialized with a certain Y coordinate, this should be refactored to be more
+        // players are initialized with a certain Y coordinate, this should be refactored to be
+        // more
         // flexible
-        Player firstPlayer = new Player(container.getWidth() / 2, container.getHeight()
-                - Resources.playerImageStill.getHeight() - 5 * Resources.wallImage.getHeight(),
-                input, true);
+        Player firstPlayer =
+                new Player(container.getWidth() / 2, container.getHeight()
+                        - Resources.playerImageStill.getHeight() - 5
+                        * Resources.wallImage.getHeight(), input, true);
         playerList.add(firstPlayer);
 
         if (!singlePlayer) {
-            Player secondPlayer = new Player(container.getWidth() / 2 + 100, container.getHeight()
-                    - Resources.playerImageStill.getHeight() - 5 * Resources.wallImage.getHeight(),
-                    input, false);
+            Player secondPlayer =
+                    new Player(container.getWidth() / 2 + 100, container.getHeight()
+                            - Resources.playerImageStill.getHeight() - 5
+                            * Resources.wallImage.getHeight(), input, false);
             playerList.add(secondPlayer);
         }
 
         theGame = new Game(mainApp, playerList, container.getWidth(), container.getHeight());
         int dashboardMargin = 10;
-        dashboard = new Dashboard(theGame, 2 * dashboardMargin, container.getWidth() - 4
-                * dashboardMargin, container.getHeight());
+        dashboard =
+                new Dashboard(theGame, 2 * dashboardMargin, container.getWidth() - 4
+                        * dashboardMargin, container.getHeight());
     }
 
-    public void render(GameContainer container, StateBasedGame game, Graphics g)
+    /**
+     * Renders the state with every tick.
+     * 
+     * @param container
+     *            GameContainer - The container in which the game exists.
+     * @param game
+     *            StateBasedGame - the main state manager
+     * @param graphics
+     *            Graphics - the Slick graphics.
+     * @throws SlickException
+     *             - If the Game Engine fails.
+     */
+    public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
 
-        theGame.render(container, g);
-        dashboard.render(container, g);
+        theGame.render(container, graphics);
+        dashboard.render(container, graphics);
 
         if (paused) {
-            pauseScreen.show(g, container, input, game, this);
+            pauseScreen.show(graphics, container, input, game, this);
         }
 
     }
 
+    /**
+     * Updates the state with every tick.
+     * 
+     * @param container
+     *            GameContainer - The container in which the game exists.
+     * @param mainApp
+     *            StateBasedGame - the main state manager
+     * @param delta
+     *            int - the amount of time that has passed since this method was last called.
+     * @throws SlickException
+     *             - If the Game Engine fails.
+     */
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
         if (Resources.titleScreenMusic.playing()) {
