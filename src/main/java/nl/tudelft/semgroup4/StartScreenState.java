@@ -62,7 +62,7 @@ public class StartScreenState extends BasicGameState {
             } else if (mouseOverTwoPlayer.isMouseOver()) {
                 game.enterState(2);
             } else if (mouseOverOptions.isMouseOver()) {
-                System.out.println("Options menu opened");
+                game.enterState(3);
             } else if (mouseOverQuit.isMouseOver()) {
                 container.exit();
             }
