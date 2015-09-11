@@ -119,6 +119,7 @@ public class Game implements Renderable, Modifiable {
         for (Player player : playerToDelete) {
             players.remove(player);
         }
+        playerToDelete.clear();
         
         
         // Logic        
@@ -258,7 +259,10 @@ public class Game implements Renderable, Modifiable {
     public void toRemove(GameObject obj) {
         if (obj instanceof Player) {
             playerToDelete.add((Player)obj);
+        } else {
+            curLevel.toRemove(obj);
         }
+        
         
     }
     /**
