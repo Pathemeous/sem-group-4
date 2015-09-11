@@ -189,20 +189,21 @@ public class Dashboard implements Renderable {
     }
 
     public void update(int delta) throws SlickException {
-        timeBar.setWidth((right - left - margin * 2) * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));
+        timeBar.setWidth((right - left - margin * 2) * ((float) game.getCurLevel().getTime() / 120f));
 
         List<Player> players = game.getPlayers();
-        if (players.size() > 1) {
-            scoreLeft  = players.get(0).getScore();
-            scoreRight = players.get(1).getScore();
-
-            livesLeft  = players.get(0).getLives();
-            scoreRight = players.get(1).getLives();
-        } else if (players.size() == 1) {
-            scoreLeft  = players.get(0).getScore();
-            livesLeft  = players.get(0).getLives();
-        } else {
-            // ??
+        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven zolang Game leeft
+        // moet alleen niet gerendered, geupdate of gecollide worden als eentje dood is
+        livesLeft = 0;
+        livesRight = 0;
+        for (Player p : players) {
+            if (p.isFirstPlayer()) {
+                scoreLeft = p.getScore();
+                livesLeft = p.getLives();
+            } else {
+                scoreRight = p.getScore();
+                livesRight = p.getLives();
+            }
         }
 
         Level level = game.getCurLevel();
