@@ -37,7 +37,7 @@ public abstract class GameObject implements Updateable, Renderable {
      * 
      * @return image
      */
-    protected Image getImage() {
+    public Image getImage() {
         return image;
     }
 

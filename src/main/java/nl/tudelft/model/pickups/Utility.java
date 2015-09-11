@@ -10,8 +10,7 @@ public class Utility extends PickupContent {
 
     private UtilityType type;
 
-    public Utility() {
-        int random = Helpers.randInt(1, 5);
+    public Utility(int random) {
 
         switch (random) {
             case 1:

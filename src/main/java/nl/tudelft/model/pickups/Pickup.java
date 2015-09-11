@@ -19,11 +19,11 @@ public class Pickup extends GameObject {
         REGULAR, DOUBLE, STICKY, FLOWER
     }
 
-    public Pickup(Image image, float x, float y) {
+    public Pickup(Image image, float x, float y, int random) {
         super(image, x, y);
         onGround = false;
 
-        int random = Helpers.randInt(1, 10);
+        //int random = Helpers.randInt(1, 10);
         if (random < 4) {
             int randomWeaponNr = Helpers.randInt(1, 4);
             // new weapon
@@ -52,7 +52,7 @@ public class Pickup extends GameObject {
 
         } else if (random > 3 && random < 7) {
             // new powerup
-            pickup = new Powerup();
+            pickup = new Powerup(Helpers.randInt(1, 5));
             Powerup up = (Powerup) pickup;
             switch (up.getPowerType()) {
                 case INVINCIBLE:
@@ -73,7 +73,8 @@ public class Pickup extends GameObject {
             }
         } else {
             // new utility
-            pickup = new Utility();
+            int randomUtil = Helpers.randInt(1, 5);
+            pickup = new Utility(randomUtil);
             Utility util = (Utility) pickup;
 
             switch (util.getType()) {
@@ -115,5 +116,7 @@ public class Pickup extends GameObject {
     public void setOnGround(boolean onGround) {
         this.onGround = onGround;
     }
+    
+    
 
 }
