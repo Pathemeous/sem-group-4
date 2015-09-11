@@ -15,8 +15,12 @@ public class CollisionHelper {
     /**
      * Returns a map of colliding objects.
      *
+     * @param objectA
+     *            GameObject - the colliding object.
      * @param objects
-     *            the objects to check
+     *            List - the objects to check.
+     * @param quad
+     *            Quadtree - the quadtree used to find collisions.
      * @return a Pair of which the Key is the 'objectA' colliding object and the value 'right'
      */
     public static List<GameObject> collideObjectWithList(GameObject objectA,

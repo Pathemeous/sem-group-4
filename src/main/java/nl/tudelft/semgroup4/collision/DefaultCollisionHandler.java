@@ -3,7 +3,6 @@ package nl.tudelft.semgroup4.collision;
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.GameObject;
-import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
@@ -16,61 +15,58 @@ import nl.tudelft.semgroup4.Resources;
 
 import org.newdawn.slick.geom.Shape;
 
-
 /**
- * The default collision handler for the game.
- * Collides player with walls, to prevent falling through them.
- *
- * Created by justin on 06/09/15.
+ * The default collision handler for the game. Collides player with walls, to prevent falling
+ * through them.
  */
-public class DefaultCollisionHandler implements CollisionHandler<Game, GameObject, GameObject> {
+public class DefaultCollisionHandler implements CollisionHandler<GameObject, GameObject> {
 
     @Override
     public void onCollision(Game game, GameObject objA, GameObject objB) {
         if (objA instanceof Bubble) {
-        	if (objB instanceof Wall) {
-        		bubbleWallHandler.onCollision(game, (Bubble)objA, (Wall)objB);
-        	}
+            if (objB instanceof Wall) {
+                bubbleWallHandler.onCollision(game, (Bubble) objA, (Wall) objB);
+            }
         }
 
         if (objA instanceof Bubble) {
             if (objB instanceof Player) {
-                playerBubbleHandler.onCollision(game, (Bubble)objA, (Player)objB);
+                playerBubbleHandler.onCollision(game, (Bubble) objA, (Player) objB);
             }
         }
-        
+
         if (objA instanceof Bubble) {
-        	if (objB instanceof Projectile) {
-        		projectileBubbleHandler.onCollision(game, (Bubble)objA, (Projectile)objB);
-        	}
+            if (objB instanceof Projectile) {
+                projectileBubbleHandler.onCollision(game, (Bubble) objA, (Projectile) objB);
+            }
         }
 
         if (objA instanceof Projectile) {
             if (objB instanceof Wall) {
-                projectileWallHandler.onCollision(game, (Projectile)objA, (Wall)objB);
+                projectileWallHandler.onCollision(game, (Projectile) objA, (Wall) objB);
             }
         }
-        
+
         if (objA instanceof Player) {
             if (objB instanceof Wall) {
-                playerWallHandler.onCollision(game, (Player)objA, (Wall)objB);
+                playerWallHandler.onCollision(game, (Player) objA, (Wall) objB);
             }
         }
-        
+
         if (objA instanceof Pickup) {
-        	if (objB instanceof Player) {
-        		playerPickupHandler.onCollision(game, (Pickup)objA, (Player)objB);
-        	}
+            if (objB instanceof Player) {
+                playerPickupHandler.onCollision(game, (Pickup) objA, (Player) objB);
+            }
         }
-        
+
         if (objA instanceof Pickup) {
-        	if (objB instanceof Wall) {
-        		pickupWallHandler.onCollision(game, (Pickup)objA, (Wall)objB);
-        	}
+            if (objB instanceof Wall) {
+                pickupWallHandler.onCollision(game, (Pickup) objA, (Wall) objB);
+            }
         }
     }
 
-    private final CollisionHandler<Game, Player, Wall> playerWallHandler = (game, player, wall) -> {
+    private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
         
@@ -80,45 +76,48 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
             player.setLocX(player.getLocX() - (playerRect.getX() + playerRect.getWidth() - wallRect.getX()));
         }
     };
-    
-    private final CollisionHandler<Game, Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
-    	float offset = bubble.getMaxSpeed();
-    	
-    	// left collision
-    	if (wall.getLocX() < bubble.getLocX() && (wall.getLocX()+wall.getBounds().getWidth()-offset) <= bubble.getLocX() ) {
-    		bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
-    	} // top collision
-    	else if (wall.getLocY() < bubble.getLocY() && (wall.getLocY()+wall.getBounds().getHeight()-offset) <= bubble.getLocY()) {
-    		bubble.setVerticalSpeed(-Math.abs(bubble.getVerticalSpeed()));
-    	} // bottom collision
-    	else if ((wall.getLocY()+offset) >= bubble.getLocY() && (bubble.getLocX()+bubble.getBounds().getWidth()) >= wall.getLocX()+offset) {
-    		bubble.setVerticalSpeed(Math.abs(bubble.getMaxVerticalSpeed()));
-    	} // right collision
-    	else {
-    		bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
-    	}
+
+    private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
+        float offset = bubble.getMaxSpeed();
+
+        // left collision
+        if (wall.getLocX() < bubble.getLocX()
+                && (wall.getLocX() + wall.getBounds().getWidth() - offset) <= bubble.getLocX()) {
+            bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
+        } else if (wall.getLocY() < bubble.getLocY()
+                && (wall.getLocY() + wall.getBounds().getHeight() - offset) <= bubble.getLocY()) {
+            // top collision
+            bubble.setVerticalSpeed(-Math.abs(bubble.getVerticalSpeed()));
+        } else if ((wall.getLocY() + offset) >= bubble.getLocY()
+                && (bubble.getLocX() + bubble.getBounds().getWidth()) >= wall.getLocX() + offset) {
+            // bottom collision
+            bubble.setVerticalSpeed(Math.abs(bubble.getMaxVerticalSpeed()));
+        } else {
+            // right collision
+            bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
+        }
     };
 
-    final CollisionHandler<Game, Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
+    final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
 
         // TODO: Add code to reset the level.
-    	if(player.isInvincible()) {
-    		// nothing happens
-    	} else if(player.hasShield()) {
-    	    // The shield is removed and the bubble is split (tagged as isHit).
-    		if(!player.removingShield()) {
-    			player.setShieldInactive();
-        		bubble.setIsHit();
-    		}
-    	} else {
-    		Resources.death.play();
-    		player.removeLife();
-    		player.addScore(-1000);
-    		game.levelReset();
-    	}
+        if (player.isInvincible()) {
+            // nothing happens
+        } else if (player.hasShield()) {
+            // The shield is removed and the bubble is split (tagged as isHit).
+            if (!player.removingShield()) {
+                player.setShieldInactive();
+                bubble.setIsHit();
+            }
+        } else {
+            Resources.death.play();
+            player.removeLife();
+            player.addScore(-1000);
+            game.levelReset();
+        }
     };
-    
-    final CollisionHandler<Game, Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
+
+    final CollisionHandler<Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
         final Shape projectileRect = projectile.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -127,17 +126,18 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
             projectile.setHitWall();
         }
     };
-    
-    final CollisionHandler<Game, Bubble, Projectile> projectileBubbleHandler = (game, bubble, projectile) -> {
-    	if(!projectile.getHitBubble()) {
-    		projectile.setHitBubble();
-    		projectile.getWeapon().getPlayer().addScore(50);
-    		bubble.setIsHit();
-    	}
+
+    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (game, bubble,
+            projectile) -> {
+        if (!projectile.getHitBubble()) {
+            projectile.setHitBubble();
+            projectile.getWeapon().getPlayer().addScore(50);
+            bubble.setIsHit();
+        }
     };
-    
-    final CollisionHandler<Game, Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
-    	final Shape pickupRect = pickup.getBounds();
+
+    final CollisionHandler<Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
+        final Shape pickupRect = pickup.getBounds();
         final Shape wallRect = wall.getBounds();
 
         if (wallRect.getY() >= pickupRect.getY()) {
@@ -145,23 +145,23 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
             pickup.setOnGround(true);
         }
     };
- 
-    final CollisionHandler<Game, Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
+
+    final CollisionHandler<Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
         game.getCurLevel().toRemove(pickup);
-        
-    	PickupContent content = pickup.getContent();
-    	if(content instanceof Weapon) {
-    		// set new weapon
-    		Weapon weapon = (Weapon)content;
-    		player.setWeapon(weapon);
-    		weapon.setPlayer(player);
-    	} else if(content instanceof Powerup) {
-    		Powerup powerup = (Powerup)content;
-    		player.addPowerup(powerup);
-    	} else {
-    		Utility util = (Utility)content;
-    		game.getCurLevel().applyUtility(util);
-    	}
+
+        PickupContent content = pickup.getContent();
+        if (content instanceof Weapon) {
+            // set new weapon
+            Weapon weapon = (Weapon) content;
+            player.setWeapon(weapon);
+            weapon.setPlayer(player);
+        } else if (content instanceof Powerup) {
+            Powerup powerup = (Powerup) content;
+            player.addPowerup(powerup);
+        } else {
+            Utility util = (Utility) content;
+            game.getCurLevel().applyUtility(util);
+        }
     };
 
 }

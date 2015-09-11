@@ -1,11 +1,13 @@
 package nl.tudelft.model;
 
+import java.util.LinkedList;
+
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
-import nl.tudelft.semgroup4.util.SEMRectangle;
+import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Color;
@@ -14,8 +16,6 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
-
-import java.util.LinkedList;
 
 public class Player extends GameObject {
 
@@ -36,7 +36,7 @@ public class Player extends GameObject {
     private final Input input;
 
     private Weapon weapon;
-    
+
     private LinkedList<Powerup> powerups;
     private Animation animationCurrent;
     private final Animation animationLeft;
@@ -51,12 +51,14 @@ public class Player extends GameObject {
      *            int - The y-coordinate where the player should spawn.
      * @param input
      *            Input - The input to enable the user to move.
+     * @param isFirstPlayer
+     *            boolean - checks whether the player is number one or two.
      */
     public Player(int locX, int locY, Input input, boolean isFirstPlayer) {
         super(Resources.playerImageStill.copy(), locX, locY);
-		powerups = new LinkedList<>();
-		speed = 4;
-		this.isFirstPlayer = isFirstPlayer;
+        powerups = new LinkedList<>();
+        speed = 4;
+        this.isFirstPlayer = isFirstPlayer;
 
         this.input = input;
         this.weapon = new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR);
@@ -68,31 +70,33 @@ public class Player extends GameObject {
     }
 
     @Override
-    public void render(GameContainer container, Graphics g) throws SlickException {
+    public void render(GameContainer container, Graphics graphics) throws SlickException {
         Animation curAnimation = getAnimationCurrent();
         if (curAnimation == null) {
-            g.drawImage(getImage(), getLocX(), getLocY());
+            graphics.drawImage(getImage(), getLocX(), getLocY());
         } else {
-            g.drawAnimation(curAnimation, getLocX(), getLocY());
+            graphics.drawAnimation(curAnimation, getLocX(), getLocY());
         }
         if (hasShield()) {
-        	if(removingShieldCounter % 2 == 0) {
-        		//g.drawImage(Resources.power_shield, getLocX(), getLocY());
-        		g.setColor(Color.yellow);
-        		g.draw(getBounds());
-        	}
+            if (removingShieldCounter % 2 == 0) {
+                // g.drawImage(Resources.power_shield, getLocX(), getLocY());
+                graphics.setColor(Color.yellow);
+                graphics.draw(getBounds());
+            }
         } else if (isInvincible()) {
-        	if((invincibilityCounter > 540 && invincibilityCounter % 2 == 0) || invincibilityCounter < 540)
-        		g.drawImage(Resources.power_invincible, getLocX(), getLocY());
+            if ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0)
+                    || invincibilityCounter < 540) {
+                graphics.drawImage(Resources.power_invincible, getLocX(), getLocY());
+            }
         }
-        g.setColor(Color.green);
+        graphics.setColor(Color.green);
     }
-    
+
     @Override
     public Shape getBounds() {
-		return new SEMRectangle(
-                locX+BOUNDINGBOX_OFFSET_X, locY + BOUNDINGBOX_OFFSET_Y,
-                getImage().getWidth()-(2*BOUNDINGBOX_OFFSET_X), getImage().getHeight()-BOUNDINGBOX_OFFSET_Y);
+        return new SemRectangle(locX + BOUNDINGBOX_OFFSET_X, locY + BOUNDINGBOX_OFFSET_Y,
+                getImage().getWidth() - (2 * BOUNDINGBOX_OFFSET_X), getImage().getHeight()
+                        - BOUNDINGBOX_OFFSET_Y);
     }
 
     @Override
@@ -100,176 +104,188 @@ public class Player extends GameObject {
         if (getLives() == 0) {
             container.toRemove(this);
         }
-        
-        if ((input.isKeyDown(Input.KEY_LEFT) && isFirstPlayer) || (input.isKeyDown(Input.KEY_A) && !isFirstPlayer)) {
+
+        if ((input.isKeyDown(Input.KEY_LEFT) && isFirstPlayer)
+                || (input.isKeyDown(Input.KEY_A) && !isFirstPlayer)) {
             setAnimationCurrent(animationLeft);
             setLocX(locX - speed);
         }
-        if ((input.isKeyDown(Input.KEY_RIGHT) && isFirstPlayer) || (input.isKeyDown(Input.KEY_D) && !isFirstPlayer)) {
+        if ((input.isKeyDown(Input.KEY_RIGHT) && isFirstPlayer)
+                || (input.isKeyDown(Input.KEY_D) && !isFirstPlayer)) {
             setAnimationCurrent(animationRight);
             setLocX(locX + speed);
         }
-        if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer) || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {
-        	if(fireCounter == 0) {
-        		fireCounter++;
-                weapon.fire(container, (int)this.locX, (int)this.locY, this.getWidth(), this.getHeight());
-        	}
+        if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer)
+                || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {
+            if (fireCounter == 0) {
+                fireCounter++;
+                weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
+                        this.getHeight());
+            }
         }
-        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer) || 
-        		(!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
+        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer)
+                || (!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
             setAnimationCurrent(null);
         }
-        
+
         this.weapon.update(container, delta);
-        
-        fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter+1 : 0;
-        
-        
-        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) 
-        		? invincibilityCounter+1 : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
-        
-        if(invincibilityCounter == 600) {
-        	removeInvincibility();
+
+        fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
+
+        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) ? invincibilityCounter + 1
+                : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
+
+        if (invincibilityCounter == 600) {
+            removeInvincibility();
         }
-        
-        speedupCounter = (speedupCounter <= 600 && speedupCounter != 0) 
-        		? speedupCounter+1 : (speedupCounter > 600) ? 0 : speedupCounter;
-        
-        if(speedupCounter == 600) {
-        	removeSpeedup();
+
+        speedupCounter = (speedupCounter <= 600 && speedupCounter != 0) ? speedupCounter + 1
+                : (speedupCounter > 600) ? 0 : speedupCounter;
+
+        if (speedupCounter == 600) {
+            removeSpeedup();
         }
-        
-        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0) 
-        		? removingShieldCounter+1 : (removingShieldCounter > 600) ? 0 : removingShieldCounter;
-        
-        if(removingShieldCounter == 120) {
-        	removeShield();
-        	removingShieldCounter = 0;
+
+        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0) ? removingShieldCounter + 1
+                : (removingShieldCounter > 600) ? 0 : removingShieldCounter;
+
+        if (removingShieldCounter == 120) {
+            removeShield();
+            removingShieldCounter = 0;
         }
     }
-    
+
     /**
      * Resets the player state to reflect the clean start of a level.
+     * 
      * <p>
-     * This means that a player loses all his powerups, his weapons and
-     * makes sure that the weapon firedelay is set to zero.
+     * This means that a player loses all his powerups, his weapons and makes sure that the weapon
+     * firedelay is set to zero.
+     * </p>
      */
     public void reset() {
         clearAllPowerups();
         fireCounter = 0;
         setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
         this.weapon.setPlayer(this);
-        
+
     }
-    
+
     private void removeSpeedup() {
-    	speed = REGULAR_SPEED;
-    	speedupCounter = 0;
-    	hasSpeedup = false;
+        speed = REGULAR_SPEED;
+        speedupCounter = 0;
+        hasSpeedup = false;
     }
-    
+
     private void clearAllPowerups() {
-    	removeSpeedup();
-    	removeInvincibility();
-    	removeShield();
+        removeSpeedup();
+        removeInvincibility();
+        removeShield();
     }
-    
+
     public void addPowerup(Powerup up) {
-    	switch(up.getPowerType()) {
-    	case SHIELD:
-    		if(!isInvincible() && !hasShield()) {
-    			powerups.add(up);
-    		}
-    		break;
-    	case INVINCIBLE:
-    		if(hasShield()) {
-    			removeShield();
-    		}
-    		if(isInvincible()) {
-    			removeInvincibility();
-    		}
-    		invincibilityCounter = 1;
-    		powerups.add(up);
-    		break;
-    	case SPEEDUP:
-    		speedupCounter = 1;
-    		if(!hasSpeedup) {
-    			speed = SPEEDUP*speed;
-        		hasSpeedup = true;
-    		}
-    		break;
-    	case POINTS:
-    		score += 100;
-    		break;
-    	case LIFE:
-            if(lives<9) lives++;
-    		break;
-    	}
+        switch (up.getPowerType()) {
+            case SHIELD:
+                if (!isInvincible() && !hasShield()) {
+                    powerups.add(up);
+                }
+                break;
+            case INVINCIBLE:
+                if (hasShield()) {
+                    removeShield();
+                }
+                if (isInvincible()) {
+                    removeInvincibility();
+                }
+                invincibilityCounter = 1;
+                powerups.add(up);
+                break;
+            case SPEEDUP:
+                speedupCounter = 1;
+                if (!hasSpeedup) {
+                    speed = SPEEDUP * speed;
+                    hasSpeedup = true;
+                }
+                break;
+            case POINTS:
+                score += 100;
+                break;
+            case LIFE:
+                if (lives < 9) {
+                    lives++;
+                }
+                break;
+        }
     }
-    
+
     public boolean isInvincible() {
-    	for(Powerup up : powerups) {
-    		if(up.getPowerType() == PowerType.INVINCIBLE) 
-    			return true;
-    	}
-    	return false;
+        for (Powerup up : powerups) {
+            if (up.getPowerType() == PowerType.INVINCIBLE) {
+                return true;
+            }
+        }
+        return false;
     }
-    
+
     private void removeInvincibility() {
-    	powerups.remove(getInvincibility());
-    	invincibilityCounter = 0;
+        powerups.remove(getInvincibility());
+        invincibilityCounter = 0;
     }
-    
+
     private Powerup getInvincibility() {
-    	for(Powerup up : powerups) {
-    		if(up.getPowerType() == PowerType.INVINCIBLE) 
-    			return up;
-    	}
-    	return null;
+        for (Powerup up : powerups) {
+            if (up.getPowerType() == PowerType.INVINCIBLE) {
+                return up;
+            }
+        }
+        return null;
     }
-    
+
     public boolean hasShield() {
-    	for(Powerup up : powerups) {
-    		if(up.getPowerType() == PowerType.SHIELD) 
-    			return true;
-    	}
-    	return false;
+        for (Powerup up : powerups) {
+            if (up.getPowerType() == PowerType.SHIELD) {
+                return true;
+            }
+        }
+        return false;
     }
-    
+
     private Powerup getShield() {
-    	for(Powerup up : powerups) {
-    		if(up.getPowerType() == PowerType.SHIELD) 
-    			return up;
-    	}
-    	return null;
+        for (Powerup up : powerups) {
+            if (up.getPowerType() == PowerType.SHIELD) {
+                return up;
+            }
+        }
+        return null;
     }
-    
+
     public boolean hasSpeedup() {
-    	for(Powerup up : powerups) {
-    		if(up.getPowerType() == PowerType.SPEEDUP) 
-    			return true;
-    	}
-    	return false;
+        for (Powerup up : powerups) {
+            if (up.getPowerType() == PowerType.SPEEDUP) {
+                return true;
+            }
+        }
+        return false;
     }
-    
+
     public boolean isFirstPlayer() {
         return this.isFirstPlayer;
     }
 
     public void setShieldInactive() {
-    	removingShieldCounter = 1;
+        removingShieldCounter = 1;
     }
-    
+
     public boolean removingShield() {
-    	return removingShieldCounter != 0;
+        return removingShieldCounter != 0;
     }
-    
+
     private void removeShield() {
-    	powerups.remove(getShield());
+        powerups.remove(getShield());
     }
-    
+
     public void setWeapon(Weapon weapon) {
-    	this.weapon = weapon;
+        this.weapon = weapon;
     }
 
     /**
@@ -312,7 +328,10 @@ public class Player extends GameObject {
     /**
      * Get current animation for the player.
      *
+     * <p>
      * When null, should draw its imageStill.
+     * </p>
+     * 
      * @return Animation of current animation of the player.
      */
     public Animation getAnimationCurrent() {
@@ -321,7 +340,9 @@ public class Player extends GameObject {
 
     /**
      * Sets the current Animation of the player.
-     * @param animationCurrent The new animation.
+     * 
+     * @param animationCurrent
+     *            The new animation.
      */
     public void setAnimationCurrent(Animation animationCurrent) {
         this.animationCurrent = animationCurrent;

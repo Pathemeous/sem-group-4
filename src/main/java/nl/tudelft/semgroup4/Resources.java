@@ -1,16 +1,15 @@
 package nl.tudelft.semgroup4;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
-import java.util.ArrayList;
-
 /**
- * This class holds the resources
- * Created by justin on 08/09/15.
+ * This class holds the resources Created by justin on 08/09/15.
  */
 public class Resources {
 
@@ -18,7 +17,7 @@ public class Resources {
 
     public static Image wallImage;
     public static Image vwallImage;
-    
+
     public static Image weaponImageRegular;
     public static Image weaponImageSticky;
     public static Image weaponImageFlower;
@@ -34,7 +33,7 @@ public class Resources {
     public static Image levelContainer;
 
     public static Image playerImageStill;
-    
+
     public static Image quitText;
     public static Image pauseText;
 
@@ -50,7 +49,7 @@ public class Resources {
     public static Image bubbleImage4;
     public static Image bubbleImage5;
     public static Image bubbleImage6;
-    
+
     public static Image pickup_weapon_regular;
     public static Image pickup_weapon_double;
     public static Image pickup_weapon_sticky;
@@ -65,19 +64,20 @@ public class Resources {
     public static Image pickup_utility_levelwon;
     public static Image pickup_utility_time;
     public static Image pickup_utility_life;
-    
+
     public static Image power_shield;
     public static Image power_invincible;
-    
+
     public static Sound bubblePop;
     public static Sound weaponFire;
     public static Sound death;
     public static Sound timeUp;
-    
+
     public static Music titleScreenMusic;
 
     /**
      * Initialises the resources.
+     * @throws SlickException - If the Game engine crashes.
      */
     public static void init() throws SlickException {
         if (isInitted) {
@@ -85,29 +85,29 @@ public class Resources {
         } else {
             isInitted = true;
         }
-        
-        weaponFire =  new Sound("src/main/resources/sound/weaponFire.ogg");
+
+        weaponFire = new Sound("src/main/resources/sound/weaponFire.ogg");
         bubblePop = new Sound("src/main/resources/sound/pop.ogg");
         death = new Sound("src/main/resources/sound/death.ogg");
         timeUp = new Sound("src/main/resources/sound/timeUp.ogg");
-        
+
         titleScreenMusic = new Music("src/main/resources/sound/titleScreen.ogg");
 
-        wallImage =  new Image("src/main/resources/img/wall2_h.png");
-        vwallImage =  new Image("src/main/resources/img/wall2_v.png");
+        wallImage = new Image("src/main/resources/img/wall2_h.png");
+        vwallImage = new Image("src/main/resources/img/wall2_v.png");
 
-        playerImageStill =  new Image("src/main/resources/img/player_still.png");
+        playerImageStill = new Image("src/main/resources/img/player_still.png");
         playerImageLeft = new ArrayList<Image>();
         playerImageRight = new ArrayList<Image>();
 
-        for(int i = 0; i < 20; i++) {
-            playerImageLeft.add(new Image("src/main/resources/img/pl/" + (i+1) + ".png"));
-            playerImageRight.add(new Image("src/main/resources/img/pr/" + (i+1) + ".png"));
+        for (int i = 0; i < 20; i++) {
+            playerImageLeft.add(new Image("src/main/resources/img/pl/" + (i + 1) + ".png"));
+            playerImageRight.add(new Image("src/main/resources/img/pr/" + (i + 1) + ".png"));
         }
 
         playerWalkLeft = new Animation();
         playerWalkRight = new Animation();
-        for(int i = 0; i < 20; i++) {
+        for (int i = 0; i < 20; i++) {
             playerWalkLeft.addFrame(playerImageLeft.get(i), 20);
             playerWalkRight.addFrame(playerImageRight.get(i), 20);
         }
@@ -115,8 +115,10 @@ public class Resources {
         titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
         backgroundImage = new Image("src/main/resources/img/level1.jpg");
 
-        dashboardPlayerContainerLeft = new Image("src/main/resources/img/dashboard/player_container_1.png");
-        dashboardPlayerContainerRight = new Image("src/main/resources/img/dashboard/player_container_2.png");
+        dashboardPlayerContainerLeft = new Image(
+                "src/main/resources/img/dashboard/player_container_1.png");
+        dashboardPlayerContainerRight = new Image(
+                "src/main/resources/img/dashboard/player_container_2.png");
         dashboardLivesContainer = new Image("src/main/resources/img/dashboard/lives_container.png");
         dashboardlivesFull = new Image("src/main/resources/img/dashboard/lives_full.png");
         dashboardlivesEmpty = new Image("src/main/resources/img/dashboard/lives_empty.png");
@@ -128,14 +130,14 @@ public class Resources {
         weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageFlower = new Image("src/main/resources/img/weapon_flowers.png");
-        
+
         bubbleImage1 = new Image("src/main/resources/img/yball1.png");
         bubbleImage2 = new Image("src/main/resources/img/yball2.png");
         bubbleImage3 = new Image("src/main/resources/img/yball3.png");
         bubbleImage4 = new Image("src/main/resources/img/rball4.png");
         bubbleImage5 = new Image("src/main/resources/img/rball5.png");
         bubbleImage6 = new Image("src/main/resources/img/rball6.png");
-        
+
         pickup_weapon_regular = new Image("src/main/resources/img/pickup_regular_weapon.png");
         pickup_weapon_double = new Image("src/main/resources/img/pickup_weapon_double.png");
         pickup_weapon_sticky = new Image("src/main/resources/img/pickup_sticky.png");
@@ -150,7 +152,7 @@ public class Resources {
         pickup_utility_levelwon = new Image("src/main/resources/img/pickup_level_won.png");
         pickup_utility_time = new Image("src/main/resources/img/pickup_time.png");
         pickup_utility_life = new Image("src/main/resources/img/pickup_life.png");
-        
+
         power_invincible = new Image("src/main/resources/img/powerup_invincible.png");
         power_shield = new Image("src/main/resources/img/powerup_shield.png");
     }
