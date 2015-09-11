@@ -1,15 +1,16 @@
 package nl.tudelft.model;
 
-import nl.tudelft.model.pickups.Pickup.WeaponType;
-import nl.tudelft.model.pickups.PickupContent;
-import nl.tudelft.semgroup4.Resources;
-
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Updateable;
-import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
 import java.util.ArrayList;
+
+import nl.tudelft.model.pickups.Pickup.WeaponType;
+import nl.tudelft.model.pickups.PickupContent;
+import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.Updateable;
+
+import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public class Weapon extends PickupContent implements Updateable {
 
