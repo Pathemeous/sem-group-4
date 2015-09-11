@@ -139,9 +139,11 @@ public class Player extends GameObject {
 
     /**
      * Resets the player state to reflect the clean start of a level.
+     * 
      * <p>
      * This means that a player loses all his powerups, his weapons and makes sure that the weapon
      * firedelay is set to zero.
+     * </p>
      */
     public void reset() {
         clearAllPowerups();
