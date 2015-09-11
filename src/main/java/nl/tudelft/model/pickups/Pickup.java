@@ -52,7 +52,7 @@ public class Pickup extends GameObject {
 
         } else if (random > 3 && random < 7) {
             // new powerup
-            pickup = new Powerup(Helpers.randInt(1, 5));
+            pickup = new Powerup(Helpers.randInt(1, 10));
             Powerup up = (Powerup) pickup;
             switch (up.getPowerType()) {
                 case INVINCIBLE:
@@ -73,7 +73,7 @@ public class Pickup extends GameObject {
             }
         } else {
             // new utility
-            int randomUtil = Helpers.randInt(1, 5);
+            int randomUtil = Helpers.randInt(1, 20);
             pickup = new Utility(randomUtil);
             Utility util = (Utility) pickup;
 

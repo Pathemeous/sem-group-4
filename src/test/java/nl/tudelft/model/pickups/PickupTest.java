@@ -6,6 +6,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import nl.tudelft.model.Weapon;
+import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
 
 import org.lwjgl.LWJGLException;
@@ -14,21 +15,7 @@ import org.lwjgl.opengl.Display;
 import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.SlickException;
 
-public class PickupTest extends TestCase {
-    
-    public void setUp() throws LWJGLException {
-        System.setProperty(
-                "org.lwjgl.librarypath",
-                new File(new File(System.getProperty("user.dir"), "target/natives"), (LWJGLUtil
-                        .getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName())
-                        .getAbsolutePath());
-        Display.setDisplayMode(new DisplayMode(1,1));
-        Display.create();
-    }
-    
-    public void tearDown() {
-        Display.destroy();
-    }
+public class PickupTest extends OpenGLTestCase {
     
     /**
      * This method tests the constructor to see if the right pickup is generated based on the
