@@ -10,7 +10,8 @@ import org.newdawn.slick.geom.Shape;
 
 public class Projectile extends GameObject {
 
-    private int speed, width;
+    private int speed;
+    private int width;
     private Weapon wp;
     private boolean hitBubble;
     private int tickCount;

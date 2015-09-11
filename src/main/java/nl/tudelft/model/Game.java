@@ -19,7 +19,8 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable, Modifiable {
 
-    private final int containerWidth, containerHeight;
+    private final int containerWidth;
+    private final int containerHeight;
     private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
     private LinkedList<Player> players;

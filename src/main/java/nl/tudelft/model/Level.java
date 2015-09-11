@@ -14,11 +14,12 @@ import java.util.LinkedList;
 
 public class Level implements Updateable, Renderable, Modifiable {
 
-    LinkedList<Wall> walls;
-    LinkedList<Projectile> projectiles;
-    LinkedList<Pickup> pickups;
-    LinkedList<Bubble> bubbles;
-    LinkedList<GameObject> toRemove = new LinkedList<>(), toAdd = new LinkedList<>();
+    private LinkedList<Wall> walls;
+    private LinkedList<Projectile> projectiles;
+    private LinkedList<Pickup> pickups;
+    private LinkedList<Bubble> bubbles;
+    private LinkedList<GameObject> toRemove = new LinkedList<>();
+    private LinkedList<GameObject> toAdd = new LinkedList<>();
     private int time;
     private final int maxTime;
     private double speed;
