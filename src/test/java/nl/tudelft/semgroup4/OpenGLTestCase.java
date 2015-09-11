@@ -16,11 +16,6 @@ public abstract class OpenGLTestCase extends TestCase {
 
     @Override
     protected void setUp() throws Exception {
-    	System.setProperty(
-                "org.lwjgl.librarypath",
-                new File(new File(System.getProperty("user.dir"), "target/natives"), (LWJGLUtil
-                        .getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName())
-                        .getAbsolutePath());
         super.setUp();
         System.setProperty(
                 "org.lwjgl.librarypath",
