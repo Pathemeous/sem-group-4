@@ -216,7 +216,7 @@ public class Game implements Renderable, Modifiable {
      * The game has been completed.
      */
     private void gameCompleted() {
-        // TODO
+        mainApp.enterState(0);        
     }
 
     /**
