@@ -326,8 +326,8 @@ public class Player extends GameObject {
 
     /**
      * returns whether the shield is being removed.
-     * 
-     * @return - boolean.
+     *
+     * @return boolean - True if the shield is being removed, false if not.
      */
     public boolean removingShield() {
         return removingShieldCounter != 0;
