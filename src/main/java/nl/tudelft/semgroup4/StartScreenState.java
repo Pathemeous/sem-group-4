@@ -40,6 +40,9 @@ public class StartScreenState extends BasicGameState {
 
 	@Override
 	public void update(GameContainer container, StateBasedGame game, int ticks) throws SlickException {
+		if(!Resources.titleScreenMusic.playing()) {
+			Resources.titleScreenMusic.loop();
+		}
 		if(!alreadyAdded) {
 			alreadyAdded = true;
 			game.getState(1).init(container, game);	

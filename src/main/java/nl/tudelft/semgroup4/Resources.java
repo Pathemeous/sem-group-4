@@ -71,6 +71,10 @@ public class Resources {
     
     public static Sound bubblePop;
     public static Sound weaponFire;
+    public static Sound death;
+    public static Sound timeUp;
+    
+    public static Music titleScreenMusic;
 
     /**
      * Initialises the resources.
@@ -84,6 +88,10 @@ public class Resources {
         
         weaponFire =  new Sound("src/main/resources/sound/weaponFire.ogg");
         bubblePop = new Sound("src/main/resources/sound/pop.ogg");
+        death = new Sound("src/main/resources/sound/death.ogg");
+        timeUp = new Sound("src/main/resources/sound/timeUp.ogg");
+        
+        titleScreenMusic = new Music("src/main/resources/sound/titleScreen.ogg");
 
         wallImage =  new Image("src/main/resources/img/wall2_h.png");
         vwallImage =  new Image("src/main/resources/img/wall2_v.png");

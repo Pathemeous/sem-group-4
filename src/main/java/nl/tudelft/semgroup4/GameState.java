@@ -10,6 +10,7 @@ import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.semgroup4.util.QuadTree;
+
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -52,6 +53,7 @@ public class GameState extends BasicGameState {
                 container.getHeight() / 2, Resources.quitText.getWidth(),
                 Resources.quitText.getHeight());
         pauseScreen = new PauseScreen(mouseOver);
+        //Resources.titleScreenMusic.stop();
 
         // todo input
 
@@ -96,6 +98,9 @@ public class GameState extends BasicGameState {
     }
 
     public void update(GameContainer container, StateBasedGame mainApp, int delta) throws SlickException {
+    	if(Resources.titleScreenMusic.playing()) {
+			Resources.titleScreenMusic.stop();
+		}
         //checks if the escape key is pressed, if so, the gameState pauses 
     	
     	if (input.isKeyPressed(Input.KEY_ESCAPE)) { 
