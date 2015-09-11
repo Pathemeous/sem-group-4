@@ -11,6 +11,11 @@ import org.lwjgl.opengl.DisplayMode;
  */
 public abstract class OpenGLTestCase {
 
+    /**
+     * This sets up the OpenGL Context.
+     *
+     * @throws Exception when anything happens
+     */
     @Before
     public void setUp() throws Exception {
         Display.setDisplayMode(new DisplayMode(1, 1));
@@ -18,6 +23,11 @@ public abstract class OpenGLTestCase {
         Resources.init();
     }
 
+    /**
+     * This tears down the OpenGL Context.
+     *
+     * @throws Exception when anything happens
+     */
     @After
     public void tearDown() throws Exception {
         Display.destroy();

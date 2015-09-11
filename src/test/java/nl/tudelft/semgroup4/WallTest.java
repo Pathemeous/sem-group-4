@@ -1,11 +1,11 @@
 package nl.tudelft.semgroup4;
 
+import static org.junit.Assert.assertEquals;
+
 import nl.tudelft.model.Wall;
 import org.junit.Test;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
-
-import static org.junit.Assert.assertEquals;
 
 /**
  * Created by justin on 11/09/15.

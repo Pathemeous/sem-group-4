@@ -1,5 +1,7 @@
 package nl.tudelft.model;
 
+import java.util.LinkedList;
+
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Utility;
 import nl.tudelft.semgroup4.Modifiable;
@@ -10,8 +12,6 @@ import nl.tudelft.semgroup4.util.Helpers;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-
-import java.util.LinkedList;
 
 public class Level implements Updateable, Renderable, Modifiable {
 
@@ -36,7 +36,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Creates a level object with an object list, a timer and a speed.
-     * 
+     *
      * @param walls
      *            LinkedList - list containing all walls in this level.
      * @param projectiles
@@ -213,7 +213,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Applies the effects of the utility to the state of the level.
-     * 
+     *
      * @param util
      *            Utility - The utility to apply.
      * @throws IllegalArgumentException
@@ -296,11 +296,11 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Checks whether the level is completed.
-     * 
+     *
      * <p>
      * A level is completed when there are no bubbles left.
      * </p>
-     * 
+     *
      * @return true iff there are no bubbles remaining in this level.
      */
     public boolean isCompleted() {
@@ -309,7 +309,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Checks whether the level timer has expired.
-     * 
+     *
      * @return boolean - true if the timer hits zero or below.
      */
     public boolean timerExpired() {

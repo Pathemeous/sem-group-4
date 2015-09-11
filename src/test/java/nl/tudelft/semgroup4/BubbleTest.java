@@ -1,11 +1,17 @@
 package nl.tudelft.semgroup4;
 
+import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.atLeast;
+import static org.mockito.Mockito.atMost;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+
 import nl.tudelft.model.Bubble;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
-
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
 
 /**
  * Created by justin on 11/09/15.
