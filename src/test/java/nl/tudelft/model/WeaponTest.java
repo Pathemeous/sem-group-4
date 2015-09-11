@@ -1,20 +1,18 @@
 package nl.tudelft.model;
 
 
+import org.newdawn.slick.SlickException;
+
 import junit.framework.Test;
-import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
 import static org.mockito.Mockito.*;
 
 
-public class WeaponTest extends TestCase {
-	
-	public WeaponTest(String testName) {
-		super(testName);
-	}
+public class WeaponTest extends OpenGLTestCase {
 	
 	public static Test suite() {
 		return new TestSuite(WeaponTest.class);
@@ -53,7 +51,7 @@ public class WeaponTest extends TestCase {
 		assertTrue(weapon1.isSticky());
 	}
 	
-	public void testFire() {
+	public void testFire1() {
 		Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
 		Projectile projectile = mock(Projectile.class);
 		assertEquals(weapon.getNumberOfProjectiles(), 0);
@@ -63,6 +61,16 @@ public class WeaponTest extends TestCase {
 		weapon.fire(mockedContainer, 0, 0, 0, 0);
 		verify(mockedContainer, never()).toAdd(any());
 		verify(projectile, never()).fire();
+	}
+	
+	public void testFire2() throws SlickException {
+		Resources.init();
+		Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
+		Game mockedContainer = mock(Game.class);
+		assertEquals(weapon.getNumberOfProjectiles(), 0);
+		assertEquals(weapon.getMaxCount(), 1);
+		weapon.fire(mockedContainer, 0, 0, 0, 0);
+		assertEquals(weapon.getNumberOfProjectiles(), 1);
 	}
 	
 	public void testRemove() {
