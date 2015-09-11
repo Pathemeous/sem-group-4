@@ -11,24 +11,18 @@ public class Utility extends PickupContent {
     private UtilityType type;
 
     public Utility() {
-        int random = Helpers.randInt(1, 5);
-
-        switch (random) {
-            case 1:
-                type = UtilityType.SPLIT;
-                break;
-            case 2:
-                type = UtilityType.SLOW;
-                break;
-            case 3:
-                type = UtilityType.FREEZE;
-                break;
-            case 4:
-                type = UtilityType.LEVELWON;
-                break;
-            case 5:
-                type = UtilityType.TIME;
-                break;
+        int random = Helpers.randInt(1, 20);
+        
+        if (random == 20) {
+            type = UtilityType.LEVELWON;
+        } else if (random > 16) {
+            type = UtilityType.SPLIT;
+        } else if (random > 11) {
+            type = UtilityType.SLOW;
+        } else if (random > 6) {
+            type = UtilityType.FREEZE;
+        } else if (random > 1) {
+            type = UtilityType.TIME;
         }
     }
 
