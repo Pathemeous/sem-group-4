@@ -32,4 +32,12 @@ public class Powerup extends PickupContent {
     public PowerType getPowerType() {
         return type;
     }
+    
+    /**
+     * sets the powerType of this powerUp.
+     * @param x
+     */
+    public final void setPowerType (PowerType x)  {
+    	this.type = x;
+    }
 }
