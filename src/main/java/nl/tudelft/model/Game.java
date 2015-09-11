@@ -98,14 +98,9 @@ public class Game implements Renderable, Modifiable {
             }
         }
         for (GameObject collidesWithA : pickups) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, players, quad)) {
+        	// collision with walls and players
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
-            }
-        }
-        
-        for (GameObject collidesWithA : pickups) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
         
