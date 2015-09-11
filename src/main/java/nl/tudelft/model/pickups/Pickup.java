@@ -19,8 +19,14 @@ public class Pickup extends GameObject {
         REGULAR, DOUBLE, STICKY, FLOWER
     }
 
-    public Pickup(Image image, float x, float y) {
-        super(image, x, y);
+    /**
+     * Creates a pickup with a random content.
+     * @param image Image - the image of the object.
+     * @param locX float - the x-coordinate.
+     * @param locY float - the y-coordinate.
+     */
+    public Pickup(Image image, float locX, float locY) {
+        super(image, locX, locY);
         onGround = false;
 
         int random = Helpers.randInt(1, 10);
@@ -48,6 +54,8 @@ public class Pickup extends GameObject {
                     pickup = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
                     setImage(Resources.pickup_weapon_flowers);
                     break;
+                default:
+                    break;
             }
 
         } else if (random > 3 && random < 7) {
@@ -70,6 +78,8 @@ public class Pickup extends GameObject {
                 case LIFE:
                     setImage(Resources.pickup_utility_life);
                     break;
+                default:
+                    break;
             }
         } else {
             // new utility
@@ -91,6 +101,8 @@ public class Pickup extends GameObject {
                     break;
                 case TIME:
                     setImage(Resources.pickup_utility_time);
+                    break;
+                default:
                     break;
             }
         }
