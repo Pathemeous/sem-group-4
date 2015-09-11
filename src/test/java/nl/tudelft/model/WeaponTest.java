@@ -1,11 +1,13 @@
 package nl.tudelft.model;
 
+
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Resources;
+import static org.mockito.Mockito.*;
 
 
 public class WeaponTest extends TestCase {
@@ -18,10 +20,14 @@ public class WeaponTest extends TestCase {
 		return new TestSuite(WeaponTest.class);
 	}
 	
-//	public void testGetPlayer() {
-//		Player player = new Player(1, 1, null, true);
-//		assertNotNull(player);
-//	}
+	public void testGetPlayer() {
+		Player player = mock(Player.class);
+		assertNotNull(player);
+		Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
+		assertEquals(weapon.getPlayer(), null);
+		weapon.setPlayer(player);
+		assertEquals(weapon.getPlayer(),player);
+	}
 	
 	public void testGetType() {
 		Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
@@ -49,8 +55,25 @@ public class WeaponTest extends TestCase {
 	
 	public void testFire() {
 		Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
+		Projectile projectile = mock(Projectile.class);
 		assertEquals(weapon.getNumberOfProjectiles(), 0);
 		assertEquals(weapon.getMaxCount(), 1);
-		weapon.fire(null, 0, 0, 0, 0);
+		weapon.getProjectiles().add(projectile);
+		Game mockedContainer = mock(Game.class);
+		weapon.fire(mockedContainer, 0, 0, 0, 0);
+		verify(mockedContainer, never()).toAdd(any());
+		verify(projectile, never()).fire();
+	}
+	
+	public void testRemove() {
+		Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
+		Projectile projectile = mock(Projectile.class);
+		assertFalse(weapon.getProjectiles().contains(projectile));
+		weapon.getProjectiles().add(projectile);
+		assertTrue(weapon.getProjectiles().contains(projectile));
+		Game mockedContainer = mock(Game.class);
+		weapon.remove(mockedContainer, projectile);
+		verify(mockedContainer, times(1)).toRemove(projectile);
+		assertEquals(weapon.getNumberOfProjectiles(), 0);
 	}
 }
