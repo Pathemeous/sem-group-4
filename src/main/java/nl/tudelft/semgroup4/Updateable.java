@@ -3,8 +3,8 @@ package nl.tudelft.semgroup4;
 import org.newdawn.slick.SlickException;
 
 /**
- * The Updateable interface should be implemented by all objects that require to update
- * on every game tick.
+ * The Updateable interface should be implemented by all objects that require to update on every
+ * game tick.
  */
 public interface Updateable {
 

@@ -1,10 +1,9 @@
 package nl.tudelft.model;
 
-import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.semgroup4.Resources;
-
 import java.util.LinkedList;
 
+import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.Resources;
 
 public class LevelFactory {
 
@@ -14,14 +13,15 @@ public class LevelFactory {
     public LevelFactory(Game game) {
         this.game = game;
     }
-    
+
     /**
      * Returns a list containing all levels that the factory can make.
+     * 
      * @return LinkedList<Level> All levels ordered from low to high id.
      */
     public LinkedList<Level> getAllLevels() {
         LinkedList<Level> result = new LinkedList<>();
-        
+
         for (int i = 1; i <= levelCount; i++) {
             result.add(getLevel(i));
         }
@@ -70,7 +70,7 @@ public class LevelFactory {
         for (int i = 1; i <= 5; i++) {
             // five walls of space for the UI
             walls.add(new Wall(Resources.wallImage, 0, game.getContainerHeight()
-                    - Resources.wallImage.getHeight() * i ));
+                    - Resources.wallImage.getHeight() * i));
         }
         return walls;
     }
@@ -118,7 +118,7 @@ public class LevelFactory {
     private Level getLevel3() {
         final int id = 3;
 
-        LinkedList<Wall> walls = wallInit();
+        final LinkedList<Wall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
@@ -141,7 +141,7 @@ public class LevelFactory {
     private Level getLevel4() {
         final int id = 4;
 
-        LinkedList<Wall> walls = wallInit();
+        final LinkedList<Wall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
