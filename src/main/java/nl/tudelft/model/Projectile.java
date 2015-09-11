@@ -56,7 +56,7 @@ public class Projectile extends GameObject {
         startHeight = yLoc;
         
         if(wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {
-        	Resources.weaponFire.loop();
+            Resources.weaponFire.loop();
         }
     }
 
@@ -70,16 +70,16 @@ public class Projectile extends GameObject {
      *            T - The container that this object may request changes to.
      */
     public <T extends Modifiable> void reset(T container) {
-    	Resources.weaponFire.stop();
+        Resources.weaponFire.stop();
         //Set every variable to the starting variables
-    	if(!wp.isSticky() || hitBubble) {
-    		wp.remove(container, this);
-    	} else if(tickCount == 0) {
-    		tickCount++;
-    	} else if(tickCount == 90) {
-    		wp.remove(container, this);
-    		tickCount = 0;
-    	}
+        if(!wp.isSticky() || hitBubble) {
+            wp.remove(container, this);
+        } else if(tickCount == 0) {
+            tickCount++;
+        } else if(tickCount == 90) {
+            wp.remove(container, this);
+            tickCount = 0;
+        }
 
     }
 

@@ -65,7 +65,7 @@ public class Weapon extends PickupContent implements Updateable {
 
     public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {   
         if(projectiles.size() < maxCount) {
-        	Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
+            Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);
             projectiles.add(proj);
@@ -73,12 +73,12 @@ public class Weapon extends PickupContent implements Updateable {
     }
 
     public <T extends Modifiable> void remove(T container, Projectile proj) {
-    	projectiles.remove(proj);
+        projectiles.remove(proj);
         container.toRemove(proj);
     }
     
     public int getNumberOfProjectiles() {
-    	return projectiles.size();
+        return projectiles.size();
     }
     /**
      * Sets the player that this weapon belongs to.
