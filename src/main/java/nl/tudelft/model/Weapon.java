@@ -13,6 +13,7 @@ import org.newdawn.slick.SlickException;
 
 public class Weapon extends PickupContent implements Updateable {
 
+    private Player player;
     private ArrayList<Projectile> projectiles;
     private Image img;
     private WeaponType type;
@@ -74,5 +75,17 @@ public class Weapon extends PickupContent implements Updateable {
     public <T extends Modifiable> void remove(T container, Projectile proj) {
     	projectiles.remove(proj);
         container.toRemove(proj);
+    }
+    
+    /**
+     *  Sets the player that this weapon belongs to.
+     * @param player Player - the player that owns this weapon.
+     */
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
+    
+    public Player getPlayer() {
+        return this.player;
     }
 }

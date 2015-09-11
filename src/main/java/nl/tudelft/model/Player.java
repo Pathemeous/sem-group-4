@@ -54,6 +54,7 @@ public class Player extends GameObject {
 
         this.input = input;
         this.weapon = new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR);
+        this.weapon.setPlayer(this);
 
         this.animationCurrent = null;
         this.animationLeft = Resources.playerWalkLeft;
@@ -140,6 +141,7 @@ public class Player extends GameObject {
         clearAllPowerups();
         fireCounter = 0;
         setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
+        this.weapon.setPlayer(this);
         
     }
     
@@ -233,6 +235,10 @@ public class Player extends GameObject {
     	return false;
     }
     
+    public boolean isFirstPlayer() {
+        return this.isFirstPlayer;
+    }
+
     public void setShieldInactive() {
     	removingShieldCounter = 1;
     }

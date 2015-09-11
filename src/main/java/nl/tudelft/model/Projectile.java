@@ -128,4 +128,8 @@ public class Projectile extends GameObject {
     public Shape getBounds() {
         return new Rectangle(getLocX(), getLocY(), getWidth(), getActualHeight());
     }
+    
+    public Weapon getWeapon() {
+        return this.wp;
+    }
 }
