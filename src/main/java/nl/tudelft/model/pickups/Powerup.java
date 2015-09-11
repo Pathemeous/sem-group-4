@@ -1,6 +1,5 @@
 package nl.tudelft.model.pickups;
 
-import nl.tudelft.semgroup4.util.Helpers;
 
 public class Powerup extends PickupContent {
 

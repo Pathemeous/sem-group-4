@@ -29,7 +29,7 @@ public class QuadTree {
     public QuadTree(int depthLevel, Rectangle bounds) {
         level = depthLevel;
         objects = new ArrayList<>();
-        bounds = bounds;
+        this.bounds = bounds;
         nodes = new QuadTree[4];
     }
 

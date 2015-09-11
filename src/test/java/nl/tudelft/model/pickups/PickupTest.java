@@ -1,18 +1,9 @@
 package nl.tudelft.model.pickups;
 
-import java.io.File;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.OpenGLTestCase;
 import nl.tudelft.semgroup4.Resources;
 
-import org.lwjgl.LWJGLException;
-import org.lwjgl.LWJGLUtil;
-import org.lwjgl.opengl.Display;
-import org.lwjgl.opengl.DisplayMode;
 import org.newdawn.slick.SlickException;
 
 public class PickupTest extends OpenGLTestCase {
