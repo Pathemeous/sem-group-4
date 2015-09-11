@@ -111,6 +111,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
     		}
     	} else {
     		player.removeLife();
+    		player.addScore(-750);
     		game.levelReset();
     	}
     };
