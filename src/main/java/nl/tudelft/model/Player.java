@@ -70,12 +70,14 @@ public class Player extends GameObject {
             g.drawAnimation(curAnimation, getLocX(), getLocY());
         }
         if (hasShield()) {
-            if (removingShieldCounter % 2 == 0)
+            if (removingShieldCounter % 2 == 0) {
                 g.drawImage(Resources.power_shield, getLocX(), getLocY());
+            }
         } else if (isInvincible()) {
             if ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0)
-                    || invincibilityCounter < 540)
+                    || invincibilityCounter < 540) {
                 g.drawImage(Resources.power_invincible, getLocX(), getLocY());
+            }
         }
     }
 
@@ -189,16 +191,18 @@ public class Player extends GameObject {
                 score += 100;
                 break;
             case LIFE:
-                if (lives < 9)
+                if (lives < 9) {
                     lives++;
+                }
                 break;
         }
     }
 
     public boolean isInvincible() {
         for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.INVINCIBLE)
+            if (up.getPowerType() == PowerType.INVINCIBLE) {
                 return true;
+            }
         }
         return false;
     }
@@ -210,32 +214,36 @@ public class Player extends GameObject {
 
     private Powerup getInvincibility() {
         for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.INVINCIBLE)
+            if (up.getPowerType() == PowerType.INVINCIBLE) {
                 return up;
+            }
         }
         return null;
     }
 
     public boolean hasShield() {
         for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.SHIELD)
+            if (up.getPowerType() == PowerType.SHIELD) {
                 return true;
+            }
         }
         return false;
     }
 
     private Powerup getShield() {
         for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.SHIELD)
+            if (up.getPowerType() == PowerType.SHIELD) {
                 return up;
+            }
         }
         return null;
     }
 
     public boolean hasSpeedup() {
         for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.SPEEDUP)
+            if (up.getPowerType() == PowerType.SPEEDUP) {
                 return true;
+            }
         }
         return false;
     }
