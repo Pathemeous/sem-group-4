@@ -49,7 +49,7 @@ public class WeaponTest extends TestCase {
 	
 	public void testFire() {
 		Weapon weapon = new Weapon(Resources.weaponImageRegular, Pickup.WeaponType.REGULAR);
-		assertTrue(weapon.getProjectiles().isEmpty());
+		assertEquals(weapon.getNumberOfProjectiles(), 0);
 		assertEquals(weapon.getMaxCount(), 1);
 		weapon.fire(null, 0, 0, 0, 0);
 	}

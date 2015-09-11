@@ -84,8 +84,4 @@ public class Weapon extends PickupContent {
     public Player getPlayer() {
         return this.player;
     }
-    
-    public ArrayList<Projectile> getProjectiles() {
-    	return this.projectiles;
-    }
 }
