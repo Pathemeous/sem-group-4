@@ -24,6 +24,7 @@ public class Pickup extends GameObject {
      * @param image Image - the image of the object.
      * @param locX float - the x-coordinate.
      * @param locY float - the y-coordinate.
+     * @param random - a random variable which decides which pickupcontent is initiliased.
      */
     public Pickup(Image image, float locX, float locY, int random) {
         super(image, locX, locY);

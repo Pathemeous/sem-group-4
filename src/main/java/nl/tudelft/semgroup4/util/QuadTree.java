@@ -27,10 +27,10 @@ public class QuadTree {
      *            Rectangle - the container to split in 4.
      */
     public QuadTree(int depthLevel, Rectangle bounds) {
-        level = depthLevel;
-        objects = new ArrayList<>();
+        this.level = depthLevel;
+        this.objects = new ArrayList<>();
         this.bounds = bounds;
-        nodes = new QuadTree[4];
+        this.nodes = new QuadTree[4];
     }
 
     /**
