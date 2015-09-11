@@ -23,7 +23,7 @@ public class Pickup extends GameObject {
 		super(image, x, y);
 		onGround = false;
 		
-		int random = Helpers.randInt(4, 6);
+		int random = Helpers.randInt(1, 10);
 		if(random < 4) {
 			int randomWeaponNr = Helpers.randInt(1, 4);
 			// new weapon
