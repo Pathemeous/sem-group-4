@@ -1,3 +1,6 @@
+/**
+ *asdasd.
+ */
 package nl.tudelft.semgroup4;
 
 import java.io.File;
@@ -21,8 +24,23 @@ import junit.framework.TestSuite;
  * @author Damian
  *
  */
-public class PlayerTest extends OpenGLTestCase{
-	private int speed = 4;
+public class PlayerTest extends OpenGLTestCase {
+    /**
+     *
+     */
+	private final int speed = 4;
+	/**
+	 *
+	 */
+	private final int playerScore = 100;
+	/**
+	 *
+	 */
+	private final int playerLives = 3;
+	/**
+	 *
+	 */
+	private final int playerTotalLives = 4;
 	/**
 	 *
 	 */
@@ -37,15 +55,14 @@ public class PlayerTest extends OpenGLTestCase{
 	     return new TestSuite(PlayerTest.class);
 	 }
 	 /**
-	  *
+	  * setup for the test cases.
+	  * @throws LWJGLEXception, slickException
 	  */
 	 public final void setUp() throws LWJGLException, SlickException{
 	        System.setProperty(
 	                "org.lwjgl.librarypath",
-	                new File(new File(System.getProperty("user.dir"),
-	                		"target/natives"), (LWJGLUtil
-	                        .getPlatformName().equals("macosx")) ? "osx" :
-	                        	LWJGLUtil.getPlatformName())
+new File(new File(System.getProperty("user.dir"), "target/natives"), (LWJGLUtil
+.getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName())
 	                        .getAbsolutePath());
 	        Display.setDisplayMode(new DisplayMode(1, 1));
 	        Display.create();
@@ -112,12 +129,12 @@ public class PlayerTest extends OpenGLTestCase{
 		 assertEquals(player.getPowerUps().size(), 1);
 		 player.addPowerup(speedUp);
 		 assertEquals(player.getPowerUps().size(), 1);
-		 assertEquals(player.getSpeed(), 8);
+		 assertEquals(player.getSpeed(), 2 * speed);
 		 assertEquals(player.getScore(), 0);
 		 player.addPowerup(score);
-		 assertEquals(player.getScore(), 100);
-		 assertEquals(player.getLives(), 3);
+		 assertEquals(player.getScore(), playerScore);
+		 assertEquals(player.getLives(), playerLives);
 		 player.addPowerup(lives);
-		 assertEquals(player.getLives(), 4);
+		 assertEquals(player.getLives(), playerTotalLives);
 	 }
 }
