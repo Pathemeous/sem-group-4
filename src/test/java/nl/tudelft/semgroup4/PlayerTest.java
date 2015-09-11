@@ -5,7 +5,6 @@ import java.io.File;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
 
@@ -43,8 +42,10 @@ public class PlayerTest extends OpenGLTestCase{
 	 public final void setUp() throws LWJGLException, SlickException{
 	        System.setProperty(
 	                "org.lwjgl.librarypath",
-	                new File(new File(System.getProperty("user.dir"), "target/natives"), (LWJGLUtil
-	                        .getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName())
+	                new File(new File(System.getProperty("user.dir"),
+	                		"target/natives"), (LWJGLUtil
+	                        .getPlatformName().equals("macosx")) ? "osx" :
+	                        	LWJGLUtil.getPlatformName())
 	                        .getAbsolutePath());
 	        Display.setDisplayMode(new DisplayMode(1, 1));
 	        Display.create();
