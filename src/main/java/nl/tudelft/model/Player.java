@@ -189,8 +189,11 @@ public class Player extends GameObject {
 
     /**
      * Give the player the powerup.
-     * @param up Powerup - the powerup to give to the player.
-     * @throws IllegalArgumentException - If the powerup type is incorrect.
+     * 
+     * @param up
+     *            Powerup - the powerup to give to the player.
+     * @throws IllegalArgumentException
+     *             - If the powerup type is incorrect.
      */
     public void addPowerup(Powerup up) throws IllegalArgumentException {
         switch (up.getPowerType()) {
@@ -229,6 +232,11 @@ public class Player extends GameObject {
         }
     }
 
+    /**
+     * Checks whether the player has the Invincible powerup.
+     * 
+     * @return true if he does, false if not.
+     */
     public boolean isInvincible() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.INVINCIBLE) {
@@ -238,11 +246,19 @@ public class Player extends GameObject {
         return false;
     }
 
+    /**
+     * Remove sthe Invincibile powerup from the player.
+     */
     private void removeInvincibility() {
         powerups.remove(getInvincibility());
         invincibilityCounter = 0;
     }
 
+    /**
+     * Returns the Invincibility powerup object from the player.
+     * 
+     * @return Powerup - the Invincibility object.
+     */
     private Powerup getInvincibility() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.INVINCIBLE) {
@@ -252,6 +268,11 @@ public class Player extends GameObject {
         return null;
     }
 
+    /**
+     * Checks whether the player has the shield powerup.
+     * 
+     * @return true if the player has a shield, false if not.
+     */
     public boolean hasShield() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.SHIELD) {
@@ -261,6 +282,11 @@ public class Player extends GameObject {
         return false;
     }
 
+    /**
+     * Gets the Shield powerup object from the player.
+     * 
+     * @return Powerup - the Shield powerup.
+     */
     private Powerup getShield() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.SHIELD) {
@@ -270,6 +296,11 @@ public class Player extends GameObject {
         return null;
     }
 
+    /**
+     * Checks whether the player has the Speedup powerup.
+     * 
+     * @return boolean - true if the player has the speedup, false if not.
+     */
     public boolean hasSpeedup() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.SPEEDUP) {
@@ -279,22 +310,44 @@ public class Player extends GameObject {
         return false;
     }
 
+    /**
+     * Checks whether the player is the first player.
+     * 
+     * @return true if he is player 1.
+     */
     public boolean isFirstPlayer() {
         return this.isFirstPlayer;
     }
 
+    /**
+     * Disables the shield.
+     */
     public void setShieldInactive() {
         removingShieldCounter = 1;
     }
 
+    /**
+     * returns whether the shield is being removed.
+     * 
+     * @return
+     */
     public boolean removingShield() {
         return removingShieldCounter != 0;
     }
 
+    /**
+     * Removes the shield from the player's powerups.
+     */
     private void removeShield() {
         powerups.remove(getShield());
     }
 
+    /**
+     * Sets the weapon of the player.
+     * 
+     * @param weapon
+     *            Weapon - the Weapon to use.
+     */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
