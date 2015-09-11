@@ -88,20 +88,26 @@ public class BubbleTest extends OpenGLTestCase {
     }
 
     @Test
-    public void testSpeed1() {
+    public void testSplitWithRandomAbove7() throws SlickException {
+        Bubble bubble = new Bubble(0, 0, 2);
 
+        Modifiable modifiable = mock(Modifiable.class);
+
+        bubble.split(modifiable, 8);
+    }
+
+    @Test
+    public void testSpeed1() {
         assertEquals(5.0f, new Bubble(0, 0, 1).getMaxSpeed(), 0.0f);
         assertEquals(6.0f, new Bubble(0, 0, 2).getMaxSpeed(), 0.0f);
         assertEquals(7.0f, new Bubble(0, 0, 3).getMaxSpeed(), 0.0f);
         assertEquals(8.0f, new Bubble(0, 0, 4).getMaxSpeed(), 0.0f);
         assertEquals(9.0f, new Bubble(0, 0, 5).getMaxSpeed(), 0.0f);
         assertEquals(10.0f, new Bubble(0, 0, 6).getMaxSpeed(), 0.0f);
-
     }
 
     @Test
     public void testSpeed2() {
-
         Bubble bubble = new Bubble(0, 0, 2);
 
         assertEquals(6.0f, bubble.getMaxSpeed(), 0.0f);
@@ -117,12 +123,10 @@ public class BubbleTest extends OpenGLTestCase {
         bubble.setVerticalSpeed(8.0f);
 
         assertEquals(7.0f, bubble.getMaxSpeed(), 0.0f);
-
     }
 
     @Test
     public void testSpeed3() {
-
         Bubble bubble = new Bubble(0, 0, 2);
 
         bubble.setVerticalSpeed(25.0f);
@@ -132,32 +136,22 @@ public class BubbleTest extends OpenGLTestCase {
         bubble.setHorizontalSpeed(60.0f);
 
         assertEquals(60.0f, bubble.getHorizontalSpeed(), 0.0f);
-
     }
-
 
     @Test
     public void testFreeze() {
-
         Bubble bubble = new Bubble(0, 0, 2);
 
         bubble.freeze(true);
         bubble.freeze(false);
-
-
     }
-
 
     @Test
     public void testSlow() {
-
         Bubble bubble = new Bubble(0, 0, 2);
 
         bubble.slowBubbleDown(true);
         bubble.slowBubbleDown(false);
-
     }
-
-
 
 }

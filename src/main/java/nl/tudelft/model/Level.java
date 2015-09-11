@@ -1,17 +1,17 @@
 package nl.tudelft.model;
 
-import java.util.LinkedList;
-
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Utility;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.Updateable;
-
+import nl.tudelft.semgroup4.util.Helpers;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
+
+import java.util.LinkedList;
 
 public class Level implements Updateable, Renderable, Modifiable {
 
@@ -248,7 +248,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
         for (Bubble bubble : bubbles) {
             if (bubble.getSize() > 1 || endLevel) {
-                LinkedList<Bubble> newBubbles = bubble.split(this);
+                LinkedList<Bubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
                 splitAllBubbles(newBubbles, endLevel);
             }
         }
