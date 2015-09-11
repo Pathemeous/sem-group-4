@@ -143,7 +143,7 @@ public class Bubble extends GameObject {
         container.toRemove(this);
 
         int random = Helpers.randInt(1, 10);
-        if (random > 1 && size > 1) {
+        if (random > 7 && size > 1) {
             Pickup pickup = new Pickup(null, getLocX(), getLocY());
             container.toAdd(pickup);
         }
