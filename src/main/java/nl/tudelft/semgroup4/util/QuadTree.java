@@ -10,8 +10,8 @@ import org.newdawn.slick.geom.Shape;
 
 public class QuadTree {
 
-    private int MAX_OBJECTS = 10;
-    private int MAX_LEVELS = 3;
+    private final int MAX_OBJECTS = 10;
+    private final int MAX_LEVELS = 3;
 
     private int level;
     private List<GameObject> objects;

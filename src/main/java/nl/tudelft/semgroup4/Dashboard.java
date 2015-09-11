@@ -182,7 +182,7 @@ public class Dashboard implements Renderable {
 
         Level level = game.getCurLevel();
         if (level != null) {
-            levelId = level.getID();
+            levelId = level.getId();
         }
 
     }

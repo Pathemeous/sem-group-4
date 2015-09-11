@@ -195,7 +195,7 @@ public class Game implements Renderable, Modifiable {
         Resources.weaponFire.stop();
         if (getPlayerLives() > 0) {
             resetPlayers();
-            setCurLevel(levelFact.getLevel(getCurLevel().getID()));
+            setCurLevel(levelFact.getLevel(getCurLevel().getId()));
         } else {
             gameOver();
         }

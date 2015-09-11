@@ -3,7 +3,7 @@ package nl.tudelft.model;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Updateable;
-import nl.tudelft.semgroup4.util.SEMRectangle;
+import nl.tudelft.semgroup4.util.SemRectangle;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -62,7 +62,7 @@ public abstract class GameObject implements Updateable, Renderable {
     }
 
     public Shape getBounds() {
-        return new SEMRectangle(locX, locY, getImage().getWidth(), getImage().getHeight());
+        return new SemRectangle(locX, locY, getImage().getWidth(), getImage().getHeight());
     }
 
     public int getWidth() {

@@ -7,9 +7,9 @@ import org.newdawn.slick.geom.Shape;
  * This class overrides the intersects(Shape) method. The original implementation also returns true
  * when two rectangles touch. We don't want this behavior. Created by justin on 08/09/15.
  */
-public class SEMRectangle extends Rectangle {
+public class SemRectangle extends Rectangle {
 
-    public SEMRectangle(float x, float y, float width, float height) {
+    public SemRectangle(float x, float y, float width, float height) {
         super(x, y, width, height);
     }
 

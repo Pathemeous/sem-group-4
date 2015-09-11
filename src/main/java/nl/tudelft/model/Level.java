@@ -260,7 +260,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.pickups;
     }
 
-    public int getID() {
+    public int getId() {
         return this.id;
     }
 
