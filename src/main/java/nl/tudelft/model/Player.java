@@ -310,7 +310,9 @@ public class Player extends GameObject {
     /**
      * Get current animation for the player.
      *
+     * <p>
      * When null, should draw its imageStill.
+     * </p>
      * 
      * @return Animation of current animation of the player.
      */

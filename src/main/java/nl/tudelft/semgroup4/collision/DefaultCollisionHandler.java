@@ -19,8 +19,6 @@ import org.newdawn.slick.geom.Shape;
 /**
  * The default collision handler for the game. Collides player with walls, to prevent falling
  * through them.
- *
- * Created by justin on 06/09/15.
  */
 public class DefaultCollisionHandler implements CollisionHandler<GameObject, GameObject> {
 
