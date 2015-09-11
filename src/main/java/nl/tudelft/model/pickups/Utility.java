@@ -21,7 +21,7 @@ public class Utility extends PickupContent {
             type = UtilityType.SLOW;
         } else if (random > 6) {
             type = UtilityType.FREEZE;
-        } else if (random > 1) {
+        } else if (random > 0) {
             type = UtilityType.TIME;
         }
     }
