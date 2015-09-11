@@ -33,6 +33,8 @@ public abstract class GameObject implements Updateable, Renderable {
             throws SlickException;
 
     /**
+     * Accesses the image field.
+     * 
      * @return image
      */
     protected Image getImage() {
