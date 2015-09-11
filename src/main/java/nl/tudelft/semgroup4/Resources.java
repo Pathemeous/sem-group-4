@@ -1,12 +1,12 @@
 package nl.tudelft.semgroup4;
 
+import java.util.ArrayList;
+
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
-
-import java.util.ArrayList;
 
 /**
  * This class holds the resources Created by justin on 08/09/15.

@@ -1,8 +1,12 @@
 package nl.tudelft.semgroup4;
 
+import java.awt.Font;
+import java.util.List;
+
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -10,10 +14,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
-
-import java.util.List;
-
-import java.awt.*;
 
 /**
  * Created by justin on 10/09/15.

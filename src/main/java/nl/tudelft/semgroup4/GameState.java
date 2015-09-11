@@ -1,13 +1,13 @@
 package nl.tudelft.semgroup4;
 
+import java.util.LinkedList;
+
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
-import nl.tudelft.model.Weapon;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.lwjgl.opengl.GL11;
@@ -18,8 +18,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
-
-import java.util.LinkedList;
 
 public class GameState extends BasicGameState {
     LinkedList<Wall> walls;

@@ -5,6 +5,7 @@ import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 

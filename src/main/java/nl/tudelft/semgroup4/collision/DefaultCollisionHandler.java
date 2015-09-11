@@ -3,7 +3,6 @@ package nl.tudelft.semgroup4.collision;
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.GameObject;
-import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;

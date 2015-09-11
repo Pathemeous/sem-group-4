@@ -6,6 +6,7 @@ import java.util.List;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.semgroup4.util.QuadTree;
 
+
 /**
  * Helper class for anything Collision-related that does not deserve his own class Created by justin
  * on 06/09/15.

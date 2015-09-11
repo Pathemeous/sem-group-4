@@ -4,6 +4,7 @@ import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Updateable;
 import nl.tudelft.semgroup4.util.SemRectangle;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -32,7 +33,7 @@ public abstract class GameObject implements Updateable, Renderable {
             throws SlickException;
 
     /**
-     * @return image Image - The object's image.
+     * @return image
      */
     protected Image getImage() {
         return image;

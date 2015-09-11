@@ -1,9 +1,9 @@
 package nl.tudelft.model;
 
+import java.util.LinkedList;
+
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Resources;
-
-import java.util.LinkedList;
 
 public class LevelFactory {
 
