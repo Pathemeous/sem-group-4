@@ -1,6 +1,5 @@
 package nl.tudelft.semgroup4;
 
-
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
@@ -15,7 +14,6 @@ import org.newdawn.slick.geom.Rectangle;
 import java.util.List;
 
 import java.awt.*;
-
 
 /**
  * Created by justin on 10/09/15.
@@ -49,21 +47,19 @@ public class Dashboard implements Renderable {
     private final int right;
     private final int bottom;
 
-    /* package */ Dashboard(Game game, int left, int right, int bottom) {
+    /* package */Dashboard(Game game, int left, int right, int bottom) {
         this.game = game;
 
         this.left = left;
         this.right = right;
         this.bottom = bottom;
 
-        timeBarBackground = new Rectangle(
-                left + margin, 0,
-                right - left - 2 * margin, timeBarHeight);
-        timeBar = new Rectangle(
-                timeBarBackground.getX() + border, 0,
-                timeBarBackground.getWidth() - 2 * border, timeBarBackground.getHeight() - 2 * border);
+        timeBarBackground = new Rectangle(left + margin, 0, right - left - 2 * margin,
+                timeBarHeight);
+        timeBar = new Rectangle(timeBarBackground.getX() + border, 0, timeBarBackground.getWidth()
+                - 2 * border, timeBarBackground.getHeight() - 2 * border);
     }
-    
+
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         final Level curLevel = game.getCurLevel();
@@ -74,27 +70,26 @@ public class Dashboard implements Renderable {
             // bottom bar
             {
                 // left side
-                graphics.drawImage(dashboardPlayerContainerLeft,
-                        left + margin,
-                        bottom - margin - dashboardPlayerContainerLeft.getHeight());
+                graphics.drawImage(dashboardPlayerContainerLeft, left + margin, bottom - margin
+                        - dashboardPlayerContainerLeft.getHeight());
                 String scoreString = String.valueOf(scoreLeft);
                 ttf.drawString(
-                        left + margin + dashboardPlayerContainerLeft.getWidth() - 2 * margin - ttf.getWidth(scoreString),
-                        bottom - margin - dashboardPlayerContainerLeft.getHeight() / 2 - ttf.getHeight(scoreString) / 2,
-                        scoreString,
-                        Color.darkGray);
+                        left + margin + dashboardPlayerContainerLeft.getWidth() - 2 * margin
+                                - ttf.getWidth(scoreString),
+                        bottom - margin - dashboardPlayerContainerLeft.getHeight() / 2
+                                - ttf.getHeight(scoreString) / 2, scoreString, Color.darkGray);
             }
             {
                 // right side
-                graphics.drawImage(dashboardPlayerContainerRight,
-                        right - margin - dashboardPlayerContainerRight.getWidth(),
-                        bottom - margin - dashboardPlayerContainerRight.getHeight());
+                graphics.drawImage(dashboardPlayerContainerRight, right - margin
+                        - dashboardPlayerContainerRight.getWidth(), bottom - margin
+                        - dashboardPlayerContainerRight.getHeight());
                 String scoreString = String.valueOf(scoreRight);
                 ttf.drawString(
-                        right - margin - dashboardPlayerContainerRight.getWidth() + 125 - ttf.getWidth(scoreString),
-                        bottom - margin - dashboardPlayerContainerRight.getHeight() / 2 - ttf.getHeight(scoreString) / 2,
-                        scoreString,
-                        Color.darkGray);
+                        right - margin - dashboardPlayerContainerRight.getWidth() + 125
+                                - ttf.getWidth(scoreString),
+                        bottom - margin - dashboardPlayerContainerRight.getHeight() / 2
+                                - ttf.getHeight(scoreString) / 2, scoreString, Color.darkGray);
             }
         }
         offset -= (margin + dashboardPlayerContainerLeft.getHeight());
@@ -103,56 +98,36 @@ public class Dashboard implements Renderable {
             {
                 {
                     // left
-                    graphics.drawImage(dashboardLivesContainer,
-                            left + margin,
-                            offset - margin - dashboardLivesContainer.getHeight());
+                    graphics.drawImage(dashboardLivesContainer, left + margin, offset - margin
+                            - dashboardLivesContainer.getHeight());
                     int lifeWidth = (dashboardlivesFull.getWidth() * livesLeft) / 9;
                     // flames for lives
-                    graphics.drawImage(dashboardlivesFull,
-                            left + margin,
-                            offset - margin - dashboardLivesContainer.getHeight(),
-                            left + margin + lifeWidth,
-                            offset - margin,
-                            0,
-                            0,
-                            lifeWidth,
-                            dashboardlivesFull.getHeight());
+                    graphics.drawImage(dashboardlivesFull, left + margin, offset - margin
+                            - dashboardLivesContainer.getHeight(), left + margin + lifeWidth,
+                            offset - margin, 0, 0, lifeWidth, dashboardlivesFull.getHeight());
                     // x-ses for non-lives
-                    graphics.drawImage(dashboardlivesEmpty,
-                            left + margin + lifeWidth,
-                            offset - margin - dashboardLivesContainer.getHeight(),
-                            left + margin + dashboardLivesContainer.getWidth(),
-                            offset - margin,
-                            0,
-                            0,
+                    graphics.drawImage(dashboardlivesEmpty, left + margin + lifeWidth, offset
+                            - margin - dashboardLivesContainer.getHeight(), left + margin
+                            + dashboardLivesContainer.getWidth(), offset - margin, 0, 0,
                             dashboardlivesEmpty.getWidth() - lifeWidth,
                             dashboardlivesEmpty.getHeight());
                 }
                 {
                     // right
                     int lifeWidth = (dashboardlivesFull.getWidth() * livesRight) / 9;
-                    graphics.drawImage(dashboardLivesContainer,
-                            right - margin - dashboardLivesContainer.getWidth(),
-                            offset - margin - dashboardLivesContainer.getHeight());
+                    graphics.drawImage(dashboardLivesContainer, right - margin
+                            - dashboardLivesContainer.getWidth(), offset - margin
+                            - dashboardLivesContainer.getHeight());
                     // flames for lives
-                    graphics.drawImage(dashboardlivesFull,
-                            right - margin - lifeWidth,
-                            offset - margin - dashboardLivesContainer.getHeight(),
-                            right - margin,
-                            offset - margin,
-                            dashboardlivesFull.getWidth() - lifeWidth,
-                            0,
-                            dashboardlivesFull.getWidth(),
-                            dashboardlivesFull.getHeight());
+                    graphics.drawImage(dashboardlivesFull, right - margin - lifeWidth, offset
+                            - margin - dashboardLivesContainer.getHeight(), right - margin, offset
+                            - margin, dashboardlivesFull.getWidth() - lifeWidth, 0,
+                            dashboardlivesFull.getWidth(), dashboardlivesFull.getHeight());
                     // x-ses for non-lives
-                    graphics.drawImage(dashboardlivesEmpty,
-                            right - margin - dashboardLivesContainer.getWidth(),
-                            offset - margin - dashboardLivesContainer.getHeight(),
-                            right - margin - lifeWidth,
-                            offset - margin,
-                            0,
-                            0,
-                            dashboardlivesFull.getWidth() - lifeWidth,
+                    graphics.drawImage(dashboardlivesEmpty, right - margin
+                            - dashboardLivesContainer.getWidth(), offset - margin
+                            - dashboardLivesContainer.getHeight(), right - margin - lifeWidth,
+                            offset - margin, 0, 0, dashboardlivesFull.getWidth() - lifeWidth,
                             dashboardlivesFull.getHeight());
 
                 }
@@ -174,25 +149,24 @@ public class Dashboard implements Renderable {
         }
         {
             // middle (level)
-            graphics.drawImage(levelContainer,
-                    (right - left) / 2 - levelContainer.getWidth() / 2,
+            graphics.drawImage(levelContainer, (right - left) / 2 - levelContainer.getWidth() / 2,
                     bottom - margin - levelContainer.getHeight());
 
             String levelIdString = String.valueOf(levelId);
-            ttf.drawString(
-                    (right - left) / 2 - ttf.getWidth(levelIdString) / 2,
-                    bottom - margin - (levelContainer.getHeight() / 4) - ttf.getHeight(levelIdString) / 2,
-                    levelIdString,
-                    Color.red);
+            ttf.drawString((right - left) / 2 - ttf.getWidth(levelIdString) / 2, bottom - margin
+                    - (levelContainer.getHeight() / 4) - ttf.getHeight(levelIdString) / 2,
+                    levelIdString, Color.red);
         }
 
     }
 
     public void update(int delta) throws SlickException {
-        timeBar.setWidth((right - left - margin * 2) * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));
+        timeBar.setWidth((right - left - margin * 2)
+                * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));
 
         List<Player> players = game.getPlayers();
-        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven zolang Game leeft
+        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven zolang
+        // Game leeft
         // moet alleen niet gerendered, geupdate of gecollide worden als eentje dood is
         livesLeft = 0;
         livesRight = 0;

@@ -39,14 +39,14 @@ public class Game implements Renderable, Modifiable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth, int containerHeight)
-            throws IllegalArgumentException {
+    public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
+            int containerHeight) throws IllegalArgumentException {
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
         levels = levelFact.getAllLevels();
-        
+
         this.players = players;
 
         this.levelIt = this.levels.iterator();
@@ -65,65 +65,67 @@ public class Game implements Renderable, Modifiable {
         projectiles = getCurLevel().getProjectiles();
         bubbles = getCurLevel().getBubbles();
         pickups = getCurLevel().getPickups();
-        
 
         // collision: QuadTree
         quad.clear();
         for (GameObject obj : walls) {
-          quad.insert(obj);
+            quad.insert(obj);
         }
         for (GameObject obj : projectiles) {
-          quad.insert(obj);
+            quad.insert(obj);
         }
         for (GameObject obj : players) {
-          quad.insert(obj);
+            quad.insert(obj);
         }
-        
+
         // collision : CollisionMap
         for (GameObject collidesWithA : bubbles) {
-        	// bubbles check against walls, players and projectiles
-        	for( GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, null, quad) ) {
-        		collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
-        	}
-        }
-        
-        for (GameObject collidesWithA : projectiles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, null)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
+            // bubbles check against walls, players and projectiles
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
+                    null, quad)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
-        
+
+        for (GameObject collidesWithA : projectiles) {
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
+                    walls, null)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+            }
+        }
+
         for (GameObject collidesWithA : players) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
+                    walls, quad)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
         for (GameObject collidesWithA : pickups) {
-        	// collision with walls and players
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA, null, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB); 
+            // collision with walls and players
+            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
+                    null, quad)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
-        
+
         // Updates
         for (GameObject gameObject : players) {
             gameObject.update(this, delta);
         }
 
         getCurLevel().update(getCurLevel(), delta);
-        
+
         for (Player player : playerToDelete) {
             players.remove(player);
         }
         playerToDelete.clear();
-        
-        
-        // Logic        
-        if(getCurLevel().isCompleted()) {
+
+        // Logic
+        if (getCurLevel().isCompleted()) {
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
-        	Resources.timeUp.play();
+            Resources.timeUp.play();
             for (Player player : players) {
                 player.removeLife();
                 levelReset();
@@ -175,7 +177,7 @@ public class Game implements Renderable, Modifiable {
         }
         return result;
     }
-    
+
     /**
      * Calls {@link Player#reset()} on all players in the game.
      */
@@ -189,7 +191,7 @@ public class Game implements Renderable, Modifiable {
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
-    	Resources.weaponFire.stop();
+        Resources.weaponFire.stop();
         if (getPlayerLives() > 0) {
             resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getID()));
@@ -205,7 +207,7 @@ public class Game implements Renderable, Modifiable {
     public void nextLevel() {
         if (levelIt.hasNext()) {
             resetPlayers();
-            int score = (getCurLevel().getTime() / getCurLevel().getMaxTime() ) * 500;
+            int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
             for (Player player : players) {
                 player.addScore(score);
             }
@@ -219,7 +221,7 @@ public class Game implements Renderable, Modifiable {
      * The game has been completed.
      */
     private void gameCompleted() {
-        mainApp.enterState(0);        
+        mainApp.enterState(0);
     }
 
     /**
@@ -241,18 +243,18 @@ public class Game implements Renderable, Modifiable {
     protected CollisionHandler getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
-    
+
     public int getContainerWidth() {
         return this.containerWidth;
     }
-    
+
     public int getContainerHeight() {
         return this.containerHeight;
     }
 
     /**
-     * Addition of anything to the Game object is prohibited.
-     * Calling this method will delegate any non-player objects to the current level.
+     * Addition of anything to the Game object is prohibited. Calling this method will delegate any
+     * non-player objects to the current level.
      */
     @Override
     public void toAdd(GameObject obj) {
@@ -262,19 +264,19 @@ public class Game implements Renderable, Modifiable {
     }
 
     /**
-     * Can be used to remove Players from the Game object.
-     * This is the only type of GameObject stored in Game.
+     * Can be used to remove Players from the Game object. This is the only type of GameObject
+     * stored in Game.
      */
     @Override
     public void toRemove(GameObject obj) {
         if (obj instanceof Player) {
-            playerToDelete.add((Player)obj);
+            playerToDelete.add((Player) obj);
         } else {
             curLevel.toRemove(obj);
         }
-        
-        
+
     }
+
     /**
      * Gets the list of players.
      *

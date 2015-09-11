@@ -5,7 +5,6 @@ import nl.tudelft.semgroup4.Resources;
 
 import java.util.LinkedList;
 
-
 public class LevelFactory {
 
     private Game game;
@@ -14,14 +13,15 @@ public class LevelFactory {
     public LevelFactory(Game game) {
         this.game = game;
     }
-    
+
     /**
      * Returns a list containing all levels that the factory can make.
+     * 
      * @return LinkedList<Level> All levels ordered from low to high id.
      */
     public LinkedList<Level> getAllLevels() {
         LinkedList<Level> result = new LinkedList<>();
-        
+
         for (int i = 1; i <= levelCount; i++) {
             result.add(getLevel(i));
         }
@@ -70,7 +70,7 @@ public class LevelFactory {
         for (int i = 1; i <= 5; i++) {
             // five walls of space for the UI
             walls.add(new Wall(Resources.wallImage, 0, game.getContainerHeight()
-                    - Resources.wallImage.getHeight() * i ));
+                    - Resources.wallImage.getHeight() * i));
         }
         return walls;
     }

@@ -13,22 +13,23 @@ import org.newdawn.slick.geom.Shape;
 public abstract class GameObject implements Updateable, Renderable {
 
     protected float locX;
-	protected float locY;
+    protected float locY;
     protected Image image;
-	
-	public GameObject(Image image, float x, float y) {
-		this.image = image;
-		this.locX = x;
-		this.locY = y;
-	}
 
-	@Override
+    public GameObject(Image image, float x, float y) {
+        this.image = image;
+        this.locX = x;
+        this.locY = y;
+    }
+
+    @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         graphics.drawImage(getImage(), locX, locY);
     }
 
     @Override
-    public abstract <T extends Modifiable> void update(T container, int delta) throws SlickException;
+    public abstract <T extends Modifiable> void update(T container, int delta)
+            throws SlickException;
 
     /**
      * @return the image
@@ -47,12 +48,13 @@ public abstract class GameObject implements Updateable, Renderable {
     public void setLocX(float locX) {
         this.locX = locX;
     }
-    
-    public float getLocX () {
-    	return locX;
+
+    public float getLocX() {
+        return locX;
     }
-    public float getLocY () {
-    	return locY;
+
+    public float getLocY() {
+        return locY;
     }
 
     public void setLocY(float locY) {
@@ -60,10 +62,8 @@ public abstract class GameObject implements Updateable, Renderable {
     }
 
     public Shape getBounds() {
-		return new SEMRectangle(
-                locX, locY,
-                getImage().getWidth(), getImage().getHeight());
-	}
+        return new SEMRectangle(locX, locY, getImage().getWidth(), getImage().getHeight());
+    }
 
     public int getWidth() {
         return this.getImage().getWidth();
