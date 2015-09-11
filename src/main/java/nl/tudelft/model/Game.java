@@ -189,6 +189,9 @@ public class Game implements Renderable, Modifiable {
     public void levelReset() {
         if (getPlayerLives() > 0) {
             resetPlayers();
+            for (Player player : players) {
+                player.addScore(-500);
+            }
             setCurLevel(levelFact.getLevel(getCurLevel().getID()));
         } else {
             gameOver();
@@ -202,6 +205,9 @@ public class Game implements Renderable, Modifiable {
     public void nextLevel() {
         if (levelIt.hasNext()) {
             resetPlayers();
+            for (Player player : players) {
+                player.addScore(250);
+            }
             setCurLevel(levelIt.next());
         } else {
             gameCompleted();
