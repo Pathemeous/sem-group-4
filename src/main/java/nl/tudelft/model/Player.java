@@ -78,6 +78,7 @@ public class Player extends GameObject {
         if (hasShield()) {
         	if(removingShieldCounter % 2 == 0) {
         		//g.drawImage(Resources.power_shield, getLocX(), getLocY());
+        		g.setColor(Color.yellow);
         		g.draw(getBounds());
         	}
         } else if (isInvincible()) {
