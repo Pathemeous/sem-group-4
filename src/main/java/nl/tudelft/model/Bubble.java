@@ -125,8 +125,13 @@ public class Bubble extends GameObject {
 		tickCount++;
 	}
 	
+
+	
+		
+
 	public <T extends Modifiable> LinkedList<Bubble> split(T container) {
 		LinkedList<Bubble> newBubbles = new LinkedList<>();
+		Resources.bubblePop.play();
 		container.toRemove(this);
         
 		int random = Helpers.randInt(1, 10);

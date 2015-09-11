@@ -4,7 +4,9 @@ import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Input;
+import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
 import java.io.File;
@@ -16,8 +18,10 @@ public class MainApp extends StateBasedGame {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws SlickException {
 		Input.disableControllers();
+		//Music music = new Music("src/main/resources/sound/pop.ogg");		
+		//music.loop();
 		/**
 		 * Set the library path for the natives which we need to use for LWJGL.
 		 * OSX compatibility is fixed by checking the platform name against the string "macosx"
@@ -28,6 +32,7 @@ public class MainApp extends StateBasedGame {
 				(LWJGLUtil.getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName()).getAbsolutePath());
 		try {
 			AppGameContainer container = new AppGameContainer(new MainApp("Bubble Trouble"));
+			
 			container.setTargetFrameRate(60);
 			container.setUpdateOnlyWhenVisible(true);
 			container.setDisplayMode(1200, 800, false);
@@ -44,9 +49,10 @@ public class MainApp extends StateBasedGame {
 	@Override
 	public void initStatesList(GameContainer container) throws SlickException {
 		Resources.init();
-		addState(new StartScreenState());
+		addState(new StartScreenState());		
 		addState(new GameState(this.getTitle(), true));
 		addState(new GameState(this.getTitle(), false));
 		enterState(0);
+		
 	}
 }

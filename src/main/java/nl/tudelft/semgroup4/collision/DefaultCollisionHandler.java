@@ -12,6 +12,7 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Utility;
+import nl.tudelft.semgroup4.Resources;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -110,6 +111,7 @@ public class DefaultCollisionHandler implements CollisionHandler<Game, GameObjec
         		bubble.setIsHit();
     		}
     	} else {
+    		Resources.death.play();
     		player.removeLife();
     		player.addScore(-1000);
     		game.levelReset();

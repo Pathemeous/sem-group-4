@@ -5,6 +5,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -122,6 +123,7 @@ public class Game implements Renderable, Modifiable {
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
+        	Resources.timeUp.play();
             for (Player player : players) {
                 player.removeLife();
                 levelReset();
@@ -187,6 +189,7 @@ public class Game implements Renderable, Modifiable {
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
+    	Resources.weaponFire.stop();
         if (getPlayerLives() > 0) {
             resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getID()));
