@@ -24,12 +24,13 @@ public class Pickup extends GameObject {
      * @param image Image - the image of the object.
      * @param locX float - the x-coordinate.
      * @param locY float - the y-coordinate.
+     * @param random - a random variable which decides which pickupcontent is initiliased.
      */
-    public Pickup(Image image, float locX, float locY) {
+    public Pickup(Image image, float locX, float locY, int random) {
         super(image, locX, locY);
         onGround = false;
 
-        int random = Helpers.randInt(1, 10);
+        //int random = Helpers.randInt(1, 10);
         if (random < 4) {
             int randomWeaponNr = Helpers.randInt(1, 4);
             // new weapon
@@ -60,7 +61,7 @@ public class Pickup extends GameObject {
 
         } else if (random > 3 && random < 7) {
             // new powerup
-            pickup = new Powerup();
+            pickup = new Powerup(Helpers.randInt(1, 10));
             Powerup up = (Powerup) pickup;
             switch (up.getPowerType()) {
                 case INVINCIBLE:
@@ -83,7 +84,8 @@ public class Pickup extends GameObject {
             }
         } else {
             // new utility
-            pickup = new Utility();
+            int randomUtil = Helpers.randInt(1, 20);
+            pickup = new Utility(randomUtil);
             Utility util = (Utility) pickup;
 
             switch (util.getType()) {
@@ -127,5 +129,7 @@ public class Pickup extends GameObject {
     public void setOnGround(boolean onGround) {
         this.onGround = onGround;
     }
+    
+    
 
 }

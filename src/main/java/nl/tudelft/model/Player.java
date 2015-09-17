@@ -130,8 +130,6 @@ public class Player extends GameObject {
             setAnimationCurrent(null);
         }
 
-        this.weapon.update(container, delta);
-
         fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
 
         invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0)
@@ -172,19 +170,32 @@ public class Player extends GameObject {
         fireCounter = 0;
         setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
         this.weapon.setPlayer(this);
-
     }
 
-    private void removeSpeedup() {
+    /**
+     *  Removes the speedup from the player.
+     */
+    public void removeSpeedup() {
         speed = REGULAR_SPEED;
         speedupCounter = 0;
         hasSpeedup = false;
     }
 
-    private void clearAllPowerups() {
+    /**
+     * Removes all powerups from.
+     */
+    public void clearAllPowerups() {
         removeSpeedup();
         removeInvincibility();
         removeShield();
+    }
+
+    /**
+     * This methods returns the current list of powerups.
+     * @return the current powerups
+     */
+    public LinkedList<Powerup> getPowerups() {
+        return powerups;
     }
 
     /**
@@ -309,6 +320,20 @@ public class Player extends GameObject {
         }
         return false;
     }
+    /**
+     * sets the speed of this player.
+     * @param newSpeed the new speed
+     */
+    public final void setSpeed(int newSpeed) {
+        this.speed = newSpeed;
+    }
+    /**
+     * returns the speed of the player.
+     * @return the current speed
+     */
+    public int getSpeed() {
+        return this.speed;
+    }
 
     /**
      * Checks whether the player is the first player.
@@ -317,6 +342,13 @@ public class Player extends GameObject {
      */
     public boolean isFirstPlayer() {
         return this.isFirstPlayer;
+    }
+    /**
+     * returns the powerups of the player.
+     * @return powerups
+     */
+    public final LinkedList<Powerup> getPowerUps() {
+        return powerups;
     }
 
     /**
@@ -328,7 +360,7 @@ public class Player extends GameObject {
 
     /**
      * returns whether the shield is being removed.
-     * 
+     *
      * @return boolean - True if the shield is being removed, false if not.
      */
     public boolean removingShield() {
@@ -344,12 +376,19 @@ public class Player extends GameObject {
 
     /**
      * Sets the weapon of the player.
-     * 
      * @param weapon
      *            Weapon - the Weapon to use.
      */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
+    }
+    
+    /**
+     * Returns the weapon of the player.
+     * @return the current weapon
+     */
+    public Weapon getWeapon() {
+        return this.weapon;
     }
 
     /**
@@ -410,5 +449,20 @@ public class Player extends GameObject {
      */
     public void setAnimationCurrent(Animation animationCurrent) {
         this.animationCurrent = animationCurrent;
+    }
+    /**
+     * retruns the firecoutner of the player.
+     * @return firecounter
+     */
+    public final int getFireCounter() {
+        return this.fireCounter;
+    }
+    
+    /**
+     * sets the firecounter of this player.
+     * @param newCounter the new counter
+     */
+    public final void setFireCounter(int newCounter) {
+        this.fireCounter = newCounter;
     }
 }
