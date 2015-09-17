@@ -2,6 +2,7 @@ package nl.tudelft.model;
 
 import static nl.tudelft.semgroup4.logger.LogSeverity.VERBOSE;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -22,7 +23,14 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable, Modifiable {
 
-    public static final Logger logger = new DefaultLogger();
+    public static final Logger logger;
+    static {
+        try {
+            logger = new DefaultLogger();
+        } catch (IOException e) {
+            throw new IllegalStateException("This shouldn't happen", e);
+        }
+    }
 
     private final int containerWidth;
     private final int containerHeight;
