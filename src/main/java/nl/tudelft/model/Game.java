@@ -1,5 +1,8 @@
 package nl.tudelft.model;
 
+import static nl.tudelft.semgroup4.logger.LogSeverity.VERBOSE;
+
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -9,8 +12,9 @@ import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+import nl.tudelft.semgroup4.logger.DefaultLogger;
+import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.util.QuadTree;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -18,6 +22,16 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable, Modifiable {
+
+    public static final Logger logger;
+
+    static {
+        try {
+            logger = new DefaultLogger();
+        } catch (IOException e) {
+            throw new IllegalStateException("This shouldn't happen", e);
+        }
+    }
 
     private final int containerWidth;
     private final int containerHeight;
@@ -48,6 +62,7 @@ public class Game implements Renderable, Modifiable {
      */
     public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
             int containerHeight) throws IllegalArgumentException {
+        logger.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
