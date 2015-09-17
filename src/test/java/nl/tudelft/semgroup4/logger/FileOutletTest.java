@@ -20,7 +20,8 @@ public class FileOutletTest {
     private File testLogFile;
 
     /**
-     * In this setup we create a dir to write log files to
+     * In this setup we create a dir to write log files to.
+     *
      * @throws IOException When something goes wrong with IO
      */
     @Before
@@ -32,7 +33,7 @@ public class FileOutletTest {
     }
 
     /**
-     * delete our temp folder
+     * Delete our temp folder.
      */
     @After
     public void breakDownTestFile() {

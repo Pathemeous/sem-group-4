@@ -8,12 +8,15 @@ public interface Logger {
     void log(LogSeverity level, String tag, String message);
 
     void setEnabled(boolean enabled);
+
     boolean isEnabled();
 
     void setLogToConsole(boolean logToConsole);
+
     boolean getLogToConsole();
 
     void setLogToFile(boolean logToFile);
+
     boolean getLogToFile();
 
 }

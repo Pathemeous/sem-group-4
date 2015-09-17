@@ -24,6 +24,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class Game implements Renderable, Modifiable {
 
     public static final Logger logger;
+
     static {
         try {
             logger = new DefaultLogger();

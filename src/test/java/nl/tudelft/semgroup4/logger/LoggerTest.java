@@ -18,6 +18,10 @@ public class LoggerTest {
     private LoggerOutlet consoleOutlet;
     private LoggerOutlet fileOutlet;
 
+    /**
+     * Setting up the outlets. These are dependencies for the Logger so they
+     * are mocked.
+     */
     @Before
     public void setup() {
 
