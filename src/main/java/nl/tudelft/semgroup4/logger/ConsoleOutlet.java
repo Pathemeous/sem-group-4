@@ -10,6 +10,6 @@ public class ConsoleOutlet implements LoggerOutlet {
 
     @Override
     public void log(String message) {
-
+        System.out.println(message);
     }
 }
