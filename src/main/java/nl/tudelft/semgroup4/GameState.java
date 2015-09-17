@@ -8,6 +8,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.lwjgl.opengl.GL11;
@@ -128,7 +129,7 @@ public class GameState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
         if (Resources.titleScreenMusic.playing()) {
-            Resources.titleScreenMusic.stop();
+            Audio.stopTitleScreen();
         }
         // checks if the escape key is pressed, if so, the gameState pauses
 

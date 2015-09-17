@@ -9,6 +9,7 @@ import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.newdawn.slick.GameContainer;
@@ -145,7 +146,7 @@ public class Game implements Renderable, Modifiable {
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
-            Resources.timeUp.play();
+            Audio.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
                 levelReset();

@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.semgroup4.util.Audio;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -46,7 +48,7 @@ public class StartScreenState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int ticks)
             throws SlickException {
         if (!Resources.titleScreenMusic.playing()) {
-            Resources.titleScreenMusic.loop();
+            Audio.playTitleScreen();
         }
         if (!alreadyAdded) {
             alreadyAdded = true;
