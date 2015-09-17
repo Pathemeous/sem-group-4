@@ -212,7 +212,7 @@ public class Game implements Renderable, Modifiable {
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
-        Resources.weaponFire.stop();
+        Audio.stopFireSound();
         if (getPlayerLives() > 0) {
             resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getId()));
