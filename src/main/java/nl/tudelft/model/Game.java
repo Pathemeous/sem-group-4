@@ -305,4 +305,8 @@ public class Game implements Renderable, Modifiable {
     public LinkedList<Player> getPlayers() {
         return players;
     }
+
+    public LinkedList<Player> getPlayerToDelete() {
+        return playerToDelete;
+    }
 }
