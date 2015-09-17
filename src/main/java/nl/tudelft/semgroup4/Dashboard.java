@@ -160,6 +160,12 @@ public class Dashboard implements Renderable {
 
     }
 
+    /**
+     * Updates the dashboard every tick.
+     * 
+     * @param delta int - Time since last call.
+     * @throws SlickException - If the Game engine crashes
+     */
     public void update(int delta) throws SlickException {
         timeBar.setWidth((right - left - margin * 2)
                 * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));

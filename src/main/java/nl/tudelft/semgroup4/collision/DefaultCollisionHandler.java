@@ -69,20 +69,22 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
-        
+
         if (wallRect.getX() < playerRect.getX()) {
-        	player.setLocX(player.getLocX() + (wallRect.getX() + wallRect.getWidth() - playerRect.getX()));
+            player.setLocX(player.getLocX()
+                    + (wallRect.getX() + wallRect.getWidth() - playerRect.getX()));
         } else {
-            player.setLocX(player.getLocX() - (playerRect.getX() + playerRect.getWidth() - wallRect.getX()));
+            player.setLocX(player.getLocX()
+                    - (playerRect.getX() + playerRect.getWidth() - wallRect.getX()));
         }
     };
 
     private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
-        // left collision
         if (wall.getLocX() < bubble.getLocX()
                 && (wall.getLocX() + wall.getBounds().getWidth() - offset) <= bubble.getLocX()) {
+            // left collision
             bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
         } else if (wall.getLocY() < bubble.getLocY()
                 && (wall.getLocY() + wall.getBounds().getHeight() - offset) <= bubble.getLocY()) {
@@ -99,8 +101,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
-
         // TODO: Add code to reset the level.
+
         if (player.isInvincible()) {
             // nothing happens
         } else if (player.hasShield()) {
@@ -120,15 +122,15 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     final CollisionHandler<Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
         final Shape projectileRect = projectile.getBounds();
         final Shape wallRect = wall.getBounds();
-
         // This structure makes the projectile ignore any walls below it (such as the floor wall).
+
         if (wallRect.getY() < projectileRect.getY()) {
             projectile.setHitWall();
         }
     };
 
-    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler = (game, bubble,
-            projectile) -> {
+    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
+            (game, bubble, projectile) -> {
         if (!projectile.getHitBubble()) {
             projectile.setHitBubble();
             projectile.getWeapon().getPlayer().addScore(50);

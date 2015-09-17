@@ -1,6 +1,5 @@
 package nl.tudelft.model;
 
-
 import java.util.ArrayList;
 
 import nl.tudelft.model.pickups.Pickup.WeaponType;
@@ -21,7 +20,17 @@ public class Weapon extends PickupContent implements Updateable {
     private boolean sticky;
     private int maxCount;
 
-    public Weapon(Image image, WeaponType type) {
+    /**
+     * Creates a new Weapon of the given type and with the given image.
+     * 
+     * @param image
+     *            Image - the image to use.
+     * @param type
+     *            WeaponType
+     * @throws IllegalArgumentException
+     *             - if the type is wrong.
+     */
+    public Weapon(Image image, WeaponType type) throws IllegalArgumentException {
         this.type = type;
         sticky = false;
 
@@ -39,6 +48,8 @@ public class Weapon extends PickupContent implements Updateable {
             case FLOWER:
                 maxCount = 10;
                 break;
+            default:
+                throw new IllegalArgumentException();
         }
 
         img = image;
@@ -63,8 +74,19 @@ public class Weapon extends PickupContent implements Updateable {
         return sticky;
     }
 
-    public <T extends Modifiable> void fire(T container, int locX, int locY, int width, int height) {   
-        if(projectiles.size() < maxCount) {
+    /**
+     * Fires the weapon, creating a projectile.
+     * 
+     * @param <T> implements Modifiable
+     * @param container Implements Modifiable - the container to call modifications.
+     * @param locX int - The x-coordinate.
+     * @param locY int - The y-coordinate.
+     * @param width int
+     * @param height int
+     */
+    public <T extends Modifiable> void
+            fire(T container, int locX, int locY, int width, int height) {
+        if (projectiles.size() < maxCount) {
             Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);
@@ -72,14 +94,21 @@ public class Weapon extends PickupContent implements Updateable {
         }
     }
 
+    /**
+     * Remove the projectile.
+     * 
+     * @param container implements Modifiable.
+     * @param proj Projectile - the Projectile to remove.
+     */
     public <T extends Modifiable> void remove(T container, Projectile proj) {
         projectiles.remove(proj);
         container.toRemove(proj);
     }
-    
+
     public int getNumberOfProjectiles() {
         return projectiles.size();
     }
+
     /**
      * Sets the player that this weapon belongs to.
      * 

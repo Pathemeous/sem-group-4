@@ -10,26 +10,31 @@ import org.newdawn.slick.geom.Shape;
 
 public class QuadTree {
 
-    private final int MAX_OBJECTS = 10;
-    private final int MAX_LEVELS = 3;
+    private static final int MAX_OBJECTS = 10;
+    private static final int MAX_LEVELS = 3;
 
     private int level;
     private List<GameObject> objects;
     private Rectangle bounds;
     private QuadTree[] nodes;
 
-    /*
-     * Constructor
+    /**
+     * generates a quadtree to search for collisions.
+     * 
+     * @param depthLevel
+     *            int - the current QuadTree level
+     * @param bounds
+     *            Rectangle - the container to split in 4.
      */
-    public QuadTree(int pLevel, Rectangle pBounds) {
-        level = pLevel;
-        objects = new ArrayList<>();
-        bounds = pBounds;
-        nodes = new QuadTree[4];
+    public QuadTree(int depthLevel, Rectangle bounds) {
+        this.level = depthLevel;
+        this.objects = new ArrayList<>();
+        this.bounds = bounds;
+        this.nodes = new QuadTree[4];
     }
 
-    /*
-     * Clears the quadtree
+    /**
+     * Clears the QuadTree.
      */
     public void clear() {
         objects.clear();
@@ -42,45 +47,52 @@ public class QuadTree {
         }
     }
 
-    /*
-     * Splits the node into 4 subnodes
+    /**
+     * Splits the node into 4 sub-nodes.
      */
     private void split() {
         int subWidth = (int) (bounds.getWidth() / 2);
         int subHeight = (int) (bounds.getHeight() / 2);
-        int x = (int) bounds.getX();
-        int y = (int) bounds.getY();
+        int locX = (int) bounds.getX();
+        int locY = (int) bounds.getY();
 
-        nodes[0] = new QuadTree(level + 1, new Rectangle(x + subWidth, y, subWidth, subHeight));
-        nodes[1] = new QuadTree(level + 1, new Rectangle(x, y, subWidth, subHeight));
-        nodes[2] = new QuadTree(level + 1, new Rectangle(x, y + subHeight, subWidth, subHeight));
-        nodes[3] = new QuadTree(level + 1, new Rectangle(x + subWidth, y + subHeight, subWidth,
-                subHeight));
+        nodes[0] =
+                new QuadTree(level + 1, new Rectangle(locX + subWidth, locY, subWidth, subHeight));
+        nodes[1] = new QuadTree(level + 1, new Rectangle(locX, locY, subWidth, subHeight));
+        nodes[2] =
+                new QuadTree(level + 1, new Rectangle(locX, locY + subHeight, subWidth, subHeight));
+        nodes[3] =
+                new QuadTree(level + 1, new Rectangle(locX + subWidth, locY + subHeight, subWidth,
+                        subHeight));
     }
 
-    /*
+    /**
      * Determine which node the object belongs to. -1 means object cannot completely fit within a
      * child node and is part of the parent node
+     * 
+     * @param rect
+     *            - the current rect (idk even tbh).
+     * @return int - the node in which the object belongs.
      */
-    private int getIndex(Shape pRect) {
+    private int getIndex(Shape rect) {
         int index = -1;
         double verticalMidpoint = bounds.getX() + (bounds.getWidth() / 2);
-        double horizontalMidpoint = bounds.getY() + (bounds.getHeight() / 2);
+        double horizontalMid = bounds.getY() + (bounds.getHeight() / 2);
 
         // Object can completely fit within the top quadrants
-        boolean topQuadrant = (pRect.getY() < horizontalMidpoint && pRect.getY()
-                + pRect.getHeight() < horizontalMidpoint);
+        boolean topQuadrant =
+                (rect.getY() < horizontalMid && rect.getY() + rect.getHeight() < horizontalMid);
         // Object can completely fit within the bottom quadrants
-        boolean bottomQuadrant = (pRect.getY() > horizontalMidpoint);
+        boolean bottomQuadrant = (rect.getY() > horizontalMid);
 
         // Object can completely fit within the left quadrants
-        if (pRect.getX() < verticalMidpoint && pRect.getX() + pRect.getWidth() < verticalMidpoint) {
+        if (rect.getX() < verticalMidpoint && rect.getX() + rect.getWidth() < verticalMidpoint) {
             if (topQuadrant) {
                 index = 1;
             } else if (bottomQuadrant) {
                 index = 2;
             }
-        } else if (pRect.getX() > verticalMidpoint) {
+        } else if (rect.getX() > verticalMidpoint) {
             // Object can completely fit within the right quadrants
             if (topQuadrant) {
                 index = 0;
@@ -92,47 +104,53 @@ public class QuadTree {
         return index;
     }
 
-    /*
+    /**
      * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add
      * all objects to their corresponding nodes.
+     * 
+     * @param rect GameObject - the object to insert.
      */
-    public void insert(GameObject pRect) {
+    public void insert(GameObject rect) {
         if (nodes[0] != null) {
-            int index = getIndex(pRect.getBounds());
+            int index = getIndex(rect.getBounds());
 
             if (index != -1) {
-                nodes[index].insert(pRect);
+                nodes[index].insert(rect);
 
                 return;
             }
         }
 
-        objects.add(pRect);
+        objects.add(rect);
 
         if (objects.size() > MAX_OBJECTS && level < MAX_LEVELS) {
             if (nodes[0] == null) {
                 split();
             }
 
-            int i = 0;
-            while (i < objects.size()) {
-                int index = getIndex(objects.get(i).getBounds());
+            int count = 0;
+            while (count < objects.size()) {
+                int index = getIndex(objects.get(count).getBounds());
                 if (index != -1) {
-                    nodes[index].insert(objects.remove(i));
+                    nodes[index].insert(objects.remove(count));
                 } else {
-                    i++;
+                    count++;
                 }
             }
         }
     }
 
-    /*
-     * Return all objects that could collide with the given object
+    /**
+     * Return all objects that could collide with the given object.
+     * 
+     * @param returnObjects List - a list of GameObjects.
+     * @param rect Shape - the given shape.
+     * @return List - the list of collidable objects.
      */
-    public List<GameObject> retrieve(List<GameObject> returnObjects, Shape pRect) {
-        int index = getIndex(pRect);
+    public List<GameObject> retrieve(List<GameObject> returnObjects, Shape rect) {
+        int index = getIndex(rect);
         if (index != -1 && nodes[0] != null) {
-            nodes[index].retrieve(returnObjects, pRect);
+            nodes[index].retrieve(returnObjects, rect);
         }
 
         returnObjects.addAll(objects);

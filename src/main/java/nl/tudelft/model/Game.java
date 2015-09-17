@@ -66,6 +66,19 @@ public class Game implements Renderable, Modifiable {
         collisionHandler = getNewCollisionHandler();
     }
 
+    /**
+     * Performs updates and logic on the Game object. This makes sure the game continues to
+     * function.
+     * 
+     * <p>
+     * Delegates all updating to the currentLevel. Checks all collisions.
+     * </p>
+     * 
+     * @param delta
+     *            int - the amount of milliseconds since this method was last called.
+     * @throws SlickException
+     *             - If the game engines crashes.
+     */
     public void update(int delta) throws SlickException {
         final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();
         ;

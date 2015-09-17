@@ -21,9 +21,10 @@ public class Player extends GameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;
-    private final int BOUNDINGBOX_OFFSET_X = 10;
-    private final int BOUNDINGBOX_OFFSET_Y = 15;
-    private final int REGULAR_SPEED = 4;
+    private static final int BOUNDINGBOX_OFFSET_X = 10;
+    private static final int BOUNDINGBOX_OFFSET_Y = 15;
+    private static final int REGULAR_SPEED = 4;
+    private static final int SPEEDUP = 2;
     private int speed = REGULAR_SPEED;
     private int lives = 3;
     private int fireCounter = 0;
@@ -31,7 +32,6 @@ public class Player extends GameObject {
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
     private boolean isFirstPlayer;
-    private final int SPEEDUP = 2;
     private boolean hasSpeedup = false;
     private final Input input;
 
@@ -123,8 +123,10 @@ public class Player extends GameObject {
                         this.getHeight());
             }
         }
-        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer)
-                || (!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
+        if ((!(input.isKeyDown(Input.KEY_LEFT)
+                || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer)
+                || (!(input.isKeyDown(Input.KEY_A)
+                || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
             setAnimationCurrent(null);
         }
 
@@ -132,7 +134,8 @@ public class Player extends GameObject {
 
         fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
 
-        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0) ? invincibilityCounter + 1
+        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0)
+                ? invincibilityCounter + 1
                 : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
 
         if (invincibilityCounter == 600) {
@@ -146,7 +149,8 @@ public class Player extends GameObject {
             removeSpeedup();
         }
 
-        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0) ? removingShieldCounter + 1
+        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0)
+                ? removingShieldCounter + 1
                 : (removingShieldCounter > 600) ? 0 : removingShieldCounter;
 
         if (removingShieldCounter == 120) {
@@ -183,7 +187,15 @@ public class Player extends GameObject {
         removeShield();
     }
 
-    public void addPowerup(Powerup up) {
+    /**
+     * Give the player the powerup.
+     * 
+     * @param up
+     *            Powerup - the powerup to give to the player.
+     * @throws IllegalArgumentException
+     *             - If the powerup type is incorrect.
+     */
+    public void addPowerup(Powerup up) throws IllegalArgumentException {
         switch (up.getPowerType()) {
             case SHIELD:
                 if (!isInvincible() && !hasShield()) {
@@ -215,9 +227,16 @@ public class Player extends GameObject {
                     lives++;
                 }
                 break;
+            default:
+                throw new IllegalArgumentException();
         }
     }
 
+    /**
+     * Checks whether the player has the Invincible powerup.
+     * 
+     * @return true if he does, false if not.
+     */
     public boolean isInvincible() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.INVINCIBLE) {
@@ -227,11 +246,19 @@ public class Player extends GameObject {
         return false;
     }
 
+    /**
+     * Remove sthe Invincibile powerup from the player.
+     */
     private void removeInvincibility() {
         powerups.remove(getInvincibility());
         invincibilityCounter = 0;
     }
 
+    /**
+     * Returns the Invincibility powerup object from the player.
+     * 
+     * @return Powerup - the Invincibility object.
+     */
     private Powerup getInvincibility() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.INVINCIBLE) {
@@ -241,6 +268,11 @@ public class Player extends GameObject {
         return null;
     }
 
+    /**
+     * Checks whether the player has the shield powerup.
+     * 
+     * @return true if the player has a shield, false if not.
+     */
     public boolean hasShield() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.SHIELD) {
@@ -250,6 +282,11 @@ public class Player extends GameObject {
         return false;
     }
 
+    /**
+     * Gets the Shield powerup object from the player.
+     * 
+     * @return Powerup - the Shield powerup.
+     */
     private Powerup getShield() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.SHIELD) {
@@ -259,6 +296,11 @@ public class Player extends GameObject {
         return null;
     }
 
+    /**
+     * Checks whether the player has the Speedup powerup.
+     * 
+     * @return boolean - true if the player has the speedup, false if not.
+     */
     public boolean hasSpeedup() {
         for (Powerup up : powerups) {
             if (up.getPowerType() == PowerType.SPEEDUP) {
@@ -268,22 +310,44 @@ public class Player extends GameObject {
         return false;
     }
 
+    /**
+     * Checks whether the player is the first player.
+     * 
+     * @return true if he is player 1.
+     */
     public boolean isFirstPlayer() {
         return this.isFirstPlayer;
     }
 
+    /**
+     * Disables the shield.
+     */
     public void setShieldInactive() {
         removingShieldCounter = 1;
     }
 
+    /**
+     * returns whether the shield is being removed.
+     * 
+     * @return boolean - True if the shield is being removed, false if not.
+     */
     public boolean removingShield() {
         return removingShieldCounter != 0;
     }
 
+    /**
+     * Removes the shield from the player's powerups.
+     */
     private void removeShield() {
         powerups.remove(getShield());
     }
 
+    /**
+     * Sets the weapon of the player.
+     * 
+     * @param weapon
+     *            Weapon - the Weapon to use.
+     */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }

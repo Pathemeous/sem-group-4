@@ -34,9 +34,9 @@ public class StartScreenState extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g)
+    public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
-        g.drawImage(Resources.titleScreenBackground, 0, 0, container.getWidth(),
+        graphics.drawImage(Resources.titleScreenBackground, 0, 0, container.getWidth(),
                 container.getHeight(), 0, 0, Resources.titleScreenBackground.getWidth(),
                 Resources.titleScreenBackground.getHeight());
 

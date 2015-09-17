@@ -9,8 +9,8 @@ import org.newdawn.slick.geom.Shape;
  */
 public class SemRectangle extends Rectangle {
 
-    public SemRectangle(float x, float y, float width, float height) {
-        super(x, y, width, height);
+    public SemRectangle(float locX, float locY, float width, float height) {
+        super(locX, locY, width, height);
     }
 
     /**

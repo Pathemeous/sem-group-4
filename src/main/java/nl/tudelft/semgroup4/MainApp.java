@@ -16,15 +16,23 @@ public class MainApp extends StateBasedGame {
         // TODO Auto-generated constructor stub
     }
 
+    /**
+     * The main method.
+     * 
+     * @param args
+     *            String[] - Launcher arguments
+     * @throws SlickException
+     *             - If the Game Engine fails.
+     */
     public static void main(String[] args) throws SlickException {
         Input.disableControllers();
         // Music music = new Music("src/main/resources/sound/pop.ogg");
         // music.loop();
         /**
-         * Set the library path for the natives which we need to use for LWJGL. OSX compatibility is
-         * fixed by checking the platform name against the string "macosx" and changing it to "osx"
-         * if it matches. This is necessary because maven names the native folder for "macosx"
-         * "osx".
+         * Set the library path for the natives which we need to use for LWJGL. OSX compatibility
+         * is fixed by checking the platform name against the string "macosx" and changing it to
+         * "osx" if it matches. This is necessary because maven names the native folder for
+         * "macosx" "osx".
          **/
         System.setProperty(
                 "org.lwjgl.librarypath",
