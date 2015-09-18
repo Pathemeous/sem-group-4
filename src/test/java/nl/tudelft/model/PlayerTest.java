@@ -1,11 +1,21 @@
 package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.mock;
+
+import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
+import nl.tudelft.semgroup4.Modifiable;
+
 import org.junit.Test;
+import org.mockito.Mock;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
+import com.sun.glass.ui.Robot;
 
 /**
  * tests cases for the player class.
@@ -17,6 +27,7 @@ public class PlayerTest extends OpenGLTestCase {
     private static final int PLAYER_SCORE = 100;
     private static final int PLAYER_LIVES = 3;
     private static final int TOTAL_LIVES = 4;
+    private Input input = new Input(0);
 
     @Test
     public final void testConstructor() {
@@ -82,5 +93,16 @@ public class PlayerTest extends OpenGLTestCase {
         assertEquals(player.getLives(), PLAYER_LIVES);
         player.addPowerup(lives);
         assertEquals(player.getLives(), TOTAL_LIVES);
+    }
+    
+    @Test
+    public final void testUpdate() throws SlickException {
+        Modifiable modifiable = mock(Modifiable.class);
+        Player player = new Player(0, 0, input, true);        
+        
+        player.setFireCounter(0);
+        player.update(modifiable, 1);
+        assertEquals(player.getFireCounter(), 0);
+        
     }
 }
