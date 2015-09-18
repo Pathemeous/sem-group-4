@@ -14,7 +14,7 @@ public class Weapon extends PickupContent {
     private final ArrayList<Projectile> projectiles;
     private final Image img;
     private final WeaponType type;
-    private boolean sticky;
+    private final boolean sticky;
     private final int maxCount;
 
     /**
@@ -29,14 +29,15 @@ public class Weapon extends PickupContent {
      */
     public Weapon(Image image, WeaponType type) throws IllegalArgumentException {
         this.type = type;
-        sticky = false;
 
         switch (type) {
             case REGULAR:
                 maxCount = 1;
+                sticky = false;
                 break;
             case DOUBLE:
                 maxCount = 2;
+                sticky = false;
                 break;
             case STICKY:
                 maxCount = 1;
@@ -44,6 +45,7 @@ public class Weapon extends PickupContent {
                 break;
             case FLOWER:
                 maxCount = 10;
+                sticky = false;
                 break;
             default:
                 throw new IllegalArgumentException();
