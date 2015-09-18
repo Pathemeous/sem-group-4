@@ -38,8 +38,8 @@ public class LoggerTest {
     @Test
     public void testLogFormat() {
         logger.setEnabled(true);
-        logger.setLogToConsole(true);
-        logger.setLogToFile(true);
+        logger.setLoggingToConsole(true);
+        logger.setLoggingToFile(true);
         logger.setSeverity(LogSeverity.VERBOSE);
 
         logger.log(LogSeverity.CRITICAL, "SomeTag", "SomeMessage");
@@ -63,8 +63,8 @@ public class LoggerTest {
     @Test
     public void testLogEnabledAll() {
         logger.setEnabled(true);
-        logger.setLogToConsole(true);
-        logger.setLogToFile(true);
+        logger.setLoggingToConsole(true);
+        logger.setLoggingToFile(true);
         logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
@@ -76,8 +76,8 @@ public class LoggerTest {
     @Test
     public void testLogDisabled() {
         logger.setEnabled(false);
-        logger.setLogToConsole(true);
-        logger.setLogToFile(true);
+        logger.setLoggingToConsole(true);
+        logger.setLoggingToFile(true);
         logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
@@ -89,8 +89,8 @@ public class LoggerTest {
     @Test
     public void testLogEnabledFile() {
         logger.setEnabled(true);
-        logger.setLogToConsole(false);
-        logger.setLogToFile(true);
+        logger.setLoggingToConsole(false);
+        logger.setLoggingToFile(true);
         logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
@@ -102,8 +102,8 @@ public class LoggerTest {
     @Test
     public void testLogEnabledConsole() {
         logger.setEnabled(true);
-        logger.setLogToConsole(true);
-        logger.setLogToFile(false);
+        logger.setLoggingToConsole(true);
+        logger.setLoggingToFile(false);
         logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
@@ -120,14 +120,14 @@ public class LoggerTest {
 
     @Test
     public void testSettersAndGetters2() {
-        logger.setLogToFile(true);
-        assertTrue(logger.getLogToFile());
+        logger.setLoggingToFile(true);
+        assertTrue(logger.isLoggingToFile());
     }
 
     @Test
     public void testSettersAndGetters3() {
-        logger.setLogToConsole(true);
-        assertTrue(logger.getLogToConsole());
+        logger.setLoggingToConsole(true);
+        assertTrue(logger.isLoggingToConsole());
     }
 
     @Test
