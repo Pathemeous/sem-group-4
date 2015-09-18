@@ -1,46 +1,48 @@
 package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
-import java.util.LinkedList;
+import java.awt.AWTException;
+import java.awt.Robot;
 
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
 import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.junit.Test;
 import org.mockito.Mock;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
-import com.sun.glass.ui.Robot;
 
 /**
  * tests cases for the player class.
  * @author Damian
  */
-public class PlayerTest extends OpenGLTestCase {
-
+public class PlayerTest extends OpenGLTestCase { 
+    private Input input = new Input(0);
+    Player player = new Player(0, 0, input, true);
     private static final int SPEED = 4;
     private static final int PLAYER_SCORE = 100;
     private static final int PLAYER_LIVES = 3;
     private static final int TOTAL_LIVES = 4;
-    private Input input = new Input(0);
+
 
     @Test
     public final void testConstructor() {
-        Player player = new Player(0, 0, null, true);
         Weapon weapon = new Weapon(null, Pickup.WeaponType.REGULAR);
-        assertEquals(player.getWeapon().getType(), weapon.getType());
-        assertEquals(player.getSpeed(), SPEED);
-        assertEquals(player.getPowerUps().size(), 0);
+        assertEquals(weapon.getType(), player.getWeapon().getType());
+        assertEquals(SPEED, player.getSpeed());
+        assertEquals(0, player.getPowerUps().size());
     }
 
     @Test
     public final void testReset() {
-        Player player = new Player(0, 0, null, true);
         Weapon weapon = new Weapon(null, Pickup.WeaponType.FLOWER);
         Powerup powerup = new Powerup(9);
         powerup.setPowerType(PowerType.INVINCIBLE);
@@ -48,18 +50,16 @@ public class PlayerTest extends OpenGLTestCase {
         player.setWeapon(weapon);
         player.setFireCounter(SPEED);
         player.reset();
-        assertEquals(player.getFireCounter(), 0);
-        assertEquals(player.getPowerUps().size(), 0);
-        assertEquals(player.getWeapon().getType(),
-                Pickup.WeaponType.REGULAR);
+        assertEquals(0, player.getFireCounter());
+        assertEquals(0, player.getPowerUps().size());
+        assertEquals(Pickup.WeaponType.REGULAR, player.getWeapon().getType());
     }
 
     @Test
     public final void testRemoveSpeedUp() {
-        Player player = new Player(0, 0, null, true);
         player.setSpeed(2 * SPEED);
         player.removeSpeedup();
-        assertEquals(player.getSpeed(), SPEED);
+        assertEquals(SPEED, player.getSpeed());
     }
 
 
@@ -76,33 +76,74 @@ public class PlayerTest extends OpenGLTestCase {
         Powerup lives = new Powerup(10);
         lives.setPowerType(PowerType.LIFE);
 
-        Player player = new Player(0, 0, null, true);
-
         player.addPowerup(shield);
-        assertEquals(player.getPowerUps().size(), 1);
+        assertEquals(1, player.getPowerups().size());
         player.addPowerup(invincible);
-        assertEquals(player.getPowerUps().size(), 1);
+        assertEquals(1, player.getPowerups().size());
         player.addPowerup(invincible);
-        assertEquals(player.getPowerUps().size(), 1);
+        assertEquals(1, player.getPowerups().size());
         player.addPowerup(speedUp);
-        assertEquals(player.getPowerUps().size(), 1);
-        assertEquals(player.getSpeed(), 2 * SPEED);
-        assertEquals(player.getScore(), 0);
+        assertEquals(false, player.hasSpeedup());
+        assertEquals(1, player.getPowerups().size());
+        assertEquals(2 * SPEED, player.getSpeed());
+        assertEquals(0, player.getScore());
         player.addPowerup(score);
-        assertEquals(player.getScore(), PLAYER_SCORE);
-        assertEquals(player.getLives(), PLAYER_LIVES);
+        assertEquals(PLAYER_SCORE, player.getScore());
+        assertEquals(PLAYER_LIVES, player.getLives());
         player.addPowerup(lives);
-        assertEquals(player.getLives(), TOTAL_LIVES);
+        assertEquals(TOTAL_LIVES, player.getLives());
     }
-    
+
     @Test
-    public final void testUpdate() throws SlickException {
-        Modifiable modifiable = mock(Modifiable.class);
-        Player player = new Player(0, 0, input, true);        
-        
-        player.setFireCounter(0);
+    public final void testUpdate() throws SlickException, AWTException {
+        Modifiable modifiable = mock(Modifiable.class); 
+        player.setFireCounter(1);        
+        player.setInvincibilityCounter(200);
+        player.setSpeedupCounter(400);
+        player.setRemovingShieldCounter(1);
+        player.addScore(100);
+
         player.update(modifiable, 1);
-        assertEquals(player.getFireCounter(), 0);
-        
+
+        assertEquals(100, player.getScore());
+        assertEquals(true, player.removingShield());
+        assertEquals(2, player.getRemovingShieldCounter());
+        assertEquals(401, player.getSpeedupCounter());
+        assertEquals(2, player.getFireCounter());
+        assertEquals(201, player.getInvincibilityCounter());        
+    }
+
+    @Test
+    public final void testUpdate2() throws SlickException {
+        Modifiable modifiable = mock(Modifiable.class);
+        player.setFireCounter(0);        
+        player.setInvincibilityCounter(1000);
+        player.setSpeedupCounter(800);
+        player.setShieldInactive();
+        player.removeLife();
+
+        player.update(modifiable, 10);
+
+        assertEquals(2, player.getLives());
+        assertEquals(2, player.getRemovingShieldCounter());
+        assertEquals(0, player.getFireCounter());
+        assertEquals(0, player.getInvincibilityCounter()); 
+        assertEquals(0, player.getSpeedupCounter());
+    }
+
+    @Test
+    public final void testLastGettersSetters() {
+        assertTrue(player.isFirstPlayer());
+        player.setAnimationCurrent(Resources.playerWalkLeft);
+        assertEquals(Resources.playerWalkLeft, player.getAnimationCurrent());
+    }
+
+    @Test
+    public final void testGetBounds() {
+        player.setImage(Resources.playerImageStill);
+        SemRectangle rectangle = new SemRectangle(0, 0,
+                player.getWidth() - 20, player.getHeight() - 15);
+        assertEquals((int)rectangle.getHeight(), (int)player.getBounds().getHeight());
+        assertEquals((int)rectangle.getWidth(), (int)player.getBounds().getWidth());
     }
 }
