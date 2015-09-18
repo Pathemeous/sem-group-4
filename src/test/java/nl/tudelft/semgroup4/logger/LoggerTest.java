@@ -8,6 +8,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import java.io.IOException;
+
 import org.junit.Before;
 import org.junit.Test;
 
@@ -156,6 +158,11 @@ public class LoggerTest {
     public void testSettersAndGetters8() {
         logger.setSeverity(LogSeverity.CRITICAL);
         assertEquals(LogSeverity.CRITICAL, logger.getSeverity());
+    }
+
+    @Test
+    public void testClose() throws IOException {
+        logger.close();
     }
 
 }

@@ -18,6 +18,7 @@ import org.junit.Test;
 public class FileOutletTest {
 
     private File testLogFile;
+    private FileOutlet outlet;
 
     /**
      * In this setup we create a dir to write log files to.
@@ -30,6 +31,8 @@ public class FileOutletTest {
         do {
             testLogFile = new File(System.getProperty("user.dir"), "testLogFile_" + index++);
         } while (testLogFile.exists());
+
+        outlet = new FileOutlet(testLogFile);
     }
 
     /**
@@ -37,6 +40,12 @@ public class FileOutletTest {
      */
     @After
     public void breakDownTestFile() {
+        try {
+            outlet.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+            System.err.println("exception while closing outlet");
+        }
         if (!testLogFile.delete()) {
             System.err.println("couldn't delete tmp dir: " + testLogFile.toString());
         }
@@ -44,8 +53,6 @@ public class FileOutletTest {
 
     @Test
     public void testSimpleLog() throws IOException {
-
-        FileOutlet outlet = new FileOutlet(testLogFile);
 
         outlet.log("SomeMessage");
 
@@ -60,8 +67,6 @@ public class FileOutletTest {
 
     @Test
     public void testMultipleLog() throws IOException {
-
-        FileOutlet outlet = new FileOutlet(testLogFile);
 
         outlet.log("SomeMessage1");
         outlet.log("SomeMessage2");
