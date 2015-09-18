@@ -2,6 +2,7 @@ package nl.tudelft.model;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -55,8 +56,8 @@ public class Projectile extends GameObject {
         tickCount = 0;
         startHeight = locY;
 
-        if (wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {
-            Resources.weaponFire.loop();
+        if (wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {            
+            Audio.playFireSound();
         }
     }
 
@@ -70,7 +71,7 @@ public class Projectile extends GameObject {
      *            T - The container that this object may request changes to.
      */
     public <T extends Modifiable> void reset(T container) {
-        Resources.weaponFire.stop();
+        Audio.stopFireSound();
         // Set every variable to the starting variables
         if (!weapon.isSticky() || hitBubble) {
             weapon.remove(container, this);
