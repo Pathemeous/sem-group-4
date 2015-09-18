@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4.logger;
 
+import java.io.Closeable;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -50,7 +51,12 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public void close() throws IOException {
-        fileOutlet.close();
+        for (Closeable c : new Closeable[]{
+                consoleOutlet,
+                fileOutlet,
+        }) {
+            c.close();
+        }
     }
 
     @Override
