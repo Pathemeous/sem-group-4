@@ -52,7 +52,7 @@ public class GameState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        ((StartScreenState) mainApp.getState(0)).setAlreadyAdded(false);
+        
         input = container.getInput();
         mouseOver =
                 new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
