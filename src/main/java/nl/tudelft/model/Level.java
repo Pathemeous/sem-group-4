@@ -21,16 +21,16 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<Bubble> bubbles;
     private final LinkedList<GameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<GameObject> pendingAddition = new LinkedList<>();
-    private final static int EXTRA_TIME = 20000;
+    private static final int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
     private double speed;
     private int utilSlowCounter = 0;
     private boolean slowBalls = false;
-    private final static int UTIL_SLOWDOWN_TIME = 300;
+    private static final int UTIL_SLOWDOWN_TIME = 300;
     private int utilFreezeCounter = 0;
     private boolean frozenBalls = false;
-    private final static int UTIL_FREEZE_TIME = 300;
+    private static final int UTIL_FREEZE_TIME = 300;
 
     private final int id;
 
@@ -122,8 +122,8 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     private void setSlowBalls() {
         utilSlowCounter =
-                (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0) ? utilSlowCounter + 1
-                        : 0;
+                (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0)
+                        ? utilSlowCounter + 1 : 0;
         if (slowBalls) {
             for (Bubble bubble : bubbles) {
                 bubble.slowBubbleDown(true);
