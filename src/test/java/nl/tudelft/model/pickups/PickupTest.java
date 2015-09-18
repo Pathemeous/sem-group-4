@@ -7,15 +7,15 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-
+import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.OpenGLTestCase;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.Resources;
+
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-public class PickupTest extends OpenGLTestCase {
+public class PickupTest extends AbstractOpenGLTestCase {
 
     /**
      * This method tests the constructor to see if the right pickup is generated based on the

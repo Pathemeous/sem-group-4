@@ -65,8 +65,6 @@ public class Dashboard implements Renderable {
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        final Level curLevel = game.getCurLevel();
-        curLevel.getTime();
 
         float offset = bottom;
         {
@@ -79,8 +77,8 @@ public class Dashboard implements Renderable {
                 ttf.drawString(
                         left + margin + dashboardPlayerContainerLeft.getWidth() - 2 * margin
                                 - ttf.getWidth(scoreString),
-                        bottom - margin - dashboardPlayerContainerLeft.getHeight() / 2
-                                - ttf.getHeight(scoreString) / 2, scoreString, Color.darkGray);
+                        bottom - margin - dashboardPlayerContainerLeft.getHeight() / 2.0f
+                                - ttf.getHeight(scoreString) / 2.0f, scoreString, Color.darkGray);
             }
             {
                 // right side
@@ -91,8 +89,8 @@ public class Dashboard implements Renderable {
                 ttf.drawString(
                         right - margin - dashboardPlayerContainerRight.getWidth() + 125
                                 - ttf.getWidth(scoreString),
-                        bottom - margin - dashboardPlayerContainerRight.getHeight() / 2
-                                - ttf.getHeight(scoreString) / 2, scoreString, Color.darkGray);
+                        bottom - margin - dashboardPlayerContainerRight.getHeight() / 2.0f
+                                - ttf.getHeight(scoreString) / 2.0f, scoreString, Color.darkGray);
             }
         }
         offset -= (margin + dashboardPlayerContainerLeft.getHeight());
@@ -157,7 +155,7 @@ public class Dashboard implements Renderable {
 
             String levelIdString = String.valueOf(levelId);
             ttf.drawString((right - left) / 2 - ttf.getWidth(levelIdString) / 2, bottom - margin
-                    - (levelContainer.getHeight() / 4) - ttf.getHeight(levelIdString) / 2,
+                    - (levelContainer.getHeight() / 4.0f) - ttf.getHeight(levelIdString) / 2.0f,
                     levelIdString, Color.red);
         }
 

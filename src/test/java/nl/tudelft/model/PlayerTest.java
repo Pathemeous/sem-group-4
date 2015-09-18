@@ -11,7 +11,7 @@ import org.junit.Test;
  * tests cases for the player class.
  * @author Damian
  */
-public class PlayerTest extends OpenGLTestCase {
+public class PlayerTest extends AbstractOpenGLTestCase {
 
     private static final int SPEED = 4;
     private static final int PLAYER_SCORE = 100;
