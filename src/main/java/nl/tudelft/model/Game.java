@@ -23,11 +23,11 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable, Modifiable {
 
-    public static final Logger logger;
+    public static final Logger LOGGER;
 
     static {
         try {
-            logger = new DefaultLogger();
+            LOGGER = new DefaultLogger();
         } catch (IOException e) {
             throw new IllegalStateException("This shouldn't happen", e);
         }
@@ -37,12 +37,12 @@ public class Game implements Renderable, Modifiable {
     private final int containerHeight;
     private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
-    private LinkedList<Player> players;
-    private LinkedList<Player> playerToDelete = new LinkedList<>();
+    private final LinkedList<Player> players;
+    private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
     private final CollisionHandler<GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
-    private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
+    private final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
     private final StateBasedGame mainApp;
 
     /**
@@ -62,7 +62,7 @@ public class Game implements Renderable, Modifiable {
      */
     public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
             int containerHeight) throws IllegalArgumentException {
-        logger.log(VERBOSE, "Game", "constructor called");
+        LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
@@ -275,7 +275,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected CollisionHandler<GameObject, GameObject> getNewCollisionHandler() {
+    protected final CollisionHandler<GameObject, GameObject> getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
 

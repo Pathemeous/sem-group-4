@@ -19,14 +19,14 @@ import org.newdawn.slick.geom.Shape;
  */
 public class Bubble extends GameObject {
 
-    private float gravity = 0.1f;
+    private static final float GRAVITY = 0.1f;
     private float verticalSpeed = 0.0f;
     private float horizontalSpeed = 2.0f;
     private boolean isHit = false;
     private float maxVerticalSpeed;
     private int size;
     private boolean slowBalls = false;
-    private boolean freeze = false;
+    private boolean frozen = false;
     private int tickCount = 0;
 
     /**
@@ -126,7 +126,7 @@ public class Bubble extends GameObject {
      */
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if ((!slowBalls || tickCount % 2 == 0) && !freeze) {
+        if ((!slowBalls || tickCount % 2 == 0) && !frozen) {
             move();
         }
 
@@ -194,7 +194,7 @@ public class Bubble extends GameObject {
 
         setLocX(newX);
         setLocY(newY);
-        verticalSpeed -= gravity;
+        verticalSpeed -= GRAVITY;
     }
 
     public void slowBubbleDown(boolean slowDown) {
@@ -202,7 +202,7 @@ public class Bubble extends GameObject {
     }
 
     public void freeze(boolean freeze) {
-        this.freeze = freeze;
+        this.frozen = freeze;
     }
 
     public void setIsHit() {
