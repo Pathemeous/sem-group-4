@@ -4,7 +4,7 @@
     <groupId>nl.tudelft.sem-group-4</groupId>
     <artifactId>sem-group-4</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>sem-group-4</name>
     <url>http://maven.apache.org</url>
     <properties>
