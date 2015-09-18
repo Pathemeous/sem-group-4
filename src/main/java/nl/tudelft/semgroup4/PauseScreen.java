@@ -42,9 +42,9 @@ public class PauseScreen {
         graphics.setColor(color);
         graphics.fillRect(0, 0, container.getWidth(), container.getHeight());
         graphics.drawImage(pauseText, container.getWidth() / 2 - pauseText.getWidth() / 2,
-                container.getHeight() / 3);
+                container.getHeight() / 3.0f);
         graphics.drawImage(quitText, container.getWidth() / 2 - quitText.getWidth() / 2,
-                container.getHeight() / 2);
+                container.getHeight() / 2.0f);
 
         // checks to see if the user clicked on the "back to main menu button",
         // if so, the state is set to main menu and the gameState unpauses

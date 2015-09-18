@@ -1,6 +1,6 @@
 package nl.tudelft.model.pickups;
 
-import nl.tudelft.model.GameObject;
+import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
@@ -9,7 +9,7 @@ import nl.tudelft.semgroup4.util.Helpers;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Pickup extends GameObject {
+public class Pickup extends AbstractEnvironmentObject {
 
     private boolean onGround;
     private PickupContent content;
@@ -59,7 +59,7 @@ public class Pickup extends GameObject {
                     break;
             }
 
-        } else if (random > 3 && random < 7) {
+        } else if (random < 7) {
             // new powerup
             content = new Powerup(Helpers.randInt(1, 10));
             Powerup powerup = (Powerup) content;

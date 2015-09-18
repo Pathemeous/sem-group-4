@@ -7,7 +7,11 @@ import java.io.IOException;
  */
 public class ConsoleOutlet implements LoggerOutlet {
 
+    /**
+     * The console outlet does not need any setup. The constructor is empty.
+     */
     public ConsoleOutlet() {
+        // There is nothing to do to set up the console stream.
     }
 
     @Override

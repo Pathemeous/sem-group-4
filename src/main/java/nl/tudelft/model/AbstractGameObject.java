@@ -11,7 +11,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
-public abstract class GameObject implements Updateable, Renderable {
+public abstract class AbstractGameObject implements Updateable, Renderable {
 
     protected float locX;
     protected float locY;
@@ -27,7 +27,7 @@ public abstract class GameObject implements Updateable, Renderable {
      * @param locY
      *            float - the y-coordinate that this object should be rendered at.
      */
-    public GameObject(Image image, float locX, float locY) {
+    public AbstractGameObject(Image image, float locX, float locY) {
         this.image = image;
         this.locX = locX;
         this.locY = locY;

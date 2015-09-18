@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class Projectile extends GameObject {
+public class Projectile extends AbstractEnvironmentObject {
 
     private final int speed;
     private int width;
@@ -100,7 +100,7 @@ public class Projectile extends GameObject {
      * Fire method for the class "Projectile". This method is called when the projectile is fired.
      */
     public void fire() {
-        this.locX = (locX + (playerWidth / 2)) - (image.getWidth() / 2);
+        this.locX = (locX + (playerWidth / 2.0f)) - (image.getWidth() / 2.0f);
     }
 
     @Override
@@ -151,5 +151,13 @@ public class Projectile extends GameObject {
 
     public Weapon getWeapon() {
         return this.weapon;
+    }
+
+    public int getTickCount() {
+        return tickCount;
+    }
+
+    public void setTickCount(int count) {
+        tickCount = count;
     }
 }

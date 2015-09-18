@@ -16,7 +16,7 @@ import org.newdawn.slick.SlickException;
 /**
  * Created by justin on 11/09/15.
  */
-public class BubbleTest extends OpenGLTestCase {
+public class BubbleTest extends AbstractOpenGLTestCase {
 
     @Test
     public void testConstructor1() {

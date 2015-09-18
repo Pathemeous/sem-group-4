@@ -5,7 +5,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 
 import java.awt.AWTException;
-import java.awt.Robot;
 
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Powerup;
@@ -15,7 +14,6 @@ import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.junit.Test;
-import org.mockito.Mock;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
@@ -24,9 +22,11 @@ import org.newdawn.slick.SlickException;
  * tests cases for the player class.
  * @author Damian
  */
-public class PlayerTest extends OpenGLTestCase { 
+public class PlayerTest extends AbstractOpenGLTestCase {
+
     private Input input = new Input(0);
     Player player = new Player(0, 0, input, true);
+
     private static final int SPEED = 4;
     private static final int PLAYER_SCORE = 100;
     private static final int PLAYER_LIVES = 3;

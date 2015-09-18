@@ -1,8 +1,8 @@
 package nl.tudelft.semgroup4.collision;
 
+import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Bubble;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.GameObject;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
@@ -11,7 +11,6 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Utility;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.geom.Shape;
@@ -20,10 +19,11 @@ import org.newdawn.slick.geom.Shape;
  * The default collision handler for the game. Collides player with walls, to prevent falling
  * through them.
  */
-public class DefaultCollisionHandler implements CollisionHandler<GameObject, GameObject> {
+public class DefaultCollisionHandler implements CollisionHandler<
+        AbstractGameObject, AbstractGameObject> {
 
     @Override
-    public void onCollision(Game game, GameObject objA, GameObject objB) {
+    public void onCollision(Game game, AbstractGameObject objA, AbstractGameObject objB) {
         if (objA instanceof Bubble) {
             if (objB instanceof Wall) {
                 bubbleWallHandler.onCollision(game, (Bubble) objA, (Wall) objB);

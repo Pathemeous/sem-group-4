@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 /**
  * Created by justin on 11/09/15.
  */
-public class WallTest extends OpenGLTestCase {
+public class WallTest extends AbstractOpenGLTestCase {
 
     @Test
     public void testConstructor() throws SlickException {
