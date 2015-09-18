@@ -15,7 +15,7 @@ import nl.tudelft.semgroup4.Resources;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-public class WeaponTest extends OpenGLTestCase {
+public class WeaponTest extends AbstractOpenGLTestCase {
 
     /**
      * Test for the player getter.

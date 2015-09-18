@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class GameTest extends OpenGLTestCase {
+public class GameTest extends AbstractOpenGLTestCase {
 
     /**
      * Test to see if the game constructor works.

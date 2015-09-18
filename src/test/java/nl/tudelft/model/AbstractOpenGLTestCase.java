@@ -13,7 +13,7 @@ import org.lwjgl.opengl.DisplayMode;
  * Extend this class when using anything OpenGL related.
  * It initializes a display and OpenGL context for each test.
  */
-public abstract class OpenGLTestCase {
+public abstract class AbstractOpenGLTestCase {
 
     /**
      * This sets up the OpenGL Context.

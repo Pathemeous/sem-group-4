@@ -18,7 +18,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-public class LevelTest extends OpenGLTestCase {
+public class LevelTest extends AbstractOpenGLTestCase {
 
     public LinkedList<Wall> walls = new LinkedList<Wall>();
     public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
