@@ -57,13 +57,15 @@ public class QuadTree {
         int locY = (int) bounds.getY();
 
         nodes[0] =
-                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY, subWidth, subHeight));
+                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY, subWidth,
+                        subHeight));
         nodes[1] = new QuadTree(depthLevel + 1, new Rectangle(locX, locY, subWidth, subHeight));
         nodes[2] =
-                new QuadTree(depthLevel + 1, new Rectangle(locX, locY + subHeight, subWidth, subHeight));
-        nodes[3] =
-                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY + subHeight, subWidth,
+                new QuadTree(depthLevel + 1, new Rectangle(locX, locY + subHeight, subWidth,
                         subHeight));
+        nodes[3] =
+                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY + subHeight,
+                        subWidth, subHeight));
     }
 
     /**
@@ -108,7 +110,8 @@ public class QuadTree {
      * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add
      * all objects to their corresponding nodes.
      * 
-     * @param rect GameObject - the object to insert.
+     * @param rect
+     *            GameObject - the object to insert.
      */
     public void insert(GameObject rect) {
         if (nodes[0] != null) {
@@ -143,8 +146,10 @@ public class QuadTree {
     /**
      * Return all objects that could collide with the given object.
      * 
-     * @param returnObjects List - a list of GameObjects.
-     * @param rect Shape - the given shape.
+     * @param returnObjects
+     *            List - a list of GameObjects.
+     * @param rect
+     *            Shape - the given shape.
      * @return List - the list of collidable objects.
      */
     public List<GameObject> retrieve(List<GameObject> returnObjects, Shape rect) {
