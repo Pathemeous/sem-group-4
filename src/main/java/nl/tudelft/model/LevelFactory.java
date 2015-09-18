@@ -8,7 +8,7 @@ import nl.tudelft.semgroup4.Resources;
 public class LevelFactory {
 
     private final Game game;
-    private final static int LEVEL_COUNT = 4;
+    private static final int LEVEL_COUNT = 4;
 
     public LevelFactory(Game game) {
         this.game = game;
