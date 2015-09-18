@@ -13,6 +13,8 @@ public abstract class AbstractLogger implements Logger {
     final LoggerOutlet consoleOutlet;
     final LoggerOutlet fileOutlet;
 
+    private LogSeverity severity = LogSeverity.ERROR;
+
     private boolean enabled = true;
     private boolean logToConsole = true;
     private boolean logToFile = true;
@@ -28,17 +30,19 @@ public abstract class AbstractLogger implements Logger {
     @Override
     public void log(LogSeverity level, String tag, String message) {
         if (isEnabled()) {
-            currentDate.setTime(System.currentTimeMillis());
-            final String line = String.format(logFormat,
-                    dateFormatter.format(currentDate),
-                    level.name(),
-                    tag,
-                    message);
-            if (getLogToConsole()) {
-                consoleOutlet.log(line);
-            }
-            if (getLogToFile()) {
-                fileOutlet.log(line);
+            if (severity.compareTo(level) >=  0) {
+                currentDate.setTime(System.currentTimeMillis());
+                final String line = String.format(logFormat,
+                        dateFormatter.format(currentDate),
+                        level.name(),
+                        tag,
+                        message);
+                if (getLogToConsole()) {
+                    consoleOutlet.log(line);
+                }
+                if (getLogToFile()) {
+                    fileOutlet.log(line);
+                }
             }
         }
     }
@@ -75,12 +79,11 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public void setSeverity(LogSeverity severity) {
-
+        this.severity = severity;
     }
 
     @Override
     public LogSeverity getSeverity() {
-        return null;
+        return severity;
     }
-
 }
