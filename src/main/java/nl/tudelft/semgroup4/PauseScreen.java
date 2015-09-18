@@ -9,9 +9,9 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class PauseScreen {
-    private MouseOverArea mouseOver;
-    private Image pauseText = Resources.pauseText;
-    private Image quitText = Resources.quitText;
+    private final MouseOverArea mouseOver;
+    private final Image pauseText = Resources.pauseText;
+    private final Image quitText = Resources.quitText;
 
     public PauseScreen(MouseOverArea mouseOver) {
         this.mouseOver = mouseOver;
