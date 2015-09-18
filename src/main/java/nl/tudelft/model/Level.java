@@ -15,24 +15,24 @@ import org.newdawn.slick.SlickException;
 
 public class Level implements Updateable, Renderable, Modifiable {
 
-    private LinkedList<Wall> walls;
-    private LinkedList<Projectile> projectiles;
-    private LinkedList<Pickup> pickups;
-    private LinkedList<Bubble> bubbles;
-    private LinkedList<GameObject> toRemove = new LinkedList<>();
-    private LinkedList<GameObject> toAdd = new LinkedList<>();
-    private final int extraTime = 20000;
+    private final LinkedList<Wall> walls;
+    private final LinkedList<Projectile> projectiles;
+    private final LinkedList<Pickup> pickups;
+    private final LinkedList<Bubble> bubbles;
+    private final LinkedList<GameObject> pendingRemoval = new LinkedList<>();
+    private final LinkedList<GameObject> pendingAddition = new LinkedList<>();
+    private final static int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
     private double speed;
     private int utilSlowCounter = 0;
     private boolean slowBalls = false;
-    private final int utilSlowdownTime = 300;
+    private final static int UTIL_SLOWDOWN_TIME = 300;
     private int utilFreezeCounter = 0;
     private boolean frozenBalls = false;
-    private final int utilFreezeTime = 300;
+    private final static int UTIL_FREEZE_TIME = 300;
 
-    private int id;
+    private final int id;
 
     /**
      * Creates a level object with an object list, a timer and a speed.
@@ -81,7 +81,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         }
 
         // Update the object lists.
-        for (GameObject obj : toAdd) {
+        for (GameObject obj : pendingAddition) {
             if (obj instanceof Projectile) {
                 projectiles.add((Projectile) obj);
             }
@@ -96,7 +96,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             }
         }
 
-        for (GameObject obj : toRemove) {
+        for (GameObject obj : pendingRemoval) {
             if (obj instanceof Projectile) {
                 projectiles.remove(obj);
             }
@@ -111,25 +111,25 @@ public class Level implements Updateable, Renderable, Modifiable {
             }
         }
 
-        toAdd.clear();
-        toRemove.clear();
+        pendingAddition.clear();
+        pendingRemoval.clear();
 
         time -= delta;
 
-        slowBalls();
+        setSlowBalls();
         freezeBalls();
     }
 
-    private void slowBalls() {
+    private void setSlowBalls() {
         utilSlowCounter =
-                (utilSlowCounter <= utilSlowdownTime && utilSlowCounter != 0) ? utilSlowCounter + 1
+                (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0) ? utilSlowCounter + 1
                         : 0;
         if (slowBalls) {
             for (Bubble bubble : bubbles) {
                 bubble.slowBubbleDown(true);
             }
         }
-        if (utilSlowCounter == utilSlowdownTime) {
+        if (utilSlowCounter == UTIL_SLOWDOWN_TIME) {
             slowBalls = false;
             for (Bubble bubble : bubbles) {
                 bubble.slowBubbleDown(false);
@@ -139,14 +139,14 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     private void freezeBalls() {
         utilFreezeCounter =
-                (utilFreezeCounter <= utilFreezeTime && utilFreezeCounter != 0)
+                (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0)
                         ? utilFreezeCounter + 1 : 0;
         if (frozenBalls) {
             for (Bubble bubble : bubbles) {
                 bubble.freeze(true);
             }
         }
-        if (utilFreezeCounter == utilFreezeTime) {
+        if (utilFreezeCounter == UTIL_FREEZE_TIME) {
             frozenBalls = false;
             for (Bubble bubble : bubbles) {
                 bubble.freeze(false);
@@ -177,7 +177,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     @Override
     public void toAdd(GameObject obj) {
-        toAdd.add(obj);
+        pendingAddition.add(obj);
         // if (obj instanceof Projectile) {
         // projectiles.add((Projectile)obj);
         // return projectiles.contains(obj);
@@ -195,7 +195,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     @Override
     public void toRemove(GameObject obj) {
-        toRemove.add(obj);
+        pendingRemoval.add(obj);
         // if (obj instanceof Projectile) {
         // projectiles.remove(obj);
         // return !projectiles.contains(obj);
@@ -238,7 +238,7 @@ public class Level implements Updateable, Renderable, Modifiable {
                 splitAllBubbles(bubbles, false);
                 break;
             case TIME:
-                time = (time + extraTime < maxTime) ? time + extraTime : maxTime;
+                time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -317,10 +317,10 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     public LinkedList<GameObject> getToRemove() {
-        return toRemove;
+        return pendingRemoval;
     }
 
     public LinkedList<GameObject> getToAdd() {
-        return toAdd;
+        return pendingAddition;
     }
 }
