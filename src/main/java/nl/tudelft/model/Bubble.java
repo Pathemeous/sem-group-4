@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.Helpers;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -152,7 +153,7 @@ public class Bubble extends GameObject {
      */
     public <T extends Modifiable> LinkedList<Bubble> split(T container, int random) {
         LinkedList<Bubble> newBubbles = new LinkedList<>();
-        Resources.bubblePop.play();
+        Audio.playBubbleSplit();
         container.toRemove(this);
 
         if (random > 7 && size > 1) {
