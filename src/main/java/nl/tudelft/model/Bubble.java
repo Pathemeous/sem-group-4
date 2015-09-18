@@ -18,7 +18,7 @@ import org.newdawn.slick.geom.Shape;
  * @author Casper
  *
  */
-public class Bubble extends GameObject {
+public class Bubble extends AbstractGameObject {
 
     private static final float GRAVITY = 0.1f;
     private float verticalSpeed = 0.0f;

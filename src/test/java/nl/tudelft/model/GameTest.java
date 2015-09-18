@@ -177,7 +177,7 @@ public class GameTest extends OpenGLTestCase {
         LinkedList<Player> playerList = new LinkedList<>();
         playerList.add(mockedPlayer);
         Game game = new Game(mockedSbg, playerList, 0, 0);
-        CollisionHandler<GameObject, GameObject> handler = null;
+        CollisionHandler<AbstractGameObject, AbstractGameObject> handler = null;
         assertEquals(handler, null);
         handler = game.getNewCollisionHandler();
         assertFalse(handler == null);
