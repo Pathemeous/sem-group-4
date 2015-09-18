@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
-import nl.tudelft.model.GameObject;
+import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Player;
 
 import nl.tudelft.semgroup4.util.QuadTree;
@@ -22,10 +22,11 @@ public class CollisionHelperTest {
     @Test
     public void testCollideObjectWithList1() {
         Player player = mock(Player.class);
-        LinkedList<GameObject> list = new LinkedList<GameObject>();
+        LinkedList<AbstractGameObject> list = new LinkedList<AbstractGameObject>();
         list.add(player);
-        ArrayList<GameObject> res =
-                (ArrayList<GameObject>)CollisionHelper.collideObjectWithList(player, list, null);
+        ArrayList<AbstractGameObject> res =
+                (ArrayList<AbstractGameObject>)CollisionHelper
+                        .collideObjectWithList(player, list, null);
         assertFalse(res.contains(player));
     }
 
@@ -36,10 +37,11 @@ public class CollisionHelperTest {
         Player player2 = mock(Player.class);
         when(player.getBounds()).thenReturn(rect);
         when(player2.getBounds()).thenReturn(rect);
-        LinkedList<GameObject> list = new LinkedList<GameObject>();
+        LinkedList<AbstractGameObject> list = new LinkedList<AbstractGameObject>();
         list.add(player2);
-        ArrayList<GameObject> res =
-                (ArrayList<GameObject>)CollisionHelper.collideObjectWithList(player, list, null);
+        ArrayList<AbstractGameObject> res =
+                (ArrayList<AbstractGameObject>)CollisionHelper
+                        .collideObjectWithList(player, list, null);
         assertTrue(res.contains(player2));
     }
 
@@ -50,12 +52,13 @@ public class CollisionHelperTest {
         Player player2 = mock(Player.class);
         when(player.getBounds()).thenReturn(rect);
         when(player2.getBounds()).thenReturn(rect);
-        LinkedList<GameObject> list = new LinkedList<GameObject>();
+        LinkedList<AbstractGameObject> list = new LinkedList<AbstractGameObject>();
         list.add(player2);
         QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
         quad.insert(player2);
-        ArrayList<GameObject> res =
-                (ArrayList<GameObject>)CollisionHelper.collideObjectWithList(player, list, quad);
+        ArrayList<AbstractGameObject> res =
+                (ArrayList<AbstractGameObject>)CollisionHelper
+                        .collideObjectWithList(player, list, quad);
         assertTrue(res.contains(player2));
     }
 
@@ -64,12 +67,13 @@ public class CollisionHelperTest {
         SemRectangle rect = new SemRectangle(1, 1, 1, 1);
         Player player = mock(Player.class);
         when(player.getBounds()).thenReturn(rect);
-        LinkedList<GameObject> list = new LinkedList<GameObject>();
+        LinkedList<AbstractGameObject> list = new LinkedList<AbstractGameObject>();
         list.add(player);
         QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
         quad.insert(player);
-        ArrayList<GameObject> res =
-                (ArrayList<GameObject>)CollisionHelper.collideObjectWithList(player, list, quad);
+        ArrayList<AbstractGameObject> res =
+                (ArrayList<AbstractGameObject>)CollisionHelper
+                        .collideObjectWithList(player, list, quad);
         assertFalse(res.contains(player));
     }
 
@@ -81,10 +85,11 @@ public class CollisionHelperTest {
         Player player2 = mock(Player.class);
         when(player.getBounds()).thenReturn(rect);
         when(player2.getBounds()).thenReturn(rect2);
-        LinkedList<GameObject> list = new LinkedList<GameObject>();
+        LinkedList<AbstractGameObject> list = new LinkedList<AbstractGameObject>();
         list.add(player2);
-        ArrayList<GameObject> res =
-                (ArrayList<GameObject>)CollisionHelper.collideObjectWithList(player, list, null);
+        ArrayList<AbstractGameObject> res =
+                (ArrayList<AbstractGameObject>)CollisionHelper
+                        .collideObjectWithList(player, list, null);
         assertFalse(res.contains(player2));
     }
 
@@ -96,12 +101,13 @@ public class CollisionHelperTest {
         Player player2 = mock(Player.class);
         when(player.getBounds()).thenReturn(rect);
         when(player2.getBounds()).thenReturn(rect2);
-        LinkedList<GameObject> list = new LinkedList<GameObject>();
+        LinkedList<AbstractGameObject> list = new LinkedList<AbstractGameObject>();
         list.add(player2);
         QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
         quad.insert(player2);
-        ArrayList<GameObject> res =
-                (ArrayList<GameObject>)CollisionHelper.collideObjectWithList(player, list, quad);
+        ArrayList<AbstractGameObject> res =
+                (ArrayList<AbstractGameObject>)CollisionHelper
+                        .collideObjectWithList(player, list, quad);
         assertFalse(res.contains(player2));
     }
 

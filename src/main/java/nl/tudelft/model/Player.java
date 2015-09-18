@@ -158,6 +158,22 @@ public class Player extends AbstractGameObject {
     }
 
     /**
+     * returns the speedcounter.
+     * @return the speedupCounter
+     */
+    public int getSpeedupCounter() {
+        return speedupCounter;
+    }
+
+    /**
+     * sets the speedcounter.
+     * @param speedupCounter the speedupCounter to set
+     */
+    public void setSpeedupCounter(int speedupCounter) {
+        this.speedupCounter = speedupCounter;
+    }
+
+    /**
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
@@ -170,6 +186,22 @@ public class Player extends AbstractGameObject {
         fireCounter = 0;
         setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
         this.weapon.setPlayer(this);
+    }
+
+    /**
+     * returns the invincibilityCounter.
+     * @return the invincibilityCounter
+     */
+    public int getInvincibilityCounter() {
+        return invincibilityCounter;
+    }
+
+    /**
+     * sets the invincibilityCounter.
+     * @param invincibilityCounter the invincibilityCounter to set
+     */
+    public void setInvincibilityCounter(int invincibilityCounter) {
+        this.invincibilityCounter = invincibilityCounter;
     }
 
     /**
@@ -352,10 +384,26 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Disables the shield.
+     * Sets the shield to inactive.
      */
     public void setShieldInactive() {
         removingShieldCounter = 1;
+    }
+
+    /**
+     * returns the removingShieldCounter.
+     * @return the removingShieldCounter
+     */
+    public int getRemovingShieldCounter() {
+        return removingShieldCounter;
+    }
+
+    /**
+     * sets the removingShieldCounter.
+     * @param removingShieldCounter the removingShieldCounter to set
+     */
+    public void setRemovingShieldCounter(int removingShieldCounter) {
+        this.removingShieldCounter = removingShieldCounter;
     }
 
     /**

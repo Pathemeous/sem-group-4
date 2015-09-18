@@ -16,7 +16,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 
-public class ProjectileTest extends OpenGLTestCase {
+public class ProjectileTest extends AbstractOpenGLTestCase {
 
     @Test
     public void testProjectile1() {
