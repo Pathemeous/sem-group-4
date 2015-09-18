@@ -7,8 +7,14 @@ public final class Helpers {
     /**
      * Private constructor to prevent instantiation of this utility class.
      */
+    private static Random random = new Random();
+
     private Helpers() {
         
+    }
+
+    public static void setRandom(Random newRandom) {
+        Helpers.random = newRandom;
     }
 
     /**
@@ -21,7 +27,6 @@ public final class Helpers {
      * @return int - a random int
      */
     public static final int randInt(int min, int max) {
-        Random rand = new Random();
-        return rand.nextInt((max - min) + 1) + min;
+        return random.nextInt((max - min) + 1) + min;
     }
 }
