@@ -95,12 +95,14 @@ public class Game implements Renderable, Modifiable {
      */
     public void update(int delta) throws SlickException {
         final LinkedList<? extends AbstractGameObject> walls = getCurLevel().getWalls();
-        final LinkedList<? extends AbstractGameObject> projectiles = getCurLevel().getProjectiles();
+        final LinkedList<? extends AbstractGameObject> projectiles =
+                getCurLevel().getProjectiles();
         final LinkedList<? extends AbstractGameObject> bubbles = getCurLevel().getBubbles();
         final LinkedList<? extends AbstractGameObject> pickups = getCurLevel().getPickups();
 
         // collision: QuadTree
-        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
+        final QuadTree quad =
+                new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
         for (AbstractGameObject obj : walls) {
             quad.insert(obj);
         }
@@ -114,29 +116,29 @@ public class Game implements Renderable, Modifiable {
         // collision : CollisionMap
         for (AbstractGameObject collidesWithA : bubbles) {
             // bubbles check against walls, players and projectiles
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
         for (AbstractGameObject collidesWithA : projectiles) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    walls, null)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, null)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
         for (AbstractGameObject collidesWithA : players) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    walls, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
         for (AbstractGameObject collidesWithA : pickups) {
             // collision with walls and players
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -273,7 +275,8 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected final CollisionHandler<AbstractGameObject, AbstractGameObject> getNewCollisionHandler() {
+    protected final CollisionHandler<AbstractGameObject, AbstractGameObject>
+            getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
 

@@ -1,7 +1,7 @@
 package nl.tudelft.semgroup4.collision;
 
-import nl.tudelft.model.Game;
 import nl.tudelft.model.AbstractGameObject;
+import nl.tudelft.model.Game;
 
 /**
  * Interface that defines a collision handler.
