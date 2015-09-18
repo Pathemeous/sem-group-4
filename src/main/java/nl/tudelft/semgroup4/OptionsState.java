@@ -33,18 +33,18 @@ public class OptionsState extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics graphics) {
         graphics.drawImage(Resources.optionsText,
                 container.getWidth() / 2 - Resources.optionsText.getWidth() / 2, 
-                container.getHeight() / 6);    
-        graphics.drawImage(Resources.backText, container.getWidth() / 10,
+                container.getHeight() / 6.0f);    
+        graphics.drawImage(Resources.backText, container.getWidth() / 10.0f,
                 container.getHeight() / 10 * 9);
-        graphics.drawImage(Resources.soundText, container.getWidth() / 4,
-                container.getHeight() / 4); 
+        graphics.drawImage(Resources.soundText, container.getWidth() / 4.0f,
+                container.getHeight() / 4.0f); 
         if (Audio.musicOn) {
             graphics.drawImage(Resources.on, container.getWidth() / 4 * 3,
-                    container.getHeight() / 4); 
+                    container.getHeight() / 4.0f); 
         }
         if (!Audio.musicOn) {
             graphics.drawImage(Resources.off, container.getWidth() / 4 * 3,
-                    container.getHeight() / 4); 
+                    container.getHeight() / 4.0f); 
         }
     }
 
