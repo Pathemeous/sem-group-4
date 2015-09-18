@@ -13,12 +13,12 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
 /**
- * Bubble is a subclass of GameObject and represents a single bubble in the game.
+ * Bubble is a subclass of AbstractEnvironmentObject and represents a single bubble in the game.
  * 
  * @author Casper
  *
  */
-public class Bubble extends GameObject {
+public class Bubble extends AbstractEnvironmentObject {
 
     private static final float GRAVITY = 0.1f;
     private float verticalSpeed = 0.0f;
