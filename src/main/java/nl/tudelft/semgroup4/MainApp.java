@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MainApp extends StateBasedGame {
-
+    
     public MainApp(String name) {
         super(name);
         // TODO Auto-generated constructor stub
@@ -59,6 +59,7 @@ public class MainApp extends StateBasedGame {
     public void initStatesList(GameContainer container) throws SlickException {
         Resources.init();
         addState(new StartScreenState());
+        addState(new OptionsState());
         addState(new GameState(this.getTitle(), true));
         addState(new GameState(this.getTitle(), false));
         enterState(0);

@@ -1,6 +1,5 @@
 package nl.tudelft.model.pickups;
 
-import nl.tudelft.semgroup4.util.Helpers;
 
 public class Powerup extends PickupContent {
 
@@ -12,10 +11,10 @@ public class Powerup extends PickupContent {
 
     /**
      * Creates a random power up.
+     * @param random - a random variable which determines what type the powerup will get.
      */
-    public Powerup() {
+    public Powerup(int random) {
         // some logic to determine which power up it is
-        int random = Helpers.randInt(1, 10);
         if (random == 10) {
             type = PowerType.LIFE;
         } else if (random > 8) {
@@ -31,5 +30,14 @@ public class Powerup extends PickupContent {
 
     public PowerType getPowerType() {
         return type;
+    }
+    
+    /**
+     * Sets the powerType of this powerUp.
+     *
+     * @param type the new type.
+     */
+    public final void setPowerType(PowerType type) {
+        this.type = type;
     }
 }
