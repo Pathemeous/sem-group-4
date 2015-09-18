@@ -24,12 +24,12 @@ public class Dashboard implements Renderable {
     private static float border = 2;
     private static float timeBarHeight = 30;
 
-    private Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft.copy();
-    private Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight.copy();
-    private Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
-    private Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
-    private Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
-    private Image levelContainer = Resources.levelContainer.copy();
+    private final Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft.copy();
+    private final Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight.copy();
+    private final Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
+    private final Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
+    private final Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
+    private final Image levelContainer = Resources.levelContainer.copy();
 
     private final Game game;
     private final Rectangle timeBarBackground;
