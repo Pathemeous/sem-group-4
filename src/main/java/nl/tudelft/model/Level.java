@@ -323,4 +323,12 @@ public class Level implements Updateable, Renderable, Modifiable {
     public LinkedList<GameObject> getToAdd() {
         return pendingAddition;
     }
+
+    public void setUtilSlowCounter(int counter) {
+        utilSlowCounter = counter;
+    }
+
+    public void setUtilFreezeCounter(int counter) {
+        utilFreezeCounter = counter;
+    }
 }
