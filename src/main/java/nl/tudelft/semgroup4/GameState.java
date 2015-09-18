@@ -31,7 +31,7 @@ public class GameState extends BasicGameState {
     Input input = new Input(0);
     private Game theGame;
     private Dashboard dashboard;
-    private boolean singlePlayer;
+    private final boolean singlePlayer;
     QuadTree quad;
 
     public GameState(String title, boolean singlePlayer) {
