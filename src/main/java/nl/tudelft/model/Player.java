@@ -31,13 +31,13 @@ public class Player extends GameObject {
     private int removingShieldCounter = 0;
     private int invincibilityCounter = 0;
     private int speedupCounter = 0;
-    private boolean isFirstPlayer;
-    private boolean hasSpeedup = false;
+    private final boolean firstPlayer;
+    private boolean speedup = false;
     private final Input input;
 
     private Weapon weapon;
 
-    private LinkedList<Powerup> powerups;
+    private final LinkedList<Powerup> powerups;
     private Animation animationCurrent;
     private final Animation animationLeft;
     private final Animation animationRight;
@@ -58,7 +58,7 @@ public class Player extends GameObject {
         super(Resources.playerImageStill.copy(), locX, locY);
         powerups = new LinkedList<>();
         speed = 4;
-        this.isFirstPlayer = isFirstPlayer;
+        this.firstPlayer = isFirstPlayer;
 
         this.input = input;
         this.weapon = new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR);
@@ -105,18 +105,18 @@ public class Player extends GameObject {
             container.toRemove(this);
         }
 
-        if ((input.isKeyDown(Input.KEY_LEFT) && isFirstPlayer)
-                || (input.isKeyDown(Input.KEY_A) && !isFirstPlayer)) {
+        if ((input.isKeyDown(Input.KEY_LEFT) && firstPlayer)
+                || (input.isKeyDown(Input.KEY_A) && !firstPlayer)) {
             setAnimationCurrent(animationLeft);
             setLocX(locX - speed);
         }
-        if ((input.isKeyDown(Input.KEY_RIGHT) && isFirstPlayer)
-                || (input.isKeyDown(Input.KEY_D) && !isFirstPlayer)) {
+        if ((input.isKeyDown(Input.KEY_RIGHT) && firstPlayer)
+                || (input.isKeyDown(Input.KEY_D) && !firstPlayer)) {
             setAnimationCurrent(animationRight);
             setLocX(locX + speed);
         }
-        if ((input.isKeyDown(Input.KEY_SPACE) && isFirstPlayer)
-                || (input.isKeyDown(Input.KEY_W) && !isFirstPlayer)) {
+        if ((input.isKeyDown(Input.KEY_SPACE) && firstPlayer)
+                || (input.isKeyDown(Input.KEY_W) && !firstPlayer)) {
             if (fireCounter == 0) {
                 fireCounter++;
                 weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
@@ -124,9 +124,9 @@ public class Player extends GameObject {
             }
         }
         if ((!(input.isKeyDown(Input.KEY_LEFT)
-                || input.isKeyDown(Input.KEY_RIGHT)) && isFirstPlayer)
+                || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
                 || (!(input.isKeyDown(Input.KEY_A)
-                || input.isKeyDown(Input.KEY_D)) && !isFirstPlayer)) {
+                || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
             setAnimationCurrent(null);
         }
 
@@ -178,7 +178,7 @@ public class Player extends GameObject {
     public void removeSpeedup() {
         speed = REGULAR_SPEED;
         speedupCounter = 0;
-        hasSpeedup = false;
+        speedup = false;
     }
 
     /**
@@ -225,9 +225,9 @@ public class Player extends GameObject {
                 break;
             case SPEEDUP:
                 speedupCounter = 1;
-                if (!hasSpeedup) {
+                if (!speedup) {
                     speed = SPEEDUP * speed;
-                    hasSpeedup = true;
+                    speedup = true;
                 }
                 break;
             case POINTS:
@@ -341,7 +341,7 @@ public class Player extends GameObject {
      * @return true if he is player 1.
      */
     public boolean isFirstPlayer() {
-        return this.isFirstPlayer;
+        return this.firstPlayer;
     }
     /**
      * returns the powerups of the player.
