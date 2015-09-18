@@ -8,7 +8,7 @@ import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.Updateable;
-
+import nl.tudelft.semgroup4.util.Helpers;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -36,7 +36,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Creates a level object with an object list, a timer and a speed.
-     * 
+     *
      * @param walls
      *            LinkedList - list containing all walls in this level.
      * @param projectiles
@@ -213,7 +213,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Applies the effects of the utility to the state of the level.
-     * 
+     *
      * @param util
      *            Utility - The utility to apply.
      * @throws IllegalArgumentException
@@ -248,7 +248,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
         for (Bubble bubble : bubbles) {
             if (bubble.getSize() > 1 || endLevel) {
-                LinkedList<Bubble> newBubbles = bubble.split(this);
+                LinkedList<Bubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
                 splitAllBubbles(newBubbles, endLevel);
             }
         }
@@ -296,11 +296,11 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Checks whether the level is completed.
-     * 
+     *
      * <p>
      * A level is completed when there are no bubbles left.
      * </p>
-     * 
+     *
      * @return true iff there are no bubbles remaining in this level.
      */
     public boolean isCompleted() {
@@ -309,11 +309,18 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Checks whether the level timer has expired.
-     * 
+     *
      * @return boolean - true if the timer hits zero or below.
      */
     public boolean timerExpired() {
         return this.time <= 0;
     }
 
+    public LinkedList<GameObject> getToRemove() {
+        return toRemove;
+    }
+
+    public LinkedList<GameObject> getToAdd() {
+        return toAdd;
+    }
 }
