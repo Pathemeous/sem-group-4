@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.model.Game;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.Color;
@@ -50,6 +52,8 @@ public class PauseScreen {
         // if so, the state is set to main menu and the gameState unpauses
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOver.isMouseOver()) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+                        "Player left the game, to the main menu");
                 gameState.paused = false;
                 game.enterState(0);
             }
