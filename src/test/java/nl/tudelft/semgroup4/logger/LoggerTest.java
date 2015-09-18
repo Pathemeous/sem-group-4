@@ -133,21 +133,25 @@ public class LoggerTest {
         logger.setSeverity(LogSeverity.VERBOSE);
         assertEquals(LogSeverity.VERBOSE, logger.getSeverity());
     }
+
     @Test
     public void testSettersAndGetters5() {
         logger.setSeverity(LogSeverity.DEBUG);
         assertEquals(LogSeverity.DEBUG, logger.getSeverity());
     }
+
     @Test
     public void testSettersAndGetters6() {
         logger.setSeverity(LogSeverity.WARNING);
         assertEquals(LogSeverity.WARNING, logger.getSeverity());
     }
+
     @Test
     public void testSettersAndGetters7() {
         logger.setSeverity(LogSeverity.ERROR);
         assertEquals(LogSeverity.ERROR, logger.getSeverity());
     }
+
     @Test
     public void testSettersAndGetters8() {
         logger.setSeverity(LogSeverity.CRITICAL);
