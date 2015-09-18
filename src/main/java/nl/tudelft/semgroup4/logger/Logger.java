@@ -19,4 +19,8 @@ public interface Logger {
 
     boolean getLogToFile();
 
+    void setSeverity(LogSeverity severity);
+
+    LogSeverity getSeverity();
+
 }

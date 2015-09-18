@@ -72,4 +72,15 @@ public abstract class AbstractLogger implements Logger {
     public boolean getLogToFile() {
         return logToFile;
     }
+
+    @Override
+    public void setSeverity(LogSeverity severity) {
+
+    }
+
+    @Override
+    public LogSeverity getSeverity() {
+        return null;
+    }
+
 }
