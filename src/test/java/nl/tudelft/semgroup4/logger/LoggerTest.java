@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4.logger;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.endsWith;
 import static org.mockito.Mockito.mock;
@@ -36,6 +38,7 @@ public class LoggerTest {
         logger.setEnabled(true);
         logger.setLogToConsole(true);
         logger.setLogToFile(true);
+        logger.setSeverity(LogSeverity.VERBOSE);
 
         logger.log(LogSeverity.CRITICAL, "SomeTag", "SomeMessage");
         logger.log(LogSeverity.ERROR, "SomeTag", "SomeMessage");
@@ -60,6 +63,7 @@ public class LoggerTest {
         logger.setEnabled(true);
         logger.setLogToConsole(true);
         logger.setLogToFile(true);
+        logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
 
@@ -72,6 +76,7 @@ public class LoggerTest {
         logger.setEnabled(false);
         logger.setLogToConsole(true);
         logger.setLogToFile(true);
+        logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
 
@@ -84,6 +89,7 @@ public class LoggerTest {
         logger.setEnabled(true);
         logger.setLogToConsole(false);
         logger.setLogToFile(true);
+        logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
 
@@ -96,11 +102,60 @@ public class LoggerTest {
         logger.setEnabled(true);
         logger.setLogToConsole(true);
         logger.setLogToFile(false);
+        logger.setSeverity(LogSeverity.DEBUG);
 
         logger.log(LogSeverity.DEBUG, "SomeTag", "SomeMessage");
 
         verify(consoleOutlet, times(1)).log(endsWith("[DEBUG] SomeTag: SomeMessage"));
         verify(fileOutlet, times(0)).log(any());
+    }
+
+    @Test
+    public void testSettersAndGetters1() {
+        logger.setEnabled(true);
+        assertTrue(logger.isEnabled());
+    }
+
+    @Test
+    public void testSettersAndGetters2() {
+        logger.setLogToFile(true);
+        assertTrue(logger.getLogToFile());
+    }
+
+    @Test
+    public void testSettersAndGetters3() {
+        logger.setLogToConsole(true);
+        assertTrue(logger.getLogToConsole());
+    }
+
+    @Test
+    public void testSettersAndGetters4() {
+        logger.setSeverity(LogSeverity.VERBOSE);
+        assertEquals(LogSeverity.VERBOSE, logger.getSeverity());
+    }
+
+    @Test
+    public void testSettersAndGetters5() {
+        logger.setSeverity(LogSeverity.DEBUG);
+        assertEquals(LogSeverity.DEBUG, logger.getSeverity());
+    }
+
+    @Test
+    public void testSettersAndGetters6() {
+        logger.setSeverity(LogSeverity.WARNING);
+        assertEquals(LogSeverity.WARNING, logger.getSeverity());
+    }
+
+    @Test
+    public void testSettersAndGetters7() {
+        logger.setSeverity(LogSeverity.ERROR);
+        assertEquals(LogSeverity.ERROR, logger.getSeverity());
+    }
+
+    @Test
+    public void testSettersAndGetters8() {
+        logger.setSeverity(LogSeverity.CRITICAL);
+        assertEquals(LogSeverity.CRITICAL, logger.getSeverity());
     }
 
 }
