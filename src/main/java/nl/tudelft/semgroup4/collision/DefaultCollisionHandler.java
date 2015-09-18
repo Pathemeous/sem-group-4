@@ -131,7 +131,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
     final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
-        if (!projectile.getHitBubble()) {
+        if (!projectile.isHitBubble()) {
             projectile.setHitBubble();
             projectile.getWeapon().getPlayer().addScore(50);
             bubble.setIsHit();
