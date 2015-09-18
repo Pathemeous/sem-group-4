@@ -316,4 +316,11 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.time <= 0;
     }
 
+    public LinkedList<GameObject> getToRemove() {
+        return toRemove;
+    }
+
+    public LinkedList<GameObject> getToAdd() {
+        return toAdd;
+    }
 }

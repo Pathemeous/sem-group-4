@@ -2,7 +2,13 @@ package nl.tudelft.model.pickups;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
+
+import nl.tudelft.model.Game;
 import nl.tudelft.model.OpenGLTestCase;
 import nl.tudelft.model.Weapon;
 import nl.tudelft.semgroup4.Resources;
@@ -16,8 +22,8 @@ public class PickupTest extends OpenGLTestCase {
      * number that is put in.
      */
     @Test
-    public void testPickup() {
-        for (int i = 1; i < 11; i++) {
+    public void testPickup1() {
+        for (int i = 0; i < 11; i++) {
             Pickup pickup = new Pickup(null, 0, 0, i);
             PickupContent content = pickup.getContent();
             if (i < 4) {
@@ -97,5 +103,34 @@ public class PickupTest extends OpenGLTestCase {
         float locY = pickup.getLocY();
         pickup.update(null, 0);
         assertEquals(pickup.getLocY(), locY + 1, 0.0f);
+    }
+
+    /**
+     * Test if the update method of Pickup works correctly
+     * @throws SlickException : exception from Slick.
+     */
+    @Test
+    public void testUpdate1() throws SlickException {
+        Pickup pickup = new Pickup(null, 0, 0, 1);
+        pickup.setOnGround(true);
+        assertEquals(pickup.getTickCount(), 0);
+        pickup.update(null, 0);
+        assertEquals(pickup.getTickCount(), 1);
+    }
+
+    /**
+     * Test if the update method of Pickup works correctly
+     * @throws SlickException : exception from Slick.
+     */
+    @Test
+    public void testUpdate2() throws SlickException {
+        Pickup pickup = new Pickup(null, 0, 0, 1);
+        pickup.setOnGround(true);
+        assertEquals(pickup.getTickCount(), 0);
+        pickup.setTickCount(179);
+        Game mockedContainer = mock(Game.class);
+        pickup.update(mockedContainer, 0);
+        assertEquals(pickup.getTickCount(), 180);
+        verify(mockedContainer, times(1)).toRemove(any());
     }
 }

@@ -130,6 +130,12 @@ public class Pickup extends GameObject {
         this.onGround = onGround;
     }
     
-    
+    public int getTickCount() {
+        return tickCount;
+    }
+
+    public void setTickCount(int count) {
+        tickCount = count;
+    }
 
 }
