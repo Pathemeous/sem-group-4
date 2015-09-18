@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.semgroup4.util.Audio;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -9,9 +11,9 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class PauseScreen {
-    private MouseOverArea mouseOver;
-    private Image pauseText = Resources.pauseText;
-    private Image quitText = Resources.quitText;
+    private final MouseOverArea mouseOver;
+    private final Image pauseText = Resources.pauseText;
+    private final Image quitText = Resources.quitText;
 
     public PauseScreen(MouseOverArea mouseOver) {
         this.mouseOver = mouseOver;
@@ -33,6 +35,7 @@ public class PauseScreen {
      */
     public void show(Graphics graphics, GameContainer container, Input input, StateBasedGame game,
             GameState gameState) {
+        Audio.stopFireSound();
         graphics.setColor(Color.yellow);
         graphics.setAntiAlias(true);
         Color color = new Color(0f, 0f, 0f, 0.5f);

@@ -12,6 +12,7 @@ import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Utility;
 import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -112,7 +113,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
                 bubble.setIsHit();
             }
         } else {
-            Resources.death.play();
+            Audio.playDeath();
             player.removeLife();
             player.addScore(-1000);
             game.levelReset();
@@ -131,7 +132,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
     final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
-        if (!projectile.getHitBubble()) {
+        if (!projectile.isHitBubble()) {
             projectile.setHitBubble();
             projectile.getWeapon().getPlayer().addScore(50);
             bubble.setIsHit();

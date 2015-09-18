@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.semgroup4.util.Audio;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -46,23 +48,21 @@ public class StartScreenState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int ticks)
             throws SlickException {
         if (!Resources.titleScreenMusic.playing()) {
-            Resources.titleScreenMusic.loop();
+            Audio.playTitleScreen();
         }
-        if (!alreadyAdded) {
-            alreadyAdded = true;
-            game.getState(1).init(container, game);
-            game.getState(2).init(container, game);
-        }
+//      
         // checks if the left mouse button is pressed and where it was pressed to determine
         // what action to perform
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverOnePlayer.isMouseOver()) {
-                game.enterState(1);
+                game.getState(1).init(container, game);
+                game.enterState(1);                
             } else if (mouseOverTwoPlayer.isMouseOver()) {
+                game.getState(2).init(container, game);
                 game.enterState(2);
             } else if (mouseOverOptions.isMouseOver()) {
-                System.out.println("Options menu opened");
+                game.enterState(3);
             } else if (mouseOverQuit.isMouseOver()) {
                 container.exit();
             }

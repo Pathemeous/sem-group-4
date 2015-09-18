@@ -5,20 +5,17 @@ import java.util.ArrayList;
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
-import nl.tudelft.semgroup4.Updateable;
 
 import org.newdawn.slick.Image;
-import org.newdawn.slick.SlickException;
 
-public class Weapon extends PickupContent implements Updateable {
+public class Weapon extends PickupContent {
 
     private Player player;
-    private ArrayList<Projectile> projectiles;
-    private Image img;
-    private WeaponType type;
-    private boolean sticky;
-    private int maxCount;
+    private final ArrayList<Projectile> projectiles;
+    private final Image img;
+    private final WeaponType type;
+    private final boolean sticky;
+    private final int maxCount;
 
     /**
      * Creates a new Weapon of the given type and with the given image.
@@ -32,14 +29,15 @@ public class Weapon extends PickupContent implements Updateable {
      */
     public Weapon(Image image, WeaponType type) throws IllegalArgumentException {
         this.type = type;
-        sticky = false;
 
         switch (type) {
             case REGULAR:
                 maxCount = 1;
+                sticky = false;
                 break;
             case DOUBLE:
                 maxCount = 2;
+                sticky = false;
                 break;
             case STICKY:
                 maxCount = 1;
@@ -47,6 +45,7 @@ public class Weapon extends PickupContent implements Updateable {
                 break;
             case FLOWER:
                 maxCount = 10;
+                sticky = false;
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -54,12 +53,6 @@ public class Weapon extends PickupContent implements Updateable {
 
         img = image;
         projectiles = new ArrayList<Projectile>();
-    }
-
-    @Override
-    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        // TODO Auto-generated method stub
-
     }
 
     public WeaponType getType() {
@@ -121,5 +114,9 @@ public class Weapon extends PickupContent implements Updateable {
 
     public Player getPlayer() {
         return this.player;
+    }
+    
+    public ArrayList<Projectile> getProjectiles() {
+        return this.projectiles;
     }
 }
