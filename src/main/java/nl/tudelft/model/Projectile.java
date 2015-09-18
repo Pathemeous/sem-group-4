@@ -13,9 +13,9 @@ import org.newdawn.slick.geom.Shape;
 
 public class Projectile extends GameObject {
 
-    private int speed;
+    private final int speed;
     private int width;
-    private Weapon wp;
+    private final Weapon weapon;
     private boolean hitBubble;
     private int tickCount;
     private boolean hitWall;
@@ -50,7 +50,7 @@ public class Projectile extends GameObject {
         this.speed = speed;
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
-        this.wp = wp;
+        this.weapon = wp;
         hitBubble = false;
         hitWall = false;
         tickCount = 0;
@@ -73,12 +73,12 @@ public class Projectile extends GameObject {
     public <T extends Modifiable> void reset(T container) {
         Audio.stopFireSound();
         // Set every variable to the starting variables
-        if (!wp.isSticky() || hitBubble) {
-            wp.remove(container, this);
+        if (!weapon.isSticky() || hitBubble) {
+            weapon.remove(container, this);
         } else if (tickCount == 0) {
             tickCount++;
         } else if (tickCount == 90) {
-            wp.remove(container, this);
+            weapon.remove(container, this);
             tickCount = 0;
         }
 
@@ -92,7 +92,7 @@ public class Projectile extends GameObject {
         hitBubble = true;
     }
 
-    public boolean getHitBubble() {
+    public boolean isHitBubble() {
         return hitBubble;
     }
 
@@ -150,6 +150,6 @@ public class Projectile extends GameObject {
     }
 
     public Weapon getWeapon() {
-        return this.wp;
+        return this.weapon;
     }
 }

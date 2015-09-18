@@ -13,7 +13,7 @@ public class Wall extends GameObject {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-
+        // Walls do not do anything in their update as of yet.
     }
 
 }

@@ -1,6 +1,5 @@
 package nl.tudelft.model.pickups;
 
-import nl.tudelft.semgroup4.util.Helpers;
 
 public class Utility extends PickupContent {
 
@@ -12,10 +11,9 @@ public class Utility extends PickupContent {
 
     /**
      * Creates a random utility.
+     * @param random : random variable which determines what type the utility will get.
      */
-    public Utility() {
-        int random = Helpers.randInt(1, 20);
-        
+    public Utility(int random) {
         if (random == 20) {
             type = UtilityType.LEVELWON;
         } else if (random > 16) {

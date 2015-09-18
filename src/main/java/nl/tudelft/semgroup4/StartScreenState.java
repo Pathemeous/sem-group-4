@@ -50,18 +50,16 @@ public class StartScreenState extends BasicGameState {
         if (!Resources.titleScreenMusic.playing()) {
             Audio.playTitleScreen();
         }
-        if (!alreadyAdded) {
-            alreadyAdded = true;
-            game.getState(1).init(container, game);
-            game.getState(2).init(container, game);
-        }
+//      
         // checks if the left mouse button is pressed and where it was pressed to determine
         // what action to perform
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverOnePlayer.isMouseOver()) {
-                game.enterState(1);
+                game.getState(1).init(container, game);
+                game.enterState(1);                
             } else if (mouseOverTwoPlayer.isMouseOver()) {
+                game.getState(2).init(container, game);
                 game.enterState(2);
             } else if (mouseOverOptions.isMouseOver()) {
                 game.enterState(3);

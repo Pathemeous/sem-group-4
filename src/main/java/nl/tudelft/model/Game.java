@@ -1,5 +1,8 @@
 package nl.tudelft.model;
 
+import static nl.tudelft.semgroup4.logger.LogSeverity.VERBOSE;
+
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
@@ -10,8 +13,9 @@ import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.util.Audio;
+import nl.tudelft.semgroup4.logger.DefaultLogger;
+import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.util.QuadTree;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -20,16 +24,26 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable, Modifiable {
 
+    public static final Logger LOGGER;
+
+    static {
+        try {
+            LOGGER = new DefaultLogger();
+        } catch (IOException e) {
+            throw new IllegalStateException("This shouldn't happen", e);
+        }
+    }
+
     private final int containerWidth;
     private final int containerHeight;
     private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
-    private LinkedList<Player> players;
-    private LinkedList<Player> playerToDelete = new LinkedList<>();
+    private final LinkedList<Player> players;
+    private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
     private final CollisionHandler<GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
-    private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
+    private final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
     private final StateBasedGame mainApp;
 
     /**
@@ -49,6 +63,7 @@ public class Game implements Renderable, Modifiable {
      */
     public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
             int containerHeight) throws IllegalArgumentException {
+        LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
@@ -191,7 +206,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return int - the total amount of lives left until the game is over.
      */
-    private int getPlayerLives() {
+    public int getPlayerLives() {
         int result = 0;
         for (Player player : players) {
             result += player.getLives();
@@ -202,7 +217,7 @@ public class Game implements Renderable, Modifiable {
     /**
      * Calls {@link Player#reset()} on all players in the game.
      */
-    private void resetPlayers() {
+    public void resetPlayers() {
         for (Player player : players) {
             player.reset();
         }
@@ -261,7 +276,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected CollisionHandler<GameObject, GameObject> getNewCollisionHandler() {
+    protected final CollisionHandler<GameObject, GameObject> getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
 
@@ -305,5 +320,9 @@ public class Game implements Renderable, Modifiable {
      */
     public LinkedList<Player> getPlayers() {
         return players;
+    }
+
+    public LinkedList<Player> getPlayerToDelete() {
+        return playerToDelete;
     }
 }

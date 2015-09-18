@@ -24,12 +24,14 @@ public class Dashboard implements Renderable {
     private static float border = 2;
     private static float timeBarHeight = 30;
 
-    private Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft.copy();
-    private Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight.copy();
-    private Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
-    private Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
-    private Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
-    private Image levelContainer = Resources.levelContainer.copy();
+    private final Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft
+            .copy();
+    private final Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight
+            .copy();
+    private final Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
+    private final Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
+    private final Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
+    private final Image levelContainer = Resources.levelContainer.copy();
 
     private final Game game;
     private final Rectangle timeBarBackground;
@@ -54,10 +56,11 @@ public class Dashboard implements Renderable {
         this.right = right;
         this.bottom = bottom;
 
-        timeBarBackground = new Rectangle(left + margin, 0, right - left - 2 * margin,
-                timeBarHeight);
-        timeBar = new Rectangle(timeBarBackground.getX() + border, 0, timeBarBackground.getWidth()
-                - 2 * border, timeBarBackground.getHeight() - 2 * border);
+        timeBarBackground =
+                new Rectangle(left + margin, 0, right - left - 2 * margin, timeBarHeight);
+        timeBar =
+                new Rectangle(timeBarBackground.getX() + border, 0, timeBarBackground.getWidth()
+                        - 2 * border, timeBarBackground.getHeight() - 2 * border);
     }
 
     @Override
@@ -163,15 +166,18 @@ public class Dashboard implements Renderable {
     /**
      * Updates the dashboard every tick.
      * 
-     * @param delta int - Time since last call.
-     * @throws SlickException - If the Game engine crashes
+     * @param delta
+     *            int - Time since last call.
+     * @throws SlickException
+     *             - If the Game engine crashes
      */
     public void update(int delta) throws SlickException {
         timeBar.setWidth((right - left - margin * 2)
                 * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));
 
         List<Player> players = game.getPlayers();
-        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven zolang
+        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven
+        // zolang
         // Game leeft
         // moet alleen niet gerendered, geupdate of gecollide worden als eentje dood is
         livesLeft = 0;
