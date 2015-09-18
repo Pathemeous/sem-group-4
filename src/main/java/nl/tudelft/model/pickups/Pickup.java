@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 public class Pickup extends GameObject {
 
     private boolean onGround;
-    private PickupContent pickup;
+    private PickupContent content;
     private int tickCount;
 
     public enum WeaponType {
@@ -37,22 +37,22 @@ public class Pickup extends GameObject {
             switch (randomWeaponNr) {
             // regular weapon
                 case 1:
-                    pickup = new Weapon(Resources.weaponImageRegular, WeaponType.REGULAR);
+                    content = new Weapon(Resources.weaponImageRegular, WeaponType.REGULAR);
                     setImage(Resources.pickup_weapon_regular);
                     break;
                 // Double shoot
                 case 2:
-                    pickup = new Weapon(Resources.weaponImageRegular, WeaponType.DOUBLE);
+                    content = new Weapon(Resources.weaponImageRegular, WeaponType.DOUBLE);
                     setImage(Resources.pickup_weapon_double);
                     break;
                 // Sticky weapon
                 case 3:
-                    pickup = new Weapon(Resources.weaponImageSticky, WeaponType.STICKY);
+                    content = new Weapon(Resources.weaponImageSticky, WeaponType.STICKY);
                     setImage(Resources.pickup_weapon_sticky);
                     break;
                 // Flower weapon
                 case 4:
-                    pickup = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
+                    content = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
                     setImage(Resources.pickup_weapon_flowers);
                     break;
                 default:
@@ -61,9 +61,9 @@ public class Pickup extends GameObject {
 
         } else if (random > 3 && random < 7) {
             // new powerup
-            pickup = new Powerup(Helpers.randInt(1, 10));
-            Powerup up = (Powerup) pickup;
-            switch (up.getPowerType()) {
+            content = new Powerup(Helpers.randInt(1, 10));
+            Powerup powerup = (Powerup) content;
+            switch (powerup.getPowerType()) {
                 case INVINCIBLE:
                     setImage(Resources.pickup_power_invincible);
                     break;
@@ -85,8 +85,8 @@ public class Pickup extends GameObject {
         } else {
             // new utility
             int randomUtil = Helpers.randInt(1, 20);
-            pickup = new Utility(randomUtil);
-            Utility util = (Utility) pickup;
+            content = new Utility(randomUtil);
+            Utility util = (Utility) content;
 
             switch (util.getType()) {
                 case FREEZE:
@@ -123,7 +123,7 @@ public class Pickup extends GameObject {
     }
 
     public PickupContent getContent() {
-        return pickup;
+        return content;
     }
 
     public void setOnGround(boolean onGround) {
