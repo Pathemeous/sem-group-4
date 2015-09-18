@@ -35,14 +35,12 @@ public class Game implements Renderable, Modifiable {
 
     private final int containerWidth;
     private final int containerHeight;
-    private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
     private final LinkedList<Player> players;
     private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
     private final CollisionHandler<GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
-    private final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
     private final StateBasedGame mainApp;
 
     /**
@@ -67,11 +65,11 @@ public class Game implements Renderable, Modifiable {
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
-        levels = levelFact.getAllLevels();
+        LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;
 
-        this.levelIt = this.levels.iterator();
+        this.levelIt = levels.iterator();
 
         if (!this.levelIt.hasNext() || this.players.isEmpty()) {
             throw new IllegalArgumentException();
@@ -102,7 +100,7 @@ public class Game implements Renderable, Modifiable {
         final LinkedList<? extends GameObject> pickups = getCurLevel().getPickups();
 
         // collision: QuadTree
-        quad.clear();
+        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
         for (GameObject obj : walls) {
             quad.insert(obj);
         }

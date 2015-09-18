@@ -56,16 +56,18 @@ public class QuadTree {
         int locX = (int) bounds.getX();
         int locY = (int) bounds.getY();
 
-        nodes[0] =
-                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY, subWidth,
-                        subHeight));
-        nodes[1] = new QuadTree(depthLevel + 1, new Rectangle(locX, locY, subWidth, subHeight));
-        nodes[2] =
-                new QuadTree(depthLevel + 1, new Rectangle(locX, locY + subHeight, subWidth,
-                        subHeight));
-        nodes[3] =
-                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY + subHeight,
-                        subWidth, subHeight));
+        nodes[0] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX + subWidth, locY, subWidth, subHeight));
+        nodes[1] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX, locY, subWidth, subHeight));
+        nodes[2] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX, locY + subHeight, subWidth, subHeight));
+        nodes[3] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX + subWidth, locY + subHeight, subWidth, subHeight));
     }
 
     /**
