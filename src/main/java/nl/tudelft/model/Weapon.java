@@ -11,11 +11,11 @@ import org.newdawn.slick.Image;
 public class Weapon extends PickupContent {
 
     private Player player;
-    private ArrayList<Projectile> projectiles;
-    private Image img;
-    private WeaponType type;
+    private final ArrayList<Projectile> projectiles;
+    private final Image img;
+    private final WeaponType type;
     private boolean sticky;
-    private int maxCount;
+    private final int maxCount;
 
     /**
      * Creates a new Weapon of the given type and with the given image.
