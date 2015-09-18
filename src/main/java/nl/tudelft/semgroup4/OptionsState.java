@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.model.Game;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
@@ -52,11 +54,16 @@ public class OptionsState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int ticks) {
         if (soundOnOff.isMouseOver()) { 
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                
+                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
+                        "User toggled sound " + (Audio.musicOn ? "off" : "on") );
                 Audio.musicOn = !Audio.musicOn;
             }
         }
         if (backButton.isMouseOver()) {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
+                        "User goes back to main menu" );
                 game.enterState(0);
             }
         }

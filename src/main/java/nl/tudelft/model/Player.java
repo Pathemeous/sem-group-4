@@ -7,6 +7,7 @@ import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;
@@ -107,17 +108,23 @@ public class Player extends AbstractGameObject {
 
         if ((input.isKeyDown(Input.KEY_LEFT) && firstPlayer)
                 || (input.isKeyDown(Input.KEY_A) && !firstPlayer)) {
+            Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
+            
             setAnimationCurrent(animationLeft);
             setLocX(locX - speed);
         }
         if ((input.isKeyDown(Input.KEY_RIGHT) && firstPlayer)
                 || (input.isKeyDown(Input.KEY_D) && !firstPlayer)) {
+            Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
+            
             setAnimationCurrent(animationRight);
             setLocX(locX + speed);
         }
         if ((input.isKeyDown(Input.KEY_SPACE) && firstPlayer)
                 || (input.isKeyDown(Input.KEY_W) && !firstPlayer)) {
             if (fireCounter == 0) {
+                Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
+                
                 fireCounter++;
                 weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                         this.getHeight());
