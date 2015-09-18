@@ -1,14 +1,18 @@
 package nl.tudelft.model;
 
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+import nl.tudelft.semgroup4.logger.DefaultLogger;
+import nl.tudelft.semgroup4.logger.Logger;
+import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.newdawn.slick.GameContainer;
@@ -19,16 +23,24 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class Game implements Renderable, Modifiable {
 
+    public static final Logger LOGGER;
+
+    static {
+        try {
+            LOGGER = new DefaultLogger();
+        } catch (IOException e) {
+            throw new IllegalStateException("This shouldn't happen", e);
+        }
+    }
+
     private final int containerWidth;
     private final int containerHeight;
-    private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
-    private LinkedList<Player> players;
-    private LinkedList<Player> playerToDelete = new LinkedList<>();
+    private final LinkedList<Player> players;
+    private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
-    private final CollisionHandler<GameObject, GameObject> collisionHandler;
+    private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
     private final LevelFactory levelFact;
-    private QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
     private final StateBasedGame mainApp;
 
     /**
@@ -48,15 +60,16 @@ public class Game implements Renderable, Modifiable {
      */
     public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
             int containerHeight) throws IllegalArgumentException {
+        // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
-        levels = levelFact.getAllLevels();
+        LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;
 
-        this.levelIt = this.levels.iterator();
+        this.levelIt = levels.iterator();
 
         if (!this.levelIt.hasNext() || this.players.isEmpty()) {
             throw new IllegalArgumentException();
@@ -80,56 +93,55 @@ public class Game implements Renderable, Modifiable {
      *             - If the game engines crashes.
      */
     public void update(int delta) throws SlickException {
-        final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();
-        ;
-        final LinkedList<? extends GameObject> projectiles = getCurLevel().getProjectiles();
-        final LinkedList<? extends GameObject> bubbles = getCurLevel().getBubbles();
-        final LinkedList<? extends GameObject> pickups = getCurLevel().getPickups();
+        final LinkedList<? extends AbstractGameObject> walls = getCurLevel().getWalls();
+        final LinkedList<? extends AbstractGameObject> projectiles = getCurLevel().getProjectiles();
+        final LinkedList<? extends AbstractGameObject> bubbles = getCurLevel().getBubbles();
+        final LinkedList<? extends AbstractGameObject> pickups = getCurLevel().getPickups();
 
         // collision: QuadTree
-        quad.clear();
-        for (GameObject obj : walls) {
+        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
+        for (AbstractGameObject obj : walls) {
             quad.insert(obj);
         }
-        for (GameObject obj : projectiles) {
+        for (AbstractGameObject obj : projectiles) {
             quad.insert(obj);
         }
-        for (GameObject obj : players) {
+        for (AbstractGameObject obj : players) {
             quad.insert(obj);
         }
 
         // collision : CollisionMap
-        for (GameObject collidesWithA : bubbles) {
+        for (AbstractGameObject collidesWithA : bubbles) {
             // bubbles check against walls, players and projectiles
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
-        for (GameObject collidesWithA : projectiles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    walls, null)) {
+        for (AbstractGameObject collidesWithA : projectiles) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, null)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
-        for (GameObject collidesWithA : players) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    walls, quad)) {
+        for (AbstractGameObject collidesWithA : players) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
-        for (GameObject collidesWithA : pickups) {
+        for (AbstractGameObject collidesWithA : pickups) {
             // collision with walls and players
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
         // Updates
-        for (GameObject gameObject : players) {
+        for (AbstractGameObject gameObject : players) {
             gameObject.update(this, delta);
         }
 
@@ -142,10 +154,14 @@ public class Game implements Renderable, Modifiable {
 
         // Logic
         if (getCurLevel().isCompleted()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+                    "Level has been completed. Go to next level!");
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
-            Resources.timeUp.play();
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
+            
+            Audio.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
                 levelReset();
@@ -157,7 +173,7 @@ public class Game implements Renderable, Modifiable {
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         getCurLevel().render(container, graphics);
 
-        for (GameObject gameObject : players) {
+        for (AbstractGameObject gameObject : players) {
             gameObject.render(container, graphics);
         }
     }
@@ -190,7 +206,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return int - the total amount of lives left until the game is over.
      */
-    private int getPlayerLives() {
+    public int getPlayerLives() {
         int result = 0;
         for (Player player : players) {
             result += player.getLives();
@@ -201,7 +217,7 @@ public class Game implements Renderable, Modifiable {
     /**
      * Calls {@link Player#reset()} on all players in the game.
      */
-    private void resetPlayers() {
+    public void resetPlayers() {
         for (Player player : players) {
             player.reset();
         }
@@ -211,7 +227,7 @@ public class Game implements Renderable, Modifiable {
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
-        Resources.weaponFire.stop();
+        Audio.stopFireSound();
         if (getPlayerLives() > 0) {
             resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getId()));
@@ -241,6 +257,7 @@ public class Game implements Renderable, Modifiable {
      * The game has been completed.
      */
     private void gameCompleted() {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
         mainApp.enterState(0);
     }
 
@@ -252,6 +269,7 @@ public class Game implements Renderable, Modifiable {
      * </p>
      */
     public void gameOver() {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
         mainApp.enterState(0);
     }
 
@@ -260,7 +278,8 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected CollisionHandler<GameObject, GameObject> getNewCollisionHandler() {
+    protected final CollisionHandler<AbstractGameObject, AbstractGameObject> 
+            getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
 
@@ -277,7 +296,7 @@ public class Game implements Renderable, Modifiable {
      * non-player objects to the current level.
      */
     @Override
-    public void toAdd(GameObject obj) {
+    public void toAdd(AbstractGameObject obj) {
         if (!(obj instanceof Player)) {
             curLevel.toAdd(obj);
         }
@@ -288,7 +307,7 @@ public class Game implements Renderable, Modifiable {
      * stored in Game.
      */
     @Override
-    public void toRemove(GameObject obj) {
+    public void toRemove(AbstractGameObject obj) {
         if (obj instanceof Player) {
             playerToDelete.add((Player) obj);
         } else {
@@ -304,5 +323,9 @@ public class Game implements Renderable, Modifiable {
      */
     public LinkedList<Player> getPlayers() {
         return players;
+    }
+
+    public LinkedList<Player> getPlayerToDelete() {
+        return playerToDelete;
     }
 }

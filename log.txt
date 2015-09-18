@@ -1,0 +1,18 @@
+2015-09-18 19:53:56.083 [DEBUG] StartMenu: User enters options menu
+2015-09-18 19:53:56.930 [DEBUG] OptionsMenu: User toggled sound off
+2015-09-18 19:53:57.789 [DEBUG] OptionsMenu: User goes back to main menu
+2015-09-18 19:53:58.510 [DEBUG] StartMenu: User starts a multi-player game
+2015-09-18 19:54:01.072 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:02.056 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:07.073 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:07.706 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:08.472 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:10.038 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:10.806 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:11.323 [DEBUG] Collision: Player hit bubble, and died
+2015-09-18 19:54:15.721 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:17.773 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:18.739 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:19.706 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:21.539 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
+2015-09-18 19:54:22.673 [DEBUG] Collision: Projectile hit bubble, and the bubble is split
