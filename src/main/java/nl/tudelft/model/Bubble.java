@@ -81,12 +81,15 @@ public class Bubble extends GameObject {
             case 6:
                 maxVerticalSpeed = 10.0f;
                 break;
+                
             case 5:
                 maxVerticalSpeed = 9.0f;
                 break;
+                
             case 4:
                 maxVerticalSpeed = 8.0f;
                 break;
+                
             case 3:
                 maxVerticalSpeed = 7.0f;
                 break;
