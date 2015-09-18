@@ -65,7 +65,6 @@ public class Dashboard implements Renderable {
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        final Level curLevel = game.getCurLevel();
 
         float offset = bottom;
         {
