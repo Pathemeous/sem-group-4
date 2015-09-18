@@ -94,7 +94,6 @@ public class Game implements Renderable, Modifiable {
      */
     public void update(int delta) throws SlickException {
         final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();
-        ;
         final LinkedList<? extends GameObject> projectiles = getCurLevel().getProjectiles();
         final LinkedList<? extends GameObject> bubbles = getCurLevel().getBubbles();
         final LinkedList<? extends GameObject> pickups = getCurLevel().getPickups();
