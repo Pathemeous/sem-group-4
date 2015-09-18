@@ -13,18 +13,18 @@ public class PowerupTest {
     @Test
     public void testPowerup() {
         for (int random = 1; random <= 10; random++) {
-            Powerup up = new Powerup(random);
+            Powerup powerup = new Powerup(random);
             
             if (random == 10) {
-                assertEquals(up.getPowerType(), PowerType.LIFE);
+                assertEquals(powerup.getPowerType(), PowerType.LIFE);
             } else if (random > 8) {
-                assertEquals(up.getPowerType(), PowerType.INVINCIBLE);
+                assertEquals(powerup.getPowerType(), PowerType.INVINCIBLE);
             } else if (random > 6) {
-                assertEquals(up.getPowerType(), PowerType.SHIELD);
+                assertEquals(powerup.getPowerType(), PowerType.SHIELD);
             } else if (random > 4) {
-                assertEquals(up.getPowerType(), PowerType.SPEEDUP);
+                assertEquals(powerup.getPowerType(), PowerType.SPEEDUP);
             } else {
-                assertEquals(up.getPowerType(), PowerType.POINTS);
+                assertEquals(powerup.getPowerType(), PowerType.POINTS);
             }
         }
     }
