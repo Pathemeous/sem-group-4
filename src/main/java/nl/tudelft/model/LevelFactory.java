@@ -7,8 +7,8 @@ import nl.tudelft.semgroup4.Resources;
 
 public class LevelFactory {
 
-    private Game game;
-    private int levelCount = 4;
+    private final Game game;
+    private static final int LEVEL_COUNT = 4;
 
     public LevelFactory(Game game) {
         this.game = game;
@@ -26,7 +26,7 @@ public class LevelFactory {
     public LinkedList<Level> getAllLevels() {
         LinkedList<Level> result = new LinkedList<>();
 
-        for (int i = 1; i <= levelCount; i++) {
+        for (int i = 1; i <= LEVEL_COUNT; i++) {
             result.add(getLevel(i));
         }
         return result;

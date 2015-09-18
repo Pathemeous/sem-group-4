@@ -28,7 +28,7 @@ public class GameTest extends OpenGLTestCase {
         LinkedList<Player> playerList = new LinkedList<>();
         playerList.add(mockedPlayer);
         Game game = new Game(mockedSbg, playerList, 0, 0);
-        assertFalse(game.equals(null));
+        assertFalse(game == null);
         assertTrue(game.getPlayers().equals(playerList));
     }
 
@@ -85,7 +85,9 @@ public class GameTest extends OpenGLTestCase {
 
     /**
      * Test to check the level reset.
-     * @throws SlickException - Resources not found.
+     * 
+     * @throws SlickException
+     *             - Resources not found.
      */
     @Test
     public void testLevelReset1() throws SlickException {
@@ -103,7 +105,9 @@ public class GameTest extends OpenGLTestCase {
 
     /**
      * Test to check the level reset.
-     * @throws SlickException - Resources not found.
+     * 
+     * @throws SlickException
+     *             - Resources not found.
      */
     @Test
     public void testLevelReset2() throws SlickException {
@@ -121,7 +125,9 @@ public class GameTest extends OpenGLTestCase {
 
     /**
      * Test to check the level reset.
-     * @throws SlickException - Resources not found.
+     * 
+     * @throws SlickException
+     *             - Resources not found.
      */
     @Test
     public void testNextLevel1() throws SlickException {
@@ -138,7 +144,9 @@ public class GameTest extends OpenGLTestCase {
 
     /**
      * Test to check the level reset.
-     * @throws SlickException - Resources not found.
+     * 
+     * @throws SlickException
+     *             - Resources not found.
      */
     @Test
     public void testNextLevel2() throws SlickException {
@@ -172,7 +180,7 @@ public class GameTest extends OpenGLTestCase {
         CollisionHandler<GameObject, GameObject> handler = null;
         assertEquals(handler, null);
         handler = game.getNewCollisionHandler();
-        assertFalse(handler.equals(null));
+        assertFalse(handler == null);
     }
 
     /**

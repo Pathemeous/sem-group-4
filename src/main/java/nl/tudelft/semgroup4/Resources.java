@@ -50,23 +50,23 @@ public class Resources {
     public static Image bubbleImage5;
     public static Image bubbleImage6;
 
-    public static Image pickup_weapon_regular;
-    public static Image pickup_weapon_double;
-    public static Image pickup_weapon_sticky;
-    public static Image pickup_weapon_flowers;
-    public static Image pickup_power_shield;
-    public static Image pickup_power_invincible;
-    public static Image pickup_power_speedup;
-    public static Image pickup_power_points;
-    public static Image pickup_utility_split;
-    public static Image pickup_utility_freeze;
-    public static Image pickup_utility_slow;
-    public static Image pickup_utility_levelwon;
-    public static Image pickup_utility_time;
-    public static Image pickup_utility_life;
+    public static Image pickupWeaponRegular;
+    public static Image pickupWeaponDouble;
+    public static Image pickupWeaponSticky;
+    public static Image pickupWeaponFlowers;
+    public static Image pickupPowerShield;
+    public static Image pickupPowerInvincible;
+    public static Image pickupPowerSpeedup;
+    public static Image pickupPowerPoints;
+    public static Image pickupUtilitySplit;
+    public static Image pickupUtilityFreeze;
+    public static Image pickupUtilitySlow;
+    public static Image pickupUtilityLevelwon;
+    public static Image pickupUtilityTime;
+    public static Image pickupUtilityLife;
 
-    public static Image power_shield;
-    public static Image power_invincible;
+    public static Image powerShield;
+    public static Image powerInvincible;
 
     public static Sound bubblePop;
     public static Sound weaponFire;
@@ -138,23 +138,23 @@ public class Resources {
         bubbleImage5 = new Image("src/main/resources/img/rball5.png");
         bubbleImage6 = new Image("src/main/resources/img/rball6.png");
 
-        pickup_weapon_regular = new Image("src/main/resources/img/pickup_regular_weapon.png");
-        pickup_weapon_double = new Image("src/main/resources/img/pickup_weapon_double.png");
-        pickup_weapon_sticky = new Image("src/main/resources/img/pickup_sticky.png");
-        pickup_weapon_flowers = new Image("src/main/resources/img/pickup_flowers.png");
-        pickup_power_shield = new Image("src/main/resources/img/pickup_shield.png");
-        pickup_power_invincible = new Image("src/main/resources/img/pickup_invincible.png");
-        pickup_power_points = new Image("src/main/resources/img/pickup_points.png");
-        pickup_power_speedup = new Image("src/main/resources/img/pickup_speed.png");
-        pickup_utility_split = new Image("src/main/resources/img/pickup_split.png");
-        pickup_utility_freeze = new Image("src/main/resources/img/pickup_freeze.png");
-        pickup_utility_slow = new Image("src/main/resources/img/pickup_slow_down.png");
-        pickup_utility_levelwon = new Image("src/main/resources/img/pickup_level_won.png");
-        pickup_utility_time = new Image("src/main/resources/img/pickup_time.png");
-        pickup_utility_life = new Image("src/main/resources/img/pickup_life.png");
+        pickupWeaponRegular = new Image("src/main/resources/img/pickup_regular_weapon.png");
+        pickupWeaponDouble = new Image("src/main/resources/img/pickup_weapon_double.png");
+        pickupWeaponSticky = new Image("src/main/resources/img/pickup_sticky.png");
+        pickupWeaponFlowers = new Image("src/main/resources/img/pickup_flowers.png");
+        pickupPowerShield = new Image("src/main/resources/img/pickup_shield.png");
+        pickupPowerInvincible = new Image("src/main/resources/img/pickup_invincible.png");
+        pickupPowerPoints = new Image("src/main/resources/img/pickup_points.png");
+        pickupPowerSpeedup = new Image("src/main/resources/img/pickup_speed.png");
+        pickupUtilitySplit = new Image("src/main/resources/img/pickup_split.png");
+        pickupUtilityFreeze = new Image("src/main/resources/img/pickup_freeze.png");
+        pickupUtilitySlow = new Image("src/main/resources/img/pickup_slow_down.png");
+        pickupUtilityLevelwon = new Image("src/main/resources/img/pickup_level_won.png");
+        pickupUtilityTime = new Image("src/main/resources/img/pickup_time.png");
+        pickupUtilityLife = new Image("src/main/resources/img/pickup_life.png");
 
-        power_invincible = new Image("src/main/resources/img/powerup_invincible.png");
-        power_shield = new Image("src/main/resources/img/powerup_shield.png");
+        powerInvincible = new Image("src/main/resources/img/powerup_invincible.png");
+        powerShield = new Image("src/main/resources/img/powerup_shield.png");
     }
 
 }

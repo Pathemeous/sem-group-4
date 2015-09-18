@@ -13,17 +13,17 @@ import org.junit.Test;
  */
 public class PlayerTest extends OpenGLTestCase {
 
-    private final int speed = 4;
-    private final int playerScore = 100;
-    private final int playerLives = 3;
-    private final int playerTotalLives = 4;
+    private static final int SPEED = 4;
+    private static final int PLAYER_SCORE = 100;
+    private static final int PLAYER_LIVES = 3;
+    private static final int TOTAL_LIVES = 4;
 
     @Test
     public final void testConstructor() {
         Player player = new Player(0, 0, null, true);
         Weapon weapon = new Weapon(null, Pickup.WeaponType.REGULAR);
         assertEquals(player.getWeapon().getType(), weapon.getType());
-        assertEquals(player.getSpeed(), speed);
+        assertEquals(player.getSpeed(), SPEED);
         assertEquals(player.getPowerUps().size(), 0);
     }
 
@@ -35,7 +35,7 @@ public class PlayerTest extends OpenGLTestCase {
         powerup.setPowerType(PowerType.INVINCIBLE);
         player.getPowerUps().add(powerup);
         player.setWeapon(weapon);
-        player.setFireCounter(speed);
+        player.setFireCounter(SPEED);
         player.reset();
         assertEquals(player.getFireCounter(), 0);
         assertEquals(player.getPowerUps().size(), 0);
@@ -46,9 +46,9 @@ public class PlayerTest extends OpenGLTestCase {
     @Test
     public final void testRemoveSpeedUp() {
         Player player = new Player(0, 0, null, true);
-        player.setSpeed(2 * speed);
+        player.setSpeed(2 * SPEED);
         player.removeSpeedup();
-        assertEquals(player.getSpeed(), speed);
+        assertEquals(player.getSpeed(), SPEED);
     }
 
 
@@ -75,12 +75,12 @@ public class PlayerTest extends OpenGLTestCase {
         assertEquals(player.getPowerUps().size(), 1);
         player.addPowerup(speedUp);
         assertEquals(player.getPowerUps().size(), 1);
-        assertEquals(player.getSpeed(), 2 * speed);
+        assertEquals(player.getSpeed(), 2 * SPEED);
         assertEquals(player.getScore(), 0);
         player.addPowerup(score);
-        assertEquals(player.getScore(), playerScore);
-        assertEquals(player.getLives(), playerLives);
+        assertEquals(player.getScore(), PLAYER_SCORE);
+        assertEquals(player.getLives(), PLAYER_LIVES);
         player.addPowerup(lives);
-        assertEquals(player.getLives(), playerTotalLives);
+        assertEquals(player.getLives(), TOTAL_LIVES);
     }
 }

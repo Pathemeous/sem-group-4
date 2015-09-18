@@ -49,19 +49,19 @@ public class PickupTest extends OpenGLTestCase {
             Powerup content = (Powerup)pickup.getContent();
             switch (content.getPowerType()) {
                 case INVINCIBLE:
-                    assertEquals(pickup.getImage(), Resources.pickup_power_invincible);
+                    assertEquals(pickup.getImage(), Resources.pickupPowerInvincible);
                     break;
                 case LIFE:
-                    assertEquals(pickup.getImage(), Resources.pickup_utility_life);
+                    assertEquals(pickup.getImage(), Resources.pickupUtilityLife);
                     break;
                 case POINTS:
-                    assertEquals(pickup.getImage(), Resources.pickup_power_points);
+                    assertEquals(pickup.getImage(), Resources.pickupPowerPoints);
                     break;
                 case SHIELD:
-                    assertEquals(pickup.getImage(), Resources.pickup_power_shield);
+                    assertEquals(pickup.getImage(), Resources.pickupPowerShield);
                     break;
                 case SPEEDUP:
-                    assertEquals(pickup.getImage(), Resources.pickup_power_speedup);
+                    assertEquals(pickup.getImage(), Resources.pickupPowerSpeedup);
                     break;
                 default:
                     break;
@@ -72,19 +72,19 @@ public class PickupTest extends OpenGLTestCase {
 
             switch (content2.getType()) {
                 case FREEZE:
-                    assertEquals(pickup2.getImage(), Resources.pickup_utility_freeze);
+                    assertEquals(pickup2.getImage(), Resources.pickupUtilityFreeze);
                     break;
                 case LEVELWON:
-                    assertEquals(pickup2.getImage(), Resources.pickup_utility_levelwon);
+                    assertEquals(pickup2.getImage(), Resources.pickupUtilityLevelwon);
                     break;
                 case SLOW:
-                    assertEquals(pickup2.getImage(), Resources.pickup_utility_slow);
+                    assertEquals(pickup2.getImage(), Resources.pickupUtilitySlow);
                     break;
                 case SPLIT:
-                    assertEquals(pickup2.getImage(), Resources.pickup_utility_split);
+                    assertEquals(pickup2.getImage(), Resources.pickupUtilitySplit);
                     break;
                 case TIME:
-                    assertEquals(pickup2.getImage(), Resources.pickup_utility_time);
+                    assertEquals(pickup2.getImage(), Resources.pickupUtilityTime);
                     break;
                 default:
                     break;

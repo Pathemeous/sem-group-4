@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
 public class Pickup extends GameObject {
 
     private boolean onGround;
-    private PickupContent pickup;
+    private PickupContent content;
     private int tickCount;
 
     public enum WeaponType {
@@ -37,23 +37,23 @@ public class Pickup extends GameObject {
             switch (randomWeaponNr) {
             // regular weapon
                 case 1:
-                    pickup = new Weapon(Resources.weaponImageRegular, WeaponType.REGULAR);
-                    setImage(Resources.pickup_weapon_regular);
+                    content = new Weapon(Resources.weaponImageRegular, WeaponType.REGULAR);
+                    setImage(Resources.pickupWeaponRegular);
                     break;
                 // Double shoot
                 case 2:
-                    pickup = new Weapon(Resources.weaponImageRegular, WeaponType.DOUBLE);
-                    setImage(Resources.pickup_weapon_double);
+                    content = new Weapon(Resources.weaponImageRegular, WeaponType.DOUBLE);
+                    setImage(Resources.pickupWeaponDouble);
                     break;
                 // Sticky weapon
                 case 3:
-                    pickup = new Weapon(Resources.weaponImageSticky, WeaponType.STICKY);
-                    setImage(Resources.pickup_weapon_sticky);
+                    content = new Weapon(Resources.weaponImageSticky, WeaponType.STICKY);
+                    setImage(Resources.pickupWeaponSticky);
                     break;
                 // Flower weapon
                 case 4:
-                    pickup = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
-                    setImage(Resources.pickup_weapon_flowers);
+                    content = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
+                    setImage(Resources.pickupWeaponFlowers);
                     break;
                 default:
                     break;
@@ -61,23 +61,23 @@ public class Pickup extends GameObject {
 
         } else if (random > 3 && random < 7) {
             // new powerup
-            pickup = new Powerup(Helpers.randInt(1, 10));
-            Powerup up = (Powerup) pickup;
-            switch (up.getPowerType()) {
+            content = new Powerup(Helpers.randInt(1, 10));
+            Powerup powerup = (Powerup) content;
+            switch (powerup.getPowerType()) {
                 case INVINCIBLE:
-                    setImage(Resources.pickup_power_invincible);
+                    setImage(Resources.pickupPowerInvincible);
                     break;
                 case POINTS:
-                    setImage(Resources.pickup_power_points);
+                    setImage(Resources.pickupPowerPoints);
                     break;
                 case SHIELD:
-                    setImage(Resources.pickup_power_shield);
+                    setImage(Resources.pickupPowerShield);
                     break;
                 case SPEEDUP:
-                    setImage(Resources.pickup_power_speedup);
+                    setImage(Resources.pickupPowerSpeedup);
                     break;
                 case LIFE:
-                    setImage(Resources.pickup_utility_life);
+                    setImage(Resources.pickupUtilityLife);
                     break;
                 default:
                     break;
@@ -85,24 +85,24 @@ public class Pickup extends GameObject {
         } else {
             // new utility
             int randomUtil = Helpers.randInt(1, 20);
-            pickup = new Utility(randomUtil);
-            Utility util = (Utility) pickup;
+            content = new Utility(randomUtil);
+            Utility util = (Utility) content;
 
             switch (util.getType()) {
                 case FREEZE:
-                    setImage(Resources.pickup_utility_freeze);
+                    setImage(Resources.pickupUtilityFreeze);
                     break;
                 case LEVELWON:
-                    setImage(Resources.pickup_utility_levelwon);
+                    setImage(Resources.pickupUtilityLevelwon);
                     break;
                 case SLOW:
-                    setImage(Resources.pickup_utility_slow);
+                    setImage(Resources.pickupUtilitySlow);
                     break;
                 case SPLIT:
-                    setImage(Resources.pickup_utility_split);
+                    setImage(Resources.pickupUtilitySplit);
                     break;
                 case TIME:
-                    setImage(Resources.pickup_utility_time);
+                    setImage(Resources.pickupUtilityTime);
                     break;
                 default:
                     break;
@@ -123,7 +123,7 @@ public class Pickup extends GameObject {
     }
 
     public PickupContent getContent() {
-        return pickup;
+        return content;
     }
 
     public void setOnGround(boolean onGround) {
