@@ -8,13 +8,14 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
+import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -157,7 +158,7 @@ public class Game implements Renderable, Modifiable {
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
-            Resources.timeUp.play();
+            Audio.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
                 levelReset();
@@ -223,7 +224,7 @@ public class Game implements Renderable, Modifiable {
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
-        Resources.weaponFire.stop();
+        Audio.stopFireSound();
         if (getPlayerLives() > 0) {
             resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getId()));
