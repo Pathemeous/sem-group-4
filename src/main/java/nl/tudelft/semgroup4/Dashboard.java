@@ -24,12 +24,14 @@ public class Dashboard implements Renderable {
     private static float border = 2;
     private static float timeBarHeight = 30;
 
-    private Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft.copy();
-    private Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight.copy();
-    private Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
-    private Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
-    private Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
-    private Image levelContainer = Resources.levelContainer.copy();
+    private final Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft
+            .copy();
+    private final Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight
+            .copy();
+    private final Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
+    private final Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
+    private final Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
+    private final Image levelContainer = Resources.levelContainer.copy();
 
     private final Game game;
     private final Rectangle timeBarBackground;
@@ -54,16 +56,15 @@ public class Dashboard implements Renderable {
         this.right = right;
         this.bottom = bottom;
 
-        timeBarBackground = new Rectangle(left + margin, 0, right - left - 2 * margin,
-                timeBarHeight);
-        timeBar = new Rectangle(timeBarBackground.getX() + border, 0, timeBarBackground.getWidth()
-                - 2 * border, timeBarBackground.getHeight() - 2 * border);
+        timeBarBackground =
+                new Rectangle(left + margin, 0, right - left - 2 * margin, timeBarHeight);
+        timeBar =
+                new Rectangle(timeBarBackground.getX() + border, 0, timeBarBackground.getWidth()
+                        - 2 * border, timeBarBackground.getHeight() - 2 * border);
     }
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        final Level curLevel = game.getCurLevel();
-        curLevel.getTime();
 
         float offset = bottom;
         {
@@ -76,8 +77,8 @@ public class Dashboard implements Renderable {
                 ttf.drawString(
                         left + margin + dashboardPlayerContainerLeft.getWidth() - 2 * margin
                                 - ttf.getWidth(scoreString),
-                        bottom - margin - dashboardPlayerContainerLeft.getHeight() / 2
-                                - ttf.getHeight(scoreString) / 2, scoreString, Color.darkGray);
+                        bottom - margin - dashboardPlayerContainerLeft.getHeight() / 2.0f
+                                - ttf.getHeight(scoreString) / 2.0f, scoreString, Color.darkGray);
             }
             {
                 // right side
@@ -88,8 +89,8 @@ public class Dashboard implements Renderable {
                 ttf.drawString(
                         right - margin - dashboardPlayerContainerRight.getWidth() + 125
                                 - ttf.getWidth(scoreString),
-                        bottom - margin - dashboardPlayerContainerRight.getHeight() / 2
-                                - ttf.getHeight(scoreString) / 2, scoreString, Color.darkGray);
+                        bottom - margin - dashboardPlayerContainerRight.getHeight() / 2.0f
+                                - ttf.getHeight(scoreString) / 2.0f, scoreString, Color.darkGray);
             }
         }
         offset -= (margin + dashboardPlayerContainerLeft.getHeight());
@@ -154,7 +155,7 @@ public class Dashboard implements Renderable {
 
             String levelIdString = String.valueOf(levelId);
             ttf.drawString((right - left) / 2 - ttf.getWidth(levelIdString) / 2, bottom - margin
-                    - (levelContainer.getHeight() / 4) - ttf.getHeight(levelIdString) / 2,
+                    - (levelContainer.getHeight() / 4.0f) - ttf.getHeight(levelIdString) / 2.0f,
                     levelIdString, Color.red);
         }
 
@@ -163,15 +164,18 @@ public class Dashboard implements Renderable {
     /**
      * Updates the dashboard every tick.
      * 
-     * @param delta int - Time since last call.
-     * @throws SlickException - If the Game engine crashes
+     * @param delta
+     *            int - Time since last call.
+     * @throws SlickException
+     *             - If the Game engine crashes
      */
     public void update(int delta) throws SlickException {
         timeBar.setWidth((right - left - margin * 2)
                 * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));
 
         List<Player> players = game.getPlayers();
-        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven zolang
+        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven
+        // zolang
         // Game leeft
         // moet alleen niet gerendered, geupdate of gecollide worden als eentje dood is
         livesLeft = 0;

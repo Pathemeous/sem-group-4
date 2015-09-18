@@ -1,5 +1,9 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.model.Game;
+import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.util.Audio;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -46,24 +50,30 @@ public class StartScreenState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame game, int ticks)
             throws SlickException {
         if (!Resources.titleScreenMusic.playing()) {
-            Resources.titleScreenMusic.loop();
+            Audio.playTitleScreen();
         }
-        if (!alreadyAdded) {
-            alreadyAdded = true;
-            game.getState(1).init(container, game);
-            game.getState(2).init(container, game);
-        }
+//      
         // checks if the left mouse button is pressed and where it was pressed to determine
         // what action to perform
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverOnePlayer.isMouseOver()) {
-                game.enterState(1);
+                game.getState(1).init(container, game);
+                game.enterState(1);  
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User starts a single player game");
             } else if (mouseOverTwoPlayer.isMouseOver()) {
+                game.getState(2).init(container, game);
                 game.enterState(2);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User starts a multi-player game");
             } else if (mouseOverOptions.isMouseOver()) {
-                System.out.println("Options menu opened");
+                game.enterState(3);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User enters options menu");
             } else if (mouseOverQuit.isMouseOver()) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User quits the application");
                 container.exit();
             }
         }

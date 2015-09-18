@@ -8,35 +8,35 @@ import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.Updateable;
-
+import nl.tudelft.semgroup4.util.Helpers;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
 public class Level implements Updateable, Renderable, Modifiable {
 
-    private LinkedList<Wall> walls;
-    private LinkedList<Projectile> projectiles;
-    private LinkedList<Pickup> pickups;
-    private LinkedList<Bubble> bubbles;
-    private LinkedList<GameObject> toRemove = new LinkedList<>();
-    private LinkedList<GameObject> toAdd = new LinkedList<>();
-    private final int extraTime = 20000;
+    private final LinkedList<Wall> walls;
+    private final LinkedList<Projectile> projectiles;
+    private final LinkedList<Pickup> pickups;
+    private final LinkedList<Bubble> bubbles;
+    private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
+    private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
+    private static final int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
     private double speed;
     private int utilSlowCounter = 0;
     private boolean slowBalls = false;
-    private final int utilSlowdownTime = 300;
+    private static final int UTIL_SLOWDOWN_TIME = 300;
     private int utilFreezeCounter = 0;
     private boolean frozenBalls = false;
-    private final int utilFreezeTime = 300;
+    private static final int UTIL_FREEZE_TIME = 300;
 
-    private int id;
+    private final int id;
 
     /**
      * Creates a level object with an object list, a timer and a speed.
-     * 
+     *
      * @param walls
      *            LinkedList - list containing all walls in this level.
      * @param projectiles
@@ -67,21 +67,21 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        for (GameObject gameObject : bubbles) {
+        for (AbstractGameObject gameObject : bubbles) {
             gameObject.update(this, delta);
         }
-        for (GameObject gameObject : projectiles) {
+        for (AbstractGameObject gameObject : projectiles) {
             gameObject.update(this, delta);
         }
-        for (GameObject gameObject : pickups) {
+        for (AbstractGameObject gameObject : pickups) {
             gameObject.update(this, delta);
         }
-        for (GameObject gameObject : walls) {
+        for (AbstractGameObject gameObject : walls) {
             gameObject.update(this, delta);
         }
 
         // Update the object lists.
-        for (GameObject obj : toAdd) {
+        for (AbstractGameObject obj : pendingAddition) {
             if (obj instanceof Projectile) {
                 projectiles.add((Projectile) obj);
             }
@@ -96,7 +96,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             }
         }
 
-        for (GameObject obj : toRemove) {
+        for (AbstractGameObject obj : pendingRemoval) {
             if (obj instanceof Projectile) {
                 projectiles.remove(obj);
             }
@@ -111,25 +111,25 @@ public class Level implements Updateable, Renderable, Modifiable {
             }
         }
 
-        toAdd.clear();
-        toRemove.clear();
+        pendingAddition.clear();
+        pendingRemoval.clear();
 
         time -= delta;
 
-        slowBalls();
+        setSlowBalls();
         freezeBalls();
     }
 
-    private void slowBalls() {
+    private void setSlowBalls() {
         utilSlowCounter =
-                (utilSlowCounter <= utilSlowdownTime && utilSlowCounter != 0) ? utilSlowCounter + 1
-                        : 0;
+                (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0)
+                        ? utilSlowCounter + 1 : 0;
         if (slowBalls) {
             for (Bubble bubble : bubbles) {
                 bubble.slowBubbleDown(true);
             }
         }
-        if (utilSlowCounter == utilSlowdownTime) {
+        if (utilSlowCounter == UTIL_SLOWDOWN_TIME) {
             slowBalls = false;
             for (Bubble bubble : bubbles) {
                 bubble.slowBubbleDown(false);
@@ -139,14 +139,14 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     private void freezeBalls() {
         utilFreezeCounter =
-                (utilFreezeCounter <= utilFreezeTime && utilFreezeCounter != 0)
+                (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0)
                         ? utilFreezeCounter + 1 : 0;
         if (frozenBalls) {
             for (Bubble bubble : bubbles) {
                 bubble.freeze(true);
             }
         }
-        if (utilFreezeCounter == utilFreezeTime) {
+        if (utilFreezeCounter == UTIL_FREEZE_TIME) {
             frozenBalls = false;
             for (Bubble bubble : bubbles) {
                 bubble.freeze(false);
@@ -161,59 +161,33 @@ public class Level implements Updateable, Renderable, Modifiable {
                 container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(),
                 Resources.backgroundImage.getHeight());
 
-        for (GameObject gameObject : projectiles) {
+        for (AbstractGameObject gameObject : projectiles) {
             gameObject.render(container, graphics);
         }
-        for (GameObject gameObject : walls) {
+        for (AbstractGameObject gameObject : walls) {
             gameObject.render(container, graphics);
         }
-        for (GameObject gameObject : bubbles) {
+        for (AbstractGameObject gameObject : bubbles) {
             gameObject.render(container, graphics);
         }
-        for (GameObject gameObject : pickups) {
+        for (AbstractGameObject gameObject : pickups) {
             gameObject.render(container, graphics);
         }
     }
 
     @Override
-    public void toAdd(GameObject obj) {
-        toAdd.add(obj);
-        // if (obj instanceof Projectile) {
-        // projectiles.add((Projectile)obj);
-        // return projectiles.contains(obj);
-        // }
-        // if (obj instanceof Bubble) {
-        // bubbles.add((Bubble)obj);
-        // return bubbles.contains(obj);
-        // }
-        // if (obj instanceof Wall) {
-        // walls.add((Wall)obj);
-        // return walls.contains(obj);
-        // }
-        // return false;
+    public void toAdd(AbstractGameObject obj) {
+        pendingAddition.add(obj);
     }
 
     @Override
-    public void toRemove(GameObject obj) {
-        toRemove.add(obj);
-        // if (obj instanceof Projectile) {
-        // projectiles.remove(obj);
-        // return !projectiles.contains(obj);
-        // }
-        // if (obj instanceof Bubble) {
-        // bubbles.remove(obj);
-        // return !bubbles.contains(obj);
-        // }
-        // if (obj instanceof Wall) {
-        // walls.remove(obj);
-        // return !walls.contains(obj);
-        // }
-        // return false;
+    public void toRemove(AbstractGameObject obj) {
+        pendingRemoval.add(obj);
     }
 
     /**
      * Applies the effects of the utility to the state of the level.
-     * 
+     *
      * @param util
      *            Utility - The utility to apply.
      * @throws IllegalArgumentException
@@ -227,8 +201,6 @@ public class Level implements Updateable, Renderable, Modifiable {
                 break;
             case LEVELWON:
                 splitAllBubbles(bubbles, true);
-                // execute method here where the level is won (maybe split all the balls till
-                // they're gona first)
                 break;
             case SLOW:
                 utilSlowCounter++;
@@ -238,7 +210,7 @@ public class Level implements Updateable, Renderable, Modifiable {
                 splitAllBubbles(bubbles, false);
                 break;
             case TIME:
-                time = (time + extraTime < maxTime) ? time + extraTime : maxTime;
+                time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
                 break;
             default:
                 throw new IllegalArgumentException();
@@ -248,7 +220,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
         for (Bubble bubble : bubbles) {
             if (bubble.getSize() > 1 || endLevel) {
-                LinkedList<Bubble> newBubbles = bubble.split(this);
+                LinkedList<Bubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
                 splitAllBubbles(newBubbles, endLevel);
             }
         }
@@ -296,11 +268,11 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Checks whether the level is completed.
-     * 
+     *
      * <p>
      * A level is completed when there are no bubbles left.
      * </p>
-     * 
+     *
      * @return true iff there are no bubbles remaining in this level.
      */
     public boolean isCompleted() {
@@ -309,11 +281,26 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Checks whether the level timer has expired.
-     * 
+     *
      * @return boolean - true if the timer hits zero or below.
      */
     public boolean timerExpired() {
         return this.time <= 0;
     }
 
+    public LinkedList<AbstractGameObject> getToRemove() {
+        return pendingRemoval;
+    }
+
+    public LinkedList<AbstractGameObject> getToAdd() {
+        return pendingAddition;
+    }
+
+    public void setUtilSlowCounter(int counter) {
+        utilSlowCounter = counter;
+    }
+
+    public void setUtilFreezeCounter(int counter) {
+        utilFreezeCounter = counter;
+    }
 }
