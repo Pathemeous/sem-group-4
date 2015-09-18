@@ -20,4 +20,9 @@ public class FileOutlet implements LoggerOutlet {
         printWriter.println(message);
         printWriter.flush();
     }
+
+    @Override
+    public void close() throws IOException {
+        printWriter.close();
+    }
 }
