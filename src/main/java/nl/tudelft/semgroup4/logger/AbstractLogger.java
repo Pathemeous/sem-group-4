@@ -52,8 +52,8 @@ public abstract class AbstractLogger implements Logger {
     @Override
     public void close() throws IOException {
         for (Closeable c : new Closeable[]{
-                consoleOutlet,
-                fileOutlet,
+            consoleOutlet,
+            fileOutlet,
         }) {
             c.close();
         }
