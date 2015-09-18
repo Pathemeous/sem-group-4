@@ -86,7 +86,7 @@ public class Player extends GameObject {
         } else if (isInvincible()) {
             if ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0)
                     || invincibilityCounter < 540) {
-                graphics.drawImage(Resources.power_invincible, getLocX(), getLocY());
+                graphics.drawImage(Resources.powerInvincible, getLocX(), getLocY());
             }
         }
         graphics.setColor(Color.green);

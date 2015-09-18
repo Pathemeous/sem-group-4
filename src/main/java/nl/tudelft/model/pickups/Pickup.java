@@ -38,22 +38,22 @@ public class Pickup extends GameObject {
             // regular weapon
                 case 1:
                     content = new Weapon(Resources.weaponImageRegular, WeaponType.REGULAR);
-                    setImage(Resources.pickup_weapon_regular);
+                    setImage(Resources.pickupWeaponRegular);
                     break;
                 // Double shoot
                 case 2:
                     content = new Weapon(Resources.weaponImageRegular, WeaponType.DOUBLE);
-                    setImage(Resources.pickup_weapon_double);
+                    setImage(Resources.pickupWeaponDouble);
                     break;
                 // Sticky weapon
                 case 3:
                     content = new Weapon(Resources.weaponImageSticky, WeaponType.STICKY);
-                    setImage(Resources.pickup_weapon_sticky);
+                    setImage(Resources.pickupWeaponSticky);
                     break;
                 // Flower weapon
                 case 4:
                     content = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
-                    setImage(Resources.pickup_weapon_flowers);
+                    setImage(Resources.pickupWeaponFlowers);
                     break;
                 default:
                     break;
@@ -65,19 +65,19 @@ public class Pickup extends GameObject {
             Powerup powerup = (Powerup) content;
             switch (powerup.getPowerType()) {
                 case INVINCIBLE:
-                    setImage(Resources.pickup_power_invincible);
+                    setImage(Resources.pickupPowerInvincible);
                     break;
                 case POINTS:
-                    setImage(Resources.pickup_power_points);
+                    setImage(Resources.pickupPowerPoints);
                     break;
                 case SHIELD:
-                    setImage(Resources.pickup_power_shield);
+                    setImage(Resources.pickupPowerShield);
                     break;
                 case SPEEDUP:
-                    setImage(Resources.pickup_power_speedup);
+                    setImage(Resources.pickupPowerSpeedup);
                     break;
                 case LIFE:
-                    setImage(Resources.pickup_utility_life);
+                    setImage(Resources.pickupUtilityLife);
                     break;
                 default:
                     break;
@@ -90,19 +90,19 @@ public class Pickup extends GameObject {
 
             switch (util.getType()) {
                 case FREEZE:
-                    setImage(Resources.pickup_utility_freeze);
+                    setImage(Resources.pickupUtilityFreeze);
                     break;
                 case LEVELWON:
-                    setImage(Resources.pickup_utility_levelwon);
+                    setImage(Resources.pickupUtilityLevelwon);
                     break;
                 case SLOW:
-                    setImage(Resources.pickup_utility_slow);
+                    setImage(Resources.pickupUtilitySlow);
                     break;
                 case SPLIT:
-                    setImage(Resources.pickup_utility_split);
+                    setImage(Resources.pickupUtilitySplit);
                     break;
                 case TIME:
-                    setImage(Resources.pickup_utility_time);
+                    setImage(Resources.pickupUtilityTime);
                     break;
                 default:
                     break;
