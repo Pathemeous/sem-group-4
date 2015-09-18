@@ -11,7 +11,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-public class Projectile extends GameObject {
+public class Projectile extends AbstractEnvironmentObject {
 
     private final int speed;
     private int width;
