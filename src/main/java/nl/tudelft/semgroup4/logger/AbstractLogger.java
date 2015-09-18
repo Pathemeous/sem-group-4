@@ -17,7 +17,7 @@ public abstract class AbstractLogger implements Logger {
     private final Date currentDate = new Date();
     private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
-    private LogSeverity severity = LogSeverity.ERROR;
+    private LogSeverity severity = LogSeverity.DEBUG;
 
     private boolean enabled = true;
     private boolean loggingToConsole = true;

@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.model.Game;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
@@ -57,13 +59,21 @@ public class StartScreenState extends BasicGameState {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverOnePlayer.isMouseOver()) {
                 game.getState(1).init(container, game);
-                game.enterState(1);                
+                game.enterState(1);  
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User starts a single player game");
             } else if (mouseOverTwoPlayer.isMouseOver()) {
                 game.getState(2).init(container, game);
                 game.enterState(2);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User starts a multi-player game");
             } else if (mouseOverOptions.isMouseOver()) {
                 game.enterState(3);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User enters options menu");
             } else if (mouseOverQuit.isMouseOver()) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                        "User quits the application");
                 container.exit();
             }
         }

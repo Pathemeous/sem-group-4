@@ -8,6 +8,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 
@@ -128,6 +129,8 @@ public class GameState extends BasicGameState {
         // checks if the escape key is pressed, if so, the gameState pauses
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+                    "Player " + (paused ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
             paused = !paused;
         }

@@ -1,7 +1,5 @@
 package nl.tudelft.model;
 
-import static nl.tudelft.semgroup4.logger.LogSeverity.VERBOSE;
-
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -13,6 +11,7 @@ import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 
@@ -61,7 +60,7 @@ public class Game implements Renderable, Modifiable {
      */
     public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
             int containerHeight) throws IllegalArgumentException {
-        LOGGER.log(VERBOSE, "Game", "constructor called");
+        // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
@@ -95,14 +94,12 @@ public class Game implements Renderable, Modifiable {
      */
     public void update(int delta) throws SlickException {
         final LinkedList<? extends AbstractGameObject> walls = getCurLevel().getWalls();
-        final LinkedList<? extends AbstractGameObject> projectiles =
-                getCurLevel().getProjectiles();
+        final LinkedList<? extends AbstractGameObject> projectiles = getCurLevel().getProjectiles();
         final LinkedList<? extends AbstractGameObject> bubbles = getCurLevel().getBubbles();
         final LinkedList<? extends AbstractGameObject> pickups = getCurLevel().getPickups();
 
         // collision: QuadTree
-        final QuadTree quad =
-                new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
+        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
         for (AbstractGameObject obj : walls) {
             quad.insert(obj);
         }
@@ -157,9 +154,13 @@ public class Game implements Renderable, Modifiable {
 
         // Logic
         if (getCurLevel().isCompleted()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+                    "Level has been completed. Go to next level!");
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
+            
             Audio.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
@@ -256,6 +257,7 @@ public class Game implements Renderable, Modifiable {
      * The game has been completed.
      */
     private void gameCompleted() {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
         mainApp.enterState(0);
     }
 
@@ -267,6 +269,7 @@ public class Game implements Renderable, Modifiable {
      * </p>
      */
     public void gameOver() {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
         mainApp.enterState(0);
     }
 
@@ -275,7 +278,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected final CollisionHandler<AbstractGameObject, AbstractGameObject>
+    protected final CollisionHandler<AbstractGameObject, AbstractGameObject> 
             getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
