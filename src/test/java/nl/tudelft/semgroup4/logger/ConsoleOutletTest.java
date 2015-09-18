@@ -3,6 +3,7 @@ package nl.tudelft.semgroup4.logger;
 import static org.junit.Assert.assertEquals;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
 
 import org.junit.After;
@@ -49,6 +50,12 @@ public class ConsoleOutletTest {
         assertEquals(
                 "SomeMessage1\nSomeMessage2\nSomeMessage3\nSomeMessage4\n",
                 outContent.toString());
+    }
+
+    @Test
+    public void testClose() throws IOException {
+        ConsoleOutlet outlet = new ConsoleOutlet();
+        outlet.close();
     }
 
 }

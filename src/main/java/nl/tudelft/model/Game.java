@@ -8,13 +8,14 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
+import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -35,14 +36,12 @@ public class Game implements Renderable, Modifiable {
 
     private final int containerWidth;
     private final int containerHeight;
-    private final LinkedList<Level> levels;
     private final Iterator<Level> levelIt;
     private final LinkedList<Player> players;
     private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
     private final CollisionHandler<GameObject, GameObject> collisionHandler;
     private final LevelFactory levelFact;
-    private final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, 1200, 800));
     private final StateBasedGame mainApp;
 
     /**
@@ -67,11 +66,11 @@ public class Game implements Renderable, Modifiable {
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
         this.levelFact = new LevelFactory(this);
-        levels = levelFact.getAllLevels();
+        LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;
 
-        this.levelIt = this.levels.iterator();
+        this.levelIt = levels.iterator();
 
         if (!this.levelIt.hasNext() || this.players.isEmpty()) {
             throw new IllegalArgumentException();
@@ -96,13 +95,12 @@ public class Game implements Renderable, Modifiable {
      */
     public void update(int delta) throws SlickException {
         final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();
-        ;
         final LinkedList<? extends GameObject> projectiles = getCurLevel().getProjectiles();
         final LinkedList<? extends GameObject> bubbles = getCurLevel().getBubbles();
         final LinkedList<? extends GameObject> pickups = getCurLevel().getPickups();
 
         // collision: QuadTree
-        quad.clear();
+        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
         for (GameObject obj : walls) {
             quad.insert(obj);
         }
@@ -160,7 +158,7 @@ public class Game implements Renderable, Modifiable {
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
-            Resources.timeUp.play();
+            Audio.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
                 levelReset();
@@ -226,7 +224,7 @@ public class Game implements Renderable, Modifiable {
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
-        Resources.weaponFire.stop();
+        Audio.stopFireSound();
         if (getPlayerLives() > 0) {
             resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getId()));
