@@ -11,6 +11,7 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Utility;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.geom.Shape;
@@ -67,6 +68,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     }
 
     private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player - wall collision");
+        
         final Shape playerRect = player.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -80,6 +83,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Bubble - wall collision");
+        
         float offset = bubble.getMaxSpeed();
 
         if (wall.getLocX() < bubble.getLocX()
@@ -101,6 +106,7 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "bubble - player collision");
         // TODO: Add code to reset the level.
 
         if (player.isInvincible()) {
@@ -120,6 +126,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     final CollisionHandler<Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Projectile - wall collision");
+        
         final Shape projectileRect = projectile.getBounds();
         final Shape wallRect = wall.getBounds();
         // This structure makes the projectile ignore any walls below it (such as the floor wall).
@@ -131,6 +139,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
 
     final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Bubble - Projectile collision");
+                
         if (!projectile.isHitBubble()) {
             projectile.setHitBubble();
             projectile.getWeapon().getPlayer().addScore(50);
@@ -139,6 +149,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     final CollisionHandler<Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Pickup - Wall collision");
+        
         final Shape pickupRect = pickup.getBounds();
         final Shape wallRect = wall.getBounds();
 
@@ -149,6 +161,8 @@ public class DefaultCollisionHandler implements CollisionHandler<GameObject, Gam
     };
 
     final CollisionHandler<Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Pickup - Player collision");
+        
         game.getCurLevel().toRemove(pickup);
 
         PickupContent content = pickup.getContent();

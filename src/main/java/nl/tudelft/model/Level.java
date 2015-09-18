@@ -178,37 +178,11 @@ public class Level implements Updateable, Renderable, Modifiable {
     @Override
     public void toAdd(GameObject obj) {
         pendingAddition.add(obj);
-        // if (obj instanceof Projectile) {
-        // projectiles.add((Projectile)obj);
-        // return projectiles.contains(obj);
-        // }
-        // if (obj instanceof Bubble) {
-        // bubbles.add((Bubble)obj);
-        // return bubbles.contains(obj);
-        // }
-        // if (obj instanceof Wall) {
-        // walls.add((Wall)obj);
-        // return walls.contains(obj);
-        // }
-        // return false;
     }
 
     @Override
     public void toRemove(GameObject obj) {
         pendingRemoval.add(obj);
-        // if (obj instanceof Projectile) {
-        // projectiles.remove(obj);
-        // return !projectiles.contains(obj);
-        // }
-        // if (obj instanceof Bubble) {
-        // bubbles.remove(obj);
-        // return !bubbles.contains(obj);
-        // }
-        // if (obj instanceof Wall) {
-        // walls.remove(obj);
-        // return !walls.contains(obj);
-        // }
-        // return false;
     }
 
     /**
@@ -227,8 +201,6 @@ public class Level implements Updateable, Renderable, Modifiable {
                 break;
             case LEVELWON:
                 splitAllBubbles(bubbles, true);
-                // execute method here where the level is won (maybe split all the balls till
-                // they're gona first)
                 break;
             case SLOW:
                 utilSlowCounter++;

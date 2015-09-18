@@ -15,7 +15,7 @@ public abstract class AbstractLogger implements Logger {
     final LoggerOutlet consoleOutlet;
     final LoggerOutlet fileOutlet;
 
-    private LogSeverity severity = LogSeverity.ERROR;
+    private LogSeverity severity = LogSeverity.VERBOSE;
 
     private boolean enabled = true;
     private boolean logToConsole = true;

@@ -10,7 +10,7 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MainApp extends StateBasedGame {
-
+    
     public MainApp(String name) {
         super(name);
         // TODO Auto-generated constructor stub
