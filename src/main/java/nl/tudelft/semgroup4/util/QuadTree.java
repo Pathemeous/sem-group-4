@@ -3,7 +3,7 @@ package nl.tudelft.semgroup4.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.model.GameObject;
+import nl.tudelft.model.AbstractGameObject;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -13,9 +13,9 @@ public class QuadTree {
     private static final int MAX_OBJECTS = 10;
     private static final int MAX_LEVELS = 3;
 
-    private int level;
-    private List<GameObject> objects;
-    private Rectangle bounds;
+    private final int depthLevel;
+    private final List<AbstractGameObject> objects;
+    private final Rectangle bounds;
     private QuadTree[] nodes;
 
     /**
@@ -27,7 +27,7 @@ public class QuadTree {
      *            Rectangle - the container to split in 4.
      */
     public QuadTree(int depthLevel, Rectangle bounds) {
-        this.level = depthLevel;
+        this.depthLevel = depthLevel;
         this.objects = new ArrayList<>();
         this.bounds = bounds;
         this.nodes = new QuadTree[4];
@@ -56,14 +56,18 @@ public class QuadTree {
         int locX = (int) bounds.getX();
         int locY = (int) bounds.getY();
 
-        nodes[0] =
-                new QuadTree(level + 1, new Rectangle(locX + subWidth, locY, subWidth, subHeight));
-        nodes[1] = new QuadTree(level + 1, new Rectangle(locX, locY, subWidth, subHeight));
-        nodes[2] =
-                new QuadTree(level + 1, new Rectangle(locX, locY + subHeight, subWidth, subHeight));
-        nodes[3] =
-                new QuadTree(level + 1, new Rectangle(locX + subWidth, locY + subHeight, subWidth,
-                        subHeight));
+        nodes[0] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX + subWidth, locY, subWidth, subHeight));
+        nodes[1] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX, locY, subWidth, subHeight));
+        nodes[2] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX, locY + subHeight, subWidth, subHeight));
+        nodes[3] = new QuadTree(
+                depthLevel + 1,
+                new Rectangle(locX + subWidth, locY + subHeight, subWidth, subHeight));
     }
 
     /**
@@ -108,9 +112,10 @@ public class QuadTree {
      * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add
      * all objects to their corresponding nodes.
      * 
-     * @param rect GameObject - the object to insert.
+     * @param rect
+     *            GameObject - the object to insert.
      */
-    public void insert(GameObject rect) {
+    public void insert(AbstractGameObject rect) {
         if (nodes[0] != null) {
             int index = getIndex(rect.getBounds());
 
@@ -123,7 +128,7 @@ public class QuadTree {
 
         objects.add(rect);
 
-        if (objects.size() > MAX_OBJECTS && level < MAX_LEVELS) {
+        if (objects.size() > MAX_OBJECTS && depthLevel < MAX_LEVELS) {
             if (nodes[0] == null) {
                 split();
             }
@@ -143,11 +148,13 @@ public class QuadTree {
     /**
      * Return all objects that could collide with the given object.
      * 
-     * @param returnObjects List - a list of GameObjects.
-     * @param rect Shape - the given shape.
+     * @param returnObjects
+     *            List - a list of GameObjects.
+     * @param rect
+     *            Shape - the given shape.
      * @return List - the list of collidable objects.
      */
-    public List<GameObject> retrieve(List<GameObject> returnObjects, Shape rect) {
+    public List<AbstractGameObject> retrieve(List<AbstractGameObject> returnObjects, Shape rect) {
         int index = getIndex(rect);
         if (index != -1 && nodes[0] != null) {
             nodes[index].retrieve(returnObjects, rect);

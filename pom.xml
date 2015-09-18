@@ -4,7 +4,7 @@
     <groupId>nl.tudelft.sem-group-4</groupId>
     <artifactId>sem-group-4</artifactId>
     <packaging>jar</packaging>
-    <version>1.0</version>
+    <version>1.1</version>
     <name>sem-group-4</name>
     <url>http://maven.apache.org</url>
     <properties>
@@ -70,7 +70,7 @@
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>3.8.1</version>
+            <version>4.12</version>
             <scope>test</scope>
         </dependency>
         <dependency>
@@ -102,6 +102,7 @@
                 <executions>
                     <execution>
                         <id>unpacknatives</id>
+                        <phase>validate</phase>
                         <goals>
                             <goal>copy</goal>
                         </goals>

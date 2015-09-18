@@ -8,6 +8,8 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.lwjgl.opengl.GL11;
@@ -20,19 +22,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    LinkedList<Wall> walls;
-    LinkedList<Bubble> bubbles;
-    LinkedList<Projectile> projectiles;
-    LinkedList<Player> players;
     boolean paused;
     PauseScreen pauseScreen;
     MouseOverArea mouseOver;
-    LinkedList<Pickup> pickups;
     Input input = new Input(0);
     private Game theGame;
     private Dashboard dashboard;
-    private boolean singlePlayer;
-    QuadTree quad;
+    private final boolean singlePlayer;
 
     public GameState(String title, boolean singlePlayer) {
         super();
@@ -52,7 +48,7 @@ public class GameState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        ((StartScreenState) mainApp.getState(0)).setAlreadyAdded(false);
+        
         input = container.getInput();
         mouseOver =
                 new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
@@ -128,11 +124,13 @@ public class GameState extends BasicGameState {
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
         if (Resources.titleScreenMusic.playing()) {
-            Resources.titleScreenMusic.stop();
+            Audio.stopTitleScreen();
         }
         // checks if the escape key is pressed, if so, the gameState pauses
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+                    "Player " + (paused ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
             paused = !paused;
         }
