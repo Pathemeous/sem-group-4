@@ -11,7 +11,6 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Utility;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.geom.Shape;
