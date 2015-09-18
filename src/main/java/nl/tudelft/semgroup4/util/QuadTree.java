@@ -3,7 +3,7 @@ package nl.tudelft.semgroup4.util;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.model.GameObject;
+import nl.tudelft.model.AbstractGameObject;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -14,7 +14,7 @@ public class QuadTree {
     private static final int MAX_LEVELS = 3;
 
     private final int depthLevel;
-    private final List<GameObject> objects;
+    private final List<AbstractGameObject> objects;
     private final Rectangle bounds;
     private QuadTree[] nodes;
 
@@ -115,7 +115,7 @@ public class QuadTree {
      * @param rect
      *            GameObject - the object to insert.
      */
-    public void insert(GameObject rect) {
+    public void insert(AbstractGameObject rect) {
         if (nodes[0] != null) {
             int index = getIndex(rect.getBounds());
 
@@ -154,7 +154,7 @@ public class QuadTree {
      *            Shape - the given shape.
      * @return List - the list of collidable objects.
      */
-    public List<GameObject> retrieve(List<GameObject> returnObjects, Shape rect) {
+    public List<AbstractGameObject> retrieve(List<AbstractGameObject> returnObjects, Shape rect) {
         int index = getIndex(rect);
         if (index != -1 && nodes[0] != null) {
             nodes[index].retrieve(returnObjects, rect);

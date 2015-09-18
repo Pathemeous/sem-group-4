@@ -16,7 +16,7 @@ import org.junit.Test;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class GameTest extends OpenGLTestCase {
+public class GameTest extends AbstractOpenGLTestCase {
 
     /**
      * Test to see if the game constructor works.
@@ -177,7 +177,7 @@ public class GameTest extends OpenGLTestCase {
         LinkedList<Player> playerList = new LinkedList<>();
         playerList.add(mockedPlayer);
         Game game = new Game(mockedSbg, playerList, 0, 0);
-        CollisionHandler<GameObject, GameObject> handler = null;
+        CollisionHandler<AbstractGameObject, AbstractGameObject> handler = null;
         assertEquals(handler, null);
         handler = game.getNewCollisionHandler();
         assertFalse(handler == null);

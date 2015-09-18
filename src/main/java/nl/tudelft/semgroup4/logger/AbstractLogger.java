@@ -10,39 +10,39 @@ import java.util.Date;
  */
 public abstract class AbstractLogger implements Logger {
 
-    private static final String logFormat = "%s [%s] %s: %s";
+    private static final String LOG_FORMAT = "%s [%s] %s: %s";
 
     final LoggerOutlet consoleOutlet;
     final LoggerOutlet fileOutlet;
+    private final Date currentDate = new Date();
+    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     private LogSeverity severity = LogSeverity.VERBOSE;
 
     private boolean enabled = true;
-    private boolean logToConsole = true;
-    private boolean logToFile = true;
+    private boolean loggingToConsole = true;
+    private boolean loggingToFile = true;
 
     public AbstractLogger(LoggerOutlet consoleOutlet, LoggerOutlet fileOutlet) {
         this.consoleOutlet = consoleOutlet;
         this.fileOutlet = fileOutlet;
     }
 
-    private final Date currentDate = new Date();
-    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     @Override
     public void log(LogSeverity level, String tag, String message) {
         if (isEnabled()) {
             if (severity.compareTo(level) >=  0) {
                 currentDate.setTime(System.currentTimeMillis());
-                final String line = String.format(logFormat,
+                final String line = String.format(LOG_FORMAT,
                         dateFormatter.format(currentDate),
                         level.name(),
                         tag,
                         message);
-                if (getLogToConsole()) {
+                if (isLoggingToConsole()) {
                     consoleOutlet.log(line);
                 }
-                if (getLogToFile()) {
+                if (isLoggingToFile()) {
                     fileOutlet.log(line);
                 }
             }
@@ -70,23 +70,23 @@ public abstract class AbstractLogger implements Logger {
     }
 
     @Override
-    public void setLogToConsole(boolean logToConsole) {
-        this.logToConsole = logToConsole;
+    public void setLoggingToConsole(boolean logToConsole) {
+        this.loggingToConsole = logToConsole;
     }
 
     @Override
-    public boolean getLogToConsole() {
-        return logToConsole;
+    public boolean isLoggingToConsole() {
+        return loggingToConsole;
     }
 
     @Override
-    public void setLogToFile(boolean logToFile) {
-        this.logToFile = logToFile;
+    public void setLoggingToFile(boolean logToFile) {
+        this.loggingToFile = logToFile;
     }
 
     @Override
-    public boolean getLogToFile() {
-        return logToFile;
+    public boolean isLoggingToFile() {
+        return loggingToFile;
     }
 
     @Override

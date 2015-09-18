@@ -19,8 +19,8 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<Projectile> projectiles;
     private final LinkedList<Pickup> pickups;
     private final LinkedList<Bubble> bubbles;
-    private final LinkedList<GameObject> pendingRemoval = new LinkedList<>();
-    private final LinkedList<GameObject> pendingAddition = new LinkedList<>();
+    private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
+    private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
     private static final int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
@@ -67,21 +67,21 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        for (GameObject gameObject : bubbles) {
+        for (AbstractGameObject gameObject : bubbles) {
             gameObject.update(this, delta);
         }
-        for (GameObject gameObject : projectiles) {
+        for (AbstractGameObject gameObject : projectiles) {
             gameObject.update(this, delta);
         }
-        for (GameObject gameObject : pickups) {
+        for (AbstractGameObject gameObject : pickups) {
             gameObject.update(this, delta);
         }
-        for (GameObject gameObject : walls) {
+        for (AbstractGameObject gameObject : walls) {
             gameObject.update(this, delta);
         }
 
         // Update the object lists.
-        for (GameObject obj : pendingAddition) {
+        for (AbstractGameObject obj : pendingAddition) {
             if (obj instanceof Projectile) {
                 projectiles.add((Projectile) obj);
             }
@@ -96,7 +96,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             }
         }
 
-        for (GameObject obj : pendingRemoval) {
+        for (AbstractGameObject obj : pendingRemoval) {
             if (obj instanceof Projectile) {
                 projectiles.remove(obj);
             }
@@ -161,27 +161,27 @@ public class Level implements Updateable, Renderable, Modifiable {
                 container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(),
                 Resources.backgroundImage.getHeight());
 
-        for (GameObject gameObject : projectiles) {
+        for (AbstractGameObject gameObject : projectiles) {
             gameObject.render(container, graphics);
         }
-        for (GameObject gameObject : walls) {
+        for (AbstractGameObject gameObject : walls) {
             gameObject.render(container, graphics);
         }
-        for (GameObject gameObject : bubbles) {
+        for (AbstractGameObject gameObject : bubbles) {
             gameObject.render(container, graphics);
         }
-        for (GameObject gameObject : pickups) {
+        for (AbstractGameObject gameObject : pickups) {
             gameObject.render(container, graphics);
         }
     }
 
     @Override
-    public void toAdd(GameObject obj) {
+    public void toAdd(AbstractGameObject obj) {
         pendingAddition.add(obj);
     }
 
     @Override
-    public void toRemove(GameObject obj) {
+    public void toRemove(AbstractGameObject obj) {
         pendingRemoval.add(obj);
     }
 
@@ -288,11 +288,19 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.time <= 0;
     }
 
-    public LinkedList<GameObject> getToRemove() {
+    public LinkedList<AbstractGameObject> getToRemove() {
         return pendingRemoval;
     }
 
-    public LinkedList<GameObject> getToAdd() {
+    public LinkedList<AbstractGameObject> getToAdd() {
         return pendingAddition;
+    }
+
+    public void setUtilSlowCounter(int counter) {
+        utilSlowCounter = counter;
+    }
+
+    public void setUtilFreezeCounter(int counter) {
+        utilFreezeCounter = counter;
     }
 }

@@ -13,13 +13,13 @@ public interface Logger extends Closeable {
 
     boolean isEnabled();
 
-    void setLogToConsole(boolean logToConsole);
+    void setLoggingToConsole(boolean logToConsole);
 
-    boolean getLogToConsole();
+    boolean isLoggingToConsole();
 
-    void setLogToFile(boolean logToFile);
+    void setLoggingToFile(boolean logToFile);
 
-    boolean getLogToFile();
+    boolean isLoggingToFile();
 
     void setSeverity(LogSeverity severity);
 

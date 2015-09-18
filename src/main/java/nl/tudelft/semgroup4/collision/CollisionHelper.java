@@ -3,7 +3,7 @@ package nl.tudelft.semgroup4.collision;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.model.GameObject;
+import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.semgroup4.util.QuadTree;
 
 /**
@@ -23,12 +23,12 @@ public class CollisionHelper {
      *            Quadtree - the quadtree used to find collisions.
      * @return a Pair of which the Key is the 'objectA' colliding object and the value 'right'
      */
-    public static List<GameObject> collideObjectWithList(GameObject objectA,
-            List<? extends GameObject> objects, QuadTree quad) {
-        List<GameObject> out = new ArrayList<>();
+    public static List<AbstractGameObject> collideObjectWithList(AbstractGameObject objectA,
+            List<? extends AbstractGameObject> objects, QuadTree quad) {
+        List<AbstractGameObject> out = new ArrayList<>();
 
         if (quad == null) {
-            for (GameObject objectB : objects) {
+            for (AbstractGameObject objectB : objects) {
                 // do not collide with self
                 if (objectA == objectB) {
                     continue;
@@ -39,10 +39,10 @@ public class CollisionHelper {
                 }
             }
         } else {
-            List<GameObject> returnObjects = new ArrayList<>();
+            List<AbstractGameObject> returnObjects = new ArrayList<>();
             quad.retrieve(returnObjects, objectA.getBounds());
 
-            for (GameObject objectB : returnObjects) {
+            for (AbstractGameObject objectB : returnObjects) {
 
                 // do not collide with self
                 if (objectA == objectB) {

@@ -21,19 +21,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    LinkedList<Wall> walls;
-    LinkedList<Bubble> bubbles;
-    LinkedList<Projectile> projectiles;
-    LinkedList<Player> players;
     boolean paused;
     PauseScreen pauseScreen;
     MouseOverArea mouseOver;
-    LinkedList<Pickup> pickups;
     Input input = new Input(0);
     private Game theGame;
     private Dashboard dashboard;
     private final boolean singlePlayer;
-    QuadTree quad;
 
     public GameState(String title, boolean singlePlayer) {
         super();

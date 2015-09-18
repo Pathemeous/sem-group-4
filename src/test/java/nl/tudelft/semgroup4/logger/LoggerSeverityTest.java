@@ -94,8 +94,8 @@ public class LoggerSeverityTest {
     @Test
     public void testSeverity() {
         logger.setEnabled(true);
-        logger.setLogToConsole(true);
-        logger.setLogToFile(true);
+        logger.setLoggingToConsole(true);
+        logger.setLoggingToFile(true);
         logger.setSeverity(severity);
 
         logger.log(LogSeverity.CRITICAL, "SomeTag", "SomeMessage");

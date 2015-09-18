@@ -9,7 +9,7 @@ import nl.tudelft.semgroup4.Resources;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-public class LevelFactoryTest extends OpenGLTestCase {
+public class LevelFactoryTest extends AbstractOpenGLTestCase {
 
     /**
      * Test to check the level factory constructor.

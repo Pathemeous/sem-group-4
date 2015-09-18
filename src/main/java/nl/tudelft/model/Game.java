@@ -40,7 +40,7 @@ public class Game implements Renderable, Modifiable {
     private final LinkedList<Player> players;
     private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
-    private final CollisionHandler<GameObject, GameObject> collisionHandler;
+    private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
 
@@ -94,55 +94,57 @@ public class Game implements Renderable, Modifiable {
      *             - If the game engines crashes.
      */
     public void update(int delta) throws SlickException {
-        final LinkedList<? extends GameObject> walls = getCurLevel().getWalls();
-        final LinkedList<? extends GameObject> projectiles = getCurLevel().getProjectiles();
-        final LinkedList<? extends GameObject> bubbles = getCurLevel().getBubbles();
-        final LinkedList<? extends GameObject> pickups = getCurLevel().getPickups();
+        final LinkedList<? extends AbstractGameObject> walls = getCurLevel().getWalls();
+        final LinkedList<? extends AbstractGameObject> projectiles =
+                getCurLevel().getProjectiles();
+        final LinkedList<? extends AbstractGameObject> bubbles = getCurLevel().getBubbles();
+        final LinkedList<? extends AbstractGameObject> pickups = getCurLevel().getPickups();
 
         // collision: QuadTree
-        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
-        for (GameObject obj : walls) {
+        final QuadTree quad =
+                new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
+        for (AbstractGameObject obj : walls) {
             quad.insert(obj);
         }
-        for (GameObject obj : projectiles) {
+        for (AbstractGameObject obj : projectiles) {
             quad.insert(obj);
         }
-        for (GameObject obj : players) {
+        for (AbstractGameObject obj : players) {
             quad.insert(obj);
         }
 
         // collision : CollisionMap
-        for (GameObject collidesWithA : bubbles) {
+        for (AbstractGameObject collidesWithA : bubbles) {
             // bubbles check against walls, players and projectiles
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
-        for (GameObject collidesWithA : projectiles) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    walls, null)) {
+        for (AbstractGameObject collidesWithA : projectiles) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, null)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
-        for (GameObject collidesWithA : players) {
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    walls, quad)) {
+        for (AbstractGameObject collidesWithA : players) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
-        for (GameObject collidesWithA : pickups) {
+        for (AbstractGameObject collidesWithA : pickups) {
             // collision with walls and players
-            for (GameObject collidesWithB : CollisionHelper.collideObjectWithList(collidesWithA,
-                    null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
 
         // Updates
-        for (GameObject gameObject : players) {
+        for (AbstractGameObject gameObject : players) {
             gameObject.update(this, delta);
         }
 
@@ -170,7 +172,7 @@ public class Game implements Renderable, Modifiable {
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         getCurLevel().render(container, graphics);
 
-        for (GameObject gameObject : players) {
+        for (AbstractGameObject gameObject : players) {
             gameObject.render(container, graphics);
         }
     }
@@ -273,7 +275,8 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected final CollisionHandler<GameObject, GameObject> getNewCollisionHandler() {
+    protected final CollisionHandler<AbstractGameObject, AbstractGameObject>
+            getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
 
@@ -290,7 +293,7 @@ public class Game implements Renderable, Modifiable {
      * non-player objects to the current level.
      */
     @Override
-    public void toAdd(GameObject obj) {
+    public void toAdd(AbstractGameObject obj) {
         if (!(obj instanceof Player)) {
             curLevel.toAdd(obj);
         }
@@ -301,7 +304,7 @@ public class Game implements Renderable, Modifiable {
      * stored in Game.
      */
     @Override
-    public void toRemove(GameObject obj) {
+    public void toRemove(AbstractGameObject obj) {
         if (obj instanceof Player) {
             playerToDelete.add((Player) obj);
         } else {

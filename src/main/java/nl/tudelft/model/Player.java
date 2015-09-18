@@ -17,7 +17,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
-public class Player extends GameObject {
+public class Player extends AbstractGameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score = 0;

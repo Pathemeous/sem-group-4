@@ -12,7 +12,7 @@ import org.newdawn.slick.SlickException;
  * @author Damian
  *
  */
-public class GameObjectTest extends OpenGLTestCase {
+public class GameObjectTest extends AbstractOpenGLTestCase {
 
     /**
      * tests the getbounds method of the gameObject,

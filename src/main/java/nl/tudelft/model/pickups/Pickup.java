@@ -59,7 +59,7 @@ public class Pickup extends AbstractEnvironmentObject {
                     break;
             }
 
-        } else if (random > 3 && random < 7) {
+        } else if (random < 7) {
             // new powerup
             content = new Powerup(Helpers.randInt(1, 10));
             Powerup powerup = (Powerup) content;
