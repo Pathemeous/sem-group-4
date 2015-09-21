@@ -6,5 +6,5 @@
 
 <suppressions>
     <suppress checks="FileTabCharacter"
-              files=".+\.(?:png|pdf)$" />
+              files=".+\.(?i:png|pdf)$" />
 </suppressions>
