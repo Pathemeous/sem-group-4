@@ -40,9 +40,9 @@ public abstract class Utility extends Pickup {
                 level.splitAllBubbles(level.getBubbles(), true);
             } else if (this instanceof SlowUtility) {
                 ((SlowUtility)this).activate(level);
-            } else if (this instanceof FreezeUtility) {
-                ((FreezeUtility)this).activate(level);
-            }
+            } //else if (this instanceof FreezeUtility) {
+                //((FreezeUtility)this).activate(level);
+            //}
         }
     }
 }

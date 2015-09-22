@@ -53,6 +53,7 @@ public abstract class Pickup extends AbstractEnvironmentObject {
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         setLocY(getLocY() + 1);
+        
         if (toRemove) {
             container.toRemove(this);
         } else if (onGround && !isActive) {
@@ -64,8 +65,24 @@ public abstract class Pickup extends AbstractEnvironmentObject {
         }
     }
     
+    protected int getTickCount() {
+        return tickCount;
+    }
+    
+    protected void setTickCount(int tick) {
+        tickCount = tick;
+    }
+    
+    protected boolean isOnGround() {
+        return onGround;
+    }
+    
     public void setOnGround(boolean onGround) {
         this.onGround = onGround;
+    }
+    
+    public boolean willBeRemoved() {
+        return toRemove;
     }
     
     public void toRemove() {

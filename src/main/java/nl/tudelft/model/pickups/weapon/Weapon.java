@@ -126,4 +126,11 @@ public abstract class Weapon extends Pickup {
     public ArrayList<Projectile> getProjectiles() {
         return this.projectiles;
     }
+    
+    protected int getFireCounter() {
+        return fireCounter;
+    }
+    protected void setFireCounter(int count) {
+        fireCounter = count;
+    }
 }
