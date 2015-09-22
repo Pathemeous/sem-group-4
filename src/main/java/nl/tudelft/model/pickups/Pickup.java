@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.model.Weapon;
+import nl.tudelft.model.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;

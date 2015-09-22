@@ -9,9 +9,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.weapon.Projectile;
+import nl.tudelft.model.weapon.Weapon;
 import nl.tudelft.semgroup4.Resources;
+
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 

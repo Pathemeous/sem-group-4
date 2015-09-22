@@ -6,10 +6,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
 import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Weapon;
+import nl.tudelft.model.weapon.Weapon;
 import nl.tudelft.semgroup4.Resources;
 
 import org.junit.Test;

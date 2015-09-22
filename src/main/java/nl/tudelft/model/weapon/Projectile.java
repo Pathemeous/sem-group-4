@@ -1,5 +1,6 @@
-package nl.tudelft.model;
+package nl.tudelft.model.weapon;
 
+import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Audio;

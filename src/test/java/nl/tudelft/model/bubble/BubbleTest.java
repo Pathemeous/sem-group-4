@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.model.bubble;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.any;
@@ -8,7 +8,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
+import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.semgroup4.Modifiable;
 

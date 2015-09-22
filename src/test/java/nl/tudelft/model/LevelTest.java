@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Utility;
+import nl.tudelft.model.weapon.Projectile;
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.junit.Before;
@@ -267,7 +268,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
         level.applyUtility(new Utility(20));
-        verify(mockedBubble, times(1)).getSize();
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
@@ -280,7 +281,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
         level.applyUtility(new Utility(17));
-        verify(mockedBubble, times(1)).getSize();
+        verify(mockedBubble, times(1)).getImage();
     }
 
     /**
@@ -292,9 +293,9 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
-        when(mockedBubble.getSize()).thenReturn(2);
+        when(mockedBubble.getImage()).thenReturn(null);
         level.applyUtility(new Utility(17));
-        verify(mockedBubble, times(1)).getSize();
+        verify(mockedBubble, times(1)).getImage();
     }
 
     /**

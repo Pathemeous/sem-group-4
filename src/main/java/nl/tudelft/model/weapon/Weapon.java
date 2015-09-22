@@ -1,7 +1,8 @@
-package nl.tudelft.model;
+package nl.tudelft.model.weapon;
 
 import java.util.ArrayList;
 
+import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup.WeaponType;
 import nl.tudelft.model.pickups.PickupContent;
 import nl.tudelft.semgroup4.Modifiable;

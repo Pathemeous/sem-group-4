@@ -144,7 +144,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         setLocY(newY);
         verticalSpeed -= GRAVITY;
     }
-
+    
     public void slowBubbleDown(boolean slowDown) {
         slowBalls = slowDown;
     }
