@@ -12,8 +12,7 @@ env:
   - BUILD_PR_BRANCH=false
 matrix:
   allow_failures:
-    - env:
-      - BUILD_PR_BRANCH=true
+    - env: BUILD_PR_BRANCH=true
 
 script: mvn test -DskipTests=true
 
