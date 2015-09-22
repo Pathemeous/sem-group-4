@@ -16,10 +16,8 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
 /**
- * Bubble is a subclass of AbstractEnvironmentObject and represents a single bubble in the game.
- * 
- * @author Casper
- *
+ * Bubble is an abstract subclass of AbstractEnvironmentObject and represents 
+ * a single bubble in the game.
  */
 
 public abstract class Bubble extends AbstractEnvironmentObject {
@@ -44,13 +42,12 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      * The bubble has a size, which will determine its image and its maximum vertical speed (and
      * thus height)
      * </p>
-     * 
+     * @param bubbleImg
+     *            Image - image for this bubble.
      * @param locX
      *            float - The x-coordinate where the bubble should spawn.
      * @param locY
      *            float - The y-coordinate where the bubble should spawn.
-     * @param size
-     *            int - The size of the bubble, in the range [1, 6] (inclusive).
      * @param goRight
      *            boolean - true if the bubble should initialise moving to the right.
      * @throws IllegalArgumentException
@@ -69,30 +66,6 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         }
         
         next = new ArrayList<>();
-
-//        switch (size) {
-//            case 6:
-//                maxVerticalSpeed = 10.0f;
-//                break;
-//            case 5:
-//                maxVerticalSpeed = 9.0f;
-//                break;
-//            case 4:
-//                maxVerticalSpeed = 8.0f;
-//                break;
-//            case 3:
-//                maxVerticalSpeed = 7.0f;
-//                break;
-//            case 2:
-//                maxVerticalSpeed = 6.0f;
-//                break;
-//            case 1:
-//                maxVerticalSpeed = 5.0f;
-//                break;
-//            default:
-//                throw new IllegalArgumentException();
-//        }
-
     }
 
     /**
@@ -137,7 +110,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         
         for (Bubble bubble : next) {
             if (bubble.goesRight()) {
-                bubble.setLocX(getLocX() + bubble.getBounds().getWidth()/2);
+                bubble.setLocX(getLocX() + bubble.getBounds().getWidth() / 2);
             } else {
                 bubble.setLocX(getLocX());
             }
