@@ -1,10 +1,10 @@
 package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.model.weapon.DoubleWeapon;
-import nl.tudelft.model.weapon.FlowerWeapon;
-import nl.tudelft.model.weapon.RegularWeapon;
-import nl.tudelft.model.weapon.StickyWeapon;
+import nl.tudelft.model.pickups.weapon.DoubleWeapon;
+import nl.tudelft.model.pickups.weapon.FlowerWeapon;
+import nl.tudelft.model.pickups.weapon.RegularWeapon;
+import nl.tudelft.model.pickups.weapon.StickyWeapon;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;

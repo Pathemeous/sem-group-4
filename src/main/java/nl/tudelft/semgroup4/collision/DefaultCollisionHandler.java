@@ -6,8 +6,8 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.weapon.Projectile;
-import nl.tudelft.model.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 

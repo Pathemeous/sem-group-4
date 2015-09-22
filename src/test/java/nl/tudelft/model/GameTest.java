@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.weapon.Projectile;
+import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 

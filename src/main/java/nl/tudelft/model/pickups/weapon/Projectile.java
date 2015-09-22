@@ -1,4 +1,4 @@
-package nl.tudelft.model.weapon;
+package nl.tudelft.model.pickups.weapon;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.semgroup4.Modifiable;

@@ -1,4 +1,4 @@
-package nl.tudelft.model.weapon;
+package nl.tudelft.model.pickups.weapon;
 
 import java.util.ArrayList;
 

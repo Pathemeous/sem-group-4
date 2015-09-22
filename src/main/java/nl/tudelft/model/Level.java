@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Utility;
-import nl.tudelft.model.weapon.Projectile;
+import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Resources;
