@@ -100,7 +100,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         container.toRemove(this);
 
         if (random > 1 && !next.isEmpty()) {
-            Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(7, 10), 
+            Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(1, 10), 
                     getLocX(), getLocY());
             container.toAdd(pickup);
         }

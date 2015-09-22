@@ -34,14 +34,12 @@ public class ShieldPowerup extends Powerup {
             this.player = player;
             
             if (player.hasPowerup(Powerup.SHIELD)) {
-                System.out.println("Remove old shield");
                 player.removePowerup(Powerup.SHIELD).toRemove();
             }
             
             if (!player.hasPowerup(Powerup.INVINCIBLE)) {
                 player.setPowerup(Powerup.SHIELD, this);
             } else {
-                System.out.println("Remove shield");
                 toRemove();
             }
         }
@@ -56,7 +54,6 @@ public class ShieldPowerup extends Powerup {
         }
         
         if (removingShieldCounter == 120) {
-            System.out.println("remove shield after hit");
             player.removePowerup(Powerup.SHIELD).toRemove();
         }
     }
@@ -65,8 +62,6 @@ public class ShieldPowerup extends Powerup {
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         super.render(container, graphics);
         
-        System.out.println("Shield is active: "+isActive());
-        System.out.println("Removing shield counter remainder: "+(removingShieldCounter %2 == 0));
         if (isActive() && removingShieldCounter % 2 == 0) {
             graphics.setColor(Color.yellow);
             graphics.draw(player.getBounds());

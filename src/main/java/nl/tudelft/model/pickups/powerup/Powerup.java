@@ -28,7 +28,6 @@ public class Powerup extends Pickup {
             
             if (this instanceof LifePowerup) {
                 player.setLives(player.getLives() + 1);
-                System.out.println("Remove lives");
                 toRemove();
             } else if (this instanceof InvinciblePowerup) {
                 ((InvinciblePowerup)this).activate(player);
@@ -36,7 +35,6 @@ public class Powerup extends Pickup {
                 ((ShieldPowerup)this).activate(player);
             } else if (this instanceof PointsPowerup) {
                 player.setScore(player.getScore() + 100);
-                System.out.println("Remove points");
                 toRemove();
             } else if (this instanceof SpeedPowerup) {
                 ((SpeedPowerup)this).activate(player);

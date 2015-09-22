@@ -30,7 +30,6 @@ public class FreezeUtility extends Utility {
         super.update(container, delta);
         
         if (isActive() && freezeCounter != FREEZE_TIME) {
-            System.out.println("Set all bubbles to frozen!");
             freezeCounter++;
             
             for (Bubble bubble : level.getBubbles()) {
