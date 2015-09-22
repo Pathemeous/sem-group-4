@@ -9,6 +9,7 @@ import static org.mockito.Mockito.verify;
 import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Resources;
 

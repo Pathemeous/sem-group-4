@@ -1,8 +1,9 @@
 package nl.tudelft.model.pickups;
 
 import static org.junit.Assert.assertEquals;
+import nl.tudelft.model.pickups.utility.Utility;
+import nl.tudelft.model.pickups.utility.Utility.UtilityType;
 
-import nl.tudelft.model.pickups.Utility.UtilityType;
 import org.junit.Test;
 
 public class UtilityTest {

@@ -1,4 +1,4 @@
-package nl.tudelft.model.pickups;
+package nl.tudelft.model.pickups.utility;
 
 
 public class Utility {
