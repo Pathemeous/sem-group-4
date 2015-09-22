@@ -99,7 +99,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         Audio.playBubbleSplit();
         container.toRemove(this);
 
-        if (random > 1 && !next.isEmpty()) {
+        if (random > 7 && !next.isEmpty()) {
             Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(1, 10), 
                     getLocX(), getLocY());
             container.toAdd(pickup);

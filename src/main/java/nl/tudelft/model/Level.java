@@ -136,7 +136,14 @@ public class Level implements Updateable, Renderable, Modifiable {
     public void toRemove(AbstractGameObject obj) {
         pendingRemoval.add(obj);
     }
-
+    
+    /**
+     * Recursive method to split all bubbles.
+     * @param bubbles : all the bubbles that need to be split.
+     * @param endLevel : boolean that indicates if the all the bubbles need
+     *      to be split, or that bubbles need to be split until they are
+     *      of size 1.
+     */
     public void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
         for (Bubble bubble : bubbles) {
             if (!bubble.getNext().isEmpty() || endLevel) {

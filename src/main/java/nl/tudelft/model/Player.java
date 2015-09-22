@@ -153,10 +153,13 @@ public class Player extends AbstractGameObject {
             powerups.remove(Powerup.INVINCIBLE).toRemove();
         }
     }
-
+    
+    /**
+     * Returns true if the player has a powerup with the specified key.
+     * @param key : key which specifies the type of powerup.
+     * @return : true iff the player has a powerup with the specified key.
+     */
     public boolean hasPowerup(String key) {
-        System.out.println("Key: "+key);
-        System.out.println(powerups.get(key));
         return powerups.get(key) != null;
     }
     

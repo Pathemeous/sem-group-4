@@ -1,17 +1,17 @@
 package nl.tudelft.model.pickups.utility;
 
-import org.newdawn.slick.SlickException;
-
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
 
+import org.newdawn.slick.SlickException;
+
 public class FreezeUtility extends Utility {
     
     private Level level;
     private int freezeCounter = 0;
-    private final int FREEZE_TIME = 300;
+    private static final int FREEZETIME = 300;
     
     public FreezeUtility(float locX, float locY) {
         super(Resources.pickupUtilityFreeze, locX, locY);
@@ -29,7 +29,7 @@ public class FreezeUtility extends Utility {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         super.update(container, delta);
         
-        if (isActive() && freezeCounter != FREEZE_TIME) {
+        if (isActive() && freezeCounter != FREEZETIME) {
             freezeCounter++;
             
             for (Bubble bubble : level.getBubbles()) {
@@ -37,7 +37,7 @@ public class FreezeUtility extends Utility {
             }
         }
         
-        if (freezeCounter == FREEZE_TIME) {
+        if (freezeCounter == FREEZETIME) {
             for (Bubble bubble : level.getBubbles()) {
                 bubble.setFrozen(false);
             }

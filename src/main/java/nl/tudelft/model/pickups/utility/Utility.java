@@ -6,7 +6,7 @@ import nl.tudelft.model.pickups.Pickup;
 import org.newdawn.slick.Image;
 
 
-public class Utility extends Pickup {
+public abstract class Utility extends Pickup {
     
     private static final int EXTRA_TIME = 20000;
     
@@ -18,6 +18,12 @@ public class Utility extends Pickup {
         super(img, locX, locY);
     }
     
+    /**
+     * Method to activate this utility. Depending on the instance of the Utility,
+     * the utility is either immediately executed, or the activation method of
+     * the specific class is called.
+     * @param level : the level this utility belongs to.
+     */
     public void activate(Level level) {
         if (!isActive()) {
             setActive(true);

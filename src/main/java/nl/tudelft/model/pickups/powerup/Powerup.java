@@ -6,7 +6,7 @@ import nl.tudelft.model.pickups.Pickup;
 import org.newdawn.slick.Image;
 
 
-public class Powerup extends Pickup {
+public abstract class Powerup extends Pickup {
     
     public static final String SPEED = "speedup";
     public static final String INVINCIBLE  = "invincible";
@@ -22,6 +22,12 @@ public class Powerup extends Pickup {
         super(img, locX, locY);
     }
     
+    /**
+     * Method to activate the powerup. Depending on the instance of 
+     * the powerup, either the powerup is immediately executed or the 
+     * activation method of the specific class is called.
+     * @param player : the player to which this powerup belongs.
+     */
     public void activate(Player player) {
         if (!isActive()) {
             setActive(true);
