@@ -130,6 +130,7 @@ public abstract class Weapon extends Pickup {
     protected int getFireCounter() {
         return fireCounter;
     }
+    
     protected void setFireCounter(int count) {
         fireCounter = count;
     }
