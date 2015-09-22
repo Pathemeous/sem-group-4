@@ -1,22 +1,21 @@
 package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import static org.mockito.Mockito.mock;
-
-import java.awt.AWTException;
-
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.powerup.Powerup.PowerType;
+import nl.tudelft.model.pickups.powerup.ShieldPowerup;
+import nl.tudelft.model.pickups.powerup.SpeedPowerup;
+import nl.tudelft.model.pickups.weapon.DoubleWeapon;
+import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 
 
 /**
@@ -26,110 +25,125 @@ import org.newdawn.slick.SlickException;
 public class PlayerTest extends AbstractOpenGLTestCase {
 
     private Input input = new Input(0);
-    Player player = new Player(0, 0, input, true);
-
+    private Player player;
+    
     private static final int SPEED = 4;
-    private static final int PLAYER_SCORE = 100;
-    private static final int PLAYER_LIVES = 3;
-    private static final int TOTAL_LIVES = 4;
-
+    
+    @Before
+    public final void setUp() throws Exception {
+        super.setUp();
+        player = new Player(0, 0, input, true);
+    }
 
     @Test
     public final void testConstructor() {
-        Weapon weapon = new Weapon(null, Pickup.WeaponType.REGULAR);
-        assertEquals(weapon.getType(), player.getWeapon().getType());
+        assertTrue(player.isFirstPlayer());
+        assertEquals(0, player.getScore());
+        assertEquals(3, player.getLives());
         assertEquals(SPEED, player.getSpeed());
-        assertEquals(0, player.getPowerUps().size());
     }
 
     @Test
     public final void testReset() {
-        Weapon weapon = new Weapon(null, Pickup.WeaponType.FLOWER);
-        Powerup powerup = new Powerup(9);
-        powerup.setPowerType(PowerType.INVINCIBLE);
-        player.getPowerUps().add(powerup);
+        Weapon weapon = new DoubleWeapon(0, 0);
+        Powerup powerup = new InvinciblePowerup(0, 0);
         player.setWeapon(weapon);
-        player.setFireCounter(SPEED);
+        player.setPowerup(Powerup.INVINCIBLE, powerup);
         player.reset();
-        assertEquals(0, player.getFireCounter());
-        assertEquals(0, player.getPowerUps().size());
-        assertEquals(Pickup.WeaponType.REGULAR, player.getWeapon().getType());
+        assertTrue(player.getPowerup(Powerup.INVINCIBLE) == null);
+        assertTrue(player.getWeapon() instanceof RegularWeapon);
     }
 
     @Test
-    public final void testRemoveSpeedUp() {
-        player.setSpeed(2 * SPEED);
-        player.removeSpeedup();
+    public final void testClearPowerups() {
+        Powerup invincible = new InvinciblePowerup(0, 0);
+        Powerup shield = new ShieldPowerup(0, 0);
+        Powerup speed = new SpeedPowerup(0, 0);
+        
+        player.setPowerup(Powerup.INVINCIBLE, invincible);
+        player.setPowerup(Powerup.SHIELD, shield);
+        player.setPowerup(Powerup.SPEED, speed);
+        
+        assertEquals(invincible, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(shield, player.getPowerup(Powerup.SHIELD));
+        assertEquals(speed, player.getPowerup(Powerup.SPEED));
+        
+        player.clearAllPowerups();
+        
+        assertEquals(null, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(null, player.getPowerup(Powerup.SHIELD));
+        assertEquals(null, player.getPowerup(Powerup.SPEED));
+    }
+    
+    @Test
+    public final void testHasPowerup() {
+        Powerup invincible = new InvinciblePowerup(0, 0);
+        Powerup shield = new ShieldPowerup(0, 0);
+        Powerup speed = new SpeedPowerup(0, 0);
+        
+        player.setPowerup(Powerup.INVINCIBLE, invincible);
+        player.setPowerup(Powerup.SHIELD, shield);
+        player.setPowerup(Powerup.SPEED, speed);
+        
+        assertTrue(player.hasPowerup(Powerup.INVINCIBLE));
+        assertTrue(player.hasPowerup(Powerup.SHIELD));
+        assertTrue(player.hasPowerup(Powerup.SPEED));
+    }
+    
+    @Test
+    public final void testRemovePowerup() {
+        Powerup invincible = new InvinciblePowerup(0, 0);
+        Powerup shield = new ShieldPowerup(0, 0);
+        Powerup speed = new SpeedPowerup(0, 0);
+        
+        player.setPowerup(Powerup.INVINCIBLE, invincible);
+        player.setPowerup(Powerup.SHIELD, shield);
+        player.setPowerup(Powerup.SPEED, speed);
+        
+        player.removePowerup(Powerup.INVINCIBLE);
+        player.removePowerup(Powerup.SHIELD);
+        player.removePowerup(Powerup.SPEED);
+        
+        assertEquals(null, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(null, player.getPowerup(Powerup.SHIELD));
+        assertEquals(null, player.getPowerup(Powerup.SPEED));
+    }
+    
+    @Test
+    public final void testIsInvincible() {
+        assertFalse(player.isInvincible());
+        
+        Powerup invincible = new InvinciblePowerup(0, 0);
+        player.setPowerup(Powerup.INVINCIBLE, invincible);
+        
+        assertTrue(player.isInvincible());
+    }
+    
+    @Test
+    public final void testHasShield() {
+        assertFalse(player.hasShield());
+        
+        Powerup shield = new ShieldPowerup(0, 0);
+        player.setPowerup(Powerup.SHIELD, shield);
+        
+        assertTrue(player.hasShield());
+    }
+    
+    @Test
+    public final void testApplySpeedup() {
         assertEquals(SPEED, player.getSpeed());
+        
+        player.applySpeedup();
+        
+        assertEquals(2*SPEED, player.getSpeed());
     }
-
-
+    
     @Test
-    public final void testAddPowerUp() {
-        Powerup shield = new Powerup(7);
-        shield.setPowerType(PowerType.SHIELD);
-        Powerup invincible = new Powerup(9);
-        invincible.setPowerType(PowerType.INVINCIBLE);
-        Powerup speedUp = new Powerup(5);
-        speedUp.setPowerType(PowerType.SPEEDUP);
-        Powerup score = new Powerup(2);
-        score.setPowerType(PowerType.POINTS);
-        Powerup lives = new Powerup(10);
-        lives.setPowerType(PowerType.LIFE);
-
-        player.addPowerup(shield);
-        assertEquals(1, player.getPowerups().size());
-        player.addPowerup(invincible);
-        assertEquals(1, player.getPowerups().size());
-        player.addPowerup(invincible);
-        assertEquals(1, player.getPowerups().size());
-        player.addPowerup(speedUp);
-        assertEquals(false, player.hasSpeedup());
-        assertEquals(1, player.getPowerups().size());
-        assertEquals(2 * SPEED, player.getSpeed());
-        assertEquals(0, player.getScore());
-        player.addPowerup(score);
-        assertEquals(PLAYER_SCORE, player.getScore());
-        assertEquals(PLAYER_LIVES, player.getLives());
-        player.addPowerup(lives);
-        assertEquals(TOTAL_LIVES, player.getLives());
-    }
-
-    @Test
-    public final void testUpdate() throws SlickException, AWTException {
-        Modifiable modifiable = mock(Modifiable.class); 
-        player.setFireCounter(1);        
-        player.setInvincibilityCounter(200);
-        player.setSpeedupCounter(400);
-        player.setRemovingShieldCounter(1);
-        player.addScore(100);
-
-        player.update(modifiable, 1);
-
-        assertEquals(100, player.getScore());
-        assertEquals(true, player.removingShield());
-        assertEquals(2, player.getRemovingShieldCounter());
-        assertEquals(401, player.getSpeedupCounter());
-        assertEquals(2, player.getFireCounter());
-        assertEquals(201, player.getInvincibilityCounter());        
-    }
-
-    @Test
-    public final void testUpdate2() throws SlickException {
-        Modifiable modifiable = mock(Modifiable.class);
-        player.setFireCounter(0);        
-        player.setInvincibilityCounter(1000);
-        player.setSpeedupCounter(800);
-        player.setShieldInactive();
-        player.removeLife();
-
-        player.update(modifiable, 10);
-
-        assertEquals(2, player.getLives());
-        assertEquals(2, player.getRemovingShieldCounter());
-        assertEquals(0, player.getFireCounter());
-        assertEquals(0, player.getInvincibilityCounter()); 
-        assertEquals(0, player.getSpeedupCounter());
+    public final void testDefaultSpeed() {
+        player.applySpeedup();
+        player.setDefaultSpeed();
+        
+        assertEquals(SPEED, player.getSpeed());
     }
 
     @Test

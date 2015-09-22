@@ -14,7 +14,6 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.Modifiable;
 
@@ -88,26 +87,6 @@ public class LevelTest extends AbstractOpenGLTestCase {
     public void testTimeExpired2() {
         Level level = new Level(walls, projectiles, pickups, bubbles, 0, 1);
         assertTrue(level.timerExpired());
-    }
-
-    /**
-     * Test to check the speed getter for level.
-     */
-    @Test
-    public void testGetSpeed() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 1, 1);
-        assertTrue(level.getSpeed() == 1);
-    }
-
-    /**
-     * Test to check the speed setter for level.
-     */
-    @Test
-    public void testSetSpeed() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 1, 1);
-        assertTrue(level.getSpeed() == 1);
-        level.setSpeed(2);
-        assertTrue(level.getSpeed() == 2);
     }
 
     /**
@@ -193,72 +172,6 @@ public class LevelTest extends AbstractOpenGLTestCase {
     }
 
     /**
-     * Test to check the setSlowBalls method for level.
-     * @throws SlickException : An exception created by Slick.
-     **/
-    @Test
-    public void testSlowBalls1() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        level.applyUtility(new Utility(12));
-        Modifiable modifiable = mock(Modifiable.class);
-        Bubble mockedBubble = mock(Bubble.class);
-        bubbles.add(mockedBubble);
-        level.update(modifiable, 1);
-        verify(mockedBubble, times(1)).slowBubbleDown(true);
-    }
-
-    /**
-     * Test to check the setSlowBalls method for level.
-     * @throws SlickException : An exception created by Slick.
-     **/
-    @Test
-    public void testSlowBalls2() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        level.applyUtility(new Utility(12));
-        Modifiable modifiable = mock(Modifiable.class);
-        Bubble mockedBubble = mock(Bubble.class);
-        bubbles.add(mockedBubble);
-        level.update(modifiable, 1);
-        verify(mockedBubble, times(1)).slowBubbleDown(true);
-        level.setUtilSlowCounter(299);
-        level.update(modifiable, 1);
-        verify(mockedBubble, times(1)).slowBubbleDown(false);
-    }
-
-    /**
-     * Test to check the setFreezeBalls method for level.
-     * @throws SlickException : An exception created by Slick.
-     **/
-    @Test
-    public void testFreezeBalls1() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        level.applyUtility(new Utility(7));
-        Modifiable modifiable = mock(Modifiable.class);
-        Bubble mockedBubble = mock(Bubble.class);
-        bubbles.add(mockedBubble);
-        level.update(modifiable, 1);
-        verify(mockedBubble, times(1)).freeze(true);
-        level.setUtilFreezeCounter(299);
-        level.update(modifiable, 1);
-        verify(mockedBubble, times(1)).freeze(false);
-    }
-
-    /**
-     * Test to check the setFreezeBalls method for level.
-     * @throws SlickException : An exception created by Slick.
-     **/
-    @Test
-    public void testFreezeBalls2() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        level.applyUtility(new Utility(7));
-        Modifiable modifiable = mock(Modifiable.class);
-        Bubble mockedBubble = mock(Bubble.class);
-        bubbles.add(mockedBubble);
-        level.update(modifiable, 1);
-        verify(mockedBubble, times(1)).freeze(true);
-    }
-
-    /**
      * Test to check the splitAllBubbles method for level.
      * @throws SlickException : An exception created by Slick.
      */
@@ -267,7 +180,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
-        level.applyUtility(new Utility(20));
+        level.splitAllBubbles(bubbles, true);
         verify(mockedBubble, times(1)).getNext();
     }
 
@@ -280,8 +193,8 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
-        level.applyUtility(new Utility(17));
-        verify(mockedBubble, times(1)).getImage();
+        level.splitAllBubbles(bubbles, false);
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
@@ -294,30 +207,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
         when(mockedBubble.getImage()).thenReturn(null);
-        level.applyUtility(new Utility(17));
-        verify(mockedBubble, times(1)).getImage();
-    }
-
-    /**
-     * Test to check the Time utility for level.
-     */
-    @Test
-    public void testApplyUtilityTime1() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        level.setTime(1);
-        assertTrue(level.getTime() == 1);
-        level.applyUtility(new Utility(1));
-        assertTrue(level.getTime() == 3);
-    }
-
-    /**
-     * Test to check the Time utility for level.
-     */
-    @Test
-    public void testApplyUtilityTime2() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        assertTrue(level.getTime() == 3);
-        level.applyUtility(new Utility(1));
-        assertTrue(level.getTime() == 3);
+        level.splitAllBubbles(bubbles, false);
+        verify(mockedBubble, times(1)).getNext();
     }
 }
