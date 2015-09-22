@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.model.pickups.weapon;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,7 +9,9 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
+import nl.tudelft.model.AbstractOpenGLTestCase;
+import nl.tudelft.model.Game;
+import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
