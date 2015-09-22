@@ -27,7 +27,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private float horizontalSpeed;
     private boolean isHit = false;
     private float maxVerticalSpeed;
-    private boolean slowBalls = false;
+    private boolean slow = false;
     private boolean frozen = false;
     private int tickCount = 0;
     private List<Bubble> next;
@@ -70,7 +70,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      */
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if ((!slowBalls || tickCount % 2 == 0) && !frozen) {
+        if ((!slow || tickCount % 2 == 0) && !frozen) {
             move();
         }
 
@@ -142,11 +142,11 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         verticalSpeed -= GRAVITY;
     }
     
-    public void slowBubbleDown(boolean slowDown) {
-        slowBalls = slowDown;
+    public void setSlow(boolean slowDown) {
+        slow = slowDown;
     }
 
-    public void freeze(boolean freeze) {
+    public void setFrozen(boolean freeze) {
         this.frozen = freeze;
     }
 

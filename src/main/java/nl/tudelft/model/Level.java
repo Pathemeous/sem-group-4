@@ -24,10 +24,8 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<Bubble> bubbles;
     private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
-    private static final int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
-    private double speed;
     private int utilSlowCounter = 0;
     private boolean slowBalls = false;
     private static final int UTIL_SLOWDOWN_TIME = 300;
@@ -63,9 +61,6 @@ public class Level implements Updateable, Renderable, Modifiable {
         this.maxTime = time;
 
         this.id = id;
-
-        // TODO Set default speed properly
-        this.speed = 1;
     }
 
     @Override
@@ -220,7 +215,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         }
     }
 
-    private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
+    public void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
         for (Bubble bubble : bubbles) {
             if (!bubble.getNext().isEmpty() || endLevel) {
                 LinkedList<Bubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
@@ -259,14 +254,6 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     public int getMaxTime() {
         return this.maxTime;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    public double getSpeed() {
-        return this.speed;
     }
 
     /**
