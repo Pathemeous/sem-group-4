@@ -4,7 +4,6 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
@@ -26,13 +25,6 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
     private int time;
     private final int maxTime;
-    private int utilSlowCounter = 0;
-    private boolean slowBalls = false;
-    private static final int UTIL_SLOWDOWN_TIME = 300;
-    private int utilFreezeCounter = 0;
-    private boolean frozenBalls = false;
-    private static final int UTIL_FREEZE_TIME = 300;
-
     private final int id;
 
     /**
@@ -59,7 +51,6 @@ public class Level implements Updateable, Renderable, Modifiable {
         this.pickups = pickups;
         this.time = time;
         this.maxTime = time;
-
         this.id = id;
     }
 
@@ -113,43 +104,6 @@ public class Level implements Updateable, Renderable, Modifiable {
         pendingRemoval.clear();
 
         time -= delta;
-
-        setSlowBalls();
-        freezeBalls();
-    }
-
-    private void setSlowBalls() {
-        utilSlowCounter =
-                (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0)
-                        ? utilSlowCounter + 1 : 0;
-        if (slowBalls) {
-            for (Bubble bubble : bubbles) {
-                bubble.slowBubbleDown(true);
-            }
-        }
-        if (utilSlowCounter == UTIL_SLOWDOWN_TIME) {
-            slowBalls = false;
-            for (Bubble bubble : bubbles) {
-                bubble.slowBubbleDown(false);
-            }
-        }
-    }
-
-    private void freezeBalls() {
-        utilFreezeCounter =
-                (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0)
-                        ? utilFreezeCounter + 1 : 0;
-        if (frozenBalls) {
-            for (Bubble bubble : bubbles) {
-                bubble.freeze(true);
-            }
-        }
-        if (utilFreezeCounter == UTIL_FREEZE_TIME) {
-            frozenBalls = false;
-            for (Bubble bubble : bubbles) {
-                bubble.freeze(false);
-            }
-        }
     }
 
     @Override
@@ -181,38 +135,6 @@ public class Level implements Updateable, Renderable, Modifiable {
     @Override
     public void toRemove(AbstractGameObject obj) {
         pendingRemoval.add(obj);
-    }
-
-    /**
-     * Applies the effects of the utility to the state of the level.
-     *
-     * @param util
-     *            Utility - The utility to apply.
-     * @throws IllegalArgumentException
-     *             - If the utility type is not correct.
-     */
-    public void applyUtility(Utility util) throws IllegalArgumentException {
-        switch (util.getType()) {
-            case FREEZE:
-                utilFreezeCounter++;
-                frozenBalls = true;
-                break;
-            case LEVELWON:
-                splitAllBubbles(bubbles, true);
-                break;
-            case SLOW:
-                utilSlowCounter++;
-                slowBalls = true;
-                break;
-            case SPLIT:
-                splitAllBubbles(bubbles, false);
-                break;
-            case TIME:
-                time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
     }
 
     public void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
@@ -284,13 +206,5 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     public LinkedList<AbstractGameObject> getToAdd() {
         return pendingAddition;
-    }
-
-    public void setUtilSlowCounter(int counter) {
-        utilSlowCounter = counter;
-    }
-
-    public void setUtilFreezeCounter(int counter) {
-        utilFreezeCounter = counter;
     }
 }

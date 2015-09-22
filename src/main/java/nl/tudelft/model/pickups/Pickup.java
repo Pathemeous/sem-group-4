@@ -6,6 +6,11 @@ import nl.tudelft.model.pickups.powerup.LifePowerup;
 import nl.tudelft.model.pickups.powerup.PointsPowerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.SpeedPowerup;
+import nl.tudelft.model.pickups.utility.FreezeUtility;
+import nl.tudelft.model.pickups.utility.LevelWonUtility;
+import nl.tudelft.model.pickups.utility.SlowUtility;
+import nl.tudelft.model.pickups.utility.SplitUtility;
+import nl.tudelft.model.pickups.utility.TimeUtility;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.FlowerWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
@@ -82,35 +87,22 @@ public abstract class Pickup extends AbstractEnvironmentObject {
             } else {
                 return new PointsPowerup(locX, locY);
             }
+        } else {
+            // new utility
+            int randomUtilNr = Helpers.randInt(1, 20);
+            
+            if (randomUtilNr == 20) {
+                return new LevelWonUtility(locX, locY);
+            } else if (randomUtilNr > 16) {
+                return new SplitUtility(locX, locY);
+            } else if (randomUtilNr > 11) {
+                return new SlowUtility(locX, locY);
+            } else if (randomUtilNr > 6) {
+                return new FreezeUtility(locX, locY);
+            } else {
+                return new TimeUtility(locX, locY);
+            }
         }
-        
-        return new RegularWeapon(locX, locY);
-//        } else {
-//            // new utility
-//            int randomUtil = Helpers.randInt(1, 20);
-//            content = new Utility(randomUtil);
-//            Utility util = (Utility) content;
-//    
-//            switch (util.getType()) {
-//                case FREEZE:
-//                    setImage(Resources.pickupUtilityFreeze);
-//                    break;
-//                case LEVELWON:
-//                    setImage(Resources.pickupUtilityLevelwon);
-//                    break;
-//                case SLOW:
-//                    setImage(Resources.pickupUtilitySlow);
-//                    break;
-//                case SPLIT:
-//                    setImage(Resources.pickupUtilitySplit);
-//                    break;
-//                case TIME:
-//                    setImage(Resources.pickupUtilityTime);
-//                    break;
-//                default:
-//                    break;
-//            }
-//        }
     }
     
     @Override

@@ -29,7 +29,8 @@ public class FreezeUtility extends Utility {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         super.update(container, delta);
         
-        if (isActive()) {
+        if (isActive() && freezeCounter != FREEZE_TIME) {
+            System.out.println("Set all bubbles to frozen!");
             freezeCounter++;
             
             for (Bubble bubble : level.getBubbles()) {

@@ -8,6 +8,7 @@ import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
+import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.logger.LogSeverity;
@@ -115,7 +116,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
         // TODO: Add code to reset the level.
 
-        if (player.isInvincible()) {
+        if (player.isInvincible() || bubble.isFrozen()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
             // nothing happens
         } else if (player.hasShield()) {
@@ -188,11 +189,11 @@ public class DefaultCollisionHandler implements CollisionHandler<
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
             Powerup powerup = (Powerup) pickup;
             powerup.activate(player);
-        } //else {
-//            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
-//            Utility util = (Utility) content;
-//            game.getCurLevel().applyUtility(util);
-//        }
+        } else {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
+            Utility util = (Utility) pickup;
+            util.activate(game.getCurLevel());
+        }
     };
 
 }

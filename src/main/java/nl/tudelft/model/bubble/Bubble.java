@@ -100,7 +100,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         container.toRemove(this);
 
         if (random > 1 && !next.isEmpty()) {
-            Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(4, 6), 
+            Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(7, 10), 
                     getLocX(), getLocY());
             container.toAdd(pickup);
         }
@@ -111,9 +111,13 @@ public abstract class Bubble extends AbstractEnvironmentObject {
             } else {
                 bubble.setLocX(getLocX());
             }
-            bubble.setLocY(getLocY());
             
+            bubble.setLocY(getLocY());
             bubble.setVerticalSpeed(bubble.getMaxVerticalSpeed() / 1.5f);
+            
+            if (frozen) {
+                bubble.setFrozen(true);
+            }
             
             container.toAdd(bubble);
             newBubbles.add(bubble);
@@ -148,6 +152,10 @@ public abstract class Bubble extends AbstractEnvironmentObject {
 
     public void setFrozen(boolean freeze) {
         this.frozen = freeze;
+    }
+    
+    public boolean isFrozen() {
+        return frozen;
     }
 
     public void setIsHit() {

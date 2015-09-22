@@ -29,7 +29,7 @@ public class SlowUtility extends Utility {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         super.update(container, delta);
         
-        if (isActive()) {
+        if (isActive() && slowCounter != SLOW_TIME) {
             slowCounter++;
             
             for (Bubble bubble : level.getBubbles()) {

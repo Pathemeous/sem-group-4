@@ -16,18 +16,6 @@ public class Utility extends Pickup {
      */
     public Utility(Image img, float locX, float locY) {
         super(img, locX, locY);
-        
-//        if (random == 20) {
-//            type = UtilityType.LEVELWON;
-//        } else if (random > 16) {
-//            type = UtilityType.SPLIT;
-//        } else if (random > 11) {
-//            type = UtilityType.SLOW;
-//        } else if (random > 6) {
-//            type = UtilityType.FREEZE;
-//        } else if (random > 0) {
-//            type = UtilityType.TIME;
-//        }
     }
     
     public void activate(Level level) {
