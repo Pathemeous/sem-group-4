@@ -4,13 +4,8 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.Wall;
-import nl.tudelft.model.bubble.Bubble;
-import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
-import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
@@ -77,8 +72,12 @@ public class GameState extends BasicGameState {
                             * Resources.wallImage.getHeight(), input, false);
             playerList.add(secondPlayer);
         }
-
+ 
         theGame = new Game(mainApp, playerList, container.getWidth(), container.getHeight());
+        for (Player player : playerList) {
+            theGame.toAdd(player.getWeapon());
+        }
+        
         int dashboardMargin = 10;
         dashboard =
                 new Dashboard(theGame, 2 * dashboardMargin, container.getWidth() - 4

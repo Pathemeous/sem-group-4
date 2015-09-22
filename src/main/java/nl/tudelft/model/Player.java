@@ -27,9 +27,7 @@ public class Player extends AbstractGameObject {
     private static final int SPEEDUP = 2;
     private int speed;
     private int lives;
-    private int fireCounter = 0;
     private final boolean firstPlayer;
-    //private boolean speedup = false;
     private final Input input;
     private HashMap<String, Powerup> powerups = new HashMap<>();
 
@@ -106,13 +104,10 @@ public class Player extends AbstractGameObject {
         }
         if ((input.isKeyDown(Input.KEY_SPACE) && firstPlayer)
                 || (input.isKeyDown(Input.KEY_W) && !firstPlayer)) {
-            if (fireCounter == 0) {
-                Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
-                
-                fireCounter++;
-                weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
-                        this.getHeight());
-            }
+            Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
+
+            weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
+                    this.getHeight());
         }
         if ((!(input.isKeyDown(Input.KEY_LEFT)
                 || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
@@ -120,8 +115,6 @@ public class Player extends AbstractGameObject {
                 || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
             setAnimationCurrent(null);
         }
-
-        fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
     }
 
     /**
@@ -134,7 +127,6 @@ public class Player extends AbstractGameObject {
      */
     public void reset() {
         clearAllPowerups();
-        fireCounter = 0;
         setWeapon(new RegularWeapon(0,0));
         this.weapon.activate(this);
     }
@@ -300,21 +292,5 @@ public class Player extends AbstractGameObject {
      */
     public void setAnimationCurrent(Animation animationCurrent) {
         this.animationCurrent = animationCurrent;
-    }
-    
-    /**
-     * retruns the firecoutner of the player.
-     * @return firecounter
-     */
-    public final int getFireCounter() {
-        return this.fireCounter;
-    }
-    
-    /**
-     * sets the firecounter of this player.
-     * @param newCounter the new counter
-     */
-    public final void setFireCounter(int newCounter) {
-        this.fireCounter = newCounter;
     }
 }

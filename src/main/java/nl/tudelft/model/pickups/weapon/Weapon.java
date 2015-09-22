@@ -7,6 +7,7 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.newdawn.slick.Image;
+import org.newdawn.slick.SlickException;
 
 public abstract class Weapon extends Pickup {
 
@@ -14,6 +15,7 @@ public abstract class Weapon extends Pickup {
     private final ArrayList<Projectile> projectiles;
     private final boolean sticky;
     private final int maxCount;
+    private int fireCounter = 0;
     private final Image img;
 
     /**
@@ -50,19 +52,17 @@ public abstract class Weapon extends Pickup {
         this.player = player;
         Weapon oldWeapon = player.getWeapon();
         
-        if (oldWeapon != null) {
+        if (oldWeapon != null && oldWeapon != this) {
             oldWeapon.toRemove();
         }
         
         player.setWeapon(this);
     }
-
-    public int getMaxCount() {
-        return maxCount;
-    }
-
-    public boolean isSticky() {
-        return sticky;
+    
+    @Override
+    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+        super.update(container, delta);
+        fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
     }
 
     /**
@@ -77,7 +77,8 @@ public abstract class Weapon extends Pickup {
      */
     public <T extends Modifiable> void
             fire(T container, int locX, int locY, int width, int height) {
-        if (projectiles.size() < maxCount && isActive()) {
+        if (fireCounter == 0 && projectiles.size() < maxCount && isActive()) {
+            fireCounter++;
             Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);
@@ -94,6 +95,14 @@ public abstract class Weapon extends Pickup {
     public <T extends Modifiable> void remove(T container, Projectile proj) {
         projectiles.remove(proj);
         container.toRemove(proj);
+    }
+    
+    public int getMaxCount() {
+        return maxCount;
+    }
+
+    public boolean isSticky() {
+        return sticky;
     }
 
     public int getNumberOfProjectiles() {
