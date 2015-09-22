@@ -1,12 +1,16 @@
 package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
+import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
+import nl.tudelft.model.pickups.powerup.LifePowerup;
+import nl.tudelft.model.pickups.powerup.PointsPowerup;
+import nl.tudelft.model.pickups.powerup.ShieldPowerup;
+import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.FlowerWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.StickyWeapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;
@@ -63,31 +67,24 @@ public abstract class Pickup extends AbstractEnvironmentObject {
                 default:
                     return new RegularWeapon(locX, locY);
             }
+        } else if (random < 7) {
+            // new powerup
+            int randomPowerupNr = Helpers.randInt(6, 9);
+            
+            if (randomPowerupNr == 10) {
+                return new LifePowerup(locX, locY);
+            } else if (randomPowerupNr > 8) {
+                return new InvinciblePowerup(locX, locY);
+            } else if (randomPowerupNr > 6) {
+                return new ShieldPowerup(locX, locY);
+            } else if (randomPowerupNr > 4) {
+                return new SpeedPowerup(locX, locY);
+            } else {
+                return new PointsPowerup(locX, locY);
+            }
         }
+        
         return new RegularWeapon(locX, locY);
-//        } else if (random < 7) {
-//            // new powerup
-//            content = new Powerup(Helpers.randInt(1, 10));
-//            Powerup powerup = (Powerup) content;
-//            switch (powerup.getPowerType()) {
-//                case INVINCIBLE:
-//                    setImage(Resources.pickupPowerInvincible);
-//                    break;
-//                case POINTS:
-//                    setImage(Resources.pickupPowerPoints);
-//                    break;
-//                case SHIELD:
-//                    setImage(Resources.pickupPowerShield);
-//                    break;
-//                case SPEEDUP:
-//                    setImage(Resources.pickupPowerSpeedup);
-//                    break;
-//                case LIFE:
-//                    setImage(Resources.pickupUtilityLife);
-//                    break;
-//                default:
-//                    break;
-//            }
 //        } else {
 //            // new utility
 //            int randomUtil = Helpers.randInt(1, 20);
@@ -127,11 +124,13 @@ public abstract class Pickup extends AbstractEnvironmentObject {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         setLocY(getLocY() + 1);
         if (toRemove) {
+            System.out.println("Remove pickup");
             container.toRemove(this);
         } else if (onGround && !isActive) {
             tickCount++;
 
             if (tickCount == 180) {
+                System.out.println("Remove pickup");
                 container.toRemove(this);
             }
         }

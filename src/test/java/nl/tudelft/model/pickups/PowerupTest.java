@@ -1,8 +1,9 @@
 package nl.tudelft.model.pickups;
 
 import static org.junit.Assert.assertEquals;
+import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.Powerup.PowerType;
 
-import nl.tudelft.model.pickups.Powerup.PowerType;
 import org.junit.Test;
 
 public class PowerupTest {

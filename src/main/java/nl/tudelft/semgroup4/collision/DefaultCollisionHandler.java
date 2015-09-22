@@ -6,6 +6,8 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.logger.LogSeverity;
@@ -120,8 +122,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but has a shield");
             
             // The shield is removed and the bubble is split (tagged as isHit).
-            if (!player.removingShield()) {
-                player.setShieldInactive();
+            ShieldPowerup shield = (ShieldPowerup)player.getPowerup(Powerup.SHIELD);
+            if (!shield.isHit()) {
+                shield.setHit(true);
                 bubble.setIsHit();
             }
         } else {
@@ -129,7 +132,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
             
             Audio.playDeath();
             player.removeLife();
-            player.addScore(-1000);
+            player.setScore(player.getScore() - 1000);
             game.levelReset();
         }
     };
@@ -155,7 +158,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", 
                     "Projectile hit bubble, and the bubble is split");
             projectile.setHitBubble();
-            projectile.getWeapon().getPlayer().addScore(50);
+            Player player = projectile.getWeapon().getPlayer();
+            player.setScore(player.getScore() + 50);
             bubble.setIsHit();
         }
     };
@@ -173,19 +177,18 @@ public class DefaultCollisionHandler implements CollisionHandler<
     };
 
     final CollisionHandler<Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
-        game.getCurLevel().toRemove(pickup);
+        //game.getCurLevel().toRemove(pickup);
 
         if (pickup instanceof Weapon) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
             // set new weapon
             Weapon weapon = (Weapon) pickup;
             weapon.activate(player);
-        }
-//        } else if (pickup instanceof Powerup) {
-//            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
-//            Powerup powerup = (Powerup) content;
-//            player.addPowerup(powerup);
-//        } else {
+        } else if (pickup instanceof Powerup) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
+            Powerup powerup = (Powerup) pickup;
+            powerup.activate(player);
+        } //else {
 //            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
 //            Utility util = (Utility) content;
 //            game.getCurLevel().applyUtility(util);

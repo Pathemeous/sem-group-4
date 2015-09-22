@@ -46,6 +46,7 @@ public abstract class Weapon extends Pickup {
      * @param player : sets the player this weapon now belongs to.
      */
     public void activate(Player player) {
+        setActive(true);
         this.player = player;
         Weapon oldWeapon = player.getWeapon();
         
@@ -54,7 +55,6 @@ public abstract class Weapon extends Pickup {
         }
         
         player.setWeapon(this);
-        setActive(true);
     }
 
     public int getMaxCount() {

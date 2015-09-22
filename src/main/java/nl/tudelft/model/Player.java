@@ -1,10 +1,8 @@
 package nl.tudelft.model;
 
-import java.util.LinkedList;
+import java.util.HashMap;
 
-import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.Powerup;
-import nl.tudelft.model.pickups.Powerup.PowerType;
+import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
@@ -13,7 +11,6 @@ import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -23,24 +20,21 @@ import org.newdawn.slick.geom.Shape;
 public class Player extends AbstractGameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
-    private int score = 0;
+    private int score;
     private static final int BOUNDINGBOX_OFFSET_X = 10;
     private static final int BOUNDINGBOX_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
     private static final int SPEEDUP = 2;
-    private int speed = REGULAR_SPEED;
-    private int lives = 3;
+    private int speed;
+    private int lives;
     private int fireCounter = 0;
-    private int removingShieldCounter = 0;
-    private int invincibilityCounter = 0;
-    private int speedupCounter = 0;
     private final boolean firstPlayer;
-    private boolean speedup = false;
+    //private boolean speedup = false;
     private final Input input;
+    private HashMap<String, Powerup> powerups = new HashMap<>();
 
     private Weapon weapon;
 
-    private final LinkedList<Powerup> powerups;
     private Animation animationCurrent;
     private final Animation animationLeft;
     private final Animation animationRight;
@@ -59,8 +53,9 @@ public class Player extends AbstractGameObject {
      */
     public Player(int locX, int locY, Input input, boolean isFirstPlayer) {
         super(Resources.playerImageStill.copy(), locX, locY);
-        powerups = new LinkedList<>();
-        speed = 4;
+        speed = REGULAR_SPEED;
+        lives = 3;
+        score = 0;
         this.firstPlayer = isFirstPlayer;
 
         this.input = input;
@@ -80,19 +75,6 @@ public class Player extends AbstractGameObject {
         } else {
             graphics.drawAnimation(curAnimation, getLocX(), getLocY());
         }
-        if (hasShield()) {
-            if (removingShieldCounter % 2 == 0) {
-                // g.drawImage(Resources.power_shield, getLocX(), getLocY());
-                graphics.setColor(Color.yellow);
-                graphics.draw(getBounds());
-            }
-        } else if (isInvincible()) {
-            if ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0)
-                    || invincibilityCounter < 540) {
-                graphics.drawImage(Resources.powerInvincible, getLocX(), getLocY());
-            }
-        }
-        graphics.setColor(Color.green);
     }
 
     @Override
@@ -140,46 +122,6 @@ public class Player extends AbstractGameObject {
         }
 
         fireCounter = (fireCounter <= 10 && fireCounter != 0) ? fireCounter + 1 : 0;
-
-        invincibilityCounter = (invincibilityCounter <= 600 && invincibilityCounter != 0)
-                ? invincibilityCounter + 1
-                : (invincibilityCounter > 600) ? 0 : invincibilityCounter;
-
-        if (invincibilityCounter == 600) {
-            removeInvincibility();
-        }
-
-        speedupCounter = (speedupCounter <= 600 && speedupCounter != 0) ? speedupCounter + 1
-                : (speedupCounter > 600) ? 0 : speedupCounter;
-
-        if (speedupCounter == 600) {
-            removeSpeedup();
-        }
-
-        removingShieldCounter = (removingShieldCounter <= 120 && removingShieldCounter != 0)
-                ? removingShieldCounter + 1
-                : (removingShieldCounter > 600) ? 0 : removingShieldCounter;
-
-        if (removingShieldCounter == 120) {
-            removeShield();
-            removingShieldCounter = 0;
-        }
-    }
-
-    /**
-     * returns the speedcounter.
-     * @return the speedupCounter
-     */
-    public int getSpeedupCounter() {
-        return speedupCounter;
-    }
-
-    /**
-     * sets the speedcounter.
-     * @param speedupCounter the speedupCounter to set
-     */
-    public void setSpeedupCounter(int speedupCounter) {
-        this.speedupCounter = speedupCounter;
     }
 
     /**
@@ -198,90 +140,36 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * returns the invincibilityCounter.
-     * @return the invincibilityCounter
-     */
-    public int getInvincibilityCounter() {
-        return invincibilityCounter;
-    }
-
-    /**
-     * sets the invincibilityCounter.
-     * @param invincibilityCounter the invincibilityCounter to set
-     */
-    public void setInvincibilityCounter(int invincibilityCounter) {
-        this.invincibilityCounter = invincibilityCounter;
-    }
-
-    /**
-     *  Removes the speedup from the player.
-     */
-    public void removeSpeedup() {
-        speed = REGULAR_SPEED;
-        speedupCounter = 0;
-        speedup = false;
-    }
-
-    /**
      * Removes all powerups from.
      */
     public void clearAllPowerups() {
-        removeSpeedup();
-        removeInvincibility();
-        removeShield();
-    }
-
-    /**
-     * This methods returns the current list of powerups.
-     * @return the current powerups
-     */
-    public LinkedList<Powerup> getPowerups() {
-        return powerups;
-    }
-
-    /**
-     * Give the player the powerup.
-     * 
-     * @param up
-     *            Powerup - the powerup to give to the player.
-     * @throws IllegalArgumentException
-     *             - If the powerup type is incorrect.
-     */
-    public void addPowerup(Powerup up) throws IllegalArgumentException {
-        switch (up.getPowerType()) {
-            case SHIELD:
-                if (!isInvincible() && !hasShield()) {
-                    powerups.add(up);
-                }
-                break;
-            case INVINCIBLE:
-                if (hasShield()) {
-                    removeShield();
-                }
-                if (isInvincible()) {
-                    removeInvincibility();
-                }
-                invincibilityCounter = 1;
-                powerups.add(up);
-                break;
-            case SPEEDUP:
-                speedupCounter = 1;
-                if (!speedup) {
-                    speed = SPEEDUP * speed;
-                    speedup = true;
-                }
-                break;
-            case POINTS:
-                score += 100;
-                break;
-            case LIFE:
-                if (lives < 9) {
-                    lives++;
-                }
-                break;
-            default:
-                throw new IllegalArgumentException();
+        if (hasPowerup(Powerup.SPEED)) {
+            powerups.remove(Powerup.SPEED).toRemove();
         }
+        if (hasPowerup(Powerup.SHIELD)) {
+            powerups.remove(Powerup.SHIELD).toRemove();
+        }
+        if (hasPowerup(Powerup.INVINCIBLE)) {
+            powerups.remove(Powerup.INVINCIBLE).toRemove();
+        }
+    }
+
+    public boolean hasPowerup(String key) {
+        System.out.println("Key: "+key);
+        System.out.println(powerups.get(key));
+        return powerups.get(key) != null;
+    }
+    
+    public Powerup removePowerup(String key) {
+        return powerups.remove(key);
+    }
+    
+    public void setPowerup(String key, Powerup value) {
+        powerups.put(key, value);
+    }
+    
+    public Powerup getPowerup(String key) {
+        return powerups.get(key);
     }
 
     /**
@@ -290,34 +178,7 @@ public class Player extends AbstractGameObject {
      * @return true if he does, false if not.
      */
     public boolean isInvincible() {
-        for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.INVINCIBLE) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * Remove sthe Invincibile powerup from the player.
-     */
-    private void removeInvincibility() {
-        powerups.remove(getInvincibility());
-        invincibilityCounter = 0;
-    }
-
-    /**
-     * Returns the Invincibility powerup object from the player.
-     * 
-     * @return Powerup - the Invincibility object.
-     */
-    private Powerup getInvincibility() {
-        for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.INVINCIBLE) {
-                return up;
-            }
-        }
-        return null;
+        return powerups.get(Powerup.INVINCIBLE) != null;
     }
 
     /**
@@ -326,41 +187,17 @@ public class Player extends AbstractGameObject {
      * @return true if the player has a shield, false if not.
      */
     public boolean hasShield() {
-        for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.SHIELD) {
-                return true;
-            }
-        }
-        return false;
+        return powerups.get(Powerup.SHIELD) != null;
+    }
+    
+    public void applySpeedup() {
+        speed = REGULAR_SPEED * SPEEDUP;
+    }
+    
+    public void setDefaultSpeed() {
+        speed = REGULAR_SPEED;
     }
 
-    /**
-     * Gets the Shield powerup object from the player.
-     * 
-     * @return Powerup - the Shield powerup.
-     */
-    private Powerup getShield() {
-        for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.SHIELD) {
-                return up;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Checks whether the player has the Speedup powerup.
-     * 
-     * @return boolean - true if the player has the speedup, false if not.
-     */
-    public boolean hasSpeedup() {
-        for (Powerup up : powerups) {
-            if (up.getPowerType() == PowerType.SPEEDUP) {
-                return true;
-            }
-        }
-        return false;
-    }
     /**
      * sets the speed of this player.
      * @param newSpeed the new speed
@@ -368,6 +205,7 @@ public class Player extends AbstractGameObject {
     public final void setSpeed(int newSpeed) {
         this.speed = newSpeed;
     }
+    
     /**
      * returns the speed of the player.
      * @return the current speed
@@ -384,52 +222,7 @@ public class Player extends AbstractGameObject {
     public boolean isFirstPlayer() {
         return this.firstPlayer;
     }
-    /**
-     * returns the powerups of the player.
-     * @return powerups
-     */
-    public final LinkedList<Powerup> getPowerUps() {
-        return powerups;
-    }
 
-    /**
-     * Sets the shield to inactive.
-     */
-    public void setShieldInactive() {
-        removingShieldCounter = 1;
-    }
-
-    /**
-     * returns the removingShieldCounter.
-     * @return the removingShieldCounter
-     */
-    public int getRemovingShieldCounter() {
-        return removingShieldCounter;
-    }
-
-    /**
-     * sets the removingShieldCounter.
-     * @param removingShieldCounter the removingShieldCounter to set
-     */
-    public void setRemovingShieldCounter(int removingShieldCounter) {
-        this.removingShieldCounter = removingShieldCounter;
-    }
-
-    /**
-     * returns whether the shield is being removed.
-     *
-     * @return boolean - True if the shield is being removed, false if not.
-     */
-    public boolean removingShield() {
-        return removingShieldCounter != 0;
-    }
-
-    /**
-     * Removes the shield from the player's powerups.
-     */
-    private void removeShield() {
-        powerups.remove(getShield());
-    }
 
     /**
      * Sets the weapon of the player.
@@ -456,6 +249,14 @@ public class Player extends AbstractGameObject {
     public int getLives() {
         return this.lives;
     }
+    
+    public void setLives(int lives) {
+        this.lives = lives;
+    }
+    
+    public void setScore(int score) {
+        this.score = score;
+    }
 
     /**
      * Get the score of the player.
@@ -473,16 +274,6 @@ public class Player extends AbstractGameObject {
         if (this.lives > 0) {
             this.lives--;
         }
-    }
-
-    /**
-     * Adds points to the player score.
-     * 
-     * @param points
-     *            int - The amount of points that should be added to the player score.
-     */
-    public void addScore(int points) {
-        this.score += points;
     }
 
     /**
@@ -507,6 +298,7 @@ public class Player extends AbstractGameObject {
     public void setAnimationCurrent(Animation animationCurrent) {
         this.animationCurrent = animationCurrent;
     }
+    
     /**
      * retruns the firecoutner of the player.
      * @return firecounter
