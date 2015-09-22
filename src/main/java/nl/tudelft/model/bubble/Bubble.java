@@ -50,11 +50,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            float - The y-coordinate where the bubble should spawn.
      * @param goRight
      *            boolean - true if the bubble should initialise moving to the right.
-     * @throws IllegalArgumentException
-     *             - if the <code>size</code> is out of the defined range.
      */
-    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight)
-            throws IllegalArgumentException {
+    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight) {
         super(bubbleImg, locX, locY);
         
         verticalSpeed = 0.0f;
@@ -103,8 +100,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         container.toRemove(this);
 
         if (random > 7 && !next.isEmpty()) {
-            int randomPickup = Helpers.randInt(1, 10);
-            Pickup pickup = new Pickup(null, getLocX(), getLocY(), randomPickup);
+            Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(1, 4), 
+                    getLocX(), getLocY());
             container.toAdd(pickup);
         }
         

@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.Powerup;
 import nl.tudelft.model.pickups.Powerup.PowerType;
+import nl.tudelft.model.weapon.RegularWeapon;
 import nl.tudelft.model.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Resources;
@@ -63,8 +64,8 @@ public class Player extends AbstractGameObject {
         this.firstPlayer = isFirstPlayer;
 
         this.input = input;
-        this.weapon = new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR);
-        this.weapon.setPlayer(this);
+        this.weapon = new RegularWeapon(0, 0);
+        this.weapon.activate(this);
 
         this.animationCurrent = null;
         this.animationLeft = Resources.playerWalkLeft;
@@ -192,8 +193,8 @@ public class Player extends AbstractGameObject {
     public void reset() {
         clearAllPowerups();
         fireCounter = 0;
-        setWeapon(new Weapon(Resources.weaponImageRegular.copy(), Pickup.WeaponType.REGULAR));
-        this.weapon.setPlayer(this);
+        setWeapon(new RegularWeapon(0,0));
+        this.weapon.activate(this);
     }
 
     /**

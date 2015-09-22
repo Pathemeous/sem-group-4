@@ -1,0 +1,11 @@
+package nl.tudelft.model.weapon;
+
+import nl.tudelft.semgroup4.Resources;
+
+public class StickyWeapon extends Weapon {
+    
+    public StickyWeapon(float locX, float locY) {
+        super(Resources.pickupWeaponSticky, Resources.weaponImageSticky, 
+                locX, locY, true, 1);
+    }
+}

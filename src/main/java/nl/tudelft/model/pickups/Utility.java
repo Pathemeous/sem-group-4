@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups;
 
 
-public class Utility extends PickupContent {
+public class Utility {
 
     public enum UtilityType {
         SPLIT, SLOW, FREEZE, LEVELWON, TIME

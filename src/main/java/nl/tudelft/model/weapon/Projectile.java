@@ -15,7 +15,6 @@ import org.newdawn.slick.geom.Shape;
 public class Projectile extends AbstractEnvironmentObject {
 
     private final int speed;
-    private int width;
     private final Weapon weapon;
     private boolean hitBubble;
     private int tickCount;
@@ -82,7 +81,6 @@ public class Projectile extends AbstractEnvironmentObject {
             weapon.remove(container, this);
             tickCount = 0;
         }
-
     }
 
     public void setHitWall() {

@@ -3,61 +3,58 @@ package nl.tudelft.model.weapon;
 import java.util.ArrayList;
 
 import nl.tudelft.model.Player;
-import nl.tudelft.model.pickups.Pickup.WeaponType;
-import nl.tudelft.model.pickups.PickupContent;
+import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.newdawn.slick.Image;
 
-public class Weapon extends PickupContent {
+public abstract class Weapon extends Pickup {
 
     private Player player;
     private final ArrayList<Projectile> projectiles;
-    private final Image img;
-    private final WeaponType type;
     private final boolean sticky;
     private final int maxCount;
+    private final Image img;
 
     /**
-     * Creates a new Weapon of the given type and with the given image.
-     * 
-     * @param image
-     *            Image - the image to use.
-     * @param type
-     *            WeaponType
-     * @throws IllegalArgumentException
-     *             - if the type is wrong.
+     * Creates a new instance of a Weapon. 
+     * @param pickupImage : the image the pickup will have.
+     * @param projImage : the image the projectile that this
+     *      weapon shoots will have.
+     * @param locX : the x location of this weapon, when it's not
+     *      activated.
+     * @param locY : the y location of this weapon, when it's not
+     *      activated.
+     * @param sticky : boolean indicating if a projectile of this
+     *      weapon sticks to the wall for a short period of time.
+     * @param maxCount : the maximum amount of projectiles this weapon
+     *      can shoot.
      */
-    public Weapon(Image image, WeaponType type) throws IllegalArgumentException {
-        this.type = type;
+    public Weapon(Image pickupImage, Image projImage, float locX, float locY, boolean sticky, 
+            int maxCount) {
+        super(pickupImage, locX, locY);
 
-        switch (type) {
-            case REGULAR:
-                maxCount = 1;
-                sticky = false;
-                break;
-            case DOUBLE:
-                maxCount = 2;
-                sticky = false;
-                break;
-            case STICKY:
-                maxCount = 1;
-                sticky = true;
-                break;
-            case FLOWER:
-                maxCount = 10;
-                sticky = false;
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
-
-        img = image;
+        this.sticky = sticky;
+        this.maxCount = maxCount;
+        img = projImage;
         projectiles = new ArrayList<Projectile>();
     }
-
-    public WeaponType getType() {
-        return type;
+    
+    /**
+     * This method activates the current weapon and removes the old
+     * weapon of the player.
+     * @param player : sets the player this weapon now belongs to.
+     */
+    public void activate(Player player) {
+        this.player = player;
+        Weapon oldWeapon = player.getWeapon();
+        
+        if (oldWeapon != null) {
+            oldWeapon.toRemove();
+        }
+        
+        player.setWeapon(this);
+        setActive(true);
     }
 
     public int getMaxCount() {
@@ -80,7 +77,7 @@ public class Weapon extends PickupContent {
      */
     public <T extends Modifiable> void
             fire(T container, int locX, int locY, int width, int height) {
-        if (projectiles.size() < maxCount) {
+        if (projectiles.size() < maxCount && isActive()) {
             Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);

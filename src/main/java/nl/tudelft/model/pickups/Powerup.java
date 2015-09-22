@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups;
 
 
-public class Powerup extends PickupContent {
+public class Powerup {
 
     public enum PowerType {
         SHIELD, INVINCIBLE, SPEEDUP, POINTS, LIFE

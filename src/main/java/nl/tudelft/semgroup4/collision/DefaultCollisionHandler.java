@@ -6,9 +6,6 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.PickupContent;
-import nl.tudelft.model.pickups.Powerup;
-import nl.tudelft.model.pickups.Utility;
 import nl.tudelft.model.weapon.Projectile;
 import nl.tudelft.model.weapon.Weapon;
 import nl.tudelft.semgroup4.logger.LogSeverity;
@@ -178,22 +175,21 @@ public class DefaultCollisionHandler implements CollisionHandler<
     final CollisionHandler<Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
         game.getCurLevel().toRemove(pickup);
 
-        PickupContent content = pickup.getContent();
-        if (content instanceof Weapon) {
+        if (pickup instanceof Weapon) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
             // set new weapon
-            Weapon weapon = (Weapon) content;
-            player.setWeapon(weapon);
-            weapon.setPlayer(player);
-        } else if (content instanceof Powerup) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
-            Powerup powerup = (Powerup) content;
-            player.addPowerup(powerup);
-        } else {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
-            Utility util = (Utility) content;
-            game.getCurLevel().applyUtility(util);
+            Weapon weapon = (Weapon) pickup;
+            weapon.activate(player);
         }
+//        } else if (pickup instanceof Powerup) {
+//            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
+//            Powerup powerup = (Powerup) content;
+//            player.addPowerup(powerup);
+//        } else {
+//            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
+//            Utility util = (Utility) content;
+//            game.getCurLevel().applyUtility(util);
+//        }
     };
 
 }
