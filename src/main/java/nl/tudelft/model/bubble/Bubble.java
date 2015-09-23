@@ -51,8 +51,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      * @param goRight
      *            boolean - true if the bubble should initialise moving to the right.
      */
-    public Bubble(float locX, float locY, boolean goRight) {
-        super(locX, locY);
+    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight) {
+        super(bubbleImg, locX, locY);
         
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;

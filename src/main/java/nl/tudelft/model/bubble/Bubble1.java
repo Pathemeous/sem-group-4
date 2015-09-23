@@ -1,6 +1,6 @@
 package nl.tudelft.model.bubble;
 
-import org.newdawn.slick.Image;
+import nl.tudelft.semgroup4.Resources;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 1.
@@ -25,14 +25,9 @@ public class Bubble1 extends Bubble {
      *      is to the right.
      */
     public Bubble1(float locX, float locY, boolean goRight) {
-        super(locX, locY, goRight);
+        super(Resources.bubbleImage1, locX, locY, goRight);
         
         setMaxVerticalSpeed(5.0f);
-    }
-
-    @Override
-    protected Image setDefaultImage() {
-        return resourcesWrapper.getBubbleImage1();
     }
 
 }
