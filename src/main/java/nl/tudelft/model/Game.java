@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -64,7 +65,7 @@ public class Game implements Renderable, Modifiable {
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
-        this.levelFact = new LevelFactory(this);
+        this.levelFact = new LevelFactory(this, new ResourcesWrapper());
         LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;
