@@ -42,7 +42,11 @@ public class Game implements Renderable, Modifiable {
     private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
-
+    private LinkedList<? extends AbstractGameObject> bubbles;
+    private LinkedList<? extends AbstractGameObject> pickups;
+    private LinkedList<? extends AbstractGameObject> walls;
+    private LinkedList<? extends AbstractGameObject> projectiles;
+    private QuadTree quad; 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
@@ -93,81 +97,33 @@ public class Game implements Renderable, Modifiable {
      *             - If the game engines crashes.
      */
     public void update(int delta) throws SlickException {
-        final LinkedList<? extends AbstractGameObject> walls = getCurLevel().getWalls();
-        final LinkedList<? extends AbstractGameObject> projectiles = getCurLevel().getProjectiles();
-        final LinkedList<? extends AbstractGameObject> bubbles = getCurLevel().getBubbles();
-        final LinkedList<? extends AbstractGameObject> pickups = getCurLevel().getPickups();
-
+        bubbles = getCurLevel().getBubbles();
+        projectiles = getCurLevel().getProjectiles();
+        pickups = getCurLevel().getPickups();
+        walls = getCurLevel().getWalls();
+        
+        quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
         // collision: QuadTree
-        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
-        for (AbstractGameObject obj : walls) {
-            quad.insert(obj);
-        }
-        for (AbstractGameObject obj : projectiles) {
-            quad.insert(obj);
-        }
-        for (AbstractGameObject obj : players) {
-            quad.insert(obj);
-        }
-
+        quadFill();
+        
         // collision : CollisionMap
-        for (AbstractGameObject collidesWithA : bubbles) {
-            // bubbles check against walls, players and projectiles
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
-            }
-        }
-
-        for (AbstractGameObject collidesWithA : projectiles) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, walls, null)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
-            }
-        }
-
-        for (AbstractGameObject collidesWithA : players) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, walls, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
-            }
-        }
-        for (AbstractGameObject collidesWithA : pickups) {
-            // collision with walls and players
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
-            }
-        }
-
-        // Updates
-        for (AbstractGameObject gameObject : players) {
-            gameObject.update(this, delta);
-        }
-
+        bubbleCollision();
+        projectileCollision();
+        playerCollision();
+        pickupCollision();          
+        
+        //updates
+        playerUpdate(delta);        
         getCurLevel().update(getCurLevel(), delta);
-
-        for (Player player : playerToDelete) {
-            players.remove(player);
-        }
-        playerToDelete.clear();
-
+        
         // Logic
         if (getCurLevel().isCompleted()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
-                    "Level has been completed. Go to next level!");
-            nextLevel();
+            levelCompleted();
         }
         if (getCurLevel().timerExpired()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
-            
-            Audio.playTimeUp();
-            for (Player player : players) {
-                player.removeLife();
-            }
-            levelReset();
+            levelTimeExpired();            
         }
-    }
+    }    
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
@@ -175,6 +131,109 @@ public class Game implements Renderable, Modifiable {
 
         for (AbstractGameObject gameObject : players) {
             gameObject.render(container, graphics);
+        }
+    }
+    /**
+     * Objects which can collide are added to the quadTree.
+     */
+    private void quadFill() {
+        for (AbstractGameObject obj : players) {
+            quad.insert(obj);
+        }        
+        for (AbstractGameObject obj : projectiles) {
+            quad.insert(obj);
+        }   
+        for (AbstractGameObject obj : walls) {
+            quad.insert(obj);
+        }
+    }
+
+    /**
+     * Logs if the game is completed and fires up the next level.
+     */
+    private void levelCompleted() {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+                "Level has been completed. Go to next level!");
+        nextLevel();
+    }
+    /**
+     * Logs if the level timer has expired, makes the player lose a life,
+     * and resets the current level.
+     */
+    private void levelTimeExpired() {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
+        
+        Audio.playTimeUp();
+        for (Player player : players) {
+            player.removeLife();
+        }
+        levelReset();
+    }
+    
+    /**
+     * Performs updates for the player, checks the collisions 
+     * and manages the player list.
+     * @param delta
+     * @throws SlickException
+     */
+    private void playerUpdate(int delta) throws SlickException {
+        for (AbstractGameObject gameObject : players) {
+            gameObject.update(this, delta);
+        } 
+        for (Player player : playerToDelete) {
+            players.remove(player);
+        }
+        playerToDelete.clear();
+    }
+
+    /**
+     * Checks for every pickup if it collides with anything a pickup
+     * can collide with.        
+     */
+    private void pickupCollision() {        
+        for (AbstractGameObject collidesWithA : pickups) {
+            // collision with walls and players
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+            }
+        }
+    }
+    /**
+     * Checks for every player if it collides with anything a player 
+     * can collide with.     
+     */
+    private void playerCollision() {                
+        for (AbstractGameObject collidesWithA : players) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, quad)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+            }
+        }
+    }
+    /**
+     * Checks for every player if it collides with anything a projectile 
+     * can collide with.     
+     */
+    private void projectileCollision() {           
+        for (AbstractGameObject collidesWithA : projectiles) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, walls, null)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+            }
+        }
+    }
+    /**
+     * Checks for every player if it collides with anything a bubble
+     * can collide with.     
+     */
+    private void bubbleCollision() {       
+        for (AbstractGameObject collidesWithA : bubbles) {
+            // bubbles check against walls, players and projectiles
+            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
+                    collidesWithA, null, quad)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+            }
         }
     }
 
