@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.Resources.Resources;
 
 public class LifePowerup extends Powerup {
 

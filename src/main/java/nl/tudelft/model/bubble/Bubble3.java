@@ -1,6 +1,6 @@
 package nl.tudelft.model.bubble;
 
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.Resources.Resources;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 3.

@@ -7,12 +7,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
 import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.Resources.Resources;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;

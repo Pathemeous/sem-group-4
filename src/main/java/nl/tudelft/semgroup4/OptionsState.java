@@ -1,6 +1,7 @@
 package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
+import nl.tudelft.semgroup4.Resources.Resources;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 

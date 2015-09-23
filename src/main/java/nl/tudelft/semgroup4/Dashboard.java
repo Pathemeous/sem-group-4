@@ -6,6 +6,7 @@ import java.util.List;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
+import nl.tudelft.semgroup4.Resources.Resources;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
