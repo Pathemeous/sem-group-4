@@ -12,7 +12,7 @@ public class SplitUtility extends Utility {
     @Override
     public void activate(Level level) {
         if (!isActive()) {
-            super.activate(level);
+            setActive(true);
             
             level.splitAllBubbles(level.getBubbles(), false);
             toRemove();

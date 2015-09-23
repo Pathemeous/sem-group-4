@@ -14,7 +14,7 @@ public class TimeUtility extends Utility {
     @Override
     public void activate(Level level) {
         if (!isActive()) {
-            super.activate(level);
+            setActive(true);
             
             int time = (level.getTime() + EXTRA_TIME < level.getMaxTime()) 
                     ? level.getTime() + EXTRA_TIME : level.getMaxTime();

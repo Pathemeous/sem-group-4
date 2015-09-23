@@ -12,7 +12,7 @@ public class LevelWonUtility extends Utility {
     @Override
     public void activate(Level level) {
         if (!isActive()) {
-            super.activate(level);
+            setActive(true);
             
             level.splitAllBubbles(level.getBubbles(), true);
             toRemove();

@@ -28,25 +28,5 @@ public abstract class Powerup extends Pickup {
      * activation method of the specific class is called.
      * @param player : the player to which this powerup belongs.
      */
-    public void activate(Player player) {
-        setActive(true);
-//        
-//        if (!isActive()) {
-//            
-//            if (this instanceof LifePowerup) {
-//                player.setLives(player.getLives() + 1);
-//                toRemove();
-//            } else if (this instanceof PointsPowerup) {
-//                player.setScore(player.getScore() + 100);
-//                toRemove();
-//            }
-//            else if (this instanceof InvinciblePowerup) {
-//                ((InvinciblePowerup)this).activate(player);
-//            } else if (this instanceof ShieldPowerup) {
-//              ((ShieldPowerup)this).activate(player);
-//            } else if (this instanceof SpeedPowerup) {
-//               ((SpeedPowerup)this).activate(player);
-//            }
-//        }
-    }
+    public abstract void activate(Player player);
 }

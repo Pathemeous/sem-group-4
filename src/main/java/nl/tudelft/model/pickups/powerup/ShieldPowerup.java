@@ -30,7 +30,7 @@ public class ShieldPowerup extends Powerup {
     @Override
     public void activate(Player player) {
         if (!isActive()) {
-            super.activate(player);
+            setActive(true);
             this.player = player;
             
             if (player.hasPowerup(Powerup.SHIELD)) {

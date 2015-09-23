@@ -20,7 +20,7 @@ public class SlowUtility extends Utility {
     @Override
     public void activate(Level level) {
         if (!isActive()) {
-            super.activate(level);
+            setActive(true);
             this.level = level;
         }
     }

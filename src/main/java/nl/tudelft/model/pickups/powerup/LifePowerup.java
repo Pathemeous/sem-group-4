@@ -12,7 +12,7 @@ public class LifePowerup extends Powerup {
     @Override
     public void activate(Player player) {
         if (!isActive()) {
-            super.activate(player);
+            setActive(true);
             player.setLives(player.getLives() + 1);
             toRemove();
         }

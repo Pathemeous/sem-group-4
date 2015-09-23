@@ -12,7 +12,7 @@ public class PointsPowerup extends Powerup {
     @Override
     public void activate(Player player) {
         if (!isActive()) {
-            super.activate(player);
+            setActive(true);
             player.setScore(player.getScore() + 100);
             toRemove();
         }

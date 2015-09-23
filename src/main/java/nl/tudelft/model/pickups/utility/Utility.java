@@ -24,7 +24,5 @@ public abstract class Utility extends Pickup {
      * the specific class is called.
      * @param level : the level this utility belongs to.
      */
-    public void activate(Level level) {
-        setActive(true);
-    }
+    public abstract void activate(Level level);
 }
