@@ -11,7 +11,7 @@ import org.newdawn.slick.Sound;
 /**
  * This class holds the resources Created by justin on 08/09/15.
  */
-public class Resources {
+public final class Resources {
 
     private static boolean isInitted = false;
 
