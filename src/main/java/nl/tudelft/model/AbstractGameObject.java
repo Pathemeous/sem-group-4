@@ -2,6 +2,7 @@ package nl.tudelft.model;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.semgroup4.ResourcesWrapper;
 import nl.tudelft.semgroup4.Updateable;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
@@ -16,21 +17,20 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
     protected float locX;
     protected float locY;
     protected Image image;
+    protected ResourcesWrapper resourcesWrapper = new ResourcesWrapper();
 
     /**
-     * Constructs a GameObject by setting its position and an image to render.
+     * Constructs a GameObject by setting its position.
      * 
-     * @param image
-     *            Image - The sprite that this object should be rendered with.
      * @param locX
      *            float - the x-coordinate that this object should be rendered at.
      * @param locY
      *            float - the y-coordinate that this object should be rendered at.
      */
-    public AbstractGameObject(Image image, float locX, float locY) {
-        this.image = image;
+    public AbstractGameObject(float locX, float locY) {
         this.locX = locX;
         this.locY = locY;
+        this.image = setDefaultImage();
     }
 
     @Override
@@ -41,6 +41,24 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
     @Override
     public abstract <T extends Modifiable> void update(T container, int delta)
             throws SlickException;
+
+    /**
+     * called by the constructor to set the image. This method should be implemented to fetch the
+     * correct image from the resourcesWrapper.
+     * 
+     * @return Image - The image to use for this GameObject.
+     */
+    abstract protected Image setDefaultImage();
+
+    /**
+     * Method that allows injection of the resourcesWrapper on demand.
+     * 
+     * @param wrapper
+     *            {@link ResourcesWrapper} - the wrapper to use instead of the default.
+     */
+    public void setResourcesWrapper(ResourcesWrapper wrapper) {
+        this.resourcesWrapper = wrapper;
+    }
 
     /**
      * Accesses the image field.
