@@ -9,7 +9,8 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
 /**
- * This class holds the resources Created by justin on 08/09/15.
+ * This class holds and loads the Slick2D resources.
+ * @author Justin
  */
 public final class Resources {
 
@@ -80,6 +81,13 @@ public final class Resources {
     public static Sound timeUp;
 
     public static Music titleScreenMusic;
+    
+    /**
+     * Private constructor to avoid instantiation of this utility class.
+     */
+    private Resources() {
+        
+    }
 
     
 
