@@ -185,6 +185,10 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.maxTime;
     }
 
+    public void setMaxTime(int time) {
+        this.time = time;
+    }
+
     /**
      * Checks whether the level is completed.
      *
