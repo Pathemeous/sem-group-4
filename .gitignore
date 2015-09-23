@@ -121,3 +121,6 @@ buildNumber.properties
 
 ### PMD ###
 .pmd
+
+### LOG ###
+log.txt

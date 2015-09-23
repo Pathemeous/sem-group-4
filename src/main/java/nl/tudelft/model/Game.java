@@ -220,6 +220,7 @@ public class Game implements Renderable, Modifiable {
     public void resetPlayers() {
         for (Player player : players) {
             player.reset();
+            toAdd(player.getWeapon());
         }
     }
 
@@ -229,8 +230,8 @@ public class Game implements Renderable, Modifiable {
     public void levelReset() {
         Audio.stopFireSound();
         if (getPlayerLives() > 0) {
-            resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getId()));
+            resetPlayers();
         } else {
             gameOver();
         }
@@ -242,12 +243,12 @@ public class Game implements Renderable, Modifiable {
      */
     public void nextLevel() {
         if (levelIt.hasNext()) {
-            resetPlayers();
             int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
             for (Player player : players) {
-                player.addScore(score);
+                player.setScore(player.getScore() + score);
             }
             setCurLevel(levelIt.next());
+            resetPlayers();
         } else {
             gameCompleted();
         }
