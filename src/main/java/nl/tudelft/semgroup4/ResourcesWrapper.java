@@ -226,10 +226,10 @@ public final class ResourcesWrapper {
         return Resources.titleScreenMusic;
     }
 
-    /**
-     * Empty constructor to allow instantiation (no setup is needed).
-     */
-    public ResourcesWrapper() {
-        
-    }
+//    /**
+//     * Empty constructor to allow instantiation (no setup is needed).
+//     */
+//    public ResourcesWrapper() {
+//        
+//    }
 }
