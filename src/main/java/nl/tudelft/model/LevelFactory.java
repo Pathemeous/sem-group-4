@@ -23,7 +23,7 @@ public class LevelFactory {
         this.game = game;
         this.resources = wrapper;
     }
-    
+
     public Game getGame() {
         return this.game;
     }
@@ -97,8 +97,10 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble6(resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble6(resources.getVwallImage().getWidth() + 100, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
@@ -116,10 +118,14 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble6(resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
-        bubbles.add(new Bubble5(resources.getVwallImage().getWidth() + 300, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble6(resources.getVwallImage().getWidth() + 100, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble5(resources.getVwallImage().getWidth() + 300, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
@@ -137,12 +143,18 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
-        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 200, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
-        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 300, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 100, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 200, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 300, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
@@ -160,23 +172,35 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble6(resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble6(resources.getVwallImage().getWidth() + 100, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
-        bubbles.add(new Bubble5(resources.getVwallImage().getWidth() + 200, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble5(resources.getVwallImage().getWidth() + 200, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
-        bubbles.add(new Bubble4(resources.getVwallImage().getWidth() + 300, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble4(resources.getVwallImage().getWidth() + 300, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
-        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 400, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble3(resources.getVwallImage().getWidth() + 400, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
-        bubbles.add(new Bubble2(resources.getVwallImage().getWidth() + 500, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble2(resources.getVwallImage().getWidth() + 500, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
-        bubbles.add(new Bubble1(resources.getVwallImage().getWidth() + 600, game.getContainerHeight()
-                - resources.getWallImage().getHeight() - resources.getBubbleImage6().getWidth() - 400));
+        bubbles.add(new Bubble1(resources.getVwallImage().getWidth() + 600, game
+                .getContainerHeight()
+                - resources.getWallImage().getHeight()
+                - resources.getBubbleImage6().getWidth() - 400));
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
