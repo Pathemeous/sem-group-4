@@ -54,10 +54,22 @@ public class DefaultCollisionHandler implements CollisionHandler<
                 playerWallHandler.onCollision(game, (Player) objA, (Wall) objB);
             }
         }
-
-        if (objA instanceof Pickup) {
+        
+        if (objA instanceof Powerup) {
             if (objB instanceof Player) {
-                playerPickupHandler.onCollision(game, (Pickup) objA, (Player) objB);
+                playerPowerupHandler.onCollision(game, (Powerup)objA, (Player)objB );
+            }
+        }
+        
+        if (objA instanceof Weapon) {
+            if (objB instanceof Player) {
+                playerWeaponHandler.onCollision(game, (Weapon)objA, (Player)objB );
+            }
+        }
+        
+        if (objA instanceof Utility) {
+            if (objB instanceof Player) {
+                playerUtilityHandler.onCollision(game, (Utility)objA, (Player)objB );
             }
         }
 
@@ -176,24 +188,19 @@ public class DefaultCollisionHandler implements CollisionHandler<
             pickup.setOnGround(true);
         }
     };
-
-    final CollisionHandler<Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
-        //game.getCurLevel().toRemove(pickup);
-
-        if (pickup instanceof Weapon) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
-            // set new weapon
-            Weapon weapon = (Weapon) pickup;
-            weapon.activate(player);
-        } else if (pickup instanceof Powerup) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
-            Powerup powerup = (Powerup) pickup;
-            powerup.activate(player);
-        } else {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
-            Utility util = (Utility) pickup;
-            util.activate(game.getCurLevel());
-        }
+    
+    final CollisionHandler<Powerup, Player> playerPowerupHandler = (game, powerup, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
+        powerup.activate(player);
     };
-
+    
+    final CollisionHandler<Weapon, Player> playerWeaponHandler = (game, weapon, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
+        weapon.activate(player);
+    };
+    
+    final CollisionHandler<Utility, Player> playerUtilityHandler = (game, util, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
+        util.activate(game.getCurLevel());
+    };
 }

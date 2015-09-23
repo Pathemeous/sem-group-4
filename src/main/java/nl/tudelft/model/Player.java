@@ -30,6 +30,7 @@ public class Player extends AbstractGameObject {
     private final boolean firstPlayer;
     private final Input input;
     private HashMap<String, Powerup> powerups = new HashMap<>();
+    private boolean weaponActivated = false;
 
     private Weapon weapon;
 
@@ -84,6 +85,11 @@ public class Player extends AbstractGameObject {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+        if (weapon != null && weapon.isActive() && !weaponActivated) {
+            container.toAdd(weapon);
+            weaponActivated = true;
+        }
+        
         if (getLives() == 0) {
             container.toRemove(this);
         }
@@ -129,6 +135,7 @@ public class Player extends AbstractGameObject {
         clearAllPowerups();
         setWeapon(new RegularWeapon(0,0));
         this.weapon.activate(this);
+        weaponActivated = false;
     }
 
     /**
