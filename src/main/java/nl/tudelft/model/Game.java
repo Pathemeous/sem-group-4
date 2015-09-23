@@ -230,8 +230,8 @@ public class Game implements Renderable, Modifiable {
     public void levelReset() {
         Audio.stopFireSound();
         if (getPlayerLives() > 0) {
-            resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getId()));
+            resetPlayers();
         } else {
             gameOver();
         }
