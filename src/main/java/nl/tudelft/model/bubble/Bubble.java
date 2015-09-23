@@ -1,53 +1,37 @@
-package nl.tudelft.model;
+package nl.tudelft.model.bubble;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
+import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.Helpers;
+
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
 /**
- * Bubble is a subclass of AbstractEnvironmentObject and represents a single bubble in the game.
- * 
- * @author Casper
- *
+ * Bubble is an abstract subclass of AbstractEnvironmentObject and represents 
+ * a single bubble in the game.
  */
 
-public class Bubble extends AbstractEnvironmentObject {
+public abstract class Bubble extends AbstractEnvironmentObject {
     
     private static final float GRAVITY = 0.1f;
-    private float verticalSpeed = 0.0f;
-    private float horizontalSpeed = 2.0f;
+    private float verticalSpeed;
+    private float horizontalSpeed;
     private boolean isHit = false;
     private float maxVerticalSpeed;
-    private int size;
-    private boolean slowBalls = false;
+    private boolean slow = false;
     private boolean frozen = false;
     private int tickCount = 0;
-
-    /**
-     * Constructor for Bubble. This is a shorthanded version initialising the bubble moving to the
-     * right. See {@link #Bubble(float, float, int, boolean)} for the complete constructor.
-     * 
-     * @param locX
-     *            float - The x-coordinate where the bubble should spawn.
-     * @param locY
-     *            float - The y-coordinate where the bubble should spawn.
-     * @param size
-     *            int - The size of the bubble, in the range [1, 6] (inclusive).
-     * @throws IllegalArgumentException
-     *             - if the <code>size</code> is out of the defined range.
-     */
-    public Bubble(float locX, float locY, int size) throws IllegalArgumentException {
-        this(locX, locY, size, true);
-
-    }
+    private List<Bubble> next;
+    private boolean goesRightInitially;
 
     /**
      * The complete constructor for Bubble.
@@ -58,69 +42,27 @@ public class Bubble extends AbstractEnvironmentObject {
      * The bubble has a size, which will determine its image and its maximum vertical speed (and
      * thus height)
      * </p>
-     * 
+     * @param bubbleImg
+     *            Image - image for this bubble.
      * @param locX
      *            float - The x-coordinate where the bubble should spawn.
      * @param locY
      *            float - The y-coordinate where the bubble should spawn.
-     * @param size
-     *            int - The size of the bubble, in the range [1, 6] (inclusive).
      * @param goRight
      *            boolean - true if the bubble should initialise moving to the right.
-     * @throws IllegalArgumentException
-     *             - if the <code>size</code> is out of the defined range.
      */
-    public Bubble(float locX, float locY, int size, boolean goRight)
-            throws IllegalArgumentException {
-        super(getBubbleImage(size), locX, locY);
-        this.size = size;
-
+    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight) {
+        super(bubbleImg, locX, locY);
+        
+        verticalSpeed = 0.0f;
+        horizontalSpeed = 2.0f;
+        
+        goesRightInitially = goRight;
         if (!goRight) {
             horizontalSpeed = -horizontalSpeed;
         }
-
-        switch (size) {
-            case 6:
-                maxVerticalSpeed = 10.0f;
-                break;
-            case 5:
-                maxVerticalSpeed = 9.0f;
-                break;
-            case 4:
-                maxVerticalSpeed = 8.0f;
-                break;
-            case 3:
-                maxVerticalSpeed = 7.0f;
-                break;
-            case 2:
-                maxVerticalSpeed = 6.0f;
-                break;
-            case 1:
-                maxVerticalSpeed = 5.0f;
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
-
-    }
-
-    private static Image getBubbleImage(int size) throws IllegalArgumentException {
-        switch (size) {
-            case 1:
-                return Resources.bubbleImage1;
-            case 2:
-                return Resources.bubbleImage2;
-            case 3:
-                return Resources.bubbleImage3;
-            case 4:
-                return Resources.bubbleImage4;
-            case 5:
-                return Resources.bubbleImage5;
-            case 6:
-                return Resources.bubbleImage6;
-            default:
-                throw new IllegalArgumentException();
-        }
+        
+        next = new ArrayList<>();
     }
 
     /**
@@ -128,7 +70,7 @@ public class Bubble extends AbstractEnvironmentObject {
      */
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if ((!slowBalls || tickCount % 2 == 0) && !frozen) {
+        if ((!slow || tickCount % 2 == 0) && !frozen) {
             move();
         }
 
@@ -157,26 +99,30 @@ public class Bubble extends AbstractEnvironmentObject {
         Audio.playBubbleSplit();
         container.toRemove(this);
 
-        if (random > 7 && size > 1) {
-            int randomPickup = Helpers.randInt(1, 10);
-            Pickup pickup = new Pickup(null, getLocX(), getLocY(), randomPickup);
+        if (random > 7 && !next.isEmpty()) {
+            Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(1, 10), 
+                    getLocX(), getLocY());
             container.toAdd(pickup);
         }
-
-        if (getSize() > 1) {
-            Bubble bubbleLeft = new Bubble(getLocX(), getLocY(), getSize() - 1, false);
-            Bubble bubbleRight =
-                    new Bubble(getLocX() + (bubbleLeft.getBounds().getWidth() / 2), getLocY(),
-                            getSize() - 1, true);
-            newBubbles.add(bubbleLeft);
-            newBubbles.add(bubbleRight);
-
-            bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
-            bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
-
-            container.toAdd(bubbleLeft);
-            container.toAdd(bubbleRight);
+        
+        for (Bubble bubble : next) {
+            if (bubble.goesRight()) {
+                bubble.setLocX(getLocX() + bubble.getBounds().getWidth() / 2);
+            } else {
+                bubble.setLocX(getLocX());
+            }
+            
+            bubble.setLocY(getLocY());
+            bubble.setVerticalSpeed(bubble.getMaxVerticalSpeed() / 1.5f);
+            
+            if (frozen) {
+                bubble.setFrozen(true);
+            }
+            
+            container.toAdd(bubble);
+            newBubbles.add(bubble);
         }
+        
         return newBubbles;
     }
 
@@ -199,17 +145,25 @@ public class Bubble extends AbstractEnvironmentObject {
         setLocY(newY);
         verticalSpeed -= GRAVITY;
     }
-
-    public void slowBubbleDown(boolean slowDown) {
-        slowBalls = slowDown;
+    
+    public void setSlow(boolean slowDown) {
+        slow = slowDown;
     }
 
-    public void freeze(boolean freeze) {
+    public void setFrozen(boolean freeze) {
         this.frozen = freeze;
+    }
+    
+    public boolean isFrozen() {
+        return frozen;
     }
 
     public void setIsHit() {
         this.isHit = true;
+    }
+    
+    public List<Bubble> getNext() {
+        return next;
     }
 
     /**
@@ -237,6 +191,10 @@ public class Bubble extends AbstractEnvironmentObject {
      */
     public float getMaxVerticalSpeed() {
         return maxVerticalSpeed;
+    }
+    
+    public void setMaxVerticalSpeed(float speed) {
+        maxVerticalSpeed = speed;
     }
 
     /**
@@ -270,9 +228,9 @@ public class Bubble extends AbstractEnvironmentObject {
         }
         return maxVerticalSpeed;
     }
-
-    public int getSize() {
-        return size;
+    
+    public boolean goesRight() {
+        return goesRightInitially;
     }
 
     /**

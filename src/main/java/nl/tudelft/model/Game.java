@@ -164,8 +164,8 @@ public class Game implements Renderable, Modifiable {
             Audio.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
-                levelReset();
             }
+            levelReset();
         }
     }
 
@@ -245,7 +245,7 @@ public class Game implements Renderable, Modifiable {
             resetPlayers();
             int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
             for (Player player : players) {
-                player.addScore(score);
+                player.setScore(player.getScore() + score);
             }
             setCurLevel(levelIt.next());
         } else {

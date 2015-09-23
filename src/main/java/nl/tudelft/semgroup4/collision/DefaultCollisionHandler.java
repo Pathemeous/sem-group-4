@@ -1,16 +1,16 @@
 package nl.tudelft.semgroup4.collision;
 
 import nl.tudelft.model.AbstractGameObject;
-import nl.tudelft.model.Bubble;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.Projectile;
 import nl.tudelft.model.Wall;
-import nl.tudelft.model.Weapon;
+import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.PickupContent;
-import nl.tudelft.model.pickups.Powerup;
-import nl.tudelft.model.pickups.Utility;
+import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.ShieldPowerup;
+import nl.tudelft.model.pickups.utility.Utility;
+import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
@@ -54,10 +54,22 @@ public class DefaultCollisionHandler implements CollisionHandler<
                 playerWallHandler.onCollision(game, (Player) objA, (Wall) objB);
             }
         }
-
-        if (objA instanceof Pickup) {
+        
+        if (objA instanceof Powerup) {
             if (objB instanceof Player) {
-                playerPickupHandler.onCollision(game, (Pickup) objA, (Player) objB);
+                playerPowerupHandler.onCollision(game, (Powerup)objA, (Player)objB );
+            }
+        }
+        
+        if (objA instanceof Weapon) {
+            if (objB instanceof Player) {
+                playerWeaponHandler.onCollision(game, (Weapon)objA, (Player)objB );
+            }
+        }
+        
+        if (objA instanceof Utility) {
+            if (objB instanceof Player) {
+                playerUtilityHandler.onCollision(game, (Utility)objA, (Player)objB );
             }
         }
 
@@ -116,15 +128,16 @@ public class DefaultCollisionHandler implements CollisionHandler<
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
         // TODO: Add code to reset the level.
 
-        if (player.isInvincible()) {
+        if (player.isInvincible() || bubble.isFrozen()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
             // nothing happens
         } else if (player.hasShield()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but has a shield");
             
             // The shield is removed and the bubble is split (tagged as isHit).
-            if (!player.removingShield()) {
-                player.setShieldInactive();
+            ShieldPowerup shield = (ShieldPowerup)player.getPowerup(Powerup.SHIELD);
+            if (!shield.isHit()) {
+                shield.setHit(true);
                 bubble.setIsHit();
             }
         } else {
@@ -132,7 +145,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
             
             Audio.playDeath();
             player.removeLife();
-            player.addScore(-1000);
+            player.setScore(player.getScore() - 1000);
             game.levelReset();
         }
     };
@@ -158,7 +171,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", 
                     "Projectile hit bubble, and the bubble is split");
             projectile.setHitBubble();
-            projectile.getWeapon().getPlayer().addScore(50);
+            Player player = projectile.getWeapon().getPlayer();
+            player.setScore(player.getScore() + 50);
             bubble.setIsHit();
         }
     };
@@ -174,26 +188,19 @@ public class DefaultCollisionHandler implements CollisionHandler<
             pickup.setOnGround(true);
         }
     };
-
-    final CollisionHandler<Pickup, Player> playerPickupHandler = (game, pickup, player) -> {
-        game.getCurLevel().toRemove(pickup);
-
-        PickupContent content = pickup.getContent();
-        if (content instanceof Weapon) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
-            // set new weapon
-            Weapon weapon = (Weapon) content;
-            player.setWeapon(weapon);
-            weapon.setPlayer(player);
-        } else if (content instanceof Powerup) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
-            Powerup powerup = (Powerup) content;
-            player.addPowerup(powerup);
-        } else {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
-            Utility util = (Utility) content;
-            game.getCurLevel().applyUtility(util);
-        }
+    
+    final CollisionHandler<Powerup, Player> playerPowerupHandler = (game, powerup, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
+        powerup.activate(player);
     };
-
+    
+    final CollisionHandler<Weapon, Player> playerWeaponHandler = (game, weapon, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
+        weapon.activate(player);
+    };
+    
+    final CollisionHandler<Utility, Player> playerUtilityHandler = (game, util, player) -> {
+        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
+        util.activate(game.getCurLevel());
+    };
 }
