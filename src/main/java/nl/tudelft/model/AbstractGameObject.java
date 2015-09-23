@@ -43,14 +43,6 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
             throws SlickException;
 
     /**
-     * called by the constructor to set the image. This method should be implemented to fetch the
-     * correct image from the resourcesWrapper.
-     * 
-     * @return Image - The image to use for this GameObject.
-     */
-    abstract protected Image setDefaultImage();
-
-    /**
      * Method that allows injection of the resourcesWrapper on demand.
      * 
      * @param wrapper
@@ -104,5 +96,13 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
     public int getHeight() {
         return this.getImage().getHeight();
     }
+
+    /**
+     * called by the constructor to set the image. This method should be implemented to fetch the
+     * correct image from the resourcesWrapper.
+     * 
+     * @return Image - The image to use for this GameObject.
+     */
+    abstract protected Image setDefaultImage();
 
 }
