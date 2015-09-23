@@ -29,22 +29,24 @@ public abstract class Powerup extends Pickup {
      * @param player : the player to which this powerup belongs.
      */
     public void activate(Player player) {
-        if (!isActive()) {
-            setActive(true);
-            
-            if (this instanceof LifePowerup) {
-                player.setLives(player.getLives() + 1);
-                toRemove();
-            } else if (this instanceof InvinciblePowerup) {
-                ((InvinciblePowerup)this).activate(player);
-            } else if (this instanceof ShieldPowerup) {
-                ((ShieldPowerup)this).activate(player);
-            } else if (this instanceof PointsPowerup) {
-                player.setScore(player.getScore() + 100);
-                toRemove();
-            } else if (this instanceof SpeedPowerup) {
-                ((SpeedPowerup)this).activate(player);
-            }
-        }
+        setActive(true);
+//        
+//        if (!isActive()) {
+//            
+//            if (this instanceof LifePowerup) {
+//                player.setLives(player.getLives() + 1);
+//                toRemove();
+//            } else if (this instanceof PointsPowerup) {
+//                player.setScore(player.getScore() + 100);
+//                toRemove();
+//            }
+//            else if (this instanceof InvinciblePowerup) {
+//                ((InvinciblePowerup)this).activate(player);
+//            } else if (this instanceof ShieldPowerup) {
+//              ((ShieldPowerup)this).activate(player);
+//            } else if (this instanceof SpeedPowerup) {
+//               ((SpeedPowerup)this).activate(player);
+//            }
+//        }
     }
 }

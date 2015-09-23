@@ -18,7 +18,7 @@ public class SpeedPowerup extends Powerup {
     @Override
     public void activate(Player player) {
         if (!isActive()) {
-            setActive(true);
+            super.activate(player);
             this.player = player;
             
             if (player.hasPowerup(Powerup.SPEED)) {

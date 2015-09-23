@@ -20,7 +20,7 @@ public class FreezeUtility extends Utility {
     @Override
     public void activate(Level level) {
         if (!isActive()) {
-            setActive(true);
+            super.activate(level);
             this.level = level;
         }
     }

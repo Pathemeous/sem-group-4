@@ -8,7 +8,7 @@ import org.newdawn.slick.Image;
 
 public abstract class Utility extends Pickup {
     
-    private static final int EXTRA_TIME = 20000;
+    
     
     /**
      * Creates a random utility.
@@ -25,24 +25,6 @@ public abstract class Utility extends Pickup {
      * @param level : the level this utility belongs to.
      */
     public void activate(Level level) {
-        if (!isActive()) {
-            setActive(true);
-            
-            if (this instanceof TimeUtility) {
-                int time = (level.getTime() + EXTRA_TIME < level.getMaxTime()) 
-                        ? level.getTime() + EXTRA_TIME : level.getMaxTime();
-                level.setTime(time);
-                toRemove();
-            } else if (this instanceof SplitUtility) {
-                level.splitAllBubbles(level.getBubbles(), false);
-                toRemove();
-            } else if (this instanceof LevelWonUtility) {
-                level.splitAllBubbles(level.getBubbles(), true);
-            } else if (this instanceof SlowUtility) {
-                ((SlowUtility)this).activate(level);
-            } //else if (this instanceof FreezeUtility) {
-                //((FreezeUtility)this).activate(level);
-            //}
-        }
+        setActive(true);
     }
 }
