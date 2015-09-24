@@ -43,14 +43,15 @@ public class GameState extends BasicGameState {
      *             - If the Game Engine fails.
      */
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
+        ResourcesWrapper res = new ResourcesWrapper();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
         
         input = container.getInput();
         mouseOver =
-                new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
-                        container.getHeight() / 2, Resources.quitText.getWidth(),
-                        Resources.quitText.getHeight());
+                new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
+                        container.getHeight() / 2, res.getQuitText().getWidth(),
+                        res.getQuitText().getHeight());
         pauseScreen = new PauseScreen(mouseOver);
         // Resources.titleScreenMusic.stop();
 
@@ -124,7 +125,8 @@ public class GameState extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
-        if (Resources.titleScreenMusic.playing()) {
+        ResourcesWrapper res = new ResourcesWrapper();
+        if (res.getTitleScreenMusic().playing()) {
             Audio.stopTitleScreen();
         }
         // checks if the escape key is pressed, if so, the gameState pauses
