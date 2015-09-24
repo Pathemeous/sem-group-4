@@ -3,6 +3,7 @@ package nl.tudelft.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;

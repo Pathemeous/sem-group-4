@@ -18,6 +18,14 @@ public class PauseScreen {
     private final Image pauseText;
     private final Image quitText;
 
+    /**
+     * Constructs a PauseScreen with the correct MouseOverArea and Resources.
+     * 
+     * @param resources
+     *            {@link ResourcesWrapper} - a new ResourcesWrapper.
+     * @param mouseOver
+     *            {@link MouseOverArea} - the Slick MouseOverArea to use.
+     */
     public PauseScreen(ResourcesWrapper resources, MouseOverArea mouseOver) {
         this.mouseOver = mouseOver;
         this.pauseText = resources.getPauseText();
@@ -38,8 +46,8 @@ public class PauseScreen {
      * @param gameState
      *            to unpause the game when the main menu is entered
      */
-    public void show(Graphics graphics, GameContainer container, Input input, StateBasedGame game,
-            GameState gameState) {
+    public void show(Graphics graphics, GameContainer container, Input input,
+            StateBasedGame game, GameState gameState) {
         Audio.stopFireSound();
         graphics.setColor(Color.yellow);
         graphics.setAntiAlias(true);
@@ -55,7 +63,7 @@ public class PauseScreen {
         // if so, the state is set to main menu and the gameState unpauses
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOver.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+                Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                         "Player left the game, to the main menu");
                 gameState.paused = false;
                 game.enterState(0);

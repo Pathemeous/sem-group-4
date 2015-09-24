@@ -13,7 +13,6 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-
 public class StartScreenState extends BasicGameState {
     private MouseOverArea mouseOverOnePlayer;
     private MouseOverArea mouseOverTwoPlayer;
@@ -28,14 +27,18 @@ public class StartScreenState extends BasicGameState {
         final ResourcesWrapper resources = new ResourcesWrapper();
         // initializes all the areas where the buttons are to see if the mouse is on one of those
         // areas
-        mouseOverOnePlayer = new MouseOverArea(container, resources.getTitleScreenBackground(), 211,
-                391, 364, 88);
-        mouseOverTwoPlayer = new MouseOverArea(container, resources.getTitleScreenBackground(), 211,
-                476, 364, 88);
-        mouseOverOptions = new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 573,
-                364, 88);
-        mouseOverQuit = new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
-                364, 88);
+        mouseOverOnePlayer =
+                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 391,
+                        364, 88);
+        mouseOverTwoPlayer =
+                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 476,
+                        364, 88);
+        mouseOverOptions =
+                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 573,
+                        364, 88);
+        mouseOverQuit =
+                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
+                        364, 88);
 
     }
 
@@ -56,28 +59,26 @@ public class StartScreenState extends BasicGameState {
         if (!resources.getTitleScreenMusic().playing()) {
             Audio.playTitleScreen();
         }
-//      
+        //
         // checks if the left mouse button is pressed and where it was pressed to determine
         // what action to perform
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverOnePlayer.isMouseOver()) {
                 game.getState(1).init(container, game);
-                game.enterState(1);  
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                game.enterState(1);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a single player game");
             } else if (mouseOverTwoPlayer.isMouseOver()) {
                 game.getState(2).init(container, game);
                 game.enterState(2);
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a multi-player game");
             } else if (mouseOverOptions.isMouseOver()) {
                 game.enterState(3);
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
-                        "User enters options menu");
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverQuit.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", 
-                        "User quits the application");
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
                 container.exit();
             }
         }
