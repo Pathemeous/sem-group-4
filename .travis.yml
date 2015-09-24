@@ -14,7 +14,7 @@ matrix:
   allow_failures:
     - env: BUILD_PR_BRANCH=true
 
-script: mvn test -DskipTests=true
+script: mvn test -Dmaven.test.skip=true -DskipTests=true
 
 after_script:
   - echo "== CHECKSTYLE_RESULT =="; cat "target/checkstyle-result.xml"; echo "== END_CHECKSTYLE_RESULT =="
