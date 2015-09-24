@@ -7,6 +7,7 @@ import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.shop.level.ExtraTime;
 import nl.tudelft.model.shop.level.SlowGameSpeed;
+import nl.tudelft.model.shop.player.ExtraLife;
 
 
 public class Shop {
@@ -26,6 +27,7 @@ public class Shop {
         inventory = new LinkedList<ShopItem>();
         inventory.add(new SlowGameSpeed(100, nextLevel));
         inventory.add(new ExtraTime(150, nextLevel));
+        inventory.add(new ExtraLife(200));
     }
 
     /**
@@ -35,7 +37,7 @@ public class Shop {
     public ShopItem discount() {
         Random rand = new Random(inventory.size());
         ShopItem res = inventory.get(rand.nextInt());
-        res.setPrice((int)(0.5 * res.getPrice()));
+        res.setPrice((int) (0.5 * res.getPrice()));
         return res;
     }
 }

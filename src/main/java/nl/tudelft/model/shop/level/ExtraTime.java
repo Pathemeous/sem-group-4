@@ -15,7 +15,7 @@ public class ExtraTime extends LevelShopItem {
     }
 
     /**
-     * Activate the slow item.
+     * Activate the extra time item.
      * @param buyer : The person who is buying the item.
      */
     public void applyTo(Player buyer) {
