@@ -6,7 +6,7 @@ import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
@@ -41,6 +41,9 @@ public class Player extends AbstractGameObject {
     /**
      * Constructor for the Player class.
      * 
+     * @param resources
+     *            {@link ResourcesWrapper} - The resources that the player can use. creating a new
+     *            instance is fine.
      * @param locX
      *            int - The x-coordinate where the player should spawn.
      * @param locY
@@ -50,8 +53,9 @@ public class Player extends AbstractGameObject {
      * @param isFirstPlayer
      *            boolean - checks whether the player is number one or two.
      */
-    public Player(int locX, int locY, Input input, boolean isFirstPlayer) {
-        super(Resources.playerImageStill.copy(), locX, locY);
+    public Player(ResourcesWrapper resources, int locX, int locY, Input input,
+            boolean isFirstPlayer) {
+        super(resources.getPlayerImageStill().copy(), locX, locY);
         speed = REGULAR_SPEED;
         lives = 3;
         score = 0;
@@ -62,8 +66,8 @@ public class Player extends AbstractGameObject {
         this.weapon.activate(this);
 
         this.animationCurrent = null;
-        this.animationLeft = Resources.playerWalkLeft;
-        this.animationRight = Resources.playerWalkRight;
+        this.animationLeft = resources.getPlayerWalkLeft();
+        this.animationRight = resources.getPlayerWalkRight();
     }
 
     @Override
@@ -89,7 +93,7 @@ public class Player extends AbstractGameObject {
             container.toAdd(weapon);
             weaponActivated = true;
         }
-        
+
         if (getLives() == 0) {
             container.toRemove(this);
         }
@@ -97,14 +101,14 @@ public class Player extends AbstractGameObject {
         if ((input.isKeyDown(Input.KEY_LEFT) && firstPlayer)
                 || (input.isKeyDown(Input.KEY_A) && !firstPlayer)) {
             Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
-            
+
             setAnimationCurrent(animationLeft);
             setLocX(locX - speed);
         }
         if ((input.isKeyDown(Input.KEY_RIGHT) && firstPlayer)
                 || (input.isKeyDown(Input.KEY_D) && !firstPlayer)) {
             Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
-            
+
             setAnimationCurrent(animationRight);
             setLocX(locX + speed);
         }
@@ -115,10 +119,8 @@ public class Player extends AbstractGameObject {
             weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                     this.getHeight());
         }
-        if ((!(input.isKeyDown(Input.KEY_LEFT)
-                || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
-                || (!(input.isKeyDown(Input.KEY_A)
-                || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
+        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
+                || (!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
             setAnimationCurrent(null);
         }
     }
@@ -133,7 +135,7 @@ public class Player extends AbstractGameObject {
      */
     public void reset() {
         clearAllPowerups();
-        setWeapon(new RegularWeapon(0,0));
+        setWeapon(new RegularWeapon(0, 0));
         this.weapon.activate(this);
         weaponActivated = false;
     }
@@ -152,24 +154,26 @@ public class Player extends AbstractGameObject {
             powerups.remove(Powerup.INVINCIBLE).toRemove();
         }
     }
-    
+
     /**
      * Returns true if the player has a powerup with the specified key.
-     * @param key : key which specifies the type of powerup.
+     * 
+     * @param key
+     *            : key which specifies the type of powerup.
      * @return : true iff the player has a powerup with the specified key.
      */
     public boolean hasPowerup(String key) {
         return powerups.get(key) != null;
     }
-    
+
     public Powerup removePowerup(String key) {
         return powerups.remove(key);
     }
-    
+
     public void setPowerup(String key, Powerup value) {
         powerups.put(key, value);
     }
-    
+
     public Powerup getPowerup(String key) {
         return powerups.get(key);
     }
@@ -191,25 +195,28 @@ public class Player extends AbstractGameObject {
     public boolean hasShield() {
         return powerups.get(Powerup.SHIELD) != null;
     }
-    
+
     public void applySpeedup() {
         speed = REGULAR_SPEED * SPEEDUP;
     }
-    
+
     public void setDefaultSpeed() {
         speed = REGULAR_SPEED;
     }
 
     /**
      * sets the speed of this player.
-     * @param newSpeed the new speed
+     * 
+     * @param newSpeed
+     *            the new speed
      */
     public final void setSpeed(int newSpeed) {
         this.speed = newSpeed;
     }
-    
+
     /**
      * returns the speed of the player.
+     * 
      * @return the current speed
      */
     public int getSpeed() {
@@ -225,18 +232,19 @@ public class Player extends AbstractGameObject {
         return this.firstPlayer;
     }
 
-
     /**
      * Sets the weapon of the player.
+     * 
      * @param weapon
      *            Weapon - the Weapon to use.
      */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
     }
-    
+
     /**
      * Returns the weapon of the player.
+     * 
      * @return the current weapon
      */
     public Weapon getWeapon() {
@@ -251,11 +259,11 @@ public class Player extends AbstractGameObject {
     public int getLives() {
         return this.lives;
     }
-    
+
     public void setLives(int lives) {
         this.lives = lives;
     }
-    
+
     public void setScore(int score) {
         this.score = score;
     }

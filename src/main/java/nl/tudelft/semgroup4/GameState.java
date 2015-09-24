@@ -5,6 +5,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
@@ -61,16 +62,16 @@ public class GameState extends BasicGameState {
         // more
         // flexible
         Player firstPlayer =
-                new Player(container.getWidth() / 2, container.getHeight()
-                        - Resources.playerImageStill.getHeight() - 5
-                        * Resources.wallImage.getHeight(), input, true);
+                new Player(new ResourcesWrapper(), container.getWidth() / 2, container.getHeight()
+                        - res.getPlayerImageStill().getHeight() - 5
+                        * res.getWallImage().getHeight(), input, true);
         playerList.add(firstPlayer);
 
         if (!singlePlayer) {
             Player secondPlayer =
-                    new Player(container.getWidth() / 2 + 100, container.getHeight()
-                            - Resources.playerImageStill.getHeight() - 5
-                            * Resources.wallImage.getHeight(), input, false);
+                    new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100, container.getHeight()
+                            - res.getPlayerImageStill().getHeight() - 5
+                            * res.getWallImage().getHeight(), input, false);
             playerList.add(secondPlayer);
         }
  
