@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -79,7 +80,7 @@ public abstract class Weapon extends Pickup {
             fire(T container, int locX, int locY, int width, int height) {
         if (fireCounter == 0 && projectiles.size() < maxCount && isActive()) {
             fireCounter++;
-            Projectile proj = new Projectile(img, locX, locY, width, height, 6, this);
+            Projectile proj = new Projectile(new ResourcesWrapper(), img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);
             projectiles.add(proj);
