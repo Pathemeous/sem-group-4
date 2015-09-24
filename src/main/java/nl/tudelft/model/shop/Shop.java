@@ -1,6 +1,7 @@
 package nl.tudelft.model.shop;
 
 import java.util.LinkedList;
+import java.util.Random;
 
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
@@ -25,5 +26,16 @@ public class Shop {
         inventory = new LinkedList<ShopItem>();
         inventory.add(new SlowGameSpeed(100, nextLevel));
         inventory.add(new ExtraTime(150, nextLevel));
+    }
+
+    /**
+     * Create a method to discount items.
+     * @return res : the item that has the discount applied.
+     */
+    public ShopItem discount() {
+        Random rand = new Random(inventory.size());
+        ShopItem res = inventory.get(rand.nextInt());
+        res.setPrice((int)(0.5 * res.getPrice()));
+        return res;
     }
 }

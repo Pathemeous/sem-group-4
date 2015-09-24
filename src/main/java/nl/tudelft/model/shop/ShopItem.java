@@ -7,7 +7,7 @@ public abstract class ShopItem {
     /**
      * Every shop item needs a price.
      */
-    private int price;
+    private double price;
 
     /**
      * Method to apply a shop item.
@@ -20,6 +20,14 @@ public abstract class ShopItem {
      * @param cost : The cost of an item.
      */
     public ShopItem(int cost) {
+        price = cost;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public void setPrice(int cost) {
         price = cost;
     }
 }
