@@ -16,12 +16,12 @@ import org.newdawn.slick.geom.Circle;
 import org.newdawn.slick.geom.Shape;
 
 /**
- * Bubble is an abstract subclass of AbstractEnvironmentObject and represents 
- * a single bubble in the game.
+ * Bubble is an abstract subclass of AbstractEnvironmentObject and represents a single bubble in
+ * the game.
  */
 
 public abstract class Bubble extends AbstractEnvironmentObject {
-    
+
     private static final float GRAVITY = 0.1f;
     private float verticalSpeed;
     private float horizontalSpeed;
@@ -42,6 +42,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      * The bubble has a size, which will determine its image and its maximum vertical speed (and
      * thus height)
      * </p>
+     * 
      * @param bubbleImg
      *            Image - image for this bubble.
      * @param locX
@@ -53,15 +54,15 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      */
     public Bubble(Image bubbleImg, float locX, float locY, boolean goRight) {
         super(bubbleImg, locX, locY);
-        
+
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
-        
+
         goesRightInitially = goRight;
         if (!goRight) {
             horizontalSpeed = -horizontalSpeed;
         }
-        
+
         next = new ArrayList<>();
     }
 
@@ -100,29 +101,29 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         container.toRemove(this);
 
         if (random > 7 && !next.isEmpty()) {
-            Pickup pickup = Pickup.generateRandomPickup(Helpers.randInt(1, 10), 
-                    getLocX(), getLocY());
+            Pickup pickup =
+                    Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(), getLocY());
             container.toAdd(pickup);
         }
-        
+
         for (Bubble bubble : next) {
             if (bubble.goesRight()) {
                 bubble.setLocX(getLocX() + bubble.getBounds().getWidth() / 2);
             } else {
                 bubble.setLocX(getLocX());
             }
-            
+
             bubble.setLocY(getLocY());
             bubble.setVerticalSpeed(bubble.getMaxVerticalSpeed() / 1.5f);
-            
+
             if (frozen) {
                 bubble.setFrozen(true);
             }
-            
+
             container.toAdd(bubble);
             newBubbles.add(bubble);
         }
-        
+
         return newBubbles;
     }
 
@@ -145,7 +146,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         setLocY(newY);
         verticalSpeed -= GRAVITY;
     }
-    
+
     public void setSlow(boolean slowDown) {
         slow = slowDown;
     }
@@ -153,7 +154,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     public void setFrozen(boolean freeze) {
         this.frozen = freeze;
     }
-    
+
     public boolean isFrozen() {
         return frozen;
     }
@@ -161,7 +162,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     public void setIsHit() {
         this.isHit = true;
     }
-    
+
     public List<Bubble> getNext() {
         return next;
     }
@@ -192,7 +193,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     public float getMaxVerticalSpeed() {
         return maxVerticalSpeed;
     }
-    
+
     public void setMaxVerticalSpeed(float speed) {
         maxVerticalSpeed = speed;
     }
@@ -228,7 +229,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         }
         return maxVerticalSpeed;
     }
-    
+
     public boolean goesRight() {
         return goesRightInitially;
     }
