@@ -16,7 +16,7 @@ import nl.tudelft.model.pickups.weapon.FlowerWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.StickyWeapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;

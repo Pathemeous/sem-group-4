@@ -11,7 +11,7 @@ import nl.tudelft.model.bubble.Bubble5;
 import nl.tudelft.model.bubble.Bubble6;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class LevelFactory {
 

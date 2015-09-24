@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class SplitUtility extends Utility {
     

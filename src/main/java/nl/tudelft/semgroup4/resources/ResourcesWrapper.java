@@ -1,4 +1,4 @@
-package nl.tudelft.semgroup4.Resources;
+package nl.tudelft.semgroup4.resources;
 
 import java.util.ArrayList;
 

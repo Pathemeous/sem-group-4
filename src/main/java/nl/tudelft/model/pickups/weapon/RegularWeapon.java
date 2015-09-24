@@ -1,6 +1,6 @@
 package nl.tudelft.model.pickups.weapon;
 
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class RegularWeapon extends Weapon {
 

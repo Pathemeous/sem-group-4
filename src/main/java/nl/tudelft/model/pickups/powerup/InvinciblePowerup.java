@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

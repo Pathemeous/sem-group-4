@@ -1,7 +1,7 @@
 package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.resources.Resources;
 
 import org.junit.Test;
 import org.newdawn.slick.SlickException;

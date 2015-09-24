@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

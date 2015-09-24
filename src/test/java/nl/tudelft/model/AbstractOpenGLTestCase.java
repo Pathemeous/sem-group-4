@@ -2,7 +2,7 @@ package nl.tudelft.model;
 
 import java.io.File;
 
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.resources.Resources;
 
 import org.junit.After;
 import org.junit.Before;

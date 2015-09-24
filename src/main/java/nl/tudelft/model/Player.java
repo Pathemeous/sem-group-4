@@ -6,8 +6,8 @@ import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;

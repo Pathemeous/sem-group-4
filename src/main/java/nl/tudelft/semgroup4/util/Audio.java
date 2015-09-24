@@ -1,6 +1,6 @@
 package nl.tudelft.semgroup4.util;
 
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class Audio {
     public static boolean musicOn = true;

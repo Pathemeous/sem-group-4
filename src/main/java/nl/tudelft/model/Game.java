@@ -6,13 +6,13 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 

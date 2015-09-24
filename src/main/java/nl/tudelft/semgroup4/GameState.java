@@ -4,8 +4,8 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.lwjgl.opengl.GL11;

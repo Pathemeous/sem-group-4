@@ -1,8 +1,8 @@
 package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
