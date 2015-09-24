@@ -17,6 +17,6 @@ public class ExtraLife extends PlayerShopItem {
      * @param buyer : The person who is buying the item.
      */
     public void applyTo(Player buyer) {
-        buyer.setLives(buyer.getLives()+1);
+        buyer.setLives(buyer.getLives() + 1);
     }
 }

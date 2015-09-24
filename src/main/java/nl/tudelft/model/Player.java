@@ -21,6 +21,7 @@ public class Player extends AbstractGameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score;
+    private int money;
     private static final int BOUNDINGBOX_OFFSET_X = 10;
     private static final int BOUNDINGBOX_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
@@ -55,6 +56,7 @@ public class Player extends AbstractGameObject {
         speed = REGULAR_SPEED;
         lives = 3;
         score = 0;
+        money = 0;
         this.firstPlayer = isFirstPlayer;
 
         this.input = input;
@@ -258,6 +260,14 @@ public class Player extends AbstractGameObject {
     
     public void setScore(int score) {
         this.score = score;
+    }
+
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return this.money;
     }
 
     /**
