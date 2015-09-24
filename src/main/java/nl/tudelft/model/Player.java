@@ -62,7 +62,7 @@ public class Player extends AbstractGameObject {
         this.firstPlayer = isFirstPlayer;
 
         this.input = input;
-        this.weapon = new RegularWeapon(0, 0);
+        this.weapon = new RegularWeapon(new ResourcesWrapper(), 0, 0);
         this.weapon.activate(this);
 
         this.animationCurrent = null;
@@ -135,7 +135,7 @@ public class Player extends AbstractGameObject {
      */
     public void reset() {
         clearAllPowerups();
-        setWeapon(new RegularWeapon(0, 0));
+        setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
         this.weapon.activate(this);
         weaponActivated = false;
     }
