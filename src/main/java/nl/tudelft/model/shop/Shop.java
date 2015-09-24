@@ -8,6 +8,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.shop.level.ExtraTime;
 import nl.tudelft.model.shop.level.SlowGameSpeed;
 import nl.tudelft.model.shop.player.ExtraLife;
+import nl.tudelft.model.shop.player.ImprovedSpeed;
 
 
 public class Shop {
@@ -28,6 +29,7 @@ public class Shop {
         inventory.add(new SlowGameSpeed(100, nextLevel));
         inventory.add(new ExtraTime(150, nextLevel));
         inventory.add(new ExtraLife(200));
+        inventory.add(new ImprovedSpeed(50));
     }
 
     /**
