@@ -1,7 +1,7 @@
 package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
@@ -15,11 +15,13 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class PauseScreen {
     private final MouseOverArea mouseOver;
-    private final Image pauseText = Resources.pauseText;
-    private final Image quitText = Resources.quitText;
+    private final Image pauseText;
+    private final Image quitText;
 
-    public PauseScreen(MouseOverArea mouseOver) {
+    public PauseScreen(ResourcesWrapper resources, MouseOverArea mouseOver) {
         this.mouseOver = mouseOver;
+        this.pauseText = resources.getPauseText();
+        this.quitText = resources.getQuitText();
     }
 
     /**

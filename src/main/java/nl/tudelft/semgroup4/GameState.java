@@ -51,7 +51,7 @@ public class GameState extends BasicGameState {
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
                         container.getHeight() / 2, res.getQuitText().getWidth(), res.getQuitText()
                                 .getHeight());
-        pauseScreen = new PauseScreen(mouseOver);
+        pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
         // Resources.titleScreenMusic.stop();
 
         // todo input
