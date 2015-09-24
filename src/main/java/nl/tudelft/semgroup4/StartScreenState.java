@@ -1,7 +1,7 @@
 package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
@@ -25,15 +25,16 @@ public class StartScreenState extends BasicGameState {
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         input = container.getInput();
+        final ResourcesWrapper resources = new ResourcesWrapper();
         // initializes all the areas where the buttons are to see if the mouse is on one of those
         // areas
-        mouseOverOnePlayer = new MouseOverArea(container, Resources.titleScreenBackground, 211,
+        mouseOverOnePlayer = new MouseOverArea(container, resources.getTitleScreenBackground(), 211,
                 391, 364, 88);
-        mouseOverTwoPlayer = new MouseOverArea(container, Resources.titleScreenBackground, 211,
+        mouseOverTwoPlayer = new MouseOverArea(container, resources.getTitleScreenBackground(), 211,
                 476, 364, 88);
-        mouseOverOptions = new MouseOverArea(container, Resources.titleScreenBackground, 211, 573,
+        mouseOverOptions = new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 573,
                 364, 88);
-        mouseOverQuit = new MouseOverArea(container, Resources.titleScreenBackground, 211, 672,
+        mouseOverQuit = new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
                 364, 88);
 
     }
@@ -41,16 +42,18 @@ public class StartScreenState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
-        graphics.drawImage(Resources.titleScreenBackground, 0, 0, container.getWidth(),
-                container.getHeight(), 0, 0, Resources.titleScreenBackground.getWidth(),
-                Resources.titleScreenBackground.getHeight());
+        final ResourcesWrapper resources = new ResourcesWrapper();
+        graphics.drawImage(resources.getTitleScreenBackground(), 0, 0, container.getWidth(),
+                container.getHeight(), 0, 0, resources.getTitleScreenBackground().getWidth(),
+                resources.getTitleScreenBackground().getHeight());
 
     }
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int ticks)
             throws SlickException {
-        if (!Resources.titleScreenMusic.playing()) {
+        final ResourcesWrapper resources = new ResourcesWrapper();
+        if (!resources.getTitleScreenMusic().playing()) {
             Audio.playTitleScreen();
         }
 //      
