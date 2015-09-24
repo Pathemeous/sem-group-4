@@ -1,6 +1,6 @@
 package nl.tudelft.model.bubble;
 
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.Resources.ResourcesWrapper;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 2.
@@ -12,8 +12,8 @@ public class Bubble2 extends Bubble {
      * @param locX : the starting x-location of the bubble.
      * @param locY : the starting y-location of the bubble.
      */
-    public Bubble2(float locX, float locY) {
-        this(locX, locY, true);
+    public Bubble2(ResourcesWrapper resources, float locX, float locY) {
+        this(resources, locX, locY, true);
     }
     
     /**
@@ -25,13 +25,13 @@ public class Bubble2 extends Bubble {
      * @param goRight : boolean to indicate if the initial direction of the bubble
      *      is to the right.
      */
-    public Bubble2(float locX, float locY, boolean goRight) {
-        super(Resources.bubbleImage2, locX, locY, goRight);
+    public Bubble2(ResourcesWrapper resources, float locX, float locY, boolean goRight) {
+        super(resources.getBubbleImage2(), locX, locY, goRight);
         
         setMaxVerticalSpeed(6.0f);
         
-        getNext().add(new Bubble1(locX, locY, true));
-        getNext().add(new Bubble1(locX, locY, false));
+        getNext().add(new Bubble1(new ResourcesWrapper(), locX, locY, true));
+        getNext().add(new Bubble1(new ResourcesWrapper(), locX, locY, false));
     }
 
 }
