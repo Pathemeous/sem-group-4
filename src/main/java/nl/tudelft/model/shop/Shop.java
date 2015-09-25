@@ -23,13 +23,12 @@ public class Shop {
 
     /**
      * Default constructor for a Shop.
-     * @param pls : the players in the game.
-     * @param nxtLevel : the next level in the game.
+     * @param game the game that the shop lives in.
      */
-    public Shop(LinkedList<Player> pls, Game game) {
+    public Shop(Game game) {
         this.game = game;
-        players = pls;
-        inventory = new LinkedList<ShopItem>();
+        players = game.getPlayers();
+        inventory = new LinkedList<>();
         inventory.add(new SlowGameSpeed(80, game.getCurLevel()));
         inventory.add(new ExtraTime(50, game.getCurLevel()));
         inventory.add(new ExtraLife(150));

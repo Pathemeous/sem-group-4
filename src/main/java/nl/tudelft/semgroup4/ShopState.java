@@ -127,7 +127,7 @@ public class ShopState extends BasicGameState {
      */
     public void setup(Game game) {
         this.players = game.getPlayers();
-        shop = new Shop(players, game);
+        shop = new Shop(game);
 
         this.game = game;
         selectedPlayer = players.getFirst();
