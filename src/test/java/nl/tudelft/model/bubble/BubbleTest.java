@@ -14,7 +14,6 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
@@ -27,7 +26,7 @@ import org.newdawn.slick.SlickException;
 /**
  * Created by justin on 11/09/15.
  */
-public class BubbleTest extends AbstractOpenGLTestCase {
+public class BubbleTest {
     
     @Before
     public void setUp() {
