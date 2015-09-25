@@ -150,6 +150,10 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     public void setSlow(boolean slowDown) {
         slow = slowDown;
     }
+    
+    public boolean isSlow() {
+        return slow;
+    }
 
     public void setFrozen(boolean freeze) {
         this.frozen = freeze;

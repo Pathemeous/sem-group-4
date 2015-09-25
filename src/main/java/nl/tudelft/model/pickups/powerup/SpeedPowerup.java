@@ -45,4 +45,12 @@ public class SpeedPowerup extends Powerup {
             }
         }
     }
+    
+    protected int getSpeedCount() {
+        return speedCount;
+    }
+    
+    protected void setSpeedCount(int speed) {
+        speedCount = speed;
+    }
 }
