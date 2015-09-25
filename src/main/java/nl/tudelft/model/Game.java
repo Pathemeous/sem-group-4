@@ -313,13 +313,6 @@ public class Game implements Renderable, Modifiable {
     }
 
     /**
-     * @return the levelIt
-     */
-    public Iterator<Level> getLevelIt() {
-        return levelIt;
-    }
-
-    /**
      * The game has been completed.
      */
     private void gameCompleted() {
