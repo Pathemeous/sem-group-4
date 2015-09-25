@@ -57,4 +57,12 @@ public class InvinciblePowerup extends Powerup {
             graphics.drawImage(res.getPowerInvincible(), player.getLocX(), player.getLocY());
         }
     }
+    
+    protected int getCounter() {
+        return invincibilityCounter;
+    }
+    
+    protected void setCounter(int counter) {
+        invincibilityCounter = counter;
+    }
 }
