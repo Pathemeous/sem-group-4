@@ -4,17 +4,27 @@ import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class InvinciblePowerup extends Powerup {
+public class Hit3ShieldPowerup extends Powerup {
 
     private Player player;
-    private int invincibilityCounter = 0;
+    private int removingShieldCounter = 0;
+    private int isHit = 0;
 
-    public InvinciblePowerup(ResourcesWrapper resources, float locX, float locY) {
-        super(resources.getPickupPowerInvincible(), locX, locY);
+    public Hit3ShieldPowerup(ResourcesWrapper resources, float locX, float locY) {
+        super(resources.getPickupPowerShield(), locX, locY);
+    }
+
+    public boolean isHit() {
+        return isHit >= 3;
+    }
+
+    public void incrementHit() {
+        isHit++;
     }
 
     @Override
@@ -23,10 +33,6 @@ public class InvinciblePowerup extends Powerup {
             setActive(true);
             this.player = player;
 
-            if (player.hasPowerup(Powerup.SHOPSHIELD)) {
-                return;
-            }
-
             if (player.hasPowerup(Powerup.INVINCIBLE)) {
                 player.removePowerup(Powerup.INVINCIBLE).toRemove();
             }
@@ -34,7 +40,7 @@ public class InvinciblePowerup extends Powerup {
                 player.removePowerup(Powerup.SHIELD).toRemove();
             }
 
-            player.setPowerup(Powerup.INVINCIBLE, this);
+            player.setPowerup(Powerup.SHOPSHIELD, this);
         }
     }
 
@@ -42,31 +48,23 @@ public class InvinciblePowerup extends Powerup {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         super.update(container, delta);
 
-        if (isActive()) {
-            invincibilityCounter++;
+        if (isHit()) {
+            removingShieldCounter++;
         }
 
-        if (invincibilityCounter == 600) {
-            player.removePowerup(Powerup.INVINCIBLE).toRemove();
+        if (removingShieldCounter == 120) {
+            player.removePowerup(Powerup.SHOPSHIELD).toRemove();
         }
     }
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         super.render(container, graphics);
-        final ResourcesWrapper res = new ResourcesWrapper();
 
-        if (isActive() && ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0) 
-                || invincibilityCounter < 540)) {
-            graphics.drawImage(res.getPowerInvincible(), player.getLocX(), player.getLocY());
+        if (isActive() && removingShieldCounter % 2 == 0) {
+            graphics.setColor(Color.green);
+            graphics.draw(player.getBounds());
+            graphics.setColor(Color.blue);
         }
-    }
-    
-    protected int getCounter() {
-        return invincibilityCounter;
-    }
-    
-    protected void setCounter(int counter) {
-        invincibilityCounter = counter;
     }
 }

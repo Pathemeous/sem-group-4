@@ -21,6 +21,7 @@ public class Player extends AbstractGameObject {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score;
+    private int money;
     private static final int BOUNDINGBOX_OFFSET_X = 10;
     private static final int BOUNDINGBOX_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
@@ -31,6 +32,8 @@ public class Player extends AbstractGameObject {
     private final Input input;
     private HashMap<String, Powerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
+    private boolean shopWeapon = false;
+    private boolean shopSpeedup = false;
 
     private Weapon weapon;
 
@@ -59,6 +62,7 @@ public class Player extends AbstractGameObject {
         speed = REGULAR_SPEED;
         lives = 3;
         score = 0;
+        money = 0;
         this.firstPlayer = isFirstPlayer;
 
         this.input = input;
@@ -136,7 +140,9 @@ public class Player extends AbstractGameObject {
      */
     public void reset() {
         clearAllPowerups();
-        setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        if (!shopWeapon) {
+            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        }
         this.weapon.activate(this);
         weaponActivated = false;
     }
@@ -153,6 +159,9 @@ public class Player extends AbstractGameObject {
         }
         if (hasPowerup(Powerup.INVINCIBLE)) {
             powerups.remove(Powerup.INVINCIBLE).toRemove();
+        }
+        if (hasPowerup(Powerup.SHOPSHIELD)) {
+            powerups.remove(Powerup.SHOPSHIELD).toRemove();
         }
     }
 
@@ -195,6 +204,15 @@ public class Player extends AbstractGameObject {
      */
     public boolean hasShield() {
         return powerups.get(Powerup.SHIELD) != null;
+    }
+
+    /**
+     * Checks whether the player has the shopshield powerup.
+     *
+     * @return true if the player has a shopshield, false if not.
+     */
+    public boolean hasShopShield() {
+        return powerups.get(Powerup.SHOPSHIELD) != null;
     }
 
     public void applySpeedup() {
@@ -269,6 +287,14 @@ public class Player extends AbstractGameObject {
         this.score = score;
     }
 
+    public void setMoney(int money) {
+        this.money = money;
+    }
+
+    public int getMoney() {
+        return this.money;
+    }
+
     /**
      * Get the score of the player.
      * 
@@ -308,5 +334,21 @@ public class Player extends AbstractGameObject {
      */
     public void setAnimationCurrent(Animation animationCurrent) {
         this.animationCurrent = animationCurrent;
+    }
+
+    public void setShopWeapon(boolean bool) {
+        this.shopWeapon = bool;
+    }
+
+    public boolean isShopWeapon() {
+        return this.shopWeapon;
+    }
+
+    public void setShopSpeed(boolean bool) {
+        this.shopSpeedup = bool;
+    }
+
+    public boolean isShopSpeed() {
+        return shopSpeedup;
     }
 }

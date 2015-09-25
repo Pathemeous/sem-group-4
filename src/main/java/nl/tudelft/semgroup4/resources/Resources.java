@@ -63,6 +63,7 @@ public final class Resources {
     static Image pickupWeaponFlowers;
     static Image pickupPowerShield;
     static Image pickupPowerInvincible;
+    static Image pickupPowerMoney;
     static Image pickupPowerSpeedup;
     static Image pickupPowerPoints;
     static Image pickupUtilitySplit;
@@ -166,6 +167,7 @@ public final class Resources {
         pickupWeaponFlowers = new Image("src/main/resources/img/pickup_flowers.png");
         pickupPowerShield = new Image("src/main/resources/img/pickup_shield.png");
         pickupPowerInvincible = new Image("src/main/resources/img/pickup_invincible.png");
+        pickupPowerMoney = new Image("src/main/resources/img/pickup_money.png");
         pickupPowerPoints = new Image("src/main/resources/img/pickup_points.png");
         pickupPowerSpeedup = new Image("src/main/resources/img/pickup_speed.png");
         pickupUtilitySplit = new Image("src/main/resources/img/pickup_split.png");

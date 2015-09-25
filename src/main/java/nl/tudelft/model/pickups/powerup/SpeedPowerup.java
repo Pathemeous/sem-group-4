@@ -40,7 +40,9 @@ public class SpeedPowerup extends Powerup {
         
         if (speedCount == 600) {
             player.removePowerup(Powerup.SPEED).toRemove();
-            player.setDefaultSpeed();
+            if (!player.isShopSpeed()) {
+                player.setDefaultSpeed();
+            }
         }
     }
     

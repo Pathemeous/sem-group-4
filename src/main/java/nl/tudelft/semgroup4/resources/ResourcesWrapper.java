@@ -166,6 +166,10 @@ public class ResourcesWrapper {
         return Resources.pickupPowerInvincible;
     }
 
+    public Image getPickupPowerMoney() {
+        return Resources.pickupPowerMoney;
+    }
+
     public Image getPickupPowerSpeedup() {
         return Resources.pickupPowerSpeedup;
     }
