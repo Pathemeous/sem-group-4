@@ -28,8 +28,8 @@ public abstract class AbstractOpenGLTestCase {
                 new File(new File(System.getProperty("user.dir"), "target/natives"), (LWJGLUtil
                         .getPlatformName().equals("macosx")) ? "osx" : LWJGLUtil.getPlatformName())
                         .getAbsolutePath());
-        Display.setDisplayMode(new DisplayMode(1, 1));
-        Display.create();
+//        Display.setDisplayMode(new DisplayMode(1, 1));
+//        Display.create();
         Resources.init();
     }
 
