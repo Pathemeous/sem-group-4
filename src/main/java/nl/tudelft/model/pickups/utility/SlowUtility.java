@@ -44,4 +44,16 @@ public class SlowUtility extends Utility {
             toRemove();
         }
     }
+    
+    protected Level getLevel() {
+        return level;
+    }
+    
+    protected int getSlowCounter() {
+        return slowCounter;
+    }
+    
+    protected void setSlowCounter(int counter) {
+        slowCounter = counter;
+    }
 }
