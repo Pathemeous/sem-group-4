@@ -32,15 +32,15 @@ public abstract class AbstractOpenGLTestCase {
 //        Display.create();
         Resources.init();
     }
-
-    /**
-     * This tears down the OpenGL Context.
-     *
-     * @throws Exception when anything happens
-     */
-    @After
-    public void tearDown() throws Exception {
-        Display.destroy();
-    }
+//
+//    /**
+//     * This tears down the OpenGL Context.
+//     *
+//     * @throws Exception when anything happens
+//     */
+//    @After
+//    public void tearDown() throws Exception {
+//        Display.destroy();
+//    }
 
 }
