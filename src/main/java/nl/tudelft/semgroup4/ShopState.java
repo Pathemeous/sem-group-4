@@ -3,7 +3,6 @@ package nl.tudelft.semgroup4;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
@@ -14,7 +13,6 @@ import nl.tudelft.model.shop.player.ExtraLife;
 import nl.tudelft.model.shop.player.ImprovedSpeed;
 import nl.tudelft.model.shop.player.ShopShield;
 import nl.tudelft.model.shop.player.ShopWeaponItem;
-import nl.tudelft.semgroup4.resources.Resources;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.GameContainer;
@@ -60,7 +58,6 @@ public class ShopState extends BasicGameState {
     private MouseOverArea item7AreaSpecial;
     private MouseOverArea buyArea;
 
-    private boolean player1Selected = true;
     private ShopItem selectedItem;
     private Player selectedPlayer;
 
@@ -119,7 +116,10 @@ public class ShopState extends BasicGameState {
     public void setup(LinkedList<Player> players, Game game) {
         shop = new Shop(players, game);
         this.players = players;
+        
         this.game = game;
+        selectedPlayer = players.getFirst();
+        selectedPlayer.setMoney(1000);
     }
 
     @Override
@@ -142,7 +142,6 @@ public class ShopState extends BasicGameState {
             g.drawImage(player2, container.getWidth() / 10,
                     container.getHeight() / 10 * 4);
         }
-
 
         g.drawImage(item1Slow, container.getWidth() / 10 * 5,
                 container.getHeight()/ 2);
@@ -175,15 +174,19 @@ public class ShopState extends BasicGameState {
                 selectedPlayer = players.get(1);
             }
             if(buyArea.isMouseOver()) {
-                if(player1Selected) {
-                    if(selectedItem != null) {
-                        if(selectedItem.getPrice() < selectedPlayer.getMoney()) {
+                if(selectedItem != null) {
+                    if(selectedItem.getPrice() < selectedPlayer.getMoney()) {
+                        if(selectedPlayer.isFirstPlayer()) {
                             players.getFirst().setMoney(players.getFirst().getMoney() - selectedItem.getPrice());
-                            System.out.println("bought " + selectedItem.getClass().toString());
-                            System.out.println("players money" + players.getFirst().getMoney());
+                            selectedItem.applyTo(selectedPlayer);
+                        }else{
+                            players.get(1).setMoney(players.get(1).getMoney() - selectedItem.getPrice());
                         }
+                        System.out.println("bought " + selectedItem.getClass().toString());
+                        System.out.println("players money" + players.getFirst().getMoney());
                     }
                 }
+
             }
             if(item1AreaSlow.isMouseOver()) {
                 selectedItem = new SlowGameSpeed(100, this.game.getCurLevel());
