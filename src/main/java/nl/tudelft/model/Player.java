@@ -32,6 +32,8 @@ public class Player extends AbstractGameObject {
     private final Input input;
     private HashMap<String, Powerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
+    private boolean shopWeapon = false;
+    private boolean shopSpeedup = false;
 
     private Weapon weapon;
 
@@ -138,7 +140,9 @@ public class Player extends AbstractGameObject {
      */
     public void reset() {
         clearAllPowerups();
-        setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        if (!shopWeapon) {
+            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        }
         this.weapon.activate(this);
         weaponActivated = false;
     }
@@ -155,6 +159,9 @@ public class Player extends AbstractGameObject {
         }
         if (hasPowerup(Powerup.INVINCIBLE)) {
             powerups.remove(Powerup.INVINCIBLE).toRemove();
+        }
+        if (hasPowerup(Powerup.SHOPSHIELD)) {
+            powerups.remove(Powerup.SHOPSHIELD).toRemove();
         }
     }
 
@@ -197,6 +204,15 @@ public class Player extends AbstractGameObject {
      */
     public boolean hasShield() {
         return powerups.get(Powerup.SHIELD) != null;
+    }
+
+    /**
+     * Checks whether the player has the shopshield powerup.
+     *
+     * @return true if the player has a shopshield, false if not.
+     */
+    public boolean hasShopShield() {
+        return powerups.get(Powerup.SHOPSHIELD) != null;
     }
 
     public void applySpeedup() {
@@ -318,5 +334,21 @@ public class Player extends AbstractGameObject {
      */
     public void setAnimationCurrent(Animation animationCurrent) {
         this.animationCurrent = animationCurrent;
+    }
+
+    public void setShopWeapon(boolean bool) {
+        this.shopWeapon = bool;
+    }
+
+    public boolean isShopWeapon() {
+        return this.shopWeapon;
+    }
+
+    public void setShopSpeed(boolean bool) {
+        this.shopSpeedup = bool;
+    }
+
+    public boolean isShopSpeed() {
+        return shopSpeedup;
     }
 }

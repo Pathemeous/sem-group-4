@@ -18,5 +18,6 @@ public class ImprovedSpeed extends PlayerShopItem {
      */
     public void applyTo(Player buyer) {
         buyer.applySpeedup();
+        buyer.setShopSpeed(true);
     }
 }

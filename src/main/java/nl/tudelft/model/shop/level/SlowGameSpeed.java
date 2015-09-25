@@ -27,5 +27,6 @@ public class SlowGameSpeed extends LevelShopItem {
         for (Bubble x : bubbles) {
             x.setSlow(true);
         }
+        nextLevel.setShopSlow(true);
     }
 }
