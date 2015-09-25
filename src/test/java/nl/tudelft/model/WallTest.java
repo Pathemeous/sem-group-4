@@ -15,6 +15,9 @@ public class WallTest extends AbstractOpenGLTestCase {
     
     private Image mockedImage; 
     
+    /**
+     * Mock all required dependencies.
+     */
     @Before
     public void setUp() {
         mockedImage = Mockito.mock(Image.class);
