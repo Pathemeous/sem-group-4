@@ -111,9 +111,9 @@ public class Game implements Renderable, Modifiable {
         playerUpdate(delta);
         getCurLevel().update(getCurLevel(), delta);
 
-            levelCompleted();
-            
-            levelTimeExpired();
+        levelCompleted();
+
+        levelTimeExpired();
     }
 
     @Override
