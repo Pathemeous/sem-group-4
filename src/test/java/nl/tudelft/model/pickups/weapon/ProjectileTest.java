@@ -11,7 +11,9 @@
 //import nl.tudelft.model.AbstractOpenGLTestCase;
 //import nl.tudelft.semgroup4.Modifiable;
 //import nl.tudelft.semgroup4.resources.Resources;
+//import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 //
+//import org.junit.Before;
 //import org.junit.Test;
 //import org.newdawn.slick.Image;
 //import org.newdawn.slick.SlickException;
@@ -19,15 +21,25 @@
 //
 //public class ProjectileTest extends AbstractOpenGLTestCase {
 //
+//    private Weapon mockedWeapon;
+//    private ResourcesWrapper mockedResources;
+//    private Image mockedImage;
+//    
+//    @Before
+//    public void setUp() {
+//        mockedWeapon = mock(Weapon.class);
+//        mockedResources = mock(ResourcesWrapper.class);
+//        mockedImage = mock(Image.class);
+//    }
+//    
 //    @Test
 //    public void testProjectile1() {
 //        Weapon weapon = mock(Weapon.class);
-//        Image img = Resources.weaponImageRegular.copy();
-//        when(weapon.getNumberOfProjectiles()).thenReturn(1);
-//        Projectile projectile = new Projectile(img, 1, 1, 1, 1, 1, weapon);
+//        when(mockedWeapon.getNumberOfProjectiles()).thenReturn(1);
+//        Projectile projectile = new Projectile(mockedResources, mockedImage, 1, 1, 1, 1, 1, weapon);
 //        assertEquals(projectile.getHeight(), 800);
 //        assertEquals(projectile.getWidth(), 8);
-//        assertEquals(projectile.getImage(), img);
+//        assertEquals(projectile.getImage(), mockedImage);
 //        assertEquals(projectile.getWeapon(), weapon);
 //        assertEquals(projectile.getLocX(), 1, 0);
 //        assertEquals(projectile.getLocY(), 1, 0);
