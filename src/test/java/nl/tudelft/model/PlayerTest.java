@@ -34,6 +34,9 @@ public class PlayerTest extends AbstractOpenGLTestCase {
     
     private static final int SPEED = 4;
     
+    /**
+     * Mock all required dependencies.
+     */
     @Before
     public final void setUp() throws Exception {
         super.setUp();
