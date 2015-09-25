@@ -33,6 +33,7 @@ public class Player extends AbstractGameObject {
     private HashMap<String, Powerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
+    private boolean shopSpeedup = false;
 
     private Weapon weapon;
 
@@ -329,5 +330,13 @@ public class Player extends AbstractGameObject {
 
     public boolean isShopWeapon() {
         return this.shopWeapon;
+    }
+
+    public void setShopSpeed(boolean bool) {
+        this.shopSpeedup = bool;
+    }
+
+    public boolean isShopSpeed() {
+        return shopSpeedup;
     }
 }
