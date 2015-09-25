@@ -80,10 +80,11 @@ public class GameState extends BasicGameState {
             theGame.toAdd(player.getWeapon());
         }
 
-        int dashboardMargin = 10;
-        dashboard =
-                new Dashboard(new ResourcesWrapper(), theGame, 2 * dashboardMargin,
-                        container.getWidth() - 4 * dashboardMargin, container.getHeight());
+        int dashboardMargin = 20;
+        dashboard = new Dashboard(new ResourcesWrapper(), theGame,
+                        dashboardMargin,
+                        container.getWidth() - dashboardMargin,
+                        container.getHeight());
     }
 
     /**
