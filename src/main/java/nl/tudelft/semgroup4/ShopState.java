@@ -7,13 +7,6 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
-import nl.tudelft.model.shop.level.ExtraTime;
-import nl.tudelft.model.shop.level.SlowGameSpeed;
-import nl.tudelft.model.shop.player.DoubleWeaponItem;
-import nl.tudelft.model.shop.player.ExtraLife;
-import nl.tudelft.model.shop.player.ImprovedSpeed;
-import nl.tudelft.model.shop.player.ShopShield;
-import nl.tudelft.model.shop.player.ShopWeaponItem;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -177,17 +170,41 @@ public class ShopState extends BasicGameState {
                 container.getHeight() / 10);
 
         if (selectedPlayer.isFirstPlayer()) {
-            graphics.drawImage(player1On, container.getWidth() / 10,
-                    container.getHeight() / 10 * 3);   
+            graphics.drawImage(player1On,
+                    container.getWidth() / 10,
+                    container.getHeight() / 10 * 3);
             if (players.size() == 2) {
-                graphics.drawImage(player2Off, container.getWidth() / 10,
+                graphics.drawImage(player2Off,
+                        container.getWidth() / 10,
                         container.getHeight() / 10 * 4);
             }
         } else {
-            graphics.drawImage(player1Off, container.getWidth() / 10,
+            graphics.drawImage(player1Off,
+                    container.getWidth() / 10,
                     container.getHeight() / 10 * 3); 
-            graphics.drawImage(player2On, container.getWidth() / 10,
+            graphics.drawImage(player2On,
+                    container.getWidth() / 10,
                     container.getHeight() / 10 * 4);
+        }
+
+        final String playerOneMoney = String.format("$ %d", players.get(0).getMoney());
+        ttf.drawString(
+                container.getWidth() / 10 - (ttf.getWidth(playerOneMoney)),
+                (container.getHeight() / 10 * 3)
+                            + player1Off.getHeight() / 2
+                            - (ttf.getHeight(playerOneMoney) / 2),
+                playerOneMoney,
+                Color.yellow);
+
+        if (players.size() == 2) {
+            final String playerTwoMoney = String.format("$ %d", players.get(1).getMoney());
+            ttf.drawString(
+                    container.getWidth() / 10 - (ttf.getWidth(playerTwoMoney)),
+                    (container.getHeight() / 10 * 4)
+                            + player1Off.getHeight() / 2
+                            - (ttf.getHeight(playerTwoMoney) / 2),
+                    playerTwoMoney,
+                    Color.yellow);
         }
 
         graphics.drawImage(item1Slow,
@@ -266,7 +283,7 @@ public class ShopState extends BasicGameState {
             throws SlickException {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (continueArea.isMouseOver()) {
-                game.enterState(1);
+                game.enterState(this.game.getPlayers().size() == 1 ? 1 : 2);
             } 
             if (player1Area.isMouseOver()) {
                 selectedPlayer = players.getFirst();
@@ -277,13 +294,10 @@ public class ShopState extends BasicGameState {
             if (buyArea.isMouseOver()
                     && selectedItem != null
                     && selectedItem.getPrice() < selectedPlayer.getMoney()) {
-                if (selectedPlayer.isFirstPlayer()) {
-                    players.getFirst().setMoney(
-                            players.getFirst().getMoney() - selectedItem.getPrice());
-                    selectedItem.applyTo(selectedPlayer);
-                } else {
-                    players.get(1).setMoney(players.get(1).getMoney() - selectedItem.getPrice());
-                }
+
+                selectedItem.applyTo(selectedPlayer);
+                selectedPlayer.setMoney(selectedPlayer.getMoney() - selectedItem.getPrice());
+
                 System.out.println("bought " + selectedItem.getClass().toString());
                 System.out.println("players money" + players.getFirst().getMoney());
             }
