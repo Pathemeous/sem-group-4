@@ -60,12 +60,12 @@ public class Game implements Renderable, Modifiable {
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
     public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
-            int containerHeight) throws IllegalArgumentException {
+            int containerHeight, ResourcesWrapper wrapper) throws IllegalArgumentException {
         // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
-        this.levelFact = new LevelFactory(this, new ResourcesWrapper());
+        this.levelFact = new LevelFactory(this, wrapper);
         LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;

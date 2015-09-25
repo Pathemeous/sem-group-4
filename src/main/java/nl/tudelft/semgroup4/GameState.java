@@ -75,7 +75,7 @@ public class GameState extends BasicGameState {
             playerList.add(secondPlayer);
         }
 
-        theGame = new Game(mainApp, playerList, container.getWidth(), container.getHeight());
+        theGame = new Game(mainApp, playerList, container.getWidth(), container.getHeight(), new ResourcesWrapper());
         for (Player player : playerList) {
             theGame.toAdd(player.getWeapon());
         }
