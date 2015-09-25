@@ -129,7 +129,7 @@ public abstract class Pickup extends AbstractEnvironmentObject {
             }
         } else if (random < 7) {
             // new powerup
-            int randomPowerupNr = Helpers.randInt(6, 10);
+            int randomPowerupNr = Helpers.randInt(6, 11);
             
             if (randomPowerupNr == 11) {
                 return new LifePowerup(locX, locY);
