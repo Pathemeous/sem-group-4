@@ -163,8 +163,8 @@ public class Game implements Renderable, Modifiable {
     /**
      * Performs updates for the player, checks the collisions 
      * and manages the player list.
-     * @param delta
-     * @throws SlickException
+     * @param delta the time between updates.
+     * @throws SlickException exception from Slick if something goes wrong.
      */
     private void playerUpdate(int delta) throws SlickException {
         for (AbstractGameObject gameObject : players) {
