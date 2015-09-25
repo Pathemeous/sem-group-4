@@ -40,8 +40,8 @@ public class Bubble2 extends Bubble {
 
         setMaxVerticalSpeed(6.0f);
 
-        getNext().add(new Bubble1(new ResourcesWrapper(), locX, locY, true));
-        getNext().add(new Bubble1(new ResourcesWrapper(), locX, locY, false));
+        getNext().add(new Bubble1(resources, locX, locY, true));
+        getNext().add(new Bubble1(resources, locX, locY, false));
     }
 
 }
