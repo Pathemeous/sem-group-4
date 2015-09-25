@@ -14,7 +14,6 @@ import nl.tudelft.model.shop.player.ImprovedSpeed;
 import nl.tudelft.model.shop.player.ShopShield;
 import nl.tudelft.model.shop.player.ShopWeaponItem;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
@@ -65,8 +64,8 @@ public class ShopState extends BasicGameState {
     /**
      * Default constructor of ShopState.
      *
-     * Here most of the member variables are set and the class is
-     * configured.
+     * <p>Here most of the member variables are set and the class is
+     * configured.</p>
      *
      */
     public ShopState() {        
@@ -102,19 +101,40 @@ public class ShopState extends BasicGameState {
         buyArea = new MouseOverArea(container, buyText, container.getWidth() / 10 * 7,
                 container.getHeight() - buyText.getHeight());
 
-        item1AreaSlow = new MouseOverArea(container, item1Slow, container.getWidth() / 10 * 5,
+        item1AreaSlow = new MouseOverArea(
+                container,
+                item1Slow,
+                container.getWidth() / 10 * 5,
                 container.getHeight() / 2);
-        item2AreaLife= new MouseOverArea(container, item2Life, container.getWidth() / 10 * 7,
+        item2AreaLife = new MouseOverArea(
+                container,
+                item2Life,
+                container.getWidth() / 10 * 7,
                 container.getHeight() / 2);
-        item3AreaSpeed= new MouseOverArea(container, item3Speed, container.getWidth() / 10 * 9,
+        item3AreaSpeed = new MouseOverArea(
+                container,
+                item3Speed,
+                container.getWidth() / 10 * 9,
                 container.getHeight() / 2);
-        item4AreaDoubleShot= new MouseOverArea(container, item4DoubleShot, container.getWidth() / 10 * 5,
+        item4AreaDoubleShot = new MouseOverArea(
+                container,
+                item4DoubleShot,
+                container.getWidth() / 10 * 5,
                 container.getHeight() / 10 * 7);
-        item5AreaShield= new MouseOverArea(container, item5Shield, container.getWidth() / 10 * 7,
+        item5AreaShield = new MouseOverArea(
+                container,
+                item5Shield,
+                container.getWidth() / 10 * 7,
                 container.getHeight() /  10 * 7);
-        item6AreaTime= new MouseOverArea(container, item6Time, container.getWidth() / 10 * 9,
+        item6AreaTime = new MouseOverArea(
+                container,
+                item6Time,
+                container.getWidth() / 10 * 9,
                 container.getHeight() / 10 * 7);
-        item7AreaSpecial= new MouseOverArea(container, item7Special, container.getWidth() / 10 * 7,
+        item7AreaSpecial = new MouseOverArea(
+                container,
+                item7Special,
+                container.getWidth() / 10 * 7,
                 container.getHeight() / 10 * 3);
 
     }
@@ -135,39 +155,39 @@ public class ShopState extends BasicGameState {
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game, Graphics g)
+    public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
-        g.drawImage(resources.getShopBackGround(), 0, 0, container.getWidth(),
+        graphics.drawImage(resources.getShopBackGround(), 0, 0, container.getWidth(),
                 container.getHeight(), 0, 0, resources.getShopBackGround().getWidth(),
                 resources.getShopBackGround().getHeight());
-        g.drawImage(continueText, container.getWidth() / 10 * 8 ,
+        graphics.drawImage(continueText, container.getWidth() / 10 * 8,
                 container.getHeight() - continueText.getHeight());
-        g.drawImage(buyText, container.getWidth() / 10 * 7,
+        graphics.drawImage(buyText, container.getWidth() / 10 * 7,
                 container.getHeight() - buyText.getHeight());
-        g.drawImage(shopText, container.getWidth() / 2 - shopText.getWidth() /2,
+        graphics.drawImage(shopText, container.getWidth() / 2 - shopText.getWidth() / 2,
                 container.getHeight() / 10);
 
 
-        g.drawImage(player1, container.getWidth() / 10,
+        graphics.drawImage(player1, container.getWidth() / 10,
                 container.getHeight() / 10 * 3);   
-        if(players.size() == 2) {
-            g.drawImage(player2, container.getWidth() / 10,
+        if (players.size() == 2) {
+            graphics.drawImage(player2, container.getWidth() / 10,
                     container.getHeight() / 10 * 4);
         }
 
-        g.drawImage(item1Slow, container.getWidth() / 10 * 5,
-                container.getHeight()/ 2);
-        g.drawImage(item2Life, container.getWidth() / 10 * 7,
+        graphics.drawImage(item1Slow, container.getWidth() / 10 * 5,
                 container.getHeight() / 2);
-        g.drawImage(item3Speed, container.getWidth() / 10 * 9,
+        graphics.drawImage(item2Life, container.getWidth() / 10 * 7,
                 container.getHeight() / 2);
-        g.drawImage(item4DoubleShot, container.getWidth() / 10 * 5,
+        graphics.drawImage(item3Speed, container.getWidth() / 10 * 9,
+                container.getHeight() / 2);
+        graphics.drawImage(item4DoubleShot, container.getWidth() / 10 * 5,
                 container.getHeight() / 10 * 7);
-        g.drawImage(item5Shield, container.getWidth() / 10 * 7,
+        graphics.drawImage(item5Shield, container.getWidth() / 10 * 7,
                 container.getHeight() / 10 * 7);
-        g.drawImage(item6Time, container.getWidth() / 10 * 9,
+        graphics.drawImage(item6Time, container.getWidth() / 10 * 9,
                 container.getHeight() / 10 * 7);
-        g.drawImage(item7Special, container.getWidth() / 10 * 7,
+        graphics.drawImage(item7Special, container.getWidth() / 10 * 7,
                 container.getHeight() / 10 * 3);
 
     }
@@ -175,56 +195,54 @@ public class ShopState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta)
             throws SlickException {
-        if(input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if(continueArea.isMouseOver()) {               
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+            if (continueArea.isMouseOver()) {
                 game.enterState(1);
             } 
-            if(player1Area.isMouseOver()) {
+            if (player1Area.isMouseOver()) {
                 selectedPlayer = players.getFirst();
             }
-            if(player2Area.isMouseOver()) {
+            if (player2Area.isMouseOver()) {
                 selectedPlayer = players.get(1);
             }
-            if(buyArea.isMouseOver()) {
-                if(selectedItem != null) {
-                    if(selectedItem.getPrice() < selectedPlayer.getMoney()) {
-                        if(selectedPlayer.isFirstPlayer()) {
-                            players.getFirst().setMoney(players.getFirst().getMoney() - selectedItem.getPrice());
-                            selectedItem.applyTo(selectedPlayer);
-                        }else{
-                            players.get(1).setMoney(players.get(1).getMoney() - selectedItem.getPrice());
-                        }
-                        System.out.println("bought " + selectedItem.getClass().toString());
-                        System.out.println("players money" + players.getFirst().getMoney());
-                    }
+            if (buyArea.isMouseOver()
+                    && selectedItem != null
+                    && selectedItem.getPrice() < selectedPlayer.getMoney()) {
+                if (selectedPlayer.isFirstPlayer()) {
+                    players.getFirst().setMoney(
+                            players.getFirst().getMoney() - selectedItem.getPrice());
+                    selectedItem.applyTo(selectedPlayer);
+                } else {
+                    players.get(1).setMoney(players.get(1).getMoney() - selectedItem.getPrice());
                 }
-
+                System.out.println("bought " + selectedItem.getClass().toString());
+                System.out.println("players money" + players.getFirst().getMoney());
             }
-            if(item1AreaSlow.isMouseOver()) {
+            if (item1AreaSlow.isMouseOver()) {
                 selectedItem = new SlowGameSpeed(100, this.game.getCurLevel());
                 System.out.println(selectedItem.getClass().toString());
             }
-            if(item2AreaLife.isMouseOver()) {
+            if (item2AreaLife.isMouseOver()) {
                 selectedItem = new ExtraLife(100);
                 System.out.println(selectedItem.getClass().toString());
             }
-            if(item3AreaSpeed.isMouseOver()) {
+            if (item3AreaSpeed.isMouseOver()) {
                 selectedItem = new ImprovedSpeed(100);
                 System.out.println(selectedItem.getClass().toString());
             }
-            if(item4AreaDoubleShot.isMouseOver()) {
+            if (item4AreaDoubleShot.isMouseOver()) {
                 selectedItem = new DoubleWeaponItem(100);
                 System.out.println(selectedItem.getClass().toString());
             }
-            if(item5AreaShield.isMouseOver()) {
+            if (item5AreaShield.isMouseOver()) {
                 selectedItem = new ShopShield(100, this.game);
                 System.out.println(selectedItem.getClass().toString());
             }
-            if(item6AreaTime.isMouseOver()) {
+            if (item6AreaTime.isMouseOver()) {
                 selectedItem = new ExtraTime(100, this.game.getCurLevel());
                 System.out.println(selectedItem.getClass().toString());
             }
-            if(item7AreaSpecial.isMouseOver()) {
+            if (item7AreaSpecial.isMouseOver()) {
                 selectedItem = new ShopWeaponItem(100);
                 System.out.println(selectedItem.getClass().toString());
             }
