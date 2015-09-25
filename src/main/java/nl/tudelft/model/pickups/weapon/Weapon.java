@@ -50,7 +50,7 @@ public abstract class Weapon extends Pickup {
      * This method activates the current weapon and removes the old weapon of the player.
      * 
      * @param player
-     *            : sets the player this weapon now belongs to.
+     *            {@link Player} - sets the player this weapon now belongs to.
      */
     public void activate(Player player) {
         setActive(true);
@@ -86,12 +86,13 @@ public abstract class Weapon extends Pickup {
      * @param height
      *            int
      */
-    public <T extends Modifiable> void
-            fire(T container, int locX, int locY, int width, int height) {
+    public <T extends Modifiable> void fire(T container, int locX, int locY, int width,
+            int height) {
         if (fireCounter == 0 && projectiles.size() < maxCount && isActive()) {
             fireCounter++;
             Projectile proj =
-                    new Projectile(new ResourcesWrapper(), img, locX, locY, width, height, 6, this);
+                    new Projectile(new ResourcesWrapper(), img, locX, locY, width, height, 6,
+                            this);
             proj.fire();
             container.toAdd(proj);
             projectiles.add(proj);
