@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,8 +13,8 @@ public class InvinciblePowerup extends Powerup {
     private Player player;
     private int invincibilityCounter = 0;
 
-    public InvinciblePowerup(float locX, float locY) {
-        super(Resources.pickupPowerInvincible, locX, locY);
+    public InvinciblePowerup(ResourcesWrapper resources, float locX, float locY) {
+        super(resources.getPickupPowerInvincible(), locX, locY);
     }
 
     @Override
@@ -22,6 +22,10 @@ public class InvinciblePowerup extends Powerup {
         if (!isActive()) {
             setActive(true);
             this.player = player;
+
+            if (player.hasPowerup(Powerup.SHOPSHIELD)) {
+                return;
+            }
 
             if (player.hasPowerup(Powerup.INVINCIBLE)) {
                 player.removePowerup(Powerup.INVINCIBLE).toRemove();
@@ -50,10 +54,11 @@ public class InvinciblePowerup extends Powerup {
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         super.render(container, graphics);
+        final ResourcesWrapper res = new ResourcesWrapper();
 
         if (isActive() && ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0) 
                 || invincibilityCounter < 540)) {
-            graphics.drawImage(Resources.powerInvincible, player.getLocX(), player.getLocY());
+            graphics.drawImage(res.getPowerInvincible(), player.getLocX(), player.getLocY());
         }
     }
 }

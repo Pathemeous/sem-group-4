@@ -5,7 +5,8 @@ import static org.mockito.Mockito.mock;
 
 import java.util.LinkedList;
 
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.Resources;
+
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 

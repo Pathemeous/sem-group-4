@@ -11,7 +11,7 @@ import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.Resources;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.junit.Before;
