@@ -2,6 +2,8 @@ package nl.tudelft.semgroup4;
 
 import java.io.File;
 
+import nl.tudelft.semgroup4.resources.Resources;
+
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -62,6 +64,7 @@ public class MainApp extends StateBasedGame {
         addState(new OptionsState());
         addState(new GameState(this.getTitle(), true));
         addState(new GameState(this.getTitle(), false));
+        addState(new ShopState());
         enterState(0);
 
     }

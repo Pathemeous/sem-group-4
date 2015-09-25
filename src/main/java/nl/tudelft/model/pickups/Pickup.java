@@ -1,119 +1,64 @@
 package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.model.Weapon;
+import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
+import nl.tudelft.model.pickups.powerup.LifePowerup;
+import nl.tudelft.model.pickups.powerup.MoneyPowerup;
+import nl.tudelft.model.pickups.powerup.PointsPowerup;
+import nl.tudelft.model.pickups.powerup.ShieldPowerup;
+import nl.tudelft.model.pickups.powerup.SpeedPowerup;
+import nl.tudelft.model.pickups.utility.FreezeUtility;
+import nl.tudelft.model.pickups.utility.LevelWonUtility;
+import nl.tudelft.model.pickups.utility.SlowUtility;
+import nl.tudelft.model.pickups.utility.SplitUtility;
+import nl.tudelft.model.pickups.utility.TimeUtility;
+import nl.tudelft.model.pickups.weapon.DoubleWeapon;
+import nl.tudelft.model.pickups.weapon.FlowerWeapon;
+import nl.tudelft.model.pickups.weapon.RegularWeapon;
+import nl.tudelft.model.pickups.weapon.StickyWeapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class Pickup extends AbstractEnvironmentObject {
+public abstract class Pickup extends AbstractEnvironmentObject {
 
     private boolean onGround;
-    private PickupContent content;
+    private boolean isActive;
+    private boolean toRemove;
     private int tickCount;
-
-    public enum WeaponType {
-        REGULAR, DOUBLE, STICKY, FLOWER
-    }
-
+    
     /**
      * Creates a pickup with a random content.
      * @param image Image - the image of the object.
      * @param locX float - the x-coordinate.
      * @param locY float - the y-coordinate.
-     * @param random - a random variable which decides which pickupcontent is initiliased.
      */
-    public Pickup(Image image, float locX, float locY, int random) {
+    public Pickup(Image image, float locX, float locY) {
         super(image, locX, locY);
-        onGround = false;
-
-        //int random = Helpers.randInt(1, 10);
-        if (random < 4) {
-            int randomWeaponNr = Helpers.randInt(1, 4);
-            // new weapon
-            switch (randomWeaponNr) {
-            // regular weapon
-                case 1:
-                    content = new Weapon(Resources.weaponImageRegular, WeaponType.REGULAR);
-                    setImage(Resources.pickupWeaponRegular);
-                    break;
-                // Double shoot
-                case 2:
-                    content = new Weapon(Resources.weaponImageRegular, WeaponType.DOUBLE);
-                    setImage(Resources.pickupWeaponDouble);
-                    break;
-                // Sticky weapon
-                case 3:
-                    content = new Weapon(Resources.weaponImageSticky, WeaponType.STICKY);
-                    setImage(Resources.pickupWeaponSticky);
-                    break;
-                // Flower weapon
-                case 4:
-                    content = new Weapon(Resources.weaponImageFlower, WeaponType.FLOWER);
-                    setImage(Resources.pickupWeaponFlowers);
-                    break;
-                default:
-                    break;
-            }
-
-        } else if (random < 7) {
-            // new powerup
-            content = new Powerup(Helpers.randInt(1, 10));
-            Powerup powerup = (Powerup) content;
-            switch (powerup.getPowerType()) {
-                case INVINCIBLE:
-                    setImage(Resources.pickupPowerInvincible);
-                    break;
-                case POINTS:
-                    setImage(Resources.pickupPowerPoints);
-                    break;
-                case SHIELD:
-                    setImage(Resources.pickupPowerShield);
-                    break;
-                case SPEEDUP:
-                    setImage(Resources.pickupPowerSpeedup);
-                    break;
-                case LIFE:
-                    setImage(Resources.pickupUtilityLife);
-                    break;
-                default:
-                    break;
-            }
-        } else {
-            // new utility
-            int randomUtil = Helpers.randInt(1, 20);
-            content = new Utility(randomUtil);
-            Utility util = (Utility) content;
-
-            switch (util.getType()) {
-                case FREEZE:
-                    setImage(Resources.pickupUtilityFreeze);
-                    break;
-                case LEVELWON:
-                    setImage(Resources.pickupUtilityLevelwon);
-                    break;
-                case SLOW:
-                    setImage(Resources.pickupUtilitySlow);
-                    break;
-                case SPLIT:
-                    setImage(Resources.pickupUtilitySplit);
-                    break;
-                case TIME:
-                    setImage(Resources.pickupUtilityTime);
-                    break;
-                default:
-                    break;
-            }
+        onGround = false;  
+        isActive = false;
+        toRemove = false;
+    }
+    
+    @Override
+    public void render(GameContainer container, Graphics graphics) throws SlickException {
+        if (!isActive) {
+            graphics.drawImage(getImage(), locX, locY);
         }
     }
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         setLocY(getLocY() + 1);
-        if (onGround) {
+        
+        if (toRemove) {
+            container.toRemove(this);
+        } else if (onGround && !isActive) {
             tickCount++;
 
             if (tickCount == 180) {
@@ -121,21 +66,100 @@ public class Pickup extends AbstractEnvironmentObject {
             }
         }
     }
-
-    public PickupContent getContent() {
-        return content;
+    
+    protected int getTickCount() {
+        return tickCount;
     }
-
+    
+    protected void setTickCount(int tick) {
+        tickCount = tick;
+    }
+    
+    protected boolean isOnGround() {
+        return onGround;
+    }
+    
     public void setOnGround(boolean onGround) {
         this.onGround = onGround;
     }
     
-    public int getTickCount() {
-        return tickCount;
+    public boolean willBeRemoved() {
+        return toRemove;
     }
-
-    public void setTickCount(int count) {
-        tickCount = count;
+    
+    public void toRemove() {
+        toRemove = true;
     }
+    
+    public boolean isActive() {
+        return isActive;
+    }
+    
+    public void setActive(boolean active) {
+        isActive = active;
+    }
+    
+    /**
+     * Method that generates and returns a random pickup, based on a random
+     * number that is passed as a parameter. 
+     * @param random : random int that determines the pickup that
+     *      is generated.
+     * @param locX : the x location of the pickup to be created.
+     * @param locY : the y location of the pickup to be created.
+     * @return : an object of type Pickup.
+     */
+    public static Pickup generateRandomPickup(int random, float locX, float locY) {
+        if (random < 4) {
+            int randomWeaponNr = Helpers.randInt(1, 4);
+            // new weapon
+            switch (randomWeaponNr) {
+                // regular weapon
+                case 1:
+                    return new RegularWeapon(new ResourcesWrapper(), locX, locY);
+                // Double shoot
+                case 2:
+                    return new DoubleWeapon(new ResourcesWrapper(), locX, locY);
+                // Sticky weapon
+                case 3:
+                    return new StickyWeapon(new ResourcesWrapper(), locX, locY);
+                // Flower weapon
+                case 4:
+                    return new FlowerWeapon(new ResourcesWrapper(), locX, locY);
+                default:
+                    return new RegularWeapon(new ResourcesWrapper(), locX, locY);
+            }
+        } else if (random < 7) {
+            // new powerup
+            int randomPowerupNr = Helpers.randInt(6, 12);
 
+            if (randomPowerupNr == 12) {
+                return new LifePowerup(new ResourcesWrapper(), locX, locY);
+            } else if (randomPowerupNr > 10) {
+                return new MoneyPowerup(new ResourcesWrapper(), locX, locY);
+            } else if (randomPowerupNr > 8) {
+                return new InvinciblePowerup(new ResourcesWrapper(), locX, locY);
+            } else if (randomPowerupNr > 6) {
+                return new ShieldPowerup(new ResourcesWrapper(), locX, locY);
+            } else if (randomPowerupNr > 4) {
+                return new SpeedPowerup(new ResourcesWrapper(), locX, locY);
+            } else {
+                return new PointsPowerup(new ResourcesWrapper(), locX, locY);
+            }
+        } else {
+            // new utility
+            int randomUtilNr = Helpers.randInt(1, 20);
+            
+            if (randomUtilNr == 20) {
+                return new LevelWonUtility(new ResourcesWrapper(), locX, locY);
+            } else if (randomUtilNr > 16) {
+                return new SplitUtility(new ResourcesWrapper(), locX, locY);
+            } else if (randomUtilNr > 11) {
+                return new SlowUtility(new ResourcesWrapper(), locX, locY);
+            } else if (randomUtilNr > 6) {
+                return new FreezeUtility(new ResourcesWrapper(), locX, locY);
+            } else {
+                return new TimeUtility(new ResourcesWrapper(), locX, locY);
+            }
+        }
+    }
 }

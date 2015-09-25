@@ -32,7 +32,7 @@ public class ConsoleOutletTest {
         outlet.log("SomeMessage");
 
         // note the newline!
-        assertEquals("SomeMessage\n", outContent.toString());
+        assertEquals("SomeMessage" + System.lineSeparator() + "", outContent.toString());
 
     }
 
@@ -48,8 +48,9 @@ public class ConsoleOutletTest {
 
         // note the newlines!
         assertEquals(
-                "SomeMessage1\nSomeMessage2\nSomeMessage3\nSomeMessage4\n",
-                outContent.toString());
+                "SomeMessage1" + System.lineSeparator() + "SomeMessage2"
+                        + System.lineSeparator() + "SomeMessage3" + System.lineSeparator()
+                        + "SomeMessage4" + System.lineSeparator() + "", outContent.toString());
     }
 
     @Test

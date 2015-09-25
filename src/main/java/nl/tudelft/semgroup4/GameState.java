@@ -2,15 +2,11 @@ package nl.tudelft.semgroup4;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.Bubble;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.Projectile;
-import nl.tudelft.model.Wall;
-import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
-import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
@@ -46,15 +42,16 @@ public class GameState extends BasicGameState {
      *             - If the Game Engine fails.
      */
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
+        final ResourcesWrapper res = new ResourcesWrapper();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
-        
+
         input = container.getInput();
         mouseOver =
-                new MouseOverArea(container, Resources.quitText, container.getHeight() / 2,
-                        container.getHeight() / 2, Resources.quitText.getWidth(),
-                        Resources.quitText.getHeight());
-        pauseScreen = new PauseScreen(mouseOver);
+                new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
+                        container.getHeight() / 2, res.getQuitText().getWidth(), res
+                                .getQuitText().getHeight());
+        pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
         // Resources.titleScreenMusic.stop();
 
         // todo input
@@ -65,24 +62,31 @@ public class GameState extends BasicGameState {
         // more
         // flexible
         Player firstPlayer =
-                new Player(container.getWidth() / 2, container.getHeight()
-                        - Resources.playerImageStill.getHeight() - 5
-                        * Resources.wallImage.getHeight(), input, true);
+                new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                        container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                                * res.getWallImage().getHeight(), input, true);
         playerList.add(firstPlayer);
 
         if (!singlePlayer) {
             Player secondPlayer =
-                    new Player(container.getWidth() / 2 + 100, container.getHeight()
-                            - Resources.playerImageStill.getHeight() - 5
-                            * Resources.wallImage.getHeight(), input, false);
+                    new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
+                            container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                                    * res.getWallImage().getHeight(), input, false);
             playerList.add(secondPlayer);
         }
 
-        theGame = new Game(mainApp, playerList, container.getWidth(), container.getHeight());
-        int dashboardMargin = 10;
-        dashboard =
-                new Dashboard(theGame, 2 * dashboardMargin, container.getWidth() - 4
-                        * dashboardMargin, container.getHeight());
+        theGame =
+                new Game(mainApp, playerList, container.getWidth(), container.getHeight(),
+                        new ResourcesWrapper());
+        for (Player player : playerList) {
+            theGame.toAdd(player.getWeapon());
+        }
+
+        int dashboardMargin = 20;
+        dashboard = new Dashboard(new ResourcesWrapper(), theGame,
+                        dashboardMargin,
+                        container.getWidth() - dashboardMargin,
+                        container.getHeight());
     }
 
     /**
@@ -123,14 +127,15 @@ public class GameState extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
-        if (Resources.titleScreenMusic.playing()) {
+        ResourcesWrapper res = new ResourcesWrapper();
+        if (res.getTitleScreenMusic().playing()) {
             Audio.stopTitleScreen();
         }
         // checks if the escape key is pressed, if so, the gameState pauses
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
-                    "Player " + (paused ? "resumed" : "paused") + " the game");
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
+                    + (paused ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
             paused = !paused;
         }
