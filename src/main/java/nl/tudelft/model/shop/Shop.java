@@ -26,10 +26,10 @@ public class Shop {
         players = pls;
         nextLevel = nxtLevel;
         inventory = new LinkedList<ShopItem>();
-        inventory.add(new SlowGameSpeed(100, nextLevel));
-        inventory.add(new ExtraTime(150, nextLevel));
-        inventory.add(new ExtraLife(200));
-        inventory.add(new ImprovedSpeed(50));
+        inventory.add(new SlowGameSpeed(80, nextLevel));
+        inventory.add(new ExtraTime(50, nextLevel));
+        inventory.add(new ExtraLife(150));
+        inventory.add(new ImprovedSpeed(100));
     }
 
     /**
