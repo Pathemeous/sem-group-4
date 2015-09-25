@@ -45,4 +45,16 @@ public class FreezeUtility extends Utility {
         }
     }
     
+    protected Level getLevel() {
+        return level;
+    }
+    
+    protected int getFreezeCounter() {
+        return freezeCounter;
+    }
+    
+    protected void setFreezeCounter(int counter) {
+        freezeCounter = counter;
+    }
+    
 }
