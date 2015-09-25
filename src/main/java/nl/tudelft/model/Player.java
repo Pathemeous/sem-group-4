@@ -32,6 +32,7 @@ public class Player extends AbstractGameObject {
     private final Input input;
     private HashMap<String, Powerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
+    private boolean shopWeapon = false;
 
     private Weapon weapon;
 
@@ -138,7 +139,9 @@ public class Player extends AbstractGameObject {
      */
     public void reset() {
         clearAllPowerups();
-        setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        if (!shopWeapon) {
+            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        }
         this.weapon.activate(this);
         weaponActivated = false;
     }
@@ -318,5 +321,13 @@ public class Player extends AbstractGameObject {
      */
     public void setAnimationCurrent(Animation animationCurrent) {
         this.animationCurrent = animationCurrent;
+    }
+
+    public void setShopWeapon(boolean bool) {
+        this.shopWeapon = bool;
+    }
+
+    public boolean isShopWeapon() {
+        return this.shopWeapon;
     }
 }

@@ -196,7 +196,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
     
     final CollisionHandler<Weapon, Player> playerWeaponHandler = (game, weapon, player) -> {
         Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
-        weapon.activate(player);
+        if (!player.isShopWeapon()) {
+            weapon.activate(player);
+        }
     };
     
     final CollisionHandler<Utility, Player> playerUtilityHandler = (game, util, player) -> {
