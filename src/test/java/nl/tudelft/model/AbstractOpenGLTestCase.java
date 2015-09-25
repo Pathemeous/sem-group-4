@@ -30,7 +30,7 @@ public abstract class AbstractOpenGLTestCase {
                         .getAbsolutePath());
 //        Display.setDisplayMode(new DisplayMode(1, 1));
 //        Display.create();
-        Resources.init();
+//        Resources.init();
     }
 //
 //    /**
