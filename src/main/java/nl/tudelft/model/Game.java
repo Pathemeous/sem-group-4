@@ -48,6 +48,8 @@ public class Game implements Renderable, Modifiable {
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
      * 
+     * @param wrapper
+     *            {@link ResourcesWrapper} - The resources that Game can injet into LevelFactory.
      * @param mainApp
      *            StateBasedGame - the mainApp that manages the states.
      * @param players
@@ -60,12 +62,12 @@ public class Game implements Renderable, Modifiable {
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
     public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
-            int containerHeight) throws IllegalArgumentException {
+            int containerHeight, ResourcesWrapper wrapper) throws IllegalArgumentException {
         // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
-        this.levelFact = new LevelFactory(this, new ResourcesWrapper());
+        this.levelFact = new LevelFactory(this, wrapper);
         LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;
@@ -95,12 +97,14 @@ public class Game implements Renderable, Modifiable {
      */
     public void update(int delta) throws SlickException {
         final LinkedList<? extends AbstractGameObject> walls = getCurLevel().getWalls();
-        final LinkedList<? extends AbstractGameObject> projectiles = getCurLevel().getProjectiles();
+        final LinkedList<? extends AbstractGameObject> projectiles =
+                getCurLevel().getProjectiles();
         final LinkedList<? extends AbstractGameObject> bubbles = getCurLevel().getBubbles();
         final LinkedList<? extends AbstractGameObject> pickups = getCurLevel().getPickups();
 
         // collision: QuadTree
-        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
+        final QuadTree quad =
+                new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
         for (AbstractGameObject obj : walls) {
             quad.insert(obj);
         }
@@ -155,13 +159,13 @@ public class Game implements Renderable, Modifiable {
 
         // Logic
         if (getCurLevel().isCompleted()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
             nextLevel();
         }
         if (getCurLevel().timerExpired()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
-            
+
             Audio.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
@@ -279,7 +283,7 @@ public class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected final CollisionHandler<AbstractGameObject, AbstractGameObject> 
+    protected final CollisionHandler<AbstractGameObject, AbstractGameObject>
             getNewCollisionHandler() {
         return new DefaultCollisionHandler();
     }
