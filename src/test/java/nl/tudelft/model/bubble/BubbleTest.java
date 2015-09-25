@@ -12,6 +12,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.LinkedList;
+
 import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
@@ -112,7 +114,48 @@ public class BubbleTest extends AbstractOpenGLTestCase {
 
         Modifiable modifiable = mock(Modifiable.class);
 
-        bubble.split(modifiable, 8);
+        LinkedList<Bubble> newBubbles = bubble.split(modifiable, 8);
+        
+        verify(modifiable, times(3)).toAdd(any());
+        verify(modifiable, times(1)).toRemove(bubble);
+        
+        assertEquals(newBubbles, bubble.getNext());
+    }
+    
+    @Test
+    public void testSplitWithRandomBelow7() throws SlickException {
+        Image mockedImg = mock(Image.class);
+        when(mockedImg.getWidth()).thenReturn(10);
+        when(mockedImg.getHeight()).thenReturn(10);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
+        
+        Bubble bubble = new Bubble2(mockedResources, 0, 0);
+
+        Modifiable modifiable = mock(Modifiable.class);
+
+        LinkedList<Bubble> newBubbles = bubble.split(modifiable, 6);
+        
+        verify(modifiable, times(2)).toAdd(any());
+        verify(modifiable, times(1)).toRemove(bubble);
+        
+        assertEquals(newBubbles, bubble.getNext());
+    }
+    
+    @Test
+    public void testSplitWithBubble1() throws SlickException {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        
+        Bubble bubble = new Bubble1(mockedResources, 0, 0);
+
+        Modifiable modifiable = mock(Modifiable.class);
+
+        LinkedList<Bubble> newBubbles = bubble.split(modifiable, 6);
+        
+        verify(modifiable, times(0)).toAdd(any());
+        verify(modifiable, times(1)).toRemove(bubble);
+        
+        assertEquals(newBubbles, bubble.getNext());
     }
 
     @Test
@@ -167,7 +210,9 @@ public class BubbleTest extends AbstractOpenGLTestCase {
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
 
         bubble.setFrozen(true);
+        assertTrue(bubble.isFrozen());
         bubble.setFrozen(false);
+        assertFalse(bubble.isFrozen());
     }
 
     @Test
@@ -176,7 +221,9 @@ public class BubbleTest extends AbstractOpenGLTestCase {
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
 
         bubble.setSlow(true);
+        assertTrue(bubble.isSlow());
         bubble.setSlow(false);
+        assertFalse(bubble.isSlow());
     }
 
 }
