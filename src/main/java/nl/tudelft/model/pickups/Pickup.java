@@ -130,11 +130,11 @@ public abstract class Pickup extends AbstractEnvironmentObject {
             }
         } else if (random < 7) {
             // new powerup
-            int randomPowerupNr = Helpers.randInt(6, 11);
+            int randomPowerupNr = Helpers.randInt(6, 12);
 
-            if (randomPowerupNr == 11) {
+            if (randomPowerupNr == 12) {
                 return new LifePowerup(new ResourcesWrapper(), locX, locY);
-            } else if (randomPowerupNr > 9) {
+            } else if (randomPowerupNr > 10) {
                 return new MoneyPowerup(new ResourcesWrapper(), locX, locY);
             } else if (randomPowerupNr > 8) {
                 return new InvinciblePowerup(new ResourcesWrapper(), locX, locY);
