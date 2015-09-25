@@ -1,6 +1,7 @@
 package nl.tudelft.model.shop;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import nl.tudelft.model.Game;
@@ -47,5 +48,9 @@ public class Shop {
         ShopItem res = inventory.get(rand.nextInt());
         res.setPrice((int) (0.5 * res.getPrice()));
         return res;
+    }
+
+    public List<ShopItem> getInventory() {
+        return inventory;
     }
 }
