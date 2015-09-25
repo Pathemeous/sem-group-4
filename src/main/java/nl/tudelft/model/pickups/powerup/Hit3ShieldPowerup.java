@@ -62,7 +62,7 @@ public class Hit3ShieldPowerup extends Powerup {
         super.render(container, graphics);
 
         if (isActive() && removingShieldCounter % 2 == 0) {
-            graphics.setColor(Color.red);
+            graphics.setColor(Color.green);
             graphics.draw(player.getBounds());
             graphics.setColor(Color.blue);
         }
