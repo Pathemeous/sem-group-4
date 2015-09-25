@@ -18,25 +18,25 @@
 //import org.newdawn.slick.Image;
 //import org.newdawn.slick.SlickException;
 //
-//
 //public class ProjectileTest extends AbstractOpenGLTestCase {
 //
 //    private Weapon mockedWeapon;
 //    private ResourcesWrapper mockedResources;
 //    private Image mockedImage;
-//    
+//
 //    @Before
 //    public void setUp() {
 //        mockedWeapon = mock(Weapon.class);
 //        mockedResources = mock(ResourcesWrapper.class);
 //        mockedImage = mock(Image.class);
 //    }
-//    
+//
 //    @Test
 //    public void testProjectile1() {
 //        Weapon weapon = mock(Weapon.class);
 //        when(mockedWeapon.getNumberOfProjectiles()).thenReturn(1);
-//        Projectile projectile = new Projectile(mockedResources, mockedImage, 1, 1, 1, 1, 1, weapon);
+//        Projectile projectile =
+//                new Projectile(mockedResources, mockedImage, 1, 1, 1, 1, 1, weapon);
 //        assertEquals(projectile.getHeight(), 800);
 //        assertEquals(projectile.getWidth(), 8);
 //        assertEquals(projectile.getImage(), mockedImage);

@@ -57,7 +57,7 @@ public class FreezeUtilityTest {
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
-        Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
+        final Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
                 bubbles, 0, 0);
         
         assertEquals(0, utility.getFreezeCounter());
