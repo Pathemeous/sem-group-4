@@ -5,6 +5,7 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
@@ -95,12 +96,13 @@ public class SpeedPowerupTest {
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
         Player player = new Player(mockedResources, 0, 0, null, true);
-        Modifiable mockedContainer = mock(Modifiable.class);
         
         powerup.activate(player);
         powerup.setSpeedCount(599);
         
         assertEquals(8, player.getSpeed());
+        
+        Modifiable mockedContainer = mock(Modifiable.class);
         
         powerup.update(mockedContainer, 0);
         
