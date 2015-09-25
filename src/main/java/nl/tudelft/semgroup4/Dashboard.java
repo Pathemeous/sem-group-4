@@ -215,11 +215,11 @@ public class Dashboard implements Renderable {
             if (p.isFirstPlayer()) {
                 scoreLeft = p.getScore();
                 livesLeft = p.getLives();
-                moneyLeft = p.getMoney(); // todo replace with actual getMoney
+                moneyLeft = p.getMoney();
             } else {
                 scoreRight = p.getScore();
                 livesRight = p.getLives();
-                moneyRight = p.getMoney(); // todo
+                moneyRight = p.getMoney();
             }
         }
 
