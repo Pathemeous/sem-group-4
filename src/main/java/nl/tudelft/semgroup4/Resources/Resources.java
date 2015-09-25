@@ -1,4 +1,4 @@
-package nl.tudelft.semgroup4;
+package nl.tudelft.semgroup4.Resources;
 
 import java.util.ArrayList;
 
@@ -9,77 +9,85 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
 /**
- * This class holds the resources Created by justin on 08/09/15.
+ * This class holds and loads the Slick2D resources.
+ * @author Justin
  */
-public class Resources {
+public final class Resources {
 
     private static boolean isInitted = false;
 
-    public static Image wallImage;
-    public static Image vwallImage;
+    static Image wallImage;
+    static Image vwallImage;
 
-    public static Image weaponImageRegular;
-    public static Image weaponImageSticky;
-    public static Image weaponImageFlower;
+    static Image weaponImageRegular;
+    static Image weaponImageSticky;
+    static Image weaponImageFlower;
 
-    public static Image titleScreenBackground;
-    public static Image backgroundImage;
+    static Image titleScreenBackground;
+    static Image backgroundImage;
 
-    public static Image dashboardPlayerContainerLeft;
-    public static Image dashboardPlayerContainerRight;
-    public static Image dashboardLivesContainer;
-    public static Image dashboardlivesFull;
-    public static Image dashboardlivesEmpty;
-    public static Image levelContainer;
+    static Image dashboardPlayerContainerLeft;
+    static Image dashboardPlayerContainerRight;
+    static Image dashboardLivesContainer;
+    static Image dashboardlivesFull;
+    static Image dashboardlivesEmpty;
+    static Image levelContainer;
 
-    public static Image playerImageStill;
+    static Image playerImageStill;
     
-    public static Image on;
-    public static Image off;
-    public static Image soundText;
-    public static Image optionsText;
-    public static Image backText;
+    static Image on;
+    static Image off;
+    static Image soundText;
+    static Image optionsText;
+    static Image backText;
     
-    public static Image quitText;
-    public static Image pauseText;
+    static Image quitText;
+    static Image pauseText;
 
-    public static ArrayList<Image> playerImageLeft;
-    public static ArrayList<Image> playerImageRight;
+    static ArrayList<Image> playerImageLeft;
+    static ArrayList<Image> playerImageRight;
 
-    public static Animation playerWalkLeft;
-    public static Animation playerWalkRight;
+    static Animation playerWalkLeft;
+    static Animation playerWalkRight;
 
-    public static Image bubbleImage1;
-    public static Image bubbleImage2;
-    public static Image bubbleImage3;
-    public static Image bubbleImage4;
-    public static Image bubbleImage5;
-    public static Image bubbleImage6;
+    static Image bubbleImage1;
+    static Image bubbleImage2;
+    static Image bubbleImage3;
+    static Image bubbleImage4;
+    static Image bubbleImage5;
+    static Image bubbleImage6;
 
-    public static Image pickupWeaponRegular;
-    public static Image pickupWeaponDouble;
-    public static Image pickupWeaponSticky;
-    public static Image pickupWeaponFlowers;
-    public static Image pickupPowerShield;
-    public static Image pickupPowerInvincible;
-    public static Image pickupPowerSpeedup;
-    public static Image pickupPowerPoints;
-    public static Image pickupUtilitySplit;
-    public static Image pickupUtilityFreeze;
-    public static Image pickupUtilitySlow;
-    public static Image pickupUtilityLevelwon;
-    public static Image pickupUtilityTime;
-    public static Image pickupUtilityLife;
+    static Image pickupWeaponRegular;
+    static Image pickupWeaponDouble;
+    static Image pickupWeaponSticky;
+    static Image pickupWeaponFlowers;
+    static Image pickupPowerShield;
+    static Image pickupPowerInvincible;
+    static Image pickupPowerSpeedup;
+    static Image pickupPowerPoints;
+    static Image pickupUtilitySplit;
+    static Image pickupUtilityFreeze;
+    static Image pickupUtilitySlow;
+    static Image pickupUtilityLevelwon;
+    static Image pickupUtilityTime;
+    static Image pickupUtilityLife;
 
-    public static Image powerShield;
-    public static Image powerInvincible;
+    static Image powerShield;
+    static Image powerInvincible;
 
-    public static Sound bubblePop;
-    public static Sound weaponFire;
-    public static Sound death;
-    public static Sound timeUp;
+    static Sound bubblePop;
+    static Sound weaponFire;
+    static Sound death;
+    static Sound timeUp;
 
-    public static Music titleScreenMusic;
+    static Music titleScreenMusic;
+    
+    /**
+     * Private constructor to avoid instantiation of this utility class.
+     */
+    private Resources() {
+        
+    }
 
     
 
@@ -131,7 +139,7 @@ public class Resources {
         dashboardlivesFull = new Image("src/main/resources/img/dashboard/lives_full.png");
         dashboardlivesEmpty = new Image("src/main/resources/img/dashboard/lives_empty.png");
         levelContainer = new Image("src/main/resources/img/dashboard/level_container.png");
-        
+
         on = new Image("src/main/resources/img/on.png");
         off = new Image("src/main/resources/img/off.png");
         soundText = new Image("src/main/resources/img/sound.png");

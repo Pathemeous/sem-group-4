@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.weapon;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.Resources.Resources;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;

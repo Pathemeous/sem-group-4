@@ -1,6 +1,6 @@
 package nl.tudelft.model.pickups.weapon;
 
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.Resources.Resources;
 
 public class FlowerWeapon extends Weapon {
     

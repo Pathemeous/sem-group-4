@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
+import nl.tudelft.semgroup4.Resources.Resources;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.Audio;
 
