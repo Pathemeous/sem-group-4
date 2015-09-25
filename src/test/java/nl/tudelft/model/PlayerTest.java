@@ -3,6 +3,7 @@ package nl.tudelft.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
@@ -10,7 +11,7 @@ import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.resources.Resources;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.junit.Before;

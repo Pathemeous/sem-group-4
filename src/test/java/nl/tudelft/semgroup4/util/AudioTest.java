@@ -2,7 +2,8 @@ package nl.tudelft.semgroup4.util;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
-import nl.tudelft.semgroup4.Resources.Resources;
+
+import nl.tudelft.semgroup4.resources.Resources;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.junit.Test;

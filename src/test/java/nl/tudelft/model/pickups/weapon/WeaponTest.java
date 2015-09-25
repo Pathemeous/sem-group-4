@@ -9,10 +9,11 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+
 import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.resources.Resources;
 
 import org.junit.Test;
 import org.newdawn.slick.Input;

@@ -3,7 +3,7 @@ package nl.tudelft.model.pickups.utility;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.SlickException;
 
@@ -13,8 +13,8 @@ public class FreezeUtility extends Utility {
     private int freezeCounter = 0;
     private static final int FREEZETIME = 300;
     
-    public FreezeUtility(float locX, float locY) {
-        super(Resources.pickupUtilityFreeze, locX, locY);
+    public FreezeUtility(ResourcesWrapper resources, float locX, float locY) {
+        super(resources.getPickupUtilityFreeze(), locX, locY);
     }
     
     @Override

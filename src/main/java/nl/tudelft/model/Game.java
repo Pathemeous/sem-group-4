@@ -12,6 +12,7 @@ import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 
@@ -64,7 +65,7 @@ public class Game implements Renderable, Modifiable {
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
-        this.levelFact = new LevelFactory(this);
+        this.levelFact = new LevelFactory(this, new ResourcesWrapper());
         LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;

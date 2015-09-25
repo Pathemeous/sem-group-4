@@ -1,4 +1,4 @@
-package nl.tudelft.semgroup4.Resources;
+package nl.tudelft.semgroup4.resources;
 
 import java.util.ArrayList;
 
@@ -16,220 +16,217 @@ import org.newdawn.slick.Sound;
  * @author Pathemeous
  *
  */
-public final class ResourcesWrapper {
-    
-    public final Image getWallImage() {
+public class ResourcesWrapper {
+
+    public Image getWallImage() {
         return Resources.wallImage;
     }
 
-    public final Image getVwallImage() {
+    public Image getVwallImage() {
         return Resources.vwallImage;
     }
 
-    public final Image getWeaponImageRegular() {
+    public Image getWeaponImageRegular() {
         return Resources.weaponImageRegular;
     }
 
-    public final Image getWeaponImageSticky() {
+    public Image getWeaponImageSticky() {
         return Resources.weaponImageSticky;
     }
 
-    public final Image getWeaponImageFlower() {
+    public Image getWeaponImageFlower() {
         return Resources.weaponImageFlower;
     }
 
-    public final Image getTitleScreenBackground() {
+    public Image getTitleScreenBackground() {
         return Resources.titleScreenBackground;
     }
 
-    public final Image getBackgroundImage() {
+    public Image getBackgroundImage() {
         return Resources.backgroundImage;
     }
 
-    public final Image getDashboardPlayerContainerLeft() {
+    public Image getDashboardPlayerContainerLeft() {
         return Resources.dashboardPlayerContainerLeft;
     }
 
-    public final Image getDashboardPlayerContainerRight() {
+    public Image getDashboardPlayerContainerRight() {
         return Resources.dashboardPlayerContainerRight;
     }
 
-    public final Image getDashboardLivesContainer() {
+    public Image getDashboardLivesContainer() {
         return Resources.dashboardLivesContainer;
     }
 
-    public final Image getDashboardlivesFull() {
+    public Image getDashboardlivesFull() {
         return Resources.dashboardlivesFull;
     }
 
-    public final Image getDashboardlivesEmpty() {
+    public Image getDashboardlivesEmpty() {
         return Resources.dashboardlivesEmpty;
     }
 
-    public final Image getLevelContainer() {
+    public Image getLevelContainer() {
         return Resources.levelContainer;
     }
 
-    public final Image getPlayerImageStill() {
+    public Image getPlayerImageStill() {
         return Resources.playerImageStill;
     }
 
-    public final Image getOn() {
+    public Image getOn() {
         return Resources.on;
     }
 
-    public final Image getOff() {
+    public Image getOff() {
         return Resources.off;
     }
 
-    public final Image getSoundText() {
+    public Image getSoundText() {
         return Resources.soundText;
     }
 
-    public final Image getOptionsText() {
+    public Image getOptionsText() {
         return Resources.optionsText;
     }
 
-    public final Image getBackText() {
+    public Image getBackText() {
         return Resources.backText;
     }
 
-    public final Image getQuitText() {
+    public Image getQuitText() {
         return Resources.quitText;
     }
 
-    public final Image getPauseText() {
+    public Image getPauseText() {
         return Resources.pauseText;
     }
 
-    public final ArrayList<Image> getPlayerImageLeft() {
+    public ArrayList<Image> getPlayerImageLeft() {
         return Resources.playerImageLeft;
     }
 
-    public final ArrayList<Image> getPlayerImageRight() {
+    public ArrayList<Image> getPlayerImageRight() {
         return Resources.playerImageRight;
     }
 
-    public final Animation getPlayerWalkLeft() {
+    public Animation getPlayerWalkLeft() {
         return Resources.playerWalkLeft;
     }
 
-    public final Animation getPlayerWalkRight() {
+    public Animation getPlayerWalkRight() {
         return Resources.playerWalkRight;
     }
 
-    public final Image getBubbleImage1() {
+    public Image getBubbleImage1() {
         return Resources.bubbleImage1;
     }
 
-    public final Image getBubbleImage2() {
+    public Image getBubbleImage2() {
         return Resources.bubbleImage2;
     }
 
-    public final Image getBubbleImage3() {
+    public Image getBubbleImage3() {
         return Resources.bubbleImage3;
     }
 
-    public final Image getBubbleImage4() {
+    public Image getBubbleImage4() {
         return Resources.bubbleImage4;
     }
 
-    public final Image getBubbleImage5() {
+    public Image getBubbleImage5() {
         return Resources.bubbleImage5;
     }
 
-    public final Image getBubbleImage6() {
+    public Image getBubbleImage6() {
         return Resources.bubbleImage6;
     }
 
-    public final Image getPickupWeaponRegular() {
+    public Image getPickupWeaponRegular() {
         return Resources.pickupWeaponRegular;
     }
 
-    public final Image getPickupWeaponDouble() {
+    public Image getPickupWeaponDouble() {
         return Resources.pickupWeaponDouble;
     }
 
-    public final Image getPickupWeaponSticky() {
+    public Image getPickupWeaponSticky() {
         return Resources.pickupWeaponSticky;
     }
 
-    public final Image getPickupWeaponFlowers() {
+    public Image getPickupWeaponFlowers() {
         return Resources.pickupWeaponFlowers;
     }
 
-    public final Image getPickupPowerShield() {
+    public Image getPickupPowerShield() {
         return Resources.pickupPowerShield;
     }
 
-    public final Image getPickupPowerInvincible() {
+    public Image getPickupPowerInvincible() {
         return Resources.pickupPowerInvincible;
     }
 
-    public final Image getPickupPowerSpeedup() {
+    public Image getPickupPowerMoney() {
+        return Resources.pickupPowerMoney;
+    }
+
+    public Image getPickupPowerSpeedup() {
         return Resources.pickupPowerSpeedup;
     }
 
-    public final Image getPickupPowerPoints() {
+    public Image getPickupPowerPoints() {
         return Resources.pickupPowerPoints;
     }
 
-    public final Image getPickupUtilitySplit() {
+    public Image getPickupUtilitySplit() {
         return Resources.pickupUtilitySplit;
     }
 
-    public final Image getPickupUtilityFreeze() {
+    public Image getPickupUtilityFreeze() {
         return Resources.pickupUtilityFreeze;
     }
 
-    public final Image getPickupUtilitySlow() {
+    public Image getPickupUtilitySlow() {
         return Resources.pickupUtilitySlow;
     }
 
-    public final Image getPickupUtilityLevelwon() {
+    public Image getPickupUtilityLevelwon() {
         return Resources.pickupUtilityLevelwon;
     }
 
-    public final Image getPickupUtilityTime() {
+    public Image getPickupUtilityTime() {
         return Resources.pickupUtilityTime;
     }
 
-    public final Image getPickupUtilityLife() {
+    public Image getPickupUtilityLife() {
         return Resources.pickupUtilityLife;
     }
 
-    public final Image getPowerShield() {
+    public Image getPowerShield() {
         return Resources.powerShield;
     }
 
-    public final Image getPowerInvincible() {
+    public Image getPowerInvincible() {
         return Resources.powerInvincible;
     }
 
-    public final Sound getBubblePop() {
+    public Sound getBubblePop() {
         return Resources.bubblePop;
     }
 
-    public final Sound getWeaponFire() {
+    public Sound getWeaponFire() {
         return Resources.weaponFire;
     }
 
-    public final Sound getDeath() {
+    public Sound getDeath() {
         return Resources.death;
     }
 
-    public final Sound getTimeUp() {
+    public Sound getTimeUp() {
         return Resources.timeUp;
     }
 
-    public final Music getTitleScreenMusic() {
+    public Music getTitleScreenMusic() {
         return Resources.titleScreenMusic;
     }
-
-//    /**
-//     * Empty constructor to allow instantiation (no setup is needed).
-//     */
-//    public ResourcesWrapper() {
-//        
-//    }
 }

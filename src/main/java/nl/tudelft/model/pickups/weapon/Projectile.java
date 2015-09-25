@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.weapon;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Resources.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
@@ -24,6 +24,8 @@ public class Projectile extends AbstractEnvironmentObject {
     private final int startHeight;
 
     /**
+     * @param resources
+     *            {@link ResourcesWrapper} - A new resourceWrapper that the projectile can use.
      * @param image
      *            - The texture used for the weapon/projectile
      * @param locX
@@ -44,8 +46,8 @@ public class Projectile extends AbstractEnvironmentObject {
      *            screen hit - Has the projectile hit an object (bubble) top - Has the projectile
      *            hit the top
      */
-    public Projectile(Image image, int locX, int locY, int playerWidth, int playerHeight,
-            int speed, Weapon wp) {
+    public Projectile(ResourcesWrapper resources, Image image, int locX, int locY,
+            int playerWidth, int playerHeight, int speed, Weapon wp) {
         super(image, locX, locY);
         this.speed = speed;
         this.playerWidth = playerWidth;
@@ -56,7 +58,7 @@ public class Projectile extends AbstractEnvironmentObject {
         tickCount = 0;
         startHeight = locY;
 
-        if (wp.getNumberOfProjectiles() == 0 && !Resources.weaponFire.playing()) {            
+        if (wp.getNumberOfProjectiles() == 0 && !resources.getWeaponFire().playing()) {
             Audio.playFireSound();
         }
     }

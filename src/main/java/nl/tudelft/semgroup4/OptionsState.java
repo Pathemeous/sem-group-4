@@ -1,8 +1,8 @@
 package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.semgroup4.Resources.Resources;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
@@ -21,32 +21,33 @@ public class OptionsState extends BasicGameState {
     private MouseOverArea soundOnOff;
     private MouseOverArea backButton;
     private Input input;
+    private final ResourcesWrapper resources = new ResourcesWrapper();
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
-        soundOnOff = new MouseOverArea(container, Resources.on,
+        soundOnOff = new MouseOverArea(container, resources.getOn(),
                 container.getWidth() / 4 * 3,
                 container.getHeight() / 4);
-        backButton = new MouseOverArea(container, Resources.backText,
+        backButton = new MouseOverArea(container, resources.getBackText(),
                 container.getWidth() / 10, container.getHeight() / 10 * 9);
         input = container.getInput();
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics graphics) {
-        graphics.drawImage(Resources.optionsText,
-                container.getWidth() / 2 - Resources.optionsText.getWidth() / 2, 
+        graphics.drawImage(resources.getOptionsText(),
+                container.getWidth() / 2 - resources.getOptionsText().getWidth() / 2, 
                 container.getHeight() / 6.0f);    
-        graphics.drawImage(Resources.backText, container.getWidth() / 10.0f,
+        graphics.drawImage(resources.getBackText(), container.getWidth() / 10.0f,
                 container.getHeight() / 10 * 9);
-        graphics.drawImage(Resources.soundText, container.getWidth() / 4.0f,
+        graphics.drawImage(resources.getSoundText(), container.getWidth() / 4.0f,
                 container.getHeight() / 4.0f); 
         if (Audio.musicOn) {
-            graphics.drawImage(Resources.on, container.getWidth() / 4 * 3,
+            graphics.drawImage(resources.getOn(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
         }
         if (!Audio.musicOn) {
-            graphics.drawImage(Resources.off, container.getWidth() / 4 * 3,
+            graphics.drawImage(resources.getOff(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
         }
     }
