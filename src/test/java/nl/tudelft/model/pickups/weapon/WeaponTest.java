@@ -13,12 +13,10 @@ import static org.mockito.Mockito.verify;
 import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.resources.Resources;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class WeaponTest extends AbstractOpenGLTestCase {
