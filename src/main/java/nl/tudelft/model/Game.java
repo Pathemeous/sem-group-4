@@ -159,6 +159,7 @@ public class Game implements Renderable, Modifiable {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
                     "Level has been completed. Go to next level!");
             ((ShopState)mainApp.getState(5)).setup(players, this);
+            this.nextLevel();
             mainApp.enterState(5);
         }
         if (getCurLevel().timerExpired()) {

@@ -242,4 +242,20 @@ public class ResourcesWrapper {
     public Image getShopText() {
         return Resources.shopText;
     }
+
+    public Image getPlayer1() {
+        return Resources.player1;
+    }
+    
+    public Image getPlayer2() {
+        return Resources.player2;
+    }
+    
+    public Image getSpecialWeapon() {
+        return Resources.shopImageSpecialWeapon;
+    }
+    
+    public Image getBuy() {
+        return Resources.buy;
+    }
 }

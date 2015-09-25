@@ -86,8 +86,11 @@ public final class Resources {
     static Music titleScreenMusic;
 
     static Image continueText;
-
     static Image shopText;
+    static Image player1;
+    static Image player2;
+    static Image shopImageSpecialWeapon;
+    static Image buy;
     
     /**
      * Private constructor to avoid instantiation of this utility class.
@@ -152,14 +155,18 @@ public final class Resources {
         soundText = new Image("src/main/resources/img/sound.png");
         optionsText = new Image("src/main/resources/img/options.png");
         backText = new Image("src/main/resources/img/back.png");
-
+                
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
         
         shopBackground = new Image("src/main/resources/img/shopBackground.png");
         continueText = new Image("src/main/resources/img/continue.png");
         shopText = new Image("src/main/resources/img/shop.png");
-
+        player1 = new Image("src/main/resources/img/player1Text.png");
+        player2 = new Image("src/main/resources/img/player2Text.png");
+        shopImageSpecialWeapon = new Image("src/main/resources/img/pickup_weapon_special.png");
+        buy = new Image("src/main/resources/img/buy.png");
+        
         weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageFlower = new Image("src/main/resources/img/weapon_flowers.png");
@@ -186,6 +193,7 @@ public final class Resources {
         pickupUtilityLevelwon = new Image("src/main/resources/img/pickup_level_won.png");
         pickupUtilityTime = new Image("src/main/resources/img/pickup_time.png");
         pickupUtilityLife = new Image("src/main/resources/img/pickup_life.png");
+        
 
         powerInvincible = new Image("src/main/resources/img/powerup_invincible.png");
         powerShield = new Image("src/main/resources/img/powerup_shield.png");

@@ -30,13 +30,13 @@ public class Shop {
         this.game = game;
         players = pls;
         inventory = new LinkedList<ShopItem>();
-        inventory.add(new SlowGameSpeed(80, game.getLevelIt().next()));
-        inventory.add(new ExtraTime(50, game.getLevelIt().next()));
+        inventory.add(new SlowGameSpeed(80, game.getCurLevel()));
+        inventory.add(new ExtraTime(50, game.getCurLevel()));
         inventory.add(new ExtraLife(150));
         inventory.add(new ImprovedSpeed(100));
         inventory.add(new DoubleWeaponItem(70));
         inventory.add(new ShopWeaponItem(100));
-        inventory.add(new ShopShield(100));
+        inventory.add(new ShopShield(100, game));
     }
 
     /**
