@@ -114,9 +114,10 @@ public class ShopState extends BasicGameState {
     }
 
     public void setup(LinkedList<Player> players, Game game) {
+    public void setup(Game game) {
+        this.players = game.getPlayers();
         shop = new Shop(players, game);
-        this.players = players;
-        
+
         this.game = game;
         selectedPlayer = players.getFirst();
         selectedPlayer.setMoney(1000);
