@@ -43,4 +43,12 @@ public class SpeedPowerup extends Powerup {
             player.setDefaultSpeed();
         }
     }
+    
+    protected int getSpeedCount() {
+        return speedCount;
+    }
+    
+    protected void setSpeedCount(int speed) {
+        speedCount = speed;
+    }
 }
