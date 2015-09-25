@@ -101,6 +101,10 @@ public class ResourcesWrapper {
     public Image getPauseText() {
         return Resources.pauseText;
     }
+    
+    public Image getShopBackGround() {
+        return Resources.shopBackground;
+    }
 
     public ArrayList<Image> getPlayerImageLeft() {
         return Resources.playerImageLeft;

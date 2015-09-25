@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -157,7 +158,8 @@ public class Game implements Renderable, Modifiable {
         if (getCurLevel().isCompleted()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
                     "Level has been completed. Go to next level!");
-            nextLevel();
+            mainApp.addState(new ShopState(players, levelFact.getLevel(curLevel.getId() + 1))); 
+            mainApp.enterState(5);
         }
         if (getCurLevel().timerExpired()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");

@@ -43,6 +43,8 @@ public final class Resources {
     
     static Image quitText;
     static Image pauseText;
+    
+    static Image shopBackground;
 
     static ArrayList<Image> playerImageLeft;
     static ArrayList<Image> playerImageRight;
@@ -149,6 +151,8 @@ public final class Resources {
 
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
+        
+        shopBackground = new Image("src/main/resources/img/shopBackground.png");
 
         weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
