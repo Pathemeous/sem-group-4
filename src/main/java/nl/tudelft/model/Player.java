@@ -58,7 +58,7 @@ public class Player extends AbstractGameObject {
      */
     public Player(ResourcesWrapper resources, int locX, int locY, Input input,
             boolean isFirstPlayer) {
-        super(resources.getPlayerImageStill().copy(), locX, locY);
+        super(resources.getPlayerImageStill(), locX, locY);
         speed = REGULAR_SPEED;
         lives = 3;
         score = 0;
