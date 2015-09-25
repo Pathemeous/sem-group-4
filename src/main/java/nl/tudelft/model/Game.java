@@ -42,11 +42,6 @@ public class Game implements Renderable, Modifiable {
     private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
-    private LinkedList<? extends AbstractGameObject> bubbles;
-    private LinkedList<? extends AbstractGameObject> pickups;
-    private LinkedList<? extends AbstractGameObject> walls;
-    private LinkedList<? extends AbstractGameObject> projectiles;
-    private QuadTree quad; 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
@@ -96,21 +91,16 @@ public class Game implements Renderable, Modifiable {
      * @throws SlickException
      *             - If the game engines crashes.
      */
-    public void update(int delta) throws SlickException {
-        bubbles = getCurLevel().getBubbles();
-        projectiles = getCurLevel().getProjectiles();
-        pickups = getCurLevel().getPickups();
-        walls = getCurLevel().getWalls();
-        
-        quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
+    public void update(int delta) throws SlickException {        
+        final QuadTree quad = new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
         // collision: QuadTree
-        quadFill();
+        quadFill(quad);
         
         // collision : CollisionMap
-        bubbleCollision();
-        projectileCollision();
-        playerCollision();
-        pickupCollision();          
+        bubbleCollision(quad);
+        projectileCollision(quad);
+        playerCollision(quad);
+        pickupCollision(quad);          
         
         //updates
         playerUpdate(delta);        
@@ -136,14 +126,14 @@ public class Game implements Renderable, Modifiable {
     /**
      * Objects which can collide are added to the quadTree.
      */
-    private void quadFill() {
+    private void quadFill(QuadTree quad) {
         for (AbstractGameObject obj : players) {
             quad.insert(obj);
         }        
-        for (AbstractGameObject obj : projectiles) {
+        for (AbstractGameObject obj : curLevel.getProjectiles()) {
             quad.insert(obj);
         }   
-        for (AbstractGameObject obj : walls) {
+        for (AbstractGameObject obj : curLevel.getWalls()) {
             quad.insert(obj);
         }
     }
@@ -190,8 +180,8 @@ public class Game implements Renderable, Modifiable {
      * Checks for every pickup if it collides with anything a pickup
      * can collide with.        
      */
-    private void pickupCollision() {        
-        for (AbstractGameObject collidesWithA : pickups) {
+    private void pickupCollision(QuadTree quad) {        
+        for (AbstractGameObject collidesWithA : curLevel.getPickups()) {
             // collision with walls and players
             for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
                     collidesWithA, null, quad)) {
@@ -203,7 +193,8 @@ public class Game implements Renderable, Modifiable {
      * Checks for every player if it collides with anything a player 
      * can collide with.     
      */
-    private void playerCollision() {                
+    private void playerCollision(QuadTree quad) { 
+        LinkedList<Wall> walls = new LinkedList<Wall>();
         for (AbstractGameObject collidesWithA : players) {
             for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
                     collidesWithA, walls, quad)) {
@@ -215,8 +206,9 @@ public class Game implements Renderable, Modifiable {
      * Checks for every player if it collides with anything a projectile 
      * can collide with.     
      */
-    private void projectileCollision() {           
-        for (AbstractGameObject collidesWithA : projectiles) {
+    private void projectileCollision(QuadTree quad) {
+        LinkedList<Wall> walls = new LinkedList<Wall>();
+        for (AbstractGameObject collidesWithA : curLevel.getProjectiles()) {
             for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
                     collidesWithA, walls, null)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
@@ -227,8 +219,8 @@ public class Game implements Renderable, Modifiable {
      * Checks for every player if it collides with anything a bubble
      * can collide with.     
      */
-    private void bubbleCollision() {       
-        for (AbstractGameObject collidesWithA : bubbles) {
+    private void bubbleCollision(QuadTree quad) {       
+        for (AbstractGameObject collidesWithA : curLevel.getBubbles()) {
             // bubbles check against walls, players and projectiles
             for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
                     collidesWithA, null, quad)) {
