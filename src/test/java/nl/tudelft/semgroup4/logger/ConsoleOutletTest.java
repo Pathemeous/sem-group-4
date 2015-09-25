@@ -48,8 +48,9 @@ public class ConsoleOutletTest {
 
         // note the newlines!
         assertEquals(
-                "SomeMessage1" + System.lineSeparator() + "SomeMessage2" + System.lineSeparator() + "SomeMessage3" + System.lineSeparator() + "SomeMessage4" + System.lineSeparator() + "",
-                outContent.toString());
+                "SomeMessage1" + System.lineSeparator() + "SomeMessage2"
+                        + System.lineSeparator() + "SomeMessage3" + System.lineSeparator()
+                        + "SomeMessage4" + System.lineSeparator() + "", outContent.toString());
     }
 
     @Test

@@ -27,6 +27,9 @@ public class GameTest extends AbstractOpenGLTestCase {
     private LinkedList<Player> playerList;
     private Player mockedPlayer;
     
+    /**
+     * Instantiates all mocks and stubs for the relevant resources.
+     */
     @Before
     public void setUp() {
         mockedSbg = mock(StateBasedGame.class);      
