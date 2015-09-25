@@ -48,4 +48,12 @@ public class Shop {
         res.setPrice((int) (0.5 * res.getPrice()));
         return res;
     }
+
+    /**
+     * @return the inventory
+     */
+    public LinkedList<ShopItem> getInventory() {
+        return inventory;
+    }
+
 }

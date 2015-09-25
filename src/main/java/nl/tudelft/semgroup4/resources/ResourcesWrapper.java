@@ -242,14 +242,6 @@ public class ResourcesWrapper {
     public Image getShopText() {
         return Resources.shopText;
     }
-
-    public Image getPlayer1() {
-        return Resources.player1;
-    }
-    
-    public Image getPlayer2() {
-        return Resources.player2;
-    }
     
     public Image getSpecialWeapon() {
         return Resources.shopImageSpecialWeapon;
@@ -257,5 +249,21 @@ public class ResourcesWrapper {
     
     public Image getBuy() {
         return Resources.buy;
+    }
+
+    public Image getPlayer2On() {
+        return Resources.player2On;
+    }
+
+    public Image getPlayer1Off() {
+        return Resources.player1Off;
+    }
+    
+    public Image getPlayer1On() {
+        return Resources.player1On;
+    }
+
+    public Image getPlayer2Off() {
+        return Resources.player2Off;
     }
 }

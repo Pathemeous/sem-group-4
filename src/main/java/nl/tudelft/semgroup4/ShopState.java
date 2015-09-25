@@ -35,8 +35,10 @@ public class ShopState extends BasicGameState {
     private Image continueText;
     private Image shopText;
     private Image buyText;
-    private Image player1;
-    private Image player2;
+    private Image player1On;
+    private Image player1Off;
+    private Image player2On;
+    private Image player2Off;
     private Image item1Slow;
     private Image item2Life;
     private Image item3Speed;
@@ -82,8 +84,10 @@ public class ShopState extends BasicGameState {
         item6Time = resources.getPickupUtilityTime();
         item7Special = resources.getSpecialWeapon();
 
-        player1 = resources.getPlayer1();
-        player2 = resources.getPlayer2();
+        player1On = resources.getPlayer1On();
+        player1Off = resources.getPlayer1Off();
+        player2On = resources.getPlayer2On();
+        player2Off = resources.getPlayer2Off();
     }
 
     @Override
@@ -94,9 +98,9 @@ public class ShopState extends BasicGameState {
                 container.getWidth() / 10 * 8, 
                 container.getHeight() - continueText.getHeight()); 
 
-        player1Area = new MouseOverArea(container, player1, container.getWidth() / 10,
+        player1Area = new MouseOverArea(container, player1On, container.getWidth() / 10,
                 container.getHeight() / 10 * 3);
-        player2Area = new MouseOverArea(container, player2,container.getWidth() / 10,
+        player2Area = new MouseOverArea(container, player2On,container.getWidth() / 10,
                 container.getHeight() / 10 * 4);        
         buyArea = new MouseOverArea(container, buyText, container.getWidth() / 10 * 7,
                 container.getHeight() - buyText.getHeight());
@@ -167,11 +171,17 @@ public class ShopState extends BasicGameState {
         graphics.drawImage(shopText, container.getWidth() / 2 - shopText.getWidth() / 2,
                 container.getHeight() / 10);
 
-
-        graphics.drawImage(player1, container.getWidth() / 10,
-                container.getHeight() / 10 * 3);   
-        if (players.size() == 2) {
-            graphics.drawImage(player2, container.getWidth() / 10,
+        if(selectedPlayer.isFirstPlayer()) {
+            graphics.drawImage(player1On, container.getWidth() / 10,
+                    container.getHeight() / 10 * 3);   
+            if (players.size() == 2) {
+                graphics.drawImage(player2Off, container.getWidth() / 10,
+                        container.getHeight() / 10 * 4);
+            }
+        }else{
+            graphics.drawImage(player1Off, container.getWidth() / 10,
+                    container.getHeight() / 10 * 3); 
+            graphics.drawImage(player2On, container.getWidth() / 10,
                     container.getHeight() / 10 * 4);
         }
 
@@ -188,7 +198,7 @@ public class ShopState extends BasicGameState {
         graphics.drawImage(item6Time, container.getWidth() / 10 * 9,
                 container.getHeight() / 10 * 7);
         graphics.drawImage(item7Special, container.getWidth() / 10 * 7,
-                container.getHeight() / 10 * 3);
+                container.getHeight() / 10 * 3);        
 
     }
 

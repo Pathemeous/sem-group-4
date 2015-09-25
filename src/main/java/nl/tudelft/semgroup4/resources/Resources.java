@@ -87,8 +87,10 @@ public final class Resources {
 
     static Image continueText;
     static Image shopText;
-    static Image player1;
-    static Image player2;
+    static Image player1On;
+    static Image player1Off;
+    static Image player2On;
+    static Image player2Off;
     static Image shopImageSpecialWeapon;
     static Image buy;
     
@@ -162,8 +164,10 @@ public final class Resources {
         shopBackground = new Image("src/main/resources/img/shopBackground.png");
         continueText = new Image("src/main/resources/img/continue.png");
         shopText = new Image("src/main/resources/img/shop.png");
-        player1 = new Image("src/main/resources/img/player1Text.png");
-        player2 = new Image("src/main/resources/img/player2Text.png");
+        player1On = new Image("src/main/resources/img/player1TextOn.png");
+        player1Off = new Image("src/main/resources/img/player1TextOff.png");
+        player2On = new Image("src/main/resources/img/player2TextOn.png");
+        player2Off = new Image("src/main/resources/img/player2TextOff.png");
         shopImageSpecialWeapon = new Image("src/main/resources/img/pickup_weapon_special.png");
         buy = new Image("src/main/resources/img/buy.png");
         
