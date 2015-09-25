@@ -2,7 +2,6 @@ package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
 
-import nl.tudelft.semgroup4.resources.Resources;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
