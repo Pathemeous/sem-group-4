@@ -2,13 +2,15 @@ package nl.tudelft.model;
 
 import java.util.LinkedList;
 
+import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
-import nl.tudelft.model.pickups.Utility;
+import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Resources;
 import nl.tudelft.semgroup4.Updateable;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -21,17 +23,8 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<Bubble> bubbles;
     private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
-    private static final int EXTRA_TIME = 20000;
     private int time;
     private final int maxTime;
-    private double speed;
-    private int utilSlowCounter = 0;
-    private boolean slowBalls = false;
-    private static final int UTIL_SLOWDOWN_TIME = 300;
-    private int utilFreezeCounter = 0;
-    private boolean frozenBalls = false;
-    private static final int UTIL_FREEZE_TIME = 300;
-
     private final int id;
 
     /**
@@ -58,11 +51,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         this.pickups = pickups;
         this.time = time;
         this.maxTime = time;
-
         this.id = id;
-
-        // TODO Set default speed properly
-        this.speed = 1;
     }
 
     @Override
@@ -115,51 +104,14 @@ public class Level implements Updateable, Renderable, Modifiable {
         pendingRemoval.clear();
 
         time -= delta;
-
-        setSlowBalls();
-        freezeBalls();
-    }
-
-    private void setSlowBalls() {
-        utilSlowCounter =
-                (utilSlowCounter <= UTIL_SLOWDOWN_TIME && utilSlowCounter != 0)
-                        ? utilSlowCounter + 1 : 0;
-        if (slowBalls) {
-            for (Bubble bubble : bubbles) {
-                bubble.slowBubbleDown(true);
-            }
-        }
-        if (utilSlowCounter == UTIL_SLOWDOWN_TIME) {
-            slowBalls = false;
-            for (Bubble bubble : bubbles) {
-                bubble.slowBubbleDown(false);
-            }
-        }
-    }
-
-    private void freezeBalls() {
-        utilFreezeCounter =
-                (utilFreezeCounter <= UTIL_FREEZE_TIME && utilFreezeCounter != 0)
-                        ? utilFreezeCounter + 1 : 0;
-        if (frozenBalls) {
-            for (Bubble bubble : bubbles) {
-                bubble.freeze(true);
-            }
-        }
-        if (utilFreezeCounter == UTIL_FREEZE_TIME) {
-            frozenBalls = false;
-            for (Bubble bubble : bubbles) {
-                bubble.freeze(false);
-            }
-        }
     }
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-
-        graphics.drawImage(Resources.backgroundImage, 0, 0, container.getWidth(),
-                container.getHeight(), 0, 0, Resources.backgroundImage.getWidth(),
-                Resources.backgroundImage.getHeight());
+        final ResourcesWrapper resources = new ResourcesWrapper();
+        graphics.drawImage(resources.getBackgroundImage(), 0, 0, container.getWidth(),
+                container.getHeight(), 0, 0, resources.getBackgroundImage().getWidth(),
+                resources.getBackgroundImage().getHeight());
 
         for (AbstractGameObject gameObject : projectiles) {
             gameObject.render(container, graphics);
@@ -184,42 +136,17 @@ public class Level implements Updateable, Renderable, Modifiable {
     public void toRemove(AbstractGameObject obj) {
         pendingRemoval.add(obj);
     }
-
+    
     /**
-     * Applies the effects of the utility to the state of the level.
-     *
-     * @param util
-     *            Utility - The utility to apply.
-     * @throws IllegalArgumentException
-     *             - If the utility type is not correct.
+     * Recursive method to split all bubbles.
+     * @param bubbles : all the bubbles that need to be split.
+     * @param endLevel : boolean that indicates if the all the bubbles need
+     *      to be split, or that bubbles need to be split until they are
+     *      of size 1.
      */
-    public void applyUtility(Utility util) throws IllegalArgumentException {
-        switch (util.getType()) {
-            case FREEZE:
-                utilFreezeCounter++;
-                frozenBalls = true;
-                break;
-            case LEVELWON:
-                splitAllBubbles(bubbles, true);
-                break;
-            case SLOW:
-                utilSlowCounter++;
-                slowBalls = true;
-                break;
-            case SPLIT:
-                splitAllBubbles(bubbles, false);
-                break;
-            case TIME:
-                time = (time + EXTRA_TIME < maxTime) ? time + EXTRA_TIME : maxTime;
-                break;
-            default:
-                throw new IllegalArgumentException();
-        }
-    }
-
-    private void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
+    public void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
         for (Bubble bubble : bubbles) {
-            if (bubble.getSize() > 1 || endLevel) {
+            if (!bubble.getNext().isEmpty() || endLevel) {
                 LinkedList<Bubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
                 splitAllBubbles(newBubbles, endLevel);
             }
@@ -258,14 +185,6 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.maxTime;
     }
 
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    public double getSpeed() {
-        return this.speed;
-    }
-
     /**
      * Checks whether the level is completed.
      *
@@ -294,13 +213,5 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     public LinkedList<AbstractGameObject> getToAdd() {
         return pendingAddition;
-    }
-
-    public void setUtilSlowCounter(int counter) {
-        utilSlowCounter = counter;
-    }
-
-    public void setUtilFreezeCounter(int counter) {
-        utilFreezeCounter = counter;
     }
 }

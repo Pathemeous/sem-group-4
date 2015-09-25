@@ -1,71 +1,79 @@
 package nl.tudelft.semgroup4.util;
 
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class Audio {
     public static boolean musicOn = true;
+    private static final ResourcesWrapper RESOURCES = new ResourcesWrapper();
 
     /**
      * Loops the fire sound if the music is on.
      */
     public static void playFireSound() {
         if (musicOn) {
-            Resources.weaponFire.loop();
+            RESOURCES.getWeaponFire().loop();
         }
     }
-    
+
     /**
      * stops the sound of shooting.
      */
-    public static void stopFireSound() {    
-        Resources.weaponFire.stop();    
+    public static void stopFireSound() {
+        RESOURCES.getWeaponFire().stop();
     }
-    
+
     /**
      * plays the sound of a bubble splitting.
      */
     public static void playBubbleSplit() {
         if (musicOn) {
-            Resources.bubblePop.play();
+            RESOURCES.getBubblePop().play();
         }
 
     }
-    
+
     /**
      * plays the sound of time running out.
      */
     public static void playTimeUp() {
         if (musicOn) {
-            Resources.timeUp.play();
+            RESOURCES.getTimeUp().play();
         }
 
     }
-    
+
     /**
      * plays the sound of the titlescreen.
      */
     public static void playTitleScreen() {
         if (musicOn) {
-            Resources.titleScreenMusic.play();
+            RESOURCES.getTitleScreenMusic().play();
         }
 
     }
-    
+
     /**
      * stops the sound of the titlescreen.
      */
     public static void stopTitleScreen() {
-        Resources.titleScreenMusic.stop();
+        RESOURCES.getTitleScreenMusic().stop();
 
     }
-    
+
     /**
      * plays the sound of the player dying.
      */
     public static void playDeath() {
         if (musicOn) {
-            Resources.death.play();
+            RESOURCES.getDeath().play();
         }
+
+    }
+
+    /**
+     * Private constructor to avoid instantiation.
+     */
+    private Audio() {
 
     }
 }

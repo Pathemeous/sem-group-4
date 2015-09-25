@@ -2,14 +2,17 @@ package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
 
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
  * The tests for GameObject.
  *
- * @author Damian
+ * @author Damian, Wouter
  *
  */
 public class GameObjectTest extends AbstractOpenGLTestCase {
@@ -21,8 +24,14 @@ public class GameObjectTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testGetBounds() throws SlickException {
-        Resources.init();
-        Wall wall = new Wall(Resources.vwallImage, 0, 0);
+        ResourcesWrapper mockedRes = Mockito.mock(ResourcesWrapper.class);
+        Image mockedImage = Mockito.mock(Image.class);
+        Mockito.when(mockedImage.getHeight()).thenReturn(10);
+        Mockito.when(mockedImage.getWidth()).thenReturn(5);
+        Mockito.when(mockedRes.getVwallImage()).thenReturn(mockedImage);
+        
+        Mockito.when(mockedRes.getVwallImage()).thenReturn(mockedImage);
+        Wall wall = new Wall(mockedRes.getVwallImage(), 0, 0);
         assertEquals(wall.getHeight(),
                 (int) wall.getBounds().getHeight());
         assertEquals(wall.getWidth(),
