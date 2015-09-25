@@ -158,7 +158,7 @@ public class Game implements Renderable, Modifiable {
         if (getCurLevel().isCompleted()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", 
                     "Level has been completed. Go to next level!");
-            mainApp.addState(new ShopState(players, levelFact.getLevel(curLevel.getId() + 1))); 
+            ((ShopState)mainApp.getState(5)).setup(players, this);
             mainApp.enterState(5);
         }
         if (getCurLevel().timerExpired()) {
@@ -254,6 +254,13 @@ public class Game implements Renderable, Modifiable {
         } else {
             gameCompleted();
         }
+    }
+
+    /**
+     * @return the levelIt
+     */
+    public Iterator<Level> getLevelIt() {
+        return levelIt;
     }
 
     /**

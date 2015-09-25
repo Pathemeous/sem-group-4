@@ -233,4 +233,13 @@ public class ResourcesWrapper {
     public Music getTitleScreenMusic() {
         return Resources.titleScreenMusic;
     }
+
+    public Image getContinueText() {
+        return Resources.continueText;
+        
+    }
+
+    public Image getShopText() {
+        return Resources.shopText;
+    }
 }

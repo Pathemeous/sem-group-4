@@ -84,6 +84,10 @@ public final class Resources {
     static Sound timeUp;
 
     static Music titleScreenMusic;
+
+    static Image continueText;
+
+    static Image shopText;
     
     /**
      * Private constructor to avoid instantiation of this utility class.
@@ -153,6 +157,8 @@ public final class Resources {
         quitText = new Image("src/main/resources/img/quitText.png");
         
         shopBackground = new Image("src/main/resources/img/shopBackground.png");
+        continueText = new Image("src/main/resources/img/continue.png");
+        shopText = new Image("src/main/resources/img/shop.png");
 
         weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
