@@ -18,6 +18,7 @@ public abstract class Weapon extends Pickup {
     private final int maxCount;
     private int fireCounter = 0;
     private final Image img;
+    private final ResourcesWrapper resources;
 
     /**
      * Creates a new instance of a Weapon.
@@ -36,10 +37,10 @@ public abstract class Weapon extends Pickup {
      * @param maxCount
      *            : the maximum amount of projectiles this weapon can shoot.
      */
-    public Weapon(Image pickupImage, Image projImage, float locX, float locY, boolean sticky,
-            int maxCount) {
+    public Weapon(Image pickupImage, Image projImage, ResourcesWrapper resources, float locX,
+            float locY, boolean sticky, int maxCount) {
         super(pickupImage, locX, locY);
-
+        this.resources = resources;
         this.sticky = sticky;
         this.maxCount = maxCount;
         img = projImage;
@@ -91,8 +92,7 @@ public abstract class Weapon extends Pickup {
         if (fireCounter == 0 && projectiles.size() < maxCount && isActive()) {
             fireCounter++;
             Projectile proj =
-                    new Projectile(new ResourcesWrapper(), img, locX, locY, width, height, 6,
-                            this);
+                    new Projectile(resources, img, locX, locY, width, height, 6, this);
             proj.fire();
             container.toAdd(proj);
             projectiles.add(proj);
