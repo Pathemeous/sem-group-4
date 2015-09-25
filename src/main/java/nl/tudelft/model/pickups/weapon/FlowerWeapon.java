@@ -1,11 +1,11 @@
 package nl.tudelft.model.pickups.weapon;
 
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class FlowerWeapon extends Weapon {
-    
-    public FlowerWeapon(float locX, float locY) {
-        super(Resources.pickupWeaponFlowers, Resources.weaponImageFlower, 
+
+    public FlowerWeapon(ResourcesWrapper resources, float locX, float locY) {
+        super(resources.getPickupWeaponFlowers(), resources.getWeaponImageFlower(), resources,
                 locX, locY, false, 10);
     }
 }

@@ -11,11 +11,14 @@ import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.newdawn.slick.Animation;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 
 
@@ -25,15 +28,21 @@ import org.newdawn.slick.Input;
  */
 public class PlayerTest extends AbstractOpenGLTestCase {
 
-    private Input input = new Input(0);
+    private final Input input = new Input(0);
     private Player player;
+    private ResourcesWrapper mockedResources;
     
     private static final int SPEED = 4;
     
+    /**
+     * Mock all required dependencies.
+     */
     @Before
-    public final void setUp() throws Exception {
-        super.setUp();
-        player = new Player(0, 0, input, true);
+    public final void setUp() {
+        mockedResources = Mockito.mock(ResourcesWrapper.class);
+        Image mockedImage = Mockito.mock(Image.class);
+        Mockito.when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
+        player = new Player(mockedResources, 0, 0, input, true);
     }
 
     @Test
@@ -46,8 +55,8 @@ public class PlayerTest extends AbstractOpenGLTestCase {
 
     @Test
     public final void testReset() {
-        Weapon weapon = new DoubleWeapon(0, 0);
-        Powerup powerup = new InvinciblePowerup(0, 0);
+        Weapon weapon = new DoubleWeapon(mockedResources, 0, 0);
+        Powerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         player.setWeapon(weapon);
         player.setPowerup(Powerup.INVINCIBLE, powerup);
         player.reset();
@@ -57,9 +66,9 @@ public class PlayerTest extends AbstractOpenGLTestCase {
 
     @Test
     public final void testClearPowerups() {
-        Powerup invincible = new InvinciblePowerup(0, 0);
-        Powerup shield = new ShieldPowerup(0, 0);
-        Powerup speed = new SpeedPowerup(0, 0);
+        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
+        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
+        Powerup speed = new SpeedPowerup(mockedResources, 0, 0);
         
         player.setPowerup(Powerup.INVINCIBLE, invincible);
         player.setPowerup(Powerup.SHIELD, shield);
@@ -78,9 +87,9 @@ public class PlayerTest extends AbstractOpenGLTestCase {
     
     @Test
     public final void testHasPowerup() {
-        Powerup invincible = new InvinciblePowerup(0, 0);
-        Powerup shield = new ShieldPowerup(0, 0);
-        Powerup speed = new SpeedPowerup(0, 0);
+        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
+        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
+        Powerup speed = new SpeedPowerup(mockedResources, 0, 0);
         
         player.setPowerup(Powerup.INVINCIBLE, invincible);
         player.setPowerup(Powerup.SHIELD, shield);
@@ -93,9 +102,9 @@ public class PlayerTest extends AbstractOpenGLTestCase {
     
     @Test
     public final void testRemovePowerup() {
-        Powerup invincible = new InvinciblePowerup(0, 0);
-        Powerup shield = new ShieldPowerup(0, 0);
-        Powerup speed = new SpeedPowerup(0, 0);
+        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
+        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
+        Powerup speed = new SpeedPowerup(mockedResources, 0, 0);
         
         player.setPowerup(Powerup.INVINCIBLE, invincible);
         player.setPowerup(Powerup.SHIELD, shield);
@@ -114,7 +123,7 @@ public class PlayerTest extends AbstractOpenGLTestCase {
     public final void testIsInvincible() {
         assertFalse(player.isInvincible());
         
-        Powerup invincible = new InvinciblePowerup(0, 0);
+        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
         player.setPowerup(Powerup.INVINCIBLE, invincible);
         
         assertTrue(player.isInvincible());
@@ -124,7 +133,7 @@ public class PlayerTest extends AbstractOpenGLTestCase {
     public final void testHasShield() {
         assertFalse(player.hasShield());
         
-        Powerup shield = new ShieldPowerup(0, 0);
+        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
         player.setPowerup(Powerup.SHIELD, shield);
         
         assertTrue(player.hasShield());
@@ -149,14 +158,16 @@ public class PlayerTest extends AbstractOpenGLTestCase {
 
     @Test
     public final void testLastGettersSetters() {
+        Animation mockedAnimation = Mockito.mock(Animation.class);
         assertTrue(player.isFirstPlayer());
-        player.setAnimationCurrent(Resources.playerWalkLeft);
-        assertEquals(Resources.playerWalkLeft, player.getAnimationCurrent());
+        player.setAnimationCurrent(mockedAnimation);
+        assertEquals(mockedAnimation, player.getAnimationCurrent());
     }
 
     @Test
     public final void testGetBounds() {
-        player.setImage(Resources.playerImageStill);
+        Image mockedImage = Mockito.mock(Image.class);
+        player.setImage(mockedImage);
         SemRectangle rectangle = new SemRectangle(0, 0,
                 player.getWidth() - 20, player.getHeight() - 15);
         assertEquals((int)rectangle.getHeight(), (int)player.getBounds().getHeight());

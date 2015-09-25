@@ -6,6 +6,7 @@ import java.util.List;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -24,14 +25,12 @@ public class Dashboard implements Renderable {
     private static float border = 2;
     private static float timeBarHeight = 30;
 
-    private final Image dashboardPlayerContainerLeft = Resources.dashboardPlayerContainerLeft
-            .copy();
-    private final Image dashboardPlayerContainerRight = Resources.dashboardPlayerContainerRight
-            .copy();
-    private final Image dashboardLivesContainer = Resources.dashboardLivesContainer.copy();
-    private final Image dashboardlivesFull = Resources.dashboardlivesFull.copy();
-    private final Image dashboardlivesEmpty = Resources.dashboardlivesEmpty.copy();
-    private final Image levelContainer = Resources.levelContainer.copy();
+    private final Image dashboardPlayerContainerLeft;
+    private final Image dashboardPlayerContainerRight;
+    private final Image dashboardLivesContainer;
+    private final Image dashboardlivesFull;
+    private final Image dashboardlivesEmpty;
+    private final Image levelContainer;
 
     private final Game game;
     private final Rectangle timeBarBackground;
@@ -49,13 +48,20 @@ public class Dashboard implements Renderable {
     private final int right;
     private final int bottom;
 
-    /* package */Dashboard(Game game, int left, int right, int bottom) {
+    /* package */Dashboard(ResourcesWrapper resources, Game game, int left, int right, int bottom) {
         this.game = game;
 
         this.left = left;
         this.right = right;
         this.bottom = bottom;
-
+        
+        dashboardPlayerContainerLeft = resources.getDashboardPlayerContainerLeft().copy();
+        dashboardPlayerContainerRight = resources.getDashboardPlayerContainerRight().copy();
+        dashboardLivesContainer = resources.getDashboardLivesContainer().copy();
+        dashboardlivesFull = resources.getDashboardlivesFull().copy();
+        dashboardlivesEmpty = resources.getDashboardlivesEmpty().copy();
+        levelContainer = resources.getLevelContainer().copy();
+        
         timeBarBackground =
                 new Rectangle(left + margin, 0, right - left - 2 * margin, timeBarHeight);
         timeBar =

@@ -1,12 +1,12 @@
 package nl.tudelft.model.pickups.weapon;
 
-import nl.tudelft.semgroup4.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class RegularWeapon extends Weapon {
 
-    public RegularWeapon(float locX, float locY) {
-        super(Resources.pickupWeaponRegular, Resources.weaponImageRegular, 
-                locX, locY, false, 1);
+    public RegularWeapon(ResourcesWrapper resources, float locX, float locY) {
+        super(resources.getPickupWeaponRegular(), resources.getWeaponImageRegular(),
+                resources, locX, locY, false, 1);
     }
 
 }

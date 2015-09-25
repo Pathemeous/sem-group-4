@@ -16,6 +16,7 @@ import nl.tudelft.model.pickups.weapon.FlowerWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.StickyWeapon;
 import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;
@@ -113,48 +114,48 @@ public abstract class Pickup extends AbstractEnvironmentObject {
             switch (randomWeaponNr) {
                 // regular weapon
                 case 1:
-                    return new RegularWeapon(locX, locY);
+                    return new RegularWeapon(new ResourcesWrapper(), locX, locY);
                 // Double shoot
                 case 2:
-                    return new DoubleWeapon(locX, locY);
+                    return new DoubleWeapon(new ResourcesWrapper(), locX, locY);
                 // Sticky weapon
                 case 3:
-                    return new StickyWeapon(locX, locY);
+                    return new StickyWeapon(new ResourcesWrapper(), locX, locY);
                 // Flower weapon
                 case 4:
-                    return new FlowerWeapon(locX, locY);
+                    return new FlowerWeapon(new ResourcesWrapper(), locX, locY);
                 default:
-                    return new RegularWeapon(locX, locY);
+                    return new RegularWeapon(new ResourcesWrapper(), locX, locY);
             }
         } else if (random < 7) {
             // new powerup
             int randomPowerupNr = Helpers.randInt(6, 9);
             
             if (randomPowerupNr == 10) {
-                return new LifePowerup(locX, locY);
+                return new LifePowerup(new ResourcesWrapper(), locX, locY);
             } else if (randomPowerupNr > 8) {
-                return new InvinciblePowerup(locX, locY);
+                return new InvinciblePowerup(new ResourcesWrapper(), locX, locY);
             } else if (randomPowerupNr > 6) {
-                return new ShieldPowerup(locX, locY);
+                return new ShieldPowerup(new ResourcesWrapper(), locX, locY);
             } else if (randomPowerupNr > 4) {
-                return new SpeedPowerup(locX, locY);
+                return new SpeedPowerup(new ResourcesWrapper(), locX, locY);
             } else {
-                return new PointsPowerup(locX, locY);
+                return new PointsPowerup(new ResourcesWrapper(), locX, locY);
             }
         } else {
             // new utility
             int randomUtilNr = Helpers.randInt(1, 20);
             
             if (randomUtilNr == 20) {
-                return new LevelWonUtility(locX, locY);
+                return new LevelWonUtility(new ResourcesWrapper(), locX, locY);
             } else if (randomUtilNr > 16) {
-                return new SplitUtility(locX, locY);
+                return new SplitUtility(new ResourcesWrapper(), locX, locY);
             } else if (randomUtilNr > 11) {
-                return new SlowUtility(locX, locY);
+                return new SlowUtility(new ResourcesWrapper(), locX, locY);
             } else if (randomUtilNr > 6) {
-                return new FreezeUtility(locX, locY);
+                return new FreezeUtility(new ResourcesWrapper(), locX, locY);
             } else {
-                return new TimeUtility(locX, locY);
+                return new TimeUtility(new ResourcesWrapper(), locX, locY);
             }
         }
     }
