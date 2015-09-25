@@ -24,18 +24,20 @@ public abstract class Weapon extends Pickup {
      * Creates a new instance of a Weapon.
      * 
      * @param pickupImage
-     *            : the image the pickup will have.
+     *            - the image the pickup will have.
      * @param projImage
-     *            : the image the projectile that this weapon shoots will have.
+     *            - the image the projectile that this weapon shoots will have.
+     * @param resources
+     *            {@link ResourcesWrapper} - The resources that this weapon will use.
      * @param locX
-     *            : the x location of this weapon, when it's not activated.
+     *            - the x location of this weapon, when it's not activated.
      * @param locY
-     *            : the y location of this weapon, when it's not activated.
+     *            - the y location of this weapon, when it's not activated.
      * @param sticky
-     *            : boolean indicating if a projectile of this weapon sticks to the wall for a
+     *            - boolean indicating if a projectile of this weapon sticks to the wall for a
      *            short period of time.
      * @param maxCount
-     *            : the maximum amount of projectiles this weapon can shoot.
+     *            - the maximum amount of projectiles this weapon can shoot.
      */
     public Weapon(Image pickupImage, Image projImage, ResourcesWrapper resources, float locX,
             float locY, boolean sticky, int maxCount) {
