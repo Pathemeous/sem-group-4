@@ -11,6 +11,7 @@ public abstract class Powerup extends Pickup {
     public static final String SPEED = "speedup";
     public static final String INVINCIBLE  = "invincible";
     public static final String SHIELD = "shield";
+    public static final String SHOPSHIELD = "shopshield";
     
     /**
      * Creates a powerup.

@@ -160,6 +160,9 @@ public class Player extends AbstractGameObject {
         if (hasPowerup(Powerup.INVINCIBLE)) {
             powerups.remove(Powerup.INVINCIBLE).toRemove();
         }
+        if (hasPowerup(Powerup.SHOPSHIELD)) {
+            powerups.remove(Powerup.SHOPSHIELD).toRemove();
+        }
     }
 
     /**
@@ -201,6 +204,15 @@ public class Player extends AbstractGameObject {
      */
     public boolean hasShield() {
         return powerups.get(Powerup.SHIELD) != null;
+    }
+
+    /**
+     * Checks whether the player has the shopshield powerup.
+     *
+     * @return true if the player has a shopshield, false if not.
+     */
+    public boolean hasShopShield() {
+        return powerups.get(Powerup.SHOPSHIELD) != null;
     }
 
     public void applySpeedup() {

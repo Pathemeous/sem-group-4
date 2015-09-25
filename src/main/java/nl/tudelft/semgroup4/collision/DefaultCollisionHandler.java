@@ -6,6 +6,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.Utility;
@@ -138,6 +139,14 @@ public class DefaultCollisionHandler implements CollisionHandler<
             ShieldPowerup shield = (ShieldPowerup)player.getPowerup(Powerup.SHIELD);
             if (!shield.isHit()) {
                 shield.setHit(true);
+                bubble.setIsHit();
+            }
+        } else if (player.hasShopShield()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Collision",
+                    "Player hit bubble, but has a shopshield");
+            Hit3ShieldPowerup shield = (Hit3ShieldPowerup)player.getPowerup(Powerup.SHOPSHIELD);
+            if (!shield.isHit()) {
+                shield.incrementHit();
                 bubble.setIsHit();
             }
         } else {

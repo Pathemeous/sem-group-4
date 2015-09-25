@@ -23,6 +23,10 @@ public class InvinciblePowerup extends Powerup {
             setActive(true);
             this.player = player;
 
+            if (player.hasPowerup(Powerup.SHOPSHIELD)) {
+                return;
+            }
+
             if (player.hasPowerup(Powerup.INVINCIBLE)) {
                 player.removePowerup(Powerup.INVINCIBLE).toRemove();
             }

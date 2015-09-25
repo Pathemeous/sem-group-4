@@ -10,6 +10,7 @@ import nl.tudelft.model.shop.level.SlowGameSpeed;
 import nl.tudelft.model.shop.player.DoubleWeaponItem;
 import nl.tudelft.model.shop.player.ExtraLife;
 import nl.tudelft.model.shop.player.ImprovedSpeed;
+import nl.tudelft.model.shop.player.ShopShield;
 import nl.tudelft.model.shop.player.ShopWeaponItem;
 
 
@@ -34,6 +35,7 @@ public class Shop {
         inventory.add(new ImprovedSpeed(100));
         inventory.add(new DoubleWeaponItem(70));
         inventory.add(new ShopWeaponItem(100));
+        inventory.add(new ShopShield(100));
     }
 
     /**
