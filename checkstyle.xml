@@ -36,7 +36,10 @@
         <property name="eachLine" value="true"/>
     </module>
 
+
     <module name="TreeWalker">
+        <!-- Required for SuppressionCommentFilter below -->
+        <module name="FileContentsHolder"/>
         <module name="OuterTypeFilename"/>
         <module name="IllegalTokenText">
             <property name="tokens" value="STRING_LITERAL, CHAR_LITERAL"/>
@@ -196,4 +199,11 @@
         </module>
         <module name="SingleLineJavadoc"/>
     </module>
+    <!-- Setup special comments to suppress specific checks from source files -->
+    <module name="SuppressionCommentFilter">
+        <property name="offCommentFormat" value="CHECKSTYLE:OFF\:([\w\|]+)"/>
+        <property name="onCommentFormat" value="CHECKSTYLE:ON\:([\w\|]+)"/>
+        <property name="checkFormat" value="$1"/>
+    </module>
+    <!--<module name="SuppressionCommentFilter" />-->
 </module>

@@ -2,7 +2,6 @@ package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
 
-import nl.tudelft.semgroup4.resources.Resources;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
@@ -25,7 +24,6 @@ public class GameObjectTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testGetBounds() throws SlickException {
-        Resources.init();
         ResourcesWrapper mockedRes = Mockito.mock(ResourcesWrapper.class);
         Image mockedImage = Mockito.mock(Image.class);
         Mockito.when(mockedImage.getHeight()).thenReturn(10);

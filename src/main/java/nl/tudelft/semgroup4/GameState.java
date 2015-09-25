@@ -49,8 +49,8 @@ public class GameState extends BasicGameState {
         input = container.getInput();
         mouseOver =
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
-                        container.getHeight() / 2, res.getQuitText().getWidth(), res.getQuitText()
-                                .getHeight());
+                        container.getHeight() / 2, res.getQuitText().getWidth(), res
+                                .getQuitText().getHeight());
         pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
         // Resources.titleScreenMusic.stop();
 
@@ -62,9 +62,9 @@ public class GameState extends BasicGameState {
         // more
         // flexible
         Player firstPlayer =
-                new Player(new ResourcesWrapper(), container.getWidth() / 2, container.getHeight()
-                        - res.getPlayerImageStill().getHeight() - 5
-                        * res.getWallImage().getHeight(), input, true);
+                new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                        container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                                * res.getWallImage().getHeight(), input, true);
         playerList.add(firstPlayer);
 
         if (!singlePlayer) {
@@ -75,15 +75,18 @@ public class GameState extends BasicGameState {
             playerList.add(secondPlayer);
         }
 
-        theGame = new Game(mainApp, playerList, container.getWidth(), container.getHeight());
+        theGame =
+                new Game(mainApp, playerList, container.getWidth(), container.getHeight(),
+                        new ResourcesWrapper());
         for (Player player : playerList) {
             theGame.toAdd(player.getWeapon());
         }
 
-        int dashboardMargin = 10;
-        dashboard =
-                new Dashboard(new ResourcesWrapper(), theGame, 2 * dashboardMargin,
-                        container.getWidth() - 4 * dashboardMargin, container.getHeight());
+        int dashboardMargin = 20;
+        dashboard = new Dashboard(new ResourcesWrapper(), theGame,
+                        dashboardMargin,
+                        container.getWidth() - dashboardMargin,
+                        container.getHeight());
     }
 
     /**
@@ -131,8 +134,8 @@ public class GameState extends BasicGameState {
         // checks if the escape key is pressed, if so, the gameState pauses
 
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player " + (paused ? "resumed" : "paused")
-                    + " the game");
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
+                    + (paused ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
             paused = !paused;
         }
