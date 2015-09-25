@@ -68,4 +68,12 @@ public class ShieldPowerup extends Powerup {
             graphics.setColor(Color.green);
         }
     }
+    
+    protected int getRemovalCounter() {
+        return removingShieldCounter;
+    }
+    
+    protected void setRemovalCounter(int counter) {
+        removingShieldCounter = counter;
+    }
 }
