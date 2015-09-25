@@ -3,6 +3,7 @@ package nl.tudelft.model.pickups;
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.LifePowerup;
+import nl.tudelft.model.pickups.powerup.MoneyPowerup;
 import nl.tudelft.model.pickups.powerup.PointsPowerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.SpeedPowerup;
@@ -129,10 +130,12 @@ public abstract class Pickup extends AbstractEnvironmentObject {
             }
         } else if (random < 7) {
             // new powerup
-            int randomPowerupNr = Helpers.randInt(6, 9);
-            
-            if (randomPowerupNr == 10) {
+            int randomPowerupNr = Helpers.randInt(6, 12);
+
+            if (randomPowerupNr == 12) {
                 return new LifePowerup(new ResourcesWrapper(), locX, locY);
+            } else if (randomPowerupNr > 10) {
+                return new MoneyPowerup(new ResourcesWrapper(), locX, locY);
             } else if (randomPowerupNr > 8) {
                 return new InvinciblePowerup(new ResourcesWrapper(), locX, locY);
             } else if (randomPowerupNr > 6) {

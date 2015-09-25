@@ -101,6 +101,10 @@ public class ResourcesWrapper {
     public Image getPauseText() {
         return Resources.pauseText;
     }
+    
+    public Image getShopBackGround() {
+        return Resources.shopBackground;
+    }
 
     public ArrayList<Image> getPlayerImageLeft() {
         return Resources.playerImageLeft;
@@ -166,6 +170,10 @@ public class ResourcesWrapper {
         return Resources.pickupPowerInvincible;
     }
 
+    public Image getPickupPowerMoney() {
+        return Resources.pickupPowerMoney;
+    }
+
     public Image getPickupPowerSpeedup() {
         return Resources.pickupPowerSpeedup;
     }
@@ -224,5 +232,38 @@ public class ResourcesWrapper {
 
     public Music getTitleScreenMusic() {
         return Resources.titleScreenMusic;
+    }
+
+    public Image getContinueText() {
+        return Resources.continueText;
+        
+    }
+
+    public Image getShopText() {
+        return Resources.shopText;
+    }
+    
+    public Image getSpecialWeapon() {
+        return Resources.shopImageSpecialWeapon;
+    }
+    
+    public Image getBuy() {
+        return Resources.buy;
+    }
+
+    public Image getPlayer2On() {
+        return Resources.player2On;
+    }
+
+    public Image getPlayer1Off() {
+        return Resources.player1Off;
+    }
+    
+    public Image getPlayer1On() {
+        return Resources.player1On;
+    }
+
+    public Image getPlayer2Off() {
+        return Resources.player2Off;
     }
 }

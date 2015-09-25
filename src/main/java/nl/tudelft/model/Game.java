@@ -6,6 +6,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -15,7 +16,6 @@ import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
-
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -147,7 +147,9 @@ public class Game implements Renderable, Modifiable {
         if (getCurLevel().isCompleted()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
-            nextLevel();
+            ((ShopState)mainApp.getState(5)).setup(this);
+            this.nextLevel();
+            mainApp.enterState(5);
         }
     }
 
@@ -202,10 +204,9 @@ public class Game implements Renderable, Modifiable {
      * Checks for every player if it collides with anything a player can collide with.
      */
     private void playerCollision(QuadTree quad) {
-        LinkedList<Wall> walls = new LinkedList<Wall>();
         for (AbstractGameObject collidesWithA : players) {
             for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, walls, quad)) {
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -215,10 +216,9 @@ public class Game implements Renderable, Modifiable {
      * Checks for every player if it collides with anything a projectile can collide with.
      */
     private void projectileCollision(QuadTree quad) {
-        LinkedList<Wall> walls = new LinkedList<Wall>();
         for (AbstractGameObject collidesWithA : curLevel.getProjectiles()) {
             for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, walls, null)) {
+                    collidesWithA, null, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }

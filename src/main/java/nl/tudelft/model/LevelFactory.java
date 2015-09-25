@@ -97,7 +97,7 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble6(new ResourcesWrapper(),
+        bubbles.add(new Bubble1(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400));

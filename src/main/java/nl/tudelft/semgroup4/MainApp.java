@@ -64,6 +64,7 @@ public class MainApp extends StateBasedGame {
         addState(new OptionsState());
         addState(new GameState(this.getTitle(), true));
         addState(new GameState(this.getTitle(), false));
+        addState(new ShopState());
         enterState(0);
 
     }

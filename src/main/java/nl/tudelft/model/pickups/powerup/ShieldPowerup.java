@@ -32,7 +32,11 @@ public class ShieldPowerup extends Powerup {
         if (!isActive()) {
             setActive(true);
             this.player = player;
-            
+
+            if (player.hasPowerup(Powerup.SHOPSHIELD)) {
+                return;
+            }
+
             if (player.hasPowerup(Powerup.SHIELD)) {
                 player.removePowerup(Powerup.SHIELD).toRemove();
             }

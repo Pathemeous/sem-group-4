@@ -43,6 +43,8 @@ public final class Resources {
     
     static Image quitText;
     static Image pauseText;
+    
+    static Image shopBackground;
 
     static ArrayList<Image> playerImageLeft;
     static ArrayList<Image> playerImageRight;
@@ -63,6 +65,7 @@ public final class Resources {
     static Image pickupWeaponFlowers;
     static Image pickupPowerShield;
     static Image pickupPowerInvincible;
+    static Image pickupPowerMoney;
     static Image pickupPowerSpeedup;
     static Image pickupPowerPoints;
     static Image pickupUtilitySplit;
@@ -81,6 +84,15 @@ public final class Resources {
     static Sound timeUp;
 
     static Music titleScreenMusic;
+
+    static Image continueText;
+    static Image shopText;
+    static Image player1On;
+    static Image player1Off;
+    static Image player2On;
+    static Image player2Off;
+    static Image shopImageSpecialWeapon;
+    static Image buy;
     
     /**
      * Private constructor to avoid instantiation of this utility class.
@@ -145,10 +157,20 @@ public final class Resources {
         soundText = new Image("src/main/resources/img/sound.png");
         optionsText = new Image("src/main/resources/img/options.png");
         backText = new Image("src/main/resources/img/back.png");
-
+                
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
-
+        
+        shopBackground = new Image("src/main/resources/img/shopBackground.png");
+        continueText = new Image("src/main/resources/img/continue.png");
+        shopText = new Image("src/main/resources/img/shop.png");
+        player1On = new Image("src/main/resources/img/player1TextOn.png");
+        player1Off = new Image("src/main/resources/img/player1TextOff.png");
+        player2On = new Image("src/main/resources/img/player2TextOn.png");
+        player2Off = new Image("src/main/resources/img/player2TextOff.png");
+        shopImageSpecialWeapon = new Image("src/main/resources/img/pickup_weapon_special.png");
+        buy = new Image("src/main/resources/img/buy.png");
+        
         weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
         weaponImageFlower = new Image("src/main/resources/img/weapon_flowers.png");
@@ -166,6 +188,7 @@ public final class Resources {
         pickupWeaponFlowers = new Image("src/main/resources/img/pickup_flowers.png");
         pickupPowerShield = new Image("src/main/resources/img/pickup_shield.png");
         pickupPowerInvincible = new Image("src/main/resources/img/pickup_invincible.png");
+        pickupPowerMoney = new Image("src/main/resources/img/pickup_money.png");
         pickupPowerPoints = new Image("src/main/resources/img/pickup_points.png");
         pickupPowerSpeedup = new Image("src/main/resources/img/pickup_speed.png");
         pickupUtilitySplit = new Image("src/main/resources/img/pickup_split.png");
@@ -174,6 +197,7 @@ public final class Resources {
         pickupUtilityLevelwon = new Image("src/main/resources/img/pickup_level_won.png");
         pickupUtilityTime = new Image("src/main/resources/img/pickup_time.png");
         pickupUtilityLife = new Image("src/main/resources/img/pickup_life.png");
+        
 
         powerInvincible = new Image("src/main/resources/img/powerup_invincible.png");
         powerShield = new Image("src/main/resources/img/powerup_shield.png");

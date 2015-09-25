@@ -6,6 +6,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.Wall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.Utility;
@@ -140,6 +141,14 @@ public class DefaultCollisionHandler implements CollisionHandler<
                 shield.setHit(true);
                 bubble.setIsHit();
             }
+        } else if (player.hasShopShield()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Collision",
+                    "Player hit bubble, but has a shopshield");
+            Hit3ShieldPowerup shield = (Hit3ShieldPowerup)player.getPowerup(Powerup.SHOPSHIELD);
+            if (!shield.isHit()) {
+                shield.incrementHit();
+                bubble.setIsHit();
+            }
         } else {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, and died");
             
@@ -196,7 +205,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
     
     final CollisionHandler<Weapon, Player> playerWeaponHandler = (game, weapon, player) -> {
         Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
-        weapon.activate(player);
+        if (!player.isShopWeapon()) {
+            weapon.activate(player);
+        }
     };
     
     final CollisionHandler<Utility, Player> playerUtilityHandler = (game, util, player) -> {

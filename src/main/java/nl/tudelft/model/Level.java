@@ -26,6 +26,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     private int time;
     private final int maxTime;
     private final int id;
+    private boolean shopSlow = false;
 
     /**
      * Creates a level object with an object list, a timer and a speed.
@@ -67,6 +68,11 @@ public class Level implements Updateable, Renderable, Modifiable {
         }
         for (AbstractGameObject gameObject : walls) {
             gameObject.update(this, delta);
+        }
+        if (shopSlow) {
+            for (Bubble gameObject : bubbles) {
+                gameObject.setSlow(true);
+            }
         }
 
         // Update the object lists.
@@ -185,6 +191,10 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.maxTime;
     }
 
+    public void setMaxTime(int time) {
+        this.time = time;
+    }
+
     /**
      * Checks whether the level is completed.
      *
@@ -213,5 +223,9 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     public LinkedList<AbstractGameObject> getToAdd() {
         return pendingAddition;
+    }
+
+    public void setShopSlow(boolean bool) {
+        this.shopSlow = bool;
     }
 }
