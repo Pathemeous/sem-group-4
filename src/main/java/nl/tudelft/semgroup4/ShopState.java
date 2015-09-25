@@ -25,6 +25,7 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class ShopState extends BasicGameState {
+
     private Shop shop;
     private LinkedList<Player> players;
     private Game game;
@@ -61,8 +62,13 @@ public class ShopState extends BasicGameState {
     private ShopItem selectedItem;
     private Player selectedPlayer;
 
-
-
+    /**
+     * Default constructor of ShopState.
+     *
+     * Here most of the member variables are set and the class is
+     * configured.
+     *
+     */
     public ShopState() {        
         backGround = resources.getShopBackGround();
         continueText = resources.getContinueText();
@@ -113,7 +119,12 @@ public class ShopState extends BasicGameState {
 
     }
 
-    public void setup(LinkedList<Player> players, Game game) {
+    /**
+     * The ShopState is initialized together with all other states.
+     * This method should be called right before the state
+     * is brought forward, to setup the shop for the current session.
+     * @param game the game that the players play in.
+     */
     public void setup(Game game) {
         this.players = game.getPlayers();
         shop = new Shop(players, game);
