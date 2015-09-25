@@ -6,6 +6,6 @@ public class ShopWeapon extends Weapon {
 
     public ShopWeapon(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupWeaponDouble(), resources.getWeaponImageRegular(),
-                locX, locY, true, 3);
+                resources, locX, locY, true, 3);
     }
 }
