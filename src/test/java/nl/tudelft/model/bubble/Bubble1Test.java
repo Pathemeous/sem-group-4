@@ -3,6 +3,7 @@ package nl.tudelft.model.bubble;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;

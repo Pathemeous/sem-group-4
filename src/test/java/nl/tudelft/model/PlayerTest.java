@@ -34,9 +34,11 @@ public class PlayerTest extends AbstractOpenGLTestCase {
     
     private static final int SPEED = 4;
     
+    /**
+     * Mock all required dependencies.
+     */
     @Before
-    public final void setUp() throws Exception {
-        super.setUp();
+    public final void setUp() {
         mockedResources = Mockito.mock(ResourcesWrapper.class);
         Image mockedImage = Mockito.mock(Image.class);
         Mockito.when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
