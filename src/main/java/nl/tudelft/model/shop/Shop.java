@@ -1,6 +1,7 @@
 package nl.tudelft.model.shop;
 
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Random;
 
 import nl.tudelft.model.Game;
@@ -50,10 +51,12 @@ public class Shop {
     }
 
     /**
+     * returns the inventory of the shop.
      * @return the inventory
      */
     public LinkedList<ShopItem> getInventory() {
         return inventory;
     }
+
 
 }

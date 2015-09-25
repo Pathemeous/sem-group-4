@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4;
 
+import java.awt.Font;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Game;
@@ -14,11 +15,13 @@ import nl.tudelft.model.shop.player.ImprovedSpeed;
 import nl.tudelft.model.shop.player.ShopShield;
 import nl.tudelft.model.shop.player.ShopWeaponItem;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -30,6 +33,8 @@ public class ShopState extends BasicGameState {
     private Game game;
     private final ResourcesWrapper resources = new ResourcesWrapper();  
     private Input input;
+
+    private final TrueTypeFont ttf = new TrueTypeFont(new Font("Verdana", Font.BOLD, 30), true);
 
     private Image backGround;
     private Image continueText;
@@ -171,34 +176,88 @@ public class ShopState extends BasicGameState {
         graphics.drawImage(shopText, container.getWidth() / 2 - shopText.getWidth() / 2,
                 container.getHeight() / 10);
 
-        if(selectedPlayer.isFirstPlayer()) {
+        if (selectedPlayer.isFirstPlayer()) {
             graphics.drawImage(player1On, container.getWidth() / 10,
                     container.getHeight() / 10 * 3);   
             if (players.size() == 2) {
                 graphics.drawImage(player2Off, container.getWidth() / 10,
                         container.getHeight() / 10 * 4);
             }
-        }else{
+        } else {
             graphics.drawImage(player1Off, container.getWidth() / 10,
                     container.getHeight() / 10 * 3); 
             graphics.drawImage(player2On, container.getWidth() / 10,
                     container.getHeight() / 10 * 4);
         }
 
-        graphics.drawImage(item1Slow, container.getWidth() / 10 * 5,
+        graphics.drawImage(item1Slow,
+                container.getWidth() / 10 * 5,
                 container.getHeight() / 2);
-        graphics.drawImage(item2Life, container.getWidth() / 10 * 7,
+        final String item1SlowPrice = String.format("$ %d", shop.getInventory().get(0).getPrice());
+        ttf.drawString(
+                container.getWidth() / 10 * 5 - (ttf.getWidth(item1SlowPrice) / 2),
+                container.getHeight() / 2 + item1Slow.getHeight(),
+                item1SlowPrice,
+                selectedItem == shop.getInventory().get(0) ? Color.red : Color.white);
+        graphics.drawImage(item2Life,
+                container.getWidth() / 10 * 7,
                 container.getHeight() / 2);
-        graphics.drawImage(item3Speed, container.getWidth() / 10 * 9,
+        final String item2LifePrice = String.format("$ %d", shop.getInventory().get(2).getPrice());
+        ttf.drawString(
+                container.getWidth() / 10 * 7 - (ttf.getWidth(item2LifePrice) / 2),
+                container.getHeight() / 2 + item1Slow.getHeight(),
+                item2LifePrice,
+                selectedItem == shop.getInventory().get(2) ? Color.red : Color.white);
+        graphics.drawImage(item3Speed,
+                container.getWidth() / 10 * 9,
                 container.getHeight() / 2);
-        graphics.drawImage(item4DoubleShot, container.getWidth() / 10 * 5,
+        final String item3SpeedPrice = String.format("$ %d", shop.getInventory().get(3).getPrice());
+        ttf.drawString(
+                container.getWidth() / 10 * 9 - (ttf.getWidth(item3SpeedPrice) / 2),
+                container.getHeight() / 2 + item1Slow.getHeight(),
+                item3SpeedPrice,
+                selectedItem == shop.getInventory().get(3) ? Color.red : Color.white);
+        graphics.drawImage(item4DoubleShot,
+                container.getWidth() / 10 * 5,
                 container.getHeight() / 10 * 7);
-        graphics.drawImage(item5Shield, container.getWidth() / 10 * 7,
+        final String item4DoubleShotPrice = 
+                String.format("$ %d", shop.getInventory().get(4).getPrice());
+        ttf.drawString(
+                container.getWidth() / 10 * 5 - (ttf.getWidth(item4DoubleShotPrice) / 2),
+                container.getHeight() / 10 * 7 + item1Slow.getHeight(),
+                item4DoubleShotPrice,
+                selectedItem == shop.getInventory().get(4) ? Color.red : Color.white);
+        graphics.drawImage(item5Shield,
+                container.getWidth() / 10 * 7,
                 container.getHeight() / 10 * 7);
-        graphics.drawImage(item6Time, container.getWidth() / 10 * 9,
+        final String item5ShieldPrice = 
+                String.format("$ %d", shop.getInventory().get(6).getPrice());
+        ttf.drawString(
+                container.getWidth() / 10 * 7 - (ttf.getWidth(item5ShieldPrice) / 2),
+                container.getHeight() / 10 * 7 + item1Slow.getHeight(),
+                item5ShieldPrice,
+                selectedItem == shop.getInventory().get(6) ? Color.red : Color.white);
+        graphics.drawImage(item6Time,
+                container.getWidth() / 10 * 9,
                 container.getHeight() / 10 * 7);
-        graphics.drawImage(item7Special, container.getWidth() / 10 * 7,
-                container.getHeight() / 10 * 3);        
+
+        final String item6TimePrice = String.format("$ %d", shop.getInventory().get(1).getPrice());
+        ttf.drawString(
+                container.getWidth() / 10 * 9 - (ttf.getWidth(item6TimePrice) / 2),
+                container.getHeight() / 10 * 7 + item1Slow.getHeight(),
+                item6TimePrice,
+                selectedItem == shop.getInventory().get(1) ? Color.red : Color.white);
+        graphics.drawImage(item7Special,
+                container.getWidth() / 10 * 7,
+                container.getHeight() / 10 * 3);
+        final String item7SpecialPrice =
+                String.format("$ %d", shop.getInventory().get(5).getPrice());
+        ttf.drawString(
+                container.getWidth() / 10 * 7 - (ttf.getWidth(item7SpecialPrice) / 2),
+                container.getHeight() / 10 * 3 + item1Slow.getHeight(),
+                item7SpecialPrice,
+                selectedItem == shop.getInventory().get(5) ? Color.red : Color.white);
+
 
     }
 
@@ -229,31 +288,31 @@ public class ShopState extends BasicGameState {
                 System.out.println("players money" + players.getFirst().getMoney());
             }
             if (item1AreaSlow.isMouseOver()) {
-                selectedItem = new SlowGameSpeed(100, this.game.getCurLevel());
+                selectedItem = shop.getInventory().get(0);
                 System.out.println(selectedItem.getClass().toString());
             }
             if (item2AreaLife.isMouseOver()) {
-                selectedItem = new ExtraLife(100);
+                selectedItem = shop.getInventory().get(2);
                 System.out.println(selectedItem.getClass().toString());
             }
             if (item3AreaSpeed.isMouseOver()) {
-                selectedItem = new ImprovedSpeed(100);
+                selectedItem = shop.getInventory().get(3);
                 System.out.println(selectedItem.getClass().toString());
             }
             if (item4AreaDoubleShot.isMouseOver()) {
-                selectedItem = new DoubleWeaponItem(100);
+                selectedItem = shop.getInventory().get(4);
                 System.out.println(selectedItem.getClass().toString());
             }
             if (item5AreaShield.isMouseOver()) {
-                selectedItem = new ShopShield(100, this.game);
+                selectedItem = shop.getInventory().get(6);
                 System.out.println(selectedItem.getClass().toString());
             }
             if (item6AreaTime.isMouseOver()) {
-                selectedItem = new ExtraTime(100, this.game.getCurLevel());
+                selectedItem = shop.getInventory().get(1);
                 System.out.println(selectedItem.getClass().toString());
             }
             if (item7AreaSpecial.isMouseOver()) {
-                selectedItem = new ShopWeaponItem(100);
+                selectedItem = shop.getInventory().get(5);
                 System.out.println(selectedItem.getClass().toString());
             }
 
