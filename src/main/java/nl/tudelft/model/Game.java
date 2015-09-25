@@ -111,13 +111,9 @@ public class Game implements Renderable, Modifiable {
         playerUpdate(delta);
         getCurLevel().update(getCurLevel(), delta);
 
-        // Logic
-        if (getCurLevel().isCompleted()) {
             levelCompleted();
-        }
-        if (getCurLevel().timerExpired()) {
+            
             levelTimeExpired();
-        }
     }
 
     @Override
@@ -148,9 +144,11 @@ public class Game implements Renderable, Modifiable {
      * Logs if the game is completed and fires up the next level.
      */
     private void levelCompleted() {
-        Game.LOGGER.log(LogSeverity.DEBUG, "Game",
-                "Level has been completed. Go to next level!");
-        nextLevel();
+        if (getCurLevel().isCompleted()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game",
+                    "Level has been completed. Go to next level!");
+            nextLevel();
+        }
     }
 
     /**
@@ -158,13 +156,15 @@ public class Game implements Renderable, Modifiable {
      * level.
      */
     private void levelTimeExpired() {
-        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
+        if (getCurLevel().timerExpired()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
 
-        Audio.playTimeUp();
-        for (Player player : players) {
-            player.removeLife();
+            Audio.playTimeUp();
+            for (Player player : players) {
+                player.removeLife();
+            }
+            levelReset();
         }
-        levelReset();
     }
 
     /**
