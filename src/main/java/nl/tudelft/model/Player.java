@@ -34,6 +34,7 @@ public class Player extends AbstractGameObject {
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
+    private final ResourcesWrapper resources;
 
     private Weapon weapon;
 
@@ -64,6 +65,7 @@ public class Player extends AbstractGameObject {
         score = 0;
         money = 0;
         this.firstPlayer = isFirstPlayer;
+        this.resources = resources;
 
         this.input = input;
         this.weapon = new RegularWeapon(new ResourcesWrapper(), 0, 0);
@@ -135,7 +137,7 @@ public class Player extends AbstractGameObject {
      * 
      * <p>
      * This means that a player loses all his powerups, his weapons and makes sure that the weapon
-     * firedelay is set to zero.
+     * fire delay is set to zero.
      * </p>
      */
     public void reset() {
@@ -145,6 +147,15 @@ public class Player extends AbstractGameObject {
         }
         this.weapon.activate(this);
         weaponActivated = false;
+    }
+    
+    /**
+     * Performs all necessary actions that should happens when the player dies.
+     */
+    public void die() {
+        resources.playDeath();
+        removeLife();
+        setScore(getScore() - 1000);
     }
 
     /**

@@ -17,6 +17,72 @@ import org.newdawn.slick.Sound;
  *
  */
 public class ResourcesWrapper {
+    
+    public static boolean musicOn = true;
+
+    /**
+     * Loops the fire sound if the music is on.
+     */
+    public void playFireSound() {
+        if (musicOn) {
+            getWeaponFire().loop();
+        }
+    }
+
+    /**
+     * stops the sound of shooting.
+     */
+    public void stopFireSound() {
+        getWeaponFire().stop();
+    }
+
+    /**
+     * plays the sound of a bubble splitting.
+     */
+    public void playBubbleSplit() {
+        if (musicOn) {
+            getBubblePop().play();
+        }
+
+    }
+
+    /**
+     * plays the sound of time running out.
+     */
+    public void playTimeUp() {
+        if (musicOn) {
+            getTimeUp().play();
+        }
+
+    }
+
+    /**
+     * plays the sound of the titlescreen.
+     */
+    public void playTitleScreen() {
+        if (musicOn) {
+            getTitleScreenMusic().play();
+        }
+
+    }
+
+    /**
+     * stops the sound of the titlescreen.
+     */
+    public void stopTitleScreen() {
+        getTitleScreenMusic().stop();
+
+    }
+
+    /**
+     * plays the sound of the player dying.
+     */
+    public void playDeath() {
+        if (musicOn) {
+            getDeath().play();
+        }
+
+    }
 
     public Image getWallImage() {
         return Resources.wallImage;

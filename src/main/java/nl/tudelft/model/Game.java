@@ -14,7 +14,6 @@ import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Audio;
 import nl.tudelft.semgroup4.util.QuadTree;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -43,13 +42,14 @@ public class Game implements Renderable, Modifiable {
     private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
+    private final ResourcesWrapper resources;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
      * 
      * @param wrapper
-     *            {@link ResourcesWrapper} - The resources that Game can injet into LevelFactory.
+     *            {@link ResourcesWrapper} - The resources that Game can inject into LevelFactory.
      * @param mainApp
      *            StateBasedGame - the mainApp that manages the states.
      * @param players
@@ -71,7 +71,7 @@ public class Game implements Renderable, Modifiable {
         LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;
-
+        this.resources = wrapper;
         this.levelIt = levels.iterator();
 
         if (!this.levelIt.hasNext() || this.players.isEmpty()) {
@@ -161,7 +161,7 @@ public class Game implements Renderable, Modifiable {
         if (getCurLevel().timerExpired()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
 
-            Audio.playTimeUp();
+            resources.playTimeUp();
             for (Player player : players) {
                 player.removeLife();
             }
@@ -286,7 +286,7 @@ public class Game implements Renderable, Modifiable {
      * Resets the current level if the players have lives left, ends the game if they do not.
      */
     public void levelReset() {
-        Audio.stopFireSound();
+        resources.stopFireSound();
         if (getPlayerLives() > 0) {
             resetPlayers();
             setCurLevel(levelFact.getLevel(getCurLevel().getId()));
