@@ -16,7 +16,8 @@ public abstract class AbstractLogger implements Logger {
     final LoggerOutlet consoleOutlet;
     final LoggerOutlet fileOutlet;
     private final Date currentDate = new Date();
-    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
+    private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
+            "yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
 
     private LogSeverity severity = LogSeverity.CRITICAL;
 
@@ -28,7 +29,6 @@ public abstract class AbstractLogger implements Logger {
         this.consoleOutlet = consoleOutlet;
         this.fileOutlet = fileOutlet;
     }
-
 
     @Override
     public void log(LogSeverity level, String tag, String message) {
@@ -51,10 +51,7 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public void close() throws IOException {
-        for (Closeable c : new Closeable[]{
-            consoleOutlet,
-            fileOutlet,
-        }) {
+        for (Closeable c : new Closeable[] { consoleOutlet, fileOutlet, }) {
             c.close();
         }
     }

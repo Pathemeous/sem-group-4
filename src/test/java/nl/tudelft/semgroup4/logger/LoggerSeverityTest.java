@@ -38,20 +38,20 @@ public class LoggerSeverityTest {
         return Arrays
                 .asList(new Object[][] {
                         {
-                                LogSeverity.VERBOSE,
-                                new LogSeverity[] { LogSeverity.VERBOSE, LogSeverity.DEBUG,
-                                        LogSeverity.WARNING, LogSeverity.ERROR,
-                                        LogSeverity.CRITICAL, } },
+                        LogSeverity.VERBOSE,
+                        new LogSeverity[] { LogSeverity.VERBOSE, LogSeverity.DEBUG,
+                            LogSeverity.WARNING, LogSeverity.ERROR,
+                            LogSeverity.CRITICAL, } },
                         {
-                                LogSeverity.DEBUG,
-                                new LogSeverity[] { LogSeverity.DEBUG, LogSeverity.WARNING,
-                                        LogSeverity.ERROR, LogSeverity.CRITICAL, } },
+                        LogSeverity.DEBUG,
+                        new LogSeverity[] { LogSeverity.DEBUG, LogSeverity.WARNING,
+                            LogSeverity.ERROR, LogSeverity.CRITICAL, } },
                         {
-                                LogSeverity.WARNING,
-                                new LogSeverity[] { LogSeverity.WARNING, LogSeverity.ERROR,
-                                        LogSeverity.CRITICAL, } },
+                        LogSeverity.WARNING,
+                        new LogSeverity[] { LogSeverity.WARNING, LogSeverity.ERROR,
+                            LogSeverity.CRITICAL, } },
                         { LogSeverity.ERROR,
-                                new LogSeverity[] { LogSeverity.ERROR, LogSeverity.CRITICAL, } },
+                        new LogSeverity[] { LogSeverity.ERROR, LogSeverity.CRITICAL, } },
                         { LogSeverity.CRITICAL, new LogSeverity[] { LogSeverity.CRITICAL, } }, });
     }
 
