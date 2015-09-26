@@ -6,6 +6,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.util.Audio;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
@@ -107,10 +108,6 @@ public class GameState extends BasicGameState {
         dashboard.render(container, graphics);
 
         if (paused) {
-            ResourcesWrapper res = new ResourcesWrapper();
-            if (res.getWeaponFire().playing()) {
-                res.stopFireSound();                
-            }
             pauseScreen.show(graphics, container, input, game, this);
         }
 
@@ -130,7 +127,12 @@ public class GameState extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
+        ResourcesWrapper res = new ResourcesWrapper();
+        if (res.getTitleScreenMusic().playing()) {
+            Audio.stopTitleScreen();
+        }
         // checks if the escape key is pressed, if so, the gameState pauses
+
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
                     + (paused ? "resumed" : "paused") + " the game");

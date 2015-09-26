@@ -36,7 +36,7 @@ public class Bubble3 extends Bubble {
      *            : boolean to indicate if the initial direction of the bubble is to the right.
      */
     public Bubble3(ResourcesWrapper resources, float locX, float locY, boolean goRight) {
-        super(resources.getBubbleImage3(), locX, locY, goRight, resources);
+        super(resources.getBubbleImage3(), locX, locY, goRight);
 
         setMaxVerticalSpeed(7.0f);
 

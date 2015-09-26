@@ -3,6 +3,7 @@ package nl.tudelft.model.pickups.weapon;
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -21,7 +22,6 @@ public class Projectile extends AbstractEnvironmentObject {
     private final int playerWidth;
     private final int playerHeight;
     private final int startHeight;
-    private final ResourcesWrapper resources;
 
     /**
      * @param resources
@@ -53,14 +53,13 @@ public class Projectile extends AbstractEnvironmentObject {
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
         this.weapon = wp;
-        this.resources = resources;
         hitBubble = false;
         hitWall = false;
         tickCount = 0;
         startHeight = locY;
 
         if (wp.getNumberOfProjectiles() == 0 && !resources.getWeaponFire().playing()) {
-            resources.playFireSound();
+            Audio.playFireSound();
         }
     }
 
@@ -74,7 +73,7 @@ public class Projectile extends AbstractEnvironmentObject {
      *            T - The container that this object may request changes to.
      */
     public <T extends Modifiable> void reset(T container) {
-        resources.stopFireSound();
+        Audio.stopFireSound();
         // Set every variable to the starting variables
         if (!weapon.isSticky() || hitBubble) {
             weapon.remove(container, this);

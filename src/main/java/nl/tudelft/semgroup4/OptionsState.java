@@ -3,6 +3,7 @@ package nl.tudelft.semgroup4;
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -41,11 +42,11 @@ public class OptionsState extends BasicGameState {
                 container.getHeight() / 10 * 9);
         graphics.drawImage(resources.getSoundText(), container.getWidth() / 4.0f,
                 container.getHeight() / 4.0f); 
-        if (ResourcesWrapper.musicOn) {
+        if (Audio.musicOn) {
             graphics.drawImage(resources.getOn(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
         }
-        if (!ResourcesWrapper.musicOn) {
+        if (!Audio.musicOn) {
             graphics.drawImage(resources.getOff(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
         }
@@ -57,8 +58,8 @@ public class OptionsState extends BasicGameState {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 
                 Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
-                        "User toggled sound " + (ResourcesWrapper.musicOn ? "off" : "on") );
-                ResourcesWrapper.musicOn = !ResourcesWrapper.musicOn;
+                        "User toggled sound " + (Audio.musicOn ? "off" : "on") );
+                Audio.musicOn = !Audio.musicOn;
             }
         }
         if (backButton.isMouseOver()) {

@@ -13,6 +13,7 @@ import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -126,6 +127,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
 
     final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
+        // TODO: Add code to reset the level.
 
         if (player.isInvincible() || bubble.isFrozen()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
@@ -150,7 +152,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
         } else {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, and died");
             
-            player.die();
+            Audio.playDeath();
+            player.removeLife();
+            player.setScore(player.getScore() - 1000);
             game.levelReset();
         }
     };

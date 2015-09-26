@@ -16,6 +16,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.util.Audio;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,15 +28,14 @@ import org.newdawn.slick.SlickException;
  */
 public class BubbleTest {
     
-    private ResourcesWrapper mockedResources;
-    
     @Before
     public void setUp() {
-        mockedResources = mock(ResourcesWrapper.class);
+        Audio.musicOn = false;
     }
     
     @Test
     public void testConstructor1() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble6(mockedResources, 0, 0);
         
         assertEquals(bubble.getLocX(), 0.0f, 0.0f);
@@ -47,6 +47,7 @@ public class BubbleTest {
 
     @Test
     public void testConstructor2() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble6(mockedResources, 0, 0, false);
         
         assertFalse(bubble.goesRight());
@@ -55,6 +56,7 @@ public class BubbleTest {
 
     @Test
     public void testUpdate() throws SlickException {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble1(mockedResources, 0, 0);
 
         Modifiable modifiable = mock(Modifiable.class);
@@ -66,6 +68,7 @@ public class BubbleTest {
 
     @Test
     public void testUpdate2() throws SlickException {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble1(mockedResources, 0, 0);
 
         bubble.setIsHit();
@@ -82,6 +85,7 @@ public class BubbleTest {
         Image mockedImg = mock(Image.class);
         when(mockedImg.getWidth()).thenReturn(10);
         when(mockedImg.getHeight()).thenReturn(10);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
         
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
@@ -102,6 +106,7 @@ public class BubbleTest {
         Image mockedImg = mock(Image.class);
         when(mockedImg.getWidth()).thenReturn(10);
         when(mockedImg.getHeight()).thenReturn(10);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
         
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
@@ -121,6 +126,7 @@ public class BubbleTest {
         Image mockedImg = mock(Image.class);
         when(mockedImg.getWidth()).thenReturn(10);
         when(mockedImg.getHeight()).thenReturn(10);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
         
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
@@ -136,7 +142,9 @@ public class BubbleTest {
     }
     
     @Test
-    public void testSplitWithBubble1() throws SlickException {        
+    public void testSplitWithBubble1() throws SlickException {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        
         Bubble bubble = new Bubble1(mockedResources, 0, 0);
 
         Modifiable modifiable = mock(Modifiable.class);
@@ -150,7 +158,9 @@ public class BubbleTest {
     }
 
     @Test
-    public void testSpeed1() {        
+    public void testSpeed1() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        
         assertEquals(5.0f, new Bubble1(mockedResources, 0, 0).getMaxSpeed(), 0.0f);
         assertEquals(6.0f, new Bubble2(mockedResources, 0, 0).getMaxSpeed(), 0.0f);
         assertEquals(7.0f, new Bubble3(mockedResources, 0, 0).getMaxSpeed(), 0.0f);
@@ -161,6 +171,7 @@ public class BubbleTest {
 
     @Test
     public void testSpeed2() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
 
         assertEquals(6.0f, bubble.getMaxSpeed(), 0.0f);
@@ -180,6 +191,7 @@ public class BubbleTest {
 
     @Test
     public void testSpeed3() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
 
         bubble.setVerticalSpeed(25.0f);
@@ -193,6 +205,7 @@ public class BubbleTest {
 
     @Test
     public void testFreeze() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
 
         bubble.setFrozen(true);
@@ -203,6 +216,7 @@ public class BubbleTest {
 
     @Test
     public void testSlow() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
 
         bubble.setSlow(true);
