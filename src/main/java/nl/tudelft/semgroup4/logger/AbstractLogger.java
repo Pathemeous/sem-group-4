@@ -32,7 +32,7 @@ public abstract class AbstractLogger implements Logger {
 
     @Override
     public void log(LogSeverity level, String tag, String message) {
-        if (isEnabled()) {
+        if (!isEnabled()) {
             return;
         }
         if (severity.compareTo(level) >= 0) {
