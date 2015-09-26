@@ -33,19 +33,18 @@ public abstract class AbstractLogger implements Logger {
     @Override
     public void log(LogSeverity level, String tag, String message) {
         if (isEnabled()) {
-            if (severity.compareTo(level) >=  0) {
-                currentDate.setTime(System.currentTimeMillis());
-                final String line = String.format(LOG_FORMAT,
-                        dateFormatter.format(currentDate),
-                        level.name(),
-                        tag,
-                        message);
-                if (isLoggingToConsole()) {
-                    consoleOutlet.log(line);
-                }
-                if (isLoggingToFile()) {
-                    fileOutlet.log(line);
-                }
+            return;
+        }
+        if (severity.compareTo(level) >= 0) {
+            currentDate.setTime(System.currentTimeMillis());
+            final String line =
+                    String.format(LOG_FORMAT, dateFormatter.format(currentDate), level.name(),
+                            tag, message);
+            if (isLoggingToConsole()) {
+                consoleOutlet.log(line);
+            }
+            if (isLoggingToFile()) {
+                fileOutlet.log(line);
             }
         }
     }
