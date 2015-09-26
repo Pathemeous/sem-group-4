@@ -30,9 +30,9 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean slow = false;
     private boolean frozen = false;
     private int tickCount = 0;
-    private List<Bubble> next;
-    private boolean goesRightInitially;
     private final ResourcesWrapper resources;
+    private final List<Bubble> next;
+    private final boolean goesRightInitially;
 
     /**
      * The complete constructor for Bubble.
