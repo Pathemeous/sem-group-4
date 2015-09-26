@@ -30,44 +30,38 @@ public class LoggerSeverityTest {
 
     /**
      * The parameters for this test.
+     * 
      * @return Object array of parameters
      */
     @Parameterized.Parameters
     public static Collection<Object[]> data() {
-        return Arrays.asList(new Object[][]{
-            {LogSeverity.VERBOSE, new LogSeverity[]{
-                LogSeverity.VERBOSE,
-                LogSeverity.DEBUG,
-                LogSeverity.WARNING,
-                LogSeverity.ERROR,
-                LogSeverity.CRITICAL,
-            }},
-            {LogSeverity.DEBUG, new LogSeverity[]{
-                LogSeverity.DEBUG,
-                LogSeverity.WARNING,
-                LogSeverity.ERROR,
-                LogSeverity.CRITICAL,
-            }},
-            {LogSeverity.WARNING, new LogSeverity[]{
-                LogSeverity.WARNING,
-                LogSeverity.ERROR,
-                LogSeverity.CRITICAL,
-            }},
-            {LogSeverity.ERROR, new LogSeverity[]{
-                LogSeverity.ERROR,
-                LogSeverity.CRITICAL,
-            }},
-            {LogSeverity.CRITICAL, new LogSeverity[]{
-                LogSeverity.CRITICAL,
-            }},
-        });
+        return Arrays
+                .asList(new Object[][] {
+                        {
+                                LogSeverity.VERBOSE,
+                                new LogSeverity[] { LogSeverity.VERBOSE, LogSeverity.DEBUG,
+                                        LogSeverity.WARNING, LogSeverity.ERROR,
+                                        LogSeverity.CRITICAL, } },
+                        {
+                                LogSeverity.DEBUG,
+                                new LogSeverity[] { LogSeverity.DEBUG, LogSeverity.WARNING,
+                                        LogSeverity.ERROR, LogSeverity.CRITICAL, } },
+                        {
+                                LogSeverity.WARNING,
+                                new LogSeverity[] { LogSeverity.WARNING, LogSeverity.ERROR,
+                                        LogSeverity.CRITICAL, } },
+                        { LogSeverity.ERROR,
+                                new LogSeverity[] { LogSeverity.ERROR, LogSeverity.CRITICAL, } },
+                        { LogSeverity.CRITICAL, new LogSeverity[] { LogSeverity.CRITICAL, } }, });
     }
 
     /**
-     * We need a constructor to be able to initilize with parameters.
+     * We need a constructor to be able to initialize with parameters.
      *
-     * @param severity the severity level of the logger
-     * @param expected an array of expected severities that should be logged
+     * @param severity
+     *            {@link LogSeverity} - the severity level of the logger
+     * @param expected
+     *            {@link LogSeverity}[] - an array of expected severities that should be logged
      */
     public LoggerSeverityTest(LogSeverity severity, LogSeverity[] expected) {
         this.severity = severity;
@@ -76,11 +70,8 @@ public class LoggerSeverityTest {
         }
     }
 
-
-
     /**
-     * Setting up the outlets. These are dependencies for the Logger so they
-     * are mocked.
+     * Setting up the outlets. These are dependencies for the Logger so they are mocked.
      */
     @Before
     public void setup() {
@@ -114,6 +105,5 @@ public class LoggerSeverityTest {
 
         }
     }
-
 
 }
