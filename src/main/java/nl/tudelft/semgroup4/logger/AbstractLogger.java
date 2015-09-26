@@ -4,7 +4,6 @@ import java.io.Closeable;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Locale;
 
 /**
  * Created by justin on 17/09/15.
@@ -16,8 +15,7 @@ public abstract class AbstractLogger implements Logger {
     final LoggerOutlet consoleOutlet;
     final LoggerOutlet fileOutlet;
     private final Date currentDate = new Date();
-    private final SimpleDateFormat dateFormatter = new SimpleDateFormat(
-            "yyyy-MM-dd HH:mm:ss.SSS", Locale.getDefault());
+    private final SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     private LogSeverity severity = LogSeverity.CRITICAL;
 
