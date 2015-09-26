@@ -21,6 +21,13 @@ import org.junit.runners.Parameterized;
 @RunWith(Parameterized.class)
 public class LoggerSeverityTest {
 
+    private final LogSeverity severity;
+    private final List<LogSeverity> expectedList = new LinkedList<>();
+
+    private Logger logger;
+    private LoggerOutlet consoleOutlet;
+    private LoggerOutlet fileOutlet;
+
     /**
      * The parameters for this test.
      * @return Object array of parameters
@@ -55,13 +62,6 @@ public class LoggerSeverityTest {
             }},
         });
     }
-
-    private final LogSeverity severity;
-    private final List<LogSeverity> expectedList = new LinkedList<>();
-
-    private Logger logger;
-    private LoggerOutlet consoleOutlet;
-    private LoggerOutlet fileOutlet;
 
     /**
      * We need a constructor to be able to initilize with parameters.
