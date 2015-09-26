@@ -30,7 +30,7 @@ public class Player extends AbstractGameObject {
     private int lives;
     private final boolean firstPlayer;
     private final Input input;
-    private HashMap<String, Powerup> powerups = new HashMap<>();
+    private final HashMap<String, Powerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
