@@ -144,6 +144,8 @@ public class Player extends AbstractGameObject {
         clearAllPowerups();
         if (!shopWeapon) {
             setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        } else {
+            weapon.getProjectiles().clear();
         }
         this.weapon.activate(this);
         weaponActivated = false;
