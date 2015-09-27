@@ -144,11 +144,11 @@ public class Game implements Renderable, Modifiable {
      * Logs if the game is completed and fires up the next level.
      */
     private void levelCompleted() {
-        if (getCurLevel().isCompleted()) {
+        if (getCurLevel().isCompleted() && levelIt.hasNext()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
+            nextLevel();
             ((ShopState)mainApp.getState(5)).setup(this);
-            this.nextLevel();
             mainApp.enterState(5);
         }
     }
