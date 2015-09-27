@@ -2,6 +2,7 @@ package nl.tudelft.model.shop.player;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
+import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class DoubleWeaponItem extends PlayerShopItem {
@@ -19,7 +20,9 @@ public class DoubleWeaponItem extends PlayerShopItem {
      * @param buyer : The person who is buying the item.
      */
     public void applyTo(Player buyer) {
-        buyer.setWeapon(new DoubleWeapon(new ResourcesWrapper(), 0, 0));
+        Weapon weapon = new DoubleWeapon(new ResourcesWrapper(), 0, 0);
+        buyer.setWeapon(weapon);
         buyer.setShopWeapon(true);
+        weapon.activate(buyer);
     }
 }

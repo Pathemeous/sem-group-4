@@ -293,7 +293,7 @@ public class ShopState extends BasicGameState {
             }
             if (buyArea.isMouseOver()
                     && selectedItem != null
-                    && selectedItem.getPrice() < selectedPlayer.getMoney()) {
+                    && selectedItem.getPrice() <= selectedPlayer.getMoney()) {
 
                 selectedItem.applyTo(selectedPlayer);
                 selectedPlayer.setMoney(selectedPlayer.getMoney() - selectedItem.getPrice());

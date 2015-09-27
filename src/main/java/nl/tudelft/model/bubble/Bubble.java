@@ -7,7 +7,7 @@ import java.util.List;
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.util.Audio;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.Image;
@@ -30,8 +30,9 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean slow = false;
     private boolean frozen = false;
     private int tickCount = 0;
-    private List<Bubble> next;
-    private boolean goesRightInitially;
+    private final ResourcesWrapper resources;
+    private final List<Bubble> next;
+    private final boolean goesRightInitially;
 
     /**
      * The complete constructor for Bubble.
@@ -51,10 +52,14 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            float - The y-coordinate where the bubble should spawn.
      * @param goRight
      *            boolean - true if the bubble should initialise moving to the right.
+     * @param resources
+     *            {@link ResourcesWrapper} - The resources that this class may use.
      */
-    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight) {
+    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
+            ResourcesWrapper resources) {
         super(bubbleImg, locX, locY);
 
+        this.resources = resources;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
 
@@ -97,7 +102,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      */
     public <T extends Modifiable> LinkedList<Bubble> split(T container, int random) {
         LinkedList<Bubble> newBubbles = new LinkedList<>();
-        Audio.playBubbleSplit();
+        resources.playBubbleSplit();
         container.toRemove(this);
 
         if (random > 7 && !next.isEmpty()) {
@@ -150,7 +155,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     public void setSlow(boolean slowDown) {
         slow = slowDown;
     }
-    
+
     public boolean isSlow() {
         return slow;
     }
