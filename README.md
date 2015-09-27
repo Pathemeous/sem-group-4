@@ -14,9 +14,3 @@ You can start the game by either clicking "1 Player" or "2 Players" on the menu 
 Player 1 uses the left and right arrow keys to move and the space bar to shoot.<br />
 Player 2 uses the a and d keys to move and w to shoot.<br />
 The game can be paused by hitting the escape key.
-
-## Tests
-Due to the nature of our GUI and Travis not supporting this, the tests are currently not in the working copy.
-The tests are performed at a testing branch, which is up to date with the working copy.
-
-Please refer to the tag 'working-copy-tests' for this branch.
