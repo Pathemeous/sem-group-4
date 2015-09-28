@@ -21,6 +21,7 @@ import org.newdawn.slick.SlickException;
  * <p>
  * A level contains the {@link AbstractEnvironmentObject}s specific to this level and the level
  * duration.
+ * </p>
  */
 public class Level implements Updateable, Renderable, Modifiable {
 

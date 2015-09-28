@@ -1,6 +1,5 @@
 package nl.tudelft.model;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.HashMap;
 
 import nl.tudelft.model.pickups.powerup.Powerup;
@@ -127,7 +126,8 @@ public class Player extends AbstractGameObject {
                     this.getHeight());
         }
         if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
-                || (!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
+                || (!(input.isKeyDown(Input.KEY_A)
+                        || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
             setAnimationCurrent(null);
         }
     }
