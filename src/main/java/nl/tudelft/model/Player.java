@@ -2,6 +2,7 @@ package nl.tudelft.model;
 
 import java.util.HashMap;
 
+import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
@@ -53,7 +54,7 @@ public class Player extends AbstractGameObject {
      * @param locY
      *            int - The y-coordinate where the player should spawn.
      * @param input
-     *            Input - The input to enable the user to move.
+     *            {@link Input} - The input to enable the user to move.
      * @param isFirstPlayer
      *            boolean - checks whether the player is number one or two.
      */
@@ -136,8 +137,8 @@ public class Player extends AbstractGameObject {
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
-     * This means that a player loses all his powerups, his weapons and makes sure that the weapon
-     * fire delay is set to zero.
+     * This means that a player loses all his {@link Powerup}s and his {@link Weapon} and makes
+     * sure that the weapon fire delay is set to zero.
      * </p>
      */
     public void reset() {
@@ -152,7 +153,7 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Performs all necessary actions that should happens when the player dies.
+     * Performs all necessary actions that should happens when this {@link Player} dies.
      */
     public void die() {
         resources.playDeath();
@@ -161,7 +162,7 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Removes all powerups from.
+     * Removes all {@link Powerup}s from this {@link Player}.
      */
     public void clearAllPowerups() {
         if (hasPowerup(Powerup.SPEED)) {
@@ -179,30 +180,52 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Returns true if the player has a powerup with the specified key.
+     * Returns true if the player has a {@link Powerup} with the specified key.
      * 
      * @param key
-     *            : key which specifies the type of powerup.
-     * @return : true iff the player has a powerup with the specified key.
+     *            {@link String} - Key which specifies the type of powerup.
+     * @return boolean - True iff the player has a {@link Powerup} with the specified key.
      */
     public boolean hasPowerup(String key) {
         return powerups.get(key) != null;
     }
 
+    /**
+     * Removes the {@link Powerup} specified by the key.
+     * 
+     * @param key
+     *            {@link String} - the key to remove.
+     * @return boolean - True iff the key is successfully removed.
+     */
     public Powerup removePowerup(String key) {
         return powerups.remove(key);
     }
 
+    /**
+     * Adds the {@link Powerup} specified by the key.
+     * 
+     * @param key
+     *            {@link String} - the key to add.
+     * @param value
+     *            {@link Powerup} - the powerup to put in the hasmap.
+     */
     public void setPowerup(String key, Powerup value) {
         powerups.put(key, value);
     }
 
+    /**
+     * Gets the desired {@link Powerup} based on its key.
+     * 
+     * @param key
+     *            {@link String} - the key associated with the {@link Powerup}.
+     * @return {@link Powerup} - the desired {@link Powerup}.
+     */
     public Powerup getPowerup(String key) {
         return powerups.get(key);
     }
 
     /**
-     * Checks whether the player has the Invincible powerup.
+     * Checks whether the player has the {@link InvinciblePowerup} powerup.
      * 
      * @return true if he does, false if not.
      */
