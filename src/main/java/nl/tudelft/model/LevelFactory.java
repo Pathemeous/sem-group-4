@@ -39,7 +39,7 @@ public class LevelFactory {
     /**
      * Gets the {@link Game} instance that this factory returns to.
      * 
-     * @return
+     * @return {@link Game} - the Game instance that this factory belongs to.
      */
     public Game getGame() {
         return this.game;
