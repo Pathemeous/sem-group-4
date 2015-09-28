@@ -21,6 +21,10 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * The Game class represents a game session. A game can be single player or multiplayer, and
+ * contains a list of levels and players.
+ */
 public class Game implements Renderable, Modifiable {
 
     public static final Logger LOGGER;
@@ -51,9 +55,10 @@ public class Game implements Renderable, Modifiable {
      * @param wrapper
      *            {@link ResourcesWrapper} - The resources that Game can inject into LevelFactory.
      * @param mainApp
-     *            StateBasedGame - the mainApp that manages the states.
+     *            {@link StateBasedGame} - the mainApp that manages the states.
      * @param players
-     *            LinkedList - List containing all players that take part in this game.
+     *            {@link LinkedList} of {@link Player}s - List containing all players that take
+     *            part in this game.
      * @param containerWidth
      *            int - width of the game field.
      * @param containerHeight
@@ -126,7 +131,7 @@ public class Game implements Renderable, Modifiable {
     }
 
     /**
-     * Objects which can collide are added to the quadTree.
+     * Adds collidable objects to the quad tree.
      */
     private void quadFill(QuadTree quad) {
         for (AbstractGameObject obj : players) {
@@ -141,21 +146,22 @@ public class Game implements Renderable, Modifiable {
     }
 
     /**
-     * Logs if the game is completed and fires up the next level.
+     * Tests whether the current level is completed and if so, logs this event and proceeds to the
+     * next level.
      */
     private void levelCompleted() {
         if (getCurLevel().isCompleted() && levelIt.hasNext()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
             nextLevel();
-            ((ShopState)mainApp.getState(5)).setup(this);
+            ((ShopState) mainApp.getState(5)).setup(this);
             mainApp.enterState(5);
         }
     }
 
     /**
-     * Logs if the level timer has expired, makes the player lose a life, and resets the current
-     * level.
+     * Tests whether the current level's timer has expired. If so, logs this event, makes the
+     * player lose a life, and resets the current level.
      */
     private void levelTimeExpired() {
         if (getCurLevel().timerExpired()) {
@@ -384,6 +390,12 @@ public class Game implements Renderable, Modifiable {
         return players;
     }
 
+    /**
+     * Gets the 'PlayerToDelete' list. This list servers as a buffer to the Players list to avoid
+     * aysnchronized access
+     * 
+     * @return {@link LinkedList} of {@link Player}s - the buffer list.
+     */
     public LinkedList<Player> getPlayerToDelete() {
         return playerToDelete;
     }
