@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.HashMap;
 
 import nl.tudelft.model.pickups.powerup.Powerup;
@@ -126,8 +127,7 @@ public class Player extends AbstractGameObject {
                     this.getHeight());
         }
         if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
-                || (!(input.isKeyDown(Input.KEY_A)
-                || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
+                || (!(input.isKeyDown(Input.KEY_A) || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
             setAnimationCurrent(null);
         }
     }
@@ -150,7 +150,7 @@ public class Player extends AbstractGameObject {
         this.weapon.activate(this);
         weaponActivated = false;
     }
-    
+
     /**
      * Performs all necessary actions that should happens when the player dies.
      */
@@ -228,10 +228,16 @@ public class Player extends AbstractGameObject {
         return powerups.get(Powerup.SHOPSHIELD) != null;
     }
 
+    /**
+     * Applies the speed up pickup to the player.
+     */
     public void applySpeedup() {
         speed = REGULAR_SPEED * SPEEDUP;
     }
 
+    /**
+     * Sets the speed of the player to the default speed.
+     */
     public void setDefaultSpeed() {
         speed = REGULAR_SPEED;
     }
@@ -268,7 +274,7 @@ public class Player extends AbstractGameObject {
      * Sets the weapon of the player.
      * 
      * @param weapon
-     *            Weapon - the Weapon to use.
+     *            {@link Weapon} - the Weapon to use.
      */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
@@ -277,7 +283,7 @@ public class Player extends AbstractGameObject {
     /**
      * Returns the weapon of the player.
      * 
-     * @return the current weapon
+     * @return {@link Weapon} - The current weapon
      */
     public Weapon getWeapon() {
         return this.weapon;
@@ -286,20 +292,38 @@ public class Player extends AbstractGameObject {
     /**
      * Get the amount of lives that the player has.
      * 
-     * @return int the amount of lives the player has left.
+     * @return int - The amount of lives the player has left.
      */
     public int getLives() {
         return this.lives;
     }
 
+    /**
+     * Sets the lives that this {@link Player} has to the specified value.
+     * 
+     * @param lives
+     *            int - The amount of lives to set.
+     */
     public void setLives(int lives) {
         this.lives = lives;
     }
 
+    /**
+     * Sets the score of this {@link Player} to the specified value.
+     * 
+     * @param score
+     *            int - The amount of points to set as the score.
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Sets the amount of money that this {@link Player} has to the specified value.
+     * 
+     * @param money
+     *            int - The amount of money.
+     */
     public void setMoney(int money) {
         this.money = money;
     }
@@ -349,18 +373,41 @@ public class Player extends AbstractGameObject {
         this.animationCurrent = animationCurrent;
     }
 
+    /**
+     * Sets the state of this {@link Player} to determine whether his {@link Weapon} is a shop
+     * weapon.
+     * 
+     * @param bool
+     *            boolean - true iff the {@link Player} currently has a shop weapon.
+     */
     public void setShopWeapon(boolean bool) {
         this.shopWeapon = bool;
     }
 
+    /**
+     * Gets the value of the shopWeapon field.
+     * 
+     * @return boolean - true iff the {@link Player} currently has a shop weapon.
+     */
     public boolean isShopWeapon() {
         return this.shopWeapon;
     }
 
+    /**
+     * Sets the state of this {@link Player} to determine whether his speedUp is a shop perk.
+     * 
+     * @param bool
+     *            boolean - true iff the {@link Player} currently has a shop speedUp.
+     */
     public void setShopSpeed(boolean bool) {
         this.shopSpeedup = bool;
     }
 
+    /**
+     * Gets the value of the shopSpeed field.
+     * 
+     * @return boolean - true iff the {@link Player} currently has a shop speedUp.
+     */
     public boolean isShopSpeed() {
         return shopSpeedup;
     }
