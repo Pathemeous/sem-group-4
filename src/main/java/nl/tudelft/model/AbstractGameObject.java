@@ -45,44 +45,86 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
     /**
      * Accesses the image field.
      * 
-     * @return image
+     * @return image {@link Image} - The image that this object is rendered with.
      */
     public Image getImage() {
         return image;
     }
 
     /**
+     * Sets a new image for this object.
+     * 
      * @param image
-     *            Image - the new image.
+     *            {@link Image} - The new image to render.
      */
     protected void setImage(Image image) {
         this.image = image;
     }
 
+    /**
+     * Sets a new x-coordinate for this object.
+     * 
+     * @param locX
+     *            float - The x-coordinate for the top-left corner of this object.
+     */
     public void setLocX(float locX) {
         this.locX = locX;
     }
 
+    /**
+     * Accesses the x-coordinate of this object.
+     * 
+     * @return float - The x-coordinate.
+     */
     public float getLocX() {
         return locX;
     }
 
+    /**
+     * Accesses the y-coordinate of this object.
+     * 
+     * @return float - The y-coordinate.
+     */
     public float getLocY() {
         return locY;
     }
 
+    /**
+     * Sets a new y-coordinate for this object.
+     * 
+     * @param locY
+     *            float - the y-coordinate for the top-left corner of this object.
+     */
     public void setLocY(float locY) {
         this.locY = locY;
     }
 
+    /**
+     * Returns a (rectangular) shape of the boundaries of this object by measuring the size of its
+     * image.
+     * 
+     * <p>
+     * This shape is the bounding box of this object and can be used to check for collisions.
+     * </p>
+     * 
+     * @return {@link Shape} - The shape that represents the bounding box of this object.
+     */
     public Shape getBounds() {
         return new SemRectangle(locX, locY, getImage().getWidth(), getImage().getHeight());
     }
 
+    /**
+     * Determines the width of this object's image and returns it.
+     * @return int - The width of this object.
+     */
     public int getWidth() {
         return this.getImage().getWidth();
     }
 
+    /**
+     * Determines the height of this object's image and returns it.
+     * @return int - The height of this object.
+     */
     public int getHeight() {
         return this.getImage().getHeight();
     }
