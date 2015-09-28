@@ -11,6 +11,15 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
+/**
+ * This class represents an {@link Updateable} (dynamic) and {@link Renderable} (visible and
+ * collidable) object within the {@link Game} environment.
+ * 
+ * <p>
+ * This class provides common functionality for this kind of objects, including positioning and
+ * rendering.
+ * </p>
+ */
 public abstract class AbstractGameObject implements Updateable, Renderable {
 
     protected float locX;
@@ -115,6 +124,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
 
     /**
      * Determines the width of this object's image and returns it.
+     * 
      * @return int - The width of this object.
      */
     public int getWidth() {
@@ -123,6 +133,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
 
     /**
      * Determines the height of this object's image and returns it.
+     * 
      * @return int - The height of this object.
      */
     public int getHeight() {

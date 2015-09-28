@@ -2,6 +2,10 @@ package nl.tudelft.model;
 
 import org.newdawn.slick.Image;
 
+/**
+ * This class represents an object in the level area. Unlike other {@link AbstractGameObject}s,
+ * these objects are not persistent in between levels.
+ */
 public abstract class AbstractEnvironmentObject extends AbstractGameObject {
 
     /**
