@@ -34,6 +34,32 @@ public class QuadTree {
     }
 
     /**
+     * Accesses the depthLevel field.
+     * 
+     * <p>
+     * This field is protected and should only be used for testing purposes.
+     * </p>
+     * 
+     * @return int - The depthLevel of this QuadTree.
+     */
+    protected final int getDepthLevel() {
+        return depthLevel;
+    }
+
+    /**
+     * Accesses the bounds field.
+     * 
+     * <p>
+     * This field is protected and should only be used for testing purposes.
+     * </p>
+     * 
+     * @return {@link Rectangle} - The boundaries of this QuadTree
+     */
+    protected final Rectangle getBounds() {
+        return bounds;
+    }
+
+    /**
      * Clears the QuadTree.
      */
     public void clear() {
@@ -56,18 +82,17 @@ public class QuadTree {
         int locX = (int) bounds.getX();
         int locY = (int) bounds.getY();
 
-        nodes[0] = new QuadTree(
-                depthLevel + 1,
-                new Rectangle(locX + subWidth, locY, subWidth, subHeight));
-        nodes[1] = new QuadTree(
-                depthLevel + 1,
-                new Rectangle(locX, locY, subWidth, subHeight));
-        nodes[2] = new QuadTree(
-                depthLevel + 1,
-                new Rectangle(locX, locY + subHeight, subWidth, subHeight));
-        nodes[3] = new QuadTree(
-                depthLevel + 1,
-                new Rectangle(locX + subWidth, locY + subHeight, subWidth, subHeight));
+        nodes[0] =
+                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY, subWidth,
+                        subHeight));
+        nodes[1] =
+                new QuadTree(depthLevel + 1, new Rectangle(locX, locY, subWidth, subHeight));
+        nodes[2] =
+                new QuadTree(depthLevel + 1, new Rectangle(locX, locY + subHeight, subWidth,
+                        subHeight));
+        nodes[3] =
+                new QuadTree(depthLevel + 1, new Rectangle(locX + subWidth, locY + subHeight,
+                        subWidth, subHeight));
     }
 
     /**
@@ -154,7 +179,8 @@ public class QuadTree {
      *            Shape - the given shape.
      * @return List - the list of collidable objects.
      */
-    public List<AbstractGameObject> retrieve(List<AbstractGameObject> returnObjects, Shape rect) {
+    public List<AbstractGameObject>
+            retrieve(List<AbstractGameObject> returnObjects, Shape rect) {
         int index = getIndex(rect);
         if (index != -1 && nodes[0] != null) {
             nodes[index].retrieve(returnObjects, rect);
