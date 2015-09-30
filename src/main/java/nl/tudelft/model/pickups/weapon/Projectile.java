@@ -155,11 +155,11 @@ public class Projectile extends AbstractEnvironmentObject {
         return this.weapon;
     }
 
-    public int getTickCount() {
+    protected int getTickCount() {
         return tickCount;
     }
 
-    public void setTickCount(int count) {
+    protected void setTickCount(int count) {
         tickCount = count;
     }
 }
