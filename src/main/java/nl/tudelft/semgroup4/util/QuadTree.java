@@ -58,6 +58,10 @@ public class QuadTree {
     protected final Rectangle getBounds() {
         return bounds;
     }
+    
+    protected final List<AbstractGameObject> getObjects() {
+        return objects;
+    }
 
     /**
      * Clears the QuadTree.
