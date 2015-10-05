@@ -36,7 +36,7 @@
 //        Player player = mock(Player.class);
 //        Shape mockedShape = mock(Shape.class);
 //        when(player.getBounds()).thenReturn(mockedShape);
-////        when(mockedQuadTree.retrieve(new LinkedList<AbstractGameObject>(), mockedShape)).thenReturn();
+//   when(mockedQuadTree.retrieve(new LinkedList<AbstractGameObject>(), mockedShape)).thenReturn();
 //        list.add(player);
 //        ArrayList<AbstractGameObject> res =
 //                (ArrayList<AbstractGameObject>)CollisionHelper

@@ -1,14 +1,14 @@
-/**
- * 
- */
 package nl.tudelft.semgroup4.util;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 
 import java.util.LinkedList;
 import java.util.List;
 
-import static org.junit.Assert.*;
 import nl.tudelft.model.AbstractGameObject;
-import nl.tudelft.model.AbstractOpenGLTestCase;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -17,6 +17,8 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 /**
+ * Test class for the QuadTree class.
+ * 
  * @author Pathemeous
  *
  */
@@ -96,8 +98,9 @@ public class QuadTreeTest {
         AbstractGameObject someObject3 = Mockito.mock(AbstractGameObject.class);
         testTree.insert(someObject2);
         testTree.insert(someObject3);
-        
-        List<AbstractGameObject> result = testTree.retrieve(new LinkedList<AbstractGameObject>(), someObject1);
+
+        List<AbstractGameObject> result =
+                testTree.retrieve(new LinkedList<AbstractGameObject>(), someObject1);
         assertEquals(2, result.size());
     }
 
