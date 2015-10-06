@@ -17,13 +17,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    boolean paused;
-    PauseScreen pauseScreen;
-    MouseOverArea mouseOver;
-    Input input = new Input(0);
-    private Game theGame;
+    
+    private PauseScreen pauseScreen;
+    private Input input = new Input(0);
+    private Game currentGame;
     private Dashboard dashboard;
     private final boolean singlePlayer;
+    private boolean pauseScreenOpened = false;
 
     public GameState(String title, boolean singlePlayer) {
         super();
@@ -46,7 +46,7 @@ public class GameState extends BasicGameState {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         input = container.getInput();
-        mouseOver =
+        MouseOverArea mouseOver =
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
                                 .getQuitText().getHeight());
@@ -74,15 +74,15 @@ public class GameState extends BasicGameState {
             playerList.add(secondPlayer);
         }
 
-        theGame =
+        currentGame =
                 new Game(mainApp, playerList, container.getWidth(), container.getHeight(),
                         new ResourcesWrapper());
         for (Player player : playerList) {
-            theGame.toAdd(player.getWeapon());
+            currentGame.toAdd(player.getWeapon());
         }
 
         int dashboardMargin = 20;
-        dashboard = new Dashboard(new ResourcesWrapper(), theGame,
+        dashboard = new Dashboard(new ResourcesWrapper(), currentGame,
                         dashboardMargin,
                         container.getWidth() - dashboardMargin,
                         container.getHeight());
@@ -103,10 +103,10 @@ public class GameState extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
 
-        theGame.render(container, graphics);
+        currentGame.render(container, graphics);
         dashboard.render(container, graphics);
 
-        if (paused) {
+        if (pauseScreenOpened) {
             ResourcesWrapper res = new ResourcesWrapper();
             if (res.getWeaponFire().playing()) {
                 res.stopFireSound();                
@@ -133,15 +133,22 @@ public class GameState extends BasicGameState {
         // checks if the escape key is pressed, if so, the gameState pauses
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                    + (paused ? "resumed" : "paused") + " the game");
+                    + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
-            paused = !paused;
+            currentGame.setPaused(!currentGame.isPaused());
+            pauseScreenOpened = !pauseScreenOpened;
         }
 
-        if (!paused) {
-            theGame.update(delta);
+        if (!currentGame.isPaused()) {
+            currentGame.update(delta);
             dashboard.update(delta);
+        } else {
+            currentGame.getCountdown().update();
         }
+    }
+    
+    protected Game getGame() {
+        return currentGame;
     }
 
     @Override

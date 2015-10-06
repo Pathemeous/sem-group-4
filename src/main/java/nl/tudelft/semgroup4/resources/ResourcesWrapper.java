@@ -1,11 +1,13 @@
 package nl.tudelft.semgroup4.resources;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  * Creates a layer between the static {@link Resources} class and the classes that use it. By
@@ -331,5 +333,9 @@ public class ResourcesWrapper {
 
     public Image getPlayer2Off() {
         return Resources.player2Off;
+    }
+    
+    public TrueTypeFont getCountdownFont() {
+        return Resources.countdownFont;
     }
 }
