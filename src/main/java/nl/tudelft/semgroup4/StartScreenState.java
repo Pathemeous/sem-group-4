@@ -76,12 +76,13 @@ public class StartScreenState extends BasicGameState {
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a multi-player game");
             } else if (mouseOverOptions.isMouseOver()) {
-                game.enterState(4);
+                game.enterState(3);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverQuit.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
-                resources.stopTitleScreen();
-                container.exit();
+                //resources.stopTitleScreen();
+                //container.exit();
+                game.enterState(4);
             }
         }
 
