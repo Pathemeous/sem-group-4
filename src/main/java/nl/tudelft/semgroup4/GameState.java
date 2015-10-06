@@ -144,7 +144,7 @@ public class GameState extends BasicGameState {
             currentGame.update(delta);
             dashboard.update(delta);
         } else {
-            theGame.getCountdown().update();
+            currentGame.getCountdown().update();
         }
     }
     
