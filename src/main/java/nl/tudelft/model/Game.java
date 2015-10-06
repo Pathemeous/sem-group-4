@@ -199,8 +199,8 @@ public class Game implements Renderable, Modifiable {
     private void pickupCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : curLevel.getPickups()) {
             // collision with walls and players
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -211,8 +211,8 @@ public class Game implements Renderable, Modifiable {
      */
     private void playerCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : players) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -223,8 +223,8 @@ public class Game implements Renderable, Modifiable {
      */
     private void projectileCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : curLevel.getProjectiles()) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -236,8 +236,8 @@ public class Game implements Renderable, Modifiable {
     private void bubbleCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : curLevel.getBubbles()) {
             // bubbles check against walls, players and projectiles
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
