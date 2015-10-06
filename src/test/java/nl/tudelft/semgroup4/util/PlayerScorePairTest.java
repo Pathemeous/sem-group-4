@@ -8,7 +8,7 @@ public class PlayerScorePairTest {
     
     @Test
     public void testConstructor() {
-        PlayerScorePair pair = new PlayerScorePair("player", 100);
+        HighscoreEntry pair = new HighscoreEntry("player", 100);
         assertEquals("player", pair.getName());
         assertEquals(100, pair.getScore());
     }

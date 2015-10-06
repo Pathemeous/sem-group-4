@@ -1,11 +1,11 @@
 package nl.tudelft.semgroup4.util;
 
-public class PlayerScorePair {
+public class HighscoreEntry {
     
     private long score;
     private String name;
     
-    public PlayerScorePair(String name, long score) {
+    public HighscoreEntry(String name, long score) {
         this.name = name;
         this.score = score;
     }

@@ -10,12 +10,12 @@ public class CompareHighscoresTest {
     
     @Test
     public void testSort() {
-        ArrayList<PlayerScorePair> pairs = new ArrayList<>();
+        ArrayList<HighscoreEntry> pairs = new ArrayList<>();
         
-        PlayerScorePair pair1 = new PlayerScorePair("Player1", 100);
-        PlayerScorePair pair2 = new PlayerScorePair("Player2", 300);
-        PlayerScorePair pair3 = new PlayerScorePair("Player3", 200);
-        PlayerScorePair pair4 = new PlayerScorePair("Player4", 300);
+        HighscoreEntry pair1 = new HighscoreEntry("Player1", 100);
+        HighscoreEntry pair2 = new HighscoreEntry("Player2", 300);
+        HighscoreEntry pair3 = new HighscoreEntry("Player3", 200);
+        HighscoreEntry pair4 = new HighscoreEntry("Player4", 300);
         
         pairs.add(pair1);
         pairs.add(pair2);

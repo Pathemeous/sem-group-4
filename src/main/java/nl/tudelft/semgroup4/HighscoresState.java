@@ -10,7 +10,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.CompareHighscores;
-import nl.tudelft.semgroup4.util.PlayerScorePair;
+import nl.tudelft.semgroup4.util.HighscoreEntry;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -31,7 +31,7 @@ public class HighscoresState extends BasicGameState {
     private MouseOverArea backButton;
     private Input input;
     private final ResourcesWrapper resources = new ResourcesWrapper();
-    private List<PlayerScorePair> highscores = new ArrayList<>();
+    private List<HighscoreEntry> highscores = new ArrayList<>();
     
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
@@ -49,7 +49,7 @@ public class HighscoresState extends BasicGameState {
                 
                 String name = (String)highscore.get("name");
                 long score = (long)highscore.get("score");
-                highscores.add(new PlayerScorePair(name, score));
+                highscores.add(new HighscoreEntry(name, score));
             }
         } catch (IOException | ParseException e) {
             e.printStackTrace();
