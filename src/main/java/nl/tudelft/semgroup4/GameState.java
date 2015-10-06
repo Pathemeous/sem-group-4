@@ -17,12 +17,14 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
+    
     private PauseScreen pauseScreen;
     private MouseOverArea mouseOver;
     private Input input = new Input(0);
     private Game theGame;
     private Dashboard dashboard;
     private final boolean singlePlayer;
+    private boolean pauseScreenOpened = false;
 
     public GameState(String title, boolean singlePlayer) {
         super();
@@ -105,7 +107,7 @@ public class GameState extends BasicGameState {
         theGame.render(container, graphics);
         dashboard.render(container, graphics);
 
-        if (theGame.isPaused()) {
+        if (pauseScreenOpened) {
             ResourcesWrapper res = new ResourcesWrapper();
             if (res.getWeaponFire().playing()) {
                 res.stopFireSound();                
@@ -135,6 +137,7 @@ public class GameState extends BasicGameState {
                     + (theGame.isPaused() ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
             theGame.setPaused(!theGame.isPaused());
+            pauseScreenOpened = !pauseScreenOpened;
         }
 
         if (!theGame.isPaused()) {
