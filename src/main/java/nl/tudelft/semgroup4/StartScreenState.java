@@ -64,12 +64,14 @@ public class StartScreenState extends BasicGameState {
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverOnePlayer.isMouseOver()) {
+                game.addState(new GameState(game.getTitle(), true));
                 game.getState(1).init(container, game);
                 resources.stopTitleScreen();
                 game.enterState(1);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a single player game");
             } else if (mouseOverTwoPlayer.isMouseOver()) {
+                game.addState(new GameState(game.getTitle(), false));
                 game.getState(2).init(container, game);
                 resources.stopTitleScreen();
                 game.enterState(2);
