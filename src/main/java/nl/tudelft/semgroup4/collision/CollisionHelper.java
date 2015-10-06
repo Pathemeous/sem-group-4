@@ -17,27 +17,16 @@ public class CollisionHelper {
      *
      * @param objectA
      *            GameObject - the colliding object.
-     * @param objects
-     *            List - the objects to check.
      * @param quad
      *            Quadtree - the quadtree used to find collisions.
      * @return a Pair of which the Key is the 'objectA' colliding object and the value 'right'
      */
-    public static List<AbstractGameObject> collideObjectWithList(AbstractGameObject objectA,
-            List<? extends AbstractGameObject> objects, QuadTree quad) {
+    public static List<AbstractGameObject> getCollisionsFor(AbstractGameObject objectA,
+            QuadTree quad) {
         List<AbstractGameObject> out = new ArrayList<>();
 
         if (quad == null) {
-            for (AbstractGameObject objectB : objects) {
-                // do not collide with self
-                if (objectA == objectB) {
-                    continue;
-                }
-
-                if (objectA.getBounds().intersects(objectB.getBounds())) {
-                    out.add(objectB);
-                }
-            }
+            throw new IllegalArgumentException();
         } else {
             List<AbstractGameObject> returnObjects = new ArrayList<>();
             quad.retrieve(returnObjects, objectA.getBounds());

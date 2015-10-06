@@ -15,6 +15,14 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
+/**
+ * This class represents a single level within the {@link Game}.
+ * 
+ * <p>
+ * A level contains the {@link AbstractEnvironmentObject}s specific to this level and the level
+ * duration.
+ * </p>
+ */
 public class Level implements Updateable, Renderable, Modifiable {
 
     private final LinkedList<Wall> walls;
@@ -142,13 +150,15 @@ public class Level implements Updateable, Renderable, Modifiable {
     public void toRemove(AbstractGameObject obj) {
         pendingRemoval.add(obj);
     }
-    
+
     /**
      * Recursive method to split all bubbles.
-     * @param bubbles : all the bubbles that need to be split.
-     * @param endLevel : boolean that indicates if the all the bubbles need
-     *      to be split, or that bubbles need to be split until they are
-     *      of size 1.
+     * 
+     * @param bubbles
+     *            : all the bubbles that need to be split.
+     * @param endLevel
+     *            : boolean that indicates if the all the bubbles need to be split, or that bubbles
+     *            need to be split until they are of size 1.
      */
     public void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
         for (Bubble bubble : bubbles) {
@@ -159,38 +169,85 @@ public class Level implements Updateable, Renderable, Modifiable {
         }
     }
 
+    /**
+     * Gets the walls in this level.
+     * 
+     * @return {@link LinkedList} of {@link Wall}s - The walls in this level.
+     */
     public LinkedList<Wall> getWalls() {
         return this.walls;
     }
 
+    /**
+     * Gets the projectiles in this level.
+     * 
+     * @return {@link LinkedList} of {@link Projectile}s - The walls in this level.
+     */
     public LinkedList<Projectile> getProjectiles() {
         return this.projectiles;
     }
 
+    /**
+     * Gets the bubbles in this level.
+     * 
+     * @return {@link LinkedList} of {@link Bubble}s - The walls in this level.
+     */
     public LinkedList<Bubble> getBubbles() {
         return this.bubbles;
     }
 
+    /**
+     * Gets the pickups in this level.
+     * 
+     * @return {@link LinkedList} of {@link Pickup}s - The walls in this level.
+     */
     public LinkedList<Pickup> getPickups() {
         return this.pickups;
     }
 
+    /**
+     * Gets the id of this level.
+     * 
+     * @return int - the id of this level.
+     */
     public int getId() {
         return this.id;
     }
 
+    /**
+     * Sets the remaining amount of time for this level to a different value.
+     * 
+     * @param time
+     *            int - the amount of time left in milliseconds.
+     */
     public void setTime(int time) {
         this.time = time;
     }
 
+    /**
+     * Gets the remaining amount of time left for this level.
+     * 
+     * @return int - the amount of time left in milliseconds.
+     */
     public int getTime() {
         return this.time;
     }
 
+    /**
+     * Gets the total amount of time before the level fails.
+     * 
+     * @return int - the total amount of time in milliseconds.
+     */
     public int getMaxTime() {
         return this.maxTime;
     }
 
+    /**
+     * Sets the total amount of time before the level fails to a different value.
+     * 
+     * @param time
+     *            int - the total amount of time in milliseconds.
+     */
     public void setMaxTime(int time) {
         this.time = time;
     }
@@ -217,14 +274,30 @@ public class Level implements Updateable, Renderable, Modifiable {
         return this.time <= 0;
     }
 
+    /**
+     * Returns the buffer between the objects that need removal and their lists.
+     * 
+     * @return {@link LinkedList} of {@link AbstractGameObject}s - the buffer.
+     */
     public LinkedList<AbstractGameObject> getToRemove() {
         return pendingRemoval;
     }
 
+    /**
+     * Returns the buffer between the objects that need addition and their lists.
+     * 
+     * @return {@link LinkedList} of {@link AbstractGameObject}s - the buffer.
+     */
     public LinkedList<AbstractGameObject> getToAdd() {
         return pendingAddition;
     }
 
+    /**
+     * Sets the state of the level to be slowed
+     * 
+     * @param bool
+     *            boolean - Sets the level to be permanently slowed if set to true.
+     */
     public void setShopSlow(boolean bool) {
         this.shopSlow = bool;
     }

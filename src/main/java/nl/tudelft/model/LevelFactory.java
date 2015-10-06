@@ -13,17 +13,34 @@ import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+/**
+ * A factory that can return full-fledged {@link Level}s on demand.
+ */
 public class LevelFactory {
 
     private final Game game;
     private final ResourcesWrapper resources;
     private static final int LEVEL_COUNT = 4;
 
+    /**
+     * Constructs a new {@link LevelFactory} for a certain {@link Game}, using the specified
+     * {@link ResourcesWrapper}.
+     * 
+     * @param game
+     *            {@link Game} - the game that this factory belongs to.
+     * @param wrapper
+     *            {@link ResourcesWrapper} - the resources that this factory will use.
+     */
     public LevelFactory(Game game, ResourcesWrapper wrapper) {
         this.game = game;
         this.resources = wrapper;
     }
 
+    /**
+     * Gets the {@link Game} instance that this factory returns to.
+     * 
+     * @return {@link Game} - the Game instance that this factory belongs to.
+     */
     public Game getGame() {
         return this.game;
     }
@@ -73,6 +90,11 @@ public class LevelFactory {
         }
     }
 
+    /**
+     * Creates the standard outer walls for a level.
+     * 
+     * @return {@link LinkedList} of {@link Wall}s - a list containing the 4 default {@link Wall}s.
+     */
     private LinkedList<Wall> wallInit() {
         LinkedList<Wall> walls = new LinkedList<>();
 
@@ -89,6 +111,11 @@ public class LevelFactory {
         return walls;
     }
 
+    /**
+     * Builds the first level.
+     * 
+     * @return {@link Level} - level 1.
+     */
     private Level getLevel1() {
         final int id = 1;
 
@@ -110,6 +137,11 @@ public class LevelFactory {
 
     }
 
+    /**
+     * Builds the second level.
+     * 
+     * @return {@link Level} - level 2.
+     */
     private Level getLevel2() {
         final int id = 2;
 
@@ -135,6 +167,11 @@ public class LevelFactory {
 
     }
 
+    /**
+     * Builds the third level.
+     * 
+     * @return {@link Level} - level 3.
+     */
     private Level getLevel3() {
         final int id = 3;
 
@@ -164,6 +201,11 @@ public class LevelFactory {
 
     }
 
+    /**
+     * Builds the fourth level.
+     * 
+     * @return {@link Level} - level 4.
+     */
     private Level getLevel4() {
         final int id = 4;
 
