@@ -3,7 +3,6 @@ package nl.tudelft.semgroup4;
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -57,7 +56,7 @@ public class StartScreenState extends BasicGameState {
             throws SlickException {
         final ResourcesWrapper resources = new ResourcesWrapper();
         if (!resources.getTitleScreenMusic().playing()) {
-            Audio.playTitleScreen();
+            resources.playTitleScreen();
         }
         //
         // checks if the left mouse button is pressed and where it was pressed to determine
@@ -66,11 +65,13 @@ public class StartScreenState extends BasicGameState {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverOnePlayer.isMouseOver()) {
                 game.getState(1).init(container, game);
+                resources.stopTitleScreen();
                 game.enterState(1);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a single player game");
             } else if (mouseOverTwoPlayer.isMouseOver()) {
                 game.getState(2).init(container, game);
+                resources.stopTitleScreen();
                 game.enterState(2);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a multi-player game");
@@ -79,6 +80,7 @@ public class StartScreenState extends BasicGameState {
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverQuit.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
+                resources.stopTitleScreen();
                 container.exit();
             }
         }

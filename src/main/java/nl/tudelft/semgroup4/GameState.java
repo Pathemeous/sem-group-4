@@ -6,7 +6,6 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Audio;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
@@ -18,13 +17,14 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    boolean paused;
-    PauseScreen pauseScreen;
-    MouseOverArea mouseOver;
-    Input input = new Input(0);
+    
+    private PauseScreen pauseScreen;
+    private MouseOverArea mouseOver;
+    private Input input = new Input(0);
     private Game theGame;
     private Dashboard dashboard;
     private final boolean singlePlayer;
+    private boolean pauseScreenOpened = false;
 
     public GameState(String title, boolean singlePlayer) {
         super();
@@ -107,7 +107,11 @@ public class GameState extends BasicGameState {
         theGame.render(container, graphics);
         dashboard.render(container, graphics);
 
-        if (paused) {
+        if (pauseScreenOpened) {
+            ResourcesWrapper res = new ResourcesWrapper();
+            if (res.getWeaponFire().playing()) {
+                res.stopFireSound();                
+            }
             pauseScreen.show(graphics, container, input, game, this);
         }
 
@@ -127,23 +131,23 @@ public class GameState extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
-        ResourcesWrapper res = new ResourcesWrapper();
-        if (res.getTitleScreenMusic().playing()) {
-            Audio.stopTitleScreen();
-        }
         // checks if the escape key is pressed, if so, the gameState pauses
-
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                    + (paused ? "resumed" : "paused") + " the game");
+                    + (theGame.isPaused() ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
-            paused = !paused;
+            theGame.setPaused(!theGame.isPaused());
+            pauseScreenOpened = !pauseScreenOpened;
         }
 
-        if (!paused) {
+        if (!theGame.isPaused()) {
             theGame.update(delta);
             dashboard.update(delta);
         }
+    }
+    
+    protected Game getGame() {
+        return theGame;
     }
 
     @Override

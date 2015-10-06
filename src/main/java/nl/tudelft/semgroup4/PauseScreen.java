@@ -3,7 +3,6 @@ package nl.tudelft.semgroup4;
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Audio;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -40,7 +39,7 @@ public class PauseScreen {
      * @param container
      *            to draw in
      * @param input
-     *            to find out where clickevents happened
+     *            to find out where click events happened
      * @param game
      *            to be able to enter different game states from the menu
      * @param gameState
@@ -48,7 +47,6 @@ public class PauseScreen {
      */
     public void show(Graphics graphics, GameContainer container, Input input,
             StateBasedGame game, GameState gameState) {
-        Audio.stopFireSound();
         graphics.setColor(Color.yellow);
         graphics.setAntiAlias(true);
         Color color = new Color(0f, 0f, 0f, 0.5f);
@@ -65,7 +63,7 @@ public class PauseScreen {
             if (mouseOver.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                         "Player left the game, to the main menu");
-                gameState.paused = false;
+                gameState.getGame().setPaused(false);
                 game.enterState(0);
             }
         }

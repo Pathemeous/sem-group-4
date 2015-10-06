@@ -5,6 +5,9 @@ import nl.tudelft.semgroup4.Modifiable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
+/**
+ * Represents a solid wall that exists in the game field.
+ */
 public class Wall extends AbstractEnvironmentObject {
 
     public Wall(Image image, int locX, int locY) {

@@ -2,6 +2,7 @@ package nl.tudelft.model;
 
 import java.util.HashMap;
 
+import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
@@ -30,10 +31,11 @@ public class Player extends AbstractGameObject {
     private int lives;
     private final boolean firstPlayer;
     private final Input input;
-    private HashMap<String, Powerup> powerups = new HashMap<>();
+    private final HashMap<String, Powerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
+    private final ResourcesWrapper resources;
 
     private Weapon weapon;
 
@@ -52,7 +54,7 @@ public class Player extends AbstractGameObject {
      * @param locY
      *            int - The y-coordinate where the player should spawn.
      * @param input
-     *            Input - The input to enable the user to move.
+     *            {@link Input} - The input to enable the user to move.
      * @param isFirstPlayer
      *            boolean - checks whether the player is number one or two.
      */
@@ -64,6 +66,7 @@ public class Player extends AbstractGameObject {
         score = 0;
         money = 0;
         this.firstPlayer = isFirstPlayer;
+        this.resources = resources;
 
         this.input = input;
         this.weapon = new RegularWeapon(new ResourcesWrapper(), 0, 0);
@@ -125,7 +128,7 @@ public class Player extends AbstractGameObject {
         }
         if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
                 || (!(input.isKeyDown(Input.KEY_A)
-                || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
+                        || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
             setAnimationCurrent(null);
         }
     }
@@ -134,21 +137,31 @@ public class Player extends AbstractGameObject {
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
-     * This means that a player loses all his powerups, his weapons and makes sure that the weapon
-     * firedelay is set to zero.
+     * This means that a player loses all his {@link Powerup}s and his {@link Weapon} and makes
+     * sure that the weapon fire delay is set to zero.
      * </p>
      */
     public void reset() {
         clearAllPowerups();
         if (!shopWeapon) {
             setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
+        } else {
+            weapon.getProjectiles().clear();
         }
         this.weapon.activate(this);
         weaponActivated = false;
     }
 
     /**
-     * Removes all powerups from.
+     * Performs all necessary actions that should happens when this {@link Player} dies.
+     */
+    public void die() {
+        removeLife();
+        setScore(getScore() - 1000);
+    }
+
+    /**
+     * Removes all {@link Powerup}s from this {@link Player}.
      */
     public void clearAllPowerups() {
         if (hasPowerup(Powerup.SPEED)) {
@@ -166,30 +179,52 @@ public class Player extends AbstractGameObject {
     }
 
     /**
-     * Returns true if the player has a powerup with the specified key.
+     * Returns true if the player has a {@link Powerup} with the specified key.
      * 
      * @param key
-     *            : key which specifies the type of powerup.
-     * @return : true iff the player has a powerup with the specified key.
+     *            {@link String} - Key which specifies the type of powerup.
+     * @return boolean - True iff the player has a {@link Powerup} with the specified key.
      */
     public boolean hasPowerup(String key) {
         return powerups.get(key) != null;
     }
 
+    /**
+     * Removes the {@link Powerup} specified by the key.
+     * 
+     * @param key
+     *            {@link String} - the key to remove.
+     * @return boolean - True iff the key is successfully removed.
+     */
     public Powerup removePowerup(String key) {
         return powerups.remove(key);
     }
 
+    /**
+     * Adds the {@link Powerup} specified by the key.
+     * 
+     * @param key
+     *            {@link String} - the key to add.
+     * @param value
+     *            {@link Powerup} - the powerup to put in the hasmap.
+     */
     public void setPowerup(String key, Powerup value) {
         powerups.put(key, value);
     }
 
+    /**
+     * Gets the desired {@link Powerup} based on its key.
+     * 
+     * @param key
+     *            {@link String} - the key associated with the {@link Powerup}.
+     * @return {@link Powerup} - the desired {@link Powerup}.
+     */
     public Powerup getPowerup(String key) {
         return powerups.get(key);
     }
 
     /**
-     * Checks whether the player has the Invincible powerup.
+     * Checks whether the player has the {@link InvinciblePowerup} powerup.
      * 
      * @return true if he does, false if not.
      */
@@ -215,10 +250,16 @@ public class Player extends AbstractGameObject {
         return powerups.get(Powerup.SHOPSHIELD) != null;
     }
 
+    /**
+     * Applies the speed up pickup to the player.
+     */
     public void applySpeedup() {
         speed = REGULAR_SPEED * SPEEDUP;
     }
 
+    /**
+     * Sets the speed of the player to the default speed.
+     */
     public void setDefaultSpeed() {
         speed = REGULAR_SPEED;
     }
@@ -255,7 +296,7 @@ public class Player extends AbstractGameObject {
      * Sets the weapon of the player.
      * 
      * @param weapon
-     *            Weapon - the Weapon to use.
+     *            {@link Weapon} - the Weapon to use.
      */
     public void setWeapon(Weapon weapon) {
         this.weapon = weapon;
@@ -264,7 +305,7 @@ public class Player extends AbstractGameObject {
     /**
      * Returns the weapon of the player.
      * 
-     * @return the current weapon
+     * @return {@link Weapon} - The current weapon
      */
     public Weapon getWeapon() {
         return this.weapon;
@@ -273,20 +314,38 @@ public class Player extends AbstractGameObject {
     /**
      * Get the amount of lives that the player has.
      * 
-     * @return int the amount of lives the player has left.
+     * @return int - The amount of lives the player has left.
      */
     public int getLives() {
         return this.lives;
     }
 
+    /**
+     * Sets the lives that this {@link Player} has to the specified value.
+     * 
+     * @param lives
+     *            int - The amount of lives to set.
+     */
     public void setLives(int lives) {
         this.lives = lives;
     }
 
+    /**
+     * Sets the score of this {@link Player} to the specified value.
+     * 
+     * @param score
+     *            int - The amount of points to set as the score.
+     */
     public void setScore(int score) {
         this.score = score;
     }
 
+    /**
+     * Sets the amount of money that this {@link Player} has to the specified value.
+     * 
+     * @param money
+     *            int - The amount of money.
+     */
     public void setMoney(int money) {
         this.money = money;
     }
@@ -336,18 +395,41 @@ public class Player extends AbstractGameObject {
         this.animationCurrent = animationCurrent;
     }
 
+    /**
+     * Sets the state of this {@link Player} to determine whether his {@link Weapon} is a shop
+     * weapon.
+     * 
+     * @param bool
+     *            boolean - true iff the {@link Player} currently has a shop weapon.
+     */
     public void setShopWeapon(boolean bool) {
         this.shopWeapon = bool;
     }
 
+    /**
+     * Gets the value of the shopWeapon field.
+     * 
+     * @return boolean - true iff the {@link Player} currently has a shop weapon.
+     */
     public boolean isShopWeapon() {
         return this.shopWeapon;
     }
 
+    /**
+     * Sets the state of this {@link Player} to determine whether his speedUp is a shop perk.
+     * 
+     * @param bool
+     *            boolean - true iff the {@link Player} currently has a shop speedUp.
+     */
     public void setShopSpeed(boolean bool) {
         this.shopSpeedup = bool;
     }
 
+    /**
+     * Gets the value of the shopSpeed field.
+     * 
+     * @return boolean - true iff the {@link Player} currently has a shop speedUp.
+     */
     public boolean isShopSpeed() {
         return shopSpeedup;
     }
