@@ -47,9 +47,14 @@ public class HighscoresState extends BasicGameState {
         
         for (int i = 1; i <= 10; i++) {
             verticalLocationHighscores += 50;
-            String position = Integer.toString(i);
+            String position = Integer.toString(i) + ".";
             typeFont.drawString(horizontalLocationHighscores, verticalLocationHighscores, 
-                    position, Color.yellow);
+                    position, Color.white);
+            typeFont.drawString(horizontalLocationHighscores + 100, verticalLocationHighscores, 
+                    "Player " + position, Color.orange);
+            String score = Integer.toString(i * 1000);
+            typeFont.drawString(container.getWidth() - 250, verticalLocationHighscores, 
+                    score, Color.red);
         }
     }
 
