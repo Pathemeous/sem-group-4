@@ -31,7 +31,7 @@ public class HighscoresState extends BasicGameState {
     private MouseOverArea backButton;
     private Input input;
     private final ResourcesWrapper resources = new ResourcesWrapper();
-    private List<HighscoreEntry> highscores = new ArrayList<>();
+    private final List<HighscoreEntry> highscores = new ArrayList<>();
     
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
@@ -67,29 +67,29 @@ public class HighscoresState extends BasicGameState {
         Font font = new Font("Calibri", Font.BOLD, 46);
         TrueTypeFont typeFont = new TrueTypeFont(font, true);
         
-        float horizontalLocationHighscores = 60.0f;
-        float verticalLocationHighscores = 30.0f;
+        float horizontalLoc = 60.0f;
+        float verticalLoc = 30.0f;
         
-        typeFont.drawString(horizontalLocationHighscores, verticalLocationHighscores, 
+        typeFont.drawString(horizontalLoc, verticalLoc, 
                 "HIGHSCORES", Color.yellow);
         
         for (int i = 0; i < 10; i++) {
-            verticalLocationHighscores += 50;
+            verticalLoc += 50;
             String position = Integer.toString(i + 1) + ".";
-            typeFont.drawString(horizontalLocationHighscores, verticalLocationHighscores, 
+            typeFont.drawString(horizontalLoc, verticalLoc, 
                     position, Color.white);
             
             if (highscores.size() > i) {
-                typeFont.drawString(horizontalLocationHighscores + 100, verticalLocationHighscores, 
+                typeFont.drawString(horizontalLoc + 100, verticalLoc, 
                         highscores.get(i).getName(), Color.orange);
                 
                 String score = Long.toString(highscores.get(i).getScore());
-                typeFont.drawString(container.getWidth() - 250, verticalLocationHighscores, 
+                typeFont.drawString(container.getWidth() - 250, verticalLoc, 
                         score, Color.red);
             } else {
-                typeFont.drawString(horizontalLocationHighscores + 100, verticalLocationHighscores, 
+                typeFont.drawString(horizontalLoc + 100, verticalLoc, 
                         "-", Color.orange);
-                typeFont.drawString(container.getWidth() - 250, verticalLocationHighscores, 
+                typeFont.drawString(container.getWidth() - 250, verticalLoc, 
                         "-", Color.red);
             }
         }
@@ -98,12 +98,11 @@ public class HighscoresState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int ticks) 
             throws SlickException {
-        if (backButton.isMouseOver()) {
-            if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "HighscoresMenu", 
-                        "User goes back to main menu" );
-                game.enterState(0);
-            }
+        if (backButton.isMouseOver() 
+                && input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "HighscoresMenu", 
+                    "User goes back to main menu" );
+            game.enterState(0);
         }
     }
 
