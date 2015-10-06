@@ -1,12 +1,21 @@
 package nl.tudelft.semgroup4;
 
 import java.awt.Font;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.util.CompareHighscores;
+import nl.tudelft.semgroup4.util.PlayerScorePair;
 
-import org.json.JSONObject;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -22,12 +31,31 @@ public class HighscoresState extends BasicGameState {
     private MouseOverArea backButton;
     private Input input;
     private final ResourcesWrapper resources = new ResourcesWrapper();
+    private List<PlayerScorePair> highscores = new ArrayList<>();
     
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         backButton = new MouseOverArea(container, resources.getBackText(),
                 container.getWidth() / 10, container.getHeight() / 10 * 9);
         input = container.getInput();
+        
+        JSONParser parser = new JSONParser();
+        
+        try {
+            JSONArray array = (JSONArray) parser.parse(new FileReader("scores.json"));
+            
+            for (Object object : array) {
+                JSONObject highscore = (JSONObject)object;
+                
+                String name = (String)highscore.get("name");
+                long score = (long)highscore.get("score");
+                highscores.add(new PlayerScorePair(name, score));
+            }
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
+        
+        highscores.sort(new CompareHighscores());
     }
 
     @Override
@@ -45,16 +73,25 @@ public class HighscoresState extends BasicGameState {
         typeFont.drawString(horizontalLocationHighscores, verticalLocationHighscores, 
                 "HIGHSCORES", Color.yellow);
         
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 0; i < 10; i++) {
             verticalLocationHighscores += 50;
-            String position = Integer.toString(i) + ".";
+            String position = Integer.toString(i + 1) + ".";
             typeFont.drawString(horizontalLocationHighscores, verticalLocationHighscores, 
                     position, Color.white);
-            typeFont.drawString(horizontalLocationHighscores + 100, verticalLocationHighscores, 
-                    "Player " + position, Color.orange);
-            String score = Integer.toString(i * 1000);
-            typeFont.drawString(container.getWidth() - 250, verticalLocationHighscores, 
-                    score, Color.red);
+            
+            if (highscores.size() > i) {
+                typeFont.drawString(horizontalLocationHighscores + 100, verticalLocationHighscores, 
+                        highscores.get(i).getName(), Color.orange);
+                
+                String score = Long.toString(highscores.get(i).getScore());
+                typeFont.drawString(container.getWidth() - 250, verticalLocationHighscores, 
+                        score, Color.red);
+            } else {
+                typeFont.drawString(horizontalLocationHighscores + 100, verticalLocationHighscores, 
+                        "-", Color.orange);
+                typeFont.drawString(container.getWidth() - 250, verticalLocationHighscores, 
+                        "-", Color.red);
+            }
         }
     }
 

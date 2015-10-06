@@ -2,15 +2,15 @@ package nl.tudelft.semgroup4.util;
 
 public class PlayerScorePair {
     
-    private int score;
+    private long score;
     private String name;
     
-    public PlayerScorePair(String name, int score) {
+    public PlayerScorePair(String name, long score) {
         this.name = name;
         this.score = score;
     }
     
-    public int getScore() {
+    public long getScore() {
         return score;
     }
     
