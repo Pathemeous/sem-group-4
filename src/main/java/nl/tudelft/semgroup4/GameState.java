@@ -21,7 +21,7 @@ public class GameState extends BasicGameState {
     private PauseScreen pauseScreen;
     private MouseOverArea mouseOver;
     private Input input = new Input(0);
-    private Game theGame;
+    private Game currentGame;
     private Dashboard dashboard;
     private final boolean singlePlayer;
     private boolean pauseScreenOpened = false;
@@ -75,15 +75,15 @@ public class GameState extends BasicGameState {
             playerList.add(secondPlayer);
         }
 
-        theGame =
+        currentGame =
                 new Game(mainApp, playerList, container.getWidth(), container.getHeight(),
                         new ResourcesWrapper());
         for (Player player : playerList) {
-            theGame.toAdd(player.getWeapon());
+            currentGame.toAdd(player.getWeapon());
         }
 
         int dashboardMargin = 20;
-        dashboard = new Dashboard(new ResourcesWrapper(), theGame,
+        dashboard = new Dashboard(new ResourcesWrapper(), currentGame,
                         dashboardMargin,
                         container.getWidth() - dashboardMargin,
                         container.getHeight());
@@ -104,7 +104,7 @@ public class GameState extends BasicGameState {
     public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
 
-        theGame.render(container, graphics);
+        currentGame.render(container, graphics);
         dashboard.render(container, graphics);
 
         if (pauseScreenOpened) {
@@ -134,14 +134,14 @@ public class GameState extends BasicGameState {
         // checks if the escape key is pressed, if so, the gameState pauses
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                    + (theGame.isPaused() ? "resumed" : "paused") + " the game");
+                    + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
-            theGame.setPaused(!theGame.isPaused());
+            currentGame.setPaused(!currentGame.isPaused());
             pauseScreenOpened = !pauseScreenOpened;
         }
 
-        if (!theGame.isPaused()) {
-            theGame.update(delta);
+        if (!currentGame.isPaused()) {
+            currentGame.update(delta);
             dashboard.update(delta);
         } else {
             theGame.getCountdown().update();
@@ -149,7 +149,7 @@ public class GameState extends BasicGameState {
     }
     
     protected Game getGame() {
-        return theGame;
+        return currentGame;
     }
 
     @Override
