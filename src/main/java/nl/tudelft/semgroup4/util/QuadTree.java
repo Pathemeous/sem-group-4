@@ -104,7 +104,7 @@ public class QuadTree {
      * child node and is part of the parent node
      * 
      * @param rect
-     *            - the current rect (idk even tbh).
+     *            {@link Shape} - The bounding box of interest.
      * @return int - the node in which the object belongs.
      */
     private int getIndex(Shape rect) {
