@@ -6,6 +6,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+import org.json.JSONObject;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -24,7 +25,6 @@ public class HighscoresState extends BasicGameState {
     
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
-        System.out.println("High scores initiated!");
         backButton = new MouseOverArea(container, resources.getBackText(),
                 container.getWidth() / 10, container.getHeight() / 10 * 9);
         input = container.getInput();
@@ -38,7 +38,19 @@ public class HighscoresState extends BasicGameState {
         
         Font font = new Font("Calibri", Font.BOLD, 46);
         TrueTypeFont typeFont = new TrueTypeFont(font, true);
-        typeFont.drawString(container.getWidth() / 2 - 60.0f, 30.0f, "HIGHSCORES", Color.yellow);
+        
+        float horizontalLocationHighscores = 60.0f;
+        float verticalLocationHighscores = 30.0f;
+        
+        typeFont.drawString(horizontalLocationHighscores, verticalLocationHighscores, 
+                "HIGHSCORES", Color.yellow);
+        
+        for (int i = 1; i <= 10; i++) {
+            verticalLocationHighscores += 50;
+            String position = Integer.toString(i);
+            typeFont.drawString(horizontalLocationHighscores, verticalLocationHighscores, 
+                    position, Color.yellow);
+        }
     }
 
     @Override
