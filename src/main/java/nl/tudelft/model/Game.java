@@ -15,6 +15,7 @@ import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.QuadTree;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -47,6 +48,7 @@ public class Game implements Renderable, Modifiable {
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
+    private boolean paused = false;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -199,8 +201,8 @@ public class Game implements Renderable, Modifiable {
     private void pickupCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : curLevel.getPickups()) {
             // collision with walls and players
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -211,8 +213,8 @@ public class Game implements Renderable, Modifiable {
      */
     private void playerCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : players) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -223,8 +225,8 @@ public class Game implements Renderable, Modifiable {
      */
     private void projectileCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : curLevel.getProjectiles()) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -236,8 +238,8 @@ public class Game implements Renderable, Modifiable {
     private void bubbleCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : curLevel.getBubbles()) {
             // bubbles check against walls, players and projectiles
-            for (AbstractGameObject collidesWithB : CollisionHelper.collideObjectWithList(
-                    collidesWithA, null, quad)) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
             }
         }
@@ -379,6 +381,14 @@ public class Game implements Renderable, Modifiable {
             curLevel.toRemove(obj);
         }
 
+    }
+    
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+    
+    public boolean isPaused() {
+        return paused;
     }
 
     /**

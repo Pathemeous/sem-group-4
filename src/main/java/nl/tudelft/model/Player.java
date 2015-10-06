@@ -156,7 +156,6 @@ public class Player extends AbstractGameObject {
      * Performs all necessary actions that should happens when this {@link Player} dies.
      */
     public void die() {
-        resources.playDeath();
         removeLife();
         setScore(getScore() - 1000);
     }
