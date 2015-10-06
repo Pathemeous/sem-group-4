@@ -63,7 +63,7 @@ public class MainApp extends StateBasedGame {
         addState(new StartScreenState());
         addState(new OptionsState());
         addState(new ShopState());
+        addState(new HighscoresState());
         enterState(0);
-
     }
 }
