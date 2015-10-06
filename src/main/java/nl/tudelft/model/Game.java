@@ -3,6 +3,8 @@ package nl.tudelft.model;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
@@ -15,6 +17,7 @@ import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.QuadTree;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -47,6 +50,7 @@ public class Game implements Renderable, Modifiable {
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
+    private boolean paused = false;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -379,6 +383,14 @@ public class Game implements Renderable, Modifiable {
             curLevel.toRemove(obj);
         }
 
+    }
+    
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+    
+    public boolean isPaused() {
+        return paused;
     }
 
     /**

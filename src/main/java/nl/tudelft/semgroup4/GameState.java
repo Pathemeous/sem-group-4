@@ -17,10 +17,9 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    boolean paused;
-    PauseScreen pauseScreen;
-    MouseOverArea mouseOver;
-    Input input = new Input(0);
+    private PauseScreen pauseScreen;
+    private MouseOverArea mouseOver;
+    private Input input = new Input(0);
     private Game theGame;
     private Dashboard dashboard;
     private final boolean singlePlayer;
@@ -106,7 +105,7 @@ public class GameState extends BasicGameState {
         theGame.render(container, graphics);
         dashboard.render(container, graphics);
 
-        if (paused) {
+        if (theGame.isPaused()) {
             ResourcesWrapper res = new ResourcesWrapper();
             if (res.getWeaponFire().playing()) {
                 res.stopFireSound();                
@@ -133,15 +132,19 @@ public class GameState extends BasicGameState {
         // checks if the escape key is pressed, if so, the gameState pauses
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                    + (paused ? "resumed" : "paused") + " the game");
+                    + (theGame.isPaused() ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
-            paused = !paused;
+            theGame.setPaused(!theGame.isPaused());
         }
 
-        if (!paused) {
+        if (!theGame.isPaused()) {
             theGame.update(delta);
             dashboard.update(delta);
         }
+    }
+    
+    protected Game getGame() {
+        return theGame;
     }
 
     @Override
