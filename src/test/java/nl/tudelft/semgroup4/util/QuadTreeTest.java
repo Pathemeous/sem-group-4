@@ -24,7 +24,7 @@ import org.newdawn.slick.geom.Shape;
  */
 public class QuadTreeTest {
 
-    private Rectangle mockedDefaultBounds;
+    private Rectangle mckdDefaultBounds;
     private QuadTree testTree;
 
     /**
@@ -32,29 +32,29 @@ public class QuadTreeTest {
      */
     @Before
     public void setUp() throws Exception {
-        mockedDefaultBounds = Mockito.mock(Rectangle.class);
-        testTree = new QuadTree(0, mockedDefaultBounds);
+        mckdDefaultBounds = Mockito.mock(Rectangle.class);
+        testTree = new QuadTree(0, mckdDefaultBounds);
     }
 
     @Test
     public void testQuadTree() {
         assertNotNull(testTree);
         assertEquals(0, testTree.getDepthLevel());
-        assertEquals(mockedDefaultBounds, testTree.getBounds());
+        assertEquals(mckdDefaultBounds, testTree.getBounds());
 
     }
 
     @Test
     public void testGetDepthLevel() {
         assertEquals(0, testTree.getDepthLevel());
-        QuadTree highlevelTree = new QuadTree(3, mockedDefaultBounds);
+        QuadTree highlevelTree = new QuadTree(3, mckdDefaultBounds);
         assertEquals(3, highlevelTree.getDepthLevel());
 
     }
 
     @Test
     public void testGetBounds() {
-        assertEquals(mockedDefaultBounds, testTree.getBounds());
+        assertEquals(mckdDefaultBounds, testTree.getBounds());
     }
 
     @Test
