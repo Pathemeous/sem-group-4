@@ -19,7 +19,6 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameState extends BasicGameState {
     
     private PauseScreen pauseScreen;
-    private MouseOverArea mouseOver;
     private Input input = new Input(0);
     private Game currentGame;
     private Dashboard dashboard;
@@ -47,7 +46,7 @@ public class GameState extends BasicGameState {
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         input = container.getInput();
-        mouseOver =
+        MouseOverArea mouseOver =
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
                                 .getQuitText().getHeight());
