@@ -34,6 +34,7 @@ public class ShieldPowerup extends Powerup {
             this.player = player;
 
             if (player.hasPowerup(Powerup.SHOPSHIELD)) {
+                toRemove();
                 return;
             }
 
