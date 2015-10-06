@@ -15,6 +15,7 @@ import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.QuadTree;
+
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
@@ -47,6 +48,8 @@ public class Game implements Renderable, Modifiable {
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
+    private boolean paused = false;
+    private Countdown countdown;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -83,6 +86,7 @@ public class Game implements Renderable, Modifiable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
+        countdown = new Countdown(this, wrapper);
 
         collisionHandler = getNewCollisionHandler();
     }
@@ -128,6 +132,8 @@ public class Game implements Renderable, Modifiable {
         for (AbstractGameObject gameObject : players) {
             gameObject.render(container, graphics);
         }
+        
+        countdown.render(container, graphics);
     }
 
     /**
@@ -251,6 +257,7 @@ public class Game implements Renderable, Modifiable {
      */
     private void setCurLevel(Level level) {
         this.curLevel = level;
+        countdown.reset();
     }
 
     /**
@@ -379,6 +386,18 @@ public class Game implements Renderable, Modifiable {
             curLevel.toRemove(obj);
         }
 
+    }
+    
+    public void setPaused(boolean paused) {
+        this.paused = paused;
+    }
+    
+    public boolean isPaused() {
+        return paused;
+    }
+    
+    public Countdown getCountdown() {
+        return countdown;
     }
 
     /**
