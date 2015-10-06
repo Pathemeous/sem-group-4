@@ -49,6 +49,7 @@ public class Game implements Renderable, Modifiable {
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
     private boolean paused = false;
+    private Countdown countdown;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -85,6 +86,7 @@ public class Game implements Renderable, Modifiable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
+        countdown = new Countdown(this, wrapper);
 
         collisionHandler = getNewCollisionHandler();
     }
@@ -130,6 +132,8 @@ public class Game implements Renderable, Modifiable {
         for (AbstractGameObject gameObject : players) {
             gameObject.render(container, graphics);
         }
+        
+        countdown.render(container, graphics);
     }
 
     /**
@@ -253,6 +257,7 @@ public class Game implements Renderable, Modifiable {
      */
     private void setCurLevel(Level level) {
         this.curLevel = level;
+        countdown.reset();
     }
 
     /**
@@ -389,6 +394,10 @@ public class Game implements Renderable, Modifiable {
     
     public boolean isPaused() {
         return paused;
+    }
+    
+    public Countdown getCountdown() {
+        return countdown;
     }
 
     /**

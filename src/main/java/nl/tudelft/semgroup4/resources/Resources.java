@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4.resources;
 
+import java.awt.Font;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
@@ -7,6 +8,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  * This class holds and loads the Slick2D resources.
@@ -93,6 +95,8 @@ public final class Resources {
     static Image player2Off;
     static Image shopImageSpecialWeapon;
     static Image buy;
+    
+    static TrueTypeFont countdownFont;
     
     /**
      * Private constructor to avoid instantiation of this utility class.
@@ -201,6 +205,9 @@ public final class Resources {
 
         powerInvincible = new Image("src/main/resources/img/powerup_invincible.png");
         powerShield = new Image("src/main/resources/img/powerup_shield.png");
+        
+        Font font = new Font("Calibri", Font.BOLD, 60);
+        countdownFont =  new TrueTypeFont(font, true);
     }
 
 }

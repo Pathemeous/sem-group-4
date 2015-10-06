@@ -159,9 +159,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
             new Timer().schedule(new TimerTask() {
                 @Override
                 public void run() {
+                    game.setPaused(false);
                     player.die();
                     game.levelReset();
-                    game.setPaused(false);
                 }
             }, 1000);
         }
