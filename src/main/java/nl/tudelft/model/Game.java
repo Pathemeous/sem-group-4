@@ -86,7 +86,7 @@ public class Game implements Renderable, Modifiable {
             throw new IllegalArgumentException();
         }
         this.curLevel = this.levelIt.next();
-        countdown = new Countdown(this);
+        countdown = new Countdown(this, wrapper);
 
         collisionHandler = getNewCollisionHandler();
     }

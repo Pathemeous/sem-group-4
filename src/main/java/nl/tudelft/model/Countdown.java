@@ -1,8 +1,7 @@
 package nl.tudelft.model;
 
-import java.awt.Font;
-
 import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -19,12 +18,12 @@ public class Countdown implements Renderable {
     /**
      * Constructor of this class. Creates a countdown object.
      * @param game : the game that this countdown belongs to.
+     * @param resources : resources wrapper.
      */
-    public Countdown(Game game) {
+    public Countdown(Game game, ResourcesWrapper resources) {
         this.game = game;
         game.setPaused(true);
-        Font font = new Font("Calibri", Font.BOLD, 60);
-        typeFont = new TrueTypeFont(font, true);
+        typeFont = resources.getCountdownFont();
     }
     
     /**
