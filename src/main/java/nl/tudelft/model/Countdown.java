@@ -54,4 +54,12 @@ public class Countdown implements Renderable {
             countdown--;
         } 
     }
+    
+    protected int getCounter() {
+        return countdown;
+    }
+    
+    protected void setCounter(int counter) {
+        countdown = counter;
+    }
 }
