@@ -336,7 +336,6 @@ public class ResourcesWrapper {
     }
     
     public TrueTypeFont getCountdownFont() {
-        Font font = new Font("Calibri", Font.BOLD, 60);
-        return new TrueTypeFont(font, true);
+        return Resources.countdownFont;
     }
 }

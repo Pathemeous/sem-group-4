@@ -134,7 +134,6 @@ public class LevelFactory {
         int time = 120000;
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
-
     }
 
     /**
