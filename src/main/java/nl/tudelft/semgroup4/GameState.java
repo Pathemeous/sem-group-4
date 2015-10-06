@@ -143,6 +143,8 @@ public class GameState extends BasicGameState {
         if (!theGame.isPaused()) {
             theGame.update(delta);
             dashboard.update(delta);
+        } else {
+            theGame.getCountdown().update();
         }
     }
     
