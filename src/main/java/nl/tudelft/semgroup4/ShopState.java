@@ -150,7 +150,7 @@ public class ShopState extends BasicGameState {
         shop = new Shop(game);
 
         selectedPlayer = shop.getGame().getPlayers()[0];
-//        selectedPlayer.setMoney(1000);
+        selectedPlayer.setMoney(1000);
     }
 
     @Override
