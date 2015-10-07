@@ -1,5 +1,6 @@
 package nl.tudelft.model;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
@@ -24,7 +25,6 @@ public class GameTest extends AbstractOpenGLTestCase {
     
     private StateBasedGame mockedSbg;
     private ResourcesWrapper mockedResources;
-    private LinkedList<Player> playerList;
     private Player mockedPlayer;
     
     /**
@@ -47,8 +47,6 @@ public class GameTest extends AbstractOpenGLTestCase {
         when(mockedResources.getBubbleImage6()).thenReturn(mockedImage);
 
         mockedPlayer = mock(Player.class);
-        playerList = new LinkedList<>();
-        playerList.add(mockedPlayer);
     }
 
     /**
@@ -56,18 +54,8 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testGame() {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
-        assertFalse(game == null);
-        assertTrue(game.getPlayers().equals(playerList));
-    }
-
-    /**
-     * Test to see if the game constructor works.
-     */
-    @Test(expected = IllegalArgumentException.class)
-    public void testGame2() {
-        LinkedList<Player> emptyPlayerList = new LinkedList<>();
-        Game game = new Game(mockedSbg, emptyPlayerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        assertArrayEquals(game.getPlayers(), new Player[]{mockedPlayer});
     }
 
     /**
@@ -75,7 +63,7 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testGetCurLevel() {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
     }
 
@@ -85,7 +73,7 @@ public class GameTest extends AbstractOpenGLTestCase {
     @Test
     public void testGetPlayerLives() {
         when(mockedPlayer.getLives()).thenReturn(1);
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getPlayerLives(), 1);
     }
 
@@ -94,21 +82,21 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testResetPlayers() {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         game.resetPlayers();
         verify(mockedPlayer, times(1)).reset();
     }
 
     /**
      * Test to check the level reset.
-     * 
+     *
      * @throws SlickException
      *             - Resources not found.
      */
     // @Test
     // TODO Create injecatble Audio dependence and mock it for this test.
     public void testLevelReset1() throws SlickException {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(1);
         assertEquals(game.getCurLevel().getId(), 1);
         game.levelReset();
@@ -117,14 +105,14 @@ public class GameTest extends AbstractOpenGLTestCase {
 
     /**
      * Test to check the level reset.
-     * 
+     *
      * @throws SlickException
      *             - Resources not found.
      */
     // @Test
     // TODO Create injecatble Audio dependence and mock it for this test.
     public void testLevelReset2() throws SlickException {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(0);
         assertEquals(game.getCurLevel().getId(), 1);
         game.levelReset();
@@ -133,13 +121,13 @@ public class GameTest extends AbstractOpenGLTestCase {
 
     /**
      * Test to check the level reset.
-     * 
+     *
      * @throws SlickException
      *             - Resources not found.
      */
     @Test
     public void testNextLevel1() throws SlickException {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 2);
@@ -147,13 +135,13 @@ public class GameTest extends AbstractOpenGLTestCase {
 
     /**
      * Test to check the level reset.
-     * 
+     *
      * @throws SlickException
      *             - Resources not found.
      */
     @Test
     public void testNextLevel2() throws SlickException {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 2);
@@ -170,7 +158,7 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testGetNewCollisionHandler() {
-        Game game = new Game(mockedSbg, playerList, 0, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         CollisionHandler<AbstractGameObject, AbstractGameObject> handler = null;
         assertEquals(handler, null);
         handler = game.getNewCollisionHandler();
@@ -182,7 +170,7 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testGetContainerWidth() {
-        Game game = new Game(mockedSbg, playerList, 1, 0, mockedResources);
+        Game game = new TestGame(mockedSbg, 1, 0, mockedResources, mockedPlayer);
         assertEquals(game.getContainerWidth(), 1);
     }
 
@@ -191,50 +179,8 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testGetContainerHeight() {
-        Game game = new Game(mockedSbg, playerList, 1, 1, mockedResources);
+        Game game = new TestGame(mockedSbg, 1, 1, mockedResources, mockedPlayer);
         assertEquals(game.getContainerWidth(), 1);
     }
 
-    /**
-     * Test to check the toRemove method.
-     */
-    @Test
-    public void testToRemove1() {
-        Game game = new Game(mockedSbg, playerList, 1, 1, mockedResources);
-        assertTrue(game.getPlayers().contains(mockedPlayer));
-        game.toRemove(mockedPlayer);
-        assertTrue(game.getPlayerToDelete().contains(mockedPlayer));
-    }
-
-    /**
-     * Test to check the toRemove method.
-     */
-    @Test
-    public void testToRemove2() {
-        Game game = new Game(mockedSbg, playerList, 1, 1, mockedResources);
-        Projectile mockedObj = mock(Projectile.class);
-        game.toRemove(mockedObj);
-        assertTrue(game.getCurLevel().getToRemove().contains(mockedObj));
-    }
-
-    /**
-     * Test to check the toAdd method.
-     */
-    @Test
-    public void testToAdd1() {
-        Game game = new Game(mockedSbg, playerList, 1, 1, mockedResources);
-        Projectile mockedObj = mock(Projectile.class);
-        game.toAdd(mockedObj);
-        assertTrue(game.getCurLevel().getToAdd().contains(mockedObj));
-    }
-
-    /**
-     * Test to check the toAdd method.
-     */
-    @Test
-    public void testToAdd2() {
-        Game game = new Game(mockedSbg, playerList, 1, 1, mockedResources);
-        game.toAdd(mockedPlayer);
-        assertFalse(game.getCurLevel().getToAdd().contains(mockedPlayer));
-    }
 }

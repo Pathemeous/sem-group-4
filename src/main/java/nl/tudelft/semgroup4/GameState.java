@@ -3,7 +3,9 @@ package nl.tudelft.semgroup4;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Game;
+import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.Player;
+import nl.tudelft.model.SingleplayerGame;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -49,43 +51,52 @@ public class GameState extends BasicGameState {
         MouseOverArea mouseOver =
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
-                                .getQuitText().getHeight());
+                        .getQuitText().getHeight());
         pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
         // Resources.titleScreenMusic.stop();
 
         // todo input
 
-        LinkedList<Player> playerList = new LinkedList<>();
-
         // players are initialized with a certain Y coordinate, this should be refactored to be
         // more
         // flexible
-        Player firstPlayer =
-                new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                        container.getHeight() - res.getPlayerImageStill().getHeight() - 5
-                                * res.getWallImage().getHeight(), input, true);
-        playerList.add(firstPlayer);
 
-        if (!singlePlayer) {
+        if (singlePlayer) {
+            Player player = new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                    container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                            * res.getWallImage().getHeight(), input, true);
+
+            currentGame = new SingleplayerGame(
+                    mainApp,
+                    container.getWidth(), container.getHeight(),
+                    new ResourcesWrapper(),
+                    player);
+            currentGame.toAdd(player.getWeapon());
+
+        } else {
+            Player firstPlayer =
+                    new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                            container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                                    * res.getWallImage().getHeight(), input, true);
             Player secondPlayer =
                     new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
                             container.getHeight() - res.getPlayerImageStill().getHeight() - 5
                                     * res.getWallImage().getHeight(), input, false);
-            playerList.add(secondPlayer);
-        }
 
-        currentGame =
-                new Game(mainApp, playerList, container.getWidth(), container.getHeight(),
-                        new ResourcesWrapper());
-        for (Player player : playerList) {
-            currentGame.toAdd(player.getWeapon());
+            currentGame = new MultiplayerGame(
+                    mainApp,
+                    container.getWidth(), container.getHeight(),
+                    new ResourcesWrapper(),
+                    firstPlayer, secondPlayer);
+            currentGame.toAdd(firstPlayer.getWeapon());
+            currentGame.toAdd(firstPlayer.getWeapon());
         }
 
         int dashboardMargin = 20;
         dashboard = new Dashboard(new ResourcesWrapper(), currentGame,
-                        dashboardMargin,
-                        container.getWidth() - dashboardMargin,
-                        container.getHeight());
+                dashboardMargin,
+                container.getWidth() - dashboardMargin,
+                container.getHeight());
     }
 
     /**
@@ -148,10 +159,10 @@ public class GameState extends BasicGameState {
 
         if (!currentGame.isPaused()) {
             currentGame.update(delta);
-            dashboard.update(delta);
         } else {
             currentGame.getCountdown().update();
         }
+        dashboard.update(delta);
     }
     
     protected Game getGame() {
