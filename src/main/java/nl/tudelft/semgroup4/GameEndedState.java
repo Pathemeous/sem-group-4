@@ -1,8 +1,6 @@
 package nl.tudelft.semgroup4;
 
 import java.awt.Font;
-import java.awt.RenderingHints.Key;
-import java.util.LinkedList;
 
 import nl.tudelft.model.Player;
 
@@ -18,13 +16,14 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameEndedState extends BasicGameState {
+    
+    //margin for the continue button.
     private final int margin = 20;
     
     private Font fontTitle;
     private Font fontPlayer;
     private TrueTypeFont typeFontTitle;
-    private TrueTypeFont typeFontPlayer;
-    
+    private TrueTypeFont typeFontPlayer;    
     
     private String gameOverText;
     private String gameWonText;
@@ -56,6 +55,7 @@ public class GameEndedState extends BasicGameState {
         gameWonText = "GAME COMPLETED";   
         gameContinueText = "CONTINUE";
         
+        //initializes all the mouseover areas.
         textFieldPlayer1 = new TextField(container,
                 typeFontPlayer,
                 container.getWidth() / 5 * 4,
@@ -92,15 +92,22 @@ public class GameEndedState extends BasicGameState {
                 typeFontPlayer.getHeight());
         
     }
-
-    public void setup(Player[] players2, boolean won) {
+    
+    /**
+     * Setup for initializing extra data after the state has been made at the beginning
+     * of the app.
+     * @param players Players currently in the game
+     * @param won True if the game has been won
+     */
+    public void setup(Player[] players, boolean won) {
         this.won = won;
-        this.players = players2;
+        this.players = players;
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
+        //draws a different title depending on if the game has been won or lost.
         if (won) {
             typeFontTitle.drawString(
                     container.getWidth() / 2 - typeFontTitle.getWidth(gameOverText) / 2,
@@ -110,13 +117,14 @@ public class GameEndedState extends BasicGameState {
                     container.getWidth() / 2 - typeFontTitle.getWidth(gameOverText) / 2,
                     container.getHeight() / 8, gameOverText, Color.yellow);
         }
+        //draws the column names
         typeFontPlayer.drawString(container.getWidth() / 5 * 2, container.getHeight() / 4,
                 "SCORE", Color.yellow);
         typeFontPlayer.drawString(container.getWidth() / 5 * 3, container.getHeight() / 4,
                 "MONEY", Color.yellow);
         typeFontPlayer.drawString(container.getWidth() / 5 * 4, container.getHeight() / 4,
                 "NAME", Color.yellow);
-        
+        //draws all information of the fist player
         typeFontPlayer.drawString(container.getWidth() / 8, container.getHeight() / 3,
                 "PLAYER 1", Color.white);
         typeFontPlayer.drawString(container.getWidth() / 5 * 2, container.getHeight() / 3,
@@ -124,10 +132,12 @@ public class GameEndedState extends BasicGameState {
         typeFontPlayer.drawString(container.getWidth() / 5 * 3, container.getHeight() / 3,
                 Integer.toString(players[0].getMoney()), Color.white);
         
+        //draws the first players textfield box.
         graphics.setColor(Color.white);             
         textFieldPlayer1.render(container, graphics);
         textFieldPlayer1.setConsumeEvents(true);
         
+        //Displays all information of the second player if there is a second player.
         if (players.length == 2) {
             typeFontPlayer.drawString(container.getWidth() / 8, container.getHeight() / 2,
                     "PLAYER 2", Color.white);
@@ -140,6 +150,7 @@ public class GameEndedState extends BasicGameState {
             textFieldPlayer2.setConsumeEvents(true);
         }        
         
+        //draws the continue button on the screen.
         typeFontPlayer.drawString(
                 container.getWidth() - margin - typeFontPlayer.getWidth(gameContinueText),
                 container.getHeight() - margin - typeFontPlayer.getHeight(),
@@ -150,6 +161,9 @@ public class GameEndedState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int delta)
             throws SlickException {
+        
+        //checks all mouse clicks in order to be able to select the text boxes and 
+        //continue button.
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverTextField1.isMouseOver()) {
                 System.out.println("player1");
