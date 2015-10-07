@@ -19,7 +19,7 @@ public class PlayerEventHandler extends Observable implements Observer {
      * @author Pathemeous
      *
      */
-    public enum Event {
+    public enum PlayerEvent {
         LEFT, RIGHT, SHOOT
     }
 
@@ -49,15 +49,15 @@ public class PlayerEventHandler extends Observable implements Observer {
     @Override
     public void update(Observable observable, Object argument) {
         if (observable.equals(leftInput)) {
-            notifyObservers(Event.LEFT);
+            notifyObservers(PlayerEvent.LEFT);
         }
 
         if (observable.equals(rightInput)) {
-            notifyObservers(Event.RIGHT);
+            notifyObservers(PlayerEvent.RIGHT);
         }
 
         if (observable.equals(shootInput)) {
-            notifyObservers(Event.SHOOT);
+            notifyObservers(PlayerEvent.SHOOT);
         }
     }
 }
