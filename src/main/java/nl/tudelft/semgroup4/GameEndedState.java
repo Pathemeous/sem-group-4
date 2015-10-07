@@ -128,7 +128,7 @@ public class GameEndedState extends BasicGameState {
         textFieldPlayer1.render(container, graphics);
         textFieldPlayer1.setConsumeEvents(true);
         
-        if (true) {
+        if (players.length == 2) {
             typeFontPlayer.drawString(container.getWidth() / 8, container.getHeight() / 2,
                     "PLAYER 2", Color.white);
             typeFontPlayer.drawString(container.getWidth() / 5 * 2, container.getHeight() / 2,
