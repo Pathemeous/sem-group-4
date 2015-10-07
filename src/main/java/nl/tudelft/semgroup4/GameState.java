@@ -132,11 +132,14 @@ public class GameState extends BasicGameState {
             throws SlickException {
         // checks if the escape key is pressed, if so, the gameState pauses
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                    + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
-            input.disableKeyRepeat();
-            currentGame.setPaused(!currentGame.isPaused());
-            pauseScreenOpened = !pauseScreenOpened;
+            if ((currentGame.isPaused() && pauseScreenOpened) 
+                    || !(currentGame.isPaused() || pauseScreenOpened)) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
+                        + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
+                input.disableKeyRepeat();
+                currentGame.setPaused(!currentGame.isPaused());
+                pauseScreenOpened = !pauseScreenOpened;
+            }
         }
 
         if (!currentGame.isPaused()) {
