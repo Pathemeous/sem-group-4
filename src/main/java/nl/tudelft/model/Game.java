@@ -28,7 +28,7 @@ import org.newdawn.slick.state.StateBasedGame;
  * The Game class represents a game session. A game can be single player or multiplayer, and
  * contains a list of levels and players.
  */
-public class Game implements Renderable, Modifiable {
+public abstract class Game implements Renderable, Modifiable {
 
     public static final Logger LOGGER;
 
@@ -43,8 +43,6 @@ public class Game implements Renderable, Modifiable {
     private final int containerWidth;
     private final int containerHeight;
     private final Iterator<Level> levelIt;
-    private final LinkedList<Player> players;
-    private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
     private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
     private final LevelFactory levelFact;
@@ -57,22 +55,19 @@ public class Game implements Renderable, Modifiable {
      * Creates a Game with its levels and players. Note that the levels and players must both
      * contain at least one object.
      * 
-     * @param wrapper
-     *            {@link ResourcesWrapper} - The resources that Game can inject into LevelFactory.
      * @param mainApp
      *            {@link StateBasedGame} - the mainApp that manages the states.
-     * @param players
-     *            {@link LinkedList} of {@link Player}s - List containing all players that take
-     *            part in this game.
      * @param containerWidth
      *            int - width of the game field.
      * @param containerHeight
      *            int - height of the game field.
+     * @param wrapper
+     *            {@link ResourcesWrapper} - The resources that Game can inject into LevelFactory.
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(StateBasedGame mainApp, LinkedList<Player> players, int containerWidth,
-            int containerHeight, ResourcesWrapper wrapper) throws IllegalArgumentException {
+    public Game(StateBasedGame mainApp, int containerWidth,
+                int containerHeight, ResourcesWrapper wrapper) {
         // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
@@ -80,18 +75,15 @@ public class Game implements Renderable, Modifiable {
         this.levelFact = new LevelFactory(this, wrapper);
         LinkedList<Level> levels = levelFact.getAllLevels();
 
-        this.players = players;
         this.resources = wrapper;
         this.levelIt = levels.iterator();
 
-        if (!this.levelIt.hasNext() || this.players.isEmpty()) {
-            throw new IllegalArgumentException();
-        }
         this.curLevel = this.levelIt.next();
         countdown = new Countdown(this, wrapper);
 
         collisionHandler = getNewCollisionHandler();
     }
+
 
     /**
      * Performs updates and logic on the Game object. This makes sure the game continues to
@@ -131,10 +123,12 @@ public class Game implements Renderable, Modifiable {
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         getCurLevel().render(container, graphics);
 
-        for (AbstractGameObject gameObject : players) {
-            gameObject.render(container, graphics);
+        for (Player player : getPlayers()) {
+            if (player.isAlive()) {
+                player.render(container, graphics);
+            }
         }
-        
+
         countdown.render(container, graphics);
     }
 
@@ -142,7 +136,7 @@ public class Game implements Renderable, Modifiable {
      * Adds collidable objects to the quad tree.
      */
     private void quadFill(QuadTree quad) {
-        for (AbstractGameObject obj : players) {
+        for (AbstractGameObject obj : getPlayers()) {
             quad.insert(obj);
         }
         for (AbstractGameObject obj : curLevel.getProjectiles()) {
@@ -176,7 +170,7 @@ public class Game implements Renderable, Modifiable {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
 
             resources.playTimeUp();
-            for (Player player : players) {
+            for (Player player : getPlayers()) {
                 player.removeLife();
             }
             levelReset();
@@ -192,13 +186,15 @@ public class Game implements Renderable, Modifiable {
      *             exception from Slick if something goes wrong.
      */
     private void playerUpdate(int delta) throws SlickException {
-        for (AbstractGameObject gameObject : players) {
-            gameObject.update(this, delta);
+        for (Player player : getPlayers()) {
+            if (player.isAlive()) {
+                player.update(this, delta);
+            }
         }
-        for (Player player : playerToDelete) {
-            players.remove(player);
-        }
-        playerToDelete.clear();
+//        for (Player player : playerToDelete) {
+//            players.remove(player);
+//        }
+//        playerToDelete.clear();
     }
 
     /**
@@ -218,7 +214,7 @@ public class Game implements Renderable, Modifiable {
      * Checks for every player if it collides with anything a player can collide with.
      */
     private void playerCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : players) {
+        for (AbstractGameObject collidesWithA : getPlayers()) {
             for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
@@ -282,7 +278,7 @@ public class Game implements Renderable, Modifiable {
      */
     public int getPlayerLives() {
         int result = 0;
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             result += player.getLives();
         }
         return result;
@@ -292,7 +288,7 @@ public class Game implements Renderable, Modifiable {
      * Calls {@link Player#reset()} on all players in the game.
      */
     public void resetPlayers() {
-        for (Player player : players) {
+        for (Player player : getPlayers()) {
             player.reset();
         }
     }
@@ -312,13 +308,13 @@ public class Game implements Renderable, Modifiable {
 
     /**
      * Tries to set the next level as the current level. If there is no next level, the game is
-     * completed and {@link gameCompleted()} is called.
+     * completed and {@link #gameCompleted()} is called.
      */
     public void nextLevel() {
         if (levelIt.hasNext()) {
             resetPlayers();
             int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
-            for (Player player : players) {
+            for (Player player : getPlayers()) {
                 player.setScore(player.getScore() + score);
             }
             setCurLevel(levelIt.next());
@@ -332,7 +328,7 @@ public class Game implements Renderable, Modifiable {
      */
     private void gameCompleted() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
-        ((GameEndedState) mainApp.getState(6)).setup(players, true);
+        ((GameEndedState) mainApp.getState(6)).setup(getPlayers(), true);
         mainApp.enterState(6);
     }
 
@@ -345,7 +341,7 @@ public class Game implements Renderable, Modifiable {
      */
     public void gameOver() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
-        ((GameEndedState) mainApp.getState(6)).setup(players, false);
+        ((GameEndedState) mainApp.getState(6)).setup(getPlayers(), false);
         mainApp.enterState(6);
     }
 
@@ -370,25 +366,25 @@ public class Game implements Renderable, Modifiable {
     /**
      * Addition of anything to the Game object is prohibited. Calling this method will delegate any
      * non-player objects to the current level.
+     *
+     * @deprecated use getCurLevel().toAdd(obj)
      */
+    @Deprecated
     @Override
     public void toAdd(AbstractGameObject obj) {
-        if (!(obj instanceof Player)) {
-            curLevel.toAdd(obj);
-        }
+        getCurLevel().toAdd(obj);
     }
 
     /**
      * Can be used to remove Players from the Game object. This is the only type of GameObject
      * stored in Game.
+     *
+     * @deprecated use getCurLevel().toAdd(obj)
      */
+    @Deprecated
     @Override
     public void toRemove(AbstractGameObject obj) {
-        if (obj instanceof Player) {
-            playerToDelete.add((Player) obj);
-        } else {
-            curLevel.toRemove(obj);
-        }
+        getCurLevel().toRemove(obj);
 
     }
     
@@ -405,21 +401,19 @@ public class Game implements Renderable, Modifiable {
     }
 
     /**
-     * Gets the list of players.
+     * Gets the players.
      *
-     * @return List - players of the game.
+     * @return Player[] - player(s) of the game.
      */
-    public LinkedList<Player> getPlayers() {
-        return players;
-    }
+    public abstract Player[] getPlayers();
 
-    /**
-     * Gets the 'PlayerToDelete' list. This list servers as a buffer to the Players list to avoid
-     * aysnchronized access
-     * 
-     * @return {@link LinkedList} of {@link Player}s - the buffer list.
-     */
-    public LinkedList<Player> getPlayerToDelete() {
-        return playerToDelete;
-    }
+//    /**
+//     * Gets the 'PlayerToDelete' list. This list servers as a buffer to the Players list to avoid
+//     * aysnchronized access
+//     *
+//     * @return {@link LinkedList} of {@link Player}s - the buffer list.
+//     */
+//    public LinkedList<Player> getPlayerToDelete() {
+//        return playerToDelete;
+//    }
 }

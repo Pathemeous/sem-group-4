@@ -7,6 +7,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
+import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -22,9 +23,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class ShopState extends BasicGameState {
 
     private Shop shop;
-    private LinkedList<Player> players;
-    private Game game;
-    private final ResourcesWrapper resources = new ResourcesWrapper();  
+    private final ResourcesWrapper resources = new ResourcesWrapper();
     private Input input;
 
     private final TrueTypeFont ttf = new TrueTypeFont(new Font("Verdana", Font.BOLD, 30), true);
@@ -148,11 +147,9 @@ public class ShopState extends BasicGameState {
      * @param game the game that the players play in.
      */
     public void setup(Game game) {
-        this.players = game.getPlayers();
         shop = new Shop(game);
 
-        this.game = game;
-        selectedPlayer = players.getFirst();
+        selectedPlayer = shop.getGame().getPlayers()[0];
         selectedPlayer.setMoney(1000);
     }
 
@@ -173,7 +170,7 @@ public class ShopState extends BasicGameState {
             graphics.drawImage(player1On,
                     container.getWidth() / 10,
                     container.getHeight() / 10 * 3);
-            if (players.size() == 2) {
+            if (shop.getGame().getPlayers().length == 2) {
                 graphics.drawImage(player2Off,
                         container.getWidth() / 10,
                         container.getHeight() / 10 * 4);
@@ -187,7 +184,8 @@ public class ShopState extends BasicGameState {
                     container.getHeight() / 10 * 4);
         }
 
-        final String playerOneMoney = String.format("$ %d", players.get(0).getMoney());
+        final String playerOneMoney =
+                String.format("$ %d", shop.getGame().getPlayers()[0].getMoney());
         ttf.drawString(
                 container.getWidth() / 10 - (ttf.getWidth(playerOneMoney)),
                 (container.getHeight() / 10 * 3)
@@ -196,8 +194,9 @@ public class ShopState extends BasicGameState {
                 playerOneMoney,
                 Color.yellow);
 
-        if (players.size() == 2) {
-            final String playerTwoMoney = String.format("$ %d", players.get(1).getMoney());
+        if (shop.getGame().getPlayers().length == 2) {
+            final String playerTwoMoney =
+                    String.format("$ %d", shop.getGame().getPlayers()[1].getMoney());
             ttf.drawString(
                     container.getWidth() / 10 - (ttf.getWidth(playerTwoMoney)),
                     (container.getHeight() / 10 * 4)
@@ -283,13 +282,15 @@ public class ShopState extends BasicGameState {
             throws SlickException {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (continueArea.isMouseOver()) {
-                game.enterState(this.game.getPlayers().size() == 1 ? 1 : 2);
+                game.enterState(this.shop.getGame().getPlayers().length == 1 ? 1 : 2);
             } 
             if (player1Area.isMouseOver()) {
-                selectedPlayer = players.getFirst();
+                selectedPlayer = shop.getGame().getPlayers()[0];
             }
             if (player2Area.isMouseOver()) {
-                selectedPlayer = players.get(1);
+                if (shop.getGame().getPlayers().length == 2) {
+                    selectedPlayer = shop.getGame().getPlayers()[1];
+                }
             }
             if (buyArea.isMouseOver()
                     && selectedItem != null
@@ -299,7 +300,7 @@ public class ShopState extends BasicGameState {
                 selectedPlayer.setMoney(selectedPlayer.getMoney() - selectedItem.getPrice());
 
                 System.out.println("bought " + selectedItem.getClass().toString());
-                System.out.println("players money" + players.getFirst().getMoney());
+                System.out.println("players money" + shop.getGame().getPlayers()[0].getMoney());
             }
             if (item1AreaSlow.isMouseOver()) {
                 selectedItem = shop.getInventory().get(0);

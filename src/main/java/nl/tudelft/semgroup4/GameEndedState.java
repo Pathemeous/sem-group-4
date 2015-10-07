@@ -31,7 +31,7 @@ public class GameEndedState extends BasicGameState {
     private String gameContinueText;
     
     private boolean won;
-    private LinkedList<Player> players;
+    private Player[] players;
     private Input input;
     
     private TextField textFieldPlayer1;
@@ -93,9 +93,9 @@ public class GameEndedState extends BasicGameState {
         
     }
 
-    public void setup(LinkedList<Player> players, boolean won) {
+    public void setup(Player[] players2, boolean won) {
         this.won = won;
-        this.players = players;
+        this.players = players2;
     }
 
     @Override
@@ -120,9 +120,9 @@ public class GameEndedState extends BasicGameState {
         typeFontPlayer.drawString(container.getWidth() / 8, container.getHeight() / 3,
                 "PLAYER 1", Color.white);
         typeFontPlayer.drawString(container.getWidth() / 5 * 2, container.getHeight() / 3,
-                Integer.toString(players.get(0).getScore()), Color.white);
+                Integer.toString(players[0].getScore()), Color.white);
         typeFontPlayer.drawString(container.getWidth() / 5 * 3, container.getHeight() / 3,
-                Integer.toString(players.get(0).getMoney()), Color.white);
+                Integer.toString(players[0].getMoney()), Color.white);
         
         graphics.setColor(Color.white);             
         textFieldPlayer1.render(container, graphics);
@@ -132,9 +132,9 @@ public class GameEndedState extends BasicGameState {
             typeFontPlayer.drawString(container.getWidth() / 8, container.getHeight() / 2,
                     "PLAYER 2", Color.white);
             typeFontPlayer.drawString(container.getWidth() / 5 * 2, container.getHeight() / 2,
-                    Integer.toString(players.get(0).getScore()), Color.white);
+                    Integer.toString(players[0].getScore()), Color.white);
             typeFontPlayer.drawString(container.getWidth() / 5 * 3, container.getHeight() / 2,
-                    Integer.toString(players.get(0).getMoney()), Color.white);
+                    Integer.toString(players[0].getMoney()), Color.white);
             
             textFieldPlayer2.render(container, graphics);
             textFieldPlayer2.setConsumeEvents(true);

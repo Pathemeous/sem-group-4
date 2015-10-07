@@ -27,6 +27,8 @@ public class Player extends AbstractGameObject {
     private static final int BOUNDINGBOX_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
     private static final int SPEEDUP = 2;
+    private final int initialLocy;
+    private final int initialLocx;
     private int speed;
     private int lives;
     private final boolean firstPlayer;
@@ -61,6 +63,8 @@ public class Player extends AbstractGameObject {
     public Player(ResourcesWrapper resources, int locX, int locY, Input input,
             boolean isFirstPlayer) {
         super(resources.getPlayerImageStill(), locX, locY);
+        initialLocx = locX;
+        initialLocy = locY;
         speed = REGULAR_SPEED;
         lives = 3;
         score = 0;
@@ -150,6 +154,10 @@ public class Player extends AbstractGameObject {
         }
         this.weapon.activate(this);
         weaponActivated = false;
+        
+        locX = initialLocx;
+        locY = initialLocy;
+        setAnimationCurrent(null);
     }
 
     /**
@@ -158,6 +166,10 @@ public class Player extends AbstractGameObject {
     public void die() {
         removeLife();
         setScore(getScore() - 1000);
+    }
+
+    public boolean isAlive() {
+        return getLives() > 0;
     }
 
     /**

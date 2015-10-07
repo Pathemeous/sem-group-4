@@ -131,10 +131,18 @@ public class DefaultCollisionHandler implements CollisionHandler<
     final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
 
+        if (!player.isAlive()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Collision",
+                    "Player is not alive, no collision checked");
+            // nothing happens
+            return;
+        }
         if (player.isInvincible() || bubble.isFrozen()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
             // nothing happens
-        } else if (player.hasShield()) {
+            return;
+        }
+        if (player.hasShield()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but has a shield");
             
             // The shield is removed and the bubble is split (tagged as isHit).
