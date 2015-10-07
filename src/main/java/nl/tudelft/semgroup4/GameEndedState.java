@@ -62,6 +62,8 @@ public class GameEndedState extends BasicGameState {
                 container.getHeight() / 3,
                 200,
                 50);
+        textFieldPlayer1.setConsumeEvents(true);
+        textFieldPlayer1.setMaxLength(10);
         
         textFieldPlayer2 = new TextField(container,
                 typeFontPlayer,
@@ -69,6 +71,8 @@ public class GameEndedState extends BasicGameState {
                 container.getHeight() / 2,
                 200,
                 50);
+        textFieldPlayer2.setConsumeEvents(true);
+        textFieldPlayer2.setMaxLength(10);
         
         mouseOverTextField1 = new MouseOverArea(container,
                 null,
@@ -135,7 +139,14 @@ public class GameEndedState extends BasicGameState {
         //draws the first players textfield box.
         graphics.setColor(Color.white);             
         textFieldPlayer1.render(container, graphics);
-        textFieldPlayer1.setConsumeEvents(true);
+        
+        //Draws a white rectangle around the textfield because
+        //slick can't handle it on it's own.
+        graphics.drawRect(
+                container.getWidth() / 5 * 4,
+                container.getHeight() / 3,
+                textFieldPlayer1.getWidth() - 1,
+                textFieldPlayer1.getHeight() - 1);
         
         //Displays all information of the second player if there is a second player.
         if (players.length == 2) {
@@ -146,8 +157,16 @@ public class GameEndedState extends BasicGameState {
             typeFontPlayer.drawString(container.getWidth() / 5 * 3, container.getHeight() / 2,
                     Integer.toString(players[0].getMoney()), Color.white);
             
+            //Draws the second players textfield box.
             textFieldPlayer2.render(container, graphics);
-            textFieldPlayer2.setConsumeEvents(true);
+            
+            //Draws a white rectangle around the textfield because
+            //slick can't handle it on it's own.
+            graphics.drawRect(
+                    container.getWidth() / 5 * 4,
+                    container.getHeight() / 2,
+                    textFieldPlayer1.getWidth() - 1,
+                    textFieldPlayer1.getHeight() - 1);
         }        
         
         //draws the continue button on the screen.
