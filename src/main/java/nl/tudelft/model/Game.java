@@ -3,6 +3,7 @@ package nl.tudelft.model;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
+import java.util.List;
 
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
@@ -41,6 +42,7 @@ public class Game implements Renderable, Modifiable {
     private final int containerWidth;
     private final int containerHeight;
     private final Iterator<Level> levelIt;
+    private final List<Player> persistentPlayersList;
     private final LinkedList<Player> players;
     private final LinkedList<Player> playerToDelete = new LinkedList<>();
     private Level curLevel;
@@ -75,11 +77,13 @@ public class Game implements Renderable, Modifiable {
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
-        this.levelFact = new LevelFactory(this, wrapper);
-        LinkedList<Level> levels = levelFact.getAllLevels();
 
         this.players = players;
+        this.persistentPlayersList = players;
         this.resources = wrapper;
+        
+        this.levelFact = new LevelFactory(this, wrapper);
+        LinkedList<Level> levels = levelFact.getAllLevels();
         this.levelIt = levels.iterator();
 
         if (!this.levelIt.hasNext() || this.players.isEmpty()) {
