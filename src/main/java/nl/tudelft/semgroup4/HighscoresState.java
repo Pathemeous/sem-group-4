@@ -32,7 +32,10 @@ public class HighscoresState extends BasicGameState {
     private Input input;
     private final ResourcesWrapper resources = new ResourcesWrapper();
     private final List<HighscoreEntry> highscores = new ArrayList<>();
-    
+    private static final Font font = new Font("Calibri", Font.BOLD, 46);
+    private static final TrueTypeFont typeFont = new TrueTypeFont(font, true);
+
+
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         backButton = new MouseOverArea(container, resources.getBackText(),
@@ -61,12 +64,10 @@ public class HighscoresState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame mainApp, Graphics graphics)
             throws SlickException {
-        graphics.drawImage(resources.getBackText(), container.getWidth() / 10.0f,
+        graphics.drawImage(resources.getBackText(),
+                container.getWidth()  / 10.0f,
                 container.getHeight() / 10 * 9);
-        
-        Font font = new Font("Calibri", Font.BOLD, 46);
-        TrueTypeFont typeFont = new TrueTypeFont(font, true);
-        
+
         float horizontalLoc = 60.0f;
         float verticalLoc = 30.0f;
         
