@@ -14,7 +14,7 @@ import nl.tudelft.model.Player;
 public class PlayerEventHandler extends Observable implements Observer {
 
     /**
-     * Represents the actions that a Player can perform.
+     * Represents the actions that a {@link Player} can perform.
      * 
      * @author Pathemeous
      *
@@ -47,7 +47,7 @@ public class PlayerEventHandler extends Observable implements Observer {
     }
 
     @Override
-    public void update(Observable observable, Object arg) {
+    public void update(Observable observable, Object argument) {
         if (observable.equals(leftInput)){
             notifyObservers(Event.LEFT);
         }

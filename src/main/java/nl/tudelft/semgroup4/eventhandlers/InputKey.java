@@ -24,6 +24,7 @@ public class InputKey extends Observable implements Updateable {
      * 
      * <p>
      * See the Slick2D wiki for keyCodes (or get them via {@link Input}).
+     * </p>
      * 
      * @param keyCode
      */
