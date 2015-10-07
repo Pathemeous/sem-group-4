@@ -37,6 +37,26 @@ public class InputKey extends Observable implements Updateable {
             notifyObservers();
         }
     }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#equals(java.lang.Object)
+     */
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof InputKey) {
+            return this.hashCode() == obj.hashCode();
+        }
+        return false;
+    }
+
+    /* (non-Javadoc)
+     * @see java.lang.Object#hashCode()
+     */
+    @Override
+    public int hashCode() {
+        return INPUT.hashCode() + keyCode;
+    }
+    
     
 
 }
