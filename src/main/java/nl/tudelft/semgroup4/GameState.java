@@ -130,13 +130,20 @@ public class GameState extends BasicGameState {
      */
     public void update(GameContainer container, StateBasedGame mainApp, int delta)
             throws SlickException {
-        // checks if the escape key is pressed, if so, the gameState pauses
+        // checks if the escape key is pressed
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                    + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
-            input.disableKeyRepeat();
-            currentGame.setPaused(!currentGame.isPaused());
-            pauseScreenOpened = !pauseScreenOpened;
+            // If the game is paused and the pause screen is openend, or if the
+            // game isn't paused, this code is executed. This prevents the user from
+            // being able to unpause the game while the countdown is running (because then
+            // the game is paused without the pause screen being open)
+            if ((currentGame.isPaused() && pauseScreenOpened) 
+                    || !(currentGame.isPaused() || pauseScreenOpened)) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
+                        + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
+                input.disableKeyRepeat();
+                currentGame.setPaused(!currentGame.isPaused());
+                pauseScreenOpened = !pauseScreenOpened;
+            }
         }
 
         if (!currentGame.isPaused()) {
