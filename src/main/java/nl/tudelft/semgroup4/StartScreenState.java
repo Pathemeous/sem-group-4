@@ -40,7 +40,7 @@ public class StartScreenState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         font = new Font("Verdana", Font.BOLD, 36);
         typeFont = new TrueTypeFont(font, true);  
-        highscores  = "HIGHSCORES";
+        highscores  = "HIGHSCORES"; 
         highScoreButton = new Image(typeFont.getWidth(highscores), typeFont.getHeight());
         shape = new Rectangle(650, 650, typeFont.getWidth(highscores), typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));        
