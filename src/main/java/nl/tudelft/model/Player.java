@@ -168,6 +168,10 @@ public class Player extends AbstractGameObject {
         setScore(getScore() - 1000);
     }
 
+    public boolean isAlive() {
+        return getLives() > 0;
+    }
+
     /**
      * Removes all {@link Powerup}s from this {@link Player}.
      */
