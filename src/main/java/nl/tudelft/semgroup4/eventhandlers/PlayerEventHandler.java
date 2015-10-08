@@ -8,6 +8,11 @@ import nl.tudelft.model.Player;
 /**
  * Represents an object to handle input events for a {@link Player}.
  * 
+ * <p>
+ * This object is {@link Observable} able and can be used to receive notifications of the Input Events of a
+ * {@link Player}.
+ * </p>
+ * 
  * @author Pathemeous
  *
  */
