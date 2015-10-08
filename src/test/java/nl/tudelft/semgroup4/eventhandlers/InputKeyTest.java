@@ -5,15 +5,17 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Wall;
 import nl.tudelft.semgroup4.Modifiable;
 
+import org.junit.After;
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.mockito.Mockito;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 
 public class InputKeyTest {
@@ -21,10 +23,25 @@ public class InputKeyTest {
     private InputKey defaultKey;
     private static final int DEF_KEY = 0;
     private static final int DIFF_KEY = 1;
+    private static Input defaultInput;
+
+    @BeforeClass
+    public static void setUpBeforeClass() {
+        // Save the static input field so that it can be reset afterwards after potential
+        // modification.
+        defaultInput = InputKey.getInput();
+    }
 
     @Before
     public void setUp() throws Exception {
         defaultKey = new InputKey(DEF_KEY);
+    }
+
+    @After
+    public void tearDown() {
+        // Sets the static input field back to its default so that it ensures each tests starts
+        // clean.
+        InputKey.setInput(defaultInput);
     }
 
     @Test
@@ -51,6 +68,17 @@ public class InputKeyTest {
         Modifiable container = Mockito.mock(Game.class);
         defaultKey.update(container, 15);
         assertFalse(defaultKey.hasChanged());
+    }
+
+    @Test
+    public void testUpdateWithMockedInputGivesNotification() throws SlickException {
+        Input mockedInput = Mockito.mock(Input.class);
+        Mockito.when(mockedInput.isKeyPressed(DEF_KEY)).thenReturn(true);
+        
+        InputKey.setInput(mockedInput);
+        Modifiable container = Mockito.mock(Game.class);
+        defaultKey.update(container, 15);
+        assertTrue(defaultKey.hasChanged());
     }
 
     @Test
