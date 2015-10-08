@@ -15,7 +15,6 @@ public class MainApp extends StateBasedGame {
     
     public MainApp(String name) {
         super(name);
-        // TODO Auto-generated constructor stub
     }
 
     /**

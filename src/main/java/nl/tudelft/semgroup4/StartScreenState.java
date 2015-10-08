@@ -132,7 +132,6 @@ public class StartScreenState extends BasicGameState {
 
     @Override
     public int getID() {
-        // TODO Auto-generated method stub
         return 0;
     }
 
