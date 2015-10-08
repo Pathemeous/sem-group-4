@@ -27,6 +27,7 @@ public class InputKey extends Observable implements Updateable {
      * </p>
      * 
      * @param keyCode
+     *            int - The value representing the desired key.
      */
     public InputKey(int keyCode) {
         this.keyCode = keyCode;
