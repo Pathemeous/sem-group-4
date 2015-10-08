@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.semgroup4.States;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -116,7 +117,7 @@ public class GameTest extends AbstractOpenGLTestCase {
         when(mockedPlayer.getLives()).thenReturn(0);
         assertEquals(game.getCurLevel().getId(), 1);
         game.levelReset();
-        verify(mockedSbg, times(1)).enterState(0);
+        verify(mockedSbg, times(1)).enterState(States.StartScreenState);
     }
 
     /**

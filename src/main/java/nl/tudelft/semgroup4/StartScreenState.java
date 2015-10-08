@@ -3,6 +3,9 @@ package nl.tudelft.semgroup4;
 import java.awt.Font;
 
 import nl.tudelft.model.Game;
+import nl.tudelft.model.MultiplayerGame;
+import nl.tudelft.model.Player;
+import nl.tudelft.model.SingleplayerGame;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -34,10 +37,15 @@ public class StartScreenState extends BasicGameState {
     private Image highScoreButton;
     private String highscores;
     private Shape shape;
-    
+
+    /**
+     * We need this to construct the Game instances
+     */
+    private StateBasedGame mainApp;
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
+        this.mainApp = mainApp;
         font = new Font("Verdana", Font.BOLD, 36);
         typeFont = new TrueTypeFont(font, true);  
         highscores  = "HIGHSCORES";
@@ -93,23 +101,59 @@ public class StartScreenState extends BasicGameState {
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverHighScores.isMouseOver()) {
-                game.enterState(4);
+                game.enterState(States.HighscoresState);
             } else if (mouseOverOnePlayer.isMouseOver()) {
-                game.addState(new GameState(game.getTitle(), true));
-                game.getState(1).init(container, game);
+
+                final ResourcesWrapper res = new ResourcesWrapper();
+                final Player player = new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                        container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                                * res.getWallImage().getHeight(), input, true);
+                final Game singleplayerGame = new SingleplayerGame(
+                        mainApp,
+                        container.getWidth(), container.getHeight(),
+                        res,
+                        player);
+                singleplayerGame.toAdd(player.getWeapon());
+
+                final GameState gameState = new GameState(singleplayerGame);
+
+                game.addState(gameState);
+                game.getState(States.GameState).init(container, game);
                 resources.stopTitleScreen();
-                game.enterState(1);
+                game.enterState(States.GameState);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a single player game");
             } else if (mouseOverTwoPlayer.isMouseOver()) {
-                game.addState(new GameState(game.getTitle(), false));
-                game.getState(2).init(container, game);
+
+                final ResourcesWrapper res = new ResourcesWrapper();
+                Player firstPlayer =
+                        new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                                container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                                        * res.getWallImage().getHeight(), input, true);
+                Player secondPlayer =
+                        new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
+                                container.getHeight() - res.getPlayerImageStill().getHeight() - 5
+                                        * res.getWallImage().getHeight(), input, false);
+
+                final Game multiplayerGame = new MultiplayerGame(
+                        mainApp,
+                        container.getWidth(), container.getHeight(),
+                        new ResourcesWrapper(),
+                        firstPlayer, secondPlayer);
+
+                multiplayerGame.toAdd(firstPlayer.getWeapon());
+                multiplayerGame.toAdd(firstPlayer.getWeapon());
+
+                final GameState gameState = new GameState(multiplayerGame);
+
+                game.addState(gameState);
+                game.getState(States.GameState).init(container, game);
                 resources.stopTitleScreen();
-                game.enterState(2);
+                game.enterState(States.GameState);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
                         "User starts a multi-player game");
             } else if (mouseOverOptions.isMouseOver()) {
-                game.enterState(3);
+                game.enterState(States.OptionsState);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverQuit.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
@@ -131,7 +175,7 @@ public class StartScreenState extends BasicGameState {
     @Override
     public int getID() {
         // TODO Auto-generated method stub
-        return 0;
+        return States.StartScreenState;
     }
 
 }

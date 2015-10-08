@@ -103,13 +103,13 @@ public class HighscoresState extends BasicGameState {
                 && input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "HighscoresMenu", 
                     "User goes back to main menu" );
-            game.enterState(0);
+            game.enterState(States.StartScreenState);
         }
     }
 
     @Override
     public int getID() {
-        return 4;
+        return States.HighscoresState;
     }
 
 }

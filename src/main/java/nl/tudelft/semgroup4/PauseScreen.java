@@ -64,7 +64,7 @@ public class PauseScreen {
                 Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                         "Player left the game, to the main menu");
                 gameState.getGame().setPaused(false);
-                game.enterState(0);
+                game.enterState(States.StartScreenState);
             }
         }
     }

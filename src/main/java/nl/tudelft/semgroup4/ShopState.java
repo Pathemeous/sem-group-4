@@ -282,7 +282,8 @@ public class ShopState extends BasicGameState {
             throws SlickException {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (continueArea.isMouseOver()) {
-                game.enterState(this.shop.getGame().getPlayers().length == 1 ? 1 : 2);
+//                game.enterState(this.shop.getGame().getPlayers().length == 1 ? 1 : 2);
+                game.enterState(States.GameState);
             } 
             if (player1Area.isMouseOver()) {
                 selectedPlayer = shop.getGame().getPlayers()[0];
@@ -338,8 +339,7 @@ public class ShopState extends BasicGameState {
 
     @Override
     public int getID() {
-        // TODO Auto-generated method stub
-        return 5;
+        return States.ShopState;
     }
 
 }

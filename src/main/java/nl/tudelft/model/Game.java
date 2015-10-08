@@ -7,6 +7,7 @@ import java.util.LinkedList;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.ShopState;
+import nl.tudelft.semgroup4.States;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
 import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
@@ -154,8 +155,8 @@ public abstract class Game implements Renderable, Modifiable {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
             nextLevel();
-            ((ShopState) mainApp.getState(5)).setup(this);
-            mainApp.enterState(5);
+            ((ShopState) mainApp.getState(States.ShopState)).setup(this);
+            mainApp.enterState(States.ShopState);
         }
     }
 
@@ -326,7 +327,7 @@ public abstract class Game implements Renderable, Modifiable {
      */
     private void gameCompleted() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
-        mainApp.enterState(0);
+        mainApp.enterState(States.StartScreenState);
     }
 
     /**
@@ -338,7 +339,7 @@ public abstract class Game implements Renderable, Modifiable {
      */
     public void gameOver() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
-        mainApp.enterState(0);
+        mainApp.enterState(States.StartScreenState);
     }
 
     /**
