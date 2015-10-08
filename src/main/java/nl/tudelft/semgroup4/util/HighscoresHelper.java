@@ -18,7 +18,9 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 /**
- * Created by justin on 08/10/15.
+ * This class helps with writing and reading the highscores file.
+ * It provides two helper methods to perform these actions.
+ * See {@link #save(List)} and {@link #load()}
  */
 public class HighscoresHelper {
 
