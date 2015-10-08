@@ -39,7 +39,7 @@ public class StartScreenState extends BasicGameState {
     private Shape shape;
 
     /**
-     * We need this to construct the Game instances
+     * We need this to construct the Game instances.
      */
     private StateBasedGame mainApp;
 
