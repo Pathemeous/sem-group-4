@@ -58,7 +58,6 @@ public class KeySetScreen {
             if (mouseOver.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeySetScreen",
                         "Player has cancelled setting the key.");
-                optionsState.toggleKeySet();
             }
         }
     }
