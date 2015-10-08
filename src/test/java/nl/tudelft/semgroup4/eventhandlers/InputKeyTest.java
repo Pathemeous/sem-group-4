@@ -5,6 +5,9 @@ import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
+
+import java.util.Observer;
+
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Wall;
 import nl.tudelft.semgroup4.Modifiable;
@@ -65,20 +68,28 @@ public class InputKeyTest {
 
     @Test
     public void testUpdateWithNoInputGivesNoNotification() throws SlickException {
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultKey.addObserver(mockedObserver);
+        
         Modifiable container = Mockito.mock(Game.class);
         defaultKey.update(container, 15);
-        assertFalse(defaultKey.hasChanged());
+
+        Mockito.verify(mockedObserver, Mockito.never()).update(defaultKey, null);
     }
 
     @Test
     public void testUpdateWithMockedInputGivesNotification() throws SlickException {
         Input mockedInput = Mockito.mock(Input.class);
         Mockito.when(mockedInput.isKeyPressed(DEF_KEY)).thenReturn(true);
-        
         InputKey.setInput(mockedInput);
+        
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultKey.addObserver(mockedObserver);
+        
         Modifiable container = Mockito.mock(Game.class);
         defaultKey.update(container, 15);
-        assertTrue(defaultKey.hasChanged());
+        
+        Mockito.verify(mockedObserver).update(defaultKey, null);
     }
 
     @Test
