@@ -10,5 +10,6 @@ public class States {
     public static final int OptionsState = 2;
     public static final int HighscoresState = 3;
     public static final int ShopState = 4;
+    public static final int GameEndedState = 5;
     
 }

@@ -329,8 +329,8 @@ public abstract class Game implements Renderable, Modifiable {
      */
     private void gameCompleted() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
-        ((GameEndedState) mainApp.getState(6)).setup(getPlayers(), true);
-        mainApp.enterState(6);
+        ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), true);
+        mainApp.enterState(States.GameEndedState);
     }
 
     /**
@@ -342,8 +342,8 @@ public abstract class Game implements Renderable, Modifiable {
      */
     public void gameOver() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
-        ((GameEndedState) mainApp.getState(6)).setup(getPlayers(), false);
-        mainApp.enterState(6);
+        ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), false);
+        mainApp.enterState(States.GameEndedState);
     }
 
     /**

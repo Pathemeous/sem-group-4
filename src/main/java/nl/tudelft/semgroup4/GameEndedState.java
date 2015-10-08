@@ -217,7 +217,7 @@ public class GameEndedState extends BasicGameState {
                     e.printStackTrace();
                 }
 
-                game.enterState(0);
+                game.enterState(States.StartScreenState);
             }
         }
 
@@ -225,7 +225,7 @@ public class GameEndedState extends BasicGameState {
 
     @Override
     public int getID() {
-        return 6;
+        return States.GameEndedState;
     }
 
 }
