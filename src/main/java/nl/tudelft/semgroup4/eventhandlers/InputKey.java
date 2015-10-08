@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
  * @author Pathemeous
  *
  */
-public final class InputKey extends Observable implements Updateable {
+public class InputKey extends Observable implements Updateable {
 
     private final int keyCode;
     private static Input input = new Input(0);
