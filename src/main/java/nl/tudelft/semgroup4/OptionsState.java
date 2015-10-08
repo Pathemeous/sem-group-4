@@ -41,10 +41,6 @@ public class OptionsState extends BasicGameState {
                 container.getWidth() / 4,
                 container.getHeight() / 3 + 30);
         input = container.getInput();
-        MouseOverArea keyCancel =
-                new MouseOverArea(container, resources.getQuitText(), container.getHeight() / 2,
-                container.getHeight() / 2, resources.getQuitText().getWidth(), resources
-                .getQuitText().getHeight());
         loggerSetScreen = new LoggerSetScreen(resources, container);
     }
 
