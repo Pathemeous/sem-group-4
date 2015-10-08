@@ -8,6 +8,7 @@ import java.nio.file.OpenOption;
 import java.nio.file.Paths;
 import java.nio.file.StandardOpenOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.json.JSONArray;
@@ -49,7 +50,7 @@ public class KeyBindHelper {
         }
 
         save(keybinds);
-        return keybinds;
+        return sort(keybinds);
     }
 
     /**
@@ -75,5 +76,35 @@ public class KeyBindHelper {
 
         Files.write(new File(FILENAME).toPath(), array.toString().getBytes(), options);
 
+    }
+
+    /**
+     * Sort the list of inputs based on what key they are bound to.
+     * @param keybinds a list of (@Link KeyBindingEntry} which needs to be sorted.
+     * @return The previous list, but sorted.
+     */
+    public static List<KeyBindingEntry> sort(List<KeyBindingEntry> keybinds) {
+        KeyBindingEntry[] sorted = new KeyBindingEntry[6];
+        for (KeyBindingEntry bind : keybinds) {
+            if (bind.getKey().equals("Player1Left")) {
+                sorted[0] = bind;
+            }
+            if (bind.getKey().equals("Player1Right")) {
+                sorted[1] = bind;
+            }
+            if (bind.getKey().equals("Player1Shoot")) {
+                sorted[2] = bind;
+            }
+            if (bind.getKey().equals("Player2Left")) {
+                sorted[3] = bind;
+            }
+            if (bind.getKey().equals("Player2Right")) {
+                sorted[4] = bind;
+            }
+            if (bind.getKey().equals("Player2Shoot")) {
+                sorted[5] = bind;
+            }
+        }
+        return Arrays.asList(sorted);
     }
 }
