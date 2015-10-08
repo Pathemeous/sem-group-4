@@ -37,8 +37,8 @@ public class InputKey extends Observable implements Updateable {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         if (input.isKeyPressed(keyCode)) {
             setChanged();
+            notifyObservers();
         }
-        notifyObservers();
     }
 
     /*
