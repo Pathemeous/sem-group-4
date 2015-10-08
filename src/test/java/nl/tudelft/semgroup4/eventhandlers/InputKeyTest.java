@@ -28,22 +28,28 @@ public class InputKeyTest {
     private static final int DIFF_KEY = 1;
     private static Input defaultInput;
 
+    /**
+     * Saves the static input field so that it can be reset afterwards after potential
+     * modification.
+     */
     @BeforeClass
     public static void setUpBeforeClass() {
-        // Save the static input field so that it can be reset afterwards after potential
-        // modification.
         defaultInput = InputKey.getInput();
     }
 
+    /**
+     * Sets up the default instances for each test.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         defaultKey = new InputKey(DEF_KEY);
     }
 
+    /**
+     * Sets the static input field back to its default so that it ensures each tests starts clean.
+     */
     @After
     public void tearDown() {
-        // Sets the static input field back to its default so that it ensures each tests starts
-        // clean.
         InputKey.setInput(defaultInput);
     }
 
