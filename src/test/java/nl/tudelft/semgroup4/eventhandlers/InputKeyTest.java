@@ -70,7 +70,7 @@ public class InputKeyTest {
     public void testUpdateWithNoInputGivesNoNotification() throws SlickException {
         Observer mockedObserver = Mockito.mock(PlayerInput.class);
         defaultKey.addObserver(mockedObserver);
-        
+
         Modifiable container = Mockito.mock(Game.class);
         defaultKey.update(container, 15);
 
@@ -82,13 +82,13 @@ public class InputKeyTest {
         Input mockedInput = Mockito.mock(Input.class);
         Mockito.when(mockedInput.isKeyPressed(DEF_KEY)).thenReturn(true);
         InputKey.setInput(mockedInput);
-        
+
         Observer mockedObserver = Mockito.mock(PlayerInput.class);
         defaultKey.addObserver(mockedObserver);
-        
+
         Modifiable container = Mockito.mock(Game.class);
         defaultKey.update(container, 15);
-        
+
         Mockito.verify(mockedObserver).update(defaultKey, null);
     }
 
