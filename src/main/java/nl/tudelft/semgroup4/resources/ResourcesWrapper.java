@@ -169,6 +169,10 @@ public class ResourcesWrapper {
     public Image getPauseText() {
         return Resources.pauseText;
     }
+
+    public Image getNewKeyText() {
+        return Resources.newKeyText;
+    }
     
     public Image getShopBackGround() {
         return Resources.shopBackground;

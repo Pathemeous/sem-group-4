@@ -13,8 +13,8 @@ import org.newdawn.slick.gui.MouseOverArea;
 
 public class KeySetScreen {
     private final MouseOverArea mouseOver;
-    private final Image pauseText;
-    private final Image quitText;
+    private final Image newKeyText;
+    private final Image backText;
 
     /**
      * Constructs a KeySetScreen with the correct MouseOverArea and Resources.
@@ -26,8 +26,8 @@ public class KeySetScreen {
      */
     public KeySetScreen(ResourcesWrapper resources, MouseOverArea mouseOver) {
         this.mouseOver = mouseOver;
-        this.pauseText = resources.getPauseText();
-        this.quitText = resources.getQuitText();
+        this.newKeyText = resources.getNewKeyText();
+        this.backText = resources.getBackText();
     }
 
     /**
@@ -49,9 +49,9 @@ public class KeySetScreen {
         Color color = new Color(0f, 0f, 0f, 0.5f);
         graphics.setColor(color);
         graphics.fillRect(0, 0, container.getWidth(), container.getHeight());
-        graphics.drawImage(pauseText, container.getWidth() / 2 - pauseText.getWidth() / 2,
+        graphics.drawImage(newKeyText, container.getWidth() / 2 - newKeyText.getWidth() / 2,
                 container.getHeight() / 3.0f);
-        graphics.drawImage(quitText, container.getWidth() / 2 - quitText.getWidth() / 2,
+        graphics.drawImage(backText, container.getWidth() / 2 - backText.getWidth() / 2,
                 container.getHeight() / 2.0f);
 
         // checks to see if the user clicked on the "back to main menu button",

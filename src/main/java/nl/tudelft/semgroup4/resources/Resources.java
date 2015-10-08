@@ -42,6 +42,7 @@ public final class Resources {
     static Image soundText;
     static Image optionsText;
     static Image backText;
+    static Image newKeyText;
     
     static Image quitText;
     static Image pauseText;
@@ -161,6 +162,7 @@ public final class Resources {
         soundText = new Image("src/main/resources/img/sound.png");
         optionsText = new Image("src/main/resources/img/options.png");
         backText = new Image("src/main/resources/img/back.png");
+        newKeyText = new Image("src/main/resources/img/newKeyText.png");
                 
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
