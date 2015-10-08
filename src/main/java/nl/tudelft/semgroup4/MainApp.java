@@ -15,7 +15,6 @@ public class MainApp extends StateBasedGame {
     
     public MainApp(String name) {
         super(name);
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -64,6 +63,7 @@ public class MainApp extends StateBasedGame {
         addState(new OptionsState());
         addState(new ShopState());
         addState(new HighscoresState());
+        addState(new GameEndedState());
         addState(new KeyBindState());
         enterState(0);
     }
