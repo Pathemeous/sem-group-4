@@ -51,6 +51,10 @@ public class KeyBindState extends BasicGameState {
     private Shape player2RightShape;
     private Shape player2ShootShape;
 
+    private KeySetScreen screen;
+
+    private boolean keySetScreenEnabled = false;
+
     private String back = "Back";
     private String save = "Save";
     private Input input;
@@ -62,6 +66,7 @@ public class KeyBindState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame mainApp)
             throws SlickException {
 
+        screen = new KeySetScreen(resources);
         backImage = new Image(typeFont.getWidth(back), typeFont.getHeight());
         backShape = new Rectangle(container.getWidth() / 10,
                 container.getHeight() / 10 * 9,
@@ -178,6 +183,9 @@ public class KeyBindState extends BasicGameState {
         typeFont.drawString(650, 330,
                 Keyboard.getKeyName(Settings.completeKeyBindings.get(5).getValue()),
                 Color.yellow);
+        if (keySetScreenEnabled) {
+            screen.show(graphics, container, input);
+        }
     }
 
     @Override
@@ -199,31 +207,43 @@ public class KeyBindState extends BasicGameState {
                 }
             }
             if (player1LeftButton.isMouseOver()) {
+                input.clearKeyPressedRecord();
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the left button for player 1");
+                keySetScreenToggle();
             }
             if (player1RightButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the right button for player 1");
+                keySetScreenToggle();
             }
             if (player1ShootButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the shoot button for player 1");
+                keySetScreenToggle();
+                Keyboard.getEventKey();
             }
 
             if (player2LeftButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the left button for player 2");
+                keySetScreenToggle();
             }
             if (player2RightButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the right button for player 2");
+                keySetScreenToggle();
             }
             if (player2ShootButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the shoot button for player 2");
+                keySetScreenToggle();
             }
         }
+    }
+
+    public void keySetScreenToggle() {
+        keySetScreenEnabled = !keySetScreenEnabled;
     }
 
     @Override

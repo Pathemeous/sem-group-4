@@ -55,31 +55,31 @@ public class Settings {
         );
     }
 
-    public void setCompleteKeyBindings(List<KeyBindingEntry> keys) {
+    public static void setCompleteKeyBindings(List<KeyBindingEntry> keys) {
         completeKeyBindings = keys;
     }
 
-    public void setPlayer1Left(int value) {
+    public static void setPlayer1Left(int value) {
         completeKeyBindings.get(0).setValue(value);
     }
 
-    public void setPlayer1Right(int value) {
+    public static void setPlayer1Right(int value) {
         completeKeyBindings.get(1).setValue(value);
     }
 
-    public void setPlayer1Shoot(int value) {
+    public static void setPlayer1Shoot(int value) {
         completeKeyBindings.get(2).setValue(value);
     }
 
-    public void setPlayer2Left(int value) {
+    public static void setPlayer2Left(int value) {
         completeKeyBindings.get(3).setValue(value);
     }
 
-    public void setPlayer2Right(int value) {
+    public static void setPlayer2Right(int value) {
         completeKeyBindings.get(4).setValue(value);
     }
 
-    public void setPlayer2Shoot(int value) {
+    public static void setPlayer2Shoot(int value) {
         completeKeyBindings.get(5).setValue(value);
     }
 }
