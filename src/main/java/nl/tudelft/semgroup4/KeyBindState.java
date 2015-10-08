@@ -54,6 +54,7 @@ public class KeyBindState extends BasicGameState {
     private KeySetScreen screen;
 
     private boolean keySetScreenEnabled = false;
+    private int selector = 0;
 
     private String back = "Back";
     private String save = "Save";
@@ -61,6 +62,9 @@ public class KeyBindState extends BasicGameState {
     private final ResourcesWrapper resources = new ResourcesWrapper();
     private static final Font font = new Font("Calibri", Font.BOLD, 46);
     private static final TrueTypeFont typeFont = new TrueTypeFont(font, true);
+    private static final float screenCoordXName = 60;
+    private static final float screenCoordXValue = 650;
+    private static float screenCoordY;
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp)
@@ -139,6 +143,10 @@ public class KeyBindState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame mainApp, Graphics graphics)
             throws SlickException {
+
+        input.disableKeyRepeat();
+        screenCoordY = 80;
+
         typeFont.drawString(container.getWidth() / 10,
                 container.getHeight() / 10 * 9,
                 back,
@@ -147,42 +155,17 @@ public class KeyBindState extends BasicGameState {
                 container.getHeight() / 10 * 9,
                 save,
                 Color.yellow);
-        typeFont.drawString(60, 80,
-                Settings.completeKeyBindings.get(0).getKey(),
-                Color.yellow);
-        typeFont.drawString(60, 130,
-                Settings.completeKeyBindings.get(1).getKey(),
-                Color.yellow);
-        typeFont.drawString(60, 180,
-                Settings.completeKeyBindings.get(2).getKey(),
-                Color.yellow);
-        typeFont.drawString(60, 230,
-                Settings.completeKeyBindings.get(3).getKey(),
-                Color.yellow);
-        typeFont.drawString(60, 280,
-                Settings.completeKeyBindings.get(4).getKey(),
-                Color.yellow);
-        typeFont.drawString(60, 330,
-                Settings.completeKeyBindings.get(5).getKey(),
-                Color.yellow);
-        typeFont.drawString(650, 80,
-                Keyboard.getKeyName(Settings.completeKeyBindings.get(0).getValue()),
-                Color.yellow);
-        typeFont.drawString(650, 130,
-                Keyboard.getKeyName(Settings.completeKeyBindings.get(1).getValue()),
-                Color.yellow);
-        typeFont.drawString(650, 180,
-                Keyboard.getKeyName(Settings.completeKeyBindings.get(2).getValue()),
-                Color.yellow);
-        typeFont.drawString(650, 230,
-                Keyboard.getKeyName(Settings.completeKeyBindings.get(3).getValue()),
-                Color.yellow);
-        typeFont.drawString(650, 280,
-                Keyboard.getKeyName(Settings.completeKeyBindings.get(4).getValue()),
-                Color.yellow);
-        typeFont.drawString(650, 330,
-                Keyboard.getKeyName(Settings.completeKeyBindings.get(5).getValue()),
-                Color.yellow);
+
+        for (int i = 0; i < 6; i++) {
+            typeFont.drawString(screenCoordXName, screenCoordY,
+                    Settings.completeKeyBindings.get(i).getKey(),
+                    Color.yellow);
+            typeFont.drawString(screenCoordXValue, screenCoordY,
+                    Keyboard.getKeyName(Settings.completeKeyBindings.get(i).getValue()),
+                    Color.yellow);
+            screenCoordY += 50;
+        }
+
         if (keySetScreenEnabled) {
             screen.show(graphics, container, input);
         }
@@ -207,38 +190,91 @@ public class KeyBindState extends BasicGameState {
                 }
             }
             if (player1LeftButton.isMouseOver()) {
-                input.clearKeyPressedRecord();
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the left button for player 1");
                 keySetScreenToggle();
+                selector = 1;
             }
             if (player1RightButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the right button for player 1");
                 keySetScreenToggle();
+                selector = 2;
             }
             if (player1ShootButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the shoot button for player 1");
                 keySetScreenToggle();
-                Keyboard.getEventKey();
+                selector = 3;
             }
 
             if (player2LeftButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the left button for player 2");
                 keySetScreenToggle();
+                selector = 4;
             }
             if (player2RightButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the right button for player 2");
                 keySetScreenToggle();
+                selector = 5;
             }
             if (player2ShootButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User wants to set the shoot button for player 2");
                 keySetScreenToggle();
+                selector = 6;
             }
+        }
+
+        switch (selector) {
+            case 0:
+                break;
+            case 1:
+                if (Keyboard.getEventKey() >= 1) {
+                    Settings.setPlayer1Left(Keyboard.getEventKey());
+                    keySetScreenToggle();
+                    selector = 0;
+                }
+                break;
+            case 2:
+                if (Keyboard.getEventKey() >= 1) {
+                    Settings.setPlayer1Right(Keyboard.getEventKey());
+                    keySetScreenToggle();
+                    selector = 0;
+                }
+                break;
+            case 3:
+                if (Keyboard.getEventKey() >= 1) {
+                    Settings.setPlayer1Shoot(Keyboard.getEventKey());
+                    keySetScreenToggle();
+                    selector = 0;
+                }
+                break;
+            case 4:
+                if (Keyboard.getEventKey() >= 1) {
+                    Settings.setPlayer2Left(Keyboard.getEventKey());
+                    keySetScreenToggle();
+                    selector = 0;
+                }
+                break;
+            case 5:
+                if (Keyboard.getEventKey() >= 1) {
+                    Settings.setPlayer2Right(Keyboard.getEventKey());
+                    keySetScreenToggle();
+                    selector = 0;
+                }
+                break;
+            case 6:
+                if (Keyboard.getEventKey() >= 1) {
+                    Settings.setPlayer2Shoot(Keyboard.getEventKey());
+                    keySetScreenToggle();
+                    selector = 0;
+                }
+                break;
+            default:
+                throw new SlickException("Impossible value reached");
         }
     }
 
