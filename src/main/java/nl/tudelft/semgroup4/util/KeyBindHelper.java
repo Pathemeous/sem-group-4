@@ -69,8 +69,8 @@ public class KeyBindHelper {
         }
 
         OpenOption[] options = {
-                StandardOpenOption.CREATE,
-                StandardOpenOption.WRITE,
+            StandardOpenOption.CREATE,
+            StandardOpenOption.WRITE,
         };
 
         Files.write(new File(FILENAME).toPath(), array.toString().getBytes(), options);
