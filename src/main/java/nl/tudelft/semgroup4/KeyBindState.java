@@ -28,6 +28,6 @@ public class KeyBindState extends BasicGameState {
 
     @Override
     public int getID() {
-        return 7;
+        return States.KeyBindState;
     }
 }

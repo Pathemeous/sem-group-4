@@ -41,7 +41,7 @@ public class OptionsState extends BasicGameState {
                 container.getHeight() / 3);
         keyButton = new MouseOverArea(container, resources.getKeyText(),
                 container.getWidth() / 4,
-                container.getHeight() / 3 + 30);
+                container.getHeight() / 3 + 60);
         input = container.getInput();
         loggerSetScreen = new LoggerSetScreen(resources, container);
     }
@@ -58,7 +58,7 @@ public class OptionsState extends BasicGameState {
         graphics.drawImage(resources.getLoggerText(), container.getWidth() / 4.0f,
                 container.getHeight() / 3.0f);
         graphics.drawImage(resources.getKeyText(), container.getWidth() / 4.0f,
-                container.getHeight() / 3.0f + 50.0f);
+                container.getHeight() / 3.0f + 60.0f);
         if (ResourcesWrapper.musicOn) {
             graphics.drawImage(resources.getOn(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
