@@ -9,9 +9,11 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.semgroup4.GameEndedState;
+import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.States;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -22,6 +24,7 @@ public class GameTest extends AbstractOpenGLTestCase {
     
     private StateBasedGame mockedSbg;
     private GameEndedState mockedGameEndedState;
+    private ShopState mockedShopState;
     private ResourcesWrapper mockedResources;
     private Player mockedPlayer;
     
@@ -32,6 +35,7 @@ public class GameTest extends AbstractOpenGLTestCase {
     public void setUp() {
         mockedSbg = mock(StateBasedGame.class); 
         mockedGameEndedState = mock(GameEndedState.class);
+        mockedShopState = mock(ShopState.class);
         mockedResources = mock(ResourcesWrapper.class);
         Image mockedImage = mock(Image.class);
         when(mockedImage.getHeight()).thenReturn(1);
@@ -127,6 +131,8 @@ public class GameTest extends AbstractOpenGLTestCase {
     @Test
     public void testNextLevel1() throws SlickException {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        when(mockedSbg.getState(States.ShopState)).thenReturn(mockedShopState);
+        
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 2);
@@ -141,6 +147,9 @@ public class GameTest extends AbstractOpenGLTestCase {
     @Test
     public void testNextLevel2() throws SlickException {
         mockedSbg.addState(mockedGameEndedState);
+        when(mockedSbg.getState(States.GameEndedState)).thenReturn(mockedGameEndedState);
+        when(mockedSbg.getState(States.ShopState)).thenReturn(mockedShopState);
+        
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
@@ -149,7 +158,7 @@ public class GameTest extends AbstractOpenGLTestCase {
         assertEquals(game.getCurLevel().getId(), 3);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 4);
-        when(mockedSbg.getState(States.GameEndedState)).thenReturn(mockedGameEndedState);
+        
         game.nextLevel();
         verify(mockedSbg, times(1)).enterState(States.GameEndedState);
     }

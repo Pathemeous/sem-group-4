@@ -154,15 +154,9 @@ public abstract class Game implements Renderable, Modifiable {
      */
     private void levelCompleted() {
         if (getCurLevel().isCompleted()) {
-            if (levelIt.hasNext()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "Game",
-                        "Level has been completed. Go to next level!");
-                nextLevel();
-                ((ShopState) mainApp.getState(States.ShopState)).setup(this);
-                mainApp.enterState(States.ShopState);
-            } else {
-                gameCompleted();
-            }  
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game",
+                    "Level has been completed. Go to next level!");
+            nextLevel();
         } 
     }
 
@@ -316,12 +310,19 @@ public abstract class Game implements Renderable, Modifiable {
      * completed and {@link #gameCompleted()} is called.
      */
     public void nextLevel() {
-        resetPlayers();
-        int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
-        for (Player player : getPlayers()) {
-            player.setScore(player.getScore() + score);
+        if (levelIt.hasNext()) {
+            resetPlayers();
+            int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
+            for (Player player : getPlayers()) {
+                player.setScore(player.getScore() + score);
+            }
+            setCurLevel(levelIt.next());
+            
+            ((ShopState) mainApp.getState(States.ShopState)).setup(this);
+            mainApp.enterState(States.ShopState); 
+        } else {
+            gameCompleted();
         }
-        setCurLevel(levelIt.next());
     }
 
     /**
