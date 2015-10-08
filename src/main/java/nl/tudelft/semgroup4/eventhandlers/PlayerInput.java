@@ -3,20 +3,29 @@ package nl.tudelft.semgroup4.eventhandlers;
 import java.util.Observable;
 import java.util.Observer;
 
+import org.newdawn.slick.SlickException;
+
 import nl.tudelft.model.Player;
+import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.Updateable;
 
 /**
  * Represents an object to handle input events for a {@link Player}.
  * 
  * <p>
- * This object is {@link Observable} able and can be used to receive notifications of the Input
- * Events of a {@link Player}.
+ * This object is {@link Observable} and can be used to receive notifications of the Input Events
+ * of a {@link Player}.
+ * </p>
+ * 
+ * <p>
+ * The input must be polled with the game update cycle. The object storing this object should
+ * therefore take responsibility in calling the update on this object.
  * </p>
  * 
  * @author Pathemeous
  *
  */
-public class PlayerInput extends Observable implements Observer {
+public class PlayerInput extends Observable implements Observer, Updateable {
 
     /**
      * Represents the actions that a {@link Player} can perform.
@@ -64,6 +73,13 @@ public class PlayerInput extends Observable implements Observer {
         if (observable.equals(shootInput)) {
             notifyObservers(PlayerEvent.SHOOT);
         }
+    }
+
+    @Override
+    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+        leftInput.update(container, delta);
+        rightInput.update(container, delta);
+        shootInput.update(container, delta);
     }
 
     /**
