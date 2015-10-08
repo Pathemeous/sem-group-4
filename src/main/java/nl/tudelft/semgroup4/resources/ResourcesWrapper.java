@@ -311,6 +311,10 @@ public class ResourcesWrapper {
         
     }
 
+    public Image getLoggerText() {
+        return Resources.loggerText;
+    }
+
     public Image getShopText() {
         return Resources.shopText;
     }

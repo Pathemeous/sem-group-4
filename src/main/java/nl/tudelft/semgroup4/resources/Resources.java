@@ -90,6 +90,7 @@ public final class Resources {
 
     static Image continueText;
     static Image shopText;
+    static Image loggerText;
     static Image player1On;
     static Image player1Off;
     static Image player2On;
@@ -163,6 +164,7 @@ public final class Resources {
         optionsText = new Image("src/main/resources/img/options.png");
         backText = new Image("src/main/resources/img/back.png");
         newKeyText = new Image("src/main/resources/img/newKeyText.png");
+        loggerText = new Image("src/main/resources/img/logger.png");
                 
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");

@@ -54,8 +54,6 @@ public class KeySetScreen {
         graphics.drawImage(backText, container.getWidth() / 2 - backText.getWidth() / 2,
                 container.getHeight() / 2.0f);
 
-        // checks to see if the user clicked on the "back to main menu button",
-        // if so, the state is set to main menu and the gameState unpauses
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOver.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeySetScreen",
