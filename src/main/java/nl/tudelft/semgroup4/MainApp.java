@@ -65,6 +65,6 @@ public class MainApp extends StateBasedGame {
         addState(new HighscoresState());
         addState(new GameEndedState());
         addState(new KeyBindState());
-        enterState(0);
+        enterState(States.StartScreenState);
     }
 }

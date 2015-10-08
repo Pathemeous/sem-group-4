@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import javax.swing.plaf.nimbus.State;
+
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
@@ -84,7 +86,7 @@ public class OptionsState extends BasicGameState {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
                         "User goes back to main menu" );
-                game.enterState(0);
+                game.enterState(States.StartScreenState);
             }
         }
         if (loggerButton.isMouseOver()) {
@@ -98,7 +100,7 @@ public class OptionsState extends BasicGameState {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
                         "User goes to key binding settings");
-                game.enterState(7);
+                game.enterState(States.KeyBindState);
             }
         }
     }
@@ -111,7 +113,7 @@ public class OptionsState extends BasicGameState {
 
     @Override
     public int getID() {
-        return 3;
+        return States.OptionsState;
     }
 
 }

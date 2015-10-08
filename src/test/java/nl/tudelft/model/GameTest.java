@@ -3,19 +3,15 @@ package nl.tudelft.model;
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.LinkedList;
-
-import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.GameEndedState;
+import nl.tudelft.semgroup4.States;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -119,7 +115,7 @@ public class GameTest extends AbstractOpenGLTestCase {
         when(mockedPlayer.getLives()).thenReturn(0);
         assertEquals(game.getCurLevel().getId(), 1);
         game.levelReset();
-        verify(mockedSbg, times(1)).enterState(0);
+        verify(mockedSbg, times(1)).enterState(States.StartScreenState);
     }
 
     /**
@@ -153,9 +149,9 @@ public class GameTest extends AbstractOpenGLTestCase {
         assertEquals(game.getCurLevel().getId(), 3);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 4);
-        when(mockedSbg.getState(6)).thenReturn(mockedGameEndedState);
+        when(mockedSbg.getState(States.GameEndedState)).thenReturn(mockedGameEndedState);
         game.nextLevel();
-        verify(mockedSbg, times(1)).enterState(6);
+        verify(mockedSbg, times(1)).enterState(States.GameEndedState);
     }
 
     /**
