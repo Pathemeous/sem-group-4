@@ -17,7 +17,7 @@ import org.newdawn.slick.SlickException;
 public class InputKey extends Observable implements Updateable {
 
     private final int keyCode;
-    private static final Input INPUT = new Input(0);
+    private static Input input = new Input(0);
 
     /**
      * Creates a new {@link InputKey} for the specified keyCode.
@@ -35,7 +35,8 @@ public class InputKey extends Observable implements Updateable {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if (INPUT.isKeyPressed(keyCode)) {
+        if (input.isKeyPressed(keyCode)) {
+            setChanged();
             notifyObservers();
         }
     }
@@ -60,7 +61,48 @@ public class InputKey extends Observable implements Updateable {
      */
     @Override
     public int hashCode() {
-        return INPUT.hashCode() + keyCode;
+        return input.hashCode() + keyCode;
+    }
+
+    /**
+     * Accesses the keyCode field of this object.
+     * 
+     * <p>
+     * The keyCode is an integer representing a key on the keyboard, according to the Slick2D
+     * library.
+     * </p>
+     * 
+     * @return int - the keyCode of the key that this object checks for.
+     */
+    protected final int getKeyCode() {
+        return keyCode;
+    }
+
+    /**
+     * Accesses the static {@link Input} field of this class.
+     * 
+     * <p>
+     * This field is static and should not be changed aside from testing purposes.
+     * </p>
+     * 
+     * @return the input
+     */
+    protected static final Input getInput() {
+        return input;
+    }
+
+    /**
+     * Sets the static {@link Input} field of this object.
+     * 
+     * <p>
+     * This field is static and should not be changed aside from testing purposes.
+     * </p>
+     * 
+     * @param input
+     *            {@link Input} - The input to set.
+     */
+    protected static final void setInput(Input input) {
+        InputKey.input = input;
     }
 
 }
