@@ -64,6 +64,7 @@ public class MainApp extends StateBasedGame {
         addState(new OptionsState());
         addState(new ShopState());
         addState(new HighscoresState());
+        addState(new KeyBindState());
         enterState(0);
     }
 }

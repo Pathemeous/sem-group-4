@@ -18,13 +18,12 @@ public class OptionsState extends BasicGameState {
     /**
      * Checks for mouseEvents.
      */
-    private KeySetScreen keySetScreen;
     private LoggerSetScreen loggerSetScreen;
     private MouseOverArea soundOnOff;
     private MouseOverArea backButton;
     private MouseOverArea loggerButton;
+    private MouseOverArea keyButton;
     private Input input;
-    private boolean keySetEnabled = false;
     private boolean loggerSetEnabled = false;
     private final ResourcesWrapper resources = new ResourcesWrapper();
 
@@ -38,12 +37,14 @@ public class OptionsState extends BasicGameState {
         loggerButton = new MouseOverArea(container, resources.getLoggerText(),
                 container.getWidth() / 4,
                 container.getHeight() / 3);
+        keyButton = new MouseOverArea(container, resources.getKeyText(),
+                container.getWidth() / 4,
+                container.getHeight() / 3 + 30);
         input = container.getInput();
         MouseOverArea keyCancel =
                 new MouseOverArea(container, resources.getQuitText(), container.getHeight() / 2,
                 container.getHeight() / 2, resources.getQuitText().getWidth(), resources
                 .getQuitText().getHeight());
-        keySetScreen = new KeySetScreen(resources, keyCancel);
         loggerSetScreen = new LoggerSetScreen(resources, container);
     }
 
@@ -58,6 +59,8 @@ public class OptionsState extends BasicGameState {
                 container.getHeight() / 4.0f);
         graphics.drawImage(resources.getLoggerText(), container.getWidth() / 4.0f,
                 container.getHeight() / 3.0f);
+        graphics.drawImage(resources.getKeyText(), container.getWidth() / 4.0f,
+                container.getHeight() / 3.0f + 50.0f);
         if (ResourcesWrapper.musicOn) {
             graphics.drawImage(resources.getOn(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
@@ -65,9 +68,6 @@ public class OptionsState extends BasicGameState {
         if (!ResourcesWrapper.musicOn) {
             graphics.drawImage(resources.getOff(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
-        }
-        if (keySetEnabled) {
-            keySetScreen.show(graphics, container, input, this);
         }
         if (loggerSetEnabled) {
             loggerSetScreen.show(graphics, container, input, this);
@@ -98,13 +98,13 @@ public class OptionsState extends BasicGameState {
                 toggleLoggerSet();
             }
         }
-        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            toggleKeySet();
+        if (keyButton.isMouseOver()) {
+            if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
+                        "User goes to key binding settings");
+                game.enterState(7);
+            }
         }
-    }
-
-    public void toggleKeySet() {
-        keySetEnabled = !keySetEnabled;
     }
 
     public void toggleLoggerSet() {

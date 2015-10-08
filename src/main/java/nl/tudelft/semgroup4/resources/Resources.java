@@ -43,6 +43,7 @@ public final class Resources {
     static Image optionsText;
     static Image backText;
     static Image newKeyText;
+    static Image keyBindingsText;
     
     static Image quitText;
     static Image pauseText;
@@ -165,6 +166,7 @@ public final class Resources {
         backText = new Image("src/main/resources/img/back.png");
         newKeyText = new Image("src/main/resources/img/newKeyText.png");
         loggerText = new Image("src/main/resources/img/logger.png");
+        keyBindingsText = new Image("src/main/resources/img/keyBindings.png");
                 
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
