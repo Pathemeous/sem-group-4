@@ -17,7 +17,7 @@ import org.newdawn.slick.SlickException;
 public class InputKey extends Observable implements Updateable {
 
     private final int keyCode;
-    private final Input input = new Input(0);
+    private static final Input INPUT = new Input(0);
 
     /**
      * Creates a new {@link InputKey} for the specified keyCode.
@@ -34,7 +34,7 @@ public class InputKey extends Observable implements Updateable {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if (input.isKeyPressed(keyCode)) {
+        if (INPUT.isKeyPressed(keyCode)) {
             notifyObservers();
         }
     }
