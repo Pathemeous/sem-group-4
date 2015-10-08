@@ -40,7 +40,7 @@ public class StartScreenState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         font = new Font("Verdana", Font.BOLD, 36);
         typeFont = new TrueTypeFont(font, true);  
-        highscores  = "HIGHSCORES";
+        highscores  = "HIGHSCORES"; 
         highScoreButton = new Image(typeFont.getWidth(highscores), typeFont.getHeight());
         shape = new Rectangle(650, 650, typeFont.getWidth(highscores), typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));        
@@ -93,7 +93,9 @@ public class StartScreenState extends BasicGameState {
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverHighScores.isMouseOver()) {
+                game.getState(4).init(container, game);
                 game.enterState(4);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverOnePlayer.isMouseOver()) {
                 game.addState(new GameState(game.getTitle(), true));
                 game.getState(1).init(container, game);
@@ -130,7 +132,6 @@ public class StartScreenState extends BasicGameState {
 
     @Override
     public int getID() {
-        // TODO Auto-generated method stub
         return 0;
     }
 

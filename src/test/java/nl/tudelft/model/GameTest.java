@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.semgroup4.GameEndedState;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -24,6 +25,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameTest extends AbstractOpenGLTestCase {
     
     private StateBasedGame mockedSbg;
+    private GameEndedState mockedGameEndedState;
     private ResourcesWrapper mockedResources;
     private Player mockedPlayer;
     
@@ -32,7 +34,8 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Before
     public void setUp() {
-        mockedSbg = mock(StateBasedGame.class);      
+        mockedSbg = mock(StateBasedGame.class); 
+        mockedGameEndedState = mock(GameEndedState.class);
         mockedResources = mock(ResourcesWrapper.class);
         Image mockedImage = mock(Image.class);
         when(mockedImage.getHeight()).thenReturn(1);
@@ -141,6 +144,7 @@ public class GameTest extends AbstractOpenGLTestCase {
      */
     @Test
     public void testNextLevel2() throws SlickException {
+        mockedSbg.addState(mockedGameEndedState);
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
@@ -149,8 +153,9 @@ public class GameTest extends AbstractOpenGLTestCase {
         assertEquals(game.getCurLevel().getId(), 3);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 4);
+        when(mockedSbg.getState(6)).thenReturn(mockedGameEndedState);
         game.nextLevel();
-        verify(mockedSbg, times(1)).enterState(0);
+        verify(mockedSbg, times(1)).enterState(6);
     }
 
     /**
