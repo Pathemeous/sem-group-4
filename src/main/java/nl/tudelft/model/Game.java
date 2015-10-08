@@ -153,13 +153,17 @@ public abstract class Game implements Renderable, Modifiable {
      * next level.
      */
     private void levelCompleted() {
-        if (getCurLevel().isCompleted() && levelIt.hasNext()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game",
-                    "Level has been completed. Go to next level!");
-            nextLevel();
-            ((ShopState) mainApp.getState(States.ShopState)).setup(this);
-            mainApp.enterState(States.ShopState);
-        }
+        if (getCurLevel().isCompleted()) {
+            if (levelIt.hasNext()) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "Game",
+                        "Level has been completed. Go to next level!");
+                nextLevel();
+                ((ShopState) mainApp.getState(States.ShopState)).setup(this);
+                mainApp.enterState(States.ShopState);
+            } else {
+                gameCompleted();
+            }  
+        } 
     }
 
     /**
@@ -312,22 +316,19 @@ public abstract class Game implements Renderable, Modifiable {
      * completed and {@link #gameCompleted()} is called.
      */
     public void nextLevel() {
-        if (levelIt.hasNext()) {
-            resetPlayers();
-            int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
-            for (Player player : getPlayers()) {
-                player.setScore(player.getScore() + score);
-            }
-            setCurLevel(levelIt.next());
-        } else {
-            gameCompleted();
+        resetPlayers();
+        int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
+        for (Player player : getPlayers()) {
+            player.setScore(player.getScore() + score);
         }
+        setCurLevel(levelIt.next());
     }
 
     /**
      * The game has been completed.
      */
     private void gameCompleted() {
+        System.out.println("Game completed!");
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
         ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), true);
         mainApp.enterState(States.GameEndedState);
