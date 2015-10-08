@@ -16,9 +16,10 @@ public class Bubble5Test {
     public void testBubble2Constructor() {
         Image mockedImg = mock(Image.class);
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        BubbleFactoryFactory mockedBubbleFactoryFactory = mock(BubbleFactoryFactory.class);
         when(mockedResources.getBubbleImage5()).thenReturn(mockedImg);
         
-        Bubble bubble = new Bubble5(mockedResources, 0, 0, true);
+        Bubble bubble = new Bubble5(mockedResources, mockedBubbleFactoryFactory, 0, 0, true);
         
         assertEquals(9.0f, bubble.getMaxVerticalSpeed(), 0.0f);
         assertEquals(mockedImg, bubble.getImage());
