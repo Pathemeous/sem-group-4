@@ -64,14 +64,17 @@ public class PlayerInput extends Observable implements Observer, Updateable {
     @Override
     public void update(Observable observable, Object argument) {
         if (observable.equals(leftInput)) {
+            setChanged();
             notifyObservers(PlayerEvent.LEFT);
         }
 
         if (observable.equals(rightInput)) {
+            setChanged();
             notifyObservers(PlayerEvent.RIGHT);
         }
 
         if (observable.equals(shootInput)) {
+            setChanged();
             notifyObservers(PlayerEvent.SHOOT);
         }
     }
@@ -111,6 +114,33 @@ public class PlayerInput extends Observable implements Observer, Updateable {
      */
     public final void setShootInput(InputKey shootInput) {
         this.shootInput = shootInput;
+    }
+
+    /**
+     * Accesses the {@link InputKey} for the {@link PlayerEvent#LEFT} event.
+     * 
+     * @return {@link InputKey} - The leftInput of this instance.
+     */
+    protected final InputKey getLeftInput() {
+        return leftInput;
+    }
+
+    /**
+     * Accesses the {@link InputKey} for the {@link PlayerEvent#RIGHT} event.
+     * 
+     * @return {@link InputKey} - The rightInput of this instance.
+     */
+    protected final InputKey getRightInput() {
+        return rightInput;
+    }
+
+    /**
+     * Accesses the {@link InputKey} for the {@link PlayerEvent#SHOOT} event.
+     * 
+     * @return {@link InputKey} - The shootInput of this instance.
+     */
+    protected final InputKey getShootInput() {
+        return shootInput;
     }
 
 }
