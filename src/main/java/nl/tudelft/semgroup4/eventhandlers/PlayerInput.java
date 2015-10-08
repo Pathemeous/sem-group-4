@@ -16,7 +16,7 @@ import nl.tudelft.model.Player;
  * @author Pathemeous
  *
  */
-public class PlayerEventHandler extends Observable implements Observer {
+public class PlayerInput extends Observable implements Observer {
 
     /**
      * Represents the actions that a {@link Player} can perform.
@@ -33,7 +33,7 @@ public class PlayerEventHandler extends Observable implements Observer {
     private InputKey shootInput;
 
     /**
-     * Creates a new {@link PlayerEventHandler} with the according {@link InputKey}s.
+     * Creates a new {@link PlayerInput} with the according {@link InputKey}s.
      * 
      * @param leftKey
      *            {@link InputKey} - The key to use for moving left.
@@ -42,7 +42,7 @@ public class PlayerEventHandler extends Observable implements Observer {
      * @param shootKey
      *            {@link InputKey} - The key to use for shooting.
      */
-    public PlayerEventHandler(InputKey leftKey, InputKey rightKey, InputKey shootKey) {
+    public PlayerInput(InputKey leftKey, InputKey rightKey, InputKey shootKey) {
         this.leftInput = leftKey;
         this.rightInput = rightKey;
         this.shootInput = shootKey;
