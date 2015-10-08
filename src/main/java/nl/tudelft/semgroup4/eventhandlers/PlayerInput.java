@@ -19,7 +19,7 @@ import org.newdawn.slick.SlickException;
  * 
  * <p>
  * The input must be polled with the game update cycle. The object storing this object should
- * therefore take responsibility in calling the update on this object.
+ * therefore take responsibility in calling the {@link PlayerInput#update(Modifiable, int)} on this object.
  * </p>
  * 
  * @author Pathemeous
