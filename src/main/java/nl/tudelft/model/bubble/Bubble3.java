@@ -30,9 +30,6 @@ public class Bubble3 extends Bubble {
         this.bubbleFactory = getBubbleFactoryFactory().getSize2();
 
         setMaxVerticalSpeed(7.0f);
-
-        getNext().add(new Bubble2(resources, getBubbleFactoryFactory(), locX, locY, true));
-        getNext().add(new Bubble2(resources, getBubbleFactoryFactory(), locX, locY, false));
     }
 
 }
