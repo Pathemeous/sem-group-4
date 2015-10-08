@@ -34,6 +34,17 @@ public class KeyBindHelper {
             toLoad = DEFAULTS;
         }
 
+        return loader(toLoad);
+    }
+
+    /**
+     * Loads keys from a certain file.
+     * @param toLoad - the file which we will load from
+     * @return - the keybindings
+     * @throws IOException - something went wrong.
+     */
+    public static List<KeyBindingEntry> loader(String toLoad) throws IOException {
+
         byte[] encoded = Files.readAllBytes(Paths.get(toLoad));
         String jsonString = new String(encoded, encoding);
 

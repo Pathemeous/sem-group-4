@@ -82,4 +82,15 @@ public class Settings {
     public static void setPlayer2Shoot(int value) {
         completeKeyBindings.get(5).setValue(value);
     }
+
+    /**
+     * Reset the settings to their defaults.
+     */
+    public static void setDefault() {
+        try {
+            completeKeyBindings = KeyBindHelper.loader("defaults.json");
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 }
