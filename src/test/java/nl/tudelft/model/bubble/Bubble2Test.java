@@ -18,7 +18,7 @@ public class Bubble2Test {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         when(mockedResources.getBubbleImage2()).thenReturn(mockedImg);
         
-        Bubble bubble = new Bubble2(mockedResources, 0, 0);
+        Bubble bubble = new Bubble2(mockedResources, 0, 0, true);
         
         assertEquals(6.0f, bubble.getMaxVerticalSpeed(), 0.0f);
         assertEquals(mockedImg, bubble.getImage());

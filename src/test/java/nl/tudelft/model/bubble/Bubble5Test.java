@@ -18,7 +18,7 @@ public class Bubble5Test {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         when(mockedResources.getBubbleImage5()).thenReturn(mockedImg);
         
-        Bubble bubble = new Bubble5(mockedResources, 0, 0);
+        Bubble bubble = new Bubble5(mockedResources, 0, 0, true);
         
         assertEquals(9.0f, bubble.getMaxVerticalSpeed(), 0.0f);
         assertEquals(mockedImg, bubble.getImage());

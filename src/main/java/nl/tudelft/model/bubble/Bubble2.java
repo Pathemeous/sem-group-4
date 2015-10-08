@@ -8,20 +8,6 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 public class Bubble2 extends Bubble {
 
     /**
-     * A simplified constructor, which makes the bubble go to the right by default.
-     * 
-     * @param resources
-     *            {@link ResourcesWrapper} - A new resourceWrapper that this class can use.
-     * @param locX
-     *            : the starting x-location of the bubble.
-     * @param locY
-     *            : the starting y-location of the bubble.
-     */
-    public Bubble2(ResourcesWrapper resources, float locX, float locY) {
-        this(resources, locX, locY, true);
-    }
-
-    /**
      * The constructor for this class. Generates a bubble of size 2, with a maxverticalspeed of 6.
      * Adds two bubbles of size 1 to the list of next bubbles; those will be spawned when this
      * bubble is hit.

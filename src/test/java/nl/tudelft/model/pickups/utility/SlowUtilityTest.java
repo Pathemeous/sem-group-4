@@ -53,7 +53,7 @@ public class SlowUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         SlowUtility utility = new SlowUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6(mockedResources, 0, 0);
+        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
@@ -79,7 +79,7 @@ public class SlowUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         SlowUtility utility = new SlowUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6(mockedResources, 0, 0);
+        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
         bubble.setSlow(true);
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
