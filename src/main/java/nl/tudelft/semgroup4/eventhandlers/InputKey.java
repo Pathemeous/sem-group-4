@@ -39,7 +39,9 @@ public class InputKey extends Observable implements Updateable {
         }
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#equals(java.lang.Object)
      */
     @Override
@@ -50,14 +52,14 @@ public class InputKey extends Observable implements Updateable {
         return false;
     }
 
-    /* (non-Javadoc)
+    /*
+     * (non-Javadoc)
+     * 
      * @see java.lang.Object#hashCode()
      */
     @Override
     public int hashCode() {
         return INPUT.hashCode() + keyCode;
     }
-    
-    
 
 }

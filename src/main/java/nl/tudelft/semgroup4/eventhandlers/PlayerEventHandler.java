@@ -48,14 +48,14 @@ public class PlayerEventHandler extends Observable implements Observer {
 
     @Override
     public void update(Observable observable, Object argument) {
-        if (observable.equals(leftInput)){
+        if (observable.equals(leftInput)) {
             notifyObservers(Event.LEFT);
         }
-        
+
         if (observable.equals(rightInput)) {
             notifyObservers(Event.RIGHT);
         }
-        
+
         if (observable.equals(shootInput)) {
             notifyObservers(Event.SHOOT);
         }
