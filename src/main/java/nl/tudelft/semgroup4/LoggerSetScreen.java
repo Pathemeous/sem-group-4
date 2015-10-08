@@ -112,7 +112,7 @@ public class LoggerSetScreen {
         typeFont.drawString(60, 180, warning, Color.yellow);
         typeFont.drawString(60, 230, debug, Color.yellow);
         typeFont.drawString(60, 280, verbose, Color.yellow);
-        typeFont.drawString(60, 330, cancel, Color.yellow);
+        typeFont.drawString(60, 330, cancel, Color.red);
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (overCan.isMouseOver()) {
