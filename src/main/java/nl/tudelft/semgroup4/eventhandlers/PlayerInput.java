@@ -3,11 +3,11 @@ package nl.tudelft.semgroup4.eventhandlers;
 import java.util.Observable;
 import java.util.Observer;
 
-import org.newdawn.slick.SlickException;
-
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Updateable;
+
+import org.newdawn.slick.SlickException;
 
 /**
  * Represents an object to handle input events for a {@link Player}.
