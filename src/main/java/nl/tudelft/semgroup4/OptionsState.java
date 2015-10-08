@@ -17,9 +17,11 @@ public class OptionsState extends BasicGameState {
     /**
      * Checks for mouseEvents.
      */
+    private KeySetScreen keySetScreen;
     private MouseOverArea soundOnOff;
     private MouseOverArea backButton;
     private Input input;
+    private boolean keySetEnabled = false;
     private final ResourcesWrapper resources = new ResourcesWrapper();
 
     @Override
@@ -30,6 +32,11 @@ public class OptionsState extends BasicGameState {
         backButton = new MouseOverArea(container, resources.getBackText(),
                 container.getWidth() / 10, container.getHeight() / 10 * 9);
         input = container.getInput();
+        MouseOverArea keyCancel =
+                new MouseOverArea(container, resources.getQuitText(), container.getHeight() / 2,
+                container.getHeight() / 2, resources.getQuitText().getWidth(), resources
+                .getQuitText().getHeight());
+        keySetScreen = new KeySetScreen(resources, keyCancel);
     }
 
     @Override
@@ -48,6 +55,9 @@ public class OptionsState extends BasicGameState {
         if (!ResourcesWrapper.musicOn) {
             graphics.drawImage(resources.getOff(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
+        }
+        if (keySetEnabled) {
+            keySetScreen.show(graphics, container, input, this);
         }
     }
 
@@ -68,6 +78,13 @@ public class OptionsState extends BasicGameState {
                 game.enterState(0);
             }
         }
+        if (input.isKeyPressed(Input.KEY_ESCAPE)) {
+            toggleKeySet();
+        }
+    }
+
+    public void toggleKeySet() {
+        keySetEnabled = !keySetEnabled;
     }
 
 
