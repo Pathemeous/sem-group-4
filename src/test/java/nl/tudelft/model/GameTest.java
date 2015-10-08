@@ -149,9 +149,9 @@ public class GameTest extends AbstractOpenGLTestCase {
         assertEquals(game.getCurLevel().getId(), 3);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 4);
-        when(mockedSbg.getState(6)).thenReturn(mockedGameEndedState);
+        when(mockedSbg.getState(States.GameEndedState)).thenReturn(mockedGameEndedState);
         game.nextLevel();
-        verify(mockedSbg, times(1)).enterState(6);
+        verify(mockedSbg, times(1)).enterState(States.GameEndedState);
     }
 
     /**
