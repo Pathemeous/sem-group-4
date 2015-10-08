@@ -19,17 +19,15 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-    
+
     private PauseScreen pauseScreen;
     private Input input = new Input(0);
-    private Game currentGame;
+    private final Game currentGame;
     private Dashboard dashboard;
-    private final boolean singlePlayer;
     private boolean pauseScreenOpened = false;
 
-    public GameState(String title, boolean singlePlayer) {
-        super();
-        this.singlePlayer = singlePlayer;
+    public GameState(Game game) {
+        this.currentGame = game;
     }
 
     /**
@@ -54,43 +52,6 @@ public class GameState extends BasicGameState {
                         .getQuitText().getHeight());
         pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
         // Resources.titleScreenMusic.stop();
-
-        // todo input
-
-        // players are initialized with a certain Y coordinate, this should be refactored to be
-        // more
-        // flexible
-
-        if (singlePlayer) {
-            Player player = new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                    container.getHeight() - res.getPlayerImageStill().getHeight() - 5
-                            * res.getWallImage().getHeight(), input, true);
-
-            currentGame = new SingleplayerGame(
-                    mainApp,
-                    container.getWidth(), container.getHeight(),
-                    new ResourcesWrapper(),
-                    player);
-            currentGame.toAdd(player.getWeapon());
-
-        } else {
-            Player firstPlayer =
-                    new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                            container.getHeight() - res.getPlayerImageStill().getHeight() - 5
-                                    * res.getWallImage().getHeight(), input, true);
-            Player secondPlayer =
-                    new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
-                            container.getHeight() - res.getPlayerImageStill().getHeight() - 5
-                                    * res.getWallImage().getHeight(), input, false);
-
-            currentGame = new MultiplayerGame(
-                    mainApp,
-                    container.getWidth(), container.getHeight(),
-                    new ResourcesWrapper(),
-                    firstPlayer, secondPlayer);
-            currentGame.toAdd(firstPlayer.getWeapon());
-            currentGame.toAdd(firstPlayer.getWeapon());
-        }
 
         int dashboardMargin = 20;
         dashboard = new Dashboard(new ResourcesWrapper(), currentGame,
@@ -171,12 +132,6 @@ public class GameState extends BasicGameState {
 
     @Override
     public int getID() {
-        if (singlePlayer) {
-            return 1;
-        } else {
-            return 2;
-        }
-
-    }    
-
+        return States.GameState;
+    }
 }
