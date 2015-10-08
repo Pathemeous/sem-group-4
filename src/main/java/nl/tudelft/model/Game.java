@@ -328,7 +328,6 @@ public abstract class Game implements Renderable, Modifiable {
      * The game has been completed.
      */
     private void gameCompleted() {
-        System.out.println("Game completed!");
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
         ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), true);
         mainApp.enterState(States.GameEndedState);
