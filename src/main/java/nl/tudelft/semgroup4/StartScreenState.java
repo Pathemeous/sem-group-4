@@ -48,7 +48,7 @@ public class StartScreenState extends BasicGameState {
         this.mainApp = mainApp;
         font = new Font("Verdana", Font.BOLD, 36);
         typeFont = new TrueTypeFont(font, true);  
-        highscores  = "HIGHSCORES";
+        highscores  = "HIGHSCORES"; 
         highScoreButton = new Image(typeFont.getWidth(highscores), typeFont.getHeight());
         shape = new Rectangle(650, 650, typeFont.getWidth(highscores), typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));        
@@ -101,7 +101,9 @@ public class StartScreenState extends BasicGameState {
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverHighScores.isMouseOver()) {
+                game.getState(States.HighscoresState).init(container, game);
                 game.enterState(States.HighscoresState);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverOnePlayer.isMouseOver()) {
 
                 final ResourcesWrapper res = new ResourcesWrapper();
@@ -174,7 +176,6 @@ public class StartScreenState extends BasicGameState {
 
     @Override
     public int getID() {
-        // TODO Auto-generated method stub
         return States.StartScreenState;
     }
 

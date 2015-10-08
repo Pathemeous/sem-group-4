@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
+import nl.tudelft.semgroup4.GameEndedState;
+import nl.tudelft.semgroup4.GameState;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.ShopState;
@@ -327,7 +329,8 @@ public abstract class Game implements Renderable, Modifiable {
      */
     private void gameCompleted() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
-        mainApp.enterState(States.StartScreenState);
+        ((GameEndedState) mainApp.getState(6)).setup(getPlayers(), true);
+        mainApp.enterState(6);
     }
 
     /**
@@ -339,7 +342,8 @@ public abstract class Game implements Renderable, Modifiable {
      */
     public void gameOver() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
-        mainApp.enterState(States.StartScreenState);
+        ((GameEndedState) mainApp.getState(6)).setup(getPlayers(), false);
+        mainApp.enterState(6);
     }
 
     /**

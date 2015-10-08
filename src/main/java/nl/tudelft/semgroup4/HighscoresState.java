@@ -12,10 +12,7 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.CompareHighscores;
 import nl.tudelft.semgroup4.util.HighscoreEntry;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import nl.tudelft.semgroup4.util.HighscoresHelper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -41,23 +38,14 @@ public class HighscoresState extends BasicGameState {
         backButton = new MouseOverArea(container, resources.getBackText(),
                 container.getWidth() / 10, container.getHeight() / 10 * 9);
         input = container.getInput();
-        
-        JSONParser parser = new JSONParser();
-        
+
+        highscores.clear();
         try {
-            JSONArray array = (JSONArray) parser.parse(new FileReader("scores.json"));
-            
-            for (Object object : array) {
-                JSONObject highscore = (JSONObject)object;
-                
-                String name = (String)highscore.get("name");
-                long score = (long)highscore.get("score");
-                highscores.add(new HighscoreEntry(name, score));
-            }
-        } catch (IOException | ParseException e) {
+            highscores.addAll(HighscoresHelper.load());
+        } catch (IOException e) {
             e.printStackTrace();
         }
-        
+
         highscores.sort(new CompareHighscores());
     }
 
