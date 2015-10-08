@@ -67,24 +67,30 @@ public class PlayerInput extends Observable implements Observer {
     }
 
     /**
+     * Sets a new key as the input for moving left.
+     * 
      * @param leftInput
-     *            the leftInput to set
+     *            {@link InputKey} - The leftInput to set.
      */
     public final void setLeftInput(InputKey leftInput) {
         this.leftInput = leftInput;
     }
 
     /**
+     * Sets a new key as the input for moving right.
+     * 
      * @param rightInput
-     *            the rightInput to set
+     *            {@link InputKey} - The rightInput to set.
      */
     public final void setRightInput(InputKey rightInput) {
         this.rightInput = rightInput;
     }
 
     /**
+     * Sets a new key as the input for shooting.
+     * 
      * @param shootInput
-     *            the shootInput to set
+     *            {@link InputKey} - The shootInput to set.
      */
     public final void setShootInput(InputKey shootInput) {
         this.shootInput = shootInput;
