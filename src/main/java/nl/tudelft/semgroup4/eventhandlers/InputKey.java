@@ -63,4 +63,18 @@ public class InputKey extends Observable implements Updateable {
         return INPUT.hashCode() + keyCode;
     }
 
+    /**
+     * Accesses the keyCode field of this object.
+     * 
+     * <p>
+     * The keyCode is an integer representing a key on the keyboard, according to the Slick2D
+     * library.
+     * </p>
+     * 
+     * @return int - the keyCode of the key that this object checks for.
+     */
+    protected final int getKeyCode() {
+        return keyCode;
+    }
+
 }
