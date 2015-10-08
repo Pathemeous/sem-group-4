@@ -93,7 +93,9 @@ public class StartScreenState extends BasicGameState {
 
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverHighScores.isMouseOver()) {
+                game.getState(4).init(container, game);
                 game.enterState(4);
+                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverOnePlayer.isMouseOver()) {
                 game.addState(new GameState(game.getTitle(), true));
                 game.getState(1).init(container, game);

@@ -1,9 +1,15 @@
 package nl.tudelft.semgroup4;
 
 import java.awt.Font;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import nl.tudelft.model.Player;
 
+import nl.tudelft.semgroup4.util.HighscoreEntry;
+import nl.tudelft.semgroup4.util.HighscoresHelper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -191,6 +197,26 @@ public class GameEndedState extends BasicGameState {
                 System.out.println("player2");
                 textFieldPlayer2.setFocus(true);
             } else if (mouseOverContinueButton.isMouseOver()) {
+
+                try {
+                    List<HighscoreEntry> highscores = HighscoresHelper.load();
+
+                    highscores.add(new HighscoreEntry(
+                            textFieldPlayer1.getText(),
+                            players[0].getScore()));
+
+                    if (players.length == 2) {
+                        highscores.add(new HighscoreEntry(
+                                textFieldPlayer2.getText(),
+                                players[1].getScore()));
+                    }
+
+                    HighscoresHelper.save(highscores);
+
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
                 game.enterState(0);
             }
         }
