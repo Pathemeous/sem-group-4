@@ -1,0 +1,72 @@
+package nl.tudelft.semgroup4.util;
+
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.LinkOption;
+import java.nio.file.OpenOption;
+import java.nio.file.Paths;
+import java.nio.file.StandardOpenOption;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+/**
+ * Created by justin on 08/10/15.
+ */
+public class HighscoresHelper {
+
+    public static final String FILENAME = "scores.json";
+    public static final Charset encoding = Charset.forName("UTF-8");
+
+    public static List<HighscoreEntry> load() throws IOException {
+
+        // when file does not exist, create empty one
+        if (!new File(FILENAME).exists()) {
+            save(new ArrayList<>());
+        }
+
+        byte[] encoded = Files.readAllBytes(Paths.get(FILENAME));
+        String jsonString = new String(encoded, encoding);
+
+        final List<HighscoreEntry> highscores = new ArrayList<>();
+
+        JSONArray array = new JSONArray(jsonString);
+
+        for (Object object : array) {
+            JSONObject highscore = (JSONObject)object;
+
+            String name = (String)highscore.get("name");
+            long score = highscore.getLong("score");
+            highscores.add(new HighscoreEntry(name, score));
+        }
+
+        return highscores;
+    }
+
+    public static void save(List<HighscoreEntry> highscores) throws IOException {
+
+        JSONArray array = new JSONArray();
+        for (HighscoreEntry entry : highscores) {
+            JSONObject entryJsonObject = new JSONObject();
+            entryJsonObject.put("name", entry.getName());
+            entryJsonObject.put("score", entry.getScore());
+            array.put(entryJsonObject);
+        }
+
+        OpenOption[] options = {
+                StandardOpenOption.CREATE,
+                StandardOpenOption.WRITE,
+        };
+
+        Files.write(new File(FILENAME).toPath(), array.toString().getBytes(), options);
+
+    }
+
+}
