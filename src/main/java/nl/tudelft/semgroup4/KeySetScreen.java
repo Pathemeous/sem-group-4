@@ -43,7 +43,7 @@ public class KeySetScreen {
      *            the options screen
      */
     public void show(Graphics graphics, GameContainer container, Input input,
-            OptionsState optionsState) {
+            KeyBindState optionsState) {
         graphics.setColor(Color.yellow);
         graphics.setAntiAlias(true);
         Color color = new Color(0f, 0f, 0f, 0.5f);
@@ -53,12 +53,5 @@ public class KeySetScreen {
                 container.getHeight() / 3.0f);
         graphics.drawImage(backText, container.getWidth() / 2 - backText.getWidth() / 2,
                 container.getHeight() / 2.0f);
-
-        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if (mouseOver.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "KeySetScreen",
-                        "Player has cancelled setting the key.");
-            }
-        }
     }
 }
