@@ -19,9 +19,14 @@ public class Bubble1 extends Bubble {
      *            : the starting y-location of the bubble.
      * @param goRight
      *            : boolean to indicate if the initial direction of the bubble is to the right.
+     * @param bubbleFactoryFactory
+     *            {@link BubbleFactoryFactory} - The BubbleFactoryFactory that this class may use.
      */
-    public Bubble1(ResourcesWrapper resources, float locX, float locY, boolean goRight) {
-        super(resources.getBubbleImage1(), locX, locY, goRight, resources);
+    public Bubble1(ResourcesWrapper resources, BubbleFactoryFactory bubbleFactoryFactory,
+                   float locX, float locY, boolean goRight) {
+        super(resources.getBubbleImage1(), locX, locY, goRight, resources, bubbleFactoryFactory);
+
+        this.bubbleFactory = null;
 
         setMaxVerticalSpeed(5.0f);
     }

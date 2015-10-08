@@ -11,7 +11,7 @@ public class Bubble4 extends Bubble {
      * The constructor for this class. Generates a bubble of size 4, with a maxverticalspeed of 8.
      * Adds two bubbles of size 3 to the list of next bubbles; those will be spawned when this
      * bubble is hit.
-     * 
+     *
      * @param resources
      *            {@link ResourcesWrapper} - A new resourceWrapper that this class can use.
      * @param locX
@@ -20,14 +20,19 @@ public class Bubble4 extends Bubble {
      *            : the starting y-location of the bubble.
      * @param goRight
      *            : boolean to indicate if the initial direction of the bubble is to the right.
+     * @param bubbleFactoryFactory
+     *            {@link BubbleFactoryFactory} - The BubbleFactoryFactory that this class may use.
      */
-    public Bubble4(ResourcesWrapper resources, float locX, float locY, boolean goRight) {
-        super(resources.getBubbleImage4(), locX, locY, goRight, resources);
+    public Bubble4(ResourcesWrapper resources, BubbleFactoryFactory bubbleFactoryFactory,
+                   float locX, float locY, boolean goRight) {
+        super(resources.getBubbleImage4(), locX, locY, goRight, resources, bubbleFactoryFactory);
+
+        this.bubbleFactory = getBubbleFactoryFactory().getSize3();
 
         setMaxVerticalSpeed(8.0f);
 
-        getNext().add(new Bubble3(resources, locX, locY, true));
-        getNext().add(new Bubble3(resources, locX, locY, false));
+        getNext().add(new Bubble3(resources, getBubbleFactoryFactory(), locX, locY, true));
+        getNext().add(new Bubble3(resources, getBubbleFactoryFactory(), locX, locY, false));
     }
 
 }

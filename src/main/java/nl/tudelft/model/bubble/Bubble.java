@@ -31,6 +31,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean frozen = false;
     private int tickCount = 0;
     private final ResourcesWrapper resources;
+    protected BubbleFactory bubbleFactory = null;
+    private final BubbleFactoryFactory bubbleFactoryFactory;
     private final List<Bubble> next;
     private final boolean goesRightInitially;
 
@@ -54,12 +56,15 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            boolean - true if the bubble should initialise moving to the right.
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
+     * @param bubbleFactoryFactory
+     *            {@link BubbleFactoryFactory} - The BubbleFactoryFactory that this class may use.
      */
     public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
-            ResourcesWrapper resources) {
+            ResourcesWrapper resources, BubbleFactoryFactory bubbleFactoryFactory) {
         super(bubbleImg, locX, locY);
 
         this.resources = resources;
+        this.bubbleFactoryFactory = bubbleFactoryFactory;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
 
@@ -69,6 +74,14 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         }
 
         next = new ArrayList<>();
+    }
+
+    protected final BubbleFactory getBubbleFactory() {
+        return this.bubbleFactory;
+    }
+
+    protected final BubbleFactoryFactory getBubbleFactoryFactory() {
+        return this.bubbleFactoryFactory;
     }
 
     /**
