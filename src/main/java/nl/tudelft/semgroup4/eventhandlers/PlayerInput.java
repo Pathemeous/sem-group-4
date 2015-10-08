@@ -64,14 +64,17 @@ public class PlayerInput extends Observable implements Observer, Updateable {
     @Override
     public void update(Observable observable, Object argument) {
         if (observable.equals(leftInput)) {
+            setChanged();
             notifyObservers(PlayerEvent.LEFT);
         }
 
         if (observable.equals(rightInput)) {
+            setChanged();
             notifyObservers(PlayerEvent.RIGHT);
         }
 
         if (observable.equals(shootInput)) {
+            setChanged();
             notifyObservers(PlayerEvent.SHOOT);
         }
     }
