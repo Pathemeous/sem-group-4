@@ -33,7 +33,7 @@ public class SpeedPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         assertFalse(player.hasPowerup(Powerup.SPEED));
         assertFalse(powerup.isActive());
@@ -50,7 +50,7 @@ public class SpeedPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         assertFalse(player.hasPowerup(Powerup.SPEED));
         assertFalse(powerup.isActive());
@@ -95,7 +95,7 @@ public class SpeedPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         powerup.activate(player);
         powerup.setSpeedCount(599);

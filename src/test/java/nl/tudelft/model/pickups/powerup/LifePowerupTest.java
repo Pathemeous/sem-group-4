@@ -31,7 +31,7 @@ public class LifePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         LifePowerup powerup = new LifePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         assertEquals(3, player.getLives());
         assertFalse(powerup.isActive());
