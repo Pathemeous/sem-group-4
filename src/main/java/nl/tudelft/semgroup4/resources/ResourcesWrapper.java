@@ -169,6 +169,10 @@ public class ResourcesWrapper {
     public Image getPauseText() {
         return Resources.pauseText;
     }
+
+    public Image getNewKeyText() {
+        return Resources.newKeyText;
+    }
     
     public Image getShopBackGround() {
         return Resources.shopBackground;
@@ -305,6 +309,14 @@ public class ResourcesWrapper {
     public Image getContinueText() {
         return Resources.continueText;
         
+    }
+
+    public Image getLoggerText() {
+        return Resources.loggerText;
+    }
+
+    public Image getKeyText() {
+        return Resources.keyBindingsText;
     }
 
     public Image getShopText() {

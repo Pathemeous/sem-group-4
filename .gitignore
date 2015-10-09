@@ -125,3 +125,4 @@ buildNumber.properties
 ### LOG ###
 log.txt
 scores.json
+keyBindings.json

@@ -42,6 +42,8 @@ public final class Resources {
     static Image soundText;
     static Image optionsText;
     static Image backText;
+    static Image newKeyText;
+    static Image keyBindingsText;
     
     static Image quitText;
     static Image pauseText;
@@ -89,6 +91,7 @@ public final class Resources {
 
     static Image continueText;
     static Image shopText;
+    static Image loggerText;
     static Image player1On;
     static Image player1Off;
     static Image player2On;
@@ -161,6 +164,9 @@ public final class Resources {
         soundText = new Image("src/main/resources/img/sound.png");
         optionsText = new Image("src/main/resources/img/options.png");
         backText = new Image("src/main/resources/img/back.png");
+        newKeyText = new Image("src/main/resources/img/newKeyText.png");
+        loggerText = new Image("src/main/resources/img/logger.png");
+        keyBindingsText = new Image("src/main/resources/img/keyBindings.png");
                 
         pauseText = new Image("src/main/resources/img/pausedText.png");
         quitText = new Image("src/main/resources/img/quitText.png");
