@@ -42,8 +42,8 @@ public class Shop {
      * @return res : the item that has the discount applied.
      */
     public ShopItem discount() {
-        Random rand = new Random(inventory.size());
-        ShopItem res = inventory.get(rand.nextInt());
+        Random rand = new Random();
+        ShopItem res = inventory.get(rand.nextInt(inventory.size()));
         res.setPrice((int) (0.5 * res.getPrice()));
         return res;
     }
