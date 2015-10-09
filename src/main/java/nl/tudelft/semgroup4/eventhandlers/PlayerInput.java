@@ -5,9 +5,6 @@ import java.util.Observer;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Updateable;
-
-import org.newdawn.slick.SlickException;
 
 /**
  * Represents an object to handle input events for a {@link Player}.
@@ -26,7 +23,7 @@ import org.newdawn.slick.SlickException;
  * @author Pathemeous
  *
  */
-public class PlayerInput extends Observable implements Observer, Updateable {
+public class PlayerInput extends Observable implements Observer {
 
     /**
      * Represents the actions that a {@link Player} can perform.
@@ -35,7 +32,7 @@ public class PlayerInput extends Observable implements Observer, Updateable {
      *
      */
     public enum PlayerEvent {
-        LEFT, RIGHT, SHOOT
+        LEFT, RIGHT, SHOOT, STILL
     }
 
     private InputKey leftInput;
@@ -63,27 +60,39 @@ public class PlayerInput extends Observable implements Observer, Updateable {
 
     @Override
     public void update(Observable observable, Object argument) {
-        if (observable.equals(leftInput)) {
+        if (argument == null) {
+            return;
+        }
+
+        if (observable.equals(leftInput) && (Boolean) argument) {
             setChanged();
             notifyObservers(PlayerEvent.LEFT);
         }
 
-        if (observable.equals(rightInput)) {
+        if (observable.equals(rightInput) && (Boolean) argument) {
             setChanged();
             notifyObservers(PlayerEvent.RIGHT);
         }
 
-        if (observable.equals(shootInput)) {
+        if ((observable.equals(leftInput) || observable.equals(rightInput))
+                && !(Boolean) argument) {
+            setChanged();
+            notifyObservers(PlayerEvent.STILL);
+        }
+
+        if (observable.equals(shootInput) && (Boolean) argument) {
             setChanged();
             notifyObservers(PlayerEvent.SHOOT);
         }
     }
 
-    @Override
-    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        leftInput.update(container, delta);
-        rightInput.update(container, delta);
-        shootInput.update(container, delta);
+    /**
+     * polls its {@link InputKey}s for input.
+     */
+    public void poll() {
+        leftInput.poll();
+        rightInput.poll();
+        shootInput.poll();
     }
 
     /**

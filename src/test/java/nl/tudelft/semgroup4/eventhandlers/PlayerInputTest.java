@@ -3,11 +3,10 @@ package nl.tudelft.semgroup4.eventhandlers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.awt.DefaultKeyboardFocusManager;
 import java.util.Observable;
 import java.util.Observer;
 
-import nl.tudelft.model.Game;
-import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput.PlayerEvent;
 
 import org.junit.Before;
@@ -42,49 +41,88 @@ public class PlayerInputTest {
     }
 
     @Test
-    public void testUpdateObservableObjectNoEvent() {
+    public void testUpdateWrongObservableNoEvent() {
         Observer mockedObserver = Mockito.mock(PlayerInput.class);
         Observable wrongObservable = Mockito.mock(InputKey.class);
         defaultInstance.addObserver(mockedObserver);
 
         defaultInstance.update(wrongObservable, null);
+        defaultInstance.update(wrongObservable, false);
+        defaultInstance.update(wrongObservable, true);
         Mockito.verify(mockedObserver, Mockito.never()).update(Mockito.any(), Mockito.any());
     }
 
     @Test
-    public void testUpdateObservableObjectLeftEvent() {
+    public void testUpdateNullArgument() {
         Observer mockedObserver = Mockito.mock(PlayerInput.class);
         defaultInstance.addObserver(mockedObserver);
 
         defaultInstance.update(mockedLeftKey, null);
+        Mockito.verify(mockedObserver, Mockito.never()).update(Mockito.any(), Mockito.any());
+    }
+
+    @Test
+    public void testUpdateLeftEvent() {
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultInstance.addObserver(mockedObserver);
+
+        defaultInstance.update(mockedLeftKey, true);
         Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.LEFT);
     }
 
     @Test
-    public void testUpdateObservableObjectRightEvent() {
+    public void testUpdateRightEvent() {
         Observer mockedObserver = Mockito.mock(PlayerInput.class);
         defaultInstance.addObserver(mockedObserver);
 
-        defaultInstance.update(mockedRightKey, null);
+        defaultInstance.update(mockedRightKey, true);
         Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.RIGHT);
     }
 
     @Test
-    public void testUpdateObservableObjectShootEvent() {
+    public void testUpdateShootEvent() {
         Observer mockedObserver = Mockito.mock(PlayerInput.class);
         defaultInstance.addObserver(mockedObserver);
 
-        defaultInstance.update(mockedShootKey, null);
+        defaultInstance.update(mockedShootKey, true);
         Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.SHOOT);
     }
 
     @Test
-    public void testUpdateTInt() throws SlickException {
-        Modifiable container = Mockito.mock(Game.class);
-        defaultInstance.update(container, 15);
-        Mockito.verify(mockedLeftKey).update(container, 15);
-        Mockito.verify(mockedRightKey).update(container, 15);
-        Mockito.verify(mockedShootKey).update(container, 15);
+    public void testUpdateStillEventOnLeftKeyUp() {
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultInstance.addObserver(mockedObserver);
+
+        defaultInstance.update(mockedLeftKey, false);
+        Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.STILL);
+    }
+
+    @Test
+    public void testUpdateStillEventOnRightKeyUp() {
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultInstance.addObserver(mockedObserver);
+
+        defaultInstance.update(mockedRightKey, false);
+        Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.STILL);
+    }
+
+    @Test
+    public void testUpdateNoEventOnShootKeyUp() {
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultInstance.addObserver(mockedObserver);
+
+        defaultInstance.update(mockedShootKey, false);
+        Mockito.verify(mockedObserver, Mockito.never()).update(Mockito.any(), Mockito.any());
+    }
+
+    @Test
+    public void testPoll() throws SlickException {
+        defaultInstance.poll();
+        Mockito.verify(mockedLeftKey).poll();
+        Mockito.verify(mockedRightKey).poll();
+        ;
+        Mockito.verify(mockedShootKey).poll();
+        ;
     }
 
     @Test
