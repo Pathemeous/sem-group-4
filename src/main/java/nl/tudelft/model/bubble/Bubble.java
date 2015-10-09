@@ -54,7 +54,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
      * @param bubbleFactory
-     *            This is a bubblefactory for bubble that are created when this bubble splits.
+     *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
+     *            {@link Bubble#split(Modifiable, int)} method.
      */
     public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
             ResourcesWrapper resources, BubbleFactory bubbleFactory) {
