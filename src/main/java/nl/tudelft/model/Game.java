@@ -153,13 +153,11 @@ public abstract class Game implements Renderable, Modifiable {
      * next level.
      */
     private void levelCompleted() {
-        if (getCurLevel().isCompleted() && levelIt.hasNext()) {
+        if (getCurLevel().isCompleted()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
             nextLevel();
-            ((ShopState) mainApp.getState(States.ShopState)).setup(this);
-            mainApp.enterState(States.ShopState);
-        }
+        } 
     }
 
     /**
@@ -319,6 +317,9 @@ public abstract class Game implements Renderable, Modifiable {
                 player.setScore(player.getScore() + score);
             }
             setCurLevel(levelIt.next());
+            
+            ((ShopState) mainApp.getState(States.ShopState)).setup(this);
+            mainApp.enterState(States.ShopState); 
         } else {
             gameCompleted();
         }

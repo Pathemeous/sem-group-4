@@ -159,9 +159,9 @@ public class GameEndedState extends BasicGameState {
             typeFontPlayer.drawString(container.getWidth() / 8, container.getHeight() / 2,
                     "PLAYER 2", Color.white);
             typeFontPlayer.drawString(container.getWidth() / 5 * 2, container.getHeight() / 2,
-                    Integer.toString(players[0].getScore()), Color.white);
+                    Integer.toString(players[1].getScore()), Color.white);
             typeFontPlayer.drawString(container.getWidth() / 5 * 3, container.getHeight() / 2,
-                    Integer.toString(players[0].getMoney()), Color.white);
+                    Integer.toString(players[1].getMoney()), Color.white);
             
             //Draws the second players textfield box.
             textFieldPlayer2.render(container, graphics);
@@ -191,13 +191,11 @@ public class GameEndedState extends BasicGameState {
         //continue button.
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOverTextField1.isMouseOver()) {
-                System.out.println("player1");
                 textFieldPlayer1.setFocus(true);
             } else if (mouseOverTextField2.isMouseOver()) {
-                System.out.println("player2");
                 textFieldPlayer2.setFocus(true);
             } else if (mouseOverContinueButton.isMouseOver()) {
-
+                
                 try {
                     List<HighscoreEntry> highscores = HighscoresHelper.load();
 
