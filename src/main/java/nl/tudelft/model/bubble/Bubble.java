@@ -57,7 +57,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
      *            {@link Bubble#split(Modifiable, int)} method.
      */
-    protected Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
+    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
             ResourcesWrapper resources, BubbleFactory bubbleFactory) {
         super(bubbleImg, locX, locY);
 
