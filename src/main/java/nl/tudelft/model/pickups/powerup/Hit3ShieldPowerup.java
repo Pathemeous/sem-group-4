@@ -67,4 +67,12 @@ public class Hit3ShieldPowerup extends Powerup {
             graphics.setColor(Color.blue);
         }
     }
+
+    protected int getRemovalCounter() {
+        return removingShieldCounter;
+    }
+
+    protected void setRemovalCounter(int counter) {
+        removingShieldCounter = counter;
+    }
 }

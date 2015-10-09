@@ -1,11 +1,14 @@
 package nl.tudelft.semgroup4;
 
+import javax.swing.plaf.nimbus.State;
+
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.gui.MouseOverArea;
@@ -17,9 +20,13 @@ public class OptionsState extends BasicGameState {
     /**
      * Checks for mouseEvents.
      */
+    private LoggerSetScreen loggerSetScreen;
     private MouseOverArea soundOnOff;
     private MouseOverArea backButton;
+    private MouseOverArea loggerButton;
+    private MouseOverArea keyButton;
     private Input input;
+    private boolean loggerSetEnabled = false;
     private final ResourcesWrapper resources = new ResourcesWrapper();
 
     @Override
@@ -29,7 +36,14 @@ public class OptionsState extends BasicGameState {
                 container.getHeight() / 4);
         backButton = new MouseOverArea(container, resources.getBackText(),
                 container.getWidth() / 10, container.getHeight() / 10 * 9);
+        loggerButton = new MouseOverArea(container, resources.getLoggerText(),
+                container.getWidth() / 4,
+                container.getHeight() / 3);
+        keyButton = new MouseOverArea(container, resources.getKeyText(),
+                container.getWidth() / 4,
+                container.getHeight() / 3 + 60);
         input = container.getInput();
+        loggerSetScreen = new LoggerSetScreen(resources, container);
     }
 
     @Override
@@ -40,7 +54,11 @@ public class OptionsState extends BasicGameState {
         graphics.drawImage(resources.getBackText(), container.getWidth() / 10.0f,
                 container.getHeight() / 10 * 9);
         graphics.drawImage(resources.getSoundText(), container.getWidth() / 4.0f,
-                container.getHeight() / 4.0f); 
+                container.getHeight() / 4.0f);
+        graphics.drawImage(resources.getLoggerText(), container.getWidth() / 4.0f,
+                container.getHeight() / 3.0f);
+        graphics.drawImage(resources.getKeyText(), container.getWidth() / 4.0f,
+                container.getHeight() / 3.0f + 60.0f);
         if (ResourcesWrapper.musicOn) {
             graphics.drawImage(resources.getOn(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
@@ -48,6 +66,9 @@ public class OptionsState extends BasicGameState {
         if (!ResourcesWrapper.musicOn) {
             graphics.drawImage(resources.getOff(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
+        }
+        if (loggerSetEnabled) {
+            loggerSetScreen.show(graphics, container, input, this);
         }
     }
 
@@ -65,17 +86,34 @@ public class OptionsState extends BasicGameState {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
                         "User goes back to main menu" );
-                game.enterState(0);
+                game.enterState(States.StartScreenState);
             }
         }
+        if (loggerButton.isMouseOver()) {
+            if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
+                        "User goes to logger settings");
+                toggleLoggerSet();
+            }
+        }
+        if (keyButton.isMouseOver()) {
+            if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
+                        "User goes to key binding settings");
+                game.enterState(States.KeyBindState);
+            }
+        }
+    }
+
+    public void toggleLoggerSet() {
+        loggerSetEnabled = !loggerSetEnabled;
     }
 
 
 
     @Override
     public int getID() {
-        // TODO Auto-generated method stub
-        return 3;
+        return States.OptionsState;
     }
 
 }

@@ -15,7 +15,6 @@ public class MainApp extends StateBasedGame {
     
     public MainApp(String name) {
         super(name);
-        // TODO Auto-generated constructor stub
     }
 
     /**
@@ -60,12 +59,13 @@ public class MainApp extends StateBasedGame {
     @Override
     public void initStatesList(GameContainer container) throws SlickException {
         Resources.init();
+        Settings.init();
         addState(new StartScreenState());
         addState(new OptionsState());
-        addState(new GameState(this.getTitle(), true));
-        addState(new GameState(this.getTitle(), false));
         addState(new ShopState());
-        enterState(0);
-
+        addState(new HighscoresState());
+        addState(new GameEndedState());
+        addState(new KeyBindState());
+        enterState(States.StartScreenState);
     }
 }

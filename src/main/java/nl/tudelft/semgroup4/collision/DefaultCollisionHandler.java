@@ -1,5 +1,8 @@
 package nl.tudelft.semgroup4.collision;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
@@ -13,6 +16,7 @@ import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -127,10 +131,18 @@ public class DefaultCollisionHandler implements CollisionHandler<
     final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
 
+        if (!player.isAlive()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Collision",
+                    "Player is not alive, no collision checked");
+            // nothing happens
+            return;
+        }
         if (player.isInvincible() || bubble.isFrozen()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
             // nothing happens
-        } else if (player.hasShield()) {
+            return;
+        }
+        if (player.hasShield()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but has a shield");
             
             // The shield is removed and the bubble is split (tagged as isHit).
@@ -149,9 +161,17 @@ public class DefaultCollisionHandler implements CollisionHandler<
             }
         } else {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, and died");
+            game.setPaused(true);
+            new ResourcesWrapper().playDeath();
             
-            player.die();
-            game.levelReset();
+            new Timer().schedule(new TimerTask() {
+                @Override
+                public void run() {
+                    game.setPaused(false);
+                    player.die();
+                    game.levelReset();
+                }
+            }, 1000);
         }
     };
 
