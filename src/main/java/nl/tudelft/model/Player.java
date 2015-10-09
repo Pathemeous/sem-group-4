@@ -7,14 +7,12 @@ import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
@@ -32,12 +30,14 @@ public class Player extends AbstractGameObject {
     private int speed;
     private int lives;
     private final boolean firstPlayer;
-    private final Input input;
     private final HashMap<String, Powerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
     private final ResourcesWrapper resources;
+    // TODO: Remove container when Observer projectiles can be managed within Weapon (and no longer
+    // in Level).
+    private Modifiable container;
 
     private Weapon weapon;
 
@@ -55,13 +55,10 @@ public class Player extends AbstractGameObject {
      *            int - The x-coordinate where the player should spawn.
      * @param locY
      *            int - The y-coordinate where the player should spawn.
-     * @param input
-     *            {@link Input} - The input to enable the user to move.
      * @param isFirstPlayer
      *            boolean - checks whether the player is number one or two.
      */
-    public Player(ResourcesWrapper resources, int locX, int locY, Input input,
-            boolean isFirstPlayer) {
+    public Player(ResourcesWrapper resources, int locX, int locY, boolean isFirstPlayer) {
         super(resources.getPlayerImageStill(), locX, locY);
         initialLocx = locX;
         initialLocy = locY;
@@ -72,7 +69,6 @@ public class Player extends AbstractGameObject {
         this.firstPlayer = isFirstPlayer;
         this.resources = resources;
 
-        this.input = input;
         this.weapon = new RegularWeapon(new ResourcesWrapper(), 0, 0);
         this.weapon.activate(this);
 
@@ -100,6 +96,8 @@ public class Player extends AbstractGameObject {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+        this.container = container;
+
         if (weapon != null && weapon.isActive() && !weaponActivated) {
             container.toAdd(weapon);
             weaponActivated = true;
@@ -109,32 +107,64 @@ public class Player extends AbstractGameObject {
             container.toRemove(this);
         }
 
-        if ((input.isKeyDown(Input.KEY_LEFT) && firstPlayer)
-                || (input.isKeyDown(Input.KEY_A) && !firstPlayer)) {
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
+        // if ((input.isKeyDown(Input.KEY_LEFT) && firstPlayer)
+        // || (input.isKeyDown(Input.KEY_A) && !firstPlayer)) {
+        // Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
+        //
+        // setAnimationCurrent(animationLeft);
+        // setLocX(locX - speed);
+        // }
+        // if ((input.isKeyDown(Input.KEY_RIGHT) && firstPlayer)
+        // || (input.isKeyDown(Input.KEY_D) && !firstPlayer)) {
+        // Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
+        //
+        // setAnimationCurrent(animationRight);
+        // setLocX(locX + speed);
+        // }
+        // if ((input.isKeyDown(Input.KEY_SPACE) && firstPlayer)
+        // || (input.isKeyDown(Input.KEY_W) && !firstPlayer)) {
+        // Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
+        //
+        // weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
+        // this.getHeight());
+        // }
+        // if ((!(input.isKeyDown(Input.KEY_LEFT)
+        // || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
+        // || (!(input.isKeyDown(Input.KEY_A)
+        // || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
+        // setAnimationCurrent(null);
+        // }
+    }
 
-            setAnimationCurrent(animationLeft);
-            setLocX(locX - speed);
-        }
-        if ((input.isKeyDown(Input.KEY_RIGHT) && firstPlayer)
-                || (input.isKeyDown(Input.KEY_D) && !firstPlayer)) {
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
+    /**
+     * Moves the {@link Player} left according to its speed and sets the correct animation.
+     */
+    public void moveLeft() {
+        setAnimationCurrent(animationLeft);
+        setLocX(locX - speed);
+    }
 
-            setAnimationCurrent(animationRight);
-            setLocX(locX + speed);
-        }
-        if ((input.isKeyDown(Input.KEY_SPACE) && firstPlayer)
-                || (input.isKeyDown(Input.KEY_W) && !firstPlayer)) {
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
+    /**
+     * Moves the {@link Player} right according to its speed and sets the correct animation.
+     */
+    public void moveRight() {
+        setAnimationCurrent(animationRight);
+        setLocX(locX + speed);
+    }
 
-            weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
-                    this.getHeight());
-        }
-        if ((!(input.isKeyDown(Input.KEY_LEFT) || input.isKeyDown(Input.KEY_RIGHT)) && firstPlayer)
-                || (!(input.isKeyDown(Input.KEY_A)
-                        || input.isKeyDown(Input.KEY_D)) && !firstPlayer)) {
-            setAnimationCurrent(null);
-        }
+    /**
+     * Makes the {@link Player} stop moving by stopping the animation.
+     */
+    public void stopMoving() {
+        setAnimationCurrent(null);
+    }
+
+    /**
+     * Fires the {@link Player#weapon}.
+     */
+    public void fireWeapon() {
+        weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
+                this.getHeight());
     }
 
     /**
@@ -154,7 +184,7 @@ public class Player extends AbstractGameObject {
         }
         this.weapon.activate(this);
         weaponActivated = false;
-        
+
         locX = initialLocx;
         locY = initialLocy;
         setAnimationCurrent(null);

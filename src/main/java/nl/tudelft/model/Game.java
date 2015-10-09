@@ -5,7 +5,6 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.GameEndedState;
-import nl.tudelft.semgroup4.GameState;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.ShopState;

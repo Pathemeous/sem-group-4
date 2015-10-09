@@ -19,7 +19,6 @@ import org.junit.Test;
 import org.mockito.Mockito;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 
 
 /**
@@ -28,7 +27,6 @@ import org.newdawn.slick.Input;
  */
 public class PlayerTest extends AbstractOpenGLTestCase {
 
-    private final Input input = new Input(0);
     private Player player;
     private ResourcesWrapper mockedResources;
     
@@ -42,7 +40,7 @@ public class PlayerTest extends AbstractOpenGLTestCase {
         mockedResources = Mockito.mock(ResourcesWrapper.class);
         Image mockedImage = Mockito.mock(Image.class);
         Mockito.when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
-        player = new Player(mockedResources, 0, 0, input, true);
+        player = new Player(mockedResources, 0, 0, true);
     }
 
     @Test

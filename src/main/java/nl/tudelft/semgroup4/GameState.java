@@ -1,11 +1,8 @@
 package nl.tudelft.semgroup4;
 
-import java.util.LinkedList;
-
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
-import nl.tudelft.model.Player;
-import nl.tudelft.model.SingleplayerGame;
+import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -25,9 +22,23 @@ public class GameState extends BasicGameState {
     private final Game currentGame;
     private Dashboard dashboard;
     private boolean pauseScreenOpened = false;
+    private final PlayerInput player1Input;
+    private final PlayerInput player2Input;
 
+    /**
+     * Creates a new {@link GameState} with a specified {@link Game}.
+     * 
+     * <p>
+     * Also gets the {@link PlayerInput} configuration from the {@link Settings} class.
+     * </p>
+     * 
+     * @param game
+     *            {@link Game} - The game that this GameState will manage.
+     */
     public GameState(Game game) {
         this.currentGame = game;
+        this.player1Input = Settings.getPlayer1Input();
+        this.player2Input = Settings.getPlayer2Input();
     }
 
     /**
@@ -49,15 +60,14 @@ public class GameState extends BasicGameState {
         MouseOverArea mouseOver =
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
-                        .getQuitText().getHeight());
+                                .getQuitText().getHeight());
         pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
         // Resources.titleScreenMusic.stop();
 
         int dashboardMargin = 20;
-        dashboard = new Dashboard(new ResourcesWrapper(), currentGame,
-                dashboardMargin,
-                container.getWidth() - dashboardMargin,
-                container.getHeight());
+        dashboard =
+                new Dashboard(new ResourcesWrapper(), currentGame, dashboardMargin,
+                        container.getWidth() - dashboardMargin, container.getHeight());
     }
 
     /**
@@ -81,7 +91,7 @@ public class GameState extends BasicGameState {
         if (pauseScreenOpened) {
             ResourcesWrapper res = new ResourcesWrapper();
             if (res.getWeaponFire().playing()) {
-                res.stopFireSound();                
+                res.stopFireSound();
             }
             pauseScreen.show(graphics, container, input, game, this);
         }
@@ -108,7 +118,7 @@ public class GameState extends BasicGameState {
             // game isn't paused, this code is executed. This prevents the user from
             // being able to unpause the game while the countdown is running (because then
             // the game is paused without the pause screen being open)
-            if ((currentGame.isPaused() && pauseScreenOpened) 
+            if ((currentGame.isPaused() && pauseScreenOpened)
                     || !(currentGame.isPaused() || pauseScreenOpened)) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
                         + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
@@ -119,13 +129,17 @@ public class GameState extends BasicGameState {
         }
 
         if (!currentGame.isPaused()) {
+            player1Input.poll();
+            if (currentGame instanceof MultiplayerGame) {
+                player2Input.poll();
+            }
             currentGame.update(delta);
         } else {
             currentGame.getCountdown().update();
         }
         dashboard.update(delta);
     }
-    
+
     protected Game getGame() {
         return currentGame;
     }

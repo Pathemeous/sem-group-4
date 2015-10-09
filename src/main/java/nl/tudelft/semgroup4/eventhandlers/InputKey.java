@@ -2,11 +2,7 @@ package nl.tudelft.semgroup4.eventhandlers;
 
 import java.util.Observable;
 
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Updateable;
-
 import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
 
 /**
  * Represents the input to one key. Checks for this input with every update.
@@ -14,10 +10,11 @@ import org.newdawn.slick.SlickException;
  * @author Pathemeous
  *
  */
-public class InputKey extends Observable implements Updateable {
+public class InputKey extends Observable {
 
     private final int keyCode;
     private static Input input = new Input(0);
+    private Boolean down = false;
 
     /**
      * Creates a new {@link InputKey} for the specified keyCode.
@@ -33,12 +30,19 @@ public class InputKey extends Observable implements Updateable {
         this.keyCode = keyCode;
     }
 
-    @Override
-    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        if (input.isKeyPressed(keyCode)) {
+    /**
+     * Checks for input and notifies the observers when the key is down (every poll) or when the
+     * key is released (once only).
+     */
+    public void poll() {
+        if (input.isKeyDown(keyCode)) {
+            down = true;
             setChanged();
-            notifyObservers();
+        } else if (down) {
+            down = false;
+            setChanged();
         }
+        notifyObservers(down);
     }
 
     /*
@@ -103,6 +107,16 @@ public class InputKey extends Observable implements Updateable {
      */
     protected static final void setInput(Input input) {
         InputKey.input = input;
+    }
+
+    /**
+     * Sets the boolean field representing the state of the key.
+     * 
+     * @param Boolean
+     *            down - The key is considered to be pressed when true, and false otherwise
+     */
+    protected final void setDown(Boolean down) {
+        this.down = down;
     }
 
 }

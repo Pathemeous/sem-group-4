@@ -1,26 +1,8 @@
-[
-	{
-		"key": "Player1Left",
-		"value": 203
-	},
-	{
-		"key": "Player1Right",
-		"value": 205
-	},
-	{
-		"key": "Player1Shoot",
-		"value": 57
-	},
-	{
-		"key": "Player2Left",
-		"value": 30
-	},
-	{
-		"key": "Player2Right",
-		"value": 32
-	},
-	{
-		"key": "Player2Shoot",
-		"value": 17
-	}
-]
+{
+	"Player1Left": 203,
+	"Player1Right": 205,
+	"Player1Shoot": 57,
+	"Player2Left": 30,
+	"Player2Right": 32,
+	"Player2Shoot": 17
+}

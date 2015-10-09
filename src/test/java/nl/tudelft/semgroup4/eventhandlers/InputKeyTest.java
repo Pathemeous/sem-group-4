@@ -8,9 +8,7 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Observer;
 
-import nl.tudelft.model.Game;
 import nl.tudelft.model.Wall;
-import nl.tudelft.semgroup4.Modifiable;
 
 import org.junit.After;
 import org.junit.Before;
@@ -73,29 +71,49 @@ public class InputKeyTest {
     }
 
     @Test
-    public void testUpdateWithNoInputGivesNoNotification() throws SlickException {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultKey.addObserver(mockedObserver);
-
-        Modifiable container = Mockito.mock(Game.class);
-        defaultKey.update(container, 15);
-
-        Mockito.verify(mockedObserver, Mockito.never()).update(defaultKey, null);
-    }
-
-    @Test
-    public void testUpdateWithMockedInputGivesNotification() throws SlickException {
+    public void testPollWithNoInputGivesNoNotification() throws SlickException {
         Input mockedInput = Mockito.mock(Input.class);
-        Mockito.when(mockedInput.isKeyPressed(DEF_KEY)).thenReturn(true);
+        Mockito.when(mockedInput.isKeyDown(DEF_KEY)).thenReturn(false);
         InputKey.setInput(mockedInput);
 
         Observer mockedObserver = Mockito.mock(PlayerInput.class);
         defaultKey.addObserver(mockedObserver);
 
-        Modifiable container = Mockito.mock(Game.class);
-        defaultKey.update(container, 15);
+        defaultKey.poll();
 
-        Mockito.verify(mockedObserver).update(defaultKey, null);
+        Mockito.verify(mockedObserver, Mockito.never()).update(Mockito.any(), Mockito.any());
+    }
+
+    @Test
+    public void testPollOnKeyDownGivesNotification() throws SlickException {
+        Input mockedInput = Mockito.mock(Input.class);
+        Mockito.when(mockedInput.isKeyDown(DEF_KEY)).thenReturn(true);
+        InputKey.setInput(mockedInput);
+
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultKey.addObserver(mockedObserver);
+
+        defaultKey.poll();
+
+        Boolean expectedDownState = true;
+        Mockito.verify(mockedObserver).update(defaultKey, expectedDownState);
+    }
+
+    @Test
+    public void testPollOnKeyUpGivesNotification() throws SlickException {
+        Input mockedInput = Mockito.mock(Input.class);
+        Mockito.when(mockedInput.isKeyDown(DEF_KEY)).thenReturn(false);
+        InputKey.setInput(mockedInput);
+        Boolean downState = true;
+        defaultKey.setDown(downState);
+
+        Observer mockedObserver = Mockito.mock(PlayerInput.class);
+        defaultKey.addObserver(mockedObserver);
+
+        defaultKey.poll();
+
+        Boolean expectedDownState = false;
+        Mockito.verify(mockedObserver).update(defaultKey, expectedDownState);
     }
 
     @Test
