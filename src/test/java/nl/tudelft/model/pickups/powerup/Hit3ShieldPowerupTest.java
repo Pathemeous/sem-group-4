@@ -33,7 +33,7 @@ public class Hit3ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
 
         assertFalse(player.hasPowerup(Powerup.SHOPSHIELD));
         assertFalse(powerup.isActive());
@@ -50,7 +50,7 @@ public class Hit3ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         InvinciblePowerup invincibleMocked = mock(InvinciblePowerup.class);
 
         assertFalse(player.hasPowerup(Powerup.SHOPSHIELD));
@@ -70,7 +70,7 @@ public class Hit3ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
 
         assertFalse(player.hasPowerup(Powerup.SHIELD));
         assertFalse(powerup.isActive());
@@ -109,7 +109,7 @@ public class Hit3ShieldPowerupTest {
     public void testUpdate1() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
 
         powerup.activate(player);
 
@@ -134,7 +134,7 @@ public class Hit3ShieldPowerupTest {
     public void testUpdate2() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
 
         powerup.activate(player);
 

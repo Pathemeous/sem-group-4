@@ -31,7 +31,7 @@ public class MoneyPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         MoneyPowerup powerup = new MoneyPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
 
         assertEquals(0, player.getMoney());
         assertFalse(powerup.isActive());
@@ -48,7 +48,7 @@ public class MoneyPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         MoneyPowerup powerup = new MoneyPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
 
         assertEquals(0, player.getMoney());
         assertFalse(powerup.isActive());
