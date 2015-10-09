@@ -93,56 +93,56 @@ public class KeyBindState extends BasicGameState {
         saveButton = new MouseOverArea(container, saveImage, saveShape);
 
         player1LeftImage =
-                new Image(typeFont.getWidth(Settings.completeKeyBindings.get(0).getKey()),
+                new Image(typeFont.getWidth(KeyBindHelper.PLAYER1_LEFT_KEY),
                         typeFont.getHeight());
         player1LeftShape =
                 new Rectangle(60, 80,
-                        typeFont.getWidth(Settings.completeKeyBindings.get(0).getKey()),
+                        typeFont.getWidth(KeyBindHelper.PLAYER1_LEFT_KEY),
                         typeFont.getHeight());
         player1LeftButton = new MouseOverArea(container, player1LeftImage, player1LeftShape);
 
         player1RightImage =
-                new Image(typeFont.getWidth(Settings.completeKeyBindings.get(1).getKey()),
+                new Image(typeFont.getWidth(KeyBindHelper.PLAYER1_RIGHT_KEY),
                         typeFont.getHeight());
         player1RightShape =
                 new Rectangle(60, 130,
-                        typeFont.getWidth(Settings.completeKeyBindings.get(1).getKey()),
+                        typeFont.getWidth(KeyBindHelper.PLAYER1_RIGHT_KEY),
                         typeFont.getHeight());
         player1RightButton = new MouseOverArea(container, player1RightImage, player1RightShape);
 
         player1ShootImage =
-                new Image(typeFont.getWidth(Settings.completeKeyBindings.get(2).getKey()),
+                new Image(typeFont.getWidth(KeyBindHelper.PLAYER1_SHOOT_KEY),
                         typeFont.getHeight());
         player1ShootShape =
                 new Rectangle(60, 180,
-                        typeFont.getWidth(Settings.completeKeyBindings.get(2).getKey()),
+                        typeFont.getWidth(KeyBindHelper.PLAYER1_SHOOT_KEY),
                         typeFont.getHeight());
         player1ShootButton  = new MouseOverArea(container, player1ShootImage, player1ShootShape);
 
         player2LeftImage =
-                new Image(typeFont.getWidth(Settings.completeKeyBindings.get(3).getKey()),
+                new Image(typeFont.getWidth(KeyBindHelper.PLAYER2_LEFT_KEY),
                         typeFont.getHeight());
         player2LeftShape =
                 new Rectangle(60, 230,
-                        typeFont.getWidth(Settings.completeKeyBindings.get(3).getKey()),
+                        typeFont.getWidth(KeyBindHelper.PLAYER2_LEFT_KEY),
                         typeFont.getHeight());
         player2LeftButton = new MouseOverArea(container, player2LeftImage, player2LeftShape);
 
         player2RightImage =
-                new Image(typeFont.getWidth(Settings.completeKeyBindings.get(4).getKey()),
+                new Image(typeFont.getWidth(KeyBindHelper.PLAYER2_RIGHT_KEY),
                         typeFont.getHeight());
         player2RightShape =
                 new Rectangle(60, 280,
-                        typeFont.getWidth(Settings.completeKeyBindings.get(4).getKey()),
+                        typeFont.getWidth(KeyBindHelper.PLAYER2_RIGHT_KEY),
                         typeFont.getHeight());
         player2RightButton = new MouseOverArea(container, player2RightImage, player2RightShape);
 
         player2ShootImage =
-                new Image(typeFont.getWidth(Settings.completeKeyBindings.get(5).getKey()),
+                new Image(typeFont.getWidth(KeyBindHelper.PLAYER2_SHOOT_KEY),
                         typeFont.getHeight());
         player2ShootShape =
                 new Rectangle(60, 330,
-                        typeFont.getWidth(Settings.completeKeyBindings.get(5).getKey()),
+                        typeFont.getWidth(KeyBindHelper.PLAYER2_SHOOT_KEY),
                         typeFont.getHeight());
         player2ShootButton  = new MouseOverArea(container, player2ShootImage, player2ShootShape);
 
@@ -168,16 +168,49 @@ public class KeyBindState extends BasicGameState {
                 container.getHeight() / 10 * 9,
                 save,
                 Color.yellow);
-
-        for (int i = 0; i < 6; i++) {
-            typeFont.drawString(screenCoordXName, screenCoordY,
-                    Settings.completeKeyBindings.get(i).getKey(),
-                    Color.yellow);
-            typeFont.drawString(screenCoordXValue, screenCoordY,
-                    Keyboard.getKeyName(Settings.completeKeyBindings.get(i).getValue()),
-                    Color.yellow);
-            screenCoordY += 50;
-        }
+        
+        typeFont.drawString(screenCoordXName, screenCoordY, KeyBindHelper.PLAYER1_LEFT_KEY, 
+                Color.yellow);
+        typeFont.drawString(screenCoordXValue, screenCoordY,
+                Keyboard.getKeyName(Settings.getPlayer1LeftValue()),
+                Color.yellow);
+        screenCoordY += 50;
+        
+        typeFont.drawString(screenCoordXName, screenCoordY, KeyBindHelper.PLAYER1_RIGHT_KEY, 
+                Color.yellow);
+        typeFont.drawString(screenCoordXValue, screenCoordY,
+                Keyboard.getKeyName(Settings.getPlayer1RightValue()),
+                Color.yellow);
+        screenCoordY += 50;
+        
+        typeFont.drawString(screenCoordXName, screenCoordY, KeyBindHelper.PLAYER1_SHOOT_KEY, 
+                Color.yellow);
+        typeFont.drawString(screenCoordXValue, screenCoordY,
+                Keyboard.getKeyName(Settings.getPlayer1ShootValue()),
+                Color.yellow);
+        screenCoordY += 50;
+        
+        typeFont.drawString(screenCoordXName, screenCoordY, KeyBindHelper.PLAYER2_LEFT_KEY, 
+                Color.yellow);
+        typeFont.drawString(screenCoordXValue, screenCoordY,
+                Keyboard.getKeyName(Settings.getPlayer2LeftValue()),
+                Color.yellow);
+        screenCoordY += 50;
+        
+        typeFont.drawString(screenCoordXName, screenCoordY, KeyBindHelper.PLAYER2_RIGHT_KEY, 
+                Color.yellow);
+        typeFont.drawString(screenCoordXValue, screenCoordY,
+                Keyboard.getKeyName(Settings.getPlayer2RightValue()),
+                Color.yellow);
+        screenCoordY += 50;
+        
+        typeFont.drawString(screenCoordXName, screenCoordY, KeyBindHelper.PLAYER2_SHOOT_KEY, 
+                Color.yellow);
+        typeFont.drawString(screenCoordXValue, screenCoordY,
+                Keyboard.getKeyName(Settings.getPlayer2ShootValue()),
+                Color.yellow);
+        screenCoordY += 50;
+        
         typeFont.drawString(screenCoordXName, 430,
                 defaults,
                 Color.red);

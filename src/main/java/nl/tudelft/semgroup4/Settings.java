@@ -1,23 +1,17 @@
 package nl.tudelft.semgroup4;
 
 import java.io.IOException;
-import java.util.List;
 
 import nl.tudelft.semgroup4.eventhandlers.InputKey;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 import nl.tudelft.semgroup4.util.KeyBindHelper;
-import nl.tudelft.semgroup4.util.KeyBindingEntry;
 
-public class Settings {
+import org.json.JSONObject;
 
-    static List<KeyBindingEntry> completeKeyBindings;
+public abstract class Settings {
 
-    /**
-     * Private constructor to avoid instantiation of the settings class.
-     */
-    private Settings() {
+    protected static JSONObject completeKeyBindings;
 
-    }
     /**
      * Initialises all the keys
      * This has to be in a try catch block. The file will always be found
@@ -37,9 +31,9 @@ public class Settings {
      */
     public static PlayerInput getPlayer1Input() {
         return new PlayerInput(
-                new InputKey(completeKeyBindings.get(0).getValue()),
-                new InputKey(completeKeyBindings.get(1).getValue()),
-                new InputKey(completeKeyBindings.get(2).getValue())
+                new InputKey(getPlayer1LeftValue()),
+                new InputKey(getPlayer1RightValue()),
+                new InputKey(getPlayer1ShootValue())
         );
     }
 
@@ -49,38 +43,62 @@ public class Settings {
      */
     public static PlayerInput getPlayer2Input() {
         return new PlayerInput(
-                new InputKey(completeKeyBindings.get(3).getValue()),
-                new InputKey(completeKeyBindings.get(4).getValue()),
-                new InputKey(completeKeyBindings.get(5).getValue())
+                new InputKey(getPlayer2LeftValue()),
+                new InputKey(getPlayer2RightValue()),
+                new InputKey(getPlayer2ShootValue())
         );
     }
+    
+    public static int getPlayer1LeftValue() {
+        return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_LEFT_KEY);
+    }
+    
+    public static int getPlayer2LeftValue() {
+        return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_LEFT_KEY);
+    }
+    
+    public static int getPlayer1RightValue() {
+        return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_RIGHT_KEY);
+    }
+    
+    public static int getPlayer2RightValue() {
+        return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_RIGHT_KEY);
+    }
+    
+    public static int getPlayer1ShootValue() {
+        return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_SHOOT_KEY);
+    }
+    
+    public static int getPlayer2ShootValue() {
+        return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_SHOOT_KEY);
+    }
 
-    public static void setCompleteKeyBindings(List<KeyBindingEntry> keys) {
+    public static void setCompleteKeyBindings(JSONObject keys) {
         completeKeyBindings = keys;
     }
 
     public static void setPlayer1Left(int value) {
-        completeKeyBindings.get(0).setValue(value);
+        completeKeyBindings.put(KeyBindHelper.PLAYER1_LEFT_KEY, value);
     }
 
     public static void setPlayer1Right(int value) {
-        completeKeyBindings.get(1).setValue(value);
+        completeKeyBindings.put(KeyBindHelper.PLAYER1_RIGHT_KEY, value);
     }
 
     public static void setPlayer1Shoot(int value) {
-        completeKeyBindings.get(2).setValue(value);
+        completeKeyBindings.put(KeyBindHelper.PLAYER1_SHOOT_KEY, value);
     }
 
     public static void setPlayer2Left(int value) {
-        completeKeyBindings.get(3).setValue(value);
+        completeKeyBindings.put(KeyBindHelper.PLAYER2_LEFT_KEY, value);
     }
 
     public static void setPlayer2Right(int value) {
-        completeKeyBindings.get(4).setValue(value);
+        completeKeyBindings.put(KeyBindHelper.PLAYER2_RIGHT_KEY, value);
     }
 
     public static void setPlayer2Shoot(int value) {
-        completeKeyBindings.get(5).setValue(value);
+        completeKeyBindings.put(KeyBindHelper.PLAYER2_SHOOT_KEY, value);
     }
 
     /**

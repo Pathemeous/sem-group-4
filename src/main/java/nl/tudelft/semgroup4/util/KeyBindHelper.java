@@ -21,13 +21,19 @@ public class KeyBindHelper {
     public static final String DEFAULTS = "defaults.json";
     private static String toLoad = FILENAME;
     public static final Charset encoding = Charset.forName("UTF-8");
+    public static final String PLAYER1_LEFT_KEY  = "Player1Left";
+    public static final String PLAYER2_LEFT_KEY  = "Player2Left";
+    public static final String PLAYER1_RIGHT_KEY  = "Player1Right";
+    public static final String PLAYER2_RIGHT_KEY  = "Player2Right";
+    public static final String PLAYER1_SHOOT_KEY  = "Player1Shoot";
+    public static final String PLAYER2_SHOOT_KEY  = "Player2Shoot";
 
     /**
      * Loads the keybinds from the keybinds file (see FILENAME).
      * @return a list of {@link KeyBindingEntry}s
      * @throws IOException When reading fails, this exception is thrown.
      */
-    public static List<KeyBindingEntry> load() throws IOException {
+    public static JSONObject load() throws IOException {
 
         // when file does not exist, create empty one
         if (!new File(FILENAME).exists()) {
@@ -43,25 +49,17 @@ public class KeyBindHelper {
      * @return - the keybindings
      * @throws IOException - something went wrong.
      */
-    public static List<KeyBindingEntry> loader(String toLoad) throws IOException {
+    public static JSONObject loader(String toLoad) throws IOException {
 
         byte[] encoded = Files.readAllBytes(Paths.get(toLoad));
         String jsonString = new String(encoded, encoding);
 
-        final List<KeyBindingEntry> keybinds = new ArrayList<>();
-
-        JSONArray array = new JSONArray(jsonString);
-
-        for (Object object : array) {
-            JSONObject keybind = (JSONObject)object;
-
-            String key = (String)keybind.get("key");
-            int value = keybind.getInt("value");
-            keybinds.add(new KeyBindingEntry(key, value));
-        }
+        JSONObject keybinds = new JSONObject(jsonString);
+        
+        keybinds.get("Player1Left");
 
         save(keybinds);
-        return sort(keybinds);
+        return keybinds;
     }
 
     /**
@@ -70,53 +68,12 @@ public class KeyBindHelper {
      * @param keybinds a list of {@link KeyBindingEntry}
      * @throws IOException When writing fails somehow.
      */
-    public static void save(List<KeyBindingEntry> keybinds) throws IOException {
-
-        JSONArray array = new JSONArray();
-        for (KeyBindingEntry entry : keybinds) {
-            JSONObject entryJsonObject = new JSONObject();
-            entryJsonObject.put("key", entry.getKey());
-            entryJsonObject.put("value", entry.getValue());
-            array.put(entryJsonObject);
-        }
-
+    public static void save(JSONObject keybinds) throws IOException {
         OpenOption[] options = {
             StandardOpenOption.CREATE,
             StandardOpenOption.WRITE,
         };
 
-        Files.write(new File(FILENAME).toPath(), array.toString().getBytes(), options);
-
+        Files.write(new File(FILENAME).toPath(), keybinds.toString().getBytes(), options);
     }
-
-    /**
-     * Sort the list of inputs based on what key they are bound to.
-     * @param keybinds a list of (@Link KeyBindingEntry} which needs to be sorted.
-     * @return The previous list, but sorted.
-     */
-    public static List<KeyBindingEntry> sort(List<KeyBindingEntry> keybinds) {
-        KeyBindingEntry[] sorted = new KeyBindingEntry[6];
-        for (KeyBindingEntry bind : keybinds) {
-            if (bind.getKey().equals("Player1Left")) {
-                sorted[0] = bind;
-            }
-            if (bind.getKey().equals("Player1Right")) {
-                sorted[1] = bind;
-            }
-            if (bind.getKey().equals("Player1Shoot")) {
-                sorted[2] = bind;
-            }
-            if (bind.getKey().equals("Player2Left")) {
-                sorted[3] = bind;
-            }
-            if (bind.getKey().equals("Player2Right")) {
-                sorted[4] = bind;
-            }
-            if (bind.getKey().equals("Player2Shoot")) {
-                sorted[5] = bind;
-            }
-        }
-        return Arrays.asList(sorted);
-    }
-
 }
