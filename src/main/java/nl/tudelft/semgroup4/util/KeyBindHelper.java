@@ -55,8 +55,6 @@ public class KeyBindHelper {
         String jsonString = new String(encoded, encoding);
 
         JSONObject keybinds = new JSONObject(jsonString);
-        
-        keybinds.get("Player1Left");
 
         save(keybinds);
         return keybinds;
