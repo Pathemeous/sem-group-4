@@ -7,13 +7,13 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
  */
 public class Bubble1Factory extends BaseBubbleFactory {
 
-    public Bubble1Factory(ResourcesWrapper resources, BubbleFactoryFactory bubbleFactoryFactory) {
-        super(resources, bubbleFactoryFactory);
+    public Bubble1Factory(ResourcesWrapper resources) {
+        super(resources);
     }
 
     @Override
     public Bubble createBubble() {
-        return new Bubble1(getResources(), getBubbleFactoryFactory(), 0, 0, true);
+        return new Bubble1(getResources(), 0, 0, true);
     }
 
 }

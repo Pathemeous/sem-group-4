@@ -9,8 +9,6 @@ import nl.tudelft.model.bubble.Bubble3;
 import nl.tudelft.model.bubble.Bubble4;
 import nl.tudelft.model.bubble.Bubble5;
 import nl.tudelft.model.bubble.Bubble6;
-import nl.tudelft.model.bubble.BubbleFactoryFactory;
-import nl.tudelft.model.bubble.DefaultBubbleFactoryFactory;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.semgroup4.resources.Resources;
@@ -23,7 +21,6 @@ public class LevelFactory {
 
     private final Game game;
     private final ResourcesWrapper resources;
-    private final BubbleFactoryFactory bubbleFactoryFactory;
     private static final int LEVEL_COUNT = 4;
 
     /**
@@ -38,7 +35,6 @@ public class LevelFactory {
     public LevelFactory(Game game, ResourcesWrapper wrapper) {
         this.game = game;
         this.resources = wrapper;
-        this.bubbleFactoryFactory = new DefaultBubbleFactoryFactory(resources);
     }
 
     /**
@@ -129,7 +125,7 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble1(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble1(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
@@ -154,11 +150,11 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble6(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble6(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
-        bubbles.add(new Bubble5(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble5(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 300, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
@@ -184,15 +180,15 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble3(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble3(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
-        bubbles.add(new Bubble3(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble3(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 200, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
-        bubbles.add(new Bubble3(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble3(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 300, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
@@ -218,32 +214,32 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
 
-        bubbles.add(new Bubble6(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble6(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 100, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
 
-        bubbles.add(new Bubble5(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble5(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 200, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
 
-        bubbles.add(new Bubble4(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble4(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 300, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
 
-        bubbles.add(new Bubble3(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble3(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 400, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
 
-        bubbles.add(new Bubble2(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble2(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 500, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));
 
-        bubbles.add(new Bubble1(new ResourcesWrapper(), bubbleFactoryFactory,
+        bubbles.add(new Bubble1(new ResourcesWrapper(),
                 resources.getVwallImage().getWidth() + 600, game.getContainerHeight()
                         - resources.getWallImage().getHeight()
                         - resources.getBubbleImage6().getWidth() - 400, true));

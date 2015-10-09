@@ -31,8 +31,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean frozen = false;
     private int tickCount = 0;
     private final ResourcesWrapper resources;
-    protected BubbleFactory bubbleFactory = null;
-    private final BubbleFactoryFactory bubbleFactoryFactory;
+    private BubbleFactory bubbleFactory = null;
 
     /**
      * The complete constructor for Bubble.
@@ -54,15 +53,16 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            boolean - true if the bubble should initialise moving to the right.
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
-     * @param bubbleFactoryFactory
-     *            {@link BubbleFactoryFactory} - The BubbleFactoryFactory that this class may use.
+     * @param bubbleFactory
+     *            This is a bubblefactory for bubble that are created when 
+     *            this bubble splits.           
      */
     public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
-            ResourcesWrapper resources, BubbleFactoryFactory bubbleFactoryFactory) {
+            ResourcesWrapper resources, BubbleFactory bubbleFactory) {
         super(bubbleImg, locX, locY);
 
         this.resources = resources;
-        this.bubbleFactoryFactory = bubbleFactoryFactory;
+        this.bubbleFactory = bubbleFactory;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
 
@@ -73,10 +73,6 @@ public abstract class Bubble extends AbstractEnvironmentObject {
 
     public BubbleFactory getBubbleFactory() {
         return this.bubbleFactory;
-    }
-
-    protected final BubbleFactoryFactory getBubbleFactoryFactory() {
-        return this.bubbleFactoryFactory;
     }
 
     /**

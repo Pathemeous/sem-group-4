@@ -8,20 +8,12 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 public abstract class BaseBubbleFactory implements BubbleFactory {
 
     private final ResourcesWrapper resources;
-    private final BubbleFactoryFactory bubbleFactoryFactory;
 
-    public BaseBubbleFactory(ResourcesWrapper resources,
-                             BubbleFactoryFactory bubbleFactoryFactory) {
+    public BaseBubbleFactory(ResourcesWrapper resources) {
         this.resources = resources;
-        this.bubbleFactoryFactory = bubbleFactoryFactory;
     }
 
     protected final ResourcesWrapper getResources() {
         return this.resources;
     }
-
-    protected final BubbleFactoryFactory getBubbleFactoryFactory() {
-        return this.bubbleFactoryFactory;
-    }
-
 }
