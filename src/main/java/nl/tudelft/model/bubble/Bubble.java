@@ -54,8 +54,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
      * @param bubbleFactory
-     *            This is a bubblefactory for bubble that are created when 
-     *            this bubble splits.           
+     *            This is a bubblefactory for bubble that are created when this bubble splits.
      */
     public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
             ResourcesWrapper resources, BubbleFactory bubbleFactory) {
@@ -74,7 +73,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     public BubbleFactory getBubbleFactory() {
         return this.bubbleFactory;
     }
-    
+
     public void setBubbleFactory(BubbleFactory factory) {
         bubbleFactory = factory;
     }
@@ -119,13 +118,14 @@ public abstract class Bubble extends AbstractEnvironmentObject {
             if (random > 7) {
                 // feeling lucky?
                 Pickup pickup =
-                        Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(), getLocY());
+                        Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
+                                getLocY());
                 container.toAdd(pickup);
             }
 
             // create bubbles
-            Bubble bubbleLeft  =  bubbleFactory.createBubble();
-            Bubble bubbleRight =  bubbleFactory.createBubble();
+            Bubble bubbleLeft = bubbleFactory.createBubble();
+            Bubble bubbleRight = bubbleFactory.createBubble();
 
             // left goes left, right goes right
             bubbleLeft.setHorizontalSpeed(-Math.abs(bubbleLeft.getHorizontalSpeed()));
