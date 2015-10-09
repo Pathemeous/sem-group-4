@@ -92,8 +92,10 @@ public class WeaponTest extends AbstractOpenGLTestCase {
     public void testIsSticky() {
         Weapon weapon = new DoubleWeapon(mockedResources, 0, 0);
         Weapon weapon1 = new StickyWeapon(mockedResources, 0, 0);
+        Weapon weapon2 = new ShopWeapon(mockedResources, 0, 0);
         assertFalse(weapon.isSticky());
         assertTrue(weapon1.isSticky());
+        assertTrue(weapon2.isSticky());
     }
 
     /**

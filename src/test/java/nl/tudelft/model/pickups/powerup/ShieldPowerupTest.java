@@ -33,7 +33,7 @@ public class ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         assertFalse(player.hasPowerup(Powerup.SHIELD));
         assertFalse(powerup.isActive());
@@ -50,7 +50,7 @@ public class ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         InvinciblePowerup invincibleMocked = mock(InvinciblePowerup.class);
         
         assertFalse(player.hasPowerup(Powerup.SHIELD));
@@ -71,7 +71,7 @@ public class ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         assertFalse(player.hasPowerup(Powerup.SHIELD));
         assertFalse(powerup.isActive());
@@ -116,7 +116,7 @@ public class ShieldPowerupTest {
     public void testUpdate2() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         powerup.activate(player);
         

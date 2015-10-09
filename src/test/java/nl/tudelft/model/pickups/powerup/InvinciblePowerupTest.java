@@ -33,7 +33,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
         assertFalse(powerup.isActive());
@@ -49,7 +49,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         ShieldPowerup mockedShield = mock(ShieldPowerup.class);
         
         assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
@@ -70,7 +70,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         assertFalse(powerup.isActive());
         assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
@@ -114,7 +114,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, null, true);
+        Player player = new Player(mockedResources, 0, 0, true);
         
         powerup.activate(player);
         powerup.setCounter(599);

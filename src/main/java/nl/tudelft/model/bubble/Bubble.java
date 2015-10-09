@@ -31,8 +31,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean frozen = false;
     private int tickCount = 0;
     private final ResourcesWrapper resources;
-    private final List<Bubble> next;
-    private final boolean goesRightInitially;
+    private BubbleFactory bubbleFactory = null;
 
     /**
      * The complete constructor for Bubble.
@@ -54,21 +53,30 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            boolean - true if the bubble should initialise moving to the right.
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
+     * @param bubbleFactory
+     *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
+     *            {@link Bubble#split(Modifiable, int)} method.
      */
     public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
-            ResourcesWrapper resources) {
+            ResourcesWrapper resources, BubbleFactory bubbleFactory) {
         super(bubbleImg, locX, locY);
 
         this.resources = resources;
+        this.bubbleFactory = bubbleFactory;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
 
-        goesRightInitially = goRight;
         if (!goRight) {
             horizontalSpeed = -horizontalSpeed;
         }
+    }
 
-        next = new ArrayList<>();
+    public BubbleFactory getBubbleFactory() {
+        return this.bubbleFactory;
+    }
+
+    public void setBubbleFactory(BubbleFactory factory) {
+        bubbleFactory = factory;
     }
 
     /**
@@ -105,28 +113,49 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         resources.playBubbleSplit();
         container.toRemove(this);
 
-        if (random > 7 && !next.isEmpty()) {
-            Pickup pickup =
-                    Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(), getLocY());
-            container.toAdd(pickup);
-        }
-
-        for (Bubble bubble : next) {
-            if (bubble.goesRight()) {
-                bubble.setLocX(getLocX() + bubble.getBounds().getWidth() / 2);
-            } else {
-                bubble.setLocX(getLocX());
+        final BubbleFactory bubbleFactory = getBubbleFactory();
+        if (bubbleFactory != null) {
+            // we're going to split!
+            if (random > 7) {
+                // feeling lucky?
+                Pickup pickup =
+                        Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
+                                getLocY());
+                container.toAdd(pickup);
             }
 
-            bubble.setLocY(getLocY());
-            bubble.setVerticalSpeed(bubble.getMaxVerticalSpeed() / 1.5f);
+            // create bubbles
+            Bubble bubbleLeft = bubbleFactory.createBubble();
+            Bubble bubbleRight = bubbleFactory.createBubble();
 
-            if (frozen) {
-                bubble.setFrozen(true);
-            }
+            // left goes left, right goes right
+            bubbleLeft.setHorizontalSpeed(-Math.abs(bubbleLeft.getHorizontalSpeed()));
+            bubbleRight.setHorizontalSpeed(Math.abs(bubbleRight.getHorizontalSpeed()));
 
-            container.toAdd(bubble);
-            newBubbles.add(bubble);
+            // both bubbles get same y coord
+            bubbleLeft.setLocY(getLocY());
+            bubbleRight.setLocY(getLocY());
+
+            // bubbles get different x coords
+            bubbleLeft.setLocX(getLocX());
+            bubbleRight.setLocX(getLocX() + bubbleRight.getBounds().getWidth() / 2);
+
+            // also same vert speed
+            bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
+            bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
+
+            // propagate frozen state (why is frozen bool here, not in level / game?)
+            bubbleLeft.setFrozen(frozen);
+            bubbleRight.setFrozen(frozen);
+
+            // actually add to game
+            container.toAdd(bubbleLeft);
+            container.toAdd(bubbleRight);
+
+            // track created bubbles and add to result list
+            newBubbles.add(bubbleLeft);
+            newBubbles.add(bubbleRight);
+
         }
 
         return newBubbles;
@@ -170,10 +199,6 @@ public abstract class Bubble extends AbstractEnvironmentObject {
 
     public void setIsHit() {
         this.isHit = true;
-    }
-
-    public List<Bubble> getNext() {
-        return next;
     }
 
     /**
@@ -237,10 +262,6 @@ public abstract class Bubble extends AbstractEnvironmentObject {
             return horizontalSpeed;
         }
         return maxVerticalSpeed;
-    }
-
-    public boolean goesRight() {
-        return goesRightInitially;
     }
 
     /**

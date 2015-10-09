@@ -63,8 +63,8 @@ public class PauseScreen {
             if (mouseOver.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                         "Player left the game, to the main menu");
-                gameState.paused = false;
-                game.enterState(0);
+                gameState.getGame().setPaused(false);
+                game.enterState(States.StartScreenState);
             }
         }
     }

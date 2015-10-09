@@ -19,7 +19,6 @@ import nl.tudelft.model.shop.player.ShopWeaponItem;
 public class Shop {
 
     private LinkedList<ShopItem> inventory;
-    private LinkedList<Player> players;
     private Game game;
 
     /**
@@ -28,7 +27,6 @@ public class Shop {
      */
     public Shop(Game game) {
         this.game = game;
-        players = game.getPlayers();
         inventory = new LinkedList<>();
         inventory.add(new SlowGameSpeed(80, game.getCurLevel()));
         inventory.add(new ExtraTime(50, game.getCurLevel()));
@@ -44,10 +42,20 @@ public class Shop {
      * @return res : the item that has the discount applied.
      */
     public ShopItem discount() {
-        Random rand = new Random(inventory.size());
-        ShopItem res = inventory.get(rand.nextInt());
+        Random rand = new Random();
+        ShopItem res = inventory.get(rand.nextInt(inventory.size()));
         res.setPrice((int) (0.5 * res.getPrice()));
         return res;
+    }
+
+    /**
+     * Shop is associated with a Game object.
+     * This method can be used to retrieve that object.
+     *
+     * @return the associated Game object.
+     */
+    public Game getGame() {
+        return this.game;
     }
 
     /**

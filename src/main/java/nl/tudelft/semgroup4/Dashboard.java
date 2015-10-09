@@ -77,6 +77,21 @@ public class Dashboard implements Renderable {
                 timeBarBackground.getHeight() - 2 * border);
     }
 
+    /**
+     * This renders the Dashboard in his current state.
+     *
+     * <p>Checkstyle for LineLength and VariableDeclarationUsageDistance are
+     * turned off for the scope of the method. This helps for readability because the lines
+     * can become very long. The VariableDeclarationUsageDistance is turned off for
+     * the variable 'offset', for readability this variable is declared at the start.
+     * Structurally this is logical so the warning is ignored.</p>
+     *
+     * @param container
+     *            GameContainer - The Slick2D GameContainer that the game runs in.
+     * @param graphics
+     *            Graphics - The Slick2D Graphics object used for rendering.
+     * @throws SlickException When something is wrong with the OpenGL context.
+     */
     @Override
     //CHECKSTYLE:OFF:LineLength
     //CHECKSTYLE:OFF:VariableDeclarationUsageDistance
@@ -204,22 +219,20 @@ public class Dashboard implements Renderable {
         timeBar.setWidth((right - left - margin * 2)
                 * ((float) game.getCurLevel().getTime() / game.getCurLevel().getMaxTime()));
 
-        List<Player> players = game.getPlayers();
-        // this is een kleine workaround, eigenlijk moeten de player refs beschikbaar blijven
-        // zolang
-        // Game leeft
-        // moet alleen niet gerendered, geupdate of gecollide worden als eentje dood is
-        livesLeft = 0;
-        livesRight = 0;
-        for (Player p : players) {
-            if (p.isFirstPlayer()) {
-                scoreLeft = p.getScore();
-                livesLeft = p.getLives();
-                moneyLeft = p.getMoney();
-            } else {
-                scoreRight = p.getScore();
-                livesRight = p.getLives();
-                moneyRight = p.getMoney();
+        Player[] players = game.getPlayers();
+
+        for (int i = 0; i < players.length; i++) {
+            final Player player = players[i];
+            if (player != null) {
+                if (player.isFirstPlayer()) {
+                    scoreLeft = player.getScore();
+                    livesLeft = player.getLives();
+                    moneyLeft = player.getMoney();
+                } else {
+                    scoreRight = player.getScore();
+                    livesRight = player.getLives();
+                    moneyRight = player.getMoney();
+                }
             }
         }
 
