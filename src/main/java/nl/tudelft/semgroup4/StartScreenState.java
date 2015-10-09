@@ -140,7 +140,7 @@ public class StartScreenState extends BasicGameState {
                                 container.getHeight() - res.getPlayerImageStill().getHeight()
                                         - 5 * res.getWallImage().getHeight(), false);
                 PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
-                Settings.getPlayer1Input().addObserver(player2Handler);
+                Settings.getPlayer2Input().addObserver(player2Handler);
 
                 final Game multiplayerGame =
                         new MultiplayerGame(mainApp, container.getWidth(),
