@@ -10,7 +10,7 @@ import org.json.JSONObject;
 
 public abstract class Settings {
 
-    protected static JSONObject completeKeyBindings;
+    private static JSONObject completeKeyBindings;
 
     /**
      * Initialises all the keys
@@ -23,6 +23,14 @@ public abstract class Settings {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+    
+    /**
+     * 
+     * @return : returns the current settings.
+     */
+    public static JSONObject getSettings() {
+        return completeKeyBindings;
     }
 
     /**
@@ -71,10 +79,6 @@ public abstract class Settings {
     
     public static int getPlayer2ShootValue() {
         return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_SHOOT_KEY);
-    }
-
-    public static void setCompleteKeyBindings(JSONObject keys) {
-        completeKeyBindings = keys;
     }
 
     public static void setPlayer1Left(int value) {

@@ -234,7 +234,7 @@ public class KeyBindState extends BasicGameState {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User saves the keybinds to file");
                 try {
-                    KeyBindHelper.save(Settings.completeKeyBindings);
+                    KeyBindHelper.save(Settings.getSettings());
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
