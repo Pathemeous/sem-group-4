@@ -31,8 +31,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean frozen = false;
     private int tickCount = 0;
     private final ResourcesWrapper resources;
-    protected BubbleFactory bubbleFactory = null;
-    private final BubbleFactoryFactory bubbleFactoryFactory;
+    private BubbleFactory bubbleFactory = null;
 
     /**
      * The complete constructor for Bubble.
@@ -54,15 +53,16 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            boolean - true if the bubble should initialise moving to the right.
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
-     * @param bubbleFactoryFactory
-     *            {@link BubbleFactoryFactory} - The BubbleFactoryFactory that this class may use.
+     * @param bubbleFactory
+     *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
+     *            {@link Bubble#split(Modifiable, int)} method.
      */
     public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
-            ResourcesWrapper resources, BubbleFactoryFactory bubbleFactoryFactory) {
+            ResourcesWrapper resources, BubbleFactory bubbleFactory) {
         super(bubbleImg, locX, locY);
 
         this.resources = resources;
-        this.bubbleFactoryFactory = bubbleFactoryFactory;
+        this.bubbleFactory = bubbleFactory;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
 
@@ -75,8 +75,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         return this.bubbleFactory;
     }
 
-    protected final BubbleFactoryFactory getBubbleFactoryFactory() {
-        return this.bubbleFactoryFactory;
+    public void setBubbleFactory(BubbleFactory factory) {
+        bubbleFactory = factory;
     }
 
     /**
@@ -119,13 +119,14 @@ public abstract class Bubble extends AbstractEnvironmentObject {
             if (random > 7) {
                 // feeling lucky?
                 Pickup pickup =
-                        Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(), getLocY());
+                        Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
+                                getLocY());
                 container.toAdd(pickup);
             }
 
             // create bubbles
-            Bubble bubbleLeft  =  bubbleFactory.createBubble();
-            Bubble bubbleRight =  bubbleFactory.createBubble();
+            Bubble bubbleLeft = bubbleFactory.createBubble();
+            Bubble bubbleRight = bubbleFactory.createBubble();
 
             // left goes left, right goes right
             bubbleLeft.setHorizontalSpeed(-Math.abs(bubbleLeft.getHorizontalSpeed()));

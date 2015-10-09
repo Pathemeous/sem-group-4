@@ -18,20 +18,13 @@ public class Bubble2Test {
     public void testConstructor() {
         Image mockedImg = mock(Image.class);
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        BubbleFactoryFactory mockedBubbleFactoryFactory = mock(BubbleFactoryFactory.class);
         when(mockedResources.getBubbleImage2()).thenReturn(mockedImg);
 
-        Bubble bubble = new Bubble2(mockedResources, mockedBubbleFactoryFactory, 0, 0, true);
+        Bubble bubble = new Bubble2(mockedResources, 0, 0, true);
         
         assertEquals(6.0f, bubble.getMaxVerticalSpeed(), 0.0f);
         assertEquals(mockedImg, bubble.getImage());
         assertEquals(0.0f, bubble.getLocX(), 0.0f);
         assertEquals(0.0f, bubble.getLocY(), 0.0f);
-        verify(mockedBubbleFactoryFactory, times(1)).getSize1();
-        verify(mockedBubbleFactoryFactory, times(0)).getSize2();
-        verify(mockedBubbleFactoryFactory, times(0)).getSize3();
-        verify(mockedBubbleFactoryFactory, times(0)).getSize4();
-        verify(mockedBubbleFactoryFactory, times(0)).getSize5();
-        verify(mockedBubbleFactoryFactory, times(0)).getSize6();
     }
 }
