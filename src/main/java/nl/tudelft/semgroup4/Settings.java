@@ -84,26 +84,32 @@ public abstract class Settings {
 
     public static void setPlayer1Left(int value) {
         completeKeyBindings.put(KeyBindHelper.PLAYER1_LEFT_KEY, value);
+        player1Input.setLeftInput(new InputKey(value));
     }
 
     public static void setPlayer1Right(int value) {
         completeKeyBindings.put(KeyBindHelper.PLAYER1_RIGHT_KEY, value);
+        player1Input.setLeftInput(new InputKey(value));
     }
 
     public static void setPlayer1Shoot(int value) {
         completeKeyBindings.put(KeyBindHelper.PLAYER1_SHOOT_KEY, value);
+        player1Input.setLeftInput(new InputKey(value));
     }
 
     public static void setPlayer2Left(int value) {
         completeKeyBindings.put(KeyBindHelper.PLAYER2_LEFT_KEY, value);
+        player2Input.setLeftInput(new InputKey(value));
     }
 
     public static void setPlayer2Right(int value) {
         completeKeyBindings.put(KeyBindHelper.PLAYER2_RIGHT_KEY, value);
+        player2Input.setRightInput(new InputKey(value));
     }
 
     public static void setPlayer2Shoot(int value) {
         completeKeyBindings.put(KeyBindHelper.PLAYER2_SHOOT_KEY, value);
+        player2Input.setShootInput(new InputKey(value));
     }
 
     /**
