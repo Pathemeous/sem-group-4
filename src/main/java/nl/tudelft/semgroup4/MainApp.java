@@ -3,7 +3,6 @@ package nl.tudelft.semgroup4;
 import java.io.File;
 
 import nl.tudelft.semgroup4.resources.Resources;
-
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;

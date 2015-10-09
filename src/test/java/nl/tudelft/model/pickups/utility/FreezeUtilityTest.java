@@ -53,7 +53,7 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6(mockedResources, 0, 0);
+        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
@@ -79,7 +79,7 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6(mockedResources, 0, 0);
+        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
         bubble.setFrozen(true);
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);

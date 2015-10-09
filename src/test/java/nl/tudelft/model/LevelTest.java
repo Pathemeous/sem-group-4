@@ -181,7 +181,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, true);
-        verify(mockedBubble, times(1)).getNext();
+        verify(mockedBubble, times(1)).getBubbleFactory();
     }
 
     /**
@@ -194,7 +194,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getNext();
+        verify(mockedBubble, times(1)).getBubbleFactory();
     }
 
     /**
@@ -208,6 +208,6 @@ public class LevelTest extends AbstractOpenGLTestCase {
         bubbles.add(mockedBubble);
         when(mockedBubble.getImage()).thenReturn(null);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getNext();
+        verify(mockedBubble, times(1)).getBubbleFactory();
     }
 }
