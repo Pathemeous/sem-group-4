@@ -103,6 +103,7 @@ public class PlayerInput extends Observable implements Observer {
      */
     public final void setLeftInput(InputKey leftInput) {
         this.leftInput = leftInput;
+        this.leftInput.addObserver(this);
     }
 
     /**
@@ -113,6 +114,7 @@ public class PlayerInput extends Observable implements Observer {
      */
     public final void setRightInput(InputKey rightInput) {
         this.rightInput = rightInput;
+        this.rightInput.addObserver(this);
     }
 
     /**
@@ -123,6 +125,7 @@ public class PlayerInput extends Observable implements Observer {
      */
     public final void setShootInput(InputKey shootInput) {
         this.shootInput = shootInput;
+        this.shootInput.addObserver(this);
     }
 
     /**
