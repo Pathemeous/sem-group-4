@@ -37,16 +37,16 @@ public class Shop {
         inventory.add(new ShopShield(100, game));
     }
 
-    /**
-     * Create a method to discount items.
-     * @return res : the item that has the discount applied.
-     */
-    public ShopItem discount() {
-        Random rand = new Random(inventory.size());
-        ShopItem res = inventory.get(rand.nextInt());
-        res.setPrice((int) (0.5 * res.getPrice()));
-        return res;
-    }
+//    /**
+//     * Create a method to discount items.
+//     * @return res : the item that has the discount applied.
+//     */
+//    public ShopItem discount() {
+//        Random rand = new Random(inventory.size());
+//        ShopItem res = inventory.get(rand.nextInt());
+//        res.setPrice((int) (0.5 * res.getPrice()));
+//        return res;
+//    }
 
     /**
      * Shop is associated with a Game object.
