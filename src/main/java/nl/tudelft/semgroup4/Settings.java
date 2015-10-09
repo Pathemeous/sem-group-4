@@ -11,10 +11,11 @@ import org.json.JSONObject;
 public abstract class Settings {
 
     private static JSONObject completeKeyBindings;
+    static PlayerInput player1Input;
+    static PlayerInput player2Input;
 
     /**
-     * Initialises all the keys
-     * This has to be in a try catch block. The file will always be found
+     * Initializes all the keys This has to be in a try catch block. The file will always be found
      * unless a user has deleted the json.
      */
     public static void init() {
@@ -23,8 +24,14 @@ public abstract class Settings {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        player1Input =
+                new PlayerInput(new InputKey(getPlayer1LeftValue()), new InputKey(
+                        getPlayer1RightValue()), new InputKey(getPlayer1ShootValue()));
+        player2Input =
+                new PlayerInput(new InputKey(getPlayer2LeftValue()), new InputKey(
+                        getPlayer2RightValue()), new InputKey(getPlayer2ShootValue()));
     }
-    
+
     /**
      * 
      * @return : returns the current settings.
@@ -35,48 +42,42 @@ public abstract class Settings {
 
     /**
      * Create the inputs for player 1.
+     * 
      * @return a PlayerInput for player 1.
      */
     public static PlayerInput getPlayer1Input() {
-        return new PlayerInput(
-                new InputKey(getPlayer1LeftValue()),
-                new InputKey(getPlayer1RightValue()),
-                new InputKey(getPlayer1ShootValue())
-        );
+        return player1Input;
     }
 
     /**
      * Create the inputs for player 2.
+     * 
      * @return a PlayerInput for player 2.
      */
     public static PlayerInput getPlayer2Input() {
-        return new PlayerInput(
-                new InputKey(getPlayer2LeftValue()),
-                new InputKey(getPlayer2RightValue()),
-                new InputKey(getPlayer2ShootValue())
-        );
+        return player2Input;
     }
-    
+
     public static int getPlayer1LeftValue() {
         return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_LEFT_KEY);
     }
-    
+
     public static int getPlayer2LeftValue() {
         return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_LEFT_KEY);
     }
-    
+
     public static int getPlayer1RightValue() {
         return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_RIGHT_KEY);
     }
-    
+
     public static int getPlayer2RightValue() {
         return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_RIGHT_KEY);
     }
-    
+
     public static int getPlayer1ShootValue() {
         return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_SHOOT_KEY);
     }
-    
+
     public static int getPlayer2ShootValue() {
         return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_SHOOT_KEY);
     }
