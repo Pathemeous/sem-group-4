@@ -148,7 +148,7 @@ public class Hit3ShieldPowerupTest {
         powerup.update(mockedContainer, 0);
         powerup.update(mockedContainer, 1);
 
-        assertEquals(1, powerup.getRemovalCounter());
+        assertEquals(2, powerup.getRemovalCounter());
         powerup.setRemovalCounter(119);
         powerup.update(mockedContainer, 0);
         assertEquals(120, powerup.getRemovalCounter());
