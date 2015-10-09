@@ -6,6 +6,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.SingleplayerGame;
+import nl.tudelft.semgroup4.eventhandlers.PlayerEventHandler;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -31,9 +32,9 @@ public class StartScreenState extends BasicGameState {
     private MouseOverArea mouseOverHighScores;
     private Input input;
     private boolean alreadyAdded = false;
-    
+
     private Font font;
-    private TrueTypeFont typeFont;  
+    private TrueTypeFont typeFont;
     private Image highScoreButton;
     private String highscores;
     private Shape shape;
@@ -47,12 +48,12 @@ public class StartScreenState extends BasicGameState {
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         this.mainApp = mainApp;
         font = new Font("Verdana", Font.BOLD, 36);
-        typeFont = new TrueTypeFont(font, true);  
-        highscores  = "HIGHSCORES"; 
+        typeFont = new TrueTypeFont(font, true);
+        highscores = "HIGHSCORES";
         highScoreButton = new Image(typeFont.getWidth(highscores), typeFont.getHeight());
         shape = new Rectangle(650, 650, typeFont.getWidth(highscores), typeFont.getHeight());
-        shape = shape.transform(Transform.createRotateTransform(6, 650, 650));        
-        
+        shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
+
         input = container.getInput();
         final ResourcesWrapper resources = new ResourcesWrapper();
         // initializes all the areas where the buttons are to see if the mouse is on one of those
@@ -69,8 +70,7 @@ public class StartScreenState extends BasicGameState {
         mouseOverQuit =
                 new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
                         364, 88);
-        mouseOverHighScores =
-                new MouseOverArea(container, highScoreButton, shape);
+        mouseOverHighScores = new MouseOverArea(container, highScoreButton, shape);
 
     }
 
@@ -81,9 +81,9 @@ public class StartScreenState extends BasicGameState {
         graphics.drawImage(resources.getTitleScreenBackground(), 0, 0, container.getWidth(),
                 container.getHeight(), 0, 0, resources.getTitleScreenBackground().getWidth(),
                 resources.getTitleScreenBackground().getHeight());
-        
-        //draws the highscore button
-        graphics.rotate(650, 650, 340);       
+
+        // draws the highscore button
+        graphics.rotate(650, 650, 340);
         typeFont.drawString(650, 650, highscores, Color.red);
     }
 
@@ -94,7 +94,7 @@ public class StartScreenState extends BasicGameState {
         if (!resources.getTitleScreenMusic().playing()) {
             resources.playTitleScreen();
         }
-        
+
         //
         // checks if the left mouse button is pressed and where it was pressed to determine
         // what action to perform
@@ -105,17 +105,17 @@ public class StartScreenState extends BasicGameState {
                 game.enterState(States.HighscoresState);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverOnePlayer.isMouseOver()) {
-
                 final ResourcesWrapper res = new ResourcesWrapper();
-                final Player player = new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                        container.getHeight() - res.getPlayerImageStill().getHeight() - 5
-                                * res.getWallImage().getHeight(), input, true);
-                final Game singleplayerGame = new SingleplayerGame(
-                        mainApp,
-                        container.getWidth(), container.getHeight(),
-                        res,
-                        player);
+                final Player player =
+                        new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                                container.getHeight() - res.getPlayerImageStill().getHeight()
+                                        - 5 * res.getWallImage().getHeight(), true);
+                final Game singleplayerGame =
+                        new SingleplayerGame(mainApp, container.getWidth(),
+                                container.getHeight(), res, player);
                 singleplayerGame.toAdd(player.getWeapon());
+                PlayerEventHandler player1Handler = new PlayerEventHandler(player);
+                Settings.getPlayer1Input().addObserver(player1Handler);
 
                 final GameState gameState = new GameState(singleplayerGame);
 
@@ -130,18 +130,22 @@ public class StartScreenState extends BasicGameState {
                 final ResourcesWrapper res = new ResourcesWrapper();
                 Player firstPlayer =
                         new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                                container.getHeight() - res.getPlayerImageStill().getHeight() - 5
-                                        * res.getWallImage().getHeight(), input, true);
+                                container.getHeight() - res.getPlayerImageStill().getHeight()
+                                        - 5 * res.getWallImage().getHeight(), true);
+                PlayerEventHandler player1Handler = new PlayerEventHandler(firstPlayer);
+                Settings.getPlayer1Input().addObserver(player1Handler);
+
                 Player secondPlayer =
                         new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
-                                container.getHeight() - res.getPlayerImageStill().getHeight() - 5
-                                        * res.getWallImage().getHeight(), input, false);
+                                container.getHeight() - res.getPlayerImageStill().getHeight()
+                                        - 5 * res.getWallImage().getHeight(), false);
+                PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
+                Settings.getPlayer1Input().addObserver(player2Handler);
 
-                final Game multiplayerGame = new MultiplayerGame(
-                        mainApp,
-                        container.getWidth(), container.getHeight(),
-                        new ResourcesWrapper(),
-                        firstPlayer, secondPlayer);
+                final Game multiplayerGame =
+                        new MultiplayerGame(mainApp, container.getWidth(),
+                                container.getHeight(), new ResourcesWrapper(), firstPlayer,
+                                secondPlayer);
 
                 multiplayerGame.toAdd(firstPlayer.getWeapon());
                 multiplayerGame.toAdd(firstPlayer.getWeapon());
