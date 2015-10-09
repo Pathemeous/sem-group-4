@@ -74,6 +74,10 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     public BubbleFactory getBubbleFactory() {
         return this.bubbleFactory;
     }
+    
+    public void setBubbleFactory(BubbleFactory factory) {
+        bubbleFactory = factory;
+    }
 
     /**
      * This method is called every tick, to update the ball.

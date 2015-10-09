@@ -11,7 +11,6 @@ import java.util.LinkedList;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.bubble.Bubble6;
-import nl.tudelft.model.bubble.BubbleFactoryFactory;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -52,10 +51,9 @@ public class SlowUtilityTest {
     @Test
     public void testUpdate1() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        BubbleFactoryFactory mockedBubbleFactoryFactory = mock(BubbleFactoryFactory.class);
         SlowUtility utility = new SlowUtility(mockedResources, 0, 0);
 
-        Bubble bubble = new Bubble6(mockedResources, mockedBubbleFactoryFactory, 0, 0, true);
+        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
@@ -79,10 +77,9 @@ public class SlowUtilityTest {
     @Test
     public void testUpdate2() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        BubbleFactoryFactory mockedBubbleFactoryFactory = mock(BubbleFactoryFactory.class);
         SlowUtility utility = new SlowUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6(mockedResources, mockedBubbleFactoryFactory, 0, 0, true);
+        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
         bubble.setSlow(true);
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
