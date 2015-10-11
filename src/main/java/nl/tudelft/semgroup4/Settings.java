@@ -118,6 +118,12 @@ public abstract class Settings {
     public static void setDefault() {
         try {
             completeKeyBindings = KeyBindHelper.loader("defaults.json");
+            setPlayer1Left(getPlayer1LeftValue());
+            setPlayer1Right(getPlayer1RightValue());
+            setPlayer1Shoot(getPlayer1ShootValue());
+            setPlayer2Left(getPlayer2LeftValue());
+            setPlayer2Right(getPlayer2RightValue());
+            setPlayer2Shoot(getPlayer2RightValue());
         } catch (IOException e) {
             e.printStackTrace();
         }
