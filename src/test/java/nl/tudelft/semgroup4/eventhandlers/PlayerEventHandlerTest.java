@@ -18,8 +18,11 @@ public class PlayerEventHandlerTest {
     private PlayerEventHandler defaultHandler;
     private Observable mockedObservable;
 
+    /**
+     * Creates all dependencies and instantiations.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockedPlayer = Mockito.mock(Player.class);
         defaultHandler = new PlayerEventHandler(mockedPlayer);
         mockedObservable = Mockito.mock(PlayerInput.class);
