@@ -98,6 +98,11 @@ public class PlayerInput extends Observable implements Observer {
     /**
      * Sets a new key as the input for moving left.
      * 
+     * <p>
+     * Assures that this object removes itself from the old input and subscribes itself to the new
+     * input.
+     * </p>
+     * 
      * @param leftInput
      *            {@link InputKey} - The leftInput to set.
      */
@@ -109,6 +114,11 @@ public class PlayerInput extends Observable implements Observer {
     /**
      * Sets a new key as the input for moving right.
      * 
+     * <p>
+     * Assures that this object removes itself from the old input and subscribes itself to the new
+     * input.
+     * </p>
+     * 
      * @param rightInput
      *            {@link InputKey} - The rightInput to set.
      */
@@ -119,6 +129,11 @@ public class PlayerInput extends Observable implements Observer {
 
     /**
      * Sets a new key as the input for shooting.
+     * 
+     * <p>
+     * Assures that this object removes itself from the old input and subscribes itself to the new
+     * input.
+     * </p>
      * 
      * @param shootInput
      *            {@link InputKey} - The shootInput to set.

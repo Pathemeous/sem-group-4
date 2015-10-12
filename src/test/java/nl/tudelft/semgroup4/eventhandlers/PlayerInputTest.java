@@ -119,9 +119,7 @@ public class PlayerInputTest {
         defaultInstance.poll();
         Mockito.verify(mockedLeftKey).poll();
         Mockito.verify(mockedRightKey).poll();
-        ;
         Mockito.verify(mockedShootKey).poll();
-        ;
     }
 
     @Test
@@ -129,6 +127,9 @@ public class PlayerInputTest {
         InputKey newInput = Mockito.mock(InputKey.class);
         defaultInstance.setLeftInput(newInput);
         assertEquals(newInput, defaultInstance.getLeftInput());
+        Mockito.verify(mockedLeftKey).deleteObserver(defaultInstance);
+        Mockito.verify(newInput).addObserver(defaultInstance);
+
     }
 
     @Test
@@ -136,6 +137,8 @@ public class PlayerInputTest {
         InputKey newInput = Mockito.mock(InputKey.class);
         defaultInstance.setRightInput(newInput);
         assertEquals(newInput, defaultInstance.getRightInput());
+        Mockito.verify(mockedRightKey).deleteObserver(defaultInstance);
+        Mockito.verify(newInput).addObserver(defaultInstance);
     }
 
     @Test
@@ -143,6 +146,8 @@ public class PlayerInputTest {
         InputKey newInput = Mockito.mock(InputKey.class);
         defaultInstance.setShootInput(newInput);
         assertEquals(newInput, defaultInstance.getShootInput());
+        Mockito.verify(mockedShootKey).deleteObserver(defaultInstance);
+        Mockito.verify(newInput).addObserver(defaultInstance);
     }
 
     @Test
