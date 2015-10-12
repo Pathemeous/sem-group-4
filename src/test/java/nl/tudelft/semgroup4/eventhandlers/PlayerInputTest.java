@@ -3,7 +3,6 @@ package nl.tudelft.semgroup4.eventhandlers;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
-import java.awt.DefaultKeyboardFocusManager;
 import java.util.Observable;
 import java.util.Observer;
 
