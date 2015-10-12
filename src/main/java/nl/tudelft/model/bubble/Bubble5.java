@@ -21,9 +21,8 @@ public class Bubble5 extends Bubble {
      * @param goRight
      *            : boolean to indicate if the initial direction of the bubble is to the right.
      */
-    protected Bubble5(ResourcesWrapper resources,
-                   float locX, float locY, boolean goRight) {
-        super(resources.getBubbleImage5(), locX, locY, goRight, resources, 
+    protected Bubble5(ResourcesWrapper resources, float locX, float locY) {
+        super(resources.getBubbleImage5(), locX, locY, resources, 
                 new Bubble4Factory(resources));
 
         setMaxVerticalSpeed(9.0f);

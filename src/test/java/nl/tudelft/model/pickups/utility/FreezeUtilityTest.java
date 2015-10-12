@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.bubble.Bubble6;
+import nl.tudelft.model.bubble.Bubble6Factory;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -53,7 +54,7 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
+        Bubble bubble = new Bubble6Factory(mockedResources).createBubble();
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
@@ -79,7 +80,7 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6(mockedResources, 0, 0, true);
+        Bubble bubble = new Bubble6Factory(mockedResources).createBubble();
         bubble.setFrozen(true);
         LinkedList<Bubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
