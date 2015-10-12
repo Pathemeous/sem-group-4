@@ -21,7 +21,7 @@ public class Bubble3 extends Bubble {
      * @param goRight
      *            : boolean to indicate if the initial direction of the bubble is to the right.
      */
-    public Bubble3(ResourcesWrapper resources, 
+    protected Bubble3(ResourcesWrapper resources, 
                    float locX, float locY, boolean goRight) {
         super(resources.getBubbleImage3(), locX, locY, goRight, resources,
                 new Bubble2Factory(resources));
