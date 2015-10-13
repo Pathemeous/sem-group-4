@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.model.wall;
 
 import nl.tudelft.semgroup4.Modifiable;
 

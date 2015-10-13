@@ -1,13 +1,11 @@
-package nl.tudelft.model;
+package nl.tudelft.model.wall;
 
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class MovingWall extends AbstractWall {
-    
-    private int speed;
+public class VerMovingWall extends MovingWall {
 
     /**
      * Creates a moving wall, which will move in a vertical
@@ -21,21 +19,13 @@ public abstract class MovingWall extends AbstractWall {
      * @param speed
      *      - The speed with which the wall moves.
      */
-    public MovingWall(Image image, int locX, int locY, int speed) {
-        super(image, locX, locY);
-        
-        this.speed = speed;
-    }
-    
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-    
-    public int getSpeed() {
-        return speed;
+    public VerMovingWall(Image image, int locX, int locY, int speed) {
+        super(image, locX, locY, speed);
     }
 
     @Override
-    public  abstract <T extends Modifiable> void update(T container, int delta) throws SlickException;
+    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+        setLocY(getLocY() + getSpeed());
+    }
 
 }

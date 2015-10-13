@@ -11,6 +11,10 @@ import nl.tudelft.model.bubble.Bubble5Factory;
 import nl.tudelft.model.bubble.Bubble6Factory;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.HorMovingWall;
+import nl.tudelft.model.wall.RegularWall;
+import nl.tudelft.model.wall.VerMovingWall;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**

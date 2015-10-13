@@ -1,5 +1,6 @@
-package nl.tudelft.model;
+package nl.tudelft.model.wall;
 
+import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.newdawn.slick.Image;

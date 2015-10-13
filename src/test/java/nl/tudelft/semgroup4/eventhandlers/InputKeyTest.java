@@ -8,8 +8,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Observer;
 
-import nl.tudelft.model.AbstractWall;
-import nl.tudelft.model.RegularWall;
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.RegularWall;
 
 import org.junit.After;
 import org.junit.Before;

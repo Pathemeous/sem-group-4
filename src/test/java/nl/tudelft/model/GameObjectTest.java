@@ -1,7 +1,8 @@
 package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
-
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;

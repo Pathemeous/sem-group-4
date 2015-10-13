@@ -4,12 +4,8 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.tudelft.model.AbstractGameObject;
-import nl.tudelft.model.AbstractWall;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.HorMovingWall;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.RegularWall;
-import nl.tudelft.model.VerMovingWall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
@@ -18,6 +14,10 @@ import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.HorMovingWall;
+import nl.tudelft.model.wall.RegularWall;
+import nl.tudelft.model.wall.VerMovingWall;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 

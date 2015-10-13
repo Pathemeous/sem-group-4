@@ -15,6 +15,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.junit.Before;
