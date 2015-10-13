@@ -137,18 +137,31 @@ public class QuadTree {
         return index;
     }
     
+    /**
+     * Check for each quadrant of the current node, if a Shape lies (partly) within it. 
+     * @param rect : the Shape for which the quadrants it lies in is checked.
+     * @return : a List defining the quadrants this Shape lies in.
+     */
     private List<Integer> getIndices(Shape rect) {
         List<Integer> indices = new ArrayList<>();
         
         double verticalMidpoint = bounds.getX() + (bounds.getWidth() / 2);
         double horizontalMid = bounds.getY() + (bounds.getHeight() / 2);
 
+        checkLeftQuadrants(indices, rect, verticalMidpoint, horizontalMid);
+        checkRightQuadrants(indices, rect, verticalMidpoint, horizontalMid);
+
+        return indices;
+    }
+    
+    private void checkLeftQuadrants(List<Integer> indices, Shape rect, 
+            double verticalMidpoint, double horizontalMid) {
         // Object lies (partly) in topQuadrant
         boolean topQuadrant = rect.getY() < horizontalMid;
         // Object lies (partly) within the bottom quadrants
         boolean bottomQuadrant = rect.getY() > horizontalMid 
                 || rect.getY() + rect.getHeight() > horizontalMid;
-
+        
         // Object lies (partly) within the left quadrants
         if (rect.getX() < verticalMidpoint) {
             if (topQuadrant) {
@@ -157,19 +170,27 @@ public class QuadTree {
             if (bottomQuadrant) {
                 indices.add(2);
             }
-        } 
+        }
+    }
+    
+    private void checkRightQuadrants(List<Integer> indices, Shape rect, 
+            double verticalMidpoint, double horizontalMid) {
+        // Object lies (partly) in topQuadrant
+        boolean topQuadrant = rect.getY() < horizontalMid;
+        // Object lies (partly) within the bottom quadrants
+        boolean bottomQuadrant = rect.getY() > horizontalMid 
+                || rect.getY() + rect.getHeight() > horizontalMid;
+        
         if (rect.getX() > verticalMidpoint 
                 || rect.getX() + rect.getWidth() > verticalMidpoint) {
             // Object lies (partly) within right quadrants
             if (topQuadrant) {
                 indices.add(0);
-            } 
+            }
             if (bottomQuadrant) {
                 indices.add(3);
             }
         }
-
-        return indices;
     }
 
     /**
