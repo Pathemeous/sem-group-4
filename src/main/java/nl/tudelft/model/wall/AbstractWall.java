@@ -11,6 +11,12 @@ import org.newdawn.slick.SlickException;
  */
 public abstract class AbstractWall extends AbstractEnvironmentObject {
 
+    /**
+     * Creates an abstract wall.
+     * @param image : wall image.
+     * @param locX : x location of the wall.
+     * @param locY : y location of the wall.
+     */
     public AbstractWall(Image image, float locX, float locY) {
         super(image, locX, locY);
     }

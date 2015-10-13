@@ -10,8 +10,8 @@ public abstract class AbstractMovingWall extends AbstractWall {
     private float speed;
 
     /**
-     * Creates a moving wall, which will move in a vertical
-     * direction with a defined speed.
+     * Creates a moving wall, which will move in a vertical or
+     * horizontal direction with a defined speed.
      * @param image
      *      - The image of the wall.
      * @param locX
