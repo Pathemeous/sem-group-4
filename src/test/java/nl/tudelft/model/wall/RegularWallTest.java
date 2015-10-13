@@ -38,7 +38,15 @@ public class RegularWallTest {
     @Test
     public void testUpdate() throws SlickException {
         AbstractWall wall = new RegularWall(mockedImage, 0, 0);
+        assertEquals(wall.getLocX(), 0.0f, 0.0f);
+        assertEquals(wall.getLocY(), 0.0f, 0.0f);
+        assertEquals(wall.getImage(), mockedImage);
+        
         wall.update(null, 0);
+        
+        assertEquals(wall.getLocX(), 0.0f, 0.0f);
+        assertEquals(wall.getLocY(), 0.0f, 0.0f);
+        assertEquals(wall.getImage(), mockedImage);
     }
 
 }
