@@ -6,8 +6,10 @@ import java.util.TimerTask;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.AbstractWall;
 import nl.tudelft.model.Game;
+import nl.tudelft.model.HorMovingWall;
 import nl.tudelft.model.MovingWall;
 import nl.tudelft.model.Player;
+import nl.tudelft.model.VerMovingWall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
@@ -54,9 +56,15 @@ public class DefaultCollisionHandler implements CollisionHandler<
             }
         }
         
-        if (objA instanceof MovingWall) {
+        if (objA instanceof HorMovingWall) {
             if (objB instanceof AbstractWall) {
-                wallWallHandler.onCollision(game, (MovingWall) objA, (AbstractWall) objB);
+                horWallWallHandler.onCollision(game, (HorMovingWall) objA, (AbstractWall) objB);
+            }
+        }
+        
+        if (objA instanceof VerMovingWall) {
+            if (objB instanceof AbstractWall) {
+                verWallWallHandler.onCollision(game, (VerMovingWall) objA, (AbstractWall) objB);
             }
         }
         
@@ -241,8 +249,30 @@ public class DefaultCollisionHandler implements CollisionHandler<
         util.activate(game.getCurLevel());
     };
     
-    private final CollisionHandler<MovingWall, AbstractWall> wallWallHandler = 
+    private final CollisionHandler<HorMovingWall, AbstractWall> horWallWallHandler = 
             (game, movingWall, abstractWall) -> {
-        movingWall.setSpeed(-movingWall.getSpeed());
+        int offset = 5;        
+        
+        if (movingWall.getLocX() < abstractWall.getLocX() 
+                && movingWall.getLocX() + movingWall.getWidth() < abstractWall.getLocX() + offset) {
+            movingWall.setSpeed(-Math.abs(movingWall.getSpeed()));
+        } else if (movingWall.getLocX() > abstractWall.getLocX()
+                && movingWall.getLocX() > abstractWall.getLocX() + abstractWall.getWidth() - offset) {
+            movingWall.setSpeed(Math.abs(movingWall.getSpeed()));
+        }
+    };
+    
+    private final CollisionHandler<VerMovingWall, AbstractWall> verWallWallHandler = 
+            (game, movingWall, abstractWall) -> {
+        int offset = 5;
+        
+        
+        if (movingWall.getLocY() < abstractWall.getLocY() 
+                && movingWall.getLocY() + movingWall.getHeight() < abstractWall.getLocY() + offset) {
+            movingWall.setSpeed(-Math.abs(movingWall.getSpeed()));
+        } else if (movingWall.getLocY() > abstractWall.getLocY() 
+                && movingWall.getLocY() > abstractWall.getLocY() + abstractWall.getHeight() - offset) {
+            movingWall.setSpeed(Math.abs(movingWall.getSpeed()));
+        }
     };
 }
