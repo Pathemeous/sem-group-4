@@ -25,7 +25,7 @@ public class MovingWall extends AbstractWall {
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        
+        setLocX(getLocX() + speed);
     }
 
 }
