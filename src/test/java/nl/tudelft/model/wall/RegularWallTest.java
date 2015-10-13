@@ -14,7 +14,7 @@ import org.newdawn.slick.SlickException;
 /**
  * Created by justin on 11/09/15.
  */
-public class WallTest {
+public class RegularWallTest {
     
     private Image mockedImage; 
     
