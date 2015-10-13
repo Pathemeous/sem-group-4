@@ -7,8 +7,8 @@ import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.AbstractWall;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.HorMovingWall;
-import nl.tudelft.model.MovingWall;
 import nl.tudelft.model.Player;
+import nl.tudelft.model.RegularWall;
 import nl.tudelft.model.VerMovingWall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
@@ -200,7 +200,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         final Shape wallRect = wall.getBounds();
         // This structure makes the projectile ignore any walls below it (such as the floor wall).
 
-        if (wallRect.getY() < projectileRect.getY()) {
+        if (wallRect.getY() < projectileRect.getY() || !(wall instanceof RegularWall)) {
             Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit the ceiling");
             projectile.setHitWall();
         }
