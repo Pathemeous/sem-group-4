@@ -44,6 +44,8 @@ public final class JSONParser {
      * @param encoding
      *            {@link Charset} - the encoding that should be used when parsing the file.
      * @return {@link JSONObject} - the JSON format of this parser's file.
+     * @throws IOException
+     *             - When the file is not found.
      */
     public static JSONObject loadJSON(String filePath, Charset encoding) throws IOException {
         byte[] byteString = Files.readAllBytes(Paths.get(filePath));
@@ -56,12 +58,15 @@ public final class JSONParser {
      * 
      * @param json
      *            {@link JSONObject} - The JSON structure to write to the file.
+     * @param filePath
+     *            {@link String} - The path to this file.
      * @throws IOException
      *             - When writing the file goes wrong.
      * @throws JSONException
      *             - When the provided JSON does not conform to the formatting standards.
      */
-    public static void save(JSONObject json, String filePath) throws IOException, JSONException {
+    public static void save(JSONObject json, String filePath) throws IOException,
+            JSONException {
         JSONObject.testValidity(json);
 
         BufferedWriter out =
