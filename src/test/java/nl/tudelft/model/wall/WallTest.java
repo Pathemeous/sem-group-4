@@ -2,7 +2,6 @@ package nl.tudelft.model.wall;
 
 import static org.junit.Assert.assertEquals;
 
-import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.RegularWall;
 
@@ -15,7 +14,7 @@ import org.newdawn.slick.SlickException;
 /**
  * Created by justin on 11/09/15.
  */
-public class WallTest extends AbstractOpenGLTestCase {
+public class WallTest {
     
     private Image mockedImage; 
     

@@ -8,7 +8,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -18,7 +17,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 
-public class ProjectileTest extends AbstractOpenGLTestCase {
+public class ProjectileTest {
 
     private Weapon mockedWeapon;
     private ResourcesWrapper mockedResources;
