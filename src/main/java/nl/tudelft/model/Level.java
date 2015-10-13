@@ -25,7 +25,7 @@ import org.newdawn.slick.SlickException;
  */
 public class Level implements Updateable, Renderable, Modifiable {
 
-    private final LinkedList<Wall> walls;
+    private final LinkedList<AbstractWall> walls;
     private final LinkedList<Projectile> projectiles;
     private final LinkedList<Pickup> pickups;
     private final LinkedList<Bubble> bubbles;
@@ -52,7 +52,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      * @param id
      *            int - the number of this level.
      */
-    public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
+    public Level(LinkedList<AbstractWall> walls, LinkedList<Projectile> projectiles,
             LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, int time, int id) {
         this.walls = walls;
         this.projectiles = projectiles;
@@ -94,8 +94,8 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof Pickup) {
                 pickups.add((Pickup) obj);
             }
-            if (obj instanceof Wall) {
-                walls.add((Wall) obj);
+            if (obj instanceof AbstractWall) {
+                walls.add((AbstractWall) obj);
             }
         }
 
@@ -109,7 +109,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof Pickup) {
                 pickups.remove(obj);
             }
-            if (obj instanceof Wall) {
+            if (obj instanceof AbstractWall) {
                 walls.remove(obj);
             }
         }
@@ -174,7 +174,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      * 
      * @return {@link LinkedList} of {@link Wall}s - The walls in this level.
      */
-    public LinkedList<Wall> getWalls() {
+    public LinkedList<AbstractWall> getWalls() {
         return this.walls;
     }
 

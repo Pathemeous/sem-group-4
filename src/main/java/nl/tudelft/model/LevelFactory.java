@@ -95,17 +95,17 @@ public class LevelFactory {
      * 
      * @return {@link LinkedList} of {@link Wall}s - a list containing the 4 default {@link Wall}s.
      */
-    private LinkedList<Wall> wallInit() {
-        LinkedList<Wall> walls = new LinkedList<>();
+    private LinkedList<AbstractWall> wallInit() {
+        LinkedList<AbstractWall> walls = new LinkedList<>();
 
-        walls.add(new Wall(resources.getVwallImage(), 0, 0));
-        walls.add(new Wall(resources.getVwallImage(), game.getContainerWidth()
+        walls.add(new RegularWall(resources.getVwallImage(), 0, 0));
+        walls.add(new RegularWall(resources.getVwallImage(), game.getContainerWidth()
                 - resources.getVwallImage().getWidth(), 0));
 
-        walls.add(new Wall(resources.getWallImage(), 0, 0));
+        walls.add(new RegularWall(resources.getWallImage(), 0, 0));
         for (int i = 1; i <= 5; i++) {
             // five walls of space for the UI
-            walls.add(new Wall(resources.getWallImage(), 0, game.getContainerHeight()
+            walls.add(new RegularWall(resources.getWallImage(), 0, game.getContainerHeight()
                     - resources.getWallImage().getHeight() * i));
         }
         return walls;
@@ -132,7 +132,7 @@ public class LevelFactory {
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 120000;
         
-        LinkedList<Wall> walls = wallInit();
+        LinkedList<AbstractWall> walls = wallInit();
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
     }
@@ -164,7 +164,7 @@ public class LevelFactory {
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 120000;
         
-        LinkedList<Wall> walls = wallInit();
+        LinkedList<AbstractWall> walls = wallInit();
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
 
@@ -178,7 +178,7 @@ public class LevelFactory {
     private Level getLevel3() {
         final int id = 3;
 
-        final LinkedList<Wall> walls = wallInit();
+        final LinkedList<AbstractWall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
@@ -217,7 +217,7 @@ public class LevelFactory {
     private Level getLevel4() {
         final int id = 4;
 
-        final LinkedList<Wall> walls = wallInit();
+        final LinkedList<AbstractWall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();

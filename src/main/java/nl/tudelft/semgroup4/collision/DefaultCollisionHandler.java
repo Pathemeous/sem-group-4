@@ -4,9 +4,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 import nl.tudelft.model.AbstractGameObject;
+import nl.tudelft.model.AbstractWall;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.Wall;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
@@ -30,8 +30,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
     @Override
     public void onCollision(Game game, AbstractGameObject objA, AbstractGameObject objB) {
         if (objA instanceof Bubble) {
-            if (objB instanceof Wall) {
-                bubbleWallHandler.onCollision(game, (Bubble) objA, (Wall) objB);
+            if (objB instanceof AbstractWall) {
+                bubbleWallHandler.onCollision(game, (Bubble) objA, (AbstractWall) objB);
             }
         }
 
@@ -48,14 +48,14 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
 
         if (objA instanceof Projectile) {
-            if (objB instanceof Wall) {
-                projectileWallHandler.onCollision(game, (Projectile) objA, (Wall) objB);
+            if (objB instanceof AbstractWall) {
+                projectileWallHandler.onCollision(game, (Projectile) objA, (AbstractWall) objB);
             }
         }
 
         if (objA instanceof Player) {
-            if (objB instanceof Wall) {
-                playerWallHandler.onCollision(game, (Player) objA, (Wall) objB);
+            if (objB instanceof AbstractWall) {
+                playerWallHandler.onCollision(game, (Player) objA, (AbstractWall) objB);
             }
         }
         
@@ -78,13 +78,13 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
 
         if (objA instanceof Pickup) {
-            if (objB instanceof Wall) {
-                pickupWallHandler.onCollision(game, (Pickup) objA, (Wall) objB);
+            if (objB instanceof AbstractWall) {
+                pickupWallHandler.onCollision(game, (Pickup) objA, (AbstractWall) objB);
             }
         }
     }
 
-    private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
+    private final CollisionHandler<Player, AbstractWall> playerWallHandler = (game, player, wall) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Player - wall collision");
         
         final Shape playerRect = player.getBounds();
@@ -99,7 +99,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
+    private final CollisionHandler<Bubble, AbstractWall> bubbleWallHandler = (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
         if (wall.getLocX() < bubble.getLocX()
@@ -175,7 +175,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    final CollisionHandler<Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
+    final CollisionHandler<Projectile, AbstractWall> projectileWallHandler = (game, projectile, wall) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
         
         final Shape projectileRect = projectile.getBounds();
@@ -202,7 +202,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    final CollisionHandler<Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
+    final CollisionHandler<Pickup, AbstractWall> pickupWallHandler = (game, pickup, wall) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Pickup - Wall collision");
         
         final Shape pickupRect = pickup.getBounds();
