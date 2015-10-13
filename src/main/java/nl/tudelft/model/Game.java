@@ -109,6 +109,7 @@ public abstract class Game implements Renderable, Modifiable {
         projectileCollision(quad);
         playerCollision(quad);
         pickupCollision(quad);
+        wallCollision(quad);
 
         // updates
         playerUpdate(delta);
@@ -213,6 +214,17 @@ public abstract class Game implements Renderable, Modifiable {
      */
     private void playerCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : getPlayers()) {
+            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+                    collidesWithA, quad)) {
+                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+            }
+        }
+    }
+    /**
+     * Checks for every wall if it collides with anything a wall can collide with.
+     */
+    private void wallCollision(QuadTree quad) {
+        for (AbstractGameObject collidesWithA : curLevel.getWalls()) {
             for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);
