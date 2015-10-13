@@ -136,7 +136,6 @@ public class LevelFactory {
         
         HorMovingWall movingWall = new HorMovingWall(resources.getSmallHWallImage(), 300, 200, 2);
         HorMovingWall movingWall2 = new HorMovingWall(resources.getSmallHWallImage(), 800, 200, -2);
-        
         walls.add(movingWall);
         walls.add(movingWall2);
         
@@ -174,6 +173,16 @@ public class LevelFactory {
         int time = 120000;
         
         LinkedList<AbstractWall> walls = wallInit();
+        
+        HorMovingWall movingWall = new HorMovingWall(resources.getSmallHWallImage(), 300, 400, 2);
+        HorMovingWall movingWall2 = new HorMovingWall(resources.getSmallHWallImage(), 800, 400, -2);
+        walls.add(movingWall);
+        walls.add(movingWall2);
+        
+        VerMovingWall movingWall3 = new VerMovingWall(resources.getSmallVWallImage(), 200, 200, -2);
+        walls.add(movingWall3);
+        VerMovingWall movingWall4 = new VerMovingWall(resources.getSmallVWallImage(), 400, 200, -2);
+        walls.add(movingWall4);
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
 
