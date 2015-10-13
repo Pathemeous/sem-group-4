@@ -122,7 +122,7 @@ public class LevelFactory {
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
         
-        Bubble bubble = new Bubble1Factory(resources).createBubble();
+        Bubble bubble = new Bubble6Factory(resources).createBubble();
         bubble.setLocX(resources.getVwallImage().getWidth() + 100);
         bubble.setLocY(game.getContainerHeight() - resources.getWallImage().getHeight() 
                 - bubble.getWidth() - 400);
@@ -133,6 +133,11 @@ public class LevelFactory {
         int time = 120000;
         
         LinkedList<AbstractWall> walls = wallInit();
+        
+        MovingWall movingWall = new MovingWall(resources.getSmallHWallImage(), 300, 200, 2);
+        MovingWall movingWall2 = new MovingWall(resources.getSmallHWallImage(), 800, 200, -2);
+        walls.add(movingWall);
+        walls.add(movingWall2);
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
     }

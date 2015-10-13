@@ -136,6 +136,41 @@ public class QuadTree {
 
         return index;
     }
+    
+    private List<Integer> getIndices(Shape rect) {
+        List<Integer> indices = new ArrayList<>();
+        
+        double verticalMidpoint = bounds.getX() + (bounds.getWidth() / 2);
+        double horizontalMid = bounds.getY() + (bounds.getHeight() / 2);
+
+        // Object lies (partly) in topQuadrant
+        boolean topQuadrant = rect.getY() < horizontalMid;
+        // Object lies (partly) within the bottom quadrants
+        boolean bottomQuadrant = rect.getY() > horizontalMid 
+                || rect.getY() + rect.getHeight() > horizontalMid;
+
+        // Object lies (partly) within the left quadrants
+        if (rect.getX() < verticalMidpoint) {
+            if (topQuadrant) {
+                indices.add(1);
+            } 
+            if (bottomQuadrant) {
+                indices.add(2);
+            }
+        } 
+        if (rect.getX() > verticalMidpoint 
+                || rect.getX() + rect.getWidth() > verticalMidpoint) {
+            // Object lies (partly) within right quadrants
+            if (topQuadrant) {
+                indices.add(0);
+            } 
+            if (bottomQuadrant) {
+                indices.add(3);
+            }
+        }
+
+        return indices;
+    }
 
     /**
      * Insert the object into the quadtree. If the node exceeds the capacity, it will split and add
@@ -188,6 +223,12 @@ public class QuadTree {
         int index = getIndex(rect);
         if (index != -1 && nodes[0] != null) {
             nodes[index].retrieve(returnObjects, rect);
+        } else if (index == -1 && nodes[0] != null) {
+            // The node is not in one quadrant, so instead, find all quadrants the node 
+            // is partly in.
+            for (int indexValue : getIndices(rect)) {
+                nodes[indexValue].retrieve(returnObjects, rect);
+            }
         }
 
         returnObjects.addAll(objects);
