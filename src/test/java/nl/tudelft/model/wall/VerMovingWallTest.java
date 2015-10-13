@@ -22,7 +22,7 @@ public class VerMovingWallTest {
     
     @Test
     public void testConstructor() {
-        MovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
+        AbstractMovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
         
         assertEquals(0.0f, wall.getLocX(), 0.0f);
         assertEquals(0.0f, wall.getLocY(), 0.0f);
@@ -32,7 +32,7 @@ public class VerMovingWallTest {
     
     @Test
     public void testUpdate() throws SlickException {
-        MovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
+        AbstractMovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
         
         assertEquals(0.0f, wall.getLocY(), 0.0f);
         assertEquals(0.0f, wall.getLocX(), 0.0f);

@@ -21,7 +21,7 @@ public class MovingWallTest {
     
     @Test
     public void testConstructor() {
-        MovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
+        AbstractMovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
         
         assertEquals(0.0f, wall.getLocX(), 0.0f);
         assertEquals(0.0f, wall.getLocY(), 0.0f);
@@ -31,7 +31,7 @@ public class MovingWallTest {
     
     @Test
     public void testSetSpeed() {
-        MovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
+        AbstractMovingWall wall = new VerMovingWall(mockedImage, 0.0f, 0.0f, 2.0f);
         
         assertEquals(2.0f, wall.getSpeed(), 0.0f);
         

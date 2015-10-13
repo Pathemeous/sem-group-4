@@ -5,7 +5,7 @@ import nl.tudelft.semgroup4.Modifiable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class MovingWall extends AbstractWall {
+public abstract class AbstractMovingWall extends AbstractWall {
     
     private float speed;
 
@@ -21,7 +21,7 @@ public abstract class MovingWall extends AbstractWall {
      * @param speed
      *      - The speed with which the wall moves.
      */
-    public MovingWall(Image image, float locX, float locY, float speed) {
+    public AbstractMovingWall(Image image, float locX, float locY, float speed) {
         super(image, locX, locY);
         
         this.speed = speed;

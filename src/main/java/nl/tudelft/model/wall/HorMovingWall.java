@@ -5,7 +5,7 @@ import nl.tudelft.semgroup4.Modifiable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class HorMovingWall extends MovingWall {
+public class HorMovingWall extends AbstractMovingWall {
 
     /**
      * Creates a moving wall, which will move in a horizontal 
