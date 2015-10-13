@@ -1,6 +1,7 @@
-package nl.tudelft.model;
+package nl.tudelft.model.wall;
 
 import static org.junit.Assert.assertEquals;
+import nl.tudelft.model.AbstractOpenGLTestCase;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.RegularWall;
 
