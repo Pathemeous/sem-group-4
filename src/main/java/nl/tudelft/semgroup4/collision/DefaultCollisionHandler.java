@@ -48,15 +48,21 @@ public class DefaultCollisionHandler implements CollisionHandler<
             }
         }
 
-        if (objA instanceof Projectile) {
-            if (objB instanceof AbstractWall) {
-                projectileWallHandler.onCollision(game, (Projectile) objA, (AbstractWall) objB);
+        if (objA instanceof AbstractWall) {
+            if (objB instanceof Player) {
+                wallPlayerHandler.onCollision(game, (AbstractWall) objA, (Player) objB);
             }
         }
-
-        if (objA instanceof Player) {
+        
+        if (objA instanceof MovingWall) {
             if (objB instanceof AbstractWall) {
-                playerWallHandler.onCollision(game, (Player) objA, (AbstractWall) objB);
+                wallWallHandler.onCollision(game, (MovingWall) objA, (AbstractWall) objB);
+            }
+        }
+        
+        if (objA instanceof AbstractWall) {
+            if (objB instanceof Projectile) {
+                wallProjectileHandler.onCollision(game, (AbstractWall) objA, (Projectile) objB);
             }
         }
         
@@ -83,16 +89,10 @@ public class DefaultCollisionHandler implements CollisionHandler<
                 pickupWallHandler.onCollision(game, (Pickup) objA, (AbstractWall) objB);
             }
         }
-        
-        if (objA instanceof MovingWall) {
-            if (objB instanceof AbstractWall) {
-                wallWallHandler.onCollision(game, (MovingWall) objA, (AbstractWall) objB);
-            }
-        }
     }
 
-    private final CollisionHandler<Player, AbstractWall> playerWallHandler = 
-            (game, player, wall) -> {
+    private final CollisionHandler<AbstractWall, Player> wallPlayerHandler = 
+            (game, wall, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Player - wall collision");
         
         final Shape playerRect = player.getBounds();
@@ -183,9 +183,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
             }, 1000);
         }
     };
-
-    final CollisionHandler<Projectile, AbstractWall> projectileWallHandler = 
-            (game, projectile, wall) -> {
+    
+    final CollisionHandler<AbstractWall, Projectile> wallProjectileHandler = 
+            (game, wall, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
         
         final Shape projectileRect = projectile.getBounds();
