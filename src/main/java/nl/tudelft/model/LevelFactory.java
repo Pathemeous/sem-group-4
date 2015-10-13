@@ -132,10 +132,6 @@ public class LevelFactory {
                 - bubble.getWidth() - 400);
         bubbles.add(bubble);
 
-        LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
-        int time = 120000;
-        
         LinkedList<AbstractWall> walls = wallInit();
         
         HorMovingWall movingWall = new HorMovingWall(resources.getSmallHWallImage(), 300, 200, 2);
@@ -145,6 +141,10 @@ public class LevelFactory {
         
         VerMovingWall movingWall3 = new VerMovingWall(resources.getSmallVWallImage(), 200, 200, -2);
         walls.add(movingWall3);
+        
+        LinkedList<Projectile> projectiles = new LinkedList<>();
+        LinkedList<Pickup> pickups = new LinkedList<>();
+        int time = 120000;
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
     }
@@ -171,10 +171,6 @@ public class LevelFactory {
         bubble2.setLocY(game.getContainerHeight() - resources.getWallImage().getHeight() 
                 - bubble2.getHeight() - 400);
         bubbles.add(bubble2);
-
-        LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
-        int time = 120000;
         
         LinkedList<AbstractWall> walls = wallInit();
         
@@ -188,6 +184,10 @@ public class LevelFactory {
         VerMovingWall movingWall4 = new VerMovingWall(resources.getSmallVWallImage(), 400, 200, -2);
         walls.add(movingWall4);
 
+        LinkedList<Projectile> projectiles = new LinkedList<>();
+        LinkedList<Pickup> pickups = new LinkedList<>();
+        int time = 120000;
+        
         return new Level(walls, projectiles, pickups, bubbles, time, id);
 
     }

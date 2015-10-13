@@ -257,7 +257,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
                 && movingWall.getLocX() + movingWall.getWidth() < abstractWall.getLocX() + offset) {
             movingWall.setSpeed(-Math.abs(movingWall.getSpeed()));
         } else if (movingWall.getLocX() > abstractWall.getLocX()
-                && movingWall.getLocX() > abstractWall.getLocX() + abstractWall.getWidth() - offset) {
+                && movingWall.getLocX() 
+                > abstractWall.getLocX() + abstractWall.getWidth() - offset) {
             movingWall.setSpeed(Math.abs(movingWall.getSpeed()));
         }
     };
@@ -268,10 +269,12 @@ public class DefaultCollisionHandler implements CollisionHandler<
         
         
         if (movingWall.getLocY() < abstractWall.getLocY() 
-                && movingWall.getLocY() + movingWall.getHeight() < abstractWall.getLocY() + offset) {
+                && movingWall.getLocY() + movingWall.getHeight() 
+                < abstractWall.getLocY() + offset) {
             movingWall.setSpeed(-Math.abs(movingWall.getSpeed()));
         } else if (movingWall.getLocY() > abstractWall.getLocY() 
-                && movingWall.getLocY() > abstractWall.getLocY() + abstractWall.getHeight() - offset) {
+                && movingWall.getLocY() 
+                > abstractWall.getLocY() + abstractWall.getHeight() - offset) {
             movingWall.setSpeed(Math.abs(movingWall.getSpeed()));
         }
     };

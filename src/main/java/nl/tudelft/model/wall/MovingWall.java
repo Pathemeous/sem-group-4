@@ -36,6 +36,7 @@ public abstract class MovingWall extends AbstractWall {
     }
 
     @Override
-    public  abstract <T extends Modifiable> void update(T container, int delta) throws SlickException;
+    public  abstract <T extends Modifiable> void update(T container, int delta) 
+            throws SlickException;
 
 }
