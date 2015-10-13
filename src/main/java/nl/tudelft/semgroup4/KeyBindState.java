@@ -242,77 +242,34 @@ public class KeyBindState extends BasicGameState {
             if (player1LeftButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User set the left button for player 1");
-                selector = 1;
+                Settings.setPlayer1Left(Keyboard.getEventKey());
             }
             if (player1RightButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User set the right button for player 1");
-                selector = 2;
+                Settings.setPlayer1Right(Keyboard.getEventKey());
             }
             if (player1ShootButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User set the shoot button for player 1");
-                selector = 3;
+                Settings.setPlayer1Shoot(Keyboard.getEventKey());
             }
 
             if (player2LeftButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User set the left button for player 2");
-                selector = 4;
+                Settings.setPlayer2Left(Keyboard.getEventKey());
             }
             if (player2RightButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User set the right button for player 2");
-                selector = 5;
+                Settings.setPlayer2Right(Keyboard.getEventKey());
             }
             if (player2ShootButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User set the shoot button for player 2");
-                selector = 6;
+                Settings.setPlayer2Shoot(Keyboard.getEventKey());
             }
-        }
-
-        switch (selector) {
-            case 0:
-                break;
-            case 1:
-                if (Keyboard.getEventKey() >= 1) {
-                    Settings.setPlayer1Left(Keyboard.getEventKey());
-                    selector = 0;
-                }
-                break;
-            case 2:
-                if (Keyboard.getEventKey() >= 1) {
-                    Settings.setPlayer1Right(Keyboard.getEventKey());
-                    selector = 0;
-                }
-                break;
-            case 3:
-                if (Keyboard.getEventKey() >= 1) {
-                    Settings.setPlayer1Shoot(Keyboard.getEventKey());
-                    selector = 0;
-                }
-                break;
-            case 4:
-                if (Keyboard.getEventKey() >= 1) {
-                    Settings.setPlayer2Left(Keyboard.getEventKey());
-                    selector = 0;
-                }
-                break;
-            case 5:
-                if (Keyboard.getEventKey() >= 1) {
-                    Settings.setPlayer2Right(Keyboard.getEventKey());
-                    selector = 0;
-                }
-                break;
-            case 6:
-                if (Keyboard.getEventKey() >= 1) {
-                    Settings.setPlayer2Shoot(Keyboard.getEventKey());
-                    selector = 0;
-                }
-                break;
-            default:
-                throw new SlickException("Impossible value reached");
         }
     }
 
