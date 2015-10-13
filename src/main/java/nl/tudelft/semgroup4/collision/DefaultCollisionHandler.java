@@ -14,6 +14,7 @@ import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.wall.AbstractMovingWall;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.HorMovingWall;
 import nl.tudelft.model.wall.RegularWall;
@@ -68,9 +69,16 @@ public class DefaultCollisionHandler implements CollisionHandler<
             }
         }
         
-        if (objA instanceof AbstractWall) {
+        if (objA instanceof RegularWall) {
             if (objB instanceof Projectile) {
-                wallProjectileHandler.onCollision(game, (AbstractWall) objA, (Projectile) objB);
+                wallProjectileHandler.onCollision(game, (RegularWall) objA, (Projectile) objB);
+            }
+        }
+        
+        if (objA instanceof AbstractMovingWall) {
+            if (objB instanceof Projectile) {
+                movingwallProjectileHandler.onCollision(game, 
+                        (AbstractMovingWall) objA, (Projectile) objB);
             }
         }
         
@@ -192,7 +200,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
     
-    final CollisionHandler<AbstractWall, Projectile> wallProjectileHandler = 
+    final CollisionHandler<RegularWall, Projectile> wallProjectileHandler = 
             (game, wall, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
         
@@ -200,10 +208,16 @@ public class DefaultCollisionHandler implements CollisionHandler<
         final Shape wallRect = wall.getBounds();
         // This structure makes the projectile ignore any walls below it (such as the floor wall).
 
-        if (wallRect.getY() < projectileRect.getY() || !(wall instanceof RegularWall)) {
+        if (wallRect.getY() < projectileRect.getY()) {
             Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit the ceiling");
             projectile.setHitWall();
         }
+    };
+    
+    final CollisionHandler<AbstractMovingWall, Projectile> movingwallProjectileHandler = 
+            (game, wall, projectile) -> {
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit a moving wall");
+        projectile.setHitWall();
     };
 
     final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
