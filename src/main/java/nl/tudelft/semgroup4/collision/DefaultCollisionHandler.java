@@ -267,6 +267,11 @@ public class DefaultCollisionHandler implements CollisionHandler<
             (game, movingWall, abstractWall) -> {
         int offset = 5;        
         
+        // Check if the horizontalwall engages in a frontal collision with another wall.
+        // If it has a frontal collision with an object to its right, it should move
+        // to the left, else it should move to the left.
+        // A small offset is used in checking the frontal collision, because there can be
+        // a small overlap between two walls.
         if (movingWall.getLocX() < abstractWall.getLocX() 
                 && movingWall.getLocX() + movingWall.getWidth() < abstractWall.getLocX() + offset) {
             movingWall.setSpeed(-Math.abs(movingWall.getSpeed()));
@@ -281,7 +286,11 @@ public class DefaultCollisionHandler implements CollisionHandler<
             (game, movingWall, abstractWall) -> {
         int offset = 5;
         
-        
+        // Check if the verticalwall engages in a frontal collision with another wall.
+        // If it has a frontal collision with an object below it, it should move
+        // to upwards, else it should move downwards.
+        // A small offset is used in checking the frontal collision, because there can be
+        // a small overlap between two walls.
         if (movingWall.getLocY() < abstractWall.getLocY() 
                 && movingWall.getLocY() + movingWall.getHeight() 
                 < abstractWall.getLocY() + offset) {
