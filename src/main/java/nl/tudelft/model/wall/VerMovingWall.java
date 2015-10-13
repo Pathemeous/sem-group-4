@@ -19,7 +19,7 @@ public class VerMovingWall extends MovingWall {
      * @param speed
      *      - The speed with which the wall moves.
      */
-    public VerMovingWall(Image image, int locX, int locY, int speed) {
+    public VerMovingWall(Image image, float locX, float locY, float speed) {
         super(image, locX, locY, speed);
     }
 

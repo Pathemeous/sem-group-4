@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 public abstract class MovingWall extends AbstractWall {
     
-    private int speed;
+    private float speed;
 
     /**
      * Creates a moving wall, which will move in a vertical
@@ -21,17 +21,17 @@ public abstract class MovingWall extends AbstractWall {
      * @param speed
      *      - The speed with which the wall moves.
      */
-    public MovingWall(Image image, int locX, int locY, int speed) {
+    public MovingWall(Image image, float locX, float locY, float speed) {
         super(image, locX, locY);
         
         this.speed = speed;
     }
     
-    public void setSpeed(int speed) {
+    public void setSpeed(float speed) {
         this.speed = speed;
     }
     
-    public int getSpeed() {
+    public float getSpeed() {
         return speed;
     }
 

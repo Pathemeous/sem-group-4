@@ -7,7 +7,7 @@ import org.newdawn.slick.SlickException;
 
 public class RegularWall extends AbstractWall {
     
-    public RegularWall(Image image, int locX, int locY) {
+    public RegularWall(Image image, float locX, float locY) {
         super(image, locX, locY);
     }
 

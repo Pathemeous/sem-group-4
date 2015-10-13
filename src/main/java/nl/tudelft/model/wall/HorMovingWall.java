@@ -19,7 +19,7 @@ public class HorMovingWall extends MovingWall {
      * @param speed
      *      - The speed with which the wall moves.
      */
-    public HorMovingWall(Image image, int locX, int locY, int speed) {
+    public HorMovingWall(Image image, float locX, float locY, float speed) {
         super(image, locX, locY, speed);
     }
 
