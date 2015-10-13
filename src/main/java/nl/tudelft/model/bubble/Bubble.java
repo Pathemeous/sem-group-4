@@ -1,8 +1,6 @@
 package nl.tudelft.model.bubble;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
@@ -36,7 +34,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     /**
      * The complete constructor for Bubble.
      * <p>
-     * A bubble can be initialised moving either right or left.
+     * A bubble will be initialised moving right by default. By calling goLeft right after 
+     * initialisation, the bubble will start moving left.
      * </p>
      * <p>
      * The bubble has a size, which will determine its image and its maximum vertical speed (and
@@ -49,15 +48,13 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            float - The x-coordinate where the bubble should spawn.
      * @param locY
      *            float - The y-coordinate where the bubble should spawn.
-     * @param goRight
-     *            boolean - true if the bubble should initialise moving to the right.
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
      * @param bubbleFactory
      *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
      *            {@link Bubble#split(Modifiable, int)} method.
      */
-    public Bubble(Image bubbleImg, float locX, float locY, boolean goRight,
+    public Bubble(Image bubbleImg, float locX, float locY,
             ResourcesWrapper resources, BubbleFactory bubbleFactory) {
         super(bubbleImg, locX, locY);
 
@@ -65,10 +62,6 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         this.bubbleFactory = bubbleFactory;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
-
-        if (!goRight) {
-            horizontalSpeed = -horizontalSpeed;
-        }
     }
 
     public BubbleFactory getBubbleFactory() {
@@ -77,6 +70,10 @@ public abstract class Bubble extends AbstractEnvironmentObject {
 
     public void setBubbleFactory(BubbleFactory factory) {
         bubbleFactory = factory;
+    }
+    
+    protected void goLeft() {
+        horizontalSpeed = -Math.abs(horizontalSpeed);
     }
 
     /**
@@ -129,8 +126,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
             Bubble bubbleRight = bubbleFactory.createBubble();
 
             // left goes left, right goes right
-            bubbleLeft.setHorizontalSpeed(-Math.abs(bubbleLeft.getHorizontalSpeed()));
-            bubbleRight.setHorizontalSpeed(Math.abs(bubbleRight.getHorizontalSpeed()));
+            bubbleLeft.goLeft();
 
             // both bubbles get same y coord
             bubbleLeft.setLocY(getLocY());

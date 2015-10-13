@@ -13,7 +13,7 @@ public class Bubble1Factory extends BaseBubbleFactory {
 
     @Override
     public Bubble createBubble() {
-        return new Bubble1(getResources(), 0, 0, true);
+        return new Bubble1(getResources(), 0, 0);
     }
 
 }
