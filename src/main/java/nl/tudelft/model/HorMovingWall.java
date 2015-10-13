@@ -5,9 +5,7 @@ import nl.tudelft.semgroup4.Modifiable;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class HorMovingWall extends AbstractWall {
-    
-    private int speed;
+public class HorMovingWall extends MovingWall {
 
     /**
      * Creates a moving wall, which will move in a horizontal 
@@ -22,22 +20,12 @@ public class HorMovingWall extends AbstractWall {
      *      - The speed with which the wall moves.
      */
     public HorMovingWall(Image image, int locX, int locY, int speed) {
-        super(image, locX, locY);
-        
-        this.speed = speed;
-    }
-    
-    public void setSpeed(int speed) {
-        this.speed = speed;
-    }
-    
-    public int getSpeed() {
-        return speed;
+        super(image, locX, locY, speed);
     }
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
-        setLocX(getLocX() + speed);
+        setLocX(getLocX() + getSpeed());
     }
 
 }
