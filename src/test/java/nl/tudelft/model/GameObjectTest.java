@@ -31,7 +31,7 @@ public class GameObjectTest extends AbstractOpenGLTestCase {
         Mockito.when(mockedRes.getVwallImage()).thenReturn(mockedImage);
         
         Mockito.when(mockedRes.getVwallImage()).thenReturn(mockedImage);
-        Wall wall = new Wall(mockedRes.getVwallImage(), 0, 0);
+        AbstractWall wall = new RegularWall(mockedRes.getVwallImage(), 0, 0);
         assertEquals(wall.getHeight(),
                 (int) wall.getBounds().getHeight());
         assertEquals(wall.getWidth(),

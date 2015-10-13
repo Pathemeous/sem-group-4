@@ -26,7 +26,7 @@ public class WallTest extends AbstractOpenGLTestCase {
     @Test
     public void testConstructor() throws SlickException {
         Image img = mockedImage;
-        Wall wall = new Wall(img, 0, 0);
+        AbstractWall wall = new RegularWall(img, 0, 0);
         assertEquals(wall.getLocX(), 0.0f, 0.0f);
         assertEquals(wall.getLocY(), 0.0f, 0.0f);
         assertEquals(wall.getImage(), img);
@@ -34,7 +34,7 @@ public class WallTest extends AbstractOpenGLTestCase {
 
     @Test
     public void testUpdate() throws SlickException {
-        Wall wall = new Wall(mockedImage, 0, 0);
+        AbstractWall wall = new RegularWall(mockedImage, 0, 0);
         wall.update(null, 0);
     }
 

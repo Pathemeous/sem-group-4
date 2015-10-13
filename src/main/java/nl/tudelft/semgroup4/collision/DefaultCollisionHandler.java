@@ -84,7 +84,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     }
 
-    private final CollisionHandler<Player, AbstractWall> playerWallHandler = (game, player, wall) -> {
+    private final CollisionHandler<Player, AbstractWall> playerWallHandler = 
+            (game, player, wall) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Player - wall collision");
         
         final Shape playerRect = player.getBounds();
@@ -99,7 +100,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    private final CollisionHandler<Bubble, AbstractWall> bubbleWallHandler = (game, bubble, wall) -> {
+    private final CollisionHandler<Bubble, AbstractWall> bubbleWallHandler = 
+            (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
         if (wall.getLocX() < bubble.getLocX()
@@ -175,7 +177,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    final CollisionHandler<Projectile, AbstractWall> projectileWallHandler = (game, projectile, wall) -> {
+    final CollisionHandler<Projectile, AbstractWall> projectileWallHandler = 
+            (game, projectile, wall) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
         
         final Shape projectileRect = projectile.getBounds();

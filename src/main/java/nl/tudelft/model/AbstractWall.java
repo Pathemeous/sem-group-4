@@ -15,6 +15,7 @@ public abstract class AbstractWall extends AbstractEnvironmentObject {
     }
 
     @Override
-    public  abstract <T extends Modifiable> void update(T container, int delta) throws SlickException;
+    public  abstract <T extends Modifiable> void update(T container, int delta) 
+            throws SlickException;
 
 }

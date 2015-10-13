@@ -8,7 +8,8 @@ import static org.junit.Assert.assertTrue;
 
 import java.util.Observer;
 
-import nl.tudelft.model.Wall;
+import nl.tudelft.model.AbstractWall;
+import nl.tudelft.model.RegularWall;
 
 import org.junit.After;
 import org.junit.Before;
@@ -135,7 +136,7 @@ public class InputKeyTest {
 
     @Test
     public void testEqualsNotWithDifferentObject() {
-        Object someWall = new Wall(Mockito.mock(Image.class), 4, 5);
+        Object someWall = new RegularWall(Mockito.mock(Image.class), 4, 5);
         assertFalse(defaultKey.equals(someWall));
     }
 
