@@ -54,8 +54,6 @@ public class KeyBindState extends BasicGameState {
     private Shape player2RightShape;
     private Shape player2ShootShape;
 
-    private int selector = 0;
-
     private String back = "Back";
     private String save = "Save";
     private String defaults = "Defaults";
