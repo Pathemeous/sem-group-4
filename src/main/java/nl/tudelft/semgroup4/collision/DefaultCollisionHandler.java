@@ -265,7 +265,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
     
     private final CollisionHandler<HorMovingWall, AbstractWall> horWallWallHandler = 
             (game, movingWall, abstractWall) -> {
-        int offset = 5;        
+        float offset = Math.abs(movingWall.getSpeed()) * 2 + 1;        
         
         // Check if the horizontalwall engages in a frontal collision with another wall.
         // If it has a frontal collision with an object to its right, it should move
@@ -284,7 +284,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
     
     private final CollisionHandler<VerMovingWall, AbstractWall> verWallWallHandler = 
             (game, movingWall, abstractWall) -> {
-        int offset = 5;
+        float offset = Math.abs(movingWall.getSpeed()) * 2 + 1;
         
         // Check if the verticalwall engages in a frontal collision with another wall.
         // If it has a frontal collision with an object below it, it should move
