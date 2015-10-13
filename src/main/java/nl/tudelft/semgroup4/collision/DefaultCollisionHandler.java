@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.AbstractWall;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.MovingWall;
+import nl.tudelft.model.HorMovingWall;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
@@ -54,9 +54,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
             }
         }
         
-        if (objA instanceof MovingWall) {
+        if (objA instanceof HorMovingWall) {
             if (objB instanceof AbstractWall) {
-                wallWallHandler.onCollision(game, (MovingWall) objA, (AbstractWall) objB);
+                wallWallHandler.onCollision(game, (HorMovingWall) objA, (AbstractWall) objB);
             }
         }
         
@@ -241,7 +241,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         util.activate(game.getCurLevel());
     };
     
-    private final CollisionHandler<MovingWall, AbstractWall> wallWallHandler = 
+    private final CollisionHandler<HorMovingWall, AbstractWall> wallWallHandler = 
             (game, movingWall, abstractWall) -> {
         movingWall.setSpeed(-movingWall.getSpeed());
     };
