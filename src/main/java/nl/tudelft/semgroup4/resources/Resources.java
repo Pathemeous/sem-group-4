@@ -19,6 +19,7 @@ public final class Resources {
     private static boolean isInitted = false;
 
     static Image wallImage;
+    static Image smallHWallImage;
     static Image vwallImage;
 
     static Image weaponImageRegular;
@@ -130,6 +131,7 @@ public final class Resources {
 
         wallImage = new Image("src/main/resources/img/wall2_h.png");
         vwallImage = new Image("src/main/resources/img/wall2_v.png");
+        smallHWallImage = new Image("src/main/resources/img/small_wall_h.png");
 
         playerImageStill = new Image("src/main/resources/img/player_still.png");
         playerImageLeft = new ArrayList<Image>();

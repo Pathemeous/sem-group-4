@@ -93,6 +93,10 @@ public class ResourcesWrapper {
     public Image getVwallImage() {
         return Resources.vwallImage;
     }
+    
+    public Image getSmallHWallImage() {
+        return Resources.smallHWallImage;
+    }
 
     public Image getWeaponImageRegular() {
         return Resources.weaponImageRegular;
