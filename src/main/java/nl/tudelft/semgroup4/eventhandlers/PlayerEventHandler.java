@@ -43,4 +43,13 @@ public class PlayerEventHandler implements Observer {
         }
     }
 
+    /**
+     * Accesses the {@link Player} that this {@link PlayerEventHandler} delegates events to.
+     * 
+     * @return {@link Player} - The player.
+     */
+    protected final Player getPlayer() {
+        return player;
+    }
+
 }
