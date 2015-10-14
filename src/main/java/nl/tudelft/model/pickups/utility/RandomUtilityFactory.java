@@ -14,8 +14,8 @@ public class RandomUtilityFactory {
     
     /**
      * Creates a randompowerupfactory, with a random number
-     * between 1 and 12. Based on this random number, a 
-     * powerup is generated.
+     * between 1 and 20. Based on this random number, a 
+     * utility is generated.
      */
     public RandomUtilityFactory() {
         randomNumber = Helpers.randInt(1, 20);
