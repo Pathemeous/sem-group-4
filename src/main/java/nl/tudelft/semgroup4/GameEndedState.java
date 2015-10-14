@@ -412,68 +412,6 @@ public class GameEndedState extends BasicGameState {
         this.mouseOverContinueButton = mouseOverContinueButton;
     }
 
-    /**
-     * @return the margin
-     */
-    public int getMargin() {
-        return margin;
-    }
-
-    /**
-     * @return the fontTitle
-     */
-    public Font getFontTitle() {
-        return fontTitle;
-    }
-
-    /**
-     * @return the fontPlayer
-     */
-    public Font getFontPlayer() {
-        return fontPlayer;
-    }
-
-    /**
-     * @return the typeFontTitle
-     */
-    public TrueTypeFont getTypeFontTitle() {
-        return typeFontTitle;
-    }
-
-    /**
-     * @return the typeFontPlayer
-     */
-    public TrueTypeFont getTypeFontPlayer() {
-        return typeFontPlayer;
-    }
-
-    /**
-     * @return the gameOverText
-     */
-    public String getGameOverText() {
-        return gameOverText;
-    }
-
-    /**
-     * @return the gameWonText
-     */
-    public String getGameWonText() {
-        return gameWonText;
-    }
-
-    /**
-     * @return the gameContinueText
-     */
-    public String getGameContinueText() {
-        return gameContinueText;
-    }
-
-    /**
-     * @return the won
-     */
-    public boolean isWon() {
-        return won;
-    }
 
     /**
      * @return the players
@@ -482,46 +420,5 @@ public class GameEndedState extends BasicGameState {
         return players;
     }
 
-    /**
-     * @return the input
-     */
-    public Input getInput() {
-        return input;
-    }
-
-    /**
-     * @return the textFieldPlayer1
-     */
-    public TextField getTextFieldPlayer1() {
-        return textFieldPlayer1;
-    }
-
-    /**
-     * @return the textFieldPlayer2
-     */
-    public TextField getTextFieldPlayer2() {
-        return textFieldPlayer2;
-    }
-
-    /**
-     * @return the mouseOverTextField1
-     */
-    public MouseOverArea getMouseOverTextField1() {
-        return mouseOverTextField1;
-    }
-
-    /**
-     * @return the mouseOverTextField2
-     */
-    public MouseOverArea getMouseOverTextField2() {
-        return mouseOverTextField2;
-    }
-
-    /**
-     * @return the mouseOverContinueButton
-     */
-    public MouseOverArea getMouseOverContinueButton() {
-        return mouseOverContinueButton;
-    }
 
 }
