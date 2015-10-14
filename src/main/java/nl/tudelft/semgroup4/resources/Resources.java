@@ -114,15 +114,6 @@ public final class Resources {
     static Image buy;
     
     /**
-     * Private constructor to avoid instantiation of this utility class.
-     */
-    private Resources() {
-        
-    }
-
-    
-
-    /**
      * Initialises the resources.
      * @throws SlickException - If the Game engine crashes.
      */
