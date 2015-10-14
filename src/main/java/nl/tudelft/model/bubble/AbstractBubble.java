@@ -64,8 +64,16 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         horizontalSpeed = 2.0f;
     }
     
+    /**
+     * Creates a list with bubbles that will appear when this bubble splits.
+     * @return : a list with bubbles.
+     */
     protected abstract List<AbstractBubble> createNextBubbles();
     
+    /**
+     * Used to initialize the maximum vertical speed of a bubble.
+     * @return : a float.
+     */
     protected abstract float initMaxVerticalSpeed();
     
     /**
