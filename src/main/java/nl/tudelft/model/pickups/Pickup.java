@@ -84,23 +84,4 @@ public abstract class Pickup extends AbstractEnvironmentObject {
     public void setActive(boolean active) {
         isActive = active;
     }
-    
-    /**
-     * Method that generates and returns a random pickup, based on a random
-     * number that is passed as a parameter. 
-     * @param random : random int that determines the pickup that
-     *      is generated.
-     * @param locX : the x location of the pickup to be created.
-     * @param locY : the y location of the pickup to be created.
-     * @return : an object of type Pickup.
-     */
-    public static Pickup generateRandomPickup(int random, float locX, float locY) {
-        if (random < 4) {
-            return new RandomWeaponFactory().createPickup(locX, locY);
-        } else if (random < 7) {
-            return new RandomPowerupFactory().createPickup(locX, locY);
-        } else {
-            return new RandomUtilityFactory().createPickup(locX, locY);
-        }
-    }
 }
