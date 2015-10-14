@@ -10,6 +10,11 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
+/**
+ * Controls the GameState.
+ * @author Casper
+ *
+ */
 public class GameStateController {
     
     private Game currentGame;
