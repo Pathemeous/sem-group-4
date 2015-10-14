@@ -4,6 +4,7 @@ import nl.tudelft.model.bubble.Bubble;
 
 public interface BubbleFactory {
 
-    Bubble createBubble();
-
+    public Bubble createBubble(float locX, float locY);
+    
+    public Bubble createBubble();
 }
