@@ -9,9 +9,9 @@ import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.States;
-import nl.tudelft.semgroup4.collision.CollisionHandler;
 import nl.tudelft.semgroup4.collision.CollisionHelper;
-import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
+import nl.tudelft.semgroup4.collision.CollisionMap;
+import nl.tudelft.semgroup4.collision.DefaultPlayerInteractionMap;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
@@ -44,7 +44,7 @@ public abstract class Game implements Renderable, Modifiable {
     private final int containerHeight;
     private final Iterator<Level> levelIt;
     private Level curLevel;
-    private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
+    private final CollisionMap collisionHandler;
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
@@ -81,7 +81,7 @@ public abstract class Game implements Renderable, Modifiable {
         this.curLevel = this.levelIt.next();
         countdown = new Countdown(this, wrapper);
 
-        collisionHandler = getNewCollisionHandler();
+        collisionHandler = getNewCollisionMap();
     }
 
 
@@ -202,7 +202,7 @@ public abstract class Game implements Renderable, Modifiable {
             // collision with walls and players
             for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+                collisionHandler.collide(this, collidesWithA, collidesWithB);
             }
         }
     }
@@ -214,7 +214,7 @@ public abstract class Game implements Renderable, Modifiable {
         for (AbstractGameObject collidesWithA : curLevel.getWalls()) {
             for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+                collisionHandler.collide(this, collidesWithA, collidesWithB);
             }
         }
     }
@@ -227,7 +227,7 @@ public abstract class Game implements Renderable, Modifiable {
             // bubbles check against walls, players and projectiles
             for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
+                collisionHandler.collide(this, collidesWithA, collidesWithB);
             }
         }
     }
@@ -338,9 +338,8 @@ public abstract class Game implements Renderable, Modifiable {
      * 
      * @return the CollisionHandler that will be used.
      */
-    protected final CollisionHandler<AbstractGameObject, AbstractGameObject>
-            getNewCollisionHandler() {
-        return new DefaultCollisionHandler();
+    protected final CollisionMap getNewCollisionMap() {
+        return new DefaultPlayerInteractionMap();
     }
 
     public int getContainerWidth() {
