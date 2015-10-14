@@ -164,7 +164,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     public void splitAllBubbles(LinkedList<AbstractBubble> bubbles, boolean endLevel) {
         for (AbstractBubble bubble : bubbles) {
             if (!bubble.getNext().isEmpty() || endLevel) {
-                LinkedList<AbstractBubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
+                LinkedList<AbstractBubble> newBubbles = bubble.split(this);
                 splitAllBubbles(newBubbles, endLevel);
             }
         }

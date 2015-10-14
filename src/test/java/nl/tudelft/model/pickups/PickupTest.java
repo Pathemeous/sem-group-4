@@ -7,11 +7,7 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-
 import nl.tudelft.model.pickups.powerup.LifePowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.utility.Utility;
-import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
