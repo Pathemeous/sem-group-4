@@ -3,11 +3,9 @@ package nl.tudelft.semgroup4.util;
 import java.io.IOException;
 import java.util.HashMap;
 
-import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.Settings;
 import nl.tudelft.semgroup4.eventhandlers.InputKey;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
-import nl.tudelft.semgroup4.logger.LogSeverity;
 
 import org.json.JSONObject;
 
@@ -36,19 +34,17 @@ public class KeyBindHelper {
      * Attempts to load the input settings as specified in the FILENAME file. If this file is not
      * found, the DEFAULTS file is used instead. The input settings found in either of these files
      * is written to the Settings class.
+     * 
+     * @throws IOException
+     *             If the Default key bindings were not found.
      */
-    public static void load() {
-        JSONObject json = new JSONObject();
+    public static void load() throws IOException {
+        JSONObject json;
 
         try {
             json = JSONParser.loadJSON(FILENAME);
         } catch (IOException e) {
-            try {
-                json = JSONParser.loadJSON(DEFAULTS);
-            } catch (IOException e1) {
-                Game.LOGGER.log(LogSeverity.CRITICAL, "Initialization",
-                        "Default keybinds were not found.");
-            }
+            json = JSONParser.loadJSON(DEFAULTS);
         }
 
         updateSettings(json);

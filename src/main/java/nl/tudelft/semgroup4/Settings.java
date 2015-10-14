@@ -23,7 +23,12 @@ public class Settings {
      * Initializes all the settings.
      */
     public static void init() {
-        KeyBindHelper.load();
+        try {
+            KeyBindHelper.load();
+        } catch (IOException e) {
+            Game.LOGGER.log(LogSeverity.CRITICAL, "Initialization",
+                    "Default keybinds were not found.");
+        }
     }
 
     /**
