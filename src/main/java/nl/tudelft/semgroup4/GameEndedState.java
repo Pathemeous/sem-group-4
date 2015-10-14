@@ -414,6 +414,7 @@ public class GameEndedState extends BasicGameState {
 
 
     /**
+     * Returns the players in the game.
      * @return the players
      */
     public Player[] getPlayers() {
