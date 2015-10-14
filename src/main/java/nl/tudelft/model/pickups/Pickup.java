@@ -10,6 +10,7 @@ import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.utility.FreezeUtility;
 import nl.tudelft.model.pickups.utility.LevelWonUtility;
+import nl.tudelft.model.pickups.utility.RandomUtilityFactory;
 import nl.tudelft.model.pickups.utility.SlowUtility;
 import nl.tudelft.model.pickups.utility.SplitUtility;
 import nl.tudelft.model.pickups.utility.TimeUtility;
@@ -130,38 +131,9 @@ public abstract class Pickup extends AbstractEnvironmentObject {
                     return new RegularWeapon(new ResourcesWrapper(), locX, locY);
             }
         } else if (random < 11) {
-            // new powerup
-//            int randomPowerupNr = Helpers.randInt(1, 12);
-//
-//            if (randomPowerupNr == 12) {
-//                return new LifePowerup(new ResourcesWrapper(), locX, locY);
-//            } else if (randomPowerupNr > 10) {
-//                return new MoneyPowerup(new ResourcesWrapper(), locX, locY);
-//            } else if (randomPowerupNr > 8) {
-//                return new InvinciblePowerup(new ResourcesWrapper(), locX, locY);
-//            } else if (randomPowerupNr > 6) {
-//                return new ShieldPowerup(new ResourcesWrapper(), locX, locY);
-//            } else if (randomPowerupNr > 4) {
-//                return new SpeedPowerup(new ResourcesWrapper(), locX, locY);
-//            } else {
-//                return new PointsPowerup(new ResourcesWrapper(), locX, locY);
-//            }
             return new RandomPowerupFactory().createPowerup(locX, locY);
         } else {
-            // new utility
-            int randomUtilNr = Helpers.randInt(1, 20);
-            
-            if (randomUtilNr == 20) {
-                return new LevelWonUtility(new ResourcesWrapper(), locX, locY);
-            } else if (randomUtilNr > 16) {
-                return new SplitUtility(new ResourcesWrapper(), locX, locY);
-            } else if (randomUtilNr > 11) {
-                return new SlowUtility(new ResourcesWrapper(), locX, locY);
-            } else if (randomUtilNr > 6) {
-                return new FreezeUtility(new ResourcesWrapper(), locX, locY);
-            } else {
-                return new TimeUtility(new ResourcesWrapper(), locX, locY);
-            }
+            return new RandomUtilityFactory().createUtility(locX, locY);
         }
     }
 }
