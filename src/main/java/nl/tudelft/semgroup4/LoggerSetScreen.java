@@ -7,12 +7,9 @@ import nl.tudelft.semgroup4.logger.LogSeverity;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.gui.MouseOverArea;
 
 public class LoggerSetScreen {
@@ -20,13 +17,14 @@ public class LoggerSetScreen {
     private final String[] text = {"CRITICAL", "ERROR",
         "WARNING", "DEBUG", "VERBOSE"};
 
-    private MouseOverArea[] areas = new MouseOverArea[5];
-
-    private LogSeverity[] severities = {LogSeverity.CRITICAL,
+    private final LogSeverity[] severities = {LogSeverity.CRITICAL,
         LogSeverity.ERROR, LogSeverity.WARNING, LogSeverity.DEBUG,
         LogSeverity.VERBOSE};
 
+    private MouseOverArea[] areas = new MouseOverArea[5];
+
     private TrueTypeFont typeFont;
+    private LoggerSetScreenController controller;
 
     /**
      * Constructs a LoggerSetScreen with the Resources.
@@ -40,7 +38,8 @@ public class LoggerSetScreen {
         Font font = new Font("Calibri", Font.BOLD, 46);
         typeFont = new TrueTypeFont(font, true);
 
-        createMouseOverAreas(60, 80, container);
+        this.controller = new LoggerSetScreenController();
+        areas = controller.createMouseOverAreas(60, 80, container, text, typeFont);
     }
 
     /**
@@ -89,28 +88,7 @@ public class LoggerSetScreen {
             typeFont.drawString(renderCoordX,
                     renderCoordY + i * 50,
                     text[i],
-                    Color.yellow);
-        }
-    }
-
-    /**
-     * Creates all the mouse over areas.
-     * @param overCoordX
-     *                  the x coordinate to use
-     * @param overCoordY
-     *                  the first y coordinate to use
-     * @param container
-     *                  {@link GameContainer} - the container in which the game runs.
-     * @throws SlickException
-     *                  image can't be created
-     */
-    public void createMouseOverAreas(float overCoordX, float overCoordY,
-                                     GameContainer container) throws SlickException {
-        for (int i = 0; i < areas.length; i++) {
-            Image button = new Image(typeFont.getWidth(text[i]), typeFont.getHeight());
-            Shape shape = new Rectangle(overCoordX, overCoordY + i * 50,
-                    typeFont.getWidth(text[0]), typeFont.getHeight());
-            areas[i] = new MouseOverArea(container, button, shape);
+                    controller.decideColor(severities[i]));
         }
     }
 }
