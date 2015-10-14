@@ -198,14 +198,6 @@ public class ResourcesWrapper {
         return images.get("src\\main\\resources\\img\\shopBackground.png");
     }
 
-    public ArrayList<Image> getPlayerImageLeft() {
-        return Resources.playerImageLeft;
-    }
-
-    public ArrayList<Image> getPlayerImageRight() {
-        return Resources.playerImageRight;
-    }
-
     public Animation getPlayerWalkLeft() {
         return Resources.playerWalkLeft;
     }
@@ -328,7 +320,6 @@ public class ResourcesWrapper {
 
     public Image getContinueText() {
         return images.get("src\\main\\resources\\img\\continue.png");
-        
     }
 
     public Image getLoggerText() {
