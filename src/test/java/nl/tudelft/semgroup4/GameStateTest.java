@@ -5,6 +5,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 import nl.tudelft.model.Game;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -54,7 +55,7 @@ public class GameStateTest {
         verify(gameState.getGame(), times(1)).render(mockedContainer, mockedGraphics);
         verify(gamestateController, times(1)).showPauseScreen(gameState.getPauseScreenOpened(), 
                 gameState.getPausescreen(), mockedGraphics, mockedContainer, gameState.getInput(), 
-                mockedSlickGame, gameState);
+                mockedSlickGame, gameState, new ResourcesWrapper());
     }
     
     @Test

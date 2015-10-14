@@ -86,7 +86,7 @@ public class GameState extends BasicGameState {
         dashboard.render(container, graphics);
 
         gamestateController.showPauseScreen(pauseScreenOpened, pauseScreen, graphics, 
-                container, input, game, this);
+                container, input, game, this, new ResourcesWrapper());
     }
 
     /**

@@ -76,14 +76,17 @@ public class GameStateController {
      */
     protected void showPauseScreen(boolean pauseScreenOpened, PauseScreen pauseScreen, 
             Graphics graphics, GameContainer container, Input input, 
-            StateBasedGame game, GameState gamestate) {
+            StateBasedGame game, GameState gamestate, ResourcesWrapper res) {
         
         if (pauseScreenOpened) {
-            ResourcesWrapper res = new ResourcesWrapper();
             if (res.getWeaponFire().playing()) {
                 res.stopFireSound();
             }
             pauseScreen.show(graphics, container, input, game, gamestate);
         }
+    }
+    
+    protected Game getGame() {
+        return currentGame;
     }
 }
