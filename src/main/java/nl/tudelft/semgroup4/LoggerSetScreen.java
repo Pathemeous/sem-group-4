@@ -4,6 +4,7 @@ import java.awt.Font;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -39,7 +40,8 @@ public class LoggerSetScreen {
         typeFont = new TrueTypeFont(font, true);
 
         this.controller = new LoggerSetScreenController();
-        areas = controller.createMouseOverAreas(60, 80, container, text, typeFont);
+        areas = controller.createMouseOverAreas(60, 80, container, text,
+                typeFont, new ResourcesWrapper());
     }
 
     /**

@@ -2,6 +2,7 @@ package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -46,17 +47,20 @@ public class LoggerSetScreenController {
      *                  an array of text for which buttons need to be created
      * @param typeFont
      *                  the font with which the buttons will be created
+     * @param res
+     *                  a resource wrapper which will create the image
      * @return areas
      *                  an array containing all created buttons
      * @throws SlickException
      *                  image can't be created
      */
     public MouseOverArea[] createMouseOverAreas(float overCoordX, float overCoordY,
-            GameContainer container, String[] text, TrueTypeFont typeFont) throws SlickException {
+            GameContainer container, String[] text,TrueTypeFont typeFont,
+            ResourcesWrapper res) throws SlickException {
 
         MouseOverArea[] areas = new MouseOverArea[text.length];
         for (int i = 0; i < areas.length; i++) {
-            Image button = new Image(typeFont.getWidth(text[i]), typeFont.getHeight());
+            Image button = res.createImage(typeFont.getWidth(text[i]), typeFont.getHeight());
             Shape shape = new Rectangle(overCoordX, overCoordY + i * 50,
                     typeFont.getWidth(text[0]), typeFont.getHeight());
             areas[i] = new MouseOverArea(container, button, shape);
