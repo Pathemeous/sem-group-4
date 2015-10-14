@@ -1,5 +1,8 @@
 package nl.tudelft.model.bubble;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**
@@ -20,8 +23,16 @@ public class Bubble1 extends AbstractBubble {
      */
     protected Bubble1(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage1(), locX, locY, resources);
-
-        setMaxVerticalSpeed(5.0f);
+    }
+    
+    @Override
+    protected List<AbstractBubble> createNextBubbles() {
+        return new ArrayList<>();
+    }
+    
+    @Override
+    protected float initMaxVerticalSpeed() {
+        return 5.0f;
     }
 
 }

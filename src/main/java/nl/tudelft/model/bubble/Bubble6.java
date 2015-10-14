@@ -24,17 +24,24 @@ public class Bubble6 extends AbstractBubble {
      */
     protected Bubble6(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage6(), locX, locY, resources);
-        
+    }
+    
+    @Override
+    protected List<AbstractBubble> createNextBubbles() {
         List<AbstractBubble> next = new ArrayList<>();
         
         // Create 2 new bubbles, that will come free when this bubble splits
-        BubbleFactory bubbleFactory = new Bubble5Factory(new ResourcesWrapper());
+        BubbleFactory bubbleFactory = new Bubble6Factory(new ResourcesWrapper());
         for (int i = 0; i < 2; i++) {
             next.add(bubbleFactory.createBubble()); 
         }
         
-        setNext(next);
-        setMaxVerticalSpeed(10.0f);
+        return next;
+    }
+    
+    @Override
+    protected float initMaxVerticalSpeed() {
+        return 10.0f;
     }
 
 }

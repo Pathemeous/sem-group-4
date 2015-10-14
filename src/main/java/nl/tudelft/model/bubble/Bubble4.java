@@ -24,7 +24,10 @@ public class Bubble4 extends AbstractBubble {
      */
     protected Bubble4(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage4(), locX, locY, resources);
-        
+    }
+    
+    @Override
+    protected List<AbstractBubble> createNextBubbles() {
         List<AbstractBubble> next = new ArrayList<>();
         
         // Create 2 new bubbles, that will come free when this bubble splits
@@ -33,8 +36,14 @@ public class Bubble4 extends AbstractBubble {
             next.add(bubbleFactory.createBubble()); 
         }
         
-        setNext(next);
-        setMaxVerticalSpeed(8.0f);
+        return next;
     }
+    
+    @Override
+    protected float initMaxVerticalSpeed() {
+        return 8.0f;
+    }
+    
+    
 
 }
