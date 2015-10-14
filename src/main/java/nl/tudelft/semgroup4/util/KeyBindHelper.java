@@ -79,16 +79,16 @@ public class KeyBindHelper {
         PlayerInput player1Input = Settings.getPlayer1Input();
         PlayerInput player2Input = Settings.getPlayer2Input();
 
-        HashMap<String, Integer> jsonMap = new HashMap<String, Integer>();
-        jsonMap.put(PLAYER1_LEFT_KEY, player1Input.getLeftInput().getKeyCode());
-        jsonMap.put(PLAYER1_RIGHT_KEY, player1Input.getRightInput().getKeyCode());
-        jsonMap.put(PLAYER1_SHOOT_KEY, player1Input.getShootInput().getKeyCode());
+        JSONObject json = new JSONObject();
+        json.put(PLAYER1_LEFT_KEY, player1Input.getLeftInput().getKeyCode());
+        json.put(PLAYER1_RIGHT_KEY, player1Input.getRightInput().getKeyCode());
+        json.put(PLAYER1_SHOOT_KEY, player1Input.getShootInput().getKeyCode());
 
-        jsonMap.put(PLAYER2_LEFT_KEY, player2Input.getLeftInput().getKeyCode());
-        jsonMap.put(PLAYER2_RIGHT_KEY, player2Input.getRightInput().getKeyCode());
-        jsonMap.put(PLAYER2_SHOOT_KEY, player2Input.getShootInput().getKeyCode());
+        json.put(PLAYER2_LEFT_KEY, player2Input.getLeftInput().getKeyCode());
+        json.put(PLAYER2_RIGHT_KEY, player2Input.getRightInput().getKeyCode());
+        json.put(PLAYER2_SHOOT_KEY, player2Input.getShootInput().getKeyCode());
 
-        return new JSONObject(jsonMap);
+        return json;
     }
 
     private static void updateSettings(JSONObject json) {
