@@ -1,6 +1,6 @@
 package nl.tudelft.model.pickups.weapon;
 
-import nl.tudelft.model.pickups.RandomPickupFactory;
+import nl.tudelft.model.pickups.RandomFactory;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
@@ -9,7 +9,7 @@ import nl.tudelft.semgroup4.util.Helpers;
  * @author Casper
  *
  */
-public class RandomWeaponFactory implements RandomPickupFactory {
+public class RandomWeaponFactory implements RandomFactory {
     
     private int randomNumber;
     

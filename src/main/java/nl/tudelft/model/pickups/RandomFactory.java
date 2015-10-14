@@ -1,6 +1,6 @@
 package nl.tudelft.model.pickups;
 
-public interface RandomPickupFactory {
+public interface RandomFactory {
     
     public Pickup createPickup(float locX, float locY);
 }
