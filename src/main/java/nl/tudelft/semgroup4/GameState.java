@@ -16,9 +16,10 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-
+    
+    private GameStateController gamestateController;
     private PauseScreen pauseScreen;
-    private Input input = new Input(0);
+    private Input input;
     private final Game currentGame;
     private Dashboard dashboard;
     private boolean pauseScreenOpened = false;
@@ -34,7 +35,8 @@ public class GameState extends BasicGameState {
      *            {@link Game} - The game that this GameState will manage.
      */
     public GameState(Game game) {
-        this.currentGame = game;
+        gamestateController = new GameStateController(game);
+        currentGame = game;
     }
 
     /**
@@ -58,7 +60,6 @@ public class GameState extends BasicGameState {
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
                                 .getQuitText().getHeight());
         pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
-        // Resources.titleScreenMusic.stop();
 
         int dashboardMargin = 20;
         dashboard =
@@ -91,7 +92,6 @@ public class GameState extends BasicGameState {
             }
             pauseScreen.show(graphics, container, input, game, this);
         }
-
     }
 
     /**
@@ -110,25 +110,10 @@ public class GameState extends BasicGameState {
             throws SlickException {
         // checks if the escape key is pressed
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            // If the game is paused and the pause screen is openend, or if the
-            // game isn't paused, this code is executed. This prevents the user from
-            // being able to unpause the game while the countdown is running (because then
-            // the game is paused without the pause screen being open)
-            if ((currentGame.isPaused() && pauseScreenOpened)
-                    || !(currentGame.isPaused() || pauseScreenOpened)) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                        + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
-                input.disableKeyRepeat();
-                currentGame.setPaused(!currentGame.isPaused());
-                pauseScreenOpened = !pauseScreenOpened;
-            }
+            gamestateController.togglePauseMenu(pauseScreenOpened, input);
         }
 
-        if (!currentGame.isPaused()) {
-            currentGame.update(delta);
-        } else {
-            currentGame.getCountdown().update();
-        }
+        gamestateController.updateGame(delta);
         dashboard.update(delta);
     }
 

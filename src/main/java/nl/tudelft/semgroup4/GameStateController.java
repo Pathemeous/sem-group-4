@@ -1,0 +1,56 @@
+package nl.tudelft.semgroup4;
+
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+
+import nl.tudelft.model.Game;
+import nl.tudelft.semgroup4.logger.LogSeverity;
+
+public class GameStateController {
+    
+    private Game currentGame;
+    
+    protected GameStateController(Game game) {
+        this.currentGame = game;
+    }
+    
+    /**
+     * Checks if the game is paused with the pause screen opened (which would toggle 
+     * the pausescreen to close) or if the game is running (which would toggle the 
+     * pausescreen to open.
+     * @param pauseScreenOpened : boolean that indicates if the pause screen is open.
+     * @param input : slick input. 
+     * @return : booelean that indicates if the pause screen is open.
+     */
+    protected boolean togglePauseMenu(boolean pauseScreenOpened, Input input) {
+        // If the game is paused and the pause screen is openend, or if the
+        // game isn't paused, this code is executed. This prevents the user from
+        // being able to unpause the game while the countdown is running (because then
+        // the game is paused without the pause screen being open)
+        if ((currentGame.isPaused() && pauseScreenOpened)
+                || !(currentGame.isPaused() || pauseScreenOpened)) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
+                    + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
+            input.disableKeyRepeat();
+            currentGame.setPaused(!currentGame.isPaused());
+            pauseScreenOpened = !pauseScreenOpened;
+        }
+        
+        return pauseScreenOpened;
+    }
+    
+    /**
+     * Updates the current game. If the game is not paused, the game itself is
+     * updated. If the game is paused, it might mean that the countdown is 
+     * still running, so the countdown is updated. 
+     * @param delta : does nothing at all.
+     * @throws SlickException : slick exception.
+     */
+    protected void updateGame(int delta) throws SlickException {
+        if (!currentGame.isPaused()) {
+            currentGame.update(delta);
+        } else {
+            currentGame.getCountdown().update();
+        }
+    }
+}
