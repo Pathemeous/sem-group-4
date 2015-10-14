@@ -1,5 +1,8 @@
 package nl.tudelft.model.bubble;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**
@@ -18,13 +21,19 @@ public class Bubble4 extends Bubble {
      *            : the starting x-location of the bubble.
      * @param locY
      *            : the starting y-location of the bubble.
-     * @param goRight
-     *            : boolean to indicate if the initial direction of the bubble is to the right.
      */
     protected Bubble4(ResourcesWrapper resources, float locX, float locY) {
-        super(resources.getBubbleImage4(), locX, locY, resources,
-                new Bubble3Factory(resources));
-
+        super(resources.getBubbleImage4(), locX, locY, resources);
+        
+        List<Bubble> next = new ArrayList<>();
+        
+        // Create 2 new bubbles, that will come free when this bubble splits
+        BubbleFactory bubbleFactory = new Bubble3Factory(new ResourcesWrapper());
+        for (int i = 0; i < 2; i++) {
+            next.add(bubbleFactory.createBubble()); 
+        }
+        
+        setNext(next);
         setMaxVerticalSpeed(8.0f);
     }
 

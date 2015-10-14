@@ -17,11 +17,9 @@ public class Bubble1 extends Bubble {
      *            : the starting x-location of the bubble.
      * @param locY
      *            : the starting y-location of the bubble.
-     * @param goRight
-     *            : boolean to indicate if the initial direction of the bubble is to the right.
      */
     protected Bubble1(ResourcesWrapper resources, float locX, float locY) {
-        super(resources.getBubbleImage1(), locX, locY, resources, null);
+        super(resources.getBubbleImage1(), locX, locY, resources);
 
         setMaxVerticalSpeed(5.0f);
     }
