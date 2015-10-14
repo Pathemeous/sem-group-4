@@ -1,6 +1,5 @@
 package nl.tudelft.semgroup4.resources;
 
-import java.awt.Font;
 import java.util.ArrayList;
 
 import org.newdawn.slick.Animation;
