@@ -27,13 +27,14 @@ public class GameEndedStateTest {
     private Graphics mockedGraphics;
     private StateBasedGame mockedGame;
     private TrueTypeFont mockedTypeFont;
+    private TrueTypeFont mockedTypeFont2;
     private Player mockedPlayer;
     private TextField mockedTextField1;
     private MouseOverArea mockedMouseOverArea;
-    
+
     /**
-     * Is calles before every test, initializes all need mocks and creates 
-     * a new GameEndedState.
+     * Is calles before every test, initializes all need mocks and creates a new
+     * GameEndedState.
      */
     @Before
     public void setup() {
@@ -44,6 +45,7 @@ public class GameEndedStateTest {
         mockedGraphics = Mockito.mock(Graphics.class);
         mockedGame = Mockito.mock(StateBasedGame.class);
         mockedTypeFont = Mockito.mock(TrueTypeFont.class);
+        mockedTypeFont2 = Mockito.mock(TrueTypeFont.class);
         mockedPlayer = Mockito.mock(Player.class);
         mockedPlayers[0] = mockedPlayer;
         mockedPlayers[1] = mockedPlayer;
@@ -51,7 +53,7 @@ public class GameEndedStateTest {
         mockedMouseOverArea = Mockito.mock(MouseOverArea.class);
 
         gameEndedState.setTypeFontPlayer(mockedTypeFont);
-        gameEndedState.setTypeFontTitle(mockedTypeFont);
+        gameEndedState.setTypeFontTitle(mockedTypeFont2);
         gameEndedState.setPlayers(mockedPlayers);
         gameEndedState.setTextFieldPlayer1(mockedTextField1);
         gameEndedState.setTextFieldPlayer2(mockedTextField1);
@@ -67,7 +69,21 @@ public class GameEndedStateTest {
     public void testRender() throws SlickException {
         gameEndedState.render(mockedContainer, mockedGame, mockedGraphics);
 
-        verify(mockedTypeFont, times(1)).drawString(0, 0, null, Color.yellow);
+        verify(mockedTypeFont2, times(1)).drawString(0, 0, null, Color.yellow);
+        verify(mockedTypeFont, times(1))
+                .drawString(0, 0, "SCORE", Color.yellow);
+        verify(mockedTypeFont, times(1))
+                .drawString(0, 0, "MONEY", Color.yellow);
+        verify(mockedTypeFont, times(1)).drawString(0, 0, "NAME", Color.yellow);
+        verify(mockedTypeFont, times(1)).drawString(0, 0, "PLAYER 1",
+                Color.white);
+        verify(mockedTypeFont, times(4)).drawString(0, 0,
+                Integer.toString(gameEndedState.getPlayers()[0].getScore()),
+                Color.white);
+        verify(mockedTypeFont, times(1)).drawString(0, 0, "PLAYER 2",
+                Color.white);
+        verify(mockedTypeFont, times(1)).drawString(-20, -20, "CONTINUE",
+                Color.yellow);
         verify(mockedGraphics, times(2)).drawRect(0, 0, -1, -1);
         verify(mockedTextField1, times(2)).render(mockedContainer,
                 mockedGraphics);

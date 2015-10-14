@@ -301,7 +301,7 @@ public class GameEndedState extends BasicGameState {
         } else {
             typeFontTitle.drawString(
                     container.getWidth() / 2
-                            - typeFontTitle.getWidth("game over") / 2,
+                            - typeFontTitle.getWidth(gameOverText) / 2,
                     container.getHeight() / 8, gameOverText, Color.yellow);
         }
 
@@ -354,6 +354,7 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the fontype of the title.
+     * 
      * @param typeFontTitle
      *            the typeFontTitle to set
      */
@@ -363,6 +364,7 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the font type of the players.
+     * 
      * @param typeFontPlayer
      *            the typeFontPlayer to set
      */
@@ -372,6 +374,7 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the players.
+     * 
      * @param players
      *            the players to set
      */
@@ -381,6 +384,7 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the mouseOverArea of the textfield of player1.
+     * 
      * @param textFieldPlayer1
      *            the textFieldPlayer1 to set
      */
@@ -390,6 +394,7 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the mouseOverArea of the textfield of player2.
+     * 
      * @param textFieldPlayer2
      *            the textFieldPlayer2 to set
      */
@@ -399,11 +404,124 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the mouseOverArea of the continue button.
+     * 
      * @param mouseOverContinueButton
      *            the mouseOverContinueButton to set
      */
     public void setMouseOverContinueButton(MouseOverArea mouseOverContinueButton) {
         this.mouseOverContinueButton = mouseOverContinueButton;
+    }
+
+    /**
+     * @return the margin
+     */
+    public int getMargin() {
+        return margin;
+    }
+
+    /**
+     * @return the fontTitle
+     */
+    public Font getFontTitle() {
+        return fontTitle;
+    }
+
+    /**
+     * @return the fontPlayer
+     */
+    public Font getFontPlayer() {
+        return fontPlayer;
+    }
+
+    /**
+     * @return the typeFontTitle
+     */
+    public TrueTypeFont getTypeFontTitle() {
+        return typeFontTitle;
+    }
+
+    /**
+     * @return the typeFontPlayer
+     */
+    public TrueTypeFont getTypeFontPlayer() {
+        return typeFontPlayer;
+    }
+
+    /**
+     * @return the gameOverText
+     */
+    public String getGameOverText() {
+        return gameOverText;
+    }
+
+    /**
+     * @return the gameWonText
+     */
+    public String getGameWonText() {
+        return gameWonText;
+    }
+
+    /**
+     * @return the gameContinueText
+     */
+    public String getGameContinueText() {
+        return gameContinueText;
+    }
+
+    /**
+     * @return the won
+     */
+    public boolean isWon() {
+        return won;
+    }
+
+    /**
+     * @return the players
+     */
+    public Player[] getPlayers() {
+        return players;
+    }
+
+    /**
+     * @return the input
+     */
+    public Input getInput() {
+        return input;
+    }
+
+    /**
+     * @return the textFieldPlayer1
+     */
+    public TextField getTextFieldPlayer1() {
+        return textFieldPlayer1;
+    }
+
+    /**
+     * @return the textFieldPlayer2
+     */
+    public TextField getTextFieldPlayer2() {
+        return textFieldPlayer2;
+    }
+
+    /**
+     * @return the mouseOverTextField1
+     */
+    public MouseOverArea getMouseOverTextField1() {
+        return mouseOverTextField1;
+    }
+
+    /**
+     * @return the mouseOverTextField2
+     */
+    public MouseOverArea getMouseOverTextField2() {
+        return mouseOverTextField2;
+    }
+
+    /**
+     * @return the mouseOverContinueButton
+     */
+    public MouseOverArea getMouseOverContinueButton() {
+        return mouseOverContinueButton;
     }
 
 }
