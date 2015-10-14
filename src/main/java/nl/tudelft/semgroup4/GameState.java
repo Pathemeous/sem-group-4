@@ -22,8 +22,6 @@ public class GameState extends BasicGameState {
     private final Game currentGame;
     private Dashboard dashboard;
     private boolean pauseScreenOpened = false;
-    private final PlayerInput player1Input;
-    private final PlayerInput player2Input;
 
     /**
      * Creates a new {@link GameState} with a specified {@link Game}.
@@ -37,8 +35,6 @@ public class GameState extends BasicGameState {
      */
     public GameState(Game game) {
         this.currentGame = game;
-        this.player1Input = Settings.getPlayer1Input();
-        this.player2Input = Settings.getPlayer2Input();
     }
 
     /**
@@ -129,10 +125,6 @@ public class GameState extends BasicGameState {
         }
 
         if (!currentGame.isPaused()) {
-            player1Input.poll();
-            if (currentGame instanceof MultiplayerGame) {
-                player2Input.poll();
-            }
             currentGame.update(delta);
         } else {
             currentGame.getCountdown().update();

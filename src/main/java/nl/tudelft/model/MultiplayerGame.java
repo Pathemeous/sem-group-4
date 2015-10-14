@@ -1,7 +1,10 @@
 package nl.tudelft.model;
 
+import nl.tudelft.semgroup4.Settings;
+import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -11,6 +14,8 @@ public class MultiplayerGame extends Game {
 
     private final Player firstPlayer;
     private final Player secondPlayer;
+    private final PlayerInput player1Input;
+    private final PlayerInput player2Input;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -37,10 +42,22 @@ public class MultiplayerGame extends Game {
         super(mainApp, containerWidth, containerHeight, wrapper);
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
+        player1Input = Settings.getPlayer1Input();
+        player2Input = Settings.getPlayer2Input();
     }
 
     @Override
     public Player[] getPlayers() {
         return new Player[] { firstPlayer, secondPlayer };
+    }
+    
+    @Override
+    public void update(int delta) throws SlickException {
+        super.update(delta);
+        
+        if (!isPaused()) {
+            player1Input.poll();
+            player2Input.poll();
+        }
     }
 }
