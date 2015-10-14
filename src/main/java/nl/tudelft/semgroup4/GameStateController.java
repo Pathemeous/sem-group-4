@@ -17,7 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class GameStateController {
     
-    private Game currentGame;
+    private final Game currentGame;
     
     /**
      * Creates a game state controller, which controls the logic for the 
