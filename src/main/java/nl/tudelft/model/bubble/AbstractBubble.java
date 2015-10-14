@@ -31,7 +31,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
     private boolean frozen = false;
     private int tickCount = 0;
     private final ResourcesWrapper resources;
-    private List<AbstractBubble> next;
+    private List<AbstractBubble> nextBubbles;
 
     /**
      * The complete constructor for Bubble.
@@ -57,7 +57,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
             ResourcesWrapper resources) {
         super(bubbleImg, locX, locY);
 
-        next = new ArrayList<>();
+        nextBubbles = new ArrayList<>();
         this.resources = resources;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
@@ -68,7 +68,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
      * @param next : List with bubbles.
      */
     protected void setNext(List<AbstractBubble> next) {
-        this.next = next;
+        this.nextBubbles = next;
     }
     
     /**
@@ -76,7 +76,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
      * @return list of bubbles that will appear when this bubble splits.
      */
     public List<AbstractBubble> getNext() {
-        return next;
+        return nextBubbles;
     }
     
     /**
@@ -129,8 +129,8 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         }
         
         // We're going to split
-        for (int i = 0; i < next.size(); i++) {
-            AbstractBubble bubble = next.get(i);
+        for (int i = 0; i < nextBubbles.size(); i++) {
+            AbstractBubble bubble = nextBubbles.get(i);
             
             if (i % 2 == 0) {
                 // Bubble goes right
