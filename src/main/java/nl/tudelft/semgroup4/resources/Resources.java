@@ -113,8 +113,12 @@ public final class Resources {
         Files.walk(Paths.get("src/main/resources/music")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     try {
-                        Music img = new Music(filePath.toString());
-                        music.put(filePath.toString(), img);
+                        String fileString = filePath.toString();
+                        int startIndex = fileString.indexOf("music");
+                        String key = fileString.substring(startIndex);
+                        
+                        Music img = new Music(fileString);
+                        music.put(key, img);
     
                     } catch (Exception e) {
                         e.printStackTrace();

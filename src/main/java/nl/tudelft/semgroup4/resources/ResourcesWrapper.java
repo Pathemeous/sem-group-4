@@ -318,7 +318,7 @@ public class ResourcesWrapper {
     }
 
     public Music getTitleScreenMusic() {
-        return music.get("src\\main\\resources\\music\\titleScreen.ogg");
+        return music.get("music\\titleScreen.ogg");
     }
 
     public Image getContinueText() {
