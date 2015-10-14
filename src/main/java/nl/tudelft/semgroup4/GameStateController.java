@@ -29,7 +29,7 @@ public class GameStateController {
      * pausescreen to open.
      * @param pauseScreenOpened : boolean that indicates if the pause screen is open.
      * @param input : slick input. 
-     * @return : booelean that indicates if the pause screen is open.
+     * @return : boolean that indicates if the pause screen is open.
      */
     protected boolean togglePauseMenu(boolean pauseScreenOpened, Input input) {
         // If the game is paused and the pause screen is openend, or if the
