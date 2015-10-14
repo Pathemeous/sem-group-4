@@ -78,7 +78,7 @@ public class InputKey extends Observable {
      * 
      * @return int - the keyCode of the key that this object checks for.
      */
-    protected final int getKeyCode() {
+    public final int getKeyCode() {
         return keyCode;
     }
 
