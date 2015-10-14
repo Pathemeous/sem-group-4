@@ -5,6 +5,7 @@ import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.LifePowerup;
 import nl.tudelft.model.pickups.powerup.MoneyPowerup;
 import nl.tudelft.model.pickups.powerup.PointsPowerup;
+import nl.tudelft.model.pickups.powerup.RandomPowerupFactory;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.utility.FreezeUtility;
@@ -109,7 +110,7 @@ public abstract class Pickup extends AbstractEnvironmentObject {
      * @return : an object of type Pickup.
      */
     public static Pickup generateRandomPickup(int random, float locX, float locY) {
-        if (random < 4) {
+        if (random < 1) {
             int randomWeaponNr = Helpers.randInt(1, 4);
             // new weapon
             switch (randomWeaponNr) {
@@ -128,23 +129,24 @@ public abstract class Pickup extends AbstractEnvironmentObject {
                 default:
                     return new RegularWeapon(new ResourcesWrapper(), locX, locY);
             }
-        } else if (random < 7) {
+        } else if (random < 11) {
             // new powerup
-            int randomPowerupNr = Helpers.randInt(1, 12);
-
-            if (randomPowerupNr == 12) {
-                return new LifePowerup(new ResourcesWrapper(), locX, locY);
-            } else if (randomPowerupNr > 10) {
-                return new MoneyPowerup(new ResourcesWrapper(), locX, locY);
-            } else if (randomPowerupNr > 8) {
-                return new InvinciblePowerup(new ResourcesWrapper(), locX, locY);
-            } else if (randomPowerupNr > 6) {
-                return new ShieldPowerup(new ResourcesWrapper(), locX, locY);
-            } else if (randomPowerupNr > 4) {
-                return new SpeedPowerup(new ResourcesWrapper(), locX, locY);
-            } else {
-                return new PointsPowerup(new ResourcesWrapper(), locX, locY);
-            }
+//            int randomPowerupNr = Helpers.randInt(1, 12);
+//
+//            if (randomPowerupNr == 12) {
+//                return new LifePowerup(new ResourcesWrapper(), locX, locY);
+//            } else if (randomPowerupNr > 10) {
+//                return new MoneyPowerup(new ResourcesWrapper(), locX, locY);
+//            } else if (randomPowerupNr > 8) {
+//                return new InvinciblePowerup(new ResourcesWrapper(), locX, locY);
+//            } else if (randomPowerupNr > 6) {
+//                return new ShieldPowerup(new ResourcesWrapper(), locX, locY);
+//            } else if (randomPowerupNr > 4) {
+//                return new SpeedPowerup(new ResourcesWrapper(), locX, locY);
+//            } else {
+//                return new PointsPowerup(new ResourcesWrapper(), locX, locY);
+//            }
+            return new RandomPowerupFactory().createPowerup(locX, locY);
         } else {
             // new utility
             int randomUtilNr = Helpers.randInt(1, 20);
