@@ -152,7 +152,7 @@ public class GameEndedState extends BasicGameState {
      * saves the score of the player(s) which have finished a game, the score is
      * save with the corresponding filled out name.
      */
-    private void saveScore() {
+    public void saveScore() {
         try {
             List<HighscoreEntry> highscores = HighscoresHelper.load();
 
@@ -174,7 +174,7 @@ public class GameEndedState extends BasicGameState {
     /**
      * Initializes fonts and strings for texts on screen.
      */
-    private void initializeTextUtilities() {
+    public void initializeTextUtilities() {
         fontTitle = new Font("Calibri", Font.BOLD, 60);
         typeFontTitle = new TrueTypeFont(fontTitle, true);
 
@@ -192,7 +192,7 @@ public class GameEndedState extends BasicGameState {
      * @param container
      *            container in which the button is initialized
      */
-    private void initializeContinueButton(GameContainer container) {
+    public void initializeContinueButton(GameContainer container) {
         mouseOverContinueButton = new MouseOverArea(container, null,
                 container.getWidth() - margin
                         - typeFontPlayer.getWidth(gameContinueText),
@@ -208,7 +208,7 @@ public class GameEndedState extends BasicGameState {
      * @param container
      *            container in which the mouseOver field is initialized
      */
-    private void initializeTextFieldMouseOvers(GameContainer container) {
+    public void initializeTextFieldMouseOvers(GameContainer container) {
         mouseOverTextField1 = new MouseOverArea(container, null,
                 container.getWidth() / 5 * 4, container.getHeight() / 3,
                 textFieldPlayer1.getWidth(), textFieldPlayer1.getHeight());
@@ -225,7 +225,7 @@ public class GameEndedState extends BasicGameState {
      * @param container
      *            container in which the textFields are initialized
      */
-    private void initializeTextFields(GameContainer container) {
+    public void initializeTextFields(GameContainer container) {
         textFieldPlayer1 = new TextField(container, typeFontPlayer,
                 container.getWidth() / 5 * 4, container.getHeight() / 3, 200,
                 50);
@@ -245,7 +245,7 @@ public class GameEndedState extends BasicGameState {
      * @param container
      *            container in which to draw onto.
      */
-    private void drawFirstPlayerInfo(GameContainer container) {
+    public void drawFirstPlayerInfo(GameContainer container) {
         // draws all information of the fist player
         typeFontPlayer.drawString(container.getWidth() / 8,
                 container.getHeight() / 3, "PLAYER 1", Color.white);
@@ -266,7 +266,7 @@ public class GameEndedState extends BasicGameState {
      * @param graphics
      *            graphics to use to draw the elements
      */
-    private void drawSecondPlayerInfo(GameContainer container, Graphics graphics) {
+    public void drawSecondPlayerInfo(GameContainer container, Graphics graphics) {
         typeFontPlayer.drawString(container.getWidth() / 8,
                 container.getHeight() / 2, "PLAYER 2", Color.white);
         typeFontPlayer.drawString(container.getWidth() / 5 * 2,
@@ -292,7 +292,7 @@ public class GameEndedState extends BasicGameState {
      * @param container
      *            container in which to draw the title
      */
-    private void drawTitle(GameContainer container) {
+    public void drawTitle(GameContainer container) {
         if (won) {
             typeFontTitle.drawString(
                     container.getWidth() / 2
@@ -301,7 +301,7 @@ public class GameEndedState extends BasicGameState {
         } else {
             typeFontTitle.drawString(
                     container.getWidth() / 2
-                            - typeFontTitle.getWidth(gameOverText) / 2,
+                            - typeFontTitle.getWidth("game over") / 2,
                     container.getHeight() / 8, gameOverText, Color.yellow);
         }
 
@@ -313,7 +313,7 @@ public class GameEndedState extends BasicGameState {
      * @param container
      *            container to draw onto
      */
-    private void drawColumnNames(GameContainer container) {
+    public void drawColumnNames(GameContainer container) {
         // draws the column names
         typeFontPlayer.drawString(container.getWidth() / 5 * 2,
                 container.getHeight() / 4, "SCORE", Color.yellow);
@@ -330,7 +330,7 @@ public class GameEndedState extends BasicGameState {
      * @param container
      *            container to draw onto.
      */
-    private void drawContinueButton(GameContainer container) {
+    public void drawContinueButton(GameContainer container) {
         typeFontPlayer.drawString(container.getWidth() - margin
                 - typeFontPlayer.getWidth(gameContinueText),
                 container.getHeight() - margin - typeFontPlayer.getHeight(),
@@ -345,10 +345,65 @@ public class GameEndedState extends BasicGameState {
      * @param graphics
      *            graphics to use to draw the rectangle
      */
-    private void drawRectangle(GameContainer container, Graphics graphics) {
+    public void drawRectangle(GameContainer container, Graphics graphics) {
         graphics.drawRect(container.getWidth() / 5 * 4,
                 container.getHeight() / 3, textFieldPlayer1.getWidth() - 1,
                 textFieldPlayer1.getHeight() - 1);
 
     }
+
+    /**
+     * Sets the fontype of the title.
+     * @param typeFontTitle
+     *            the typeFontTitle to set
+     */
+    public void setTypeFontTitle(TrueTypeFont typeFontTitle) {
+        this.typeFontTitle = typeFontTitle;
+    }
+
+    /**
+     * Sets the font type of the players.
+     * @param typeFontPlayer
+     *            the typeFontPlayer to set
+     */
+    public void setTypeFontPlayer(TrueTypeFont typeFontPlayer) {
+        this.typeFontPlayer = typeFontPlayer;
+    }
+
+    /**
+     * Sets the players.
+     * @param players
+     *            the players to set
+     */
+    public void setPlayers(Player[] players) {
+        this.players = players;
+    }
+
+    /**
+     * Sets the mouseOverArea of the textfield of player1.
+     * @param textFieldPlayer1
+     *            the textFieldPlayer1 to set
+     */
+    public void setTextFieldPlayer1(TextField textFieldPlayer1) {
+        this.textFieldPlayer1 = textFieldPlayer1;
+    }
+
+    /**
+     * Sets the mouseOverArea of the textfield of player2.
+     * @param textFieldPlayer2
+     *            the textFieldPlayer2 to set
+     */
+    public void setTextFieldPlayer2(TextField textFieldPlayer2) {
+        this.textFieldPlayer2 = textFieldPlayer2;
+    }
+
+    /**
+     * Sets the mouseOverArea of the continue button.
+     * @param mouseOverContinueButton
+     *            the mouseOverContinueButton to set
+     */
+    public void setMouseOverContinueButton(MouseOverArea mouseOverContinueButton) {
+        this.mouseOverContinueButton = mouseOverContinueButton;
+    }
+
 }
