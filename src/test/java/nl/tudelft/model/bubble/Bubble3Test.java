@@ -7,24 +7,56 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import java.util.List;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;
 
 public class Bubble3Test {
     
+    private Image mockedImg;
+    private ResourcesWrapper mockedResources;
+    
+    /**
+     * Creates mockedResources and a mocked image, which is used in 
+     * the bubble creation.
+     */
+    @Before
+    public void setup() {
+        mockedImg = mock(Image.class);
+        mockedResources = mock(ResourcesWrapper.class);
+        when(mockedResources.getBubbleImage3()).thenReturn(mockedImg);
+    }
+    
     @Test
     public void testConstructor() {
-        Image mockedImg = mock(Image.class);
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        when(mockedResources.getBubbleImage3()).thenReturn(mockedImg);
-        
         AbstractBubble bubble = new Bubble3(mockedResources, 0, 0);
         
         assertEquals(7.0f, bubble.getMaxVerticalSpeed(), 0.0f);
         assertEquals(mockedImg, bubble.getImage());
         assertEquals(0.0f, bubble.getLocX(), 0.0f);
         assertEquals(0.0f, bubble.getLocY(), 0.0f);
+    }
+    
+    @Test
+    public void testCreateNextBubbles() {
+        AbstractBubble bubble = new Bubble3(mockedResources, 0, 0);
+        
+        List<AbstractBubble> next = bubble.createNextBubbles();
+        
+        assertEquals(2, next.size());
+        assertTrue(next.get(0) instanceof Bubble2);
+    }
+    
+    @Test
+    public void testInitMaxVerticalSpeed() {
+        AbstractBubble bubble = new Bubble3(mockedResources, 0, 0);
+        
+        float speed = bubble.initMaxVerticalSpeed();
+        
+        assertEquals(7.0f, speed, 0.0f);
     }
 }
