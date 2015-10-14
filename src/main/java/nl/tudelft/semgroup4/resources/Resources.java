@@ -1,7 +1,11 @@
 package nl.tudelft.semgroup4.resources;
 
 import java.awt.Font;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
@@ -17,6 +21,8 @@ import org.newdawn.slick.TrueTypeFont;
 public final class Resources {
 
     private static boolean isInitted = false;
+    
+    static HashMap<String, Image> images = new HashMap<>();
 
     static Image wallImage;
     static Image smallHWallImage;
@@ -121,6 +127,24 @@ public final class Resources {
             return;
         } else {
             isInitted = true;
+        }
+        
+        try {
+            Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
+                if (Files.isRegularFile(filePath)) {
+
+                    try {
+                        Image img = new Image(filePath.toString());
+                        images.put(filePath.toString(), img);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
         weaponFire = new Sound("src/main/resources/sound/weaponFire.ogg");
