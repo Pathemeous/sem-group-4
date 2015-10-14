@@ -22,9 +22,15 @@ public class ResourcesWrapper {
     
     public static boolean musicOn = true;
     private static HashMap<String, Image> images;
+    private static HashMap<String, Sound> sounds;
+    private static HashMap<String, Animation> animations;
+    private static HashMap<String, Music> music;
     
     public ResourcesWrapper() {
         images = Resources.images;
+        sounds = Resources.sounds;
+        animations = Resources.animations;
+        music = Resources.music;
     }
     
 
@@ -301,19 +307,19 @@ public class ResourcesWrapper {
     }
 
     public Sound getBubblePop() {
-        return Resources.bubblePop;
+        return sounds.get("src\\main\\resources\\sound\\pop.ogg");
     }
 
     public Sound getWeaponFire() {
-        return Resources.weaponFire;
+        return sounds.get("src\\main\\resources\\sound\\weaponFire.ogg");
     }
 
     public Sound getDeath() {
-        return Resources.death;
+        return sounds.get("src\\main\\resources\\sound\\death.ogg");
     }
 
     public Sound getTimeUp() {
-        return Resources.timeUp;
+        return sounds.get("src\\main\\resources\\sound\\timeUp.ogg");
     }
 
     public Music getTitleScreenMusic() {

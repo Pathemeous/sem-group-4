@@ -145,11 +145,11 @@ public final class Resources {
                 }
             });
             
-            Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
+            Files.walk(Paths.get("src/main/resources/sound")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     try {
-                        Image img = new Image(filePath.toString());
-                        images.put(filePath.toString(), img);
+                        Sound img = new Sound(filePath.toString());
+                        sounds.put(filePath.toString(), img);
                         
                     } catch (Exception e) {
                         e.printStackTrace();
@@ -161,10 +161,7 @@ public final class Resources {
             e.printStackTrace();
         }
 
-        weaponFire = new Sound("src/main/resources/sound/weaponFire.ogg");
-        bubblePop = new Sound("src/main/resources/sound/pop.ogg");
-        death = new Sound("src/main/resources/sound/death.ogg");
-        timeUp = new Sound("src/main/resources/sound/timeUp.ogg");
+
 
         titleScreenMusic = new Music("src/main/resources/music/titleScreen.ogg");
 
