@@ -1,6 +1,8 @@
 package nl.tudelft.model.bubble;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
@@ -29,7 +31,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean frozen = false;
     private int tickCount = 0;
     private final ResourcesWrapper resources;
-    private BubbleFactory bubbleFactory = null;
+    private List<Bubble> next;
 
     /**
      * The complete constructor for Bubble.
@@ -50,28 +52,36 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            float - The y-coordinate where the bubble should spawn.
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this class may use.
-     * @param bubbleFactory
-     *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
-     *            {@link Bubble#split(Modifiable, int)} method.
      */
     public Bubble(Image bubbleImg, float locX, float locY,
-            ResourcesWrapper resources, BubbleFactory bubbleFactory) {
+            ResourcesWrapper resources) {
         super(bubbleImg, locX, locY);
 
+        next = new ArrayList<>();
         this.resources = resources;
-        this.bubbleFactory = bubbleFactory;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
     }
-
-    public BubbleFactory getBubbleFactory() {
-        return this.bubbleFactory;
-    }
-
-    public void setBubbleFactory(BubbleFactory factory) {
-        bubbleFactory = factory;
+    
+    /**
+     * Set list of bubbles that will appear when this bubble splits.
+     * @param next : List with bubbles.
+     */
+    protected void setNext(List<Bubble> next) {
+        this.next = next;
     }
     
+    /**
+     * 
+     * @return list of bubbles that will appear when this bubble splits.
+     */
+    public List<Bubble> getNext() {
+        return next;
+    }
+    
+    /**
+     * Makes the bubble go left. 
+     */
     protected void goLeft() {
         horizontalSpeed = -Math.abs(horizontalSpeed);
     }
@@ -109,49 +119,34 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         LinkedList<Bubble> newBubbles = new LinkedList<>();
         resources.playBubbleSplit();
         container.toRemove(this);
-
-        final BubbleFactory bubbleFactory = getBubbleFactory();
-        if (bubbleFactory != null) {
-            // we're going to split!
-            if (random > 7) {
-                // feeling lucky?
-                Pickup pickup =
-                        Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
-                                getLocY());
-                container.toAdd(pickup);
+        
+        if (random > 7) {
+            // feeling lucky?
+            Pickup pickup =
+                    Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
+                            getLocY());
+            container.toAdd(pickup);
+        }
+        
+        // We're going to split
+        for (int i = 0; i < next.size(); i++) {
+            Bubble bubble = next.get(i);
+            
+            if (i % 2 == 0) {
+                // Bubble goes right
+                bubble.setLocX(getLocX() + bubble.getBounds().getWidth() / 2);
+            } else {
+                // Bubble goes left
+                bubble.setLocX(getLocX());
+                bubble.goLeft();
             }
-
-            // create bubbles
-            Bubble bubbleLeft = bubbleFactory.createBubble();
-            Bubble bubbleRight = bubbleFactory.createBubble();
-
-            // left goes left, right goes right
-            bubbleLeft.goLeft();
-
-            // both bubbles get same y coord
-            bubbleLeft.setLocY(getLocY());
-            bubbleRight.setLocY(getLocY());
-
-            // bubbles get different x coords
-            bubbleLeft.setLocX(getLocX());
-            bubbleRight.setLocX(getLocX() + bubbleRight.getBounds().getWidth() / 2);
-
-            // also same vert speed
-            bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
-            bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
-
-            // propagate frozen state (why is frozen bool here, not in level / game?)
-            bubbleLeft.setFrozen(frozen);
-            bubbleRight.setFrozen(frozen);
-
-            // actually add to game
-            container.toAdd(bubbleLeft);
-            container.toAdd(bubbleRight);
-
-            // track created bubbles and add to result list
-            newBubbles.add(bubbleLeft);
-            newBubbles.add(bubbleRight);
-
+            
+            bubble.setLocY(getLocY());
+            bubble.setVerticalSpeed(bubble.getMaxVerticalSpeed() / 1.5f);
+            bubble.setFrozen(frozen);
+            
+            container.toAdd(bubble);
+            newBubbles.add(bubble);
         }
 
         return newBubbles;
