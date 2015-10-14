@@ -39,7 +39,7 @@ public class GameStateControllerTest {
     }
     
     @Test
-    public void testTogglePauseMenu1() {
+    public void testTogglePauseMenuWhenOpened() {
         Input mockedInput = Mockito.mock(Input.class);
         
         boolean isPaused = true;
@@ -53,7 +53,7 @@ public class GameStateControllerTest {
     }
     
     @Test
-    public void testTogglePauseMenu2() {
+    public void testTogglePauseMenuWhenClosed() {
         Input mockedInput = Mockito.mock(Input.class);
         
         boolean isPaused = false;
@@ -67,7 +67,7 @@ public class GameStateControllerTest {
     }
     
     @Test
-    public void testTogglePauseMenu3() {
+    public void testTogglePauseMenuWhenGameIsPausedButPauseMenuIsNotOpened() {
         Input mockedInput = Mockito.mock(Input.class);
         
         boolean isPaused = true;
@@ -81,7 +81,7 @@ public class GameStateControllerTest {
     }
     
     @Test
-    public void testUpdateGame1() throws SlickException {
+    public void testUpdateGameWhenGameIsPaused() throws SlickException {
         int delta = 0;
         
         Countdown mockedCountdown = Mockito.mock(Countdown.class);
@@ -95,7 +95,7 @@ public class GameStateControllerTest {
     }
     
     @Test
-    public void testUpdateGame2() throws SlickException {
+    public void testUpdateGameIsNotPaused() throws SlickException {
         int delta = 0;
         
         Countdown mockedCountdown = Mockito.mock(Countdown.class);
@@ -109,7 +109,7 @@ public class GameStateControllerTest {
     }
     
     @Test
-    public void testShowPauseScreen1() {
+    public void testShowPauseScreenWhenPauseScreenShouldBeOpen() {
         GameContainer mockedContainer = Mockito.mock(GameContainer.class);
         StateBasedGame mockedSlickGame = Mockito.mock(StateBasedGame.class);
         Graphics mockedGraphics = Mockito.mock(Graphics.class);
@@ -125,7 +125,7 @@ public class GameStateControllerTest {
     }
     
     @Test
-    public void testShowPauseScreen2() {
+    public void testShowPauseScreenWhenPauseScreenShouldNotBeOpen() {
         GameContainer mockedContainer = Mockito.mock(GameContainer.class);
         StateBasedGame mockedSlickGame = Mockito.mock(StateBasedGame.class);
         Graphics mockedGraphics = Mockito.mock(Graphics.class);
