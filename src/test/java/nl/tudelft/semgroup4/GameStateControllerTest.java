@@ -24,6 +24,9 @@ public class GameStateControllerTest {
     private GameStateController gsController;
     private Game mockedGame;
     
+    /**
+     * Creates a gamestatecontroller with a mocked game before every test.
+     */
     @Before
     public void setUp() {
         mockedGame = Mockito.mock(Game.class);
