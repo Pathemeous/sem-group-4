@@ -31,7 +31,7 @@ public class Bubble6 extends AbstractBubble {
         List<AbstractBubble> next = new ArrayList<>();
         
         // Create 2 new bubbles, that will come free when this bubble splits
-        BubbleFactory bubbleFactory = new Bubble6Factory(new ResourcesWrapper());
+        BubbleFactory bubbleFactory = new Bubble5Factory(new ResourcesWrapper());
         for (int i = 0; i < 2; i++) {
             next.add(bubbleFactory.createBubble()); 
         }
