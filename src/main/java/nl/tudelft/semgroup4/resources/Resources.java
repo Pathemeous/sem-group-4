@@ -88,8 +88,12 @@ public final class Resources {
         Files.walk(Paths.get("src/main/resources/sound")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     try {
-                        Sound img = new Sound(filePath.toString());
-                        sounds.put(filePath.toString(), img);
+                        String fileString = filePath.toString();
+                        int startIndex = fileString.indexOf("sound");
+                        String key = fileString.substring(startIndex);
+                        
+                        Sound img = new Sound(fileString);
+                        sounds.put(key, img);
     
                     } catch (Exception e) {
                         e.printStackTrace();
