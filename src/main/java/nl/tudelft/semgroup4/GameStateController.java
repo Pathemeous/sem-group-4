@@ -51,10 +51,10 @@ public class GameStateController {
      * @throws SlickException : slick exception.
      */
     protected void updateGame(int delta) throws SlickException {
-        if (!currentGame.isPaused()) {
-            currentGame.update(delta);
-        } else {
+        if (currentGame.isPaused()) {
             currentGame.getCountdown().update();
+        } else {
+            currentGame.update(delta);
         }
     }
     
