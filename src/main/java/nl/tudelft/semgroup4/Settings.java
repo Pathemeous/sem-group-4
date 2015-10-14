@@ -8,10 +8,16 @@ import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.KeyBindHelper;
 
-public abstract class Settings {
+public class Settings {
 
     static PlayerInput player1Input;
     static PlayerInput player2Input;
+
+    /**
+     * Private constructor to avoid instantiation.
+     */
+    private Settings() {
+    }
 
     /**
      * Initializes all the settings.
