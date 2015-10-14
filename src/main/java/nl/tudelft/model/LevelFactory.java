@@ -11,6 +11,10 @@ import nl.tudelft.model.bubble.Bubble5Factory;
 import nl.tudelft.model.bubble.Bubble6Factory;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.HorMovingWall;
+import nl.tudelft.model.wall.RegularWall;
+import nl.tudelft.model.wall.VerMovingWall;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**
@@ -95,17 +99,17 @@ public class LevelFactory {
      * 
      * @return {@link LinkedList} of {@link Wall}s - a list containing the 4 default {@link Wall}s.
      */
-    private LinkedList<Wall> wallInit() {
-        LinkedList<Wall> walls = new LinkedList<>();
+    private LinkedList<AbstractWall> wallInit() {
+        LinkedList<AbstractWall> walls = new LinkedList<>();
 
-        walls.add(new Wall(resources.getVwallImage(), 0, 0));
-        walls.add(new Wall(resources.getVwallImage(), game.getContainerWidth()
+        walls.add(new RegularWall(resources.getVwallImage(), 0, 0));
+        walls.add(new RegularWall(resources.getVwallImage(), game.getContainerWidth()
                 - resources.getVwallImage().getWidth(), 0));
 
-        walls.add(new Wall(resources.getWallImage(), 0, 0));
+        walls.add(new RegularWall(resources.getWallImage(), 0, 0));
         for (int i = 1; i <= 5; i++) {
             // five walls of space for the UI
-            walls.add(new Wall(resources.getWallImage(), 0, game.getContainerHeight()
+            walls.add(new RegularWall(resources.getWallImage(), 0, game.getContainerHeight()
                     - resources.getWallImage().getHeight() * i));
         }
         return walls;
@@ -128,11 +132,19 @@ public class LevelFactory {
                 - bubble.getWidth() - 400);
         bubbles.add(bubble);
 
+        LinkedList<AbstractWall> walls = wallInit();
+        
+        HorMovingWall movingWall = new HorMovingWall(resources.getSmallHWallImage(), 300, 200, 2);
+        HorMovingWall movingWall2 = new HorMovingWall(resources.getSmallHWallImage(), 800, 200, -2);
+        walls.add(movingWall);
+        walls.add(movingWall2);
+        
+        VerMovingWall movingWall3 = new VerMovingWall(resources.getSmallVWallImage(), 200, 200, -2);
+        walls.add(movingWall3);
+        
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 120000;
-        
-        LinkedList<Wall> walls = wallInit();
 
         return new Level(walls, projectiles, pickups, bubbles, time, id);
     }
@@ -159,13 +171,23 @@ public class LevelFactory {
         bubble2.setLocY(game.getContainerHeight() - resources.getWallImage().getHeight() 
                 - bubble2.getHeight() - 400);
         bubbles.add(bubble2);
+        
+        LinkedList<AbstractWall> walls = wallInit();
+        
+        HorMovingWall movingWall = new HorMovingWall(resources.getSmallHWallImage(), 300, 400, 2);
+        HorMovingWall movingWall2 = new HorMovingWall(resources.getSmallHWallImage(), 800, 400, -2);
+        walls.add(movingWall);
+        walls.add(movingWall2);
+        
+        VerMovingWall movingWall3 = new VerMovingWall(resources.getSmallVWallImage(), 250, 200, -2);
+        walls.add(movingWall3);
+        VerMovingWall movingWall4 = new VerMovingWall(resources.getSmallVWallImage(), 400, 200, -2);
+        walls.add(movingWall4);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 120000;
         
-        LinkedList<Wall> walls = wallInit();
-
         return new Level(walls, projectiles, pickups, bubbles, time, id);
 
     }
@@ -178,7 +200,7 @@ public class LevelFactory {
     private Level getLevel3() {
         final int id = 3;
 
-        final LinkedList<Wall> walls = wallInit();
+        final LinkedList<AbstractWall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();
@@ -217,7 +239,7 @@ public class LevelFactory {
     private Level getLevel4() {
         final int id = 4;
 
-        final LinkedList<Wall> walls = wallInit();
+        final LinkedList<AbstractWall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<Bubble> bubbles = new LinkedList<>();

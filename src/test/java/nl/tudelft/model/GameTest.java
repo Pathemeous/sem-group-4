@@ -20,7 +20,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
-public class GameTest extends AbstractOpenGLTestCase {
+public class GameTest {
     
     private StateBasedGame mockedSbg;
     private GameEndedState mockedGameEndedState;
