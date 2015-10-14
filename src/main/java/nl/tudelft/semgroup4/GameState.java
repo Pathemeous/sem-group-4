@@ -17,7 +17,7 @@ import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
     
-    private GameStateController gamestateController;
+    private GameStateController controller;
     private PauseScreen pauseScreen;
     private Input input;
     private final Game currentGame;
@@ -35,7 +35,7 @@ public class GameState extends BasicGameState {
      *            {@link Game} - The game that this GameState will manage.
      */
     public GameState(Game game) {
-        gamestateController = new GameStateController(game);
+        controller = new GameStateController(game);
         currentGame = game;
     }
 
@@ -85,7 +85,7 @@ public class GameState extends BasicGameState {
         currentGame.render(container, graphics);
         dashboard.render(container, graphics);
 
-        gamestateController.showPauseScreen(pauseScreenOpened, pauseScreen, graphics, 
+        controller.showPauseScreen(pauseScreenOpened, pauseScreen, graphics, 
                 container, input, game, this);
     }
 
@@ -105,10 +105,10 @@ public class GameState extends BasicGameState {
             throws SlickException {
         // checks if the escape key is pressed
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            pauseScreenOpened = gamestateController.togglePauseMenu(pauseScreenOpened, input);
+            pauseScreenOpened = controller.togglePauseMenu(pauseScreenOpened, input);
         }
 
-        gamestateController.updateGame(delta);
+        controller.updateGame(delta);
         dashboard.update(delta);
     }
     
@@ -122,7 +122,7 @@ public class GameState extends BasicGameState {
     }
     
     protected void setGameStateController(GameStateController controller) {
-        gamestateController = controller;
+        this.controller = controller;
     }
     
     protected void setDashboard(Dashboard dashboard) {
