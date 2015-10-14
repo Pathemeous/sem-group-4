@@ -85,13 +85,8 @@ public class GameState extends BasicGameState {
         currentGame.render(container, graphics);
         dashboard.render(container, graphics);
 
-        if (pauseScreenOpened) {
-            ResourcesWrapper res = new ResourcesWrapper();
-            if (res.getWeaponFire().playing()) {
-                res.stopFireSound();
-            }
-            pauseScreen.show(graphics, container, input, game, this);
-        }
+        gamestateController.showPauseScreen(pauseScreenOpened, pauseScreen, graphics, 
+                container, input, game, this);
     }
 
     /**
@@ -110,7 +105,7 @@ public class GameState extends BasicGameState {
             throws SlickException {
         // checks if the escape key is pressed
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            gamestateController.togglePauseMenu(pauseScreenOpened, input);
+            pauseScreenOpened = gamestateController.togglePauseMenu(pauseScreenOpened, input);
         }
 
         gamestateController.updateGame(delta);

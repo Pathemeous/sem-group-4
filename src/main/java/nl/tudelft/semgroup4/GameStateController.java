@@ -1,10 +1,14 @@
 package nl.tudelft.semgroup4;
 
-import org.newdawn.slick.Input;
-import org.newdawn.slick.SlickException;
-
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Input;
+import org.newdawn.slick.SlickException;
+import org.newdawn.slick.state.StateBasedGame;
 
 public class GameStateController {
     
@@ -51,6 +55,30 @@ public class GameStateController {
             currentGame.update(delta);
         } else {
             currentGame.getCountdown().update();
+        }
+    }
+    
+    /**
+     * Method that checks if the pausescreen is openend. If so, it shows it.
+     * @param pauseScreenOpened : boolean to indicate if the pause screen
+     *      is opened.
+     * @param pauseScreen : view for the pausescreen.
+     * @param graphics : Slick2D graphics.
+     * @param container : Slick2D GameContainer.
+     * @param input : Slick2D input.
+     * @param game : Slick2D StateBasedGame.
+     * @param gamestate : view for the Game. 
+     */
+    protected void showPauseScreen(boolean pauseScreenOpened, PauseScreen pauseScreen, 
+            Graphics graphics, GameContainer container, Input input, 
+            StateBasedGame game, GameState gamestate) {
+        
+        if (pauseScreenOpened) {
+            ResourcesWrapper res = new ResourcesWrapper();
+            if (res.getWeaponFire().playing()) {
+                res.stopFireSound();
+            }
+            pauseScreen.show(graphics, container, input, game, gamestate);
         }
     }
 }
