@@ -133,7 +133,7 @@ public class GameState extends BasicGameState {
         return pauseScreen;
     }
     
-    protected boolean getPauseScreenOpened() {
+    protected boolean isPauseScreenOpened() {
         return pauseScreenOpened;
     }
     
