@@ -199,11 +199,11 @@ public class ResourcesWrapper {
     }
 
     public Animation getPlayerWalkLeft() {
-        return Resources.playerWalkLeft;
+        return animations.get("pl");
     }
 
     public Animation getPlayerWalkRight() {
-        return Resources.playerWalkRight;
+        return animations.get("pr");
     }
 
     public Image getBubbleImage1() {

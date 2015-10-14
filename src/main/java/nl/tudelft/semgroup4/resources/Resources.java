@@ -6,6 +6,8 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
+import java.util.List;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
@@ -13,6 +15,7 @@ import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
+
 
 /**
  * This class holds and loads the Slick2D resources.
@@ -169,23 +172,47 @@ public final class Resources {
                 }
             });
             
+            HashMap<String, HashMap<String, Image>> animationImages = new HashMap<>();
+            //LinkedList<String> animationHashes = new LinkedList<>();
+            
+            //animationImages.add(new HashMap<String, Image>());
+            
+            Files.walk(Paths.get("src/main/resources/animation")).forEach(filePath -> {
+                if (Files.isRegularFile(filePath)) {
+                    try {
+                        String fileString = filePath.toString();
+                        String[] items= fileString.split("\\\\");
+                        String animationHash = items[items.length - 2];
+                        
+                        if (animationImages.get(animationHash) == null) {
+                            animationImages.put(animationHash, new HashMap<>());
+                        }
+                        
+                        Image image = new Image(fileString);
+                        
+                        animationImages.get(animationHash).put(fileString, image);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            
+            for (String key : animationImages.keySet()) {
+                HashMap<String, Image> curAnimationImages = animationImages.get(key);
+                Animation animation = new Animation();
+                
+                for (int i  = 0; i < curAnimationImages.size(); i++) {
+                    Image img = curAnimationImages.get("src\\main\\resources\\animation\\" 
+                            + key + "\\" + (i + 1) + ".png");
+                    animation.addFrame(img, 20);
+                }
+                
+                animations.put(key, animation);
+            }
+            
         } catch (IOException e) {
             e.printStackTrace();
-        }
-
-        playerImageLeft = new ArrayList<Image>();
-        playerImageRight = new ArrayList<Image>();
-
-        for (int i = 0; i < 20; i++) {
-            playerImageLeft.add(new Image("src/main/resources/img/pl/" + (i + 1) + ".png"));
-            playerImageRight.add(new Image("src/main/resources/img/pr/" + (i + 1) + ".png"));
-        }
-
-        playerWalkLeft = new Animation();
-        playerWalkRight = new Animation();
-        for (int i = 0; i < 20; i++) {
-            playerWalkLeft.addFrame(playerImageLeft.get(i), 20);
-            playerWalkRight.addFrame(playerImageRight.get(i), 20);
         }
                 
         
