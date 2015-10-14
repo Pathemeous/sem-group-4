@@ -25,6 +25,10 @@ public class ResourcesWrapper {
     private static HashMap<String, Animation> animations;
     private static HashMap<String, Music> music;
     
+    /**
+     * Creates a new resourceswrapper, which contains all the resources
+     * that can be used.
+     */
     public ResourcesWrapper() {
         images = Resources.images;
         sounds = Resources.sounds;
