@@ -1,26 +1,10 @@
 package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
-import nl.tudelft.model.pickups.powerup.LifePowerup;
-import nl.tudelft.model.pickups.powerup.MoneyPowerup;
-import nl.tudelft.model.pickups.powerup.PointsPowerup;
 import nl.tudelft.model.pickups.powerup.RandomPowerupFactory;
-import nl.tudelft.model.pickups.powerup.ShieldPowerup;
-import nl.tudelft.model.pickups.powerup.SpeedPowerup;
-import nl.tudelft.model.pickups.utility.FreezeUtility;
-import nl.tudelft.model.pickups.utility.LevelWonUtility;
 import nl.tudelft.model.pickups.utility.RandomUtilityFactory;
-import nl.tudelft.model.pickups.utility.SlowUtility;
-import nl.tudelft.model.pickups.utility.SplitUtility;
-import nl.tudelft.model.pickups.utility.TimeUtility;
-import nl.tudelft.model.pickups.weapon.DoubleWeapon;
-import nl.tudelft.model.pickups.weapon.FlowerWeapon;
-import nl.tudelft.model.pickups.weapon.RegularWeapon;
-import nl.tudelft.model.pickups.weapon.StickyWeapon;
+import nl.tudelft.model.pickups.weapon.RandomWeaponFactory;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -112,24 +96,7 @@ public abstract class Pickup extends AbstractEnvironmentObject {
      */
     public static Pickup generateRandomPickup(int random, float locX, float locY) {
         if (random < 1) {
-            int randomWeaponNr = Helpers.randInt(1, 4);
-            // new weapon
-            switch (randomWeaponNr) {
-                // regular weapon
-                case 1:
-                    return new RegularWeapon(new ResourcesWrapper(), locX, locY);
-                // Double shoot
-                case 2:
-                    return new DoubleWeapon(new ResourcesWrapper(), locX, locY);
-                // Sticky weapon
-                case 3:
-                    return new StickyWeapon(new ResourcesWrapper(), locX, locY);
-                // Flower weapon
-                case 4:
-                    return new FlowerWeapon(new ResourcesWrapper(), locX, locY);
-                default:
-                    return new RegularWeapon(new ResourcesWrapper(), locX, locY);
-            }
+            return new RandomWeaponFactory().createWeapon(locX, locY);
         } else if (random < 11) {
             return new RandomPowerupFactory().createPowerup(locX, locY);
         } else {
