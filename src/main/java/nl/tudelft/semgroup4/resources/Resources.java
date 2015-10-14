@@ -29,89 +29,6 @@ public final class Resources {
     static HashMap<String, Sound> sounds = new HashMap<>();
     static HashMap<String, Music> music = new HashMap<>();
     static HashMap<String, Animation> animations = new HashMap<>();
-
-    static Image wallImage;
-    static Image smallHWallImage;
-    static Image vwallImage;
-    static Image smallVWallImage;
-
-    static Image weaponImageRegular;
-    static Image weaponImageSticky;
-    static Image weaponImageFlower;
-
-    static Image titleScreenBackground;
-    static Image backgroundImage;
-
-    static Image dashboardPlayerContainerLeft;
-    static Image dashboardPlayerContainerRight;
-    static Image dashboardLivesContainer;
-    static Image dashboardlivesFull;
-    static Image dashboardlivesEmpty;
-    static Image levelContainer;
-
-    static Image playerImageStill;
-    
-    static Image on;
-    static Image off;
-    static Image soundText;
-    static Image optionsText;
-    static Image backText;
-    static Image newKeyText;
-    static Image keyBindingsText;
-    
-    static Image quitText;
-    static Image pauseText;
-    
-    static Image shopBackground;
-
-    static ArrayList<Image> playerImageLeft;
-    static ArrayList<Image> playerImageRight;
-
-    static Animation playerWalkLeft;
-    static Animation playerWalkRight;
-
-    static Image bubbleImage1;
-    static Image bubbleImage2;
-    static Image bubbleImage3;
-    static Image bubbleImage4;
-    static Image bubbleImage5;
-    static Image bubbleImage6;
-
-    static Image pickupWeaponRegular;
-    static Image pickupWeaponDouble;
-    static Image pickupWeaponSticky;
-    static Image pickupWeaponFlowers;
-    static Image pickupPowerShield;
-    static Image pickupPowerInvincible;
-    static Image pickupPowerMoney;
-    static Image pickupPowerSpeedup;
-    static Image pickupPowerPoints;
-    static Image pickupUtilitySplit;
-    static Image pickupUtilityFreeze;
-    static Image pickupUtilitySlow;
-    static Image pickupUtilityLevelwon;
-    static Image pickupUtilityTime;
-    static Image pickupUtilityLife;
-
-    static Image powerShield;
-    static Image powerInvincible;
-
-    static Sound bubblePop;
-    static Sound weaponFire;
-    static Sound death;
-    static Sound timeUp;
-
-    static Music titleScreenMusic;
-
-    static Image continueText;
-    static Image shopText;
-    static Image loggerText;
-    static Image player1On;
-    static Image player1Off;
-    static Image player2On;
-    static Image player2Off;
-    static Image shopImageSpecialWeapon;
-    static Image buy;
     
     /**
      * Initialises the resources.
@@ -203,6 +120,8 @@ public final class Resources {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        Fonts.init();
     }
 
 }
