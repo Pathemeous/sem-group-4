@@ -57,11 +57,16 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
             ResourcesWrapper resources) {
         super(bubbleImg, locX, locY);
 
-        nextBubbles = new ArrayList<>();
+        nextBubbles = createNextBubbles();
+        maxVerticalSpeed = initMaxVerticalSpeed();
         this.resources = resources;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
     }
+    
+    protected abstract List<AbstractBubble> createNextBubbles();
+    
+    protected abstract float initMaxVerticalSpeed();
     
     /**
      * Set list of bubbles that will appear when this bubble splits.
