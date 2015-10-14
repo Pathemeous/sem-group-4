@@ -23,6 +23,9 @@ public final class Resources {
     private static boolean isInitted = false;
     
     static HashMap<String, Image> images = new HashMap<>();
+    static HashMap<String, Sound> sounds = new HashMap<>();
+    static HashMap<String, Music> music = new HashMap<>();
+    static HashMap<String, Animation> animations = new HashMap<>();
 
     static Image wallImage;
     static Image smallHWallImage;
@@ -132,7 +135,18 @@ public final class Resources {
         try {
             Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
-
+                    try {
+                        Image img = new Image(filePath.toString());
+                        images.put(filePath.toString(), img);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            
+            Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
+                if (Files.isRegularFile(filePath)) {
                     try {
                         Image img = new Image(filePath.toString());
                         images.put(filePath.toString(), img);
@@ -152,14 +166,8 @@ public final class Resources {
         death = new Sound("src/main/resources/sound/death.ogg");
         timeUp = new Sound("src/main/resources/sound/timeUp.ogg");
 
-        titleScreenMusic = new Music("src/main/resources/sound/titleScreen.ogg");
+        titleScreenMusic = new Music("src/main/resources/music/titleScreen.ogg");
 
-        wallImage = new Image("src/main/resources/img/wall2_h.png");
-        vwallImage = new Image("src/main/resources/img/wall2_v.png");
-        smallHWallImage = new Image("src/main/resources/img/small_wall_h.png");
-        smallVWallImage = new Image("src/main/resources/img/small_wall_v.png");
-
-        playerImageStill = new Image("src/main/resources/img/player_still.png");
         playerImageLeft = new ArrayList<Image>();
         playerImageRight = new ArrayList<Image>();
 
@@ -174,71 +182,9 @@ public final class Resources {
             playerWalkLeft.addFrame(playerImageLeft.get(i), 20);
             playerWalkRight.addFrame(playerImageRight.get(i), 20);
         }
-
-        titleScreenBackground = new Image("src/main/resources/img/titleScreen2.png");
-        backgroundImage = new Image("src/main/resources/img/level1.jpg");
-
-        dashboardPlayerContainerLeft = new Image(
-                "src/main/resources/img/dashboard/player_container_1.png");
-        dashboardPlayerContainerRight = new Image(
-                "src/main/resources/img/dashboard/player_container_2.png");
-        dashboardLivesContainer = new Image("src/main/resources/img/dashboard/lives_container.png");
-        dashboardlivesFull = new Image("src/main/resources/img/dashboard/lives_full.png");
-        dashboardlivesEmpty = new Image("src/main/resources/img/dashboard/lives_empty.png");
-        levelContainer = new Image("src/main/resources/img/dashboard/level_container.png");
-
-        on = new Image("src/main/resources/img/on.png");
-        off = new Image("src/main/resources/img/off.png");
-        soundText = new Image("src/main/resources/img/sound.png");
-        optionsText = new Image("src/main/resources/img/options.png");
-        backText = new Image("src/main/resources/img/back.png");
-        newKeyText = new Image("src/main/resources/img/newKeyText.png");
-        loggerText = new Image("src/main/resources/img/logger.png");
-        keyBindingsText = new Image("src/main/resources/img/keyBindings.png");
                 
-        pauseText = new Image("src/main/resources/img/pausedText.png");
-        quitText = new Image("src/main/resources/img/quitText.png");
-        
-        shopBackground = new Image("src/main/resources/img/shopBackground.png");
-        continueText = new Image("src/main/resources/img/continue.png");
-        shopText = new Image("src/main/resources/img/shop.png");
-        player1On = new Image("src/main/resources/img/player1TextOn.png");
-        player1Off = new Image("src/main/resources/img/player1TextOff.png");
-        player2On = new Image("src/main/resources/img/player2TextOn.png");
-        player2Off = new Image("src/main/resources/img/player2TextOff.png");
-        shopImageSpecialWeapon = new Image("src/main/resources/img/pickup_weapon_special.png");
-        buy = new Image("src/main/resources/img/buy.png");
-        
-        weaponImageRegular = new Image("src/main/resources/img/weapon_arrow.png");
-        weaponImageSticky = new Image("src/main/resources/img/weapon_arrow.png");
-        weaponImageFlower = new Image("src/main/resources/img/weapon_flowers.png");
-
-        bubbleImage1 = new Image("src/main/resources/img/yball1.png");
-        bubbleImage2 = new Image("src/main/resources/img/yball2.png");
-        bubbleImage3 = new Image("src/main/resources/img/yball3.png");
-        bubbleImage4 = new Image("src/main/resources/img/rball4.png");
-        bubbleImage5 = new Image("src/main/resources/img/rball5.png");
-        bubbleImage6 = new Image("src/main/resources/img/rball6.png");
-
-        pickupWeaponRegular = new Image("src/main/resources/img/pickup_regular_weapon.png");
-        pickupWeaponDouble = new Image("src/main/resources/img/pickup_weapon_double.png");
-        pickupWeaponSticky = new Image("src/main/resources/img/pickup_sticky.png");
-        pickupWeaponFlowers = new Image("src/main/resources/img/pickup_flowers.png");
-        pickupPowerShield = new Image("src/main/resources/img/pickup_shield.png");
-        pickupPowerInvincible = new Image("src/main/resources/img/pickup_invincible.png");
-        pickupPowerMoney = new Image("src/main/resources/img/pickup_money.png");
-        pickupPowerPoints = new Image("src/main/resources/img/pickup_points.png");
-        pickupPowerSpeedup = new Image("src/main/resources/img/pickup_speed.png");
-        pickupUtilitySplit = new Image("src/main/resources/img/pickup_split.png");
-        pickupUtilityFreeze = new Image("src/main/resources/img/pickup_freeze.png");
-        pickupUtilitySlow = new Image("src/main/resources/img/pickup_slow_down.png");
-        pickupUtilityLevelwon = new Image("src/main/resources/img/pickup_level_won.png");
-        pickupUtilityTime = new Image("src/main/resources/img/pickup_time.png");
-        pickupUtilityLife = new Image("src/main/resources/img/pickup_life.png");
         
 
-        powerInvincible = new Image("src/main/resources/img/powerup_invincible.png");
-        powerShield = new Image("src/main/resources/img/powerup_shield.png");
         
         Font font = new Font("Calibri", Font.BOLD, 60);
         countdownFont =  new TrueTypeFont(font, true);
