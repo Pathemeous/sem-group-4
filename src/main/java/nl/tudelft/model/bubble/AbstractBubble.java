@@ -1,11 +1,11 @@
 package nl.tudelft.model.bubble;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.RandomPickupFactory;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
@@ -133,11 +133,8 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         resources.playBubbleSplit();
         container.toRemove(this);
         
-        if (random > 7) {
-            // feeling lucky?
-            Pickup pickup =
-                    Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
-                            getLocY());
+        Pickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
+        if (pickup != null) {
             container.toAdd(pickup);
         }
         
