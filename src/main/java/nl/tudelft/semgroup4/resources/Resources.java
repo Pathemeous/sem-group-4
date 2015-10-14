@@ -157,13 +157,21 @@ public final class Resources {
                 }
             });
             
+            Files.walk(Paths.get("src/main/resources/music")).forEach(filePath -> {
+                if (Files.isRegularFile(filePath)) {
+                    try {
+                        Music img = new Music(filePath.toString());
+                        music.put(filePath.toString(), img);
+                        
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+            
         } catch (IOException e) {
             e.printStackTrace();
         }
-
-
-
-        titleScreenMusic = new Music("src/main/resources/music/titleScreen.ogg");
 
         playerImageLeft = new ArrayList<Image>();
         playerImageRight = new ArrayList<Image>();
