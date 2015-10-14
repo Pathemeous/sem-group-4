@@ -1,6 +1,7 @@
 package nl.tudelft.model.pickups.weapon;
 
 import static org.junit.Assert.assertTrue;
+
 import nl.tudelft.model.pickups.Pickup;
 
 import org.junit.Test;
@@ -61,7 +62,7 @@ public class RandomWeaponFactoryTest {
     
     @Test
     public void testHighRandomNumber() {
-RandomWeaponFactory factory = new RandomWeaponFactory();
+        RandomWeaponFactory factory = new RandomWeaponFactory();
         
         factory.setRandomNumber(100);
         

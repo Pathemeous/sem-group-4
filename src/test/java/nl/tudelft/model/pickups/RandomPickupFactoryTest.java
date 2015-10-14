@@ -2,6 +2,7 @@ package nl.tudelft.model.pickups;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Weapon;

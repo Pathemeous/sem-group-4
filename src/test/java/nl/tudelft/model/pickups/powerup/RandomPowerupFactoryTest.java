@@ -1,6 +1,7 @@
 package nl.tudelft.model.pickups.powerup;
 
 import static org.junit.Assert.assertTrue;
+
 import nl.tudelft.model.pickups.Pickup;
 
 import org.junit.Test;
