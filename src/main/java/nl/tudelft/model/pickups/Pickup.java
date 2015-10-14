@@ -1,9 +1,6 @@
 package nl.tudelft.model.pickups;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.model.pickups.powerup.RandomPowerupFactory;
-import nl.tudelft.model.pickups.utility.RandomUtilityFactory;
-import nl.tudelft.model.pickups.weapon.RandomWeaponFactory;
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.newdawn.slick.GameContainer;
