@@ -1,7 +1,5 @@
 package nl.tudelft.model;
 
-import java.awt.Font;
-
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
