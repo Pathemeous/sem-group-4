@@ -1,5 +1,6 @@
 package nl.tudelft.model.pickups.weapon;
 
+import nl.tudelft.model.pickups.RandomPickupFactory;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
@@ -8,7 +9,7 @@ import nl.tudelft.semgroup4.util.Helpers;
  * @author Casper
  *
  */
-public class RandomWeaponFactory {
+public class RandomWeaponFactory implements RandomPickupFactory {
     
     private int randomNumber;
     
@@ -27,7 +28,8 @@ public class RandomWeaponFactory {
      * @param locY : the starting y coordinate of the weapon.
      * @return : a weapon.
      */
-    public Weapon createWeapon(float locX, float locY) {
+    @Override
+    public Weapon createPickup(float locX, float locY) {
         ResourcesWrapper res = new ResourcesWrapper();
         
         switch (randomNumber) {

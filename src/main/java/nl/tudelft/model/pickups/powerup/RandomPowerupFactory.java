@@ -1,5 +1,6 @@
 package nl.tudelft.model.pickups.powerup;
 
+import nl.tudelft.model.pickups.RandomPickupFactory;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
@@ -8,7 +9,7 @@ import nl.tudelft.semgroup4.util.Helpers;
  * @author Casper
  *
  */
-public class RandomPowerupFactory {
+public class RandomPowerupFactory implements RandomPickupFactory {
     
     private int randomNumber;
     
@@ -27,7 +28,8 @@ public class RandomPowerupFactory {
      * @param locY : the starting y coordinate of the powerup.
      * @return : a powerup.
      */
-    public Powerup createPowerup(float locX, float locY) {
+    @Override
+    public Powerup createPickup(float locX, float locY) {
         ResourcesWrapper res = new ResourcesWrapper();
         
         if (randomNumber == 12) {

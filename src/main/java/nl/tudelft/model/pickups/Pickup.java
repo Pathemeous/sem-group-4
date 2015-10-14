@@ -96,11 +96,11 @@ public abstract class Pickup extends AbstractEnvironmentObject {
      */
     public static Pickup generateRandomPickup(int random, float locX, float locY) {
         if (random < 4) {
-            return new RandomWeaponFactory().createWeapon(locX, locY);
+            return new RandomWeaponFactory().createPickup(locX, locY);
         } else if (random < 7) {
-            return new RandomPowerupFactory().createPowerup(locX, locY);
+            return new RandomPowerupFactory().createPickup(locX, locY);
         } else {
-            return new RandomUtilityFactory().createUtility(locX, locY);
+            return new RandomUtilityFactory().createPickup(locX, locY);
         }
     }
 }
