@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4.resources;
 
+import java.awt.Font;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -359,6 +360,7 @@ public class ResourcesWrapper {
     }
     
     public TrueTypeFont getCountdownFont() {
-        return Resources.countdownFont;
+        Font font = new Font("Calibri", Font.BOLD, 60);
+        return new TrueTypeFont(font, true);
     }
 }

@@ -113,8 +113,6 @@ public final class Resources {
     static Image shopImageSpecialWeapon;
     static Image buy;
     
-    static TrueTypeFont countdownFont;
-    
     /**
      * Private constructor to avoid instantiation of this utility class.
      */
@@ -214,12 +212,6 @@ public final class Resources {
         } catch (IOException e) {
             e.printStackTrace();
         }
-                
-        
-
-        
-        Font font = new Font("Calibri", Font.BOLD, 60);
-        countdownFont =  new TrueTypeFont(font, true);
     }
 
 }
