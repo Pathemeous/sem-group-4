@@ -120,17 +120,17 @@ public class QuadTreeTest {
     
     @Test
     public void testInsertMultipleElements() {
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 24; i++) {
             AbstractGameObject someBounds1 = Mockito.mock(AbstractGameObject.class);
             Shape mockedShape = Mockito.mock(Shape.class);
             
-            if (i < 3) {
+            if (i < 6) {
                 when(mockedShape.getX()).thenReturn(1.0f);
                 when(mockedShape.getY()).thenReturn(1.0f);
-            } else if (i < 6) {
+            } else if (i < 12) {
                 when(mockedShape.getX()).thenReturn(9.0f);
                 when(mockedShape.getY()).thenReturn(1.0f);
-            } else if (i < 8) {
+            } else if (i < 16) {
                 when(mockedShape.getX()).thenReturn(1.0f);
                 when(mockedShape.getY()).thenReturn(9.0f);
             } else {
@@ -142,12 +142,13 @@ public class QuadTreeTest {
         }
         
         Shape mockedShape = Mockito.mock(Shape.class);
-        when(mockedShape.getX()).thenReturn(1.0f);
+        when(mockedShape.getX()).thenReturn(4.0f);
         when(mockedShape.getY()).thenReturn(1.0f);
+        when(mockedShape.getWidth()).thenReturn(5.0f);
         
         List<AbstractGameObject> res = new ArrayList<>();
         testTree.retrieve(res, mockedShape);
-        assertEquals(3, res.size());
+        assertEquals(12, res.size());
     }
 
     @Test

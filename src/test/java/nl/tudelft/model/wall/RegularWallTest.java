@@ -1,6 +1,9 @@
-package nl.tudelft.model;
+package nl.tudelft.model.wall;
 
 import static org.junit.Assert.assertEquals;
+
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.RegularWall;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +14,7 @@ import org.newdawn.slick.SlickException;
 /**
  * Created by justin on 11/09/15.
  */
-public class WallTest extends AbstractOpenGLTestCase {
+public class RegularWallTest {
     
     private Image mockedImage; 
     
@@ -26,7 +29,7 @@ public class WallTest extends AbstractOpenGLTestCase {
     @Test
     public void testConstructor() throws SlickException {
         Image img = mockedImage;
-        Wall wall = new Wall(img, 0, 0);
+        AbstractWall wall = new RegularWall(img, 0, 0);
         assertEquals(wall.getLocX(), 0.0f, 0.0f);
         assertEquals(wall.getLocY(), 0.0f, 0.0f);
         assertEquals(wall.getImage(), img);
@@ -34,8 +37,16 @@ public class WallTest extends AbstractOpenGLTestCase {
 
     @Test
     public void testUpdate() throws SlickException {
-        Wall wall = new Wall(mockedImage, 0, 0);
+        AbstractWall wall = new RegularWall(mockedImage, 0, 0);
+        assertEquals(wall.getLocX(), 0.0f, 0.0f);
+        assertEquals(wall.getLocY(), 0.0f, 0.0f);
+        assertEquals(wall.getImage(), mockedImage);
+        
         wall.update(null, 0);
+        
+        assertEquals(wall.getLocX(), 0.0f, 0.0f);
+        assertEquals(wall.getLocY(), 0.0f, 0.0f);
+        assertEquals(wall.getImage(), mockedImage);
     }
 
 }

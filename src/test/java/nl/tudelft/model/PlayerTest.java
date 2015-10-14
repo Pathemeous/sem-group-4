@@ -25,7 +25,7 @@ import org.newdawn.slick.Image;
  * tests cases for the player class.
  * @author Damian
  */
-public class PlayerTest extends AbstractOpenGLTestCase {
+public class PlayerTest {
 
     private Player player;
     private ResourcesWrapper mockedResources;

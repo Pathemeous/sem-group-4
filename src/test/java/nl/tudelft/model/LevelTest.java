@@ -15,20 +15,21 @@ import java.util.LinkedList;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.semgroup4.Modifiable;
 
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
 
-public class LevelTest extends AbstractOpenGLTestCase {
+public class LevelTest {
 
-    public LinkedList<Wall> walls = new LinkedList<Wall>();
+    public LinkedList<AbstractWall> walls = new LinkedList<AbstractWall>();
     public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
     public LinkedList<Pickup> pickups = new LinkedList<Pickup>();
     public LinkedList<Bubble> bubbles = new LinkedList<Bubble>();
     public Bubble bubble;
-    public Wall wall;
+    public AbstractWall wall;
     public Projectile projectile;
     public Pickup pickup;
 
@@ -37,7 +38,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
      */
     @Before
     public void initialize() {
-        wall = mock(Wall.class);
+        wall = mock(AbstractWall.class);
         walls.add(wall);
         projectile = mock(Projectile.class);
         projectiles.add(projectile);
@@ -124,7 +125,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
     public void testUpdate2() throws SlickException {
         Level level = new Level(walls, projectiles, pickups, bubbles, 2, 1);
         Modifiable modifiable = mock(Modifiable.class);
-        Wall mockedWall = mock(Wall.class);
+        AbstractWall mockedWall = mock(AbstractWall.class);
         level.toAdd(mockedWall);
         Bubble mockedBubble = mock(Bubble.class);
         level.toAdd(mockedBubble);
@@ -147,7 +148,7 @@ public class LevelTest extends AbstractOpenGLTestCase {
     public void testUpdate3() throws SlickException {
         Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
         Modifiable modifiable = mock(Modifiable.class);
-        Wall mockedWall = mock(Wall.class);
+        AbstractWall mockedWall = mock(AbstractWall.class);
         level.toAdd(mockedWall);
         Bubble mockedBubble = mock(Bubble.class);
         level.toAdd(mockedBubble);
