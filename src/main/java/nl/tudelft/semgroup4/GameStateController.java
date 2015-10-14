@@ -36,7 +36,7 @@ public class GameStateController {
         // game isn't paused, this code is executed. This prevents the user from
         // being able to unpause the game while the countdown is running (because then
         // the game is paused without the pause screen being open)
-        if ((currentGame.isPaused() && pauseScreenOpened)
+        if (currentGame.isPaused() && pauseScreenOpened
                 || !(currentGame.isPaused() || pauseScreenOpened)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
                     + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
