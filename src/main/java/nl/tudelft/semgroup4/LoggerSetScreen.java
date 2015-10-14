@@ -32,16 +32,19 @@ public class LoggerSetScreen {
      *
      * @param container
      *            {@link GameContainer} - the container in which the game runs.
+     * @param wrapper
+     *            A resourceswrapper which will be used to create images/fonts.
      * @throws SlickException
      *            font can't be found.
      */
-    public LoggerSetScreen(GameContainer container) throws SlickException {
+    public LoggerSetScreen(GameContainer container,
+                           ResourcesWrapper wrapper) throws SlickException {
         Font font = new Font("Calibri", Font.BOLD, 46);
-        typeFont = new TrueTypeFont(font, true);
+        typeFont = wrapper.createFont(font,true);
 
         this.controller = new LoggerSetScreenController();
         areas = controller.createMouseOverAreas(60, 80, container, text,
-                typeFont, new ResourcesWrapper());
+                typeFont, wrapper);
     }
 
     /**
@@ -92,5 +95,14 @@ public class LoggerSetScreen {
                     text[i],
                     controller.decideColor(severities[i]));
         }
+    }
+
+    /**
+     * Get all mouse over areas (only used for testing).
+     * @param overArea
+     *              the area to which to set
+     */
+    protected void setAreasForTesting(MouseOverArea overArea) {
+        areas[0] = overArea;
     }
 }

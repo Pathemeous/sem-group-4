@@ -44,7 +44,7 @@ public class OptionsState extends BasicGameState {
                 container.getWidth() / 4,
                 container.getHeight() / 3 + 60);
         input = container.getInput();
-        loggerSetScreen = new LoggerSetScreen(container);
+        loggerSetScreen = new LoggerSetScreen(container, new ResourcesWrapper());
     }
 
     @Override

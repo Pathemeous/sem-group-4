@@ -363,4 +363,8 @@ public class ResourcesWrapper {
     public Image createImage(int width, int height) throws SlickException {
         return new Image(width, height);
     }
+
+    public TrueTypeFont createFont(Font font, boolean bool) {
+        return new TrueTypeFont(font, bool);
+    }
 }
