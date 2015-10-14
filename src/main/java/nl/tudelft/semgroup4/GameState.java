@@ -51,8 +51,8 @@ public class GameState extends BasicGameState {
      */
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         final ResourcesWrapper res = new ResourcesWrapper();
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        //GL11.glEnable(GL11.GL_BLEND);
+        //GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         input = container.getInput();
         MouseOverArea mouseOver =
