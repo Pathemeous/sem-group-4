@@ -58,7 +58,7 @@ public class GameStateTest {
         
         verify(mockedDashboard, times(1)).render(mockedContainer, mockedGraphics);
         verify(gameState.getGame(), times(1)).render(mockedContainer, mockedGraphics);
-        verify(gamestateController, times(1)).showPauseScreen(gameState.getPauseScreenOpened(), 
+        verify(gamestateController, times(1)).showPauseScreen(gameState.isPauseScreenOpened(), 
                 gameState.getPausescreen(), mockedGraphics, mockedContainer, gameState.getInput(), 
                 mockedSlickGame, gameState);
     }
@@ -96,7 +96,7 @@ public class GameStateTest {
         
         gameState.update(mockedContainer, mockedSlickGame, delta);
         
-        verify(gamestateController, times(1)).togglePauseMenu(gameState.getPauseScreenOpened(), 
+        verify(gamestateController, times(1)).togglePauseMenu(gameState.isPauseScreenOpened(), 
                 mockedInput);
         verify(gamestateController, times(1)).updateGame(delta);
         verify(mockedDashboard, times(1)).update(delta);
