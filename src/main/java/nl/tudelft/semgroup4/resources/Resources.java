@@ -147,9 +147,16 @@ public final class Resources {
                         
                         // Split the filePath with backslash as delimiter
                         String[] layers = key.split("\\\\");
-                        // Store the name of the last folder, which will be used as
-                        // hash to store the animation.
-                        String animationHash = layers[layers.length - 2];
+                        
+                        // Store the all but the filename of the image as key
+                        String animationHash = "";
+                        for (int i = 0; i < layers.length - 1; i++) {
+                            if (animationHash.isEmpty()) {
+                                animationHash = layers[i];
+                            } else {
+                                animationHash = animationHash + "\\" + layers[i];
+                            }
+                        }
         
                         // If there is no item which belongs to this folder, create one.
                         if (animationImages.get(animationHash) == null) {
@@ -181,18 +188,18 @@ public final class Resources {
         for (String key : animationImages.keySet()) {
             HashMap<String, Image> curAnimationImages = animationImages.get(key);
             Animation animation = new Animation();
-
+            
             // Loop over all the items in the current map, where each item is an image.
             // Each image is added to the frame of the animation.
             for (int i = 0; i < curAnimationImages.size(); i++) {
-                Image img = curAnimationImages.get("src\\main\\resources\\animation\\" + key + "\\"
+                Image img = curAnimationImages.get("src\\main\\resources\\" + key + "\\"
                         + (i + 1) + ".png");
                 animation.addFrame(img, 20);
             }
 
             // Store the animation in a hashmap, using the folder with the images for this
             // animation as the key.
-            animations.put("animation\\" + key, animation);
+            animations.put(key, animation);
         }
     }
 
