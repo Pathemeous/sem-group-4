@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -22,6 +23,10 @@ public class GameStateTest {
     private Game mockedGame;
     private GameStateController gamestateController;
     
+    /**
+     * This method is called before every test. Creates a gamestate
+     * with a mockedGame and a mocked gamestatecontroller.
+     */
     @Before
     public void setUp() {
         mockedGame = Mockito.mock(Game.class);
@@ -55,7 +60,7 @@ public class GameStateTest {
         verify(gameState.getGame(), times(1)).render(mockedContainer, mockedGraphics);
         verify(gamestateController, times(1)).showPauseScreen(gameState.getPauseScreenOpened(), 
                 gameState.getPausescreen(), mockedGraphics, mockedContainer, gameState.getInput(), 
-                mockedSlickGame, gameState, new ResourcesWrapper());
+                mockedSlickGame, gameState);
     }
     
     @Test

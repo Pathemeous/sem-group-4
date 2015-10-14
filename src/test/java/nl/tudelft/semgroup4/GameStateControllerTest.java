@@ -4,6 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import nl.tudelft.model.Countdown;
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
@@ -112,13 +113,9 @@ public class GameStateControllerTest {
         PauseScreen mockedPausescreen = Mockito.mock(PauseScreen.class);
         GameState mockedGameState = Mockito.mock(GameState.class);
         Input mockedInput = Mockito.mock(Input.class);
-        ResourcesWrapper mockedRes = Mockito.mock(ResourcesWrapper.class);
-        Sound mockedSound = Mockito.mock(Sound.class);
-        when(mockedRes.getWeaponFire()).thenReturn(mockedSound);
-        when(mockedSound.playing()).thenReturn(true);
         
         gsController.showPauseScreen(true, mockedPausescreen, mockedGraphics, mockedContainer, 
-                mockedInput, mockedSlickGame, mockedGameState, mockedRes);
+                mockedInput, mockedSlickGame, mockedGameState);
         
         verify(mockedPausescreen, times(1)).show(mockedGraphics, mockedContainer, mockedInput, 
                 mockedSlickGame, mockedGameState);
@@ -132,10 +129,9 @@ public class GameStateControllerTest {
         PauseScreen mockedPausescreen = Mockito.mock(PauseScreen.class);
         GameState mockedGameState = Mockito.mock(GameState.class);
         Input mockedInput = Mockito.mock(Input.class);
-        ResourcesWrapper mockedRes = Mockito.mock(ResourcesWrapper.class);
         
         gsController.showPauseScreen(false, mockedPausescreen, mockedGraphics, mockedContainer, 
-                mockedInput, mockedSlickGame, mockedGameState, mockedRes);
+                mockedInput, mockedSlickGame, mockedGameState);
         
         verify(mockedPausescreen, times(0)).show(mockedGraphics, mockedContainer, mockedInput, 
                 mockedSlickGame, mockedGameState);
