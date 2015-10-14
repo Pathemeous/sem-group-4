@@ -14,6 +14,11 @@ public class GameStateController {
     
     private Game currentGame;
     
+    /**
+     * Creates a game state controller, which controls the logic for the 
+     * GameState.
+     * @param game : the current game this GameState is based on.
+     */
     protected GameStateController(Game game) {
         this.currentGame = game;
     }

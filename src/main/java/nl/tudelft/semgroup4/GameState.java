@@ -111,13 +111,38 @@ public class GameState extends BasicGameState {
         gamestateController.updateGame(delta);
         dashboard.update(delta);
     }
+    
+    @Override
+    public int getID() {
+        return States.GameState;
+    }
 
     protected Game getGame() {
         return currentGame;
     }
-
+    
+    protected void setGameStateController(GameStateController controller) {
+        gamestateController = controller;
+    }
+    
+    protected void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+    
+    protected PauseScreen getPausescreen() {
+        return pauseScreen;
+    }
+    
+    protected boolean getPauseScreenOpened() {
+        return pauseScreenOpened;
+    }
+    
+    protected Input getInput() {
+        return input;
+    }
+    
     @Override
-    public int getID() {
-        return States.GameState;
+    public void setInput(Input input) {
+        this.input = input;
     }
 }
