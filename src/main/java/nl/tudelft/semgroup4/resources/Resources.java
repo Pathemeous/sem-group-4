@@ -63,8 +63,12 @@ public final class Resources {
         Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
                 if (Files.isRegularFile(filePath)) {
                     try {
-                        Image img = new Image(filePath.toString());
-                        images.put(filePath.toString(), img);
+                        String fileString = filePath.toString();
+                        int startIndex = fileString.indexOf("img");
+                        String key = fileString.substring(startIndex);
+                        
+                        Image img = new Image(fileString);
+                        images.put(key, img);
     
                     } catch (Exception e) {
                         e.printStackTrace();
