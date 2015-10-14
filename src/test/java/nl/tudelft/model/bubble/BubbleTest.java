@@ -12,7 +12,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 
 import nl.tudelft.semgroup4.Modifiable;
@@ -81,17 +81,20 @@ public class BubbleTest {
     @Test
     public void testUpdate3() throws SlickException {
         Image mockedImg = mock(Image.class);
-        BubbleFactory mockedBubbleFactory = mock(BubbleFactory.class);
         Bubble mockedBubble1 = mock(Bubble.class);
         Bubble mockedBubble2 = mock(Bubble.class);
         when(mockedImg.getWidth()).thenReturn(10);
         when(mockedImg.getHeight()).thenReturn(10);
-        when(mockedBubbleFactory.createBubble()).thenReturn(mockedBubble1, mockedBubble2);
         when(mockedBubble1.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
         when(mockedBubble2.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
         when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
         
+        List<Bubble> next = new ArrayList<>();
+        next.add(mockedBubble1);
+        next.add(mockedBubble2);
+        
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
+        bubble.setNext(next);
 
         bubble.setIsHit();
 
@@ -107,24 +110,27 @@ public class BubbleTest {
     @Test
     public void testSplitWithRandomAbove7() throws SlickException {
         Image mockedImg = mock(Image.class);
-        BubbleFactory mockedBubbleFactory = mock(BubbleFactory.class);
         Bubble mockedBubble1 = mock(Bubble.class);
         Bubble mockedBubble2 = mock(Bubble.class);
         when(mockedImg.getWidth()).thenReturn(10);
         when(mockedImg.getHeight()).thenReturn(10);
-        when(mockedBubbleFactory.createBubble()).thenReturn(mockedBubble1, mockedBubble2);
         when(mockedBubble1.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
         when(mockedBubble2.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
         when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
         
+        List<Bubble> next = new ArrayList<>();
+        next.add(mockedBubble1);
+        next.add(mockedBubble2);
+        
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
-        bubble.setBubbleFactory(mockedBubbleFactory);
+        bubble.setNext(next);
 
         Modifiable modifiable = mock(Modifiable.class);
 
         List<Bubble> bubblesList = bubble.split(modifiable, 8);
         assertTrue(bubblesList.contains(mockedBubble1));
         assertTrue(bubblesList.contains(mockedBubble2));
+        assertEquals(2, bubblesList.size());
         
         verify(modifiable, times(3)).toAdd(any());
         verify(modifiable, times(1)).toRemove(bubble);
@@ -134,18 +140,20 @@ public class BubbleTest {
     @Test
     public void testSplitWithRandomBelow7() throws SlickException {
         Image mockedImg = mock(Image.class);
-        BubbleFactory mockedBubbleFactory = mock(BubbleFactory.class);
         Bubble mockedBubble1 = mock(Bubble.class);
         Bubble mockedBubble2 = mock(Bubble.class);
         when(mockedImg.getWidth()).thenReturn(10);
         when(mockedImg.getHeight()).thenReturn(10);
-        when(mockedBubbleFactory.createBubble()).thenReturn(mockedBubble1, mockedBubble2);
         when(mockedBubble1.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
         when(mockedBubble2.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
         when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
+        
+        List<Bubble> next = new ArrayList<>();
+        next.add(mockedBubble1);
+        next.add(mockedBubble2);
 
         Bubble bubble = new Bubble2(mockedResources, 0, 0);
-        bubble.setBubbleFactory(mockedBubbleFactory);
+        bubble.setNext(next);
 
         Modifiable modifiable = mock(Modifiable.class);
 

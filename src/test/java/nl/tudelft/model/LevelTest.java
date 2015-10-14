@@ -182,7 +182,7 @@ public class LevelTest {
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, true);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
@@ -195,7 +195,7 @@ public class LevelTest {
         Bubble mockedBubble = mock(Bubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
@@ -209,6 +209,6 @@ public class LevelTest {
         bubbles.add(mockedBubble);
         when(mockedBubble.getImage()).thenReturn(null);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 }
