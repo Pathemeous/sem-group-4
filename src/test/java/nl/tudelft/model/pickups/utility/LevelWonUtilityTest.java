@@ -11,7 +11,7 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
@@ -36,7 +36,7 @@ public class LevelWonUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         LevelWonUtility utility = new LevelWonUtility(mockedResources, 0, 0);
         
-        LinkedList<Bubble> bubbles = new LinkedList<>();
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         Level mockedLevel = mock(Level.class);
         when(mockedLevel.getBubbles()).thenReturn(bubbles);
         

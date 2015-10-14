@@ -8,7 +8,7 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 /**
  * One of the Bubble types. This is a regular bubble of size 6.
  */
-public class Bubble6 extends Bubble {
+public class Bubble6 extends AbstractBubble {
 
     /**
      * The constructor for this class. Generates a bubble of size 6, with a maxverticalspeed of 10.
@@ -25,7 +25,7 @@ public class Bubble6 extends Bubble {
     protected Bubble6(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage6(), locX, locY, resources);
         
-        List<Bubble> next = new ArrayList<>();
+        List<AbstractBubble> next = new ArrayList<>();
         
         // Create 2 new bubbles, that will come free when this bubble splits
         BubbleFactory bubbleFactory = new Bubble5Factory(new ResourcesWrapper());

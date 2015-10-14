@@ -5,7 +5,7 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 /**
  * One of the Bubble types. This is a regular bubble of size 1.
  */
-public class Bubble1 extends Bubble {
+public class Bubble1 extends AbstractBubble {
 
     /**
      * The constructor for this class. Generates a bubble of size 1, with a maxverticalspeed of 5.
