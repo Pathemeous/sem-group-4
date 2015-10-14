@@ -55,9 +55,7 @@ public class MultiplayerGame extends Game {
     public void update(int delta) throws SlickException {
         super.update(delta);
         
-        if (!isPaused()) {
-            player1Input.poll();
-            player2Input.poll();
-        }
+        player1Input.poll();
+        player2Input.poll();
     }
 }
