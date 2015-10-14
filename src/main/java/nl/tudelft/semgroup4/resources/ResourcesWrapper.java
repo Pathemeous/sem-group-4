@@ -202,11 +202,11 @@ public class ResourcesWrapper {
     }
 
     public Animation getPlayerWalkLeft() {
-        return animations.get("pl");
+        return animations.get("animation\\pl");
     }
 
     public Animation getPlayerWalkRight() {
-        return animations.get("pr");
+        return animations.get("animation\\pr");
     }
 
     public Image getBubbleImage1() {

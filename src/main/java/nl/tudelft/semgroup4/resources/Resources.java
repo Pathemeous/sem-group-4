@@ -142,11 +142,14 @@ public final class Resources {
                 if (Files.isRegularFile(filePath)) {
                     try {
                         String fileString = filePath.toString();
+                        int startIndex = fileString.indexOf("animation");
+                        String key = fileString.substring(startIndex);
+                        
                         // Split the filePath with backslash as delimiter
-                        String[] items = fileString.split("\\\\");
+                        String[] layers = key.split("\\\\");
                         // Store the name of the last folder, which will be used as
                         // hash to store the animation.
-                        String animationHash = items[items.length - 2];
+                        String animationHash = layers[layers.length - 2];
         
                         // If there is no item which belongs to this folder, create one.
                         if (animationImages.get(animationHash) == null) {
@@ -189,7 +192,7 @@ public final class Resources {
 
             // Store the animation in a hashmap, using the folder with the images for this
             // animation as the key.
-            animations.put(key, animation);
+            animations.put("animation\\" + key, animation);
         }
     }
 
