@@ -13,6 +13,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 import nl.tudelft.semgroup4.Modifiable;
@@ -108,7 +109,7 @@ public class BubbleTest {
     }
 
     @Test
-    public void testSplitWithRandomAbove7() throws SlickException {
+    public void testSplit() throws SlickException {
         Image mockedImg = mock(Image.class);
         AbstractBubble mockedBubble1 = mock(AbstractBubble.class);
         AbstractBubble mockedBubble2 = mock(AbstractBubble.class);
@@ -127,41 +128,12 @@ public class BubbleTest {
 
         Modifiable modifiable = mock(Modifiable.class);
 
-        List<AbstractBubble> bubblesList = bubble.split(modifiable, 8);
+        List<AbstractBubble> bubblesList = bubble.split(modifiable);
         assertTrue(bubblesList.contains(mockedBubble1));
         assertTrue(bubblesList.contains(mockedBubble2));
         assertEquals(2, bubblesList.size());
         
-        verify(modifiable, times(3)).toAdd(any());
-        verify(modifiable, times(1)).toRemove(bubble);
-
-    }
-    
-    @Test
-    public void testSplitWithRandomBelow7() throws SlickException {
-        Image mockedImg = mock(Image.class);
-        AbstractBubble mockedBubble1 = mock(AbstractBubble.class);
-        AbstractBubble mockedBubble2 = mock(AbstractBubble.class);
-        when(mockedImg.getWidth()).thenReturn(10);
-        when(mockedImg.getHeight()).thenReturn(10);
-        when(mockedBubble1.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
-        when(mockedBubble2.getBounds()).thenReturn(new Rectangle(0, 0, 0, 0));
-        when(mockedResources.getBubbleImage1()).thenReturn(mockedImg);
-        
-        List<AbstractBubble> next = new ArrayList<>();
-        next.add(mockedBubble1);
-        next.add(mockedBubble2);
-
-        AbstractBubble bubble = new Bubble2(mockedResources, 0, 0);
-        bubble.setNext(next);
-
-        Modifiable modifiable = mock(Modifiable.class);
-
-        List<AbstractBubble> bubblesList = bubble.split(modifiable, 6);
-        assertTrue(bubblesList.contains(mockedBubble1));
-        assertTrue(bubblesList.contains(mockedBubble2));
-
-        verify(modifiable, times(2)).toAdd(any());
+        verify(modifiable, atLeast(2)).toAdd(any());
         verify(modifiable, times(1)).toRemove(bubble);
 
     }
@@ -172,7 +144,7 @@ public class BubbleTest {
 
         Modifiable modifiable = mock(Modifiable.class);
 
-        bubble.split(modifiable, 6);
+        bubble.split(modifiable);
         
         verify(modifiable, times(0)).toAdd(any());
         verify(modifiable, times(1)).toRemove(bubble);
@@ -251,6 +223,26 @@ public class BubbleTest {
         assertTrue(bubble.isSlow());
         bubble.setSlow(false);
         assertFalse(bubble.isSlow());
+    }
+    
+    @Test
+    public void testGetNext() {
+        AbstractBubble bubble = new Bubble2(mockedResources, 0, 0);
+        
+        LinkedList<AbstractBubble> next = new LinkedList<>();
+        
+        bubble.setNext(next);
+        
+        assertEquals(next, bubble.getNext());
+    }
+    
+    @Test
+    public void testGetMaxverticalSpeed() {
+        AbstractBubble bubble = new Bubble2(mockedResources, 0, 0);
+        
+        bubble.setMaxVerticalSpeed(2.0f);
+        
+        assertEquals(2.0f, bubble.getMaxVerticalSpeed(), 0.0f);
     }
 
 }

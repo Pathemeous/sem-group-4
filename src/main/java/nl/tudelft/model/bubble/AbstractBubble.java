@@ -133,10 +133,13 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         resources.playBubbleSplit();
         container.toRemove(this);
         
-        Pickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
-        if (pickup != null) {
-            container.toAdd(pickup);
+        if (!nextBubbles.isEmpty()) {
+            Pickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
+            if (pickup != null) {
+                container.toAdd(pickup);
+            }
         }
+        
         
         // We're going to split
         for (int i = 0; i < nextBubbles.size(); i++) {
