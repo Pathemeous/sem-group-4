@@ -113,13 +113,13 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         final BubbleFactory bubbleFactory = getBubbleFactory();
         if (bubbleFactory != null) {
             // we're going to split!
-            if (random > 7) {
+            //if (random > 7) {
                 // feeling lucky?
                 Pickup pickup =
                         Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
                                 getLocY());
                 container.toAdd(pickup);
-            }
+            //}
 
             // create bubbles
             Bubble bubbleLeft = bubbleFactory.createBubble();
