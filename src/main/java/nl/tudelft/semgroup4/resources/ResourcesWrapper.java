@@ -302,19 +302,19 @@ public class ResourcesWrapper {
     }
 
     public Sound getBubblePop() {
-        return sounds.get("src\\main\\resources\\sound\\pop.ogg");
+        return sounds.get("sound\\pop.ogg");
     }
 
     public Sound getWeaponFire() {
-        return sounds.get("src\\main\\resources\\sound\\weaponFire.ogg");
+        return sounds.get("sound\\weaponFire.ogg");
     }
 
     public Sound getDeath() {
-        return sounds.get("src\\main\\resources\\sound\\death.ogg");
+        return sounds.get("sound\\death.ogg");
     }
 
     public Sound getTimeUp() {
-        return sounds.get("src\\main\\resources\\sound\\timeUp.ogg");
+        return sounds.get("sound\\timeUp.ogg");
     }
 
     public Music getTitleScreenMusic() {
