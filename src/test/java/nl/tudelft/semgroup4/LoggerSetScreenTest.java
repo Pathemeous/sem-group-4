@@ -67,7 +67,7 @@ public class LoggerSetScreenTest {
 
     @Test
     public void testRenderText() {
-        screen.renderText(10, 10);
+        screen.show(mockedGraphics, mockedGameContainer, mockedInput, mockedState);
         verify(mockedFont, times(5)).drawString(anyInt(), anyInt(), anyString(), any());
     }
 

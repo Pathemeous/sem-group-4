@@ -54,7 +54,7 @@ public class LoggerSetScreenController {
      * @throws SlickException
      *                  image can't be created
      */
-    public MouseOverArea[] createMouseOverAreas(float overCoordX, float overCoordY,
+    protected MouseOverArea[] createMouseOverAreas(float overCoordX, float overCoordY,
             GameContainer container, String[] text,TrueTypeFont typeFont,
             ResourcesWrapper res) throws SlickException {
 

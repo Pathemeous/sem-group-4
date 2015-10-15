@@ -88,7 +88,7 @@ public class LoggerSetScreen {
      * @param renderCoordY
      *                  the first y coordinate to use
      */
-    public void renderText(float renderCoordX, float renderCoordY) {
+    private void renderText(float renderCoordX, float renderCoordY) {
         for (int i = 0; i < text.length; i++) {
             typeFont.drawString(renderCoordX,
                     renderCoordY + i * 50,
@@ -98,7 +98,7 @@ public class LoggerSetScreen {
     }
 
     /**
-     * Get all mouse over areas (only used for testing).
+     * Set the first mouse over area (only used for testing).
      * @param overArea
      *              the area to which to set
      */
