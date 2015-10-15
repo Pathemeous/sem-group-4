@@ -151,7 +151,7 @@ public class OptionsStateTest {
     @Test
     public void testGetID() {
         state.getID();
-        verify(mockedController, times(1)).getId();
+        verify(mockedController, times(1)).getID();
     }
 
     @Test
@@ -161,15 +161,15 @@ public class OptionsStateTest {
     }
 
     @Test
-    public void testGetLoggerSetEnabled() {
-        assertEquals(state.getLoggerSetEnabled(), false);
+    public void testIsLoggerSetEnabled() {
+        assertEquals(state.isLoggerSetEnabled(), false);
     }
 
     @Test
     public void testSetLoggerSetEnabled() {
-        assertEquals(state.getLoggerSetEnabled(), false);
+        assertEquals(state.isLoggerSetEnabled(), false);
         state.setLoggerSetEnabled(true);
-        assertEquals(state.getLoggerSetEnabled(), true);
+        assertEquals(state.isLoggerSetEnabled(), true);
     }
 
 }

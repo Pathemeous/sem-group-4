@@ -8,8 +8,8 @@ import org.newdawn.slick.Input;
 
 public class OptionsStateController {
 
-    private OptionsState state;
-    private ResourcesWrapper res;
+    private final OptionsState state;
+    private final ResourcesWrapper res;
 
     /**
      * Create a new controller
@@ -60,7 +60,7 @@ public class OptionsStateController {
      * Toggles the loggerSetEnabled.
      */
     protected void toggleLoggerScreen() {
-        state.setLoggerSetEnabled(!state.getLoggerSetEnabled());
+        state.setLoggerSetEnabled(!state.isLoggerSetEnabled());
     }
 
     /**
@@ -68,7 +68,7 @@ public class OptionsStateController {
      * @return - int
      *              the ID for OptionsState
      */
-    protected int getId() {
+    protected int getID() {
         return States.OptionsState;
     }
 

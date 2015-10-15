@@ -196,10 +196,10 @@ public class OptionsState extends BasicGameState {
 
     @Override
     public int getID() {
-        return controller.getId();
+        return controller.getID();
     }
 
-    protected boolean getLoggerSetEnabled() {
+    protected boolean isLoggerSetEnabled() {
         return loggerSetEnabled;
     }
 

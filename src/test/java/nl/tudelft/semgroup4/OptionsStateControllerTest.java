@@ -87,7 +87,7 @@ public class OptionsStateControllerTest {
 
     @Test
     public void testGetID() {
-        assertEquals(controller.getId(), 2);
+        assertEquals(controller.getID(), 2);
     }
 
     @Test
