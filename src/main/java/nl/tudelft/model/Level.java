@@ -40,7 +40,9 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     /**
      * Creates a level object with an object list, a timer and a speed.
-     *
+     * 
+     * @param backgroundImage
+     *            {@link Image} - The image to render as background.
      * @param walls
      *            LinkedList - list containing all walls in this level.
      * @param projectiles

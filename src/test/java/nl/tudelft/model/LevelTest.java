@@ -56,9 +56,9 @@ public class LevelTest {
         mockedImage = Mockito.mock(Image.class);
         level = new Level(mockedImage, walls, projectiles, pickups, bubbles, 3, 1);
     }
+
     /**
-     * Test to test the constructor for level.
-     * This test also tests the getters.
+     * Test to test the constructor for level. This test also tests the getters.
      */
     @Test
     public void testLevel() {
@@ -108,7 +108,9 @@ public class LevelTest {
 
     /**
      * Test to check the update method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testUpdate1() throws SlickException {
@@ -122,7 +124,9 @@ public class LevelTest {
 
     /**
      * Test to check the update method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testUpdate2() throws SlickException {
@@ -144,7 +148,9 @@ public class LevelTest {
 
     /**
      * Test to check the update method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testUpdate3() throws SlickException {
@@ -172,7 +178,7 @@ public class LevelTest {
         assertFalse(pickups.contains(mockedPickup));
         assertFalse(projectiles.contains(mockedProjectile));
     }
-    
+
     @Test
     public void testUpdateShopSlowActive() throws SlickException {
         Modifiable modifiable = mock(Modifiable.class);
@@ -188,7 +194,9 @@ public class LevelTest {
 
     /**
      * Test to check the splitAllBubbles method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testSplitAllBubbles1() throws SlickException {
@@ -200,7 +208,9 @@ public class LevelTest {
 
     /**
      * Test to check the splitAllBubbles method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testSplitAllBubbles2() throws SlickException {
@@ -212,7 +222,9 @@ public class LevelTest {
 
     /**
      * Test to check the splitAllBubbles method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testSplitAllBubbles3() throws SlickException {
@@ -222,32 +234,32 @@ public class LevelTest {
         level.splitAllBubbles(bubbles, false);
         verify(mockedBubble, times(1)).getNext();
     }
-    
+
     @Test
     public void testGetSetMaxTime() {
         assertEquals(3, level.getMaxTime());
         level.setMaxTime(34);
         assertEquals(34, level.getMaxTime());
     }
-    
+
     @Test
     public void render() throws SlickException {
         GameContainer mockedContainer = Mockito.mock(GameContainer.class);
-        Graphics mockedGraphics  = Mockito.mock(Graphics.class);
+        Graphics mockedGraphics = Mockito.mock(Graphics.class);
         Mockito.when(mockedImage.getWidth()).thenReturn(1);
         Mockito.when(mockedImage.getHeight()).thenReturn(1);
         level.render(mockedContainer, mockedGraphics);
-        
-        for(AbstractGameObject gameObject : bubbles) {
+
+        for (AbstractGameObject gameObject : bubbles) {
             Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
         }
-        for(AbstractGameObject gameObject : walls) {
+        for (AbstractGameObject gameObject : walls) {
             Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
         }
-        for(AbstractGameObject gameObject : bubbles) {
+        for (AbstractGameObject gameObject : bubbles) {
             Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
         }
-        for(AbstractGameObject gameObject : pickups) {
+        for (AbstractGameObject gameObject : pickups) {
             Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
         }
     }
