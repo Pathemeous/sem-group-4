@@ -31,6 +31,7 @@ public final class Resources {
      */
     private Resources() {
     }
+    
     /**
      * Initializes the resources.
      * 
@@ -192,13 +193,13 @@ public final class Resources {
     private static void makeAnimations(HashMap<String, HashMap<String, Image>> animationImages) {
         // loop over all the items in the hashmap
         for (String key : animationImages.keySet()) {
-            HashMap<String, Image> curImages = animationImages.get(key);
+            HashMap<String, Image> curAnimationImages = animationImages.get(key);
             Animation animation = new Animation();
             
             // Loop over all the items in the current map, where each item is an image.
             // Each image is added to the frame of the animation.
-            for (int i = 0; i < curImages.size(); i++) {
-                Image img = curImages.get("src\\main\\resources\\" + key + "\\"
+            for (int i = 0; i < curAnimationImages.size(); i++) {
+                Image img = curAnimationImages.get("src\\main\\resources\\" + key + "\\"
                         + (i + 1) + ".png");
                 animation.addFrame(img, 20);
             }
