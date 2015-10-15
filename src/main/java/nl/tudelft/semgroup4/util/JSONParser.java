@@ -30,6 +30,8 @@ public final class JSONParser {
     /**
      * Parse the specified filePath with default encoding (UTF-8).
      * 
+     * @param filePath
+     *            {@link String} - The path to the file.
      * @return {@link JSONObject} - the JSON format of the parsed file.
      * @throws IOException
      *             When the file is not found.
