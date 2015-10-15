@@ -20,23 +20,16 @@ public final class Resources {
 
     private static boolean isInitted = false;
 
-    private static HashMap<String, Image> images = new HashMap<>();
-    private static HashMap<String, Sound> sounds = new HashMap<>();
-    private static HashMap<String, Music> music = new HashMap<>();
-    private static HashMap<String, Animation> animations = new HashMap<>();
+    static HashMap<String, Image> images = new HashMap<>();
+    static HashMap<String, Sound> sounds = new HashMap<>();
+    static HashMap<String, Music> music = new HashMap<>();
+    static HashMap<String, Animation> animations = new HashMap<>();
 
-    
     /**
-     * Private constructor to avoid instantiation of this utility class.
-     */
-    private Resources() {
-    }
-    
-    /**
-     * Initializes the resources.
+     * Initialises the resources.
      * 
      * @throws SlickException
-     *             If the Game engine crashes.
+     *             - If the Game engine crashes.
      */
     public static void init() throws SlickException {
         if (isInitted) {
@@ -64,7 +57,7 @@ public final class Resources {
      * from each file, storing the image in a hashmap, with the filepath as key.
      * 
      * @throws IOException
-     *             If loading the files goes wrong.
+     *             : java exception.
      */
     private static void loadImages() throws IOException {
         Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
@@ -89,7 +82,7 @@ public final class Resources {
      * sound from each file, storing the sound in a hashmap, with the filepath as key.
      * 
      * @throws IOException
-     *             If loading the files goes wrong.
+     *             : java exception.
      */
     private static void loadSounds() throws IOException {
         Files.walk(Paths.get("src/main/resources/sound")).forEach(filePath -> {
@@ -114,7 +107,7 @@ public final class Resources {
      * music from each file, storing the music in a hashmap, with the filepath as key.
      * 
      * @throws IOException
-     *             If loading the files goes wrong.
+     *             : java exception.
      */
     private static void loadMusic() throws IOException {
         Files.walk(Paths.get("src/main/resources/music")).forEach(filePath -> {
@@ -140,7 +133,7 @@ public final class Resources {
      * filepath as key.
      * 
      * @throws IOException
-     *             If loading the files goes wrong.
+     *             : java exception.
      */
     private static void loadAnimations() throws IOException {
         HashMap<String, HashMap<String, Image>> animationImages = new HashMap<>();
@@ -188,7 +181,7 @@ public final class Resources {
     /**
      * Loops over each item of the hashmap. Each item consists of a hashmap, which contains images
      * belonging to one animation. The key of the outer hashmap is used as key to store the
-     * animation.
+     * animtion.
      */
     private static void makeAnimations(HashMap<String, HashMap<String, Image>> animationImages) {
         // loop over all the items in the hashmap
@@ -208,22 +201,6 @@ public final class Resources {
             // animation as the key.
             animations.put(key, animation);
         }
-    }
-
-    static final HashMap<String, Image> getImages() {
-        return images;
-    }
-
-    static final HashMap<String, Sound> getSounds() {
-        return sounds;
-    }
-
-    static final HashMap<String, Music> getMusic() {
-        return music;
-    }
-
-    static final HashMap<String, Animation> getAnimations() {
-        return animations;
     }
 
 }

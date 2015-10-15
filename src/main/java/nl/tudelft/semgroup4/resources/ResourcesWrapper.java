@@ -20,20 +20,20 @@ import org.newdawn.slick.TrueTypeFont;
 public class ResourcesWrapper {
     
     public static boolean musicOn = true;
-    private final HashMap<String, Image> images;
-    private final HashMap<String, Sound> sounds;
-    private final HashMap<String, Animation> animations;
-    private final HashMap<String, Music> music;
+    private static HashMap<String, Image> images;
+    private static HashMap<String, Sound> sounds;
+    private static HashMap<String, Animation> animations;
+    private static HashMap<String, Music> music;
     
     /**
      * Creates a new resourceswrapper, which contains all the resources
      * that can be used.
      */
     public ResourcesWrapper() {
-        images = Resources.getImages();
-        sounds = Resources.getSounds();
-        animations = Resources.getAnimations();
-        music = Resources.getMusic();
+        images = Resources.images;
+        sounds = Resources.sounds;
+        animations = Resources.animations;
+        music = Resources.music;
     }
     
 
@@ -362,6 +362,6 @@ public class ResourcesWrapper {
     }
     
     public TrueTypeFont getCountdownFont() {
-        return Fonts.getCountdownFont();
+        return Fonts.countdownFont;
     }
 }

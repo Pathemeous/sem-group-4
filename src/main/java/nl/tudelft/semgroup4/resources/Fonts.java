@@ -4,22 +4,12 @@ import java.awt.Font;
 
 import org.newdawn.slick.TrueTypeFont;
 
-public final class Fonts {
-
-    private static TrueTypeFont countdownFont;
-
-    /**
-     * Private constructor to avoid instantiation.
-     */
-    private Fonts() {
-    }
-
+public abstract class Fonts {
+    
+    static TrueTypeFont countdownFont;
+    
     public static void init() {
         Font font = new Font("Calibri", Font.BOLD, 60);
-        countdownFont = new TrueTypeFont(font, true);
-    }
-
-    static final TrueTypeFont getCountdownFont() {
-        return countdownFont;
+        countdownFont =  new TrueTypeFont(font, true);
     }
 }
