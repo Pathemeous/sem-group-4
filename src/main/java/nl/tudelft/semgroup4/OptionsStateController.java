@@ -29,7 +29,7 @@ public class OptionsStateController {
      *              the image belonging to the curront state of the sound
      */
     protected Image getMusicImage() {
-        if (res.musicOn) {
+        if (res.getMusicOn()) {
             return res.getOn();
         } else {
             return res.getOff();
@@ -60,11 +60,11 @@ public class OptionsStateController {
      * Toggles the loggerSetEnabled.
      */
     protected void toggleLoggerScreen() {
-        state.loggerSetEnabled = !state.loggerSetEnabled;
+        state.setLoggerSetEnabled(!state.getLoggerSetEnabled());
     }
 
     /**
-     * Gets the ID for OptionsState
+     * Gets the ID for OptionsState.
      * @return - int
      *              the ID for OptionsState
      */
@@ -76,6 +76,15 @@ public class OptionsStateController {
      * Toggles the music on and off.
      */
     protected void toggleMusic() {
-        res.musicOn = !res.musicOn;
+        res.setMusicOn(!res.getMusicOn());
+    }
+
+    /**
+     * Get the ResourcesWrapper (only used for testing).
+     * @return - ResourcesWrapper
+     *              the ResourcesWrapper used by the controller
+     */
+    protected ResourcesWrapper getResources() {
+        return res;
     }
 }

@@ -200,4 +200,12 @@ public class OptionsState extends BasicGameState {
         return controller.getId();
     }
 
+    protected boolean getLoggerSetEnabled() {
+        return loggerSetEnabled;
+    }
+
+    protected void setLoggerSetEnabled(boolean state) {
+        loggerSetEnabled = state;
+    }
+
 }
