@@ -146,7 +146,7 @@ public class LevelFactory {
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 120000;
 
-        return new Level(walls, projectiles, pickups, bubbles, time, id);
+        return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles, time, id);
     }
 
     /**
@@ -188,7 +188,7 @@ public class LevelFactory {
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 120000;
         
-        return new Level(walls, projectiles, pickups, bubbles, time, id);
+        return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles, time, id);
 
     }
 
@@ -227,7 +227,7 @@ public class LevelFactory {
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 120000;
 
-        return new Level(walls, projectiles, pickups, bubbles, time, id);
+        return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles, time, id);
 
     }
 
@@ -284,6 +284,6 @@ public class LevelFactory {
         LinkedList<Pickup> pickups = new LinkedList<>();
         int time = 240000;
 
-        return new Level(walls, projectiles, pickups, bubbles, time, id);
+        return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles, time, id);
     }
 }
