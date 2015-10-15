@@ -11,7 +11,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import org.junit.Test;
 
 
@@ -31,8 +31,8 @@ public class SlowGameSpeedTest {
     public void testApplyTo() {
         Level mockedLevel = mock(Level.class);
         SlowGameSpeed slowGameSpeed = new SlowGameSpeed(10, mockedLevel);
-        Bubble mockedBubble = mock(Bubble.class);
-        LinkedList<Bubble> bubbleList = new LinkedList<Bubble>();
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        LinkedList<AbstractBubble> bubbleList = new LinkedList<AbstractBubble>();
         bubbleList.add(mockedBubble);
         when(mockedLevel.getBubbles()).thenReturn(bubbleList);
         Player mockedPlayer = mock(Player.class);
