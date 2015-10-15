@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-
 /**
  * One of the Bubble types. This is a regular bubble of size 2.
  */
@@ -16,7 +15,7 @@ public class Bubble2 extends AbstractBubble {
      * bubble is hit.
      * 
      * @param resources
-     *            {@link ResourcesWrapper} - A new resourceWrapper that this class can use.
+     *            {@link ResourceWrapper} - A new resourceWrapper that this class can use.
      * @param locX
      *            : the starting x-location of the bubble.
      * @param locY

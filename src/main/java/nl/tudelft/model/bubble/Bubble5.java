@@ -16,7 +16,7 @@ public class Bubble5 extends AbstractBubble {
      * bubble is hit.
      *
      * @param resources
-     *            {@link ResourcesWrapper} - A new resourceWrapper that this class can use.
+     *            {@link ResourceWrapper} - A new resourceWrapper that this class can use.
      * @param locX
      *            : the starting x-location of the bubble.
      * @param locY
