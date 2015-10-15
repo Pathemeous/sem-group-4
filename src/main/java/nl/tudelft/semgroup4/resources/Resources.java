@@ -155,7 +155,7 @@ public final class Resources {
                             String key = fileString.substring(startIndex);
                             
                             // Split the filePath with backslash as delimiter
-                            String[] layers = key.split("\\\\");
+                            String[] layers = key.split(fileSeparator + fileSeparator);
                             
                             // Store the all but the filename of the image as key
                             String animationHash = "";
@@ -163,7 +163,7 @@ public final class Resources {
                                 if (animationHash.isEmpty()) {
                                     animationHash = layers[i];
                                 } else {
-                                    animationHash = animationHash + "\\" + layers[i];
+                                    animationHash = animationHash + fileSeparator + layers[i];
                                 }
                             }
             
@@ -184,7 +184,7 @@ public final class Resources {
                     }
                 });
 
-        makeAnimations(animationImages);
+        makeAnimations(animationImages, fileSeparator);
     }
 
     /**
@@ -192,7 +192,8 @@ public final class Resources {
      * belonging to one animation. The key of the outer hashmap is used as key to store the
      * animation.
      */
-    private static void makeAnimations(HashMap<String, HashMap<String, Image>> animationImages) {
+    private static void makeAnimations(HashMap<String, HashMap<String, Image>> animationImages, 
+            String fileSeparator) {
         // loop over all the items in the hashmap
         for (String key : animationImages.keySet()) {
             HashMap<String, Image> curImages = animationImages.get(key);
@@ -201,7 +202,8 @@ public final class Resources {
             // Loop over all the items in the current map, where each item is an image.
             // Each image is added to the frame of the animation.
             for (int i = 0; i < curImages.size(); i++) {
-                Image img = curImages.get("src\\main\\resources\\" + key + "\\"
+                Image img = curImages.get("src" + fileSeparator + "main" + fileSeparator 
+                        + "resources" + fileSeparator + "" + key + "" + fileSeparator
                         + (i + 1) + ".png");
                 animation.addFrame(img, 20);
             }
