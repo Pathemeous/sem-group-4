@@ -3,6 +3,7 @@ package nl.tudelft.model.pickups.weapon;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyFloat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -13,6 +14,8 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
@@ -154,5 +157,18 @@ public class ProjectileTest {
         projectile.fire();
         
         assertEquals(1.5, projectile.getLocX(), 0);
+    }
+
+    @Test
+    public void testRender() throws SlickException {
+        Projectile projectile =
+                new Projectile(mockedResources, mockedImage, 1, 1, 1, 1, 1, mockedWeapon);
+        when(mockedImage.getHeight()).thenReturn(1);
+        when(mockedImage.getWidth()).thenReturn(1);
+        Graphics mockedGraphics = mock(Graphics.class);
+        GameContainer mockedGameContainer = mock(GameContainer.class);
+        projectile.render(mockedGameContainer, mockedGraphics);
+        verify(mockedGraphics, times(1)).drawImage(any(), anyFloat(), anyFloat(), anyFloat(),
+                anyFloat(), anyFloat(), anyFloat(), anyFloat(), anyFloat());
     }
 }

@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -32,13 +32,13 @@ public class FreezeUtility extends Utility {
         if (isActive() && freezeCounter != FREEZETIME) {
             freezeCounter++;
             
-            for (Bubble bubble : level.getBubbles()) {
+            for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setFrozen(true);
             }
         }
         
         if (freezeCounter == FREEZETIME) {
-            for (Bubble bubble : level.getBubbles()) {
+            for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setFrozen(false);
             }
             toRemove();

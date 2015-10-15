@@ -12,7 +12,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
@@ -27,8 +27,8 @@ public class LevelTest {
     public LinkedList<AbstractWall> walls = new LinkedList<AbstractWall>();
     public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
     public LinkedList<Pickup> pickups = new LinkedList<Pickup>();
-    public LinkedList<Bubble> bubbles = new LinkedList<Bubble>();
-    public Bubble bubble;
+    public LinkedList<AbstractBubble> bubbles = new LinkedList<AbstractBubble>();
+    public AbstractBubble bubble;
     public AbstractWall wall;
     public Projectile projectile;
     public Pickup pickup;
@@ -44,7 +44,7 @@ public class LevelTest {
         projectiles.add(projectile);
         pickup = mock(Pickup.class);
         pickups.add(pickup);
-        bubble = mock(Bubble.class);
+        bubble = mock(AbstractBubble.class);
         bubbles.add(bubble);
     }
     /**
@@ -127,7 +127,7 @@ public class LevelTest {
         Modifiable modifiable = mock(Modifiable.class);
         AbstractWall mockedWall = mock(AbstractWall.class);
         level.toAdd(mockedWall);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         level.toAdd(mockedBubble);
         Pickup mockedPickup = mock(Pickup.class);
         level.toAdd(mockedPickup);
@@ -150,7 +150,7 @@ public class LevelTest {
         Modifiable modifiable = mock(Modifiable.class);
         AbstractWall mockedWall = mock(AbstractWall.class);
         level.toAdd(mockedWall);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         level.toAdd(mockedBubble);
         Pickup mockedPickup = mock(Pickup.class);
         level.toAdd(mockedPickup);
@@ -179,10 +179,10 @@ public class LevelTest {
     @Test
     public void testSplitAllBubbles1() throws SlickException {
         Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, true);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
@@ -192,10 +192,10 @@ public class LevelTest {
     @Test
     public void testSplitAllBubbles2() throws SlickException {
         Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
@@ -205,10 +205,10 @@ public class LevelTest {
     @Test
     public void testSplitAllBubbles3() throws SlickException {
         Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         bubbles.add(mockedBubble);
         when(mockedBubble.getImage()).thenReturn(null);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 }
