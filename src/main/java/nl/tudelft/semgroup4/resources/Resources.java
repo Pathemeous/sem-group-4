@@ -1,8 +1,7 @@
 package nl.tudelft.semgroup4.resources;
 
+import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
@@ -64,28 +63,61 @@ public final class Resources {
      *             If loading the files goes wrong.
      */
     private static void loadImages(String fileSeparator) throws IOException {
-        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
-            + fileSeparator + "img")).forEach(filePath -> {
-                    if (Files.isRegularFile(filePath)) {
-                        try {
-                            String fileString = filePath.toString();
-                            int startIndex = fileString.indexOf("img");
-                            String key = fileString.substring(startIndex);
-                            
-                            // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
-                            String fileName = layers[layers.length - 1];
-                            
-                            // Check if the filename doesn't start with a .
-                            if (fileName.indexOf('.') != 0) {
-                                Image img = new Image(fileString);
-                                images.put(key, img);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+//            + fileSeparator + "img")).forEach(filePath -> {
+//                    if (Files.isRegularFile(filePath)) {
+//                        try {
+//                            String fileString = filePath.toString();
+//                            int startIndex = fileString.indexOf("img");
+//                            String key = fileString.substring(startIndex);
+//                            
+//                            // Split the filePath with backslash as delimiter
+//                            String[] layers = key.split(fileSeparator + fileSeparator);
+//                            String fileName = layers[layers.length - 1];
+//                            
+//                            // Check if the filename doesn't start with a .
+//                            if (fileName.indexOf('.') != 0) {
+//                                Image img = new Image(fileString);
+//                                images.put(key, img);
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+        
+        
+
+        final File folder = new File("src" + fileSeparator + "main" + fileSeparator + "resources" 
+              + fileSeparator + "img");
+        listFilesForFolder(folder, fileSeparator);
+    }
+    
+    private static void listFilesForFolder(final File folder, String fileSeparator) {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolder(fileEntry, fileSeparator);
+            } else {
+                try {
+                    String fileString = fileEntry.toString();
+                    int startIndex = fileString.indexOf("img");
+                    String key = fileString.substring(startIndex);
+                    
+                    // Split the filePath with backslash as delimiter
+                    String[] layers = key.split(fileSeparator + fileSeparator);
+                    String fileName = layers[layers.length - 1];
+                    
+                    // Check if the filename doesn't start with a .
+                    if (fileName.indexOf('.') != 0) {
+                        Image img = new Image(fileString);
+                        images.put(key, img);
                     }
-                });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+                
+            }
+        }
     }
 
     /**
@@ -96,29 +128,60 @@ public final class Resources {
      *             If loading the files goes wrong.
      */
     private static void loadSounds(String fileSeparator) throws IOException {
-        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
-            + fileSeparator + "sound")).forEach(filePath -> {
-                    if (Files.isRegularFile(filePath)) {
-                        try {
-                            String fileString = filePath.toString();
-                            int startIndex = fileString.indexOf("sound");
-                            String key = fileString.substring(startIndex);
-                            
-                            // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
-                            String fileName = layers[layers.length - 1];
-                            
-                            // Check if the filename doesn't start with a .
-                            if (fileName.indexOf('.') != 0) {
-                                Sound img = new Sound(fileString);
-                                sounds.put(key, img);
-                            }
+//        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+//            + fileSeparator + "sound")).forEach(filePath -> {
+//                    if (Files.isRegularFile(filePath)) {
+//                        try {
+//                            String fileString = filePath.toString();
+//                            int startIndex = fileString.indexOf("sound");
+//                            String key = fileString.substring(startIndex);
+//                            
+//                            // Split the filePath with backslash as delimiter
+//                            String[] layers = key.split(fileSeparator + fileSeparator);
+//                            String fileName = layers[layers.length - 1];
+//                            
+//                            // Check if the filename doesn't start with a .
+//                            if (fileName.indexOf('.') != 0) {
+//                                Sound img = new Sound(fileString);
+//                                sounds.put(key, img);
+//                            }
+//        
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
         
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+        final File folder = new File("src" + fileSeparator + "main" + fileSeparator + "resources" 
+                + fileSeparator + "sound");
+        listFilesForFolderSounds(folder, fileSeparator);
+    }
+    
+    private static void listFilesForFolderSounds(final File folder, String fileSeparator) {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolderSounds(fileEntry, fileSeparator);
+            } else {
+                try {
+                    String fileString = fileEntry.toString();
+                    int startIndex = fileString.indexOf("sound");
+                    String key = fileString.substring(startIndex);
+                    
+                    // Split the filePath with backslash as delimiter
+                    String[] layers = key.split(fileSeparator + fileSeparator);
+                    String fileName = layers[layers.length - 1];
+                    
+                    // Check if the filename doesn't start with a .
+                    if (fileName.indexOf('.') != 0) {
+                        Sound img = new Sound(fileString);
+                        sounds.put(key, img);
                     }
-                });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
@@ -129,28 +192,65 @@ public final class Resources {
      *             If loading the files goes wrong.
      */
     private static void loadMusic(String fileSeparator) throws IOException {
-        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
-            + fileSeparator + "music")).forEach(filePath -> {
-                    if (Files.isRegularFile(filePath)) {
-                        try {
-                            String fileString = filePath.toString();
-                            int startIndex = fileString.indexOf("music");
-                            String key = fileString.substring(startIndex);
-                            
-                            // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
-                            String fileName = layers[layers.length - 1];
-                            
-                            // Check if the filename doesn't start with a .
-                            if (fileName.indexOf('.') != 0) {
-                                Music img = new Music(fileString);
-                                music.put(key, img);
-                            }
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
+//        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+//            + fileSeparator + "music")).forEach(filePath -> {
+//                    if (Files.isRegularFile(filePath)) {
+//                        try {
+//                            String fileString = filePath.toString();
+//                            int startIndex = fileString.indexOf("music");
+//                            String key = fileString.substring(startIndex);
+//                            
+//                            // Split the filePath with backslash as delimiter
+//                            String[] layers = key.split(fileSeparator + fileSeparator);
+//                            String fileName = layers[layers.length - 1];
+//                            
+//                            if (fileSeparator.equals("/")) {
+//                                layers = key.split(fileSeparator);
+//                            } else {
+//                                layers = key.split(fileSeparator + fileSeparator);
+//                            }
+//                            
+//                            // Check if the filename doesn't start with a .
+//                            if (fileName.indexOf('.') != 0) {
+//                                Music img = new Music(fileString);
+//                                music.put(key, img);
+//                            }
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+        
+        final File folder = new File("src" + fileSeparator + "main" + fileSeparator + "resources" 
+                + fileSeparator + "music");
+        listFilesForFolderMusic(folder, fileSeparator);
+    }
+    
+    private static void listFilesForFolderMusic(final File folder, String fileSeparator) {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolderMusic(fileEntry, fileSeparator);
+            } else {
+                try {
+                    String fileString = fileEntry.toString();
+                    int startIndex = fileString.indexOf("music");
+                    String key = fileString.substring(startIndex);
+                    
+                    // Split the filePath with backslash as delimiter
+                    String[] layers = key.split(fileSeparator + fileSeparator);
+                    String fileName = layers[layers.length - 1];
+                    
+                    // Check if the filename doesn't start with a .
+                    if (fileName.indexOf('.') != 0) {
+                        Music musicItem = new Music(fileString);
+                        music.put(key, musicItem);
                     }
-                });
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
@@ -164,50 +264,100 @@ public final class Resources {
     private static void loadAnimations(String fileSeparator) throws IOException {
         HashMap<String, HashMap<String, Image>> animationImages = new HashMap<>();
 
-        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
-            + fileSeparator + "animation")).forEach(filePath -> {
-                    if (Files.isRegularFile(filePath)) {
-                        try {
-                            String fileString = filePath.toString();
-                            int startIndex = fileString.indexOf("animation");
-                            String key = fileString.substring(startIndex);
-                            
-                            // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
-                            
-                            // Store the all but the filename of the image as key
-                            String animationHash = "";
-                            for (int i = 0; i < layers.length - 1; i++) {
-                                if (animationHash.isEmpty()) {
-                                    animationHash = layers[i];
-                                } else {
-                                    animationHash = animationHash + fileSeparator + layers[i];
-                                }
-                            }
-            
-                            // If there is no item which belongs to this folder, create one.
-                            if (animationImages.get(animationHash) == null) {
-                                animationImages.put(animationHash, new HashMap<>());
-                            }
-                            
-                            String fileName = layers[layers.length - 1];
-                            
-                            // Check if the filename doesn't start with a .
-                            if (fileName.indexOf('.') != 0) {
-                                Image image = new Image(fileString);
-                                
-                                // Add the image belonging to this path to the hashmap. The
-                                // hashmap belongs to one of the folders in animation.
-                                animationImages.get(animationHash).put(fileString, image);
-                            }
-        
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                    }
-                });
+//        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+//            + fileSeparator + "animation")).forEach(filePath -> {
+//                    if (Files.isRegularFile(filePath)) {
+//                        try {
+//                            String fileString = filePath.toString();
+//                            int startIndex = fileString.indexOf("animation");
+//                            String key = fileString.substring(startIndex);
+//                            
+//                            // Split the filePath with backslash as delimiter
+//                            String[] layers = key.split(fileSeparator + fileSeparator);
+//                            
+//                            // Store the all but the filename of the image as key
+//                            String animationHash = "";
+//                            for (int i = 0; i < layers.length - 1; i++) {
+//                                if (animationHash.isEmpty()) {
+//                                    animationHash = layers[i];
+//                                } else {
+//                                    animationHash = animationHash + fileSeparator + layers[i];
+//                                }
+//                            }
+//            
+//                            // If there is no item which belongs to this folder, create one.
+//                            if (animationImages.get(animationHash) == null) {
+//                                animationImages.put(animationHash, new HashMap<>());
+//                            }
+//                            
+//                            String fileName = layers[layers.length - 1];
+//                            
+//                            // Check if the filename doesn't start with a .
+//                            if (fileName.indexOf('.') != 0) {
+//                                Image image = new Image(fileString);
+//                                
+//                                // Add the image belonging to this path to the hashmap. The
+//                                // hashmap belongs to one of the folders in animation.
+//                                animationImages.get(animationHash).put(fileString, image);
+//                            }
+//        
+//                        } catch (Exception e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                });
+        final File folder = new File("src" + fileSeparator + "main" + fileSeparator + "resources" 
+                + fileSeparator + "animation");
+        listFilesForFolderAnimations(folder, fileSeparator, animationImages);
 
         makeAnimations(animationImages, fileSeparator);
+    }
+    
+    private static void listFilesForFolderAnimations(final File folder, String fileSeparator, 
+            HashMap<String, HashMap<String, Image>> animationImages) {
+        for (final File fileEntry : folder.listFiles()) {
+            if (fileEntry.isDirectory()) {
+                listFilesForFolderAnimations(fileEntry, fileSeparator, animationImages);
+            } else {
+                try {
+                    String fileString = fileEntry.toString();
+                    int startIndex = fileString.indexOf("animation");
+                    String key = fileString.substring(startIndex);
+                    
+                    // Split the filePath with backslash as delimiter
+                    String[] layers = key.split(fileSeparator + fileSeparator);
+                    
+                    // Store the all but the filename of the image as key
+                    String animationHash = "";
+                    for (int i = 0; i < layers.length - 1; i++) {
+                        if (animationHash.isEmpty()) {
+                            animationHash = layers[i];
+                        } else {
+                            animationHash = animationHash + fileSeparator + layers[i];
+                        }
+                    }
+    
+                    // If there is no item which belongs to this folder, create one.
+                    if (animationImages.get(animationHash) == null) {
+                        animationImages.put(animationHash, new HashMap<>());
+                    }
+                    
+                    String fileName = layers[layers.length - 1];
+                    
+                    // Check if the filename doesn't start with a .
+                    if (fileName.indexOf('.') != 0) {
+                        Image image = new Image(fileString);
+                        
+                        // Add the image belonging to this path to the hashmap. The
+                        // hashmap belongs to one of the folders in animation.
+                        animationImages.get(animationHash).put(fileString, image);
+                    }
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     /**
