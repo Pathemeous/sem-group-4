@@ -126,3 +126,5 @@ buildNumber.properties
 log.txt
 scores.json
 keyBindings.json
+
+jsonSavetestFile.txt
