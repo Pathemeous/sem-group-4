@@ -1,5 +1,7 @@
 package nl.tudelft.model;
 
+import java.awt.Font;
+
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -13,7 +15,6 @@ public class Countdown implements Renderable {
     
     private Game game;
     private int countdown = 180;
-    private TrueTypeFont typeFont;
     
     /**
      * Constructor of this class. Creates a countdown object.
@@ -23,7 +24,7 @@ public class Countdown implements Renderable {
     public Countdown(Game game, ResourcesWrapper resources) {
         this.game = game;
         game.setPaused(true);
-        typeFont = resources.getCountdownFont();
+        
     }
     
     /**
@@ -37,6 +38,8 @@ public class Countdown implements Renderable {
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         if (countdown > 0) {
+            Font font = new Font("Calibri", Font.BOLD, 60);
+            TrueTypeFont typeFont = new TrueTypeFont(font, true);
             String count = Integer.toString(countdown / 60 + 1);
             typeFont.drawString(container.getWidth() / 2 - 25, 100.0f, count, Color.black);
         }
