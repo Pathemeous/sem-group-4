@@ -54,6 +54,9 @@ public final class Resources {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        
+        // initialize the fonts
+        Fonts.init();
     }
 
     /**

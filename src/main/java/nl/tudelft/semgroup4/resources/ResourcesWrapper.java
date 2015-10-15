@@ -377,6 +377,10 @@ public class ResourcesWrapper {
         return new TrueTypeFont(font, bool);
     }
     
+    public TrueTypeFont getCountdownFont() {
+        return Fonts.getTypeFont();
+    }
+    
     public boolean isMusicOn() {
         return musicOn;
     }
