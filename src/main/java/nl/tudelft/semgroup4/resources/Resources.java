@@ -32,10 +32,10 @@ public final class Resources {
     private Resources() {
     }
     /**
-     * Initialises the resources.
+     * Initializes the resources.
      * 
      * @throws SlickException
-     *             - If the Game engine crashes.
+     *             If the Game engine crashes.
      */
     public static void init() throws SlickException {
         if (isInitted) {
@@ -63,7 +63,7 @@ public final class Resources {
      * from each file, storing the image in a hashmap, with the filepath as key.
      * 
      * @throws IOException
-     *             : java exception.
+     *             If loading the files goes wrong.
      */
     private static void loadImages() throws IOException {
         Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
@@ -88,7 +88,7 @@ public final class Resources {
      * sound from each file, storing the sound in a hashmap, with the filepath as key.
      * 
      * @throws IOException
-     *             : java exception.
+     *             If loading the files goes wrong.
      */
     private static void loadSounds() throws IOException {
         Files.walk(Paths.get("src/main/resources/sound")).forEach(filePath -> {
@@ -113,7 +113,7 @@ public final class Resources {
      * music from each file, storing the music in a hashmap, with the filepath as key.
      * 
      * @throws IOException
-     *             : java exception.
+     *             If loading the files goes wrong.
      */
     private static void loadMusic() throws IOException {
         Files.walk(Paths.get("src/main/resources/music")).forEach(filePath -> {
@@ -139,7 +139,7 @@ public final class Resources {
      * filepath as key.
      * 
      * @throws IOException
-     *             : java exception.
+     *             If loading the files goes wrong.
      */
     private static void loadAnimations() throws IOException {
         HashMap<String, HashMap<String, Image>> animationImages = new HashMap<>();
@@ -187,7 +187,7 @@ public final class Resources {
     /**
      * Loops over each item of the hashmap. Each item consists of a hashmap, which contains images
      * belonging to one animation. The key of the outer hashmap is used as key to store the
-     * animtion.
+     * animation.
      */
     private static void makeAnimations(HashMap<String, HashMap<String, Image>> animationImages) {
         // loop over all the items in the hashmap
