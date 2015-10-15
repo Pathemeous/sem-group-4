@@ -3,6 +3,7 @@ package nl.tudelft.semgroup4;
 import java.awt.Font;
 
 import nl.tudelft.model.Player;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -41,9 +42,12 @@ public class GameEndedState extends BasicGameState {
     private GameEndedController controller;
 
     private String gameTitleText;
-
+    private ResourcesWrapper wrapper;
     private int generalWidth = 5;
-
+    
+    public GameEndedState() {
+        this.wrapper = new ResourcesWrapper();
+    }
     /**
      * Initializes text settings, buttons and mouseOverAreas.
      * 
@@ -152,10 +156,10 @@ public class GameEndedState extends BasicGameState {
      */
     public void initializeTextUtilities() {
         fontTitle = new Font("Calibri", Font.BOLD, 60);
-        typeFontTitle = new TrueTypeFont(fontTitle, true);
+        typeFontTitle = wrapper.createFont(fontTitle, true);
 
         fontPlayer = new Font("Calibri", Font.BOLD, 40);
-        typeFontPlayer = new TrueTypeFont(fontPlayer, true);
+        typeFontPlayer = wrapper.createFont(fontPlayer, true);
 
         gameContinueText = "CONTINUE";
     }
@@ -401,5 +405,21 @@ public class GameEndedState extends BasicGameState {
     protected void setMouseOverTextField2(MouseOverArea mouseOverTextField2) {
         this.mouseOverTextField2 = mouseOverTextField2;
     }
+
+    /**
+     * @return the wrapper
+     */
+    public ResourcesWrapper getWrapper() {
+        return wrapper;
+    }
+
+    /**
+     * @param wrapper the wrapper to set
+     */
+    public void setWrapper(ResourcesWrapper wrapper) {
+        this.wrapper = wrapper;
+    }
+    
+    
 
 }
