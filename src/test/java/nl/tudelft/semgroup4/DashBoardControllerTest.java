@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.semgroup4;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyInt;
@@ -6,6 +6,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import nl.tudelft.model.Game;
+import nl.tudelft.model.Level;
+import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Dashboard;
 import nl.tudelft.semgroup4.DashboardController;
 
