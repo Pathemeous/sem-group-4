@@ -73,7 +73,7 @@ public final class Resources {
                             String key = fileString.substring(startIndex);
                             
                             // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
+                            String[] layers = splitString(key, fileSeparator);
                             String fileName = layers[layers.length - 1];
                             
                             // Check if the filename doesn't start with a .
@@ -105,7 +105,7 @@ public final class Resources {
                             String key = fileString.substring(startIndex);
                             
                             // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
+                            String[] layers = splitString(key, fileSeparator);
                             String fileName = layers[layers.length - 1];
                             
                             // Check if the filename doesn't start with a .
@@ -138,7 +138,7 @@ public final class Resources {
                             String key = fileString.substring(startIndex);
                             
                             // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
+                            String[] layers = splitString(key, fileSeparator);
                             String fileName = layers[layers.length - 1];
                             
                             // Check if the filename doesn't start with a .
@@ -173,7 +173,7 @@ public final class Resources {
                             String key = fileString.substring(startIndex);
                             
                             // Split the filePath with backslash as delimiter
-                            String[] layers = key.split(fileSeparator + fileSeparator);
+                            String[] layers = splitString(key, fileSeparator);
                             
                             // Store the all but the filename of the image as key
                             String animationHash = "";
@@ -235,6 +235,20 @@ public final class Resources {
             // animation as the key.
             animations.put(key, animation);
         }
+    }
+    
+    /**
+     * Splits a string based on a fileseparator. 
+     * @param filePath : the filepath that needs to be split.
+     * @param fileSeparator : the fileseparator. 
+     * @return : an array with the parts of the string.
+     */
+    private static String[] splitString(String filePath, String fileSeparator) {
+     // Split the filePath with backslash as delimiter
+        if (fileSeparator.equals("\\")) {
+            return filePath.split(fileSeparator + fileSeparator);
+        } 
+        return filePath.split(fileSeparator);
     }
 
     static final HashMap<String, Image> getImages() {
