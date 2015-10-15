@@ -25,6 +25,10 @@ public final class Resources {
     static HashMap<String, Music> music = new HashMap<>();
     static HashMap<String, Animation> animations = new HashMap<>();
 
+    private Resources() {
+        
+    }
+    
     /**
      * Initialises the resources.
      * 
