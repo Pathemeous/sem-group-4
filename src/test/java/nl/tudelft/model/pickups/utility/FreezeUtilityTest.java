@@ -9,11 +9,11 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.bubble.Bubble6;
 import nl.tudelft.model.bubble.Bubble6Factory;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -23,7 +23,7 @@ public class FreezeUtilityTest {
     
     @Test
     public void testConstructor() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupUtilityFreeze()).thenReturn(mockedImg);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
@@ -35,7 +35,7 @@ public class FreezeUtilityTest {
     
     @Test
     public void testActivate1() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
         Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
@@ -51,11 +51,11 @@ public class FreezeUtilityTest {
     
     @Test
     public void testUpdate1() throws SlickException {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6Factory(mockedResources).createBubble();
-        LinkedList<Bubble> bubbles = new LinkedList<>();
+        AbstractBubble bubble = new Bubble6Factory(mockedResources).createBubble();
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
         final Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
@@ -77,12 +77,12 @@ public class FreezeUtilityTest {
     
     @Test
     public void testUpdate2() throws SlickException {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6Factory(mockedResources).createBubble();
+        AbstractBubble bubble = new Bubble6Factory(mockedResources).createBubble();
         bubble.setFrozen(true);
-        LinkedList<Bubble> bubbles = new LinkedList<>();
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
         Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 

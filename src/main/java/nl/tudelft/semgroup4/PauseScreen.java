@@ -2,7 +2,7 @@ package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -21,11 +21,11 @@ public class PauseScreen {
      * Constructs a PauseScreen with the correct MouseOverArea and Resources.
      * 
      * @param resources
-     *            {@link ResourceWrapper} - a new ResourcesWrapper.
+     *            {@link ResourcesWrapper} - a new ResourcesWrapper.
      * @param mouseOver
      *            {@link MouseOverArea} - the Slick MouseOverArea to use.
      */
-    public PauseScreen(ResourceWrapper resources, MouseOverArea mouseOver) {
+    public PauseScreen(ResourcesWrapper resources, MouseOverArea mouseOver) {
         this.mouseOver = mouseOver;
         this.pauseText = resources.getPauseText();
         this.quitText = resources.getQuitText();

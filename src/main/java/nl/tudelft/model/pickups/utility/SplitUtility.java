@@ -1,11 +1,11 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class SplitUtility extends Utility {
     
-    public SplitUtility(ResourceWrapper resources, float locX, float locY) {
+    public SplitUtility(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilitySplit(), locX, locY);
     }
     

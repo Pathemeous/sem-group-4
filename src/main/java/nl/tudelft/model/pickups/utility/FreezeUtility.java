@@ -1,9 +1,9 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.SlickException;
 
@@ -13,7 +13,7 @@ public class FreezeUtility extends Utility {
     private int freezeCounter = 0;
     private static final int FREEZETIME = 300;
     
-    public FreezeUtility(ResourceWrapper resources, float locX, float locY) {
+    public FreezeUtility(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilityFreeze(), locX, locY);
     }
     
@@ -32,13 +32,13 @@ public class FreezeUtility extends Utility {
         if (isActive() && freezeCounter != FREEZETIME) {
             freezeCounter++;
             
-            for (Bubble bubble : level.getBubbles()) {
+            for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setFrozen(true);
             }
         }
         
         if (freezeCounter == FREEZETIME) {
-            for (Bubble bubble : level.getBubbles()) {
+            for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setFrozen(false);
             }
             toRemove();

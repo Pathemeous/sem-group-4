@@ -3,7 +3,7 @@ package nl.tudelft.model.shop.player;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class ShopShield extends PlayerShopItem {
     private Game game;
@@ -21,7 +21,7 @@ public class ShopShield extends PlayerShopItem {
      * @param buyer : The person who is buying the item.
      */
     public void applyTo(Player buyer) {
-        Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(new ResourceWrapper(), 0, 0);
+        Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(new ResourcesWrapper(), 0, 0);
         powerup.activate(buyer);
         game.toAdd(powerup);
     }

@@ -3,7 +3,7 @@ package nl.tudelft.model;
 import java.awt.Font;
 
 import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -22,7 +22,7 @@ public class Countdown implements Renderable {
      * @param game : the game that this countdown belongs to.
      * @param resources : resources wrapper.
      */
-    public Countdown(Game game, ResourceWrapper resources) {
+    public Countdown(Game game, ResourcesWrapper resources) {
         this.game = game;
         game.setPaused(true);
         

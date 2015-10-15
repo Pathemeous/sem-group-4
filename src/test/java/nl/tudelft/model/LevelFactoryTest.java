@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import org.newdawn.slick.SlickException;
 public class LevelFactoryTest {
     
     Game mockedGame;
-    ResourceWrapper mockedResources;
+    ResourcesWrapper mockedResources;
     
     /**
      * Creates all mocked dependencies.
@@ -24,7 +24,7 @@ public class LevelFactoryTest {
     @Before
     public void setUp() {
         mockedGame = mock(Game.class);
-        mockedResources = mock(ResourceWrapper.class);
+        mockedResources = mock(ResourcesWrapper.class);
         Image mockedImage = mock(Image.class);
         when(mockedResources.getVwallImage()).thenReturn(mockedImage);
         when(mockedResources.getWallImage()).thenReturn(mockedImage);

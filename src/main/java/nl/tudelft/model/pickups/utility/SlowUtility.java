@@ -1,9 +1,9 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.SlickException;
 
@@ -13,7 +13,7 @@ public class SlowUtility extends Utility {
     private int slowCounter = 0;
     private static final int SLOWTIME = 300;
     
-    public SlowUtility(ResourceWrapper resources, float locX, float locY) {
+    public SlowUtility(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilitySlow(), locX, locY);
     }
     
@@ -32,13 +32,13 @@ public class SlowUtility extends Utility {
         if (isActive() && slowCounter != SLOWTIME) {
             slowCounter++;
             
-            for (Bubble bubble : level.getBubbles()) {
+            for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setSlow(true);
             }
         }
         
         if (slowCounter == SLOWTIME) {
-            for (Bubble bubble : level.getBubbles()) {
+            for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setSlow(false);
             }
             toRemove();

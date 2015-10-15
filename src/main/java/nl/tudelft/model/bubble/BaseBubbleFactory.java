@@ -1,19 +1,19 @@
 package nl.tudelft.model.bubble;
 
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**
  * Created by justin on 08/10/15.
  */
 public abstract class BaseBubbleFactory implements BubbleFactory {
 
-    private final ResourceWrapper resources;
+    private final ResourcesWrapper resources;
 
-    public BaseBubbleFactory(ResourceWrapper resources) {
+    public BaseBubbleFactory(ResourcesWrapper resources) {
         this.resources = resources;
     }
 
-    protected final ResourceWrapper getResources() {
+    protected final ResourcesWrapper getResources() {
         return this.resources;
     }
 }

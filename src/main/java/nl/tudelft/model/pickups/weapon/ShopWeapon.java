@@ -1,10 +1,10 @@
 package nl.tudelft.model.pickups.weapon;
 
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class ShopWeapon extends Weapon {
 
-    public ShopWeapon(ResourceWrapper resources, float locX, float locY) {
+    public ShopWeapon(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupWeaponDouble(), resources.getWeaponImageRegular(),
                 resources, locX, locY, true, 3);
     }

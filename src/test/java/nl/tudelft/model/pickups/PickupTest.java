@@ -9,11 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import nl.tudelft.model.pickups.powerup.LifePowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.utility.Utility;
-import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.SlickException;
@@ -26,7 +23,7 @@ public class PickupTest {
      */
     @Test
     public void testPickup1() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Pickup pickup = new LifePowerup(mockedResources, 0, 0);
         assertFalse(pickup.isOnGround());
         assertFalse(pickup.isActive());
@@ -39,7 +36,7 @@ public class PickupTest {
      */
     @Test
     public void testUpdateLocation() throws SlickException {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Pickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         float locY = pickup.getLocY();
@@ -53,7 +50,7 @@ public class PickupTest {
      */
     @Test
     public void testUpdate1() throws SlickException {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Pickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         pickup.setOnGround(true);
@@ -68,7 +65,7 @@ public class PickupTest {
      */
     @Test
     public void testUpdate2() throws SlickException {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Pickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         pickup.toRemove();
@@ -84,7 +81,7 @@ public class PickupTest {
      */
     @Test
     public void testUpdate3() throws SlickException {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Pickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         pickup.setOnGround(true);
@@ -97,23 +94,11 @@ public class PickupTest {
     
     @Test
     public void testSetActive() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Pickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         assertFalse(pickup.isActive());
         pickup.setActive(true);
         assertTrue(pickup.isActive());
-    }
-    
-    @Test
-    public void testPickupGenerator() {
-        Pickup pickup1 = Pickup.generateRandomPickup(0, 0, 0);
-        assertTrue(pickup1 instanceof Weapon);
-        
-        Pickup pickup2 = Pickup.generateRandomPickup(5, 0, 0);
-        assertTrue(pickup2 instanceof Powerup);
-        
-        Pickup pickup3 = Pickup.generateRandomPickup(8, 0, 0);
-        assertTrue(pickup3 instanceof Utility);
     }
 }

@@ -11,8 +11,8 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.bubble.Bubble;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.model.bubble.AbstractBubble;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -21,7 +21,7 @@ public class LevelWonUtilityTest {
     
     @Test
     public void testConstructor() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupUtilityLevelwon()).thenReturn(mockedImg);
         LevelWonUtility utility = new LevelWonUtility(mockedResources, 0, 0);
@@ -33,10 +33,10 @@ public class LevelWonUtilityTest {
     
     @Test
     public void testActivate1() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         LevelWonUtility utility = new LevelWonUtility(mockedResources, 0, 0);
         
-        LinkedList<Bubble> bubbles = new LinkedList<>();
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         Level mockedLevel = mock(Level.class);
         when(mockedLevel.getBubbles()).thenReturn(bubbles);
         

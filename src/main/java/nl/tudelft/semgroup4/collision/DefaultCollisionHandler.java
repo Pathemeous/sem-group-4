@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
@@ -20,7 +20,7 @@ import nl.tudelft.model.wall.HorMovingWall;
 import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.model.wall.VerMovingWall;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -33,21 +33,21 @@ public class DefaultCollisionHandler implements CollisionHandler<
 
     @Override
     public void onCollision(Game game, AbstractGameObject objA, AbstractGameObject objB) {
-        if (objA instanceof Bubble) {
+        if (objA instanceof AbstractBubble) {
             if (objB instanceof AbstractWall) {
-                bubbleWallHandler.onCollision(game, (Bubble) objA, (AbstractWall) objB);
+                bubbleWallHandler.onCollision(game, (AbstractBubble) objA, (AbstractWall) objB);
             }
         }
 
-        if (objA instanceof Bubble) {
+        if (objA instanceof AbstractBubble) {
             if (objB instanceof Player) {
-                playerBubbleHandler.onCollision(game, (Bubble) objA, (Player) objB);
+                playerBubbleHandler.onCollision(game, (AbstractBubble) objA, (Player) objB);
             }
         }
 
-        if (objA instanceof Bubble) {
+        if (objA instanceof AbstractBubble) {
             if (objB instanceof Projectile) {
-                projectileBubbleHandler.onCollision(game, (Bubble) objA, (Projectile) objB);
+                projectileBubbleHandler.onCollision(game, (AbstractBubble) objA, (Projectile) objB);
             }
         }
 
@@ -123,7 +123,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    private final CollisionHandler<Bubble, AbstractWall> bubbleWallHandler = 
+    private final CollisionHandler<AbstractBubble, AbstractWall> bubbleWallHandler = 
             (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
@@ -153,7 +153,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
+    final CollisionHandler<AbstractBubble, Player> playerBubbleHandler = (game, bubble, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
 
         if (!player.isAlive()) {
@@ -187,7 +187,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         } else {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, and died");
             game.setPaused(true);
-            new ResourceWrapper().playDeath();
+            new ResourcesWrapper().playDeath();
             
             new Timer().schedule(new TimerTask() {
                 @Override
@@ -220,7 +220,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         projectile.setHitWall();
     };
 
-    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
+    final CollisionHandler<AbstractBubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble - Projectile collision");
                 

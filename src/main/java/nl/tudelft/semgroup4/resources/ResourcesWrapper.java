@@ -1,11 +1,14 @@
 package nl.tudelft.semgroup4.resources;
 
+import java.awt.Font;
 import java.util.HashMap;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  * Creates a layer between the static {@link Resources} class and the classes that use it. By
@@ -16,7 +19,7 @@ import org.newdawn.slick.Sound;
  * @author Pathemeous
  *
  */
-public class ResourceWrapper {
+public class ResourcesWrapper {
     
     public static boolean musicOn = true;
     private final HashMap<String, Image> images;
@@ -29,7 +32,7 @@ public class ResourceWrapper {
      * Creates a new resourceswrapper, which contains all the resources
      * that can be used.
      */
-    public ResourceWrapper() {
+    public ResourcesWrapper() {
         images = Resources.getImages();
         sounds = Resources.getSounds();
         animations = Resources.getAnimations();
@@ -364,6 +367,22 @@ public class ResourceWrapper {
 
     public Image getPlayer2Off() {
         return images.get("img" + fileSeparator + "player2TextOff.png");
+    }
+    
+    public Image createImage(int width, int height) throws SlickException {
+        return new Image(width, height);
+    }
+
+    public TrueTypeFont createFont(Font font, boolean bool) {
+        return new TrueTypeFont(font, bool);
+    }
+    
+    public boolean isMusicOn() {
+        return musicOn;
+    }
+
+    public void setMusicOn(boolean state) {
+        musicOn = state;
     }
 }
 

@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.RegularWall;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -26,7 +26,7 @@ public class GameObjectTest {
      */
     @Test
     public void testGetBounds() throws SlickException {
-        ResourceWrapper mockedRes = Mockito.mock(ResourceWrapper.class);
+        ResourcesWrapper mockedRes = Mockito.mock(ResourcesWrapper.class);
         Image mockedImage = Mockito.mock(Image.class);
         Mockito.when(mockedImage.getHeight()).thenReturn(10);
         Mockito.when(mockedImage.getWidth()).thenReturn(5);

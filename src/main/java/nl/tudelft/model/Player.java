@@ -7,7 +7,7 @@ import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;
@@ -34,7 +34,7 @@ public class Player extends AbstractGameObject {
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
-    private final ResourceWrapper resources;
+    private final ResourcesWrapper resources;
     // TODO: Remove container when Observer projectiles can be managed within Weapon (and no longer
     // in Level).
     private Modifiable container;
@@ -49,7 +49,7 @@ public class Player extends AbstractGameObject {
      * Constructor for the Player class.
      * 
      * @param resources
-     *            {@link ResourceWrapper} - The resources that the player can use. creating a new
+     *            {@link ResourcesWrapper} - The resources that the player can use. creating a new
      *            instance is fine.
      * @param locX
      *            int - The x-coordinate where the player should spawn.
@@ -58,7 +58,7 @@ public class Player extends AbstractGameObject {
      * @param isFirstPlayer
      *            boolean - checks whether the player is number one or two.
      */
-    public Player(ResourceWrapper resources, int locX, int locY, boolean isFirstPlayer) {
+    public Player(ResourcesWrapper resources, int locX, int locY, boolean isFirstPlayer) {
         super(resources.getPlayerImageStill(), locX, locY);
         initialLocx = locX;
         initialLocy = locY;
@@ -69,7 +69,7 @@ public class Player extends AbstractGameObject {
         this.firstPlayer = isFirstPlayer;
         this.resources = resources;
 
-        this.weapon = new RegularWeapon(new ResourceWrapper(), 0, 0);
+        this.weapon = new RegularWeapon(new ResourcesWrapper(), 0, 0);
         this.weapon.activate(this);
 
         this.animationCurrent = null;
@@ -178,7 +178,7 @@ public class Player extends AbstractGameObject {
     public void reset() {
         clearAllPowerups();
         if (!shopWeapon) {
-            setWeapon(new RegularWeapon(new ResourceWrapper(), 0, 0));
+            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
         } else {
             weapon.getProjectiles().clear();
         }

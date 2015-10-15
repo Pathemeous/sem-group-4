@@ -1,11 +1,11 @@
 package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class MoneyPowerup extends Powerup {
 
-    public MoneyPowerup(ResourceWrapper resources, float locX, float locY) {
+    public MoneyPowerup(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupPowerMoney(), locX, locY);
     }
 

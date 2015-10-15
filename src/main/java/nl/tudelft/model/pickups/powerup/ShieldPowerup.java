@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -15,7 +15,7 @@ public class ShieldPowerup extends Powerup {
     private int removingShieldCounter = 0;
     private boolean isHit = false;
     
-    public ShieldPowerup(ResourceWrapper resources, float locX, float locY) {
+    public ShieldPowerup(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupPowerShield(), locX, locY);
     }
     

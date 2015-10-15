@@ -1,6 +1,6 @@
 package nl.tudelft.model;
 
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -12,7 +12,7 @@ public class TestGame extends Game {
 
     public TestGame(StateBasedGame mainApp,
                     int containerWidth, int containerHeight,
-                    ResourceWrapper wrapper,
+                    ResourcesWrapper wrapper,
                     Player player) throws IllegalArgumentException {
         super(mainApp, containerWidth, containerHeight, wrapper);
         this.player = player;

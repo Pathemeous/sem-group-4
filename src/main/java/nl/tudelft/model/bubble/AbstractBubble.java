@@ -1,16 +1,18 @@
 package nl.tudelft.model.bubble;
 
 import java.util.LinkedList;
+import java.util.List;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.RandomPickupFactory;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
-import nl.tudelft.semgroup4.util.Helpers;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Circle;
+import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
 /**
@@ -18,7 +20,7 @@ import org.newdawn.slick.geom.Shape;
  * the game.
  */
 
-public abstract class Bubble extends AbstractEnvironmentObject {
+public abstract class AbstractBubble extends AbstractEnvironmentObject {
 
     private static final float GRAVITY = 0.1f;
     private float verticalSpeed;
@@ -28,50 +30,71 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean slow = false;
     private boolean frozen = false;
     private int tickCount = 0;
-    private final ResourceWrapper resources;
-    private BubbleFactory bubbleFactory = null;
+    private final ResourcesWrapper resources;
+    private List<AbstractBubble> nextBubbles;
 
     /**
-     * The complete constructor for Bubble.
+     * Constructs a new instance of the {@link AbstractBubble} class.
      * <p>
-     * A bubble will be initialised moving right by default. By calling goLeft right after 
-     * initialisation, the bubble will start moving left.
-     * </p>
-     * <p>
-     * The bubble has a size, which will determine its image and its maximum vertical speed (and
-     * thus height)
+     * A bubble will be initialized moving right by default. By calling goLeft right after
+     * initialization, the bubble will start moving left.
      * </p>
      * 
      * @param bubbleImg
-     *            Image - image for this bubble.
+     *            {@link Image} - image for this bubble.
      * @param locX
      *            float - The x-coordinate where the bubble should spawn.
      * @param locY
      *            float - The y-coordinate where the bubble should spawn.
      * @param resources
-     *            {@link ResourceWrapper} - The resources that this class may use.
-     * @param bubbleFactory
-     *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
-     *            {@link Bubble#split(Modifiable, int)} method.
+     *            {@link ResourcesWrapper} - The resources that this object may use.
      */
-    public Bubble(Image bubbleImg, float locX, float locY,
-            ResourceWrapper resources, BubbleFactory bubbleFactory) {
+    public AbstractBubble(Image bubbleImg, float locX, float locY, ResourcesWrapper resources) {
         super(bubbleImg, locX, locY);
 
+        nextBubbles = createNextBubbles();
+        maxVerticalSpeed = initMaxVerticalSpeed();
         this.resources = resources;
-        this.bubbleFactory = bubbleFactory;
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
     }
 
-    public BubbleFactory getBubbleFactory() {
-        return this.bubbleFactory;
+    /**
+     * Creates a list with bubbles that will appear when this bubble splits.
+     * 
+     * @return {@link List} of {@link AbstractBubble}s - A list containing the bubbles.
+     */
+    protected abstract List<AbstractBubble> createNextBubbles();
+
+    /**
+     * Used to initialize the maximum vertical speed of a bubble.
+     * 
+     * @return float - A positive float value that determines maximum speed the bubble can have.
+     */
+    protected abstract float initMaxVerticalSpeed();
+
+    /**
+     * Set list of bubbles that will appear when this bubble splits.
+     * 
+     * @param next
+     *            : List with bubbles.
+     */
+    protected void setNext(List<AbstractBubble> next) {
+        this.nextBubbles = next;
     }
 
-    public void setBubbleFactory(BubbleFactory factory) {
-        bubbleFactory = factory;
+    /**
+     * Returns the list with bubbles that will appear when this bubble splits.
+     * 
+     * @return {@link List} of {@link AbstractBubble}s - A list containing the bubbles.
+     */
+    public List<AbstractBubble> getNext() {
+        return nextBubbles;
     }
-    
+
+    /**
+     * Makes the bubble go left.
+     */
     protected void goLeft() {
         horizontalSpeed = -Math.abs(horizontalSpeed);
     }
@@ -86,7 +109,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
         }
 
         if (isHit) {
-            split(container, Helpers.randInt(1, 10));
+            split(container);
         }
 
         tickCount++;
@@ -100,67 +123,52 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      *            implements Modifiable
      * @param container
      *            T implements Modifiable - The container in which this bubble lives.
-     * @param random
-     *            An integer between 0 and 10 that is used to determine whether this split will
-     *            drop a pickup.
-     * @return LinkedList containing the bubbles generated by this method.
+     * @return {@link LinkedList} of {@link AbstractBubble}s - A list containing the bubbles
+     *         generated by this method.
      */
-    public <T extends Modifiable> LinkedList<Bubble> split(T container, int random) {
-        LinkedList<Bubble> newBubbles = new LinkedList<>();
+    public <T extends Modifiable> LinkedList<AbstractBubble> split(T container) {
+        LinkedList<AbstractBubble> newBubbles = new LinkedList<>();
         resources.playBubbleSplit();
         container.toRemove(this);
-
-        final BubbleFactory bubbleFactory = getBubbleFactory();
-        if (bubbleFactory != null) {
-            // we're going to split!
-            if (random > 7) {
-                // feeling lucky?
-                Pickup pickup =
-                        Pickup.generateRandomPickup(Helpers.randInt(1, 10), getLocX(),
-                                getLocY());
+        
+        if (!nextBubbles.isEmpty()) {
+            Pickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
+            if (pickup != null) {
                 container.toAdd(pickup);
             }
+        }
 
-            // create bubbles
-            Bubble bubbleLeft = bubbleFactory.createBubble();
-            Bubble bubbleRight = bubbleFactory.createBubble();
+        // We're going to split
+        for (int i = 0; i < nextBubbles.size(); i++) {
+            AbstractBubble bubble = nextBubbles.get(i);
 
-            // left goes left, right goes right
-            bubbleLeft.goLeft();
+            if (i % 2 == 0) {
+                // Bubble goes right
+                bubble.setLocX(getLocX() + bubble.getBounds().getWidth() / 2);
+            } else {
+                // Bubble goes left
+                bubble.setLocX(getLocX());
+                bubble.goLeft();
+            }
 
-            // both bubbles get same y coord
-            bubbleLeft.setLocY(getLocY());
-            bubbleRight.setLocY(getLocY());
+            bubble.setLocY(getLocY());
+            bubble.setVerticalSpeed(bubble.getMaxVerticalSpeed() / 1.5f);
+            bubble.setFrozen(frozen);
 
-            // bubbles get different x coords
-            bubbleLeft.setLocX(getLocX());
-            bubbleRight.setLocX(getLocX() + bubbleRight.getBounds().getWidth() / 2);
-
-            // also same vert speed
-            bubbleLeft.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
-            bubbleRight.setVerticalSpeed(bubbleLeft.getMaxVerticalSpeed() / 1.5f);
-
-            // propagate frozen state (why is frozen bool here, not in level / game?)
-            bubbleLeft.setFrozen(frozen);
-            bubbleRight.setFrozen(frozen);
-
-            // actually add to game
-            container.toAdd(bubbleLeft);
-            container.toAdd(bubbleRight);
-
-            // track created bubbles and add to result list
-            newBubbles.add(bubbleLeft);
-            newBubbles.add(bubbleRight);
-
+            container.toAdd(bubble);
+            newBubbles.add(bubble);
         }
 
         return newBubbles;
     }
 
     /**
-     * Method which is called to make the ball move. It moves in a direction based on its
-     * horizontalspeed and verticalspeed. The verticalspeed is afterwards decreased with the
-     * gravity.
+     * Method which is called to make the ball move.
+     * 
+     * <p>
+     * It moves in a direction based on its horizontalspeed and verticalspeed. The verticalspeed is
+     * afterwards decreased with the gravity.
+     * </p>
      */
     private void move() {
         float locX = getLocX();
@@ -261,8 +269,8 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     }
 
     /**
-     * Overrides the getbounds method of GameObject, Bubble's superclass, so the shape of the
-     * bubble is an instance of Circle instead of Rectangle.
+     * Returns a {@link Circle} object instead of a {@link Rectangle} object. This allows for more
+     * dynamic collisions, because bubbles have circular shapes.
      */
     @Override
     public Shape getBounds() {

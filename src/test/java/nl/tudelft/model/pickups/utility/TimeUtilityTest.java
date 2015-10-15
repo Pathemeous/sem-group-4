@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -18,7 +18,7 @@ public class TimeUtilityTest {
     
     @Test
     public void testConstructor() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupUtilityTime()).thenReturn(mockedImg);
         TimeUtility utility = new TimeUtility(mockedResources, 0, 0);
@@ -30,7 +30,7 @@ public class TimeUtilityTest {
     
     @Test
     public void testActivate1() {
-        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         TimeUtility utility = new TimeUtility(mockedResources, 0, 0);
         
         Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 

@@ -1,13 +1,13 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class TimeUtility extends Utility {
 
     private static final int EXTRA_TIME = 20000;
     
-    public TimeUtility(ResourceWrapper resources, float locX, float locY) {
+    public TimeUtility(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilityTime(), locX, locY);
     }
     

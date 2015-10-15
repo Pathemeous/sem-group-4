@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourceWrapper;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -18,7 +18,7 @@ public abstract class Weapon extends Pickup {
     private final int maxCount;
     private int fireCounter = 0;
     private final Image img;
-    private final ResourceWrapper resources;
+    private final ResourcesWrapper resources;
 
     /**
      * Creates a new instance of a Weapon.
@@ -28,7 +28,7 @@ public abstract class Weapon extends Pickup {
      * @param projImage
      *            - the image the projectile that this weapon shoots will have.
      * @param resources
-     *            {@link ResourceWrapper} - The resources that this weapon will use.
+     *            {@link ResourcesWrapper} - The resources that this weapon will use.
      * @param locX
      *            - the x location of this weapon, when it's not activated.
      * @param locY
@@ -39,7 +39,7 @@ public abstract class Weapon extends Pickup {
      * @param maxCount
      *            - the maximum amount of projectiles this weapon can shoot.
      */
-    public Weapon(Image pickupImage, Image projImage, ResourceWrapper resources, float locX,
+    public Weapon(Image pickupImage, Image projImage, ResourcesWrapper resources, float locX,
             float locY, boolean sticky, int maxCount) {
         super(pickupImage, locX, locY);
         this.resources = resources;
