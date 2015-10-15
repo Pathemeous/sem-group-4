@@ -31,25 +31,12 @@ public final class JSONParser {
      * Parse the specified filePath with default encoding (UTF-8).
      * 
      * @return {@link JSONObject} - the JSON format of the parsed file.
+     * @throws IOException
+     *             When the file is not found.
      */
     public static JSONObject loadJSON(String filePath) throws IOException {
-        return loadJSON(filePath, DEFAULT_ENCODING);
-    }
-
-    /**
-     * Parse the specified filePath with the specified encoding.
-     * 
-     * @param filePath
-     *            {@link String} - The path to this file.
-     * @param encoding
-     *            {@link Charset} - the encoding that should be used when parsing the file.
-     * @return {@link JSONObject} - the JSON format of this parser's file.
-     * @throws IOException
-     *             - When the file is not found.
-     */
-    public static JSONObject loadJSON(String filePath, Charset encoding) throws IOException {
         byte[] byteString = Files.readAllBytes(Paths.get(filePath));
-        String jsonString = new String(byteString, encoding);
+        String jsonString = new String(byteString, DEFAULT_ENCODING);
         return new JSONObject(jsonString);
     }
 
@@ -61,9 +48,9 @@ public final class JSONParser {
      * @param filePath
      *            {@link String} - The path to this file.
      * @throws IOException
-     *             - When writing the file goes wrong.
+     *             When writing the file goes wrong.
      * @throws JSONException
-     *             - When the provided JSON does not conform to the formatting standards.
+     *             When the provided JSON does not conform to the formatting standards.
      */
     public static void save(JSONObject json, String filePath) throws IOException,
             JSONException {
