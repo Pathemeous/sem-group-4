@@ -46,26 +46,28 @@ public class StartScreenState extends BasicGameState {
     private StateBasedGame mainApp;
 
     private StartScreenStateController controller;
+    private ResourcesWrapper resources;
 
     /**
      * Starts a new {@link StartScreenState} and its controller.
+     * 
+     * @param resources
+     *            {@link ResourcesWrapper} - The resources that this object may use.
      */
-    public StartScreenState() {
-        controller = new StartScreenStateController(this, new ResourcesWrapper());
+    public StartScreenState(ResourcesWrapper resources) {
+        this.resources = resources;
+        controller = new StartScreenStateController(this, resources);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         this.mainApp = mainApp;
-        font = new Font("Verdana", Font.BOLD, 36);
-        typeFont = new TrueTypeFont(font, true);
-        highscores = "HIGHSCORES";
-        highScoreButton = new Image(typeFont.getWidth(highscores), typeFont.getHeight());
         shape = new Rectangle(650, 650, typeFont.getWidth(highscores), typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
 
+        createHighscoresButton();
+
         input = container.getInput();
-        final ResourcesWrapper resources = new ResourcesWrapper();
         // initializes all the areas where the buttons are to see if the mouse is on one of those
         // areas
         mouseOverOnePlayer =
@@ -193,6 +195,19 @@ public class StartScreenState extends BasicGameState {
     @Override
     public int getID() {
         return States.StartScreenState;
+    }
+
+    /**
+     * Creates the HighScore button with the appropriate text.
+     * 
+     * @throws SlickException
+     *             If creating the {@link Image} goes wrong.
+     */
+    protected void createHighscoresButton() throws SlickException {
+        font = new Font("Verdana", Font.BOLD, 36);
+        typeFont = resources.createFont(font, true);
+        highscores = "HIGHSCORES";
+        highScoreButton = new Image(typeFont.getWidth(highscores), typeFont.getHeight());
     }
 
 }
