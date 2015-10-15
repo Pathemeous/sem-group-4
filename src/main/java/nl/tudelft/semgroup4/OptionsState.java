@@ -13,7 +13,6 @@ import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
-
 public class OptionsState extends BasicGameState {
     /**
      * Checks for mouseEvents.
@@ -27,7 +26,7 @@ public class OptionsState extends BasicGameState {
     private int width;
     private OptionsStateController controller;
     protected boolean loggerSetEnabled = false;
-    private final ResourcesWrapper resources = new ResourcesWrapper();
+    private ResourcesWrapper resources = new ResourcesWrapper();
 
     /**
      * Create a new OptionsScreen with its controller.
@@ -206,6 +205,24 @@ public class OptionsState extends BasicGameState {
 
     protected void setLoggerSetEnabled(boolean state) {
         loggerSetEnabled = state;
+    }
+
+    /**
+     * Set the controller (only used for testing).
+     * @param controller
+     *                  the controller which will be used for testing
+     */
+    protected void setController(OptionsStateController controller) {
+        this.controller = controller;
+    }
+
+    /**
+     * Set the wrapper (only used for testing).
+     * @param wrapper
+     *                  the wrapper which will be used for testing
+     */
+    protected void setWrapper(ResourcesWrapper wrapper) {
+        this.resources = wrapper;
     }
 
 }
