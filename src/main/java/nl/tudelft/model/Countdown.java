@@ -15,6 +15,7 @@ public class Countdown implements Renderable {
     
     private Game game;
     private int countdown = 180;
+    private TrueTypeFont typeFont;
     
     /**
      * Constructor of this class. Creates a countdown object.
@@ -37,9 +38,12 @@ public class Countdown implements Renderable {
     
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        if (countdown > 0) {
+        if (typeFont == null) {
             Font font = new Font("Calibri", Font.BOLD, 60);
-            TrueTypeFont typeFont = new TrueTypeFont(font, true);
+            typeFont = new TrueTypeFont(font, true);
+        }
+        
+        if (countdown > 0) {
             String count = Integer.toString(countdown / 60 + 1);
             typeFont.drawString(container.getWidth() / 2 - 25, 100.0f, count, Color.black);
         }

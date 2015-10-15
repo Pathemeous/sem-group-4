@@ -46,10 +46,12 @@ public final class Resources {
 
         // Loads all the images, sounds, music and animations from resource folders.
         try {
-            loadImages();
-            loadSounds();
-            loadMusic();
-            loadAnimations();
+            String fileSeparator = System.getProperty("file.separator");
+            System.out.println(fileSeparator);
+            loadImages(fileSeparator);
+            loadSounds(fileSeparator);
+            loadMusic(fileSeparator);
+            loadAnimations(fileSeparator);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -62,22 +64,23 @@ public final class Resources {
      * @throws IOException
      *             If loading the files goes wrong.
      */
-    private static void loadImages() throws IOException {
-        Files.walk(Paths.get("src/main/resources/img")).forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
-                    try {
-                        String fileString = filePath.toString();
-                        int startIndex = fileString.indexOf("img");
-                        String key = fileString.substring(startIndex);
-                        
-                        Image img = new Image(fileString);
-                        images.put(key, img);
-    
-                    } catch (Exception e) {
-                        e.printStackTrace();
+    private static void loadImages(String fileSeparator) throws IOException {
+        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+            + fileSeparator + "img")).forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        try {
+                            String fileString = filePath.toString();
+                            int startIndex = fileString.indexOf("img");
+                            String key = fileString.substring(startIndex);
+                            
+                            Image img = new Image(fileString);
+                            images.put(key, img);
+        
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            });
+                });
     }
 
     /**
@@ -87,22 +90,23 @@ public final class Resources {
      * @throws IOException
      *             If loading the files goes wrong.
      */
-    private static void loadSounds() throws IOException {
-        Files.walk(Paths.get("src/main/resources/sound")).forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
-                    try {
-                        String fileString = filePath.toString();
-                        int startIndex = fileString.indexOf("sound");
-                        String key = fileString.substring(startIndex);
-                        
-                        Sound img = new Sound(fileString);
-                        sounds.put(key, img);
-    
-                    } catch (Exception e) {
-                        e.printStackTrace();
+    private static void loadSounds(String fileSeparator) throws IOException {
+        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+            + fileSeparator + "sound")).forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        try {
+                            String fileString = filePath.toString();
+                            int startIndex = fileString.indexOf("sound");
+                            String key = fileString.substring(startIndex);
+                            
+                            Sound img = new Sound(fileString);
+                            sounds.put(key, img);
+        
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            });
+                });
     }
 
     /**
@@ -112,22 +116,23 @@ public final class Resources {
      * @throws IOException
      *             If loading the files goes wrong.
      */
-    private static void loadMusic() throws IOException {
-        Files.walk(Paths.get("src/main/resources/music")).forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
-                    try {
-                        String fileString = filePath.toString();
-                        int startIndex = fileString.indexOf("music");
-                        String key = fileString.substring(startIndex);
-                        
-                        Music img = new Music(fileString);
-                        music.put(key, img);
-    
-                    } catch (Exception e) {
-                        e.printStackTrace();
+    private static void loadMusic(String fileSeparator) throws IOException {
+        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+            + fileSeparator + "music")).forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        try {
+                            String fileString = filePath.toString();
+                            int startIndex = fileString.indexOf("music");
+                            String key = fileString.substring(startIndex);
+                            
+                            Music img = new Music(fileString);
+                            music.put(key, img);
+        
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
                     }
-                }
-            });
+                });
     }
 
     /**
@@ -138,45 +143,46 @@ public final class Resources {
      * @throws IOException
      *             If loading the files goes wrong.
      */
-    private static void loadAnimations() throws IOException {
+    private static void loadAnimations(String fileSeparator) throws IOException {
         HashMap<String, HashMap<String, Image>> animationImages = new HashMap<>();
 
-        Files.walk(Paths.get("src/main/resources/animation")).forEach(filePath -> {
-                if (Files.isRegularFile(filePath)) {
-                    try {
-                        String fileString = filePath.toString();
-                        int startIndex = fileString.indexOf("animation");
-                        String key = fileString.substring(startIndex);
-                        
-                        // Split the filePath with backslash as delimiter
-                        String[] layers = key.split("\\\\");
-                        
-                        // Store the all but the filename of the image as key
-                        String animationHash = "";
-                        for (int i = 0; i < layers.length - 1; i++) {
-                            if (animationHash.isEmpty()) {
-                                animationHash = layers[i];
-                            } else {
-                                animationHash = animationHash + "\\" + layers[i];
+        Files.walk(Paths.get("src" + fileSeparator + "main" + fileSeparator + "resources" 
+            + fileSeparator + "animation")).forEach(filePath -> {
+                    if (Files.isRegularFile(filePath)) {
+                        try {
+                            String fileString = filePath.toString();
+                            int startIndex = fileString.indexOf("animation");
+                            String key = fileString.substring(startIndex);
+                            
+                            // Split the filePath with backslash as delimiter
+                            String[] layers = key.split("\\\\");
+                            
+                            // Store the all but the filename of the image as key
+                            String animationHash = "";
+                            for (int i = 0; i < layers.length - 1; i++) {
+                                if (animationHash.isEmpty()) {
+                                    animationHash = layers[i];
+                                } else {
+                                    animationHash = animationHash + "\\" + layers[i];
+                                }
                             }
+            
+                            // If there is no item which belongs to this folder, create one.
+                            if (animationImages.get(animationHash) == null) {
+                                animationImages.put(animationHash, new HashMap<>());
+                            }
+            
+                            Image image = new Image(fileString);
+            
+                            // Add the image belonging to this path to the hashmap. The
+                            // hashmap belongs to one of the folders in animation.
+                            animationImages.get(animationHash).put(fileString, image);
+        
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
-        
-                        // If there is no item which belongs to this folder, create one.
-                        if (animationImages.get(animationHash) == null) {
-                            animationImages.put(animationHash, new HashMap<>());
-                        }
-        
-                        Image image = new Image(fileString);
-        
-                        // Add the image belonging to this path to the hashmap. The
-                        // hashmap belongs to one of the folders in animation.
-                        animationImages.get(animationHash).put(fileString, image);
-    
-                    } catch (Exception e) {
-                        e.printStackTrace();
                     }
-                }
-            });
+                });
 
         makeAnimations(animationImages);
     }
