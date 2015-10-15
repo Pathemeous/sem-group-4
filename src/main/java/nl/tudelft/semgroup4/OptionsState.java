@@ -225,4 +225,34 @@ public class OptionsState extends BasicGameState {
         this.resources = wrapper;
     }
 
+    /**
+     * Get the logger set screen (only used for testing).
+     * @return loggerSetScreen
+     *                  the logger set screen
+     */
+    protected LoggerSetScreen getLoggerSetScreen() {
+        return loggerSetScreen;
+    }
+
+    /**
+     * Set all MouseOverAreas to the same area (only used for testing).
+     * @param area
+     *                  the mocked area which will be set.
+     */
+    protected void setAreas(MouseOverArea area) {
+        soundOnOff = area;
+        backButton = area;
+        loggerButton = area;
+        keyButton = area;
+    }
+
+    /**
+     * Set the Input for testing (only used for testing).
+     * @param input
+     *                  the input which will be set
+     */
+    protected void setInputForTesting(Input input) {
+        this.input = input;
+    }
+
 }
