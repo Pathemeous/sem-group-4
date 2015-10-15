@@ -6,6 +6,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  * Creates a layer between the static {@link Resources} class and the classes that use it. By
@@ -360,7 +361,7 @@ public class ResourcesWrapper {
         return images.get("img\\player2TextOff.png");
     }
     
-//    public TrueTypeFont getCountdownFont() {
-//        return Resources.countdownFont;
-//    }
+    public TrueTypeFont getCountdownFont() {
+        return Resources.countdownFont;
+    }
 }

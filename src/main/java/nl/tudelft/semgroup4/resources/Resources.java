@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4.resources;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -54,8 +55,8 @@ public final class Resources {
         // Initializes fonts
         //Fonts.init();
         
-//        Font font = new Font("Calibri", Font.BOLD, 60);
-//        countdownFont =  new TrueTypeFont(font, true);
+        Font font = new Font("Calibri", Font.BOLD, 60);
+        countdownFont =  new TrueTypeFont(font, true);
     }
 
     /**
