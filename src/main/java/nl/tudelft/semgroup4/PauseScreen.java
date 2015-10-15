@@ -47,18 +47,20 @@ public class PauseScreen {
      */
     public void show(Graphics graphics, GameContainer container, Input input,
             StateBasedGame game, GameState gameState) {
-        graphics.setColor(Color.yellow);
-        graphics.setAntiAlias(true);
-        Color color = new Color(0f, 0f, 0f, 0.5f);
-        graphics.setColor(color);
-        graphics.fillRect(0, 0, container.getWidth(), container.getHeight());
-        graphics.drawImage(pauseText, container.getWidth() / 2 - pauseText.getWidth() / 2,
-                container.getHeight() / 3.0f);
-        graphics.drawImage(quitText, container.getWidth() / 2 - quitText.getWidth() / 2,
-                container.getHeight() / 2.0f);
+        setup(graphics);
+        draw(graphics, container);
+        update(input, game, gameState);
+    }
 
-        // checks to see if the user clicked on the "back to main menu button",
-        // if so, the state is set to main menu and the gameState unpauses
+    /**
+     * Checks for player input and acts according to mouse clicks in the right
+     * location, which will unpause the screen.
+     * 
+     * @param input
+     * @param game
+     * @param gameState
+     */
+    private void update(Input input, StateBasedGame game, GameState gameState) {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOver.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "Game",
@@ -67,5 +69,35 @@ public class PauseScreen {
                 game.enterState(States.StartScreenState);
             }
         }
+    }
+
+    /**
+     * Draws the elements of the pause screen in the container.
+     * 
+     * @param graphics
+     *            graphics used to draw the elements
+     * @param container
+     *            container in which to draw in
+     */
+    private void draw(Graphics graphics, GameContainer container) {
+        graphics.fillRect(0, 0, container.getWidth(), container.getHeight());
+        graphics.drawImage(pauseText,
+                container.getWidth() / 2 - pauseText.getWidth() / 2,
+                container.getHeight() / 3.0f);
+        graphics.drawImage(quitText,
+                container.getWidth() / 2 - quitText.getWidth() / 2,
+                container.getHeight() / 2.0f);
+    }
+
+    /**
+     * Sets up the graphics for displaying the right background color.
+     * 
+     * @param graphics
+     *            graphics used to set the color.
+     */
+    private void setup(Graphics graphics) {
+        graphics.setAntiAlias(true);
+        Color color = new Color(0f, 0f, 0f, 0.5f);
+        graphics.setColor(color);
     }
 }
