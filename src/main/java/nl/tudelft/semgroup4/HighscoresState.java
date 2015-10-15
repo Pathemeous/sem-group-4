@@ -31,17 +31,18 @@ public class HighscoresState extends BasicGameState {
     private final List<HighscoreEntry> highscores = new ArrayList<>();
     private static final Font font = new Font("Calibri", Font.BOLD, 46);
     private static final TrueTypeFont typeFont = new TrueTypeFont(font, true);
-
+    private HighscoresHelper highscoresHelper;
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
+        highscoresHelper = new HighscoresHelper();
         backButton = new MouseOverArea(container, resources.getBackText(),
                 container.getWidth() / 10, container.getHeight() / 10 * 9);
         input = container.getInput();
 
         highscores.clear();
         try {
-            highscores.addAll(HighscoresHelper.load());
+            highscores.addAll(highscoresHelper.load());
         } catch (IOException e) {
             e.printStackTrace();
         }
