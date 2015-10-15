@@ -44,6 +44,12 @@ public class StartScreenState extends BasicGameState {
      */
     private StateBasedGame mainApp;
 
+    private StartScreenStateController controller;
+
+    public StartScreenState() {
+        controller = new StartScreenStateController(this, new ResourcesWrapper());
+    }
+
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         this.mainApp = mainApp;
