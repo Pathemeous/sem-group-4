@@ -25,6 +25,13 @@ public final class Resources {
     static HashMap<String, Music> music = new HashMap<>();
     static HashMap<String, Animation> animations = new HashMap<>();
 
+    
+    /**
+     * Private constructor to avoid instantiation of this utility class.
+     */
+    private Resources() {
+    }
+    
     /**
      * Initialises the resources.
      * 
