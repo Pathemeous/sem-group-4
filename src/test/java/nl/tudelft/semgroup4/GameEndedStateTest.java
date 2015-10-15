@@ -1,16 +1,11 @@
 package nl.tudelft.semgroup4;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyBoolean;
-import static org.mockito.Matchers.anyInt;
-import static org.mockito.Matchers.anyString;
-import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -42,7 +37,6 @@ public class GameEndedStateTest {
     private Input mockedInput;
     private MouseOverArea mockedMouseOverArea2;
     private MouseOverArea mockedMouseOverArea3;
-    private ResourcesWrapper mockedWrapper;
 
     /**
      * Is calles before every test, initializes all need mocks and creates a new
@@ -50,33 +44,24 @@ public class GameEndedStateTest {
      */
     @Before
     public void setup() {
-        
+        gameEndedState = new GameEndedState();
+        mockedPlayers = new Player[2];
 
         mockedContainer = Mockito.mock(GameContainer.class);
         mockedGraphics = Mockito.mock(Graphics.class);
         mockedGame = Mockito.mock(StateBasedGame.class);
         mockedTypeFont = Mockito.mock(TrueTypeFont.class);
         mockedTypeFont2 = Mockito.mock(TrueTypeFont.class);
-        mockedWrapper = Mockito.mock(ResourcesWrapper.class);
+        mockedPlayer = Mockito.mock(Player.class);
+        mockedPlayers[0] = mockedPlayer;
+        mockedPlayers[1] = mockedPlayer;
         mockedTextField1 = Mockito.mock(TextField.class);
         mockedMouseOverArea1 = Mockito.mock(MouseOverArea.class);
         mockedMouseOverArea2 = Mockito.mock(MouseOverArea.class);
         mockedMouseOverArea3 = Mockito.mock(MouseOverArea.class);
         mockedController = Mockito.mock(GameEndedController.class);
         mockedInput = Mockito.mock(Input.class);
-        
-        when(mockedContainer.getHeight()).thenReturn(100);
-        when(mockedContainer.getWidth()).thenReturn(100);
-        when(mockedWrapper.createFont(any(), anyBoolean())).thenReturn(mockedTypeFont);
-        when(mockedInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)).thenReturn(
-                true);
-        
-        gameEndedState = new GameEndedState();
-        mockedPlayers = new Player[2];
-        mockedPlayer = Mockito.mock(Player.class);
-        mockedPlayers[0] = mockedPlayer;
-        mockedPlayers[1] = mockedPlayer;
-        
+
         gameEndedState.setTypeFontPlayer(mockedTypeFont);
         gameEndedState.setTypeFontTitle(mockedTypeFont2);
         gameEndedState.setPlayers(mockedPlayers);
@@ -87,19 +72,14 @@ public class GameEndedStateTest {
         gameEndedState.setMouseOverTextField2(mockedMouseOverArea3);
         gameEndedState.setController(mockedController);
         gameEndedState.setInput(mockedInput);
-        gameEndedState.setWrapper(mockedWrapper);
 
-        
+        when(mockedInput.isMousePressed(Input.MOUSE_LEFT_BUTTON)).thenReturn(
+                true);
     }
 
     @Test
     public void testGetId() {
         assertEquals(5, gameEndedState.getID());
-    }
-    
-    @Test
-    public void testInit() throws SlickException {
-        gameEndedState.init(mockedContainer, mockedGame);
     }
 
     @Test
