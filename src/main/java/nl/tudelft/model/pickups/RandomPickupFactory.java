@@ -13,7 +13,7 @@ import nl.tudelft.semgroup4.util.Helpers;
 public class RandomPickupFactory implements RandomFactory {
     
     private int pickupTypeNumber;
-    private int createsPickupNumber;
+    private int pickupNumber;
     
     /**
      * Creates a random pickup factory, with two random numbers. 
@@ -23,7 +23,7 @@ public class RandomPickupFactory implements RandomFactory {
      */
     public RandomPickupFactory() {
         pickupTypeNumber = Helpers.randInt(1, 10);
-        createsPickupNumber = Helpers.randInt(1, 10);
+        pickupNumber = Helpers.randInt(1, 10);
     }
     
     /**
@@ -39,7 +39,7 @@ public class RandomPickupFactory implements RandomFactory {
     @Override
     public Pickup createPickup(float locX, float locY) {
         // Doesn't create pickup
-        if (createsPickupNumber <= 7) {
+        if (pickupNumber <= 7) {
             return null;
         }
         
@@ -66,11 +66,11 @@ public class RandomPickupFactory implements RandomFactory {
     }
     
     protected void setCreateNumber(int number) {
-        createsPickupNumber = number;
+        pickupNumber = number;
     }
     
     protected int getCreateNumber() {
-        return createsPickupNumber;
+        return pickupNumber;
     }
     
 }
