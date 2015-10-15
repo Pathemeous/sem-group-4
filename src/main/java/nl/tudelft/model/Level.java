@@ -2,7 +2,7 @@ package nl.tudelft.model;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
@@ -29,7 +29,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<AbstractWall> walls;
     private final LinkedList<Projectile> projectiles;
     private final LinkedList<Pickup> pickups;
-    private final LinkedList<Bubble> bubbles;
+    private final LinkedList<AbstractBubble> bubbles;
     private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
     private int time;
@@ -54,7 +54,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            int - the number of this level.
      */
     public Level(LinkedList<AbstractWall> walls, LinkedList<Projectile> projectiles,
-            LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, int time, int id) {
+            LinkedList<Pickup> pickups, LinkedList<AbstractBubble> bubbles, int time, int id) {
         this.walls = walls;
         this.projectiles = projectiles;
         this.bubbles = bubbles;
@@ -79,7 +79,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             gameObject.update(this, delta);
         }
         if (shopSlow) {
-            for (Bubble gameObject : bubbles) {
+            for (AbstractBubble gameObject : bubbles) {
                 gameObject.setSlow(true);
             }
         }
@@ -89,8 +89,8 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof Projectile) {
                 projectiles.add((Projectile) obj);
             }
-            if (obj instanceof Bubble) {
-                bubbles.add((Bubble) obj);
+            if (obj instanceof AbstractBubble) {
+                bubbles.add((AbstractBubble) obj);
             }
             if (obj instanceof Pickup) {
                 pickups.add((Pickup) obj);
@@ -104,7 +104,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof Projectile) {
                 projectiles.remove(obj);
             }
-            if (obj instanceof Bubble) {
+            if (obj instanceof AbstractBubble) {
                 bubbles.remove(obj);
             }
             if (obj instanceof Pickup) {
@@ -161,10 +161,10 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            : boolean that indicates if the all the bubbles need to be split, or that bubbles
      *            need to be split until they are of size 1.
      */
-    public void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
-        for (Bubble bubble : bubbles) {
-            if (bubble.getBubbleFactory() != null || endLevel) {
-                LinkedList<Bubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
+    public void splitAllBubbles(LinkedList<AbstractBubble> bubbles, boolean endLevel) {
+        for (AbstractBubble bubble : bubbles) {
+            if (!bubble.getNext().isEmpty() || endLevel) {
+                LinkedList<AbstractBubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
                 splitAllBubbles(newBubbles, endLevel);
             }
         }
@@ -191,9 +191,9 @@ public class Level implements Updateable, Renderable, Modifiable {
     /**
      * Gets the bubbles in this level.
      * 
-     * @return {@link LinkedList} of {@link Bubble}s - The walls in this level.
+     * @return {@link LinkedList} of {@link AbstractBubble}s - The walls in this level.
      */
-    public LinkedList<Bubble> getBubbles() {
+    public LinkedList<AbstractBubble> getBubbles() {
         return this.bubbles;
     }
 
