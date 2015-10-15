@@ -1,12 +1,8 @@
 package nl.tudelft.semgroup4;
 
 import java.awt.Font;
-import java.util.Iterator;
-import java.util.List;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
@@ -348,7 +344,7 @@ public class Dashboard implements Renderable {
      * Sets the background of the timer bar.
      * @param timeBarBackground the timeBarBackground to set
      */
-    public void setTimeBarBackground(Rectangle timeBarBackground) {
+    protected void setTimeBarBackground(Rectangle timeBarBackground) {
         this.timeBarBackground = timeBarBackground;
     }
 
@@ -356,7 +352,7 @@ public class Dashboard implements Renderable {
      * Sets the timer bar.
      * @param timeBar the timeBar to set
      */
-    public void setTimeBar(Rectangle timeBar) {
+    protected void setTimeBar(Rectangle timeBar) {
         this.timeBar = timeBar;
     }
 

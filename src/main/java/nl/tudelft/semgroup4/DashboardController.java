@@ -75,4 +75,22 @@ public class DashboardController {
             dashboard.setLevelId(level.getId());
         }
     }
+
+    /**
+     * Returns the game.
+     * @return the game
+     */
+    public Game getGame() {
+        return game;
+    }
+
+    /**
+     * Returns the dashboard.
+     * @return the dashboard
+     */
+    public Dashboard getDashboard() {
+        return dashboard;
+    }
+    
+    
 }
