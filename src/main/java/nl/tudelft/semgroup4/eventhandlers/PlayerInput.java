@@ -151,7 +151,7 @@ public class PlayerInput extends Observable implements Observer {
      * 
      * @return {@link InputKey} - The leftInput of this instance.
      */
-    protected final InputKey getLeftInput() {
+    public final InputKey getLeftInput() {
         return leftInput;
     }
 
@@ -160,7 +160,7 @@ public class PlayerInput extends Observable implements Observer {
      * 
      * @return {@link InputKey} - The rightInput of this instance.
      */
-    protected final InputKey getRightInput() {
+    public final InputKey getRightInput() {
         return rightInput;
     }
 
@@ -169,7 +169,7 @@ public class PlayerInput extends Observable implements Observer {
      * 
      * @return {@link InputKey} - The shootInput of this instance.
      */
-    protected final InputKey getShootInput() {
+    public final InputKey getShootInput() {
         return shootInput;
     }
 
