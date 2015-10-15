@@ -33,11 +33,10 @@ public class Dashboard implements Renderable {
     private final Image dashboardlivesEmpty;
     private final Image levelContainer;
 
-    private final Rectangle timeBarBackground;
-    private final Rectangle timeBar;
+    private Rectangle timeBarBackground;
+    private Rectangle timeBar;
 
-    private final TrueTypeFont ttf = new TrueTypeFont(new Font("Verdana",
-            Font.BOLD, 30), true);
+    private final TrueTypeFont ttf;
 
     private int levelId = -1;
     private int scoreLeft = 0;
@@ -57,18 +56,19 @@ public class Dashboard implements Renderable {
                      int right, int bottom) {
         controller = new DashboardController(game, this);
 
+        ttf = resources.createFont(new Font("Verdana", Font.BOLD, 30), true);
         this.left = left;
         this.right = right;
         this.bottom = bottom;
 
         dashboardPlayerContainerLeft = resources
-                .getDashboardPlayerContainerLeft().copy();
+                .getDashboardPlayerContainerLeft();
         dashboardPlayerContainerRight = resources
-                .getDashboardPlayerContainerRight().copy();
-        dashboardLivesContainer = resources.getDashboardLivesContainer().copy();
-        dashboardlivesFull = resources.getDashboardlivesFull().copy();
-        dashboardlivesEmpty = resources.getDashboardlivesEmpty().copy();
-        levelContainer = resources.getLevelContainer().copy();
+                .getDashboardPlayerContainerRight();
+        dashboardLivesContainer = resources.getDashboardLivesContainer();
+        dashboardlivesFull = resources.getDashboardlivesFull();
+        dashboardlivesEmpty = resources.getDashboardlivesEmpty();
+        levelContainer = resources.getLevelContainer();
 
         timeBarBackground = new Rectangle(left + margin, 0, right - left - 2
                 * margin, timeBarHeight);
@@ -342,6 +342,30 @@ public class Dashboard implements Renderable {
      */
     public void setLevelId(int levelId) {
         this.levelId = levelId;
+    }
+
+    /**
+     * Sets the background of the timer bar.
+     * @param timeBarBackground the timeBarBackground to set
+     */
+    public void setTimeBarBackground(Rectangle timeBarBackground) {
+        this.timeBarBackground = timeBarBackground;
+    }
+
+    /**
+     * Sets the timer bar.
+     * @param timeBar the timeBar to set
+     */
+    public void setTimeBar(Rectangle timeBar) {
+        this.timeBar = timeBar;
+    }
+
+    /**
+     * Sets the controller.
+     * @param controller the controller to set
+     */
+    public void setController(DashboardController controller) {
+        this.controller = controller;
     }
 
 }
