@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4.resources;
 
+import java.awt.Font;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
@@ -10,6 +11,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  * This class holds and loads the Slick2D resources.
@@ -24,11 +26,9 @@ public final class Resources {
     static HashMap<String, Sound> sounds = new HashMap<>();
     static HashMap<String, Music> music = new HashMap<>();
     static HashMap<String, Animation> animations = new HashMap<>();
-
-    private Resources() {
-        
-    }
     
+    static TrueTypeFont countdownFont;
+
     /**
      * Initialises the resources.
      * 
@@ -53,7 +53,10 @@ public final class Resources {
         }
 
         // Initializes fonts
-        Fonts.init();
+        //Fonts.init();
+        
+        Font font = new Font("Calibri", Font.BOLD, 60);
+        countdownFont =  new TrueTypeFont(font, true);
     }
 
     /**

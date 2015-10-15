@@ -362,6 +362,6 @@ public class ResourcesWrapper {
     }
     
     public TrueTypeFont getCountdownFont() {
-        return Fonts.countdownFont;
+        return Resources.countdownFont;
     }
 }
