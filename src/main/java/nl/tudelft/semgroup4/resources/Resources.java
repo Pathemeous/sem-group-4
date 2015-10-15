@@ -209,4 +209,20 @@ public final class Resources {
         }
     }
 
+    static final HashMap<String, Image> getImages() {
+        return images;
+    }
+
+    static final HashMap<String, Sound> getSounds() {
+        return sounds;
+    }
+
+    static final HashMap<String, Music> getMusic() {
+        return music;
+    }
+
+    static final HashMap<String, Animation> getAnimations() {
+        return animations;
+    }
+
 }
