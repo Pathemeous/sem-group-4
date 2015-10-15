@@ -73,9 +73,15 @@ public final class Resources {
                             int startIndex = fileString.indexOf("img");
                             String key = fileString.substring(startIndex);
                             
-                            Image img = new Image(fileString);
-                            images.put(key, img);
-        
+                            // Split the filePath with backslash as delimiter
+                            String[] layers = key.split(fileSeparator + fileSeparator);
+                            String fileName = layers[layers.length - 1];
+                            
+                            // Check if the filename doesn't start with a .
+                            if (fileName.indexOf('.') != 0) {
+                                Image img = new Image(fileString);
+                                images.put(key, img);
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -99,8 +105,15 @@ public final class Resources {
                             int startIndex = fileString.indexOf("sound");
                             String key = fileString.substring(startIndex);
                             
-                            Sound img = new Sound(fileString);
-                            sounds.put(key, img);
+                            // Split the filePath with backslash as delimiter
+                            String[] layers = key.split(fileSeparator + fileSeparator);
+                            String fileName = layers[layers.length - 1];
+                            
+                            // Check if the filename doesn't start with a .
+                            if (fileName.indexOf('.') != 0) {
+                                Sound img = new Sound(fileString);
+                                sounds.put(key, img);
+                            }
         
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -125,9 +138,15 @@ public final class Resources {
                             int startIndex = fileString.indexOf("music");
                             String key = fileString.substring(startIndex);
                             
-                            Music img = new Music(fileString);
-                            music.put(key, img);
-        
+                            // Split the filePath with backslash as delimiter
+                            String[] layers = key.split(fileSeparator + fileSeparator);
+                            String fileName = layers[layers.length - 1];
+                            
+                            // Check if the filename doesn't start with a .
+                            if (fileName.indexOf('.') != 0) {
+                                Music img = new Music(fileString);
+                                music.put(key, img);
+                            }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
@@ -171,12 +190,17 @@ public final class Resources {
                             if (animationImages.get(animationHash) == null) {
                                 animationImages.put(animationHash, new HashMap<>());
                             }
-            
-                            Image image = new Image(fileString);
-            
-                            // Add the image belonging to this path to the hashmap. The
-                            // hashmap belongs to one of the folders in animation.
-                            animationImages.get(animationHash).put(fileString, image);
+                            
+                            String fileName = layers[layers.length - 1];
+                            
+                            // Check if the filename doesn't start with a .
+                            if (fileName.indexOf('.') != 0) {
+                                Image image = new Image(fileString);
+                                
+                                // Add the image belonging to this path to the hashmap. The
+                                // hashmap belongs to one of the folders in animation.
+                                animationImages.get(animationHash).put(fileString, image);
+                            }
         
                         } catch (Exception e) {
                             e.printStackTrace();
