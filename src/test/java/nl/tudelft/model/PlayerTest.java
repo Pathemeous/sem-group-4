@@ -3,6 +3,15 @@ package nl.tudelft.model;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
+import static org.mockito.Matchers.anyInt;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
+
+import java.util.ArrayList;
 
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
@@ -16,7 +25,6 @@ import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 
@@ -37,9 +45,9 @@ public class PlayerTest {
      */
     @Before
     public final void setUp() {
-        mockedResources = Mockito.mock(ResourcesWrapper.class);
-        Image mockedImage = Mockito.mock(Image.class);
-        Mockito.when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
+        mockedResources = mock(ResourcesWrapper.class);
+        Image mockedImage = mock(Image.class);
+        when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
         player = new Player(mockedResources, 0, 0, true);
     }
 
@@ -60,6 +68,80 @@ public class PlayerTest {
         player.reset();
         assertTrue(player.getPowerup(Powerup.INVINCIBLE) == null);
         assertTrue(player.getWeapon() instanceof RegularWeapon);
+    }
+
+    @Test
+    public final void testResetShopWeapon() {
+        Weapon weapon = mock(Weapon.class);
+        ArrayList projectiles = mock(ArrayList.class);
+
+        when(weapon.getProjectiles()).thenReturn(projectiles);
+
+        player.setWeapon(weapon);
+        player.setShopWeapon(true);
+
+        player.reset();
+
+        verify(projectiles, times(1)).clear();
+    }
+
+    @Test
+    public final void testMoveLeft() {
+        final float x = player.getLocX();
+
+        player.moveLeft();
+
+        assertEquals(x - player.getSpeed(), player.getLocX(), 0.0f);
+    }
+
+    @Test
+    public final void testMoveRight() {
+        final float x = player.getLocX();
+
+        player.moveRight();
+
+        assertEquals(x + player.getSpeed(), player.getLocX(), 0.0f);
+    }
+
+    @Test
+    public final void testAnimations() {
+        Animation walkLeft = mock(Animation.class);
+        Animation walkRight = mock(Animation.class);
+
+        when(mockedResources.getPlayerWalkLeft()).thenReturn(walkLeft);
+        when(mockedResources.getPlayerWalkRight()).thenReturn(walkRight);
+
+        // re-init player apply the mocked resources
+        player = new Player(mockedResources, 0, 0, true);
+
+
+        assertEquals(null, player.getAnimationCurrent());
+
+        player.moveLeft();
+
+        assertEquals(walkLeft, player.getAnimationCurrent());
+
+        player.moveRight();
+
+        assertEquals(walkRight, player.getAnimationCurrent());
+
+        player.stopMoving();
+
+        assertEquals(null, player.getAnimationCurrent());
+
+    }
+
+    @Test
+    public final void testFireWeapon() {
+        Weapon weapon = mock(Weapon.class);
+
+        player.setWeapon(weapon);
+
+        player.fireWeapon();
+
+
+        verify(weapon, times(1)).fire(any(), anyInt(), anyInt(), anyInt(), anyInt());
+
     }
 
     @Test
@@ -156,7 +238,7 @@ public class PlayerTest {
 
     @Test
     public final void testLastGettersSetters() {
-        Animation mockedAnimation = Mockito.mock(Animation.class);
+        Animation mockedAnimation = mock(Animation.class);
         assertTrue(player.isFirstPlayer());
         player.setAnimationCurrent(mockedAnimation);
         assertEquals(mockedAnimation, player.getAnimationCurrent());
@@ -164,11 +246,120 @@ public class PlayerTest {
 
     @Test
     public final void testGetBounds() {
-        Image mockedImage = Mockito.mock(Image.class);
+        Image mockedImage = mock(Image.class);
         player.setImage(mockedImage);
         SemRectangle rectangle = new SemRectangle(0, 0,
                 player.getWidth() - 20, player.getHeight() - 15);
-        assertEquals((int)rectangle.getHeight(), (int)player.getBounds().getHeight());
+        assertEquals((int) rectangle.getHeight(), (int) player.getBounds().getHeight());
         assertEquals((int)rectangle.getWidth(), (int)player.getBounds().getWidth());
     }
+
+    @Test
+    public final void testLives() {
+        assertEquals(3, player.getLives());
+        player.removeLife();
+        assertEquals(2, player.getLives());
+    }
+
+    @Test
+    public final void testDie() {
+        assertEquals(0, player.getScore());
+        assertEquals(3, player.getLives());
+        assertTrue(player.isAlive());
+
+        player.die();
+        assertEquals(-1000, player.getScore());
+        assertEquals(2, player.getLives());
+        assertTrue(player.isAlive());
+
+        player.die();
+        assertEquals(-2000, player.getScore());
+        assertEquals(1, player.getLives());
+        assertTrue(player.isAlive());
+
+        player.die();
+        assertEquals(-3000, player.getScore());
+        assertEquals(0, player.getLives());
+        assertFalse(player.isAlive());
+    }
+
+    @Test
+    public final void testClearSpeed() {
+        Powerup powerup = mock(Powerup.class);
+        player.setPowerup(Powerup.SPEED, powerup);
+        assertEquals(powerup, player.getPowerup(Powerup.SPEED));
+
+        player.clearAllPowerups();
+
+        assertEquals(null, player.getPowerup(Powerup.SPEED));
+    }
+
+    @Test
+    public final void testClearShield() {
+        Powerup powerup = mock(Powerup.class);
+        player.setPowerup(Powerup.SHIELD, powerup);
+        assertEquals(powerup, player.getPowerup(Powerup.SHIELD));
+        assertTrue(player.hasShield());
+
+        player.clearAllPowerups();
+
+        assertEquals(null, player.getPowerup(Powerup.SHIELD));
+        assertFalse(player.hasShield());
+    }
+
+    @Test
+    public final void testClearInvincible() {
+        Powerup powerup = mock(Powerup.class);
+        player.setPowerup(Powerup.INVINCIBLE, powerup);
+        assertEquals(powerup, player.getPowerup(Powerup.INVINCIBLE));
+        assertTrue(player.isInvincible());
+
+        player.clearAllPowerups();
+
+        assertEquals(null, player.getPowerup(Powerup.INVINCIBLE));
+        assertFalse(player.isInvincible());
+    }
+
+    @Test
+    public final void testClearShopSield() {
+        Powerup powerup = mock(Powerup.class);
+        player.setPowerup(Powerup.SHOPSHIELD, powerup);
+        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        assertTrue(player.hasShopShield());
+
+        player.clearAllPowerups();
+
+        assertEquals(null, player.getPowerup(Powerup.SHOPSHIELD));
+        assertFalse(player.hasShopShield());
+    }
+
+    @Test
+    public final void testSpeed() {
+        player.setSpeed(4);
+        assertEquals(4, player.getSpeed());
+
+        player.setSpeed(3);
+        assertEquals(3, player.getSpeed());
+
+        player.setSpeed(2);
+        assertEquals(2, player.getSpeed());
+
+        player.setSpeed(1);
+        assertEquals(1, player.getSpeed());
+    }
+
+    @Test
+    public final void testShopWeapon() {
+        assertFalse(player.isShopWeapon());
+        player.setShopWeapon(true);
+        assertTrue(player.isShopWeapon());
+    }
+
+    @Test
+    public final void testShopSpeed() {
+        assertFalse(player.isShopSpeed());
+        player.setShopSpeed(true);
+        assertTrue(player.isShopSpeed());
+    }
+
 }
