@@ -148,4 +148,13 @@ public class HighscoresState extends BasicGameState {
     protected void setBackButton(MouseOverArea area) {
         this.backButton = area;
     }
+
+    /**
+     * Set the input for testing.
+     * @param input
+     *                  the input which will be set
+     */
+    protected void setInputForTesting(Input input) {
+        this.input = input;
+    }
 }

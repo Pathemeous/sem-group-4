@@ -21,6 +21,10 @@ public class HighscoresStateControllerTest {
 
     private HighscoresStateController controller;
 
+
+    /**
+     * Create a controller.
+     */
     @Before
     public void setUp() {
         controller = new HighscoresStateController();
@@ -73,7 +77,7 @@ public class HighscoresStateControllerTest {
         when(mockedList.get(anyInt())).thenReturn(mockedEntry);
         when(mockedEntry.getScore()).thenReturn(10L);
 
-        assertNotEquals(controller.getPlayerName(0, mockedList), "-");
+        assertNotEquals(controller.getPlayerScore(0, mockedList), "-");
         verify(mockedList, times(1)).get(anyInt());
     }
 
