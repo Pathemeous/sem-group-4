@@ -360,8 +360,4 @@ public class ResourcesWrapper {
     public Image getPlayer2Off() {
         return images.get("img\\player2TextOff.png");
     }
-    
-    public TrueTypeFont getCountdownFont() {
-        return Fonts.getCountdownFont();
-    }
 }
