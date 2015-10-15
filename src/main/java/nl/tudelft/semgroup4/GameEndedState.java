@@ -252,17 +252,13 @@ public class GameEndedState extends BasicGameState {
     private void drawTitle(GameContainer container) {
         if (won) {
             gameTitleText = "GAME COMPLETED";
-            typeFontTitle.drawString(
-                    container.getWidth() / 2
-                            - typeFontTitle.getWidth(gameTitleText) / 2,
-                    container.getHeight() / 8, gameTitleText, Color.yellow);
         } else {
             gameTitleText = "GAME LOST";
-            typeFontTitle.drawString(
-                    container.getWidth() / 2
-                            - typeFontTitle.getWidth(gameTitleText) / 2,
-                    container.getHeight() / 8, gameTitleText, Color.yellow);
         }
+        typeFontTitle.drawString(
+                container.getWidth() / 2
+                        - typeFontTitle.getWidth(gameTitleText) / 2,
+                container.getHeight() / 8, gameTitleText, Color.yellow);
 
     }
 
@@ -298,6 +294,7 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the controller.
+     * 
      * @param controller
      *            the controller to set
      */
@@ -317,6 +314,7 @@ public class GameEndedState extends BasicGameState {
 
     /**
      * Sets the input.
+     * 
      * @param input
      *            the input to set
      */
