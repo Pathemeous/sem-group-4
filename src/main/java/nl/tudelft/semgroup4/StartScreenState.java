@@ -1,7 +1,5 @@
 package nl.tudelft.semgroup4;
 
-import java.awt.Font;
-
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.Player;
@@ -10,16 +8,10 @@ import nl.tudelft.semgroup4.eventhandlers.PlayerEventHandler;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
-import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
-import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.TrueTypeFont;
-import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
-import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
@@ -34,19 +26,13 @@ public class StartScreenState extends BasicGameState {
     private Input input;
     private boolean alreadyAdded = false;
 
-    private Font font;
-    private TrueTypeFont typeFont;
-    private Image highScoreButton;
-    private String highscores;
-    private Shape shape;
-
     /**
      * We need this to construct the Game instances.
      */
     private StateBasedGame mainApp;
 
     private StartScreenStateController controller;
-    private ResourcesWrapper resources;
+    private ResourcesWrapper resources = new ResourcesWrapper();
 
     /**
      * Starts a new {@link StartScreenState} and its controller.
@@ -54,20 +40,17 @@ public class StartScreenState extends BasicGameState {
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this object may use.
      */
-    public StartScreenState(ResourcesWrapper resources) {
-        this.resources = resources;
+    public StartScreenState() {
         controller = new StartScreenStateController(this, resources);
     }
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         this.mainApp = mainApp;
-        shape = new Rectangle(650, 650, typeFont.getWidth(highscores), typeFont.getHeight());
-        shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
+        this.input = container.getInput();
 
-        createHighscoresButton();
+        mouseOverHighScores = controller.createHighscoresButton(container);
 
-        input = container.getInput();
         // initializes all the areas where the buttons are to see if the mouse is on one of those
         // areas
         mouseOverOnePlayer =
@@ -82,21 +65,16 @@ public class StartScreenState extends BasicGameState {
         mouseOverQuit =
                 new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
                         364, 88);
-        mouseOverHighScores = new MouseOverArea(container, highScoreButton, shape);
-
     }
 
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
-        final ResourcesWrapper resources = new ResourcesWrapper();
         graphics.drawImage(resources.getTitleScreenBackground(), 0, 0, container.getWidth(),
                 container.getHeight(), 0, 0, resources.getTitleScreenBackground().getWidth(),
                 resources.getTitleScreenBackground().getHeight());
-
-        // draws the highscore button
-        graphics.rotate(650, 650, 340);
-        typeFont.drawString(650, 650, highscores, Color.red);
+     
+        controller.drawHighScoresButton(graphics);
     }
 
     @Override
@@ -195,19 +173,6 @@ public class StartScreenState extends BasicGameState {
     @Override
     public int getID() {
         return States.StartScreenState;
-    }
-
-    /**
-     * Creates the HighScore button with the appropriate text.
-     * 
-     * @throws SlickException
-     *             If creating the {@link Image} goes wrong.
-     */
-    protected void createHighscoresButton() throws SlickException {
-        font = new Font("Verdana", Font.BOLD, 36);
-        typeFont = resources.createFont(font, true);
-        highscores = "HIGHSCORES";
-        highScoreButton = new Image(typeFont.getWidth(highscores), typeFont.getHeight());
     }
 
 }
