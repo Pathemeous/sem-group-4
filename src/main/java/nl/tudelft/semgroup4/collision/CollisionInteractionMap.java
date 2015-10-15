@@ -121,27 +121,21 @@ public class CollisionInteractionMap implements CollisionMap {
             Game game,
             C1 collider,
             C2 collidee) {
-        Class<? extends AbstractGameObject> colliderKey = getMostSpecificClass(handlers,
-                collider.getClass());
-        if (colliderKey == null) {
-            return;
-        }
+        List<Class<? extends AbstractGameObject>> colliderInheritance = getInheritance(collider.getClass());
+        List<Class<? extends AbstractGameObject>> collideeInheritance = getInheritance(collidee.getClass());
 
-        Map<Class<? extends AbstractGameObject>, CollisionHandler<?, ?>> map = handlers
-                .get(colliderKey);
-        Class<? extends AbstractGameObject> collideeKey = getMostSpecificClass(map,
-                collidee.getClass());
-        if (collideeKey == null) {
-            return;
-        }
+        for (Class<? extends AbstractGameObject> colliderKey : colliderInheritance) {
+            if (handlers.get(colliderKey) != null) {
+                Map<Class<? extends AbstractGameObject>, CollisionHandler<?, ?>> colliderMap = handlers.get(colliderKey);
+//                    colliderMaps.add(colliderMap);
 
-        CollisionHandler<C1, C2> collisionHandler = (CollisionHandler<C1, C2>) map
-                .get(collideeKey);
-        if (collisionHandler == null) {
-            return;
+                for (Class<? extends AbstractGameObject> collideeKey : collideeInheritance) {
+                    if (colliderMap.get(collideeKey) != null) {
+                        ((CollisionHandler<C1, C2>)colliderMap.get(collideeKey)).handleCollision(game, collider, collidee);
+                    }
+                }
+            }
         }
-
-        collisionHandler.handleCollision(game, collider, collidee);
     }
 
     /**
