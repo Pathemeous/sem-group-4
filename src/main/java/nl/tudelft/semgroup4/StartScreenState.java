@@ -46,6 +46,9 @@ public class StartScreenState extends BasicGameState {
 
     private StartScreenStateController controller;
 
+    /**
+     * Starts a new {@link StartScreenState} and its controller.
+     */
     public StartScreenState() {
         controller = new StartScreenStateController(this, new ResourcesWrapper());
     }
