@@ -1,7 +1,7 @@
 package nl.tudelft.semgroup4.util;
 
+import java.io.File;
 import java.io.IOException;
-import java.util.HashMap;
 
 import nl.tudelft.semgroup4.Settings;
 import nl.tudelft.semgroup4.eventhandlers.InputKey;
@@ -42,9 +42,11 @@ public class KeyBindHelper {
         JSONObject json;
 
         try {
-            json = JSONParser.loadJSON(FILENAME);
+            File customFile = new File(FILENAME);
+            json = JSONParser.loadJSON(customFile);
         } catch (IOException e) {
-            json = JSONParser.loadJSON(DEFAULTS);
+            File defaultsFile = new File(DEFAULTS);
+            json = JSONParser.loadJSON(defaultsFile);
         }
 
         updateSettings(json);
@@ -104,7 +106,8 @@ public class KeyBindHelper {
      */
     public static void save() throws IOException {
         JSONObject json = toJSON();
-        JSONParser.save(json, FILENAME);
+        File saveFile = new File(FILENAME);
+        JSONParser.save(json, saveFile);
     }
 
     /**
@@ -119,8 +122,10 @@ public class KeyBindHelper {
      *             If the defaults file cannot be found.
      */
     public static void loadDefaults() throws IOException {
-        JSONObject json = JSONParser.loadJSON(DEFAULTS);
+        File defaultFile = new File(DEFAULTS);
+        JSONObject json = JSONParser.loadJSON(defaultFile);
         updateSettings(json);
-        JSONParser.save(json, FILENAME);
+        File saveFile = new File(FILENAME);
+        JSONParser.save(json, saveFile);
     }
 }

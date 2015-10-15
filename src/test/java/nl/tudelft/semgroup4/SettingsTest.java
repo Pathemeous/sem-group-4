@@ -1,6 +1,8 @@
 package nl.tudelft.semgroup4;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 import nl.tudelft.semgroup4.eventhandlers.InputKey;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 
@@ -9,10 +11,13 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 public class SettingsTest {
-    
+
     private PlayerInput mockedInput;
     private InputKey mockedKey;
 
+    /**
+     * Mock all dependencies.
+     */
     @Before
     public void setUp() {
         Settings.init();
@@ -30,6 +35,7 @@ public class SettingsTest {
         Settings.setPlayer1Input(mockedInput);
         assertEquals(mockedInput, Settings.getPlayer1Input());
     }
+
     @Test
     public void testGetSetPlayer2Input() {
         Settings.setPlayer2Input(mockedInput);
