@@ -20,10 +20,10 @@ public final class Resources {
 
     private static boolean isInitted = false;
 
-    static HashMap<String, Image> images = new HashMap<>();
-    static HashMap<String, Sound> sounds = new HashMap<>();
-    static HashMap<String, Music> music = new HashMap<>();
-    static HashMap<String, Animation> animations = new HashMap<>();
+    private static HashMap<String, Image> images = new HashMap<>();
+    private static HashMap<String, Sound> sounds = new HashMap<>();
+    private static HashMap<String, Music> music = new HashMap<>();
+    private static HashMap<String, Animation> animations = new HashMap<>();
 
     
     /**
