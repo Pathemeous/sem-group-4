@@ -250,7 +250,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            int - the total amount of time in milliseconds.
      */
     public void setMaxTime(int time) {
-        this.time = time;
+        this.maxTime = time;
     }
 
     /**
