@@ -1,6 +1,6 @@
 package nl.tudelft.model.bubble;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 5.
@@ -13,7 +13,7 @@ public class Bubble5 extends Bubble {
      * bubble is hit.
      *
      * @param resources
-     *            {@link ResourcesWrapper} - A new resourceWrapper that this class can use.
+     *            {@link ResourceWrapper} - A new resourceWrapper that this class can use.
      * @param locX
      *            : the starting x-location of the bubble.
      * @param locY
@@ -21,7 +21,7 @@ public class Bubble5 extends Bubble {
      * @param goRight
      *            : boolean to indicate if the initial direction of the bubble is to the right.
      */
-    protected Bubble5(ResourcesWrapper resources, float locX, float locY) {
+    protected Bubble5(ResourceWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage5(), locX, locY, resources, 
                 new Bubble4Factory(resources));
 

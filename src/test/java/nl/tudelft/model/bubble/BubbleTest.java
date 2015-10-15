@@ -16,7 +16,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -29,11 +29,11 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class BubbleTest {
 
-    private ResourcesWrapper mockedResources;
+    private ResourceWrapper mockedResources;
     
     @Before
     public void setUp() {
-        mockedResources = mock(ResourcesWrapper.class);
+        mockedResources = mock(ResourceWrapper.class);
     }
     
     @Test

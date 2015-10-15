@@ -6,7 +6,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,7 +19,7 @@ public class CountdownTest {
     @Before
     public void setUp() {
         game = mock(Game.class);
-        countdown = new Countdown(game, new ResourcesWrapper());
+        countdown = new Countdown(game, new ResourceWrapper());
     }
 
     @Test

@@ -9,7 +9,7 @@ import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Updateable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;
@@ -123,7 +123,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        final ResourcesWrapper resources = new ResourcesWrapper();
+        final ResourceWrapper resources = new ResourceWrapper();
         graphics.drawImage(resources.getBackgroundImage(), 0, 0, container.getWidth(),
                 container.getHeight(), 0, 0, resources.getBackgroundImage().getWidth(),
                 resources.getBackgroundImage().getHeight());

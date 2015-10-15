@@ -3,7 +3,7 @@ package nl.tudelft.model.pickups.utility;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.SlickException;
 
@@ -13,7 +13,7 @@ public class SlowUtility extends Utility {
     private int slowCounter = 0;
     private static final int SLOWTIME = 300;
     
-    public SlowUtility(ResourcesWrapper resources, float locX, float locY) {
+    public SlowUtility(ResourceWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilitySlow(), locX, locY);
     }
     

@@ -7,7 +7,7 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -16,7 +16,7 @@ public class MoneyPowerupTest {
 
     @Test
     public void testConstructor() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupPowerMoney()).thenReturn(mockedImg);
         MoneyPowerup powerup = new MoneyPowerup(mockedResources, 0, 0);
@@ -28,7 +28,7 @@ public class MoneyPowerupTest {
 
     @Test
     public void testActivate1() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         MoneyPowerup powerup = new MoneyPowerup(mockedResources, 0, 0);
 
         Player player = new Player(mockedResources, 0, 0, true);
@@ -45,7 +45,7 @@ public class MoneyPowerupTest {
 
     @Test
     public void testActivate2() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         MoneyPowerup powerup = new MoneyPowerup(mockedResources, 0, 0);
 
         Player player = new Player(mockedResources, 0, 0, true);

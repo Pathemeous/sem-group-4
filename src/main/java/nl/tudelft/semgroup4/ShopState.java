@@ -8,7 +8,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
 import nl.tudelft.semgroup4.logger.Logger;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -23,7 +23,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class ShopState extends BasicGameState {
 
     private Shop shop;
-    private final ResourcesWrapper resources = new ResourcesWrapper();
+    private final ResourceWrapper resources = new ResourceWrapper();
     private Input input;
 
     private final TrueTypeFont ttf = new TrueTypeFont(new Font("Verdana", Font.BOLD, 30), true);

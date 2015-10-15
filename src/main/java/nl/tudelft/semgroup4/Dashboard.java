@@ -7,7 +7,7 @@ import java.util.List;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -51,7 +51,7 @@ public class Dashboard implements Renderable {
     private final int right;
     private final int bottom;
 
-    /* package */Dashboard(ResourcesWrapper resources, Game game, int left, int right, int bottom) {
+    /* package */Dashboard(ResourceWrapper resources, Game game, int left, int right, int bottom) {
         this.game = game;
 
         this.left = left;

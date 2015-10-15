@@ -12,7 +12,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.Bubble;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -21,7 +21,7 @@ public class SplitUtilityTest {
     
     @Test
     public void testConstructor() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupUtilitySplit()).thenReturn(mockedImg);
         SplitUtility utility = new SplitUtility(mockedResources, 0, 0);
@@ -33,7 +33,7 @@ public class SplitUtilityTest {
     
     @Test
     public void testActivate1() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         SplitUtility utility = new SplitUtility(mockedResources, 0, 0);
         
         LinkedList<Bubble> bubbles = new LinkedList<>();

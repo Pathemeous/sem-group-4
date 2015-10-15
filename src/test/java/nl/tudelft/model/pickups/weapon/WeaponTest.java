@@ -12,7 +12,7 @@ import static org.mockito.Mockito.verify;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import org.newdawn.slick.SlickException;
 
 public class WeaponTest {
     
-    private ResourcesWrapper mockedResources;
+    private ResourceWrapper mockedResources;
     private Player mockedPlayer;
     
     /**
@@ -28,7 +28,7 @@ public class WeaponTest {
      */
     @Before
     public void setUp() {
-        mockedResources = mock(ResourcesWrapper.class);
+        mockedResources = mock(ResourceWrapper.class);
         mockedPlayer = mock(Player.class);
     }
     

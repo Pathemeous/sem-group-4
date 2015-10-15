@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -13,7 +13,7 @@ public class InvinciblePowerup extends Powerup {
     private Player player;
     private int invincibilityCounter = 0;
 
-    public InvinciblePowerup(ResourcesWrapper resources, float locX, float locY) {
+    public InvinciblePowerup(ResourceWrapper resources, float locX, float locY) {
         super(resources.getPickupPowerInvincible(), locX, locY);
     }
 
@@ -55,7 +55,7 @@ public class InvinciblePowerup extends Powerup {
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         super.render(container, graphics);
-        final ResourcesWrapper res = new ResourcesWrapper();
+        final ResourceWrapper res = new ResourceWrapper();
 
         if (isActive() && ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0) 
                 || invincibilityCounter < 540)) {

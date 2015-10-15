@@ -11,7 +11,7 @@ import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.junit.Before;
@@ -28,7 +28,7 @@ import org.newdawn.slick.Image;
 public class PlayerTest {
 
     private Player player;
-    private ResourcesWrapper mockedResources;
+    private ResourceWrapper mockedResources;
     
     private static final int SPEED = 4;
     
@@ -37,7 +37,7 @@ public class PlayerTest {
      */
     @Before
     public final void setUp() {
-        mockedResources = Mockito.mock(ResourcesWrapper.class);
+        mockedResources = Mockito.mock(ResourceWrapper.class);
         Image mockedImage = Mockito.mock(Image.class);
         Mockito.when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
         player = new Player(mockedResources, 0, 0, true);

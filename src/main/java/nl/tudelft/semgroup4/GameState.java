@@ -4,7 +4,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
@@ -48,7 +48,7 @@ public class GameState extends BasicGameState {
      *             - If the Game Engine fails.
      */
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
-        final ResourcesWrapper res = new ResourcesWrapper();
+        final ResourceWrapper res = new ResourceWrapper();
         GL11.glEnable(GL11.GL_BLEND);
         GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
@@ -57,12 +57,12 @@ public class GameState extends BasicGameState {
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
                                 .getQuitText().getHeight());
-        pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
+        pauseScreen = new PauseScreen(new ResourceWrapper(), mouseOver);
         // Resources.titleScreenMusic.stop();
 
         int dashboardMargin = 20;
         dashboard =
-                new Dashboard(new ResourcesWrapper(), currentGame, dashboardMargin,
+                new Dashboard(new ResourceWrapper(), currentGame, dashboardMargin,
                         container.getWidth() - dashboardMargin, container.getHeight());
     }
 
@@ -85,7 +85,7 @@ public class GameState extends BasicGameState {
         dashboard.render(container, graphics);
 
         if (pauseScreenOpened) {
-            ResourcesWrapper res = new ResourcesWrapper();
+            ResourceWrapper res = new ResourceWrapper();
             if (res.getWeaponFire().playing()) {
                 res.stopFireSound();
             }

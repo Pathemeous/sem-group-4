@@ -7,7 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -17,7 +17,7 @@ public class Bubble3Test {
     @Test
     public void testConstructor() {
         Image mockedImg = mock(Image.class);
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         when(mockedResources.getBubbleImage3()).thenReturn(mockedImg);
         
         Bubble bubble = new Bubble3(mockedResources, 0, 0);

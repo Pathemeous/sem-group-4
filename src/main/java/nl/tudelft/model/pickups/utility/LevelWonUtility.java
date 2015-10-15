@@ -1,11 +1,11 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 public class LevelWonUtility extends Utility {
     
-    public LevelWonUtility(ResourcesWrapper resources, float locX, float locY) {
+    public LevelWonUtility(ResourceWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilityLevelwon(), locX, locY);
     }
     

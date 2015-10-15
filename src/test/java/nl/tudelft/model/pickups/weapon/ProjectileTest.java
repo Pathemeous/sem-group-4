@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -20,7 +20,7 @@ import org.newdawn.slick.Sound;
 public class ProjectileTest {
 
     private Weapon mockedWeapon;
-    private ResourcesWrapper mockedResources;
+    private ResourceWrapper mockedResources;
     private Image mockedImage;
     
     /**
@@ -29,7 +29,7 @@ public class ProjectileTest {
     @Before
     public void setUp() {
         mockedWeapon = mock(Weapon.class);
-        mockedResources = mock(ResourcesWrapper.class);
+        mockedResources = mock(ResourceWrapper.class);
         Sound mockedSound = mock(Sound.class);
         when(mockedResources.getWeaponFire()).thenReturn(mockedSound);
         mockedImage = mock(Image.class);

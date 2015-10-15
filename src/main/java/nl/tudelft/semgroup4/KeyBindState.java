@@ -5,7 +5,7 @@ import java.io.IOException;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import nl.tudelft.semgroup4.util.KeyBindHelper;
 import org.lwjgl.input.Keyboard;
@@ -62,7 +62,7 @@ public class KeyBindState extends BasicGameState {
     private String instructions = "To set a key, first press a key on your keyboard."
             + "\nThen click on the key you want to replace.";
     private Input input;
-    private final ResourcesWrapper resources = new ResourcesWrapper();
+    private final ResourceWrapper resources = new ResourceWrapper();
     private static final Font font = new Font("Calibri", Font.BOLD, 46);
     private static final Font smallFont = new Font("Calibri", Font.BOLD, 30);
     private static final TrueTypeFont typeFont = new TrueTypeFont(font, true);

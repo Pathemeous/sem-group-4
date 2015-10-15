@@ -4,7 +4,7 @@ import java.awt.Font;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -53,13 +53,13 @@ public class LoggerSetScreen {
      * Constructs a LoggerSetScreen with the Resources.
      *
      * @param res
-     *            {@link ResourcesWrapper} - a new ResourcesWrapper.
+     *            {@link ResourceWrapper} - a new ResourcesWrapper.
      * @param container
      *            {@link GameContainer} - the container in which the game runs.
      * @throws SlickException
      *            font can't be found.
      */
-    public LoggerSetScreen(ResourcesWrapper res, GameContainer container) throws SlickException {
+    public LoggerSetScreen(ResourceWrapper res, GameContainer container) throws SlickException {
         font = new Font("Calibri", Font.BOLD, 46);
         typeFont = new TrueTypeFont(font, true);
 

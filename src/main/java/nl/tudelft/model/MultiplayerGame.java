@@ -2,7 +2,7 @@ package nl.tudelft.model;
 
 import nl.tudelft.semgroup4.Settings;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
@@ -28,7 +28,7 @@ public class MultiplayerGame extends Game {
      * @param containerHeight
      *            int - height of the game field.
      * @param wrapper
-     *            {@link ResourcesWrapper} - The resources that Game can inject into LevelFactory.
+     *            {@link ResourceWrapper} - The resources that Game can inject into LevelFactory.
      * @param firstPlayer
      *            {@link Player} - the first player
      * @param secondPlayer
@@ -37,7 +37,7 @@ public class MultiplayerGame extends Game {
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
     public MultiplayerGame(StateBasedGame mainApp, int containerWidth, int containerHeight,
-            ResourcesWrapper wrapper, Player firstPlayer, Player secondPlayer)
+            ResourceWrapper wrapper, Player firstPlayer, Player secondPlayer)
             throws IllegalArgumentException {
         super(mainApp, containerWidth, containerHeight, wrapper);
         this.firstPlayer = firstPlayer;

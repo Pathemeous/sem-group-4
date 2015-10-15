@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.weapon;
 
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -21,11 +21,11 @@ public class Projectile extends AbstractEnvironmentObject {
     private final int playerWidth;
     private final int playerHeight;
     private final int startHeight;
-    private final ResourcesWrapper resources;
+    private final ResourceWrapper resources;
 
     /**
      * @param resources
-     *            {@link ResourcesWrapper} - A new resourceWrapper that the projectile can use.
+     *            {@link ResourceWrapper} - A new resourceWrapper that the projectile can use.
      * @param image
      *            - The texture used for the weapon/projectile
      * @param locX
@@ -46,7 +46,7 @@ public class Projectile extends AbstractEnvironmentObject {
      *            screen hit - Has the projectile hit an object (bubble) top - Has the projectile
      *            hit the top
      */
-    public Projectile(ResourcesWrapper resources, Image image, int locX, int locY,
+    public Projectile(ResourceWrapper resources, Image image, int locX, int locY,
             int playerWidth, int playerHeight, int speed, Weapon wp) {
         super(image, locX, locY);
         this.speed = speed;

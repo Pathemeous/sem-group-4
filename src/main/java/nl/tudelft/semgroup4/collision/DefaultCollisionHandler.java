@@ -20,7 +20,7 @@ import nl.tudelft.model.wall.HorMovingWall;
 import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.model.wall.VerMovingWall;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.geom.Shape;
 
@@ -187,7 +187,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         } else {
             Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, and died");
             game.setPaused(true);
-            new ResourcesWrapper().playDeath();
+            new ResourceWrapper().playDeath();
             
             new Timer().schedule(new TimerTask() {
                 @Override

@@ -12,7 +12,7 @@ import nl.tudelft.semgroup4.GameEndedState;
 import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.States;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -25,7 +25,7 @@ public class GameTest {
     private StateBasedGame mockedSbg;
     private GameEndedState mockedGameEndedState;
     private ShopState mockedShopState;
-    private ResourcesWrapper mockedResources;
+    private ResourceWrapper mockedResources;
     private Player mockedPlayer;
     
     /**
@@ -36,7 +36,7 @@ public class GameTest {
         mockedSbg = mock(StateBasedGame.class); 
         mockedGameEndedState = mock(GameEndedState.class);
         mockedShopState = mock(ShopState.class);
-        mockedResources = mock(ResourcesWrapper.class);
+        mockedResources = mock(ResourceWrapper.class);
         Image mockedImage = mock(Image.class);
         when(mockedImage.getHeight()).thenReturn(1);
         when(mockedImage.getWidth()).thenReturn(1);

@@ -8,7 +8,7 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.SingleplayerGame;
 import nl.tudelft.semgroup4.eventhandlers.PlayerEventHandler;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -55,7 +55,7 @@ public class StartScreenState extends BasicGameState {
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
 
         input = container.getInput();
-        final ResourcesWrapper resources = new ResourcesWrapper();
+        final ResourceWrapper resources = new ResourceWrapper();
         // initializes all the areas where the buttons are to see if the mouse is on one of those
         // areas
         mouseOverOnePlayer =
@@ -77,7 +77,7 @@ public class StartScreenState extends BasicGameState {
     @Override
     public void render(GameContainer container, StateBasedGame game, Graphics graphics)
             throws SlickException {
-        final ResourcesWrapper resources = new ResourcesWrapper();
+        final ResourceWrapper resources = new ResourceWrapper();
         graphics.drawImage(resources.getTitleScreenBackground(), 0, 0, container.getWidth(),
                 container.getHeight(), 0, 0, resources.getTitleScreenBackground().getWidth(),
                 resources.getTitleScreenBackground().getHeight());
@@ -90,7 +90,7 @@ public class StartScreenState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int ticks)
             throws SlickException {
-        final ResourcesWrapper resources = new ResourcesWrapper();
+        final ResourceWrapper resources = new ResourceWrapper();
         if (!resources.getTitleScreenMusic().playing()) {
             resources.playTitleScreen();
         }
@@ -105,9 +105,9 @@ public class StartScreenState extends BasicGameState {
                 game.enterState(States.HighscoresState);
                 Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
             } else if (mouseOverOnePlayer.isMouseOver()) {
-                final ResourcesWrapper res = new ResourcesWrapper();
+                final ResourceWrapper res = new ResourceWrapper();
                 final Player player =
-                        new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                        new Player(new ResourceWrapper(), container.getWidth() / 2,
                                 container.getHeight() - res.getPlayerImageStill().getHeight()
                                         - 5 * res.getWallImage().getHeight(), true);
                 final Game singleplayerGame =
@@ -127,16 +127,16 @@ public class StartScreenState extends BasicGameState {
                         "User starts a single player game");
             } else if (mouseOverTwoPlayer.isMouseOver()) {
 
-                final ResourcesWrapper res = new ResourcesWrapper();
+                final ResourceWrapper res = new ResourceWrapper();
                 Player firstPlayer =
-                        new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                        new Player(new ResourceWrapper(), container.getWidth() / 2,
                                 container.getHeight() - res.getPlayerImageStill().getHeight()
                                         - 5 * res.getWallImage().getHeight(), true);
                 PlayerEventHandler player1Handler = new PlayerEventHandler(firstPlayer);
                 Settings.getPlayer1Input().addObserver(player1Handler);
 
                 Player secondPlayer =
-                        new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
+                        new Player(new ResourceWrapper(), container.getWidth() / 2 + 100,
                                 container.getHeight() - res.getPlayerImageStill().getHeight()
                                         - 5 * res.getWallImage().getHeight(), false);
                 PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
@@ -144,7 +144,7 @@ public class StartScreenState extends BasicGameState {
 
                 final Game multiplayerGame =
                         new MultiplayerGame(mainApp, container.getWidth(),
-                                container.getHeight(), new ResourcesWrapper(), firstPlayer,
+                                container.getHeight(), new ResourceWrapper(), firstPlayer,
                                 secondPlayer);
 
                 multiplayerGame.toAdd(firstPlayer.getWeapon());

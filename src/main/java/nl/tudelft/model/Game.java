@@ -15,7 +15,7 @@ import nl.tudelft.semgroup4.collision.DefaultCollisionHandler;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.newdawn.slick.GameContainer;
@@ -47,7 +47,7 @@ public abstract class Game implements Renderable, Modifiable {
     private final CollisionHandler<AbstractGameObject, AbstractGameObject> collisionHandler;
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
-    private final ResourcesWrapper resources;
+    private final ResourceWrapper resources;
     private boolean paused = false;
     private Countdown countdown;
 
@@ -62,12 +62,12 @@ public abstract class Game implements Renderable, Modifiable {
      * @param containerHeight
      *            int - height of the game field.
      * @param wrapper
-     *            {@link ResourcesWrapper} - The resources that Game can inject into LevelFactory.
+     *            {@link ResourceWrapper} - The resources that Game can inject into LevelFactory.
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
     public Game(StateBasedGame mainApp, int containerWidth,
-                int containerHeight, ResourcesWrapper wrapper) {
+                int containerHeight, ResourceWrapper wrapper) {
         // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;

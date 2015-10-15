@@ -4,7 +4,7 @@ import javax.swing.plaf.nimbus.State;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -27,7 +27,7 @@ public class OptionsState extends BasicGameState {
     private MouseOverArea keyButton;
     private Input input;
     private boolean loggerSetEnabled = false;
-    private final ResourcesWrapper resources = new ResourcesWrapper();
+    private final ResourceWrapper resources = new ResourceWrapper();
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
@@ -59,11 +59,11 @@ public class OptionsState extends BasicGameState {
                 container.getHeight() / 3.0f);
         graphics.drawImage(resources.getKeyText(), container.getWidth() / 4.0f,
                 container.getHeight() / 3.0f + 60.0f);
-        if (ResourcesWrapper.musicOn) {
+        if (ResourceWrapper.musicOn) {
             graphics.drawImage(resources.getOn(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
         }
-        if (!ResourcesWrapper.musicOn) {
+        if (!ResourceWrapper.musicOn) {
             graphics.drawImage(resources.getOff(), container.getWidth() / 4 * 3,
                     container.getHeight() / 4.0f); 
         }
@@ -78,8 +78,8 @@ public class OptionsState extends BasicGameState {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
                 
                 Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
-                        "User toggled sound " + (ResourcesWrapper.musicOn ? "off" : "on") );
-                ResourcesWrapper.musicOn = !ResourcesWrapper.musicOn;
+                        "User toggled sound " + (ResourceWrapper.musicOn ? "off" : "on") );
+                ResourceWrapper.musicOn = !ResourceWrapper.musicOn;
             }
         }
         if (backButton.isMouseOver()) {

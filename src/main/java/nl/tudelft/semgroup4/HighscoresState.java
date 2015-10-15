@@ -8,7 +8,7 @@ import java.util.List;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import nl.tudelft.semgroup4.util.CompareHighscores;
 import nl.tudelft.semgroup4.util.HighscoreEntry;
 
@@ -27,7 +27,7 @@ public class HighscoresState extends BasicGameState {
     
     private MouseOverArea backButton;
     private Input input;
-    private final ResourcesWrapper resources = new ResourcesWrapper();
+    private final ResourceWrapper resources = new ResourceWrapper();
     private final List<HighscoreEntry> highscores = new ArrayList<>();
     private static final Font font = new Font("Calibri", Font.BOLD, 46);
     private static final TrueTypeFont typeFont = new TrueTypeFont(font, true);

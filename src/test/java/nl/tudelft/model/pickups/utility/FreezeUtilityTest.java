@@ -13,7 +13,7 @@ import nl.tudelft.model.bubble.Bubble;
 import nl.tudelft.model.bubble.Bubble6;
 import nl.tudelft.model.bubble.Bubble6Factory;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -23,7 +23,7 @@ public class FreezeUtilityTest {
     
     @Test
     public void testConstructor() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupUtilityFreeze()).thenReturn(mockedImg);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
@@ -35,7 +35,7 @@ public class FreezeUtilityTest {
     
     @Test
     public void testActivate1() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
         Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
@@ -51,7 +51,7 @@ public class FreezeUtilityTest {
     
     @Test
     public void testUpdate1() throws SlickException {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
         Bubble bubble = new Bubble6Factory(mockedResources).createBubble();
@@ -77,7 +77,7 @@ public class FreezeUtilityTest {
     
     @Test
     public void testUpdate2() throws SlickException {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
         Bubble bubble = new Bubble6Factory(mockedResources).createBubble();

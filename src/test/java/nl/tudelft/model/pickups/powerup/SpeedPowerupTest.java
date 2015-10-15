@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -18,7 +18,7 @@ public class SpeedPowerupTest {
     
     @Test
     public void testConstructor() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupPowerSpeedup()).thenReturn(mockedImg);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
@@ -30,7 +30,7 @@ public class SpeedPowerupTest {
     
     @Test
     public void testActivate1() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
         Player player = new Player(mockedResources, 0, 0, true);
@@ -47,7 +47,7 @@ public class SpeedPowerupTest {
     
     @Test
     public void testActivate2() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
         Player player = new Player(mockedResources, 0, 0, true);
@@ -74,7 +74,7 @@ public class SpeedPowerupTest {
     
     @Test
     public void testUpdate1() throws SlickException {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
         assertEquals(0, powerup.getSpeedCount());
@@ -92,7 +92,7 @@ public class SpeedPowerupTest {
     
     @Test
     public void testUpdate2() throws SlickException {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
         SpeedPowerup powerup = new SpeedPowerup(mockedResources, 0, 0);
         
         Player player = new Player(mockedResources, 0, 0, true);

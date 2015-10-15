@@ -5,7 +5,7 @@ import java.util.LinkedList;
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.Image;
@@ -28,7 +28,7 @@ public abstract class Bubble extends AbstractEnvironmentObject {
     private boolean slow = false;
     private boolean frozen = false;
     private int tickCount = 0;
-    private final ResourcesWrapper resources;
+    private final ResourceWrapper resources;
     private BubbleFactory bubbleFactory = null;
 
     /**
@@ -49,13 +49,13 @@ public abstract class Bubble extends AbstractEnvironmentObject {
      * @param locY
      *            float - The y-coordinate where the bubble should spawn.
      * @param resources
-     *            {@link ResourcesWrapper} - The resources that this class may use.
+     *            {@link ResourceWrapper} - The resources that this class may use.
      * @param bubbleFactory
      *            {@link BubbleFactory} - The factory to use when creating new bubbles in the
      *            {@link Bubble#split(Modifiable, int)} method.
      */
     public Bubble(Image bubbleImg, float locX, float locY,
-            ResourcesWrapper resources, BubbleFactory bubbleFactory) {
+            ResourceWrapper resources, BubbleFactory bubbleFactory) {
         super(bubbleImg, locX, locY);
 
         this.resources = resources;

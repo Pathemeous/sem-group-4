@@ -16,7 +16,7 @@ import org.newdawn.slick.Sound;
  * @author Pathemeous
  *
  */
-public class ResourcesWrapper {
+public class ResourceWrapper {
     
     public static boolean musicOn = true;
     private final HashMap<String, Image> images;
@@ -29,7 +29,7 @@ public class ResourcesWrapper {
      * Creates a new resourceswrapper, which contains all the resources
      * that can be used.
      */
-    public ResourcesWrapper() {
+    public ResourceWrapper() {
         images = Resources.getImages();
         sounds = Resources.getSounds();
         animations = Resources.getAnimations();
@@ -366,3 +366,4 @@ public class ResourcesWrapper {
         return images.get("img" + fileSeparator + "player2TextOff.png");
     }
 }
+

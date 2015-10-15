@@ -4,7 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -24,7 +24,7 @@ public class SingleplayerGameTest {
 
         Image mockedImage = mock(Image.class);
 
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ResourceWrapper mockedResources = mock(ResourceWrapper.class);
 
         when(mockedImage.getHeight()).thenReturn(1);
         when(mockedImage.getWidth()).thenReturn(1);

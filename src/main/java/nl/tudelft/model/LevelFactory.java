@@ -15,7 +15,7 @@ import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.HorMovingWall;
 import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.model.wall.VerMovingWall;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.semgroup4.resources.ResourceWrapper;
 
 /**
  * A factory that can return full-fledged {@link Level}s on demand.
@@ -23,19 +23,19 @@ import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 public class LevelFactory {
 
     private final Game game;
-    private final ResourcesWrapper resources;
+    private final ResourceWrapper resources;
     private static final int LEVEL_COUNT = 4;
 
     /**
      * Constructs a new {@link LevelFactory} for a certain {@link Game}, using the specified
-     * {@link ResourcesWrapper}.
+     * {@link ResourceWrapper}.
      * 
      * @param game
      *            {@link Game} - the game that this factory belongs to.
      * @param wrapper
-     *            {@link ResourcesWrapper} - the resources that this factory will use.
+     *            {@link ResourceWrapper} - the resources that this factory will use.
      */
-    public LevelFactory(Game game, ResourcesWrapper wrapper) {
+    public LevelFactory(Game game, ResourceWrapper wrapper) {
         this.game = game;
         this.resources = wrapper;
     }
