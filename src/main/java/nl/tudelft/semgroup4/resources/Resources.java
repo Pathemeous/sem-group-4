@@ -47,7 +47,6 @@ public final class Resources {
         // Loads all the images, sounds, music and animations from resource folders.
         try {
             String fileSeparator = System.getProperty("file.separator");
-            System.out.println(fileSeparator);
             loadImages(fileSeparator);
             loadSounds(fileSeparator);
             loadMusic(fileSeparator);
