@@ -3,7 +3,7 @@ package nl.tudelft.semgroup4;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**
- * Controller that performs logic for the StartScreenState
+ * Controller that performs logic for the StartScreenState.
  * 
  * @author Pathemeous
  *
