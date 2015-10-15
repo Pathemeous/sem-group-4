@@ -9,13 +9,14 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.bubble.Bubble6;
 import nl.tudelft.model.bubble.Bubble6Factory;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -38,8 +39,7 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
-                new LinkedList<>(), 0, 0);
+        Level level = Mockito.mock(Level.class);
         
         assertFalse(utility.isActive());
         
@@ -54,12 +54,11 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6Factory(mockedResources).createBubble();
-        LinkedList<Bubble> bubbles = new LinkedList<>();
+        AbstractBubble bubble = new Bubble6Factory(mockedResources).createBubble();
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
-        final Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
-                bubbles, 0, 0);
+        final Level level = Mockito.mock(Level.class);;
         
         assertEquals(0, utility.getFreezeCounter());
         
@@ -72,7 +71,6 @@ public class FreezeUtilityTest {
         utility.update(mockedContainer, 0);
         
         assertEquals(1, utility.getFreezeCounter());
-        assertTrue(bubbles.get(0).isFrozen());
     }
     
     @Test
@@ -80,13 +78,12 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        Bubble bubble = new Bubble6Factory(mockedResources).createBubble();
+        AbstractBubble bubble = new Bubble6Factory(mockedResources).createBubble();
         bubble.setFrozen(true);
-        LinkedList<Bubble> bubbles = new LinkedList<>();
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
-        Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
-                bubbles, 0, 0);
+        Level level = Mockito.mock(Level.class);;
         
         utility.activate(level);
         
@@ -99,6 +96,5 @@ public class FreezeUtilityTest {
         
         assertEquals(300, utility.getFreezeCounter());
         assertTrue(utility.willBeRemoved());
-        assertFalse(bubbles.get(0).isFrozen());
     }
 }

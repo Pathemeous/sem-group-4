@@ -1,12 +1,9 @@
 package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
-import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
-import org.lwjgl.opengl.GL11;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
@@ -59,6 +56,7 @@ public class GameState extends BasicGameState {
                 new MouseOverArea(container, res.getQuitText(), container.getHeight() / 2,
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
                                 .getQuitText().getHeight());
+
         pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
 
         int dashboardMargin = 20;

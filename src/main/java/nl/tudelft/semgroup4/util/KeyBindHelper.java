@@ -2,76 +2,130 @@ package nl.tudelft.semgroup4.util;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.charset.Charset;
-import java.nio.file.Files;
-import java.nio.file.OpenOption;
-import java.nio.file.Paths;
-import java.nio.file.StandardOpenOption;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 
-import org.json.JSONArray;
+import nl.tudelft.semgroup4.Settings;
+import nl.tudelft.semgroup4.eventhandlers.InputKey;
+import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
+
 import org.json.JSONObject;
 
-
+/**
+ * A Helper that converts KeyBindings information to JSON and vice versa.
+ * 
+ * <p>
+ * This class can be used to save and load keybindings.
+ * </p>
+ * 
+ * @author Pathemeous
+ *
+ */
 public class KeyBindHelper {
 
     public static final String FILENAME = "keyBindings.json";
     public static final String DEFAULTS = "defaults.json";
-    private static String toLoad = FILENAME;
-    public static final Charset encoding = Charset.forName("UTF-8");
-    public static final String PLAYER1_LEFT_KEY  = "Player1Left";
-    public static final String PLAYER2_LEFT_KEY  = "Player2Left";
-    public static final String PLAYER1_RIGHT_KEY  = "Player1Right";
-    public static final String PLAYER2_RIGHT_KEY  = "Player2Right";
-    public static final String PLAYER1_SHOOT_KEY  = "Player1Shoot";
-    public static final String PLAYER2_SHOOT_KEY  = "Player2Shoot";
+    public static final String PLAYER1_LEFT_KEY = "Player1Left";
+    public static final String PLAYER2_LEFT_KEY = "Player2Left";
+    public static final String PLAYER1_RIGHT_KEY = "Player1Right";
+    public static final String PLAYER2_RIGHT_KEY = "Player2Right";
+    public static final String PLAYER1_SHOOT_KEY = "Player1Shoot";
+    public static final String PLAYER2_SHOOT_KEY = "Player2Shoot";
 
     /**
-     * Loads the keybinds from the keybinds file (see FILENAME).
-     * @return a list of {@link KeyBindingEntry}s
-     * @throws IOException When reading fails, this exception is thrown.
+     * Attempts to load the input settings as specified in the FILENAME file. If this file is not
+     * found, the DEFAULTS file is used instead. The input settings found in either of these files
+     * is written to the Settings class.
+     * 
+     * @throws IOException
+     *             If the Default key bindings were not found.
      */
-    public static JSONObject load() throws IOException {
+    public static void load() throws IOException {
+        JSONObject json;
 
-        // when file does not exist, create empty one
-        if (!new File(FILENAME).exists()) {
-            toLoad = DEFAULTS;
+        try {
+            File customFile = new File(FILENAME);
+            json = JSONParser.loadJSON(customFile);
+        } catch (IOException e) {
+            File defaultsFile = new File(DEFAULTS);
+            json = JSONParser.loadJSON(defaultsFile);
         }
 
-        return loader(toLoad);
+        updateSettings(json);
     }
 
     /**
-     * Loads keys from a certain file.
-     * @param toLoad - the file which we will load from
-     * @return - the keybindings
-     * @throws IOException - something went wrong.
+     * Returns the input for player 1 as specified by the json at the current time.
+     * 
+     * @return {@link PlayerInput} - The input for player 1.
      */
-    public static JSONObject loader(String toLoad) throws IOException {
-
-        byte[] encoded = Files.readAllBytes(Paths.get(toLoad));
-        String jsonString = new String(encoded, encoding);
-
-        JSONObject keybinds = new JSONObject(jsonString);
-
-        save(keybinds);
-        return keybinds;
+    private static PlayerInput getPlayer1Input(JSONObject json) {
+        return new PlayerInput(new InputKey(json.getInt(PLAYER1_LEFT_KEY)), new InputKey(
+                json.getInt(PLAYER1_RIGHT_KEY)), new InputKey(json.getInt(PLAYER1_SHOOT_KEY)));
     }
 
     /**
-     * Save a list of {@link KeyBindingEntry}s to the keybindings file. See FILENAME for filename.
-     * All contents are overridden, this does NOT append to current scores.
-     * @param keybinds a list of {@link KeyBindingEntry}
-     * @throws IOException When writing fails somehow.
+     * Returns the input for player 2 as specified by the json at the current time.
+     * 
+     * @return {@link PlayerInput} - The input for player 2.
      */
-    public static void save(JSONObject keybinds) throws IOException {
-        OpenOption[] options = {
-            StandardOpenOption.CREATE,
-            StandardOpenOption.WRITE,
-        };
+    private static PlayerInput getPlayer2Input(JSONObject json) {
+        return new PlayerInput(new InputKey(json.getInt(PLAYER2_LEFT_KEY)), new InputKey(
+                json.getInt(PLAYER2_RIGHT_KEY)), new InputKey(json.getInt(PLAYER2_SHOOT_KEY)));
+    }
 
-        Files.write(new File(FILENAME).toPath(), keybinds.toString().getBytes(), options);
+    /**
+     * Converts the input settings to JSON.
+     * 
+     * @return {@link JSONObject} - the JSON representation of the input settings.
+     */
+    private static JSONObject toJSON() {
+        PlayerInput player1Input = Settings.getPlayer1Input();
+        PlayerInput player2Input = Settings.getPlayer2Input();
+
+        JSONObject json = new JSONObject();
+        json.put(PLAYER1_LEFT_KEY, player1Input.getLeftInput().getKeyCode());
+        json.put(PLAYER1_RIGHT_KEY, player1Input.getRightInput().getKeyCode());
+        json.put(PLAYER1_SHOOT_KEY, player1Input.getShootInput().getKeyCode());
+
+        json.put(PLAYER2_LEFT_KEY, player2Input.getLeftInput().getKeyCode());
+        json.put(PLAYER2_RIGHT_KEY, player2Input.getRightInput().getKeyCode());
+        json.put(PLAYER2_SHOOT_KEY, player2Input.getShootInput().getKeyCode());
+
+        return json;
+    }
+
+    private static void updateSettings(JSONObject json) {
+        Settings.setPlayer1Input(getPlayer1Input(json));
+        Settings.setPlayer2Input(getPlayer2Input(json));
+    }
+
+    /**
+     * Attempts to save the input settings in JSON at the custom keybinds location.
+     * 
+     * @throws IOException
+     *             When saving the file goes wrong.
+     */
+    public static void save() throws IOException {
+        JSONObject json = toJSON();
+        File saveFile = new File(FILENAME);
+        JSONParser.save(json, saveFile);
+    }
+
+    /**
+     * Updates the Settings to the defaults as specified in the DEFAULTS file.
+     * 
+     * <p>
+     * Overwrites any custom keybindings that were specified in the FILENAME file with their
+     * default values.
+     * </p>
+     * 
+     * @throws IOException
+     *             If the defaults file cannot be found.
+     */
+    public static void loadDefaults() throws IOException {
+        File defaultFile = new File(DEFAULTS);
+        JSONObject json = JSONParser.loadJSON(defaultFile);
+        updateSettings(json);
+        File saveFile = new File(FILENAME);
+        JSONParser.save(json, saveFile);
     }
 }

@@ -1,11 +1,14 @@
 package nl.tudelft.model.bubble;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 6.
  */
-public class Bubble6 extends Bubble {
+public class Bubble6 extends AbstractBubble {
 
     /**
      * The constructor for this class. Generates a bubble of size 6, with a maxverticalspeed of 10.
@@ -13,19 +16,32 @@ public class Bubble6 extends Bubble {
      * bubble is hit.
      *
      * @param resources
-     *            {@link ResourcesWrapper} - A new resourceWrapper that this class can use.
+     *            {@link ResourceWrapper} - A new resourceWrapper that this class can use.
      * @param locX
      *            : the starting x-location of the bubble.
      * @param locY
      *            : the starting y-location of the bubble.
-     * @param goRight
-     *            : boolean to indicate if the initial direction of the bubble is to the right.
      */
     protected Bubble6(ResourcesWrapper resources, float locX, float locY) {
-        super(resources.getBubbleImage6(), locX, locY, resources, 
-                new Bubble5Factory(resources));
-
-        setMaxVerticalSpeed(10.0f);
+        super(resources.getBubbleImage6(), locX, locY, resources);
+    }
+    
+    @Override
+    protected List<AbstractBubble> createNextBubbles() {
+        List<AbstractBubble> next = new ArrayList<>();
+        
+        // Create 2 new bubbles, that will come free when this bubble splits
+        BubbleFactory bubbleFactory = new Bubble5Factory(new ResourcesWrapper());
+        for (int i = 0; i < 2; i++) {
+            next.add(bubbleFactory.createBubble()); 
+        }
+        
+        return next;
+    }
+    
+    @Override
+    protected float initMaxVerticalSpeed() {
+        return 10.0f;
     }
 
 }

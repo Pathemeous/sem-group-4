@@ -6,7 +6,7 @@ import java.util.TimerTask;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
@@ -71,11 +71,11 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
 //                    }
 //                });
 
-        collisionMap.onCollision(Bubble.class, AbstractWall.class, false,
+        collisionMap.onCollision(AbstractBubble.class, AbstractWall.class, false,
                 bubbleWallHandler);
-        collisionMap.onCollision(Bubble.class, Player.class, false,
+        collisionMap.onCollision(AbstractBubble.class, Player.class, false,
                 playerBubbleHandler);
-        collisionMap.onCollision(Bubble.class, Projectile.class, false,
+        collisionMap.onCollision(AbstractBubble.class, Projectile.class, false,
                 projectileBubbleHandler);
         collisionMap.onCollision(AbstractWall.class, Player.class, false,
                 wallPlayerHandler);
@@ -99,7 +99,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         return collisionMap;
     }
 
-    private static final CollisionHandler<Bubble, AbstractWall> bubbleWallHandler =
+    private static final CollisionHandler<AbstractBubble, AbstractWall> bubbleWallHandler =
             (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
@@ -129,7 +129,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
+    private static final CollisionHandler<AbstractBubble, Player> playerBubbleHandler = (game, bubble, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
 
         if (!player.isAlive()) {
@@ -176,7 +176,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
+    private static final CollisionHandler<AbstractBubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble - Projectile collision");
 

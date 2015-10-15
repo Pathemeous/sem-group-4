@@ -12,26 +12,33 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 public class LevelTest {
 
-    public LinkedList<AbstractWall> walls = new LinkedList<AbstractWall>();
-    public LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
-    public LinkedList<Pickup> pickups = new LinkedList<Pickup>();
-    public LinkedList<Bubble> bubbles = new LinkedList<Bubble>();
-    public Bubble bubble;
-    public AbstractWall wall;
-    public Projectile projectile;
-    public Pickup pickup;
+    private LinkedList<AbstractWall> walls = new LinkedList<AbstractWall>();
+    private LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
+    private LinkedList<Pickup> pickups = new LinkedList<Pickup>();
+    private LinkedList<AbstractBubble> bubbles = new LinkedList<AbstractBubble>();
+    private AbstractBubble bubble;
+    private AbstractWall wall;
+    private Projectile projectile;
+    private Pickup pickup;
+    private Image mockedImage;
+    private Level level;
 
     /**
      * Create mocks for all elements in linked lists.
@@ -44,20 +51,21 @@ public class LevelTest {
         projectiles.add(projectile);
         pickup = mock(Pickup.class);
         pickups.add(pickup);
-        bubble = mock(Bubble.class);
+        bubble = mock(AbstractBubble.class);
         bubbles.add(bubble);
+        mockedImage = Mockito.mock(Image.class);
+        level = new Level(mockedImage, walls, projectiles, pickups, bubbles, 3, 1);
     }
+
     /**
-     * Test to test the constructor for level.
-     * This test also tests the getters.
+     * Test to test the constructor for level. This test also tests the getters.
      */
     @Test
     public void testLevel() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 1, 1);
         assertEquals(level.getBubbles(), bubbles);
         assertEquals(level.getId(), 1);
-        assertEquals(level.getTime(), 1);
-        assertEquals(level.getMaxTime(), 1);
+        assertEquals(level.getTime(), 3);
+        assertEquals(level.getMaxTime(), 3);
         assertEquals(level.getWalls(), walls);
         assertEquals(level.getProjectiles(), projectiles);
         assertEquals(level.getPickups(), pickups);
@@ -68,7 +76,6 @@ public class LevelTest {
      */
     @Test
     public void testIsCompleted() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 1, 1);
         assertFalse(level.isCompleted());
     }
 
@@ -77,7 +84,6 @@ public class LevelTest {
      */
     @Test
     public void testTimeExpired1() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 1, 1);
         assertFalse(level.timerExpired());
     }
 
@@ -86,7 +92,7 @@ public class LevelTest {
      */
     @Test
     public void testTimeExpired2() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 0, 1);
+        level.setTime(0);
         assertTrue(level.timerExpired());
     }
 
@@ -95,39 +101,39 @@ public class LevelTest {
      */
     @Test
     public void testSetTime() {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 1, 1);
-        assertTrue(level.getTime() == 1);
+        assertTrue(level.getTime() == 3);
         level.setTime(2);
         assertTrue(level.getTime() == 2);
     }
 
     /**
      * Test to check the update method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testUpdate1() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 2, 1);
         Modifiable modifiable = mock(Modifiable.class);
         level.update(modifiable, 1);
         verify(bubble, times(1)).update(any(), anyInt());
         verify(wall, times(1)).update(any(), anyInt());
         verify(projectile, times(1)).update(any(), anyInt());
         verify(pickup, times(1)).update(any(), anyInt());
-        assertTrue(level.getTime() == 1);
     }
 
     /**
      * Test to check the update method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testUpdate2() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 2, 1);
         Modifiable modifiable = mock(Modifiable.class);
         AbstractWall mockedWall = mock(AbstractWall.class);
         level.toAdd(mockedWall);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         level.toAdd(mockedBubble);
         Pickup mockedPickup = mock(Pickup.class);
         level.toAdd(mockedPickup);
@@ -142,15 +148,16 @@ public class LevelTest {
 
     /**
      * Test to check the update method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testUpdate3() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
         Modifiable modifiable = mock(Modifiable.class);
         AbstractWall mockedWall = mock(AbstractWall.class);
         level.toAdd(mockedWall);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         level.toAdd(mockedBubble);
         Pickup mockedPickup = mock(Pickup.class);
         level.toAdd(mockedPickup);
@@ -172,43 +179,88 @@ public class LevelTest {
         assertFalse(projectiles.contains(mockedProjectile));
     }
 
+    @Test
+    public void testUpdateShopSlowActive() throws SlickException {
+        Modifiable modifiable = mock(Modifiable.class);
+        level.setShopSlow(true);
+        for (AbstractBubble bubble : bubbles) {
+            assertFalse(bubble.isSlow());
+        }
+        level.update(modifiable, 1);
+        for (AbstractBubble bubble : bubbles) {
+            verify(bubble).setSlow(true);
+        }
+    }
+
     /**
      * Test to check the splitAllBubbles method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testSplitAllBubbles1() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, true);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
      * Test to check the splitAllBubbles method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testSplitAllBubbles2() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         bubbles.add(mockedBubble);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
     }
 
     /**
      * Test to check the splitAllBubbles method for level.
-     * @throws SlickException : An exception created by Slick.
+     * 
+     * @throws SlickException
+     *             : An exception created by Slick.
      */
     @Test
     public void testSplitAllBubbles3() throws SlickException {
-        Level level = new Level(walls, projectiles, pickups, bubbles, 3, 1);
-        Bubble mockedBubble = mock(Bubble.class);
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
         bubbles.add(mockedBubble);
         when(mockedBubble.getImage()).thenReturn(null);
         level.splitAllBubbles(bubbles, false);
-        verify(mockedBubble, times(1)).getBubbleFactory();
+        verify(mockedBubble, times(1)).getNext();
+    }
+
+    @Test
+    public void testGetSetMaxTime() {
+        assertEquals(3, level.getMaxTime());
+        level.setMaxTime(34);
+        assertEquals(34, level.getMaxTime());
+    }
+
+    @Test
+    public void render() throws SlickException {
+        GameContainer mockedContainer = Mockito.mock(GameContainer.class);
+        Graphics mockedGraphics = Mockito.mock(Graphics.class);
+        Mockito.when(mockedImage.getWidth()).thenReturn(1);
+        Mockito.when(mockedImage.getHeight()).thenReturn(1);
+        level.render(mockedContainer, mockedGraphics);
+
+        for (AbstractGameObject gameObject : bubbles) {
+            Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
+        }
+        for (AbstractGameObject gameObject : walls) {
+            Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
+        }
+        for (AbstractGameObject gameObject : bubbles) {
+            Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
+        }
+        for (AbstractGameObject gameObject : pickups) {
+            Mockito.verify(gameObject).render(mockedContainer, mockedGraphics);
+        }
     }
 }

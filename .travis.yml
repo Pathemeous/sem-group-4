@@ -1,6 +1,10 @@
 language: java
 jdk:
   - oraclejdk8
+addons:
+  apt:
+    packages:
+      - oracle-java8-installer
 
 notifications:
   webhooks:
@@ -14,7 +18,7 @@ matrix:
   allow_failures:
     - env: BUILD_PR_BRANCH=true
 
-script: mvn test
+script: mvn clean test
 
 after_script:
   - echo "== CHECKSTYLE_RESULT =="; cat "target/checkstyle-result.xml"; echo "== END_CHECKSTYLE_RESULT =="

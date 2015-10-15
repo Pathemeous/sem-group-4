@@ -2,124 +2,158 @@ package nl.tudelft.semgroup4;
 
 import java.io.IOException;
 
+import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.eventhandlers.InputKey;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
+import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.util.KeyBindHelper;
 
-import org.json.JSONObject;
+public class Settings {
 
-public abstract class Settings {
-
-    private static JSONObject completeKeyBindings;
     static PlayerInput player1Input;
     static PlayerInput player2Input;
 
     /**
-     * Initializes all the keys This has to be in a try catch block. The file will always be found
-     * unless a user has deleted the json.
+     * Private constructor to avoid instantiation.
+     */
+    private Settings() {
+    }
+
+    /**
+     * Initializes all the settings.
      */
     public static void init() {
         try {
-            completeKeyBindings = KeyBindHelper.load();
+            KeyBindHelper.load();
         } catch (IOException e) {
-            e.printStackTrace();
+            Game.LOGGER.log(LogSeverity.CRITICAL, "Initialization",
+                    "Default keybinds were not found.");
         }
-        player1Input =
-                new PlayerInput(new InputKey(getPlayer1LeftValue()), new InputKey(
-                        getPlayer1RightValue()), new InputKey(getPlayer1ShootValue()));
-        player2Input =
-                new PlayerInput(new InputKey(getPlayer2LeftValue()), new InputKey(
-                        getPlayer2RightValue()), new InputKey(getPlayer2ShootValue()));
     }
 
     /**
+     * Returns the current input for player 1.
      * 
-     * @return : returns the current settings.
-     */
-    public static JSONObject getSettings() {
-        return completeKeyBindings;
-    }
-
-    /**
-     * Create the inputs for player 1.
-     * 
-     * @return a PlayerInput for player 1.
+     * @return {@link PlayerInput} - The input for player 1.
      */
     public static PlayerInput getPlayer1Input() {
         return player1Input;
     }
 
     /**
-     * Create the inputs for player 2.
+     * Sets the new input for player 2.
      * 
-     * @return a PlayerInput for player 2.
+     * @param input
+     *            {@link PlayerInput} - The new input for player 1.
+     */
+    public static void setPlayer1Input(PlayerInput input) {
+        player1Input = input;
+    }
+
+    /**
+     * Returns the current input for player 2.
+     * 
+     * @return {@link PlayerInput} - The input for player 2.
      */
     public static PlayerInput getPlayer2Input() {
         return player2Input;
     }
 
-    public static int getPlayer1LeftValue() {
-        return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_LEFT_KEY);
+    /**
+     * Sets the new input for player 2.
+     * 
+     * @param input
+     *            {@link PlayerInput} - The new input for player 2.
+     */
+    public static void setPlayer2Input(PlayerInput input) {
+        player2Input = input;
     }
 
-    public static int getPlayer2LeftValue() {
-        return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_LEFT_KEY);
+    /**
+     * Sets a new key for moving left for player 1.
+     * 
+     * @param newInput
+     *            {@link InputKey} - The new key to use.
+     */
+    public static void setPlayer1LeftKey(InputKey newInput) {
+        player1Input.setLeftInput(newInput);
     }
 
-    public static int getPlayer1RightValue() {
-        return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_RIGHT_KEY);
+    /**
+     * Sets a new key for moving right for player 1.
+     * 
+     * @param newInput
+     *            {@link InputKey} - The new key to use.
+     */
+    public static void setPlayer1RightKey(InputKey newInput) {
+        player1Input.setRightInput(newInput);
     }
 
-    public static int getPlayer2RightValue() {
-        return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_RIGHT_KEY);
+    /**
+     * Sets a new key for shooting for player 1.
+     * 
+     * @param newInput
+     *            {@link InputKey} - The new key to use.
+     */
+    public static void setPlayer1ShootKey(InputKey newInput) {
+        player1Input.setShootInput(newInput);
     }
 
-    public static int getPlayer1ShootValue() {
-        return completeKeyBindings.getInt(KeyBindHelper.PLAYER1_SHOOT_KEY);
+    /**
+     * Sets a new key for moving left for player 2.
+     * 
+     * @param newInput
+     *            {@link InputKey} - The new key to use.
+     */
+    public static void setPlayer2LeftKey(InputKey newInput) {
+        player2Input.setLeftInput(newInput);
     }
 
-    public static int getPlayer2ShootValue() {
-        return completeKeyBindings.getInt(KeyBindHelper.PLAYER2_SHOOT_KEY);
+    /**
+     * Sets a new key for moving right for player 2.
+     * 
+     * @param newInput
+     *            {@link InputKey} - The new key to use.
+     */
+    public static void setPlayer2RightKey(InputKey newInput) {
+        player2Input.setRightInput(newInput);
     }
 
-    public static void setPlayer1Left(int value) {
-        completeKeyBindings.put(KeyBindHelper.PLAYER1_LEFT_KEY, value);
-        player1Input.setLeftInput(new InputKey(value));
+    /**
+     * Sets a new key for shooting for player 2.
+     * 
+     * @param newInput
+     *            {@link InputKey} - The new key to use.
+     */
+    public static void setPlayer2ShootKey(InputKey newInput) {
+        player2Input.setShootInput(newInput);
     }
 
-    public static void setPlayer1Right(int value) {
-        completeKeyBindings.put(KeyBindHelper.PLAYER1_RIGHT_KEY, value);
-        player1Input.setLeftInput(new InputKey(value));
-    }
-
-    public static void setPlayer1Shoot(int value) {
-        completeKeyBindings.put(KeyBindHelper.PLAYER1_SHOOT_KEY, value);
-        player1Input.setLeftInput(new InputKey(value));
-    }
-
-    public static void setPlayer2Left(int value) {
-        completeKeyBindings.put(KeyBindHelper.PLAYER2_LEFT_KEY, value);
-        player2Input.setLeftInput(new InputKey(value));
-    }
-
-    public static void setPlayer2Right(int value) {
-        completeKeyBindings.put(KeyBindHelper.PLAYER2_RIGHT_KEY, value);
-        player2Input.setRightInput(new InputKey(value));
-    }
-
-    public static void setPlayer2Shoot(int value) {
-        completeKeyBindings.put(KeyBindHelper.PLAYER2_SHOOT_KEY, value);
-        player2Input.setShootInput(new InputKey(value));
+    /**
+     * Saves the current settings to an output file.
+     * 
+     * <p>
+     * This saves the settings in between sessions.
+     * </p>
+     */
+    public static void save() {
+        try {
+            KeyBindHelper.save();
+        } catch (IOException e) {
+            Game.LOGGER.log(LogSeverity.CRITICAL, "File",
+                    "Saving the settings to a file failed.");
+        }
     }
 
     /**
      * Reset the settings to their defaults.
      */
-    public static void setDefault() {
+    public static void setDefaults() {
         try {
-            completeKeyBindings = KeyBindHelper.loader("defaults.json");
+            KeyBindHelper.loadDefaults();
         } catch (IOException e) {
-            e.printStackTrace();
+            Game.LOGGER.log(LogSeverity.CRITICAL, "File",
+                    "Loading the default settings failed.");
         }
     }
 }
