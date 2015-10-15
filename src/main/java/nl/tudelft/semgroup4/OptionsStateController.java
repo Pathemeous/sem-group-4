@@ -29,7 +29,7 @@ public class OptionsStateController {
      *              the image belonging to the curront state of the sound
      */
     protected Image getMusicImage() {
-        if (res.getMusicOn()) {
+        if (res.isMusicOn()) {
             return res.getOn();
         } else {
             return res.getOff();
@@ -76,7 +76,7 @@ public class OptionsStateController {
      * Toggles the music on and off.
      */
     protected void toggleMusic() {
-        res.setMusicOn(!res.getMusicOn());
+        res.setMusicOn(!res.isMusicOn());
     }
 
     /**

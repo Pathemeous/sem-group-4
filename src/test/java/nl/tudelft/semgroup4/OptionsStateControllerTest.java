@@ -38,15 +38,15 @@ public class OptionsStateControllerTest {
     }
 
     @Test
-    public void testGetMusicOn1() {
-        when(mockedWrapper.getMusicOn()).thenReturn(true);
+    public void testIsMusicOn1() {
+        when(mockedWrapper.isMusicOn()).thenReturn(true);
         controller.getMusicImage();
         verify(mockedWrapper, times(1)).getOn();
     }
 
     @Test
-    public void testGetMusicOn2() {
-        when(mockedWrapper.getMusicOn()).thenReturn(false);
+    public void testIsMusicOn2() {
+        when(mockedWrapper.isMusicOn()).thenReturn(false);
         controller.getMusicImage();
         verify(mockedWrapper, times(1)).getOff();
     }

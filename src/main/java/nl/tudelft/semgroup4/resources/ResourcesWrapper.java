@@ -368,7 +368,7 @@ public class ResourcesWrapper {
         return new TrueTypeFont(font, bool);
     }
 
-    public boolean getMusicOn() {
+    public boolean isMusicOn() {
         return musicOn;
     }
 
