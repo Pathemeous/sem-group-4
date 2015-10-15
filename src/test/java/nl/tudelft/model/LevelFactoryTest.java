@@ -13,7 +13,7 @@ import org.junit.Test;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public class LevelFactoryTest extends AbstractOpenGLTestCase {
+public class LevelFactoryTest {
     
     Game mockedGame;
     ResourcesWrapper mockedResources;

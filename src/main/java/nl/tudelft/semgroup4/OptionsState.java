@@ -29,6 +29,7 @@ public class OptionsState extends BasicGameState {
     private boolean loggerSetEnabled = false;
     private final ResourcesWrapper resources = new ResourcesWrapper();
 
+
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         soundOnOff = new MouseOverArea(container, resources.getOn(),
@@ -43,7 +44,7 @@ public class OptionsState extends BasicGameState {
                 container.getWidth() / 4,
                 container.getHeight() / 3 + 60);
         input = container.getInput();
-        loggerSetScreen = new LoggerSetScreen(resources, container);
+        loggerSetScreen = new LoggerSetScreen(container, new ResourcesWrapper());
     }
 
     @Override
@@ -74,17 +75,17 @@ public class OptionsState extends BasicGameState {
 
     @Override
     public void update(GameContainer container, StateBasedGame game, int ticks) {
-        if (soundOnOff.isMouseOver()) { 
+        if (soundOnOff.isMouseOver()) {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                
-                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
+
+                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
                         "User toggled sound " + (ResourcesWrapper.musicOn ? "off" : "on") );
                 ResourcesWrapper.musicOn = !ResourcesWrapper.musicOn;
             }
         }
         if (backButton.isMouseOver()) {
             if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu", 
+                Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
                         "User goes back to main menu" );
                 game.enterState(States.StartScreenState);
             }

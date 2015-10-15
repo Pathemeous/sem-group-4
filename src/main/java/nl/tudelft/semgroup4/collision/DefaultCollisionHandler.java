@@ -6,8 +6,7 @@ import java.util.TimerTask;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.Wall;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
@@ -15,6 +14,11 @@ import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.wall.AbstractMovingWall;
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.HorMovingWall;
+import nl.tudelft.model.wall.RegularWall;
+import nl.tudelft.model.wall.VerMovingWall;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -29,33 +33,52 @@ public class DefaultCollisionHandler implements CollisionHandler<
 
     @Override
     public void onCollision(Game game, AbstractGameObject objA, AbstractGameObject objB) {
-        if (objA instanceof Bubble) {
-            if (objB instanceof Wall) {
-                bubbleWallHandler.onCollision(game, (Bubble) objA, (Wall) objB);
+        if (objA instanceof AbstractBubble) {
+            if (objB instanceof AbstractWall) {
+                bubbleWallHandler.onCollision(game, (AbstractBubble) objA, (AbstractWall) objB);
             }
         }
 
-        if (objA instanceof Bubble) {
+        if (objA instanceof AbstractBubble) {
             if (objB instanceof Player) {
-                playerBubbleHandler.onCollision(game, (Bubble) objA, (Player) objB);
+                playerBubbleHandler.onCollision(game, (AbstractBubble) objA, (Player) objB);
             }
         }
 
-        if (objA instanceof Bubble) {
+        if (objA instanceof AbstractBubble) {
             if (objB instanceof Projectile) {
-                projectileBubbleHandler.onCollision(game, (Bubble) objA, (Projectile) objB);
+                projectileBubbleHandler.onCollision(game, (AbstractBubble) objA, (Projectile) objB);
             }
         }
 
-        if (objA instanceof Projectile) {
-            if (objB instanceof Wall) {
-                projectileWallHandler.onCollision(game, (Projectile) objA, (Wall) objB);
+        if (objA instanceof AbstractWall) {
+            if (objB instanceof Player) {
+                wallPlayerHandler.onCollision(game, (AbstractWall) objA, (Player) objB);
             }
         }
-
-        if (objA instanceof Player) {
-            if (objB instanceof Wall) {
-                playerWallHandler.onCollision(game, (Player) objA, (Wall) objB);
+        
+        if (objA instanceof HorMovingWall) {
+            if (objB instanceof AbstractWall) {
+                horWallWallHandler.onCollision(game, (HorMovingWall) objA, (AbstractWall) objB);
+            }
+        }
+        
+        if (objA instanceof VerMovingWall) {
+            if (objB instanceof AbstractWall) {
+                verWallWallHandler.onCollision(game, (VerMovingWall) objA, (AbstractWall) objB);
+            }
+        }
+        
+        if (objA instanceof RegularWall) {
+            if (objB instanceof Projectile) {
+                wallProjectileHandler.onCollision(game, (RegularWall) objA, (Projectile) objB);
+            }
+        }
+        
+        if (objA instanceof AbstractMovingWall) {
+            if (objB instanceof Projectile) {
+                movingwallProjectileHandler.onCollision(game, 
+                        (AbstractMovingWall) objA, (Projectile) objB);
             }
         }
         
@@ -78,13 +101,14 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
 
         if (objA instanceof Pickup) {
-            if (objB instanceof Wall) {
-                pickupWallHandler.onCollision(game, (Pickup) objA, (Wall) objB);
+            if (objB instanceof AbstractWall) {
+                pickupWallHandler.onCollision(game, (Pickup) objA, (AbstractWall) objB);
             }
         }
     }
 
-    private final CollisionHandler<Player, Wall> playerWallHandler = (game, player, wall) -> {
+    private final CollisionHandler<AbstractWall, Player> wallPlayerHandler = 
+            (game, wall, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Player - wall collision");
         
         final Shape playerRect = player.getBounds();
@@ -99,7 +123,8 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    private final CollisionHandler<Bubble, Wall> bubbleWallHandler = (game, bubble, wall) -> {
+    private final CollisionHandler<AbstractBubble, AbstractWall> bubbleWallHandler = 
+            (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
         if (wall.getLocX() < bubble.getLocX()
@@ -128,7 +153,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    final CollisionHandler<Bubble, Player> playerBubbleHandler = (game, bubble, player) -> {
+    final CollisionHandler<AbstractBubble, Player> playerBubbleHandler = (game, bubble, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
 
         if (!player.isAlive()) {
@@ -174,8 +199,9 @@ public class DefaultCollisionHandler implements CollisionHandler<
             }, 1000);
         }
     };
-
-    final CollisionHandler<Projectile, Wall> projectileWallHandler = (game, projectile, wall) -> {
+    
+    final CollisionHandler<RegularWall, Projectile> wallProjectileHandler = 
+            (game, wall, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
         
         final Shape projectileRect = projectile.getBounds();
@@ -187,8 +213,14 @@ public class DefaultCollisionHandler implements CollisionHandler<
             projectile.setHitWall();
         }
     };
+    
+    final CollisionHandler<AbstractMovingWall, Projectile> movingwallProjectileHandler = 
+            (game, wall, projectile) -> {
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit a moving wall");
+        projectile.setHitWall();
+    };
 
-    final CollisionHandler<Bubble, Projectile> projectileBubbleHandler =
+    final CollisionHandler<AbstractBubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble - Projectile collision");
                 
@@ -202,7 +234,7 @@ public class DefaultCollisionHandler implements CollisionHandler<
         }
     };
 
-    final CollisionHandler<Pickup, Wall> pickupWallHandler = (game, pickup, wall) -> {
+    final CollisionHandler<Pickup, AbstractWall> pickupWallHandler = (game, pickup, wall) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Pickup - Wall collision");
         
         final Shape pickupRect = pickup.getBounds();
@@ -229,5 +261,44 @@ public class DefaultCollisionHandler implements CollisionHandler<
     final CollisionHandler<Utility, Player> playerUtilityHandler = (game, util, player) -> {
         Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
         util.activate(game.getCurLevel());
+    };
+    
+    private final CollisionHandler<HorMovingWall, AbstractWall> horWallWallHandler = 
+            (game, movingWall, abstractWall) -> {
+        float offset = Math.abs(movingWall.getSpeed()) * 2 + 1;        
+        
+        // Check if the horizontalwall engages in a frontal collision with another wall.
+        // If it has a frontal collision with an object to its right, it should move
+        // to the left, else it should move to the left.
+        // A small offset is used in checking the frontal collision, because there can be
+        // a small overlap between two walls.
+        if (movingWall.getLocX() < abstractWall.getLocX() 
+                && movingWall.getLocX() + movingWall.getWidth() < abstractWall.getLocX() + offset) {
+            movingWall.setSpeed(-Math.abs(movingWall.getSpeed()));
+        } else if (movingWall.getLocX() > abstractWall.getLocX()
+                && movingWall.getLocX() 
+                > abstractWall.getLocX() + abstractWall.getWidth() - offset) {
+            movingWall.setSpeed(Math.abs(movingWall.getSpeed()));
+        }
+    };
+    
+    private final CollisionHandler<VerMovingWall, AbstractWall> verWallWallHandler = 
+            (game, movingWall, abstractWall) -> {
+        float offset = Math.abs(movingWall.getSpeed()) * 2 + 1;
+        
+        // Check if the verticalwall engages in a frontal collision with another wall.
+        // If it has a frontal collision with an object below it, it should move
+        // to upwards, else it should move downwards.
+        // A small offset is used in checking the frontal collision, because there can be
+        // a small overlap between two walls.
+        if (movingWall.getLocY() < abstractWall.getLocY() 
+                && movingWall.getLocY() + movingWall.getHeight() 
+                < abstractWall.getLocY() + offset) {
+            movingWall.setSpeed(-Math.abs(movingWall.getSpeed()));
+        } else if (movingWall.getLocY() > abstractWall.getLocY() 
+                && movingWall.getLocY() 
+                > abstractWall.getLocY() + abstractWall.getHeight() - offset) {
+            movingWall.setSpeed(Math.abs(movingWall.getSpeed()));
+        }
     };
 }

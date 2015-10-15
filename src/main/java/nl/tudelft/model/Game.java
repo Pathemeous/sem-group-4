@@ -106,9 +106,8 @@ public abstract class Game implements Renderable, Modifiable {
 
         // collision : CollisionMap
         bubbleCollision(quad);
-        projectileCollision(quad);
-        playerCollision(quad);
         pickupCollision(quad);
+        wallCollision(quad);
 
         // updates
         playerUpdate(delta);
@@ -209,22 +208,10 @@ public abstract class Game implements Renderable, Modifiable {
     }
 
     /**
-     * Checks for every player if it collides with anything a player can collide with.
+     * Checks for every wall if it collides with anything a wall can collide with.
      */
-    private void playerCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : getPlayers()) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
-                    collidesWithA, quad)) {
-                collisionHandler.onCollision(this, collidesWithA, collidesWithB);
-            }
-        }
-    }
-
-    /**
-     * Checks for every player if it collides with anything a projectile can collide with.
-     */
-    private void projectileCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : curLevel.getProjectiles()) {
+    private void wallCollision(QuadTree quad) {
+        for (AbstractGameObject collidesWithA : curLevel.getWalls()) {
             for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
                 collisionHandler.onCollision(this, collidesWithA, collidesWithB);

@@ -16,14 +16,13 @@ import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameState extends BasicGameState {
-
+    
+    private GameStateController controller;
     private PauseScreen pauseScreen;
-    private Input input = new Input(0);
+    private Input input;
     private final Game currentGame;
     private Dashboard dashboard;
     private boolean pauseScreenOpened = false;
-    private final PlayerInput player1Input;
-    private final PlayerInput player2Input;
 
     /**
      * Creates a new {@link GameState} with a specified {@link Game}.
@@ -36,9 +35,8 @@ public class GameState extends BasicGameState {
      *            {@link Game} - The game that this GameState will manage.
      */
     public GameState(Game game) {
-        this.currentGame = game;
-        this.player1Input = Settings.getPlayer1Input();
-        this.player2Input = Settings.getPlayer2Input();
+        controller = new GameStateController(game);
+        currentGame = game;
     }
 
     /**
@@ -53,8 +51,8 @@ public class GameState extends BasicGameState {
      */
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
         final ResourcesWrapper res = new ResourcesWrapper();
-        GL11.glEnable(GL11.GL_BLEND);
-        GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
+        //GL11.glEnable(GL11.GL_BLEND);
+        //GL11.glBlendFunc(GL11.GL_SRC_ALPHA, GL11.GL_ONE_MINUS_SRC_ALPHA);
 
         input = container.getInput();
         MouseOverArea mouseOver =
@@ -62,7 +60,6 @@ public class GameState extends BasicGameState {
                         container.getHeight() / 2, res.getQuitText().getWidth(), res
                                 .getQuitText().getHeight());
         pauseScreen = new PauseScreen(new ResourcesWrapper(), mouseOver);
-        // Resources.titleScreenMusic.stop();
 
         int dashboardMargin = 20;
         dashboard =
@@ -88,14 +85,8 @@ public class GameState extends BasicGameState {
         currentGame.render(container, graphics);
         dashboard.render(container, graphics);
 
-        if (pauseScreenOpened) {
-            ResourcesWrapper res = new ResourcesWrapper();
-            if (res.getWeaponFire().playing()) {
-                res.stopFireSound();
-            }
-            pauseScreen.show(graphics, container, input, game, this);
-        }
-
+        controller.showPauseScreen(pauseScreenOpened, pauseScreen, graphics, 
+                container, input, game, this);
     }
 
     /**
@@ -114,38 +105,44 @@ public class GameState extends BasicGameState {
             throws SlickException {
         // checks if the escape key is pressed
         if (input.isKeyPressed(Input.KEY_ESCAPE)) {
-            // If the game is paused and the pause screen is openend, or if the
-            // game isn't paused, this code is executed. This prevents the user from
-            // being able to unpause the game while the countdown is running (because then
-            // the game is paused without the pause screen being open)
-            if ((currentGame.isPaused() && pauseScreenOpened)
-                    || !(currentGame.isPaused() || pauseScreenOpened)) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
-                        + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
-                input.disableKeyRepeat();
-                currentGame.setPaused(!currentGame.isPaused());
-                pauseScreenOpened = !pauseScreenOpened;
-            }
+            pauseScreenOpened = controller.togglePauseMenu(pauseScreenOpened, input);
         }
 
-        if (!currentGame.isPaused()) {
-            player1Input.poll();
-            if (currentGame instanceof MultiplayerGame) {
-                player2Input.poll();
-            }
-            currentGame.update(delta);
-        } else {
-            currentGame.getCountdown().update();
-        }
+        controller.updateGame(delta);
         dashboard.update(delta);
+    }
+    
+    @Override
+    public int getID() {
+        return States.GameState;
     }
 
     protected Game getGame() {
         return currentGame;
     }
-
+    
+    protected void setGameStateController(GameStateController controller) {
+        this.controller = controller;
+    }
+    
+    protected void setDashboard(Dashboard dashboard) {
+        this.dashboard = dashboard;
+    }
+    
+    protected PauseScreen getPausescreen() {
+        return pauseScreen;
+    }
+    
+    protected boolean isPauseScreenOpened() {
+        return pauseScreenOpened;
+    }
+    
+    protected Input getInput() {
+        return input;
+    }
+    
     @Override
-    public int getID() {
-        return States.GameState;
+    public void setInput(Input input) {
+        this.input = input;
     }
 }

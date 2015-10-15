@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.Sound;
 import org.newdawn.slick.TrueTypeFont;
 
@@ -92,6 +93,14 @@ public class ResourcesWrapper {
 
     public Image getVwallImage() {
         return Resources.vwallImage;
+    }
+    
+    public Image getSmallHWallImage() {
+        return Resources.smallHWallImage;
+    }
+    
+    public Image getSmallVWallImage() {
+        return Resources.smallVWallImage;
     }
 
     public Image getWeaponImageRegular() {
@@ -349,5 +358,13 @@ public class ResourcesWrapper {
     
     public TrueTypeFont getCountdownFont() {
         return Resources.countdownFont;
+    }
+
+    public Image createImage(int width, int height) throws SlickException {
+        return new Image(width, height);
+    }
+
+    public TrueTypeFont createFont(Font font, boolean bool) {
+        return new TrueTypeFont(font, bool);
     }
 }
