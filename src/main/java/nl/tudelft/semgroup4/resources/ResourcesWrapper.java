@@ -6,6 +6,7 @@ import org.newdawn.slick.Animation;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.Sound;
+import org.newdawn.slick.TrueTypeFont;
 
 /**
  * Creates a layer between the static {@link Resources} class and the classes that use it. By
@@ -19,20 +20,20 @@ import org.newdawn.slick.Sound;
 public class ResourcesWrapper {
     
     public static boolean musicOn = true;
-    private static HashMap<String, Image> images;
-    private static HashMap<String, Sound> sounds;
-    private static HashMap<String, Animation> animations;
-    private static HashMap<String, Music> music;
+    private final HashMap<String, Image> images;
+    private final HashMap<String, Sound> sounds;
+    private final HashMap<String, Animation> animations;
+    private final HashMap<String, Music> music;
     
     /**
      * Creates a new resourceswrapper, which contains all the resources
      * that can be used.
      */
     public ResourcesWrapper() {
-        images = Resources.images;
-        sounds = Resources.sounds;
-        animations = Resources.animations;
-        music = Resources.music;
+        images = Resources.getImages();
+        sounds = Resources.getSounds();
+        animations = Resources.getAnimations();
+        music = Resources.getMusic();
     }
     
 
@@ -360,7 +361,7 @@ public class ResourcesWrapper {
         return images.get("img\\player2TextOff.png");
     }
     
-//    public TrueTypeFont getCountdownFont() {
-//        return Resources.countdownFont;
-//    }
+    public TrueTypeFont getCountdownFont() {
+        return Fonts.getCountdownFont();
+    }
 }
