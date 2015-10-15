@@ -1,6 +1,5 @@
 package nl.tudelft.model.bubble;
 
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
