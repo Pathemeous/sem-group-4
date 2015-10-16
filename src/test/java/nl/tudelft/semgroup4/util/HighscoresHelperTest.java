@@ -4,7 +4,6 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
-import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -31,7 +30,9 @@ public class HighscoresHelperTest {
 
     @Test
     public void testEmptyNoSave() throws Exception {
-        List<HighscoreEntry> loaded = HighscoresHelper.load();
+        HighscoresHelper helper = new HighscoresHelper();
+        
+        List<HighscoreEntry> loaded = helper.load();
 
         assertTrue(loaded.isEmpty());
     }
@@ -39,10 +40,12 @@ public class HighscoresHelperTest {
     @Test
     public void testEmpty() throws Exception {
         List<HighscoreEntry> saveMe = new ArrayList<>();
+        
+        HighscoresHelper helper = new HighscoresHelper();
 
-        HighscoresHelper.save(saveMe);
+        helper.save(saveMe);
 
-        List<HighscoreEntry> loaded = HighscoresHelper.load();
+        List<HighscoreEntry> loaded = helper.load();
 
         assertTrue(loaded.isEmpty());
         assertEquals(saveMe, loaded);
@@ -52,10 +55,12 @@ public class HighscoresHelperTest {
     public void testOne() throws Exception {
         List<HighscoreEntry> saveMe = new ArrayList<>();
         saveMe.add(new HighscoreEntry("cool name", 1000L));
+        
+        HighscoresHelper helper = new HighscoresHelper();
 
-        HighscoresHelper.save(saveMe);
+        helper.save(saveMe);
 
-        List<HighscoreEntry> loaded = HighscoresHelper.load();
+        List<HighscoreEntry> loaded = helper.load();
 
         assertEquals(1, loaded.size());
         assertEquals(saveMe, loaded);
@@ -70,10 +75,12 @@ public class HighscoresHelperTest {
         saveMe.add(new HighscoreEntry("cool name4", 1150L));
         saveMe.add(new HighscoreEntry("cool name5", 1200L));
         saveMe.add(new HighscoreEntry("cool name6", 1250L));
+        
+        HighscoresHelper helper = new HighscoresHelper();
 
-        HighscoresHelper.save(saveMe);
+        helper.save(saveMe);
 
-        List<HighscoreEntry> loaded = HighscoresHelper.load();
+        List<HighscoreEntry> loaded = helper.load();
 
         assertEquals(6, loaded.size());
         assertEquals(saveMe, loaded);
