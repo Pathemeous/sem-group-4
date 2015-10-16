@@ -1,7 +1,5 @@
 package nl.tudelft.semgroup4;
 
-import java.lang.Thread.State;
-
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.Player;
