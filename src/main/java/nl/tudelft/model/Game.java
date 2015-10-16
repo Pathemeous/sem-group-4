@@ -28,7 +28,7 @@ import org.newdawn.slick.state.StateBasedGame;
  * The Game class represents a game session. A game can be single player or multiplayer, and
  * contains a list of levels and players.
  */
-public abstract class Game implements Renderable, Modifiable {
+public abstract class Game implements Renderable {
 
     public static final Logger LOGGER;
 
@@ -185,7 +185,7 @@ public abstract class Game implements Renderable, Modifiable {
     private void playerUpdate(int delta) throws SlickException {
         for (Player player : getPlayers()) {
             if (player.isAlive()) {
-                player.update(this, delta);
+                player.update(getCurLevel(), delta);
             }
         }
     }
@@ -352,24 +352,24 @@ public abstract class Game implements Renderable, Modifiable {
      *
      * @deprecated use getCurLevel().toAdd(obj)
      */
-    @Deprecated
-    @Override
-    public void toAdd(AbstractGameObject obj) {
-        getCurLevel().toAdd(obj);
-    }
-
-    /**
-     * Can be used to remove Players from the Game object. This is the only type of GameObject
-     * stored in Game.
-     *
-     * @deprecated use getCurLevel().toAdd(obj)
-     */
-    @Deprecated
-    @Override
-    public void toRemove(AbstractGameObject obj) {
-        getCurLevel().toRemove(obj);
-
-    }
+//    @Deprecated
+//    @Override
+//    public void toAdd(AbstractGameObject obj) {
+//        getCurLevel().toAdd(obj);
+//    }
+//
+//    /**
+//     * Can be used to remove Players from the Game object. This is the only type of GameObject
+//     * stored in Game.
+//     *
+//     * @deprecated use getCurLevel().toAdd(obj)
+//     */
+//    @Deprecated
+//    @Override
+//    public void toRemove(AbstractGameObject obj) {
+//        getCurLevel().toRemove(obj);
+//
+//    }
     
     public void setPaused(boolean paused) {
         this.paused = paused;

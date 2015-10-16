@@ -10,7 +10,7 @@ import static org.mockito.Mockito.never;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -107,7 +107,7 @@ public class WeaponTest {
         assertEquals(weapon.getNumberOfProjectiles(), 0);
         assertEquals(weapon.getMaxCount(), 1);
         weapon.getProjectiles().add(projectile);
-        Game mockedContainer = mock(Game.class);
+        Level mockedContainer = mock(Level.class);
         weapon.fire(mockedContainer, 0, 0, 0, 0);
         verify(mockedContainer, never()).toAdd(any());
         verify(projectile, never()).fire();
@@ -138,7 +138,7 @@ public class WeaponTest {
         assertFalse(weapon.getProjectiles().contains(projectile));
         weapon.getProjectiles().add(projectile);
         assertTrue(weapon.getProjectiles().contains(projectile));
-        Game mockedContainer = mock(Game.class);
+        Level mockedContainer = mock(Level.class);
         weapon.remove(mockedContainer, projectile);
         verify(mockedContainer, times(1)).toRemove(projectile);
         assertEquals(weapon.getNumberOfProjectiles(), 0);

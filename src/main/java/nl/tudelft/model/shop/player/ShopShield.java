@@ -23,6 +23,6 @@ public class ShopShield extends PlayerShopItem {
     public void applyTo(Player buyer) {
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(new ResourcesWrapper(), 0, 0);
         powerup.activate(buyer);
-        game.toAdd(powerup);
+        game.getCurLevel().toAdd(powerup);
     }
 }
