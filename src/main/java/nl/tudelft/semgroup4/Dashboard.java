@@ -279,7 +279,7 @@ public class Dashboard implements Renderable {
      * @param scoreLeft
      *            the scoreLeft to set
      */
-    public void setScoreLeft(int scoreLeft) {
+    protected void setScoreLeft(int scoreLeft) {
         this.scoreLeft = scoreLeft;
     }
 
@@ -289,7 +289,7 @@ public class Dashboard implements Renderable {
      * @param scoreRight
      *            the scoreRight to set
      */
-    public void setScoreRight(int scoreRight) {
+    protected void setScoreRight(int scoreRight) {
         this.scoreRight = scoreRight;
     }
 
@@ -299,7 +299,7 @@ public class Dashboard implements Renderable {
      * @param livesLeft
      *            the livesLeft to set
      */
-    public void setLivesLeft(int livesLeft) {
+    protected void setLivesLeft(int livesLeft) {
         this.livesLeft = livesLeft;
     }
 
@@ -309,7 +309,7 @@ public class Dashboard implements Renderable {
      * @param livesRight
      *            the livesRight to set
      */
-    public void setLivesRight(int livesRight) {
+    protected void setLivesRight(int livesRight) {
         this.livesRight = livesRight;
     }
 
@@ -319,7 +319,7 @@ public class Dashboard implements Renderable {
      * @param moneyLeft
      *            the moneyLeft to set
      */
-    public void setMoneyLeft(int moneyLeft) {
+    protected void setMoneyLeft(int moneyLeft) {
         this.moneyLeft = moneyLeft;
     }
 
@@ -329,7 +329,7 @@ public class Dashboard implements Renderable {
      * @param moneyRight
      *            the moneyRight to set
      */
-    public void setMoneyRight(int moneyRight) {
+    protected void setMoneyRight(int moneyRight) {
         this.moneyRight = moneyRight;
     }
 
@@ -339,7 +339,7 @@ public class Dashboard implements Renderable {
      * @param levelId
      *            the levelId to set
      */
-    public void setLevelId(int levelId) {
+    protected void setLevelId(int levelId) {
         this.levelId = levelId;
     }
 
@@ -363,7 +363,7 @@ public class Dashboard implements Renderable {
      * Sets the controller.
      * @param controller the controller to set
      */
-    public void setController(DashboardController controller) {
+    protected void setController(DashboardController controller) {
         this.controller = controller;
     }
 
@@ -371,7 +371,7 @@ public class Dashboard implements Renderable {
      * Returns the game.
      * @return the game
      */
-    public Game getGame() {
+    protected Game getGame() {
         return game;
     }
     
