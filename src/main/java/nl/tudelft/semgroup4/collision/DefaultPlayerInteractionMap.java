@@ -25,14 +25,14 @@ import org.newdawn.slick.geom.Shape;
 
 /**
  * An extensible default interaction map for collisions caused by the player.
- * 
+ *
  * <p>The implementation makes use of the interactionmap, and as such can be easily
  * and declaratively extended when new types of AbstractGameObjects (ghosts, players, ...) are
  * added.</p>
- * 
+ *
  * @author Arie van Deursen
  * @author Jeroen Roosen
- * 
+ *
  */
 public class DefaultPlayerInteractionMap implements CollisionMap {
 
@@ -45,7 +45,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
 
     /**
      * Creates the default collisions Player-Ghost and Player-Pellet.
-     * 
+     *
      * @return The collision map containing collisions for Player-Ghost and
      *         Player-Pellet.
      */
@@ -99,7 +99,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         return collisionMap;
     }
 
-    private static final CollisionHandler<AbstractBubble, AbstractWall> bubbleWallHandler =
+    private static CollisionHandler<AbstractBubble, AbstractWall> bubbleWallHandler =
             (game, bubble, wall) -> {
         float offset = bubble.getMaxSpeed();
 
@@ -129,7 +129,8 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<AbstractBubble, Player> playerBubbleHandler = (game, bubble, player) -> {
+    private static CollisionHandler<AbstractBubble, Player> playerBubbleHandler
+            = (game, bubble, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
 
         if (!player.isAlive()) {
@@ -176,7 +177,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<AbstractBubble, Projectile> projectileBubbleHandler =
+    private static CollisionHandler<AbstractBubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble - Projectile collision");
 
@@ -190,12 +191,12 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<AbstractWall, Player> wallPlayerHandler =
+    private static CollisionHandler<AbstractWall, Player> wallPlayerHandler =
             (game, wall, player) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Player - wall collision");
 
-        final Shape playerRect = player.getBounds();
-        final Shape wallRect = wall.getBounds();
+        Shape playerRect = player.getBounds();
+        Shape wallRect = wall.getBounds();
 
         if (wallRect.getX() < playerRect.getX()) {
             player.setLocX(player.getLocX()
@@ -206,7 +207,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<HorMovingWall, AbstractWall> horWallWallHandler =
+    private static CollisionHandler<HorMovingWall, AbstractWall> horWallWallHandler =
             (game, movingWall, abstractWall) -> {
         float offset = Math.abs(movingWall.getSpeed()) * 2 + 1;
 
@@ -225,7 +226,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<VerMovingWall, AbstractWall> verWallWallHandler =
+    private static CollisionHandler<VerMovingWall, AbstractWall> verWallWallHandler =
             (game, movingWall, abstractWall) -> {
         float offset = Math.abs(movingWall.getSpeed()) * 2 + 1;
 
@@ -245,12 +246,12 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<RegularWall, Projectile> wallProjectileHandler =
+    private static CollisionHandler<RegularWall, Projectile> wallProjectileHandler =
             (game, wall, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
 
-        final Shape projectileRect = projectile.getBounds();
-        final Shape wallRect = wall.getBounds();
+        Shape projectileRect = projectile.getBounds();
+        Shape wallRect = wall.getBounds();
         // This structure makes the projectile ignore any walls below it (such as the floor wall).
 
         if (wallRect.getY() < projectileRect.getY()) {
@@ -259,34 +260,38 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static final CollisionHandler<AbstractMovingWall, Projectile> movingwallProjectileHandler =
+    private static CollisionHandler<AbstractMovingWall, Projectile> movingwallProjectileHandler =
             (game, wall, projectile) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit a moving wall");
         projectile.setHitWall();
     };
 
-    private static final CollisionHandler<Powerup, Player> playerPowerupHandler = (game, powerup, player) -> {
+    private static CollisionHandler<Powerup, Player> playerPowerupHandler =
+            (game, powerup, player) -> {
         Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
         powerup.activate(player);
     };
 
-    private static final CollisionHandler<Weapon, Player> playerWeaponHandler = (game, weapon, player) -> {
+    private static CollisionHandler<Weapon, Player> playerWeaponHandler =
+            (game, weapon, player) -> {
         Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
         if (!player.isShopWeapon()) {
             weapon.activate(player);
         }
     };
 
-    private static final CollisionHandler<Utility, Player> playerUtilityHandler = (game, util, player) -> {
+    private static CollisionHandler<Utility, Player> playerUtilityHandler =
+            (game, util, player) -> {
         Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
         util.activate(game.getCurLevel());
     };
 
-    private static final CollisionHandler<Pickup, AbstractWall> pickupWallHandler = (game, pickup, wall) -> {
+    private static CollisionHandler<Pickup, AbstractWall> pickupWallHandler =
+            (game, pickup, wall) -> {
         Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Pickup - Wall collision");
 
-        final Shape pickupRect = pickup.getBounds();
-        final Shape wallRect = wall.getBounds();
+        Shape pickupRect = pickup.getBounds();
+        Shape wallRect = wall.getBounds();
 
         if (wallRect.getY() >= pickupRect.getY()) {
             pickup.setLocY((int) (wallRect.getY() - pickupRect.getHeight()));
