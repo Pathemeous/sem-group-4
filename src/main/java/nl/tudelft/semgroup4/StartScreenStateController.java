@@ -2,6 +2,11 @@ package nl.tudelft.semgroup4;
 
 import java.awt.Font;
 
+import nl.tudelft.model.Game;
+import nl.tudelft.model.MultiplayerGame;
+import nl.tudelft.model.Player;
+import nl.tudelft.model.SingleplayerGame;
+import nl.tudelft.semgroup4.eventhandlers.PlayerEventHandler;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
@@ -14,6 +19,7 @@ import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 import org.newdawn.slick.geom.Transform;
 import org.newdawn.slick.gui.MouseOverArea;
+import org.newdawn.slick.state.StateBasedGame;
 
 /**
  * Controller that performs logic for the StartScreenState.
@@ -74,6 +80,65 @@ public class StartScreenStateController {
     protected void drawHighScoresButton(Graphics graphics) {
         graphics.rotate(650, 650, 340);
         typeFont.drawString(650, 650, highScoreText, Color.red);
+    }
+
+
+    /**
+     * Creates a new {@link SingleplayerGame}.
+     * 
+     * @param container
+     *            {@link GameContainer} - The state's Gamecontainer.
+     * @param mainApp
+     *            - {@link StateBasedGame} - The StateBasedGame to pass to the Game object.
+     * @return {@link Game} - A game object.
+     */
+    protected Game createSingleplayerGame(GameContainer container, StateBasedGame mainApp) {
+        final Player player =
+                new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                        container.getHeight() - resources.getPlayerImageStill().getHeight()
+                                - 5 * resources.getWallImage().getHeight(), true);
+        final Game singleplayerGame =
+                new SingleplayerGame(mainApp, container.getWidth(), container.getHeight(),
+                        resources, player);
+        singleplayerGame.getCurLevel().toAdd(player.getWeapon());
+        PlayerEventHandler player1Handler = new PlayerEventHandler(player);
+        Settings.getPlayer1Input().addObserver(player1Handler);
+        
+        return singleplayerGame;
+    }
+
+    /**
+     * Creates a new {@link MultiplayerGame}.
+     * 
+     * @param container
+     *            {@link GameContainer} - The state's Gamecontainer.
+     * @param mainApp
+     *            - {@link StateBasedGame} - The StateBasedGame to pass to the Game object.
+     * @return {@link Game} - A game object.
+     */
+    protected Game createMultiplayerGame(GameContainer container, StateBasedGame mainApp) {
+        Player firstPlayer =
+                new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                        container.getHeight() - resources.getPlayerImageStill().getHeight()
+                                - 5 * resources.getWallImage().getHeight(), true);
+        PlayerEventHandler player1Handler = new PlayerEventHandler(firstPlayer);
+        Settings.getPlayer1Input().addObserver(player1Handler);
+
+        Player secondPlayer =
+                new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
+                        container.getHeight() - resources.getPlayerImageStill().getHeight()
+                                - 5 * resources.getWallImage().getHeight(), false);
+        PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
+        Settings.getPlayer2Input().addObserver(player2Handler);
+
+        final Game multiplayerGame =
+                new MultiplayerGame(mainApp, container.getWidth(), container.getHeight(),
+                        new ResourcesWrapper(), firstPlayer, secondPlayer);
+
+        multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
+        multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
+
+        return multiplayerGame;
     }
 
 }

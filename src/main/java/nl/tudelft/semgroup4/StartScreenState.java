@@ -1,10 +1,6 @@
 package nl.tudelft.semgroup4;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.MultiplayerGame;
-import nl.tudelft.model.Player;
-import nl.tudelft.model.SingleplayerGame;
-import nl.tudelft.semgroup4.eventhandlers.PlayerEventHandler;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -122,17 +118,7 @@ public class StartScreenState extends BasicGameState {
     protected void updatePlayer1Button(GameContainer container, StateBasedGame game)
             throws SlickException {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverOnePlayer.isMouseOver()) {
-            final Player player =
-                    new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                            container.getHeight()
-                                    - resources.getPlayerImageStill().getHeight() - 5
-                                    * resources.getWallImage().getHeight(), true);
-            final Game singleplayerGame =
-                    new SingleplayerGame(mainApp, container.getWidth(), container.getHeight(),
-                            resources, player);
-            singleplayerGame.getCurLevel().toAdd(player.getWeapon());
-            PlayerEventHandler player1Handler = new PlayerEventHandler(player);
-            Settings.getPlayer1Input().addObserver(player1Handler);
+            Game singleplayerGame = controller.createSingleplayerGame(container, game);
 
             final GameState gameState = new GameState(singleplayerGame);
 
@@ -158,28 +144,7 @@ public class StartScreenState extends BasicGameState {
     protected void updatePlayer2Button(GameContainer container, StateBasedGame game)
             throws SlickException {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverTwoPlayer.isMouseOver()) {
-            Player firstPlayer =
-                    new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                            container.getHeight()
-                                    - resources.getPlayerImageStill().getHeight() - 5
-                                    * resources.getWallImage().getHeight(), true);
-            PlayerEventHandler player1Handler = new PlayerEventHandler(firstPlayer);
-            Settings.getPlayer1Input().addObserver(player1Handler);
-
-            Player secondPlayer =
-                    new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
-                            container.getHeight()
-                                    - resources.getPlayerImageStill().getHeight() - 5
-                                    * resources.getWallImage().getHeight(), false);
-            PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
-            Settings.getPlayer2Input().addObserver(player2Handler);
-
-            final Game multiplayerGame =
-                    new MultiplayerGame(mainApp, container.getWidth(), container.getHeight(),
-                            new ResourcesWrapper(), firstPlayer, secondPlayer);
-
-            multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
-            multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
+            Game multiplayerGame = controller.createMultiplayerGame(container, game);
 
             final GameState gameState = new GameState(multiplayerGame);
 
