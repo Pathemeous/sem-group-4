@@ -24,8 +24,8 @@ import org.json.JSONObject;
  */
 public class HighscoresHelper {
 
-    public static final String FILENAME = "scores.json";
-    public static final Charset encoding = Charset.forName("UTF-8");
+    public static String FILENAME = "scores.json";
+    public static Charset encoding = Charset.forName("UTF-8");
 
     /**
      * Loads the highscores from the highscores file (see FILENAME).
