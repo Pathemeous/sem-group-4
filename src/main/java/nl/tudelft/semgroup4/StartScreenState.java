@@ -80,7 +80,6 @@ public class StartScreenState extends BasicGameState {
     @Override
     public void update(GameContainer container, StateBasedGame game, int ticks)
             throws SlickException {
-        final ResourcesWrapper resources = new ResourcesWrapper();
         if (!resources.getTitleScreenMusic().playing()) {
             resources.playTitleScreen();
         }
