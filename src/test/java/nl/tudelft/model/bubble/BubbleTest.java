@@ -24,6 +24,7 @@ import org.junit.Test;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
+import org.newdawn.slick.geom.Shape;
 
 /**
  * Created by justin on 11/09/15.
@@ -243,6 +244,37 @@ public class BubbleTest {
         bubble.setMaxVerticalSpeed(2.0f);
         
         assertEquals(2.0f, bubble.getMaxVerticalSpeed(), 0.0f);
+    }
+
+    @Test
+    public void testGetBounds1() {
+        Image mockedImg = mock(Image.class);
+
+        when(mockedImg.getWidth()).thenReturn(100);
+        when(mockedImg.getHeight()).thenReturn(100);
+        when(mockedResources.getBubbleImage2()).thenReturn(mockedImg);
+
+
+        AbstractBubble bubble1 = new Bubble2(mockedResources, 0, 0);
+        AbstractBubble bubble2 = new Bubble2(mockedResources, 0, 0);
+
+        assertEquals(bubble1.getImage(), mockedImg);
+        assertEquals(bubble2.getImage(), mockedImg);
+
+        assertTrue(bubble1.getBounds().intersects(bubble2.getBounds()));
+
+        bubble1.setLocX(-50);
+        bubble2.setLocX(50);
+
+        assertTrue(bubble1.getBounds().intersects(bubble2.getBounds()));
+
+        bubble2.setLocX(-50);
+        bubble2.setLocX(51);
+
+        assertFalse(bubble1.getBounds().intersects(bubble2.getBounds()));
+
+
+
     }
 
 }
