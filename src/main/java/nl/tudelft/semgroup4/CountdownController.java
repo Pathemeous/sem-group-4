@@ -1,6 +1,6 @@
-package nl.tudelft.model;
+package nl.tudelft.semgroup4;
 
-import nl.tudelft.semgroup4.Renderable;
+import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
