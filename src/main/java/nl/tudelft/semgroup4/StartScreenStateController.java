@@ -82,7 +82,6 @@ public class StartScreenStateController {
         typeFont.drawString(650, 650, highScoreText, Color.red);
     }
 
-
     /**
      * Creates a new {@link SingleplayerGame}.
      * 
@@ -103,7 +102,7 @@ public class StartScreenStateController {
         singleplayerGame.getCurLevel().toAdd(player.getWeapon());
         PlayerEventHandler player1Handler = new PlayerEventHandler(player);
         Settings.getPlayer1Input().addObserver(player1Handler);
-        
+
         return singleplayerGame;
     }
 
@@ -139,6 +138,54 @@ public class StartScreenStateController {
         multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
 
         return multiplayerGame;
+    }
+
+    /**
+     * Creates the correct {@link MouseOverArea} for the 1 Player button.
+     * 
+     * @param container
+     *            {@link GameContainer} - the container to draw in.
+     * @return {@link MouseOverArea} - The MouseOverArea for this button.
+     */
+    protected MouseOverArea createPlayer1Button(GameContainer container) {
+        return new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 391,
+                364, 88);
+    }
+
+    /**
+     * Creates the correct {@link MouseOverArea} for the 2 Player button.
+     * 
+     * @param container
+     *            {@link GameContainer} - the container to draw in.
+     * @return {@link MouseOverArea} - The MouseOverArea for this button.
+     */
+    protected MouseOverArea createPlayer2Button(GameContainer container) {
+        return new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 476,
+                364, 88);
+    }
+
+    /**
+     * Creates the correct {@link MouseOverArea} for the options button.
+     * 
+     * @param container
+     *            {@link GameContainer} - the container to draw in.
+     * @return {@link MouseOverArea} - The MouseOverArea for this button.
+     */
+    protected MouseOverArea createOptionsButton(GameContainer container) {
+        return new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 573,
+                364, 88);
+    }
+
+    /**
+     * Creates the correct {@link MouseOverArea} for the quit button.
+     * 
+     * @param container
+     *            {@link GameContainer} - the container to draw in.
+     * @return {@link MouseOverArea} - The MouseOverArea for this button.
+     */
+    protected MouseOverArea createQuitButton(GameContainer container) {
+        return new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
+                364, 88);
     }
 
 }

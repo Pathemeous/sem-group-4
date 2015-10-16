@@ -48,18 +48,10 @@ public class StartScreenState extends BasicGameState {
 
         // initializes all the areas where the buttons are to see if the mouse is on one of those
         // areas
-        mouseOverOnePlayer =
-                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 391,
-                        364, 88);
-        mouseOverTwoPlayer =
-                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 476,
-                        364, 88);
-        mouseOverOptions =
-                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 573,
-                        364, 88);
-        mouseOverQuit =
-                new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
-                        364, 88);
+        mouseOverOnePlayer = controller.createPlayer1Button(container);
+        mouseOverTwoPlayer = controller.createPlayer2Button(container);
+        mouseOverOptions = controller.createOptionsButton(container);
+        mouseOverQuit = controller.createQuitButton(container);
     }
 
     @Override
@@ -199,11 +191,11 @@ public class StartScreenState extends BasicGameState {
     public int getID() {
         return States.StartScreenState;
     }
-    
+
     protected StartScreenStateController getController() {
         return this.controller;
     }
-    
+
     protected void setController(StartScreenStateController controller) {
         this.controller = controller;
     }
