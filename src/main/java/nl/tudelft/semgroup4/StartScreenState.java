@@ -90,7 +90,7 @@ public class StartScreenState extends BasicGameState {
      */
     protected void updateHighscoresButton(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverHighScores.isMouseOver()) {
+        if (controller.isAreaClicked(mouseOverHighScores, input)) {
             game.getState(States.HighscoresState).init(container, game);
             game.enterState(States.HighscoresState);
             Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters Highscores menu");
@@ -109,7 +109,7 @@ public class StartScreenState extends BasicGameState {
      */
     protected void updatePlayer1Button(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverOnePlayer.isMouseOver()) {
+        if (controller.isAreaClicked(mouseOverOnePlayer, input)) {
             Game singleplayerGame = controller.createSingleplayerGame(container, game);
 
             final GameState gameState = new GameState(singleplayerGame);
@@ -135,7 +135,7 @@ public class StartScreenState extends BasicGameState {
      */
     protected void updatePlayer2Button(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverTwoPlayer.isMouseOver()) {
+        if (controller.isAreaClicked(mouseOverTwoPlayer, input)) {
             Game multiplayerGame = controller.createMultiplayerGame(container, game);
 
             final GameState gameState = new GameState(multiplayerGame);
@@ -160,7 +160,7 @@ public class StartScreenState extends BasicGameState {
      */
     protected void updateOptionsButton(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverOptions.isMouseOver()) {
+        if (controller.isAreaClicked(mouseOverOptions, input)) {
             input.clearKeyPressedRecord();
             input.clearMousePressedRecord();
             game.enterState(States.OptionsState);
@@ -180,7 +180,7 @@ public class StartScreenState extends BasicGameState {
      */
     protected void updateExitButton(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverQuit.isMouseOver()) {
+        if (controller.isAreaClicked(mouseOverQuit, input)) {
             Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
             resources.stopTitleScreen();
             container.exit();
@@ -198,38 +198,6 @@ public class StartScreenState extends BasicGameState {
 
     protected void setController(StartScreenStateController controller) {
         this.controller = controller;
-    }
-
-    protected MouseOverArea getMouseOverOnePlayer() {
-        return mouseOverOnePlayer;
-    }
-
-    protected MouseOverArea getMouseOverTwoPlayer() {
-        return mouseOverTwoPlayer;
-    }
-
-    protected MouseOverArea getMouseOverOptions() {
-        return mouseOverOptions;
-    }
-
-    protected MouseOverArea getMouseOverQuit() {
-        return mouseOverQuit;
-    }
-
-    protected MouseOverArea getMouseOverHighScores() {
-        return mouseOverHighScores;
-    }
-
-    protected Input getInput() {
-        return input;
-    }
-
-    protected StateBasedGame getMainApp() {
-        return mainApp;
-    }
-
-    protected ResourcesWrapper getResources() {
-        return resources;
     }
 
     protected void setResources(ResourcesWrapper resources) {
