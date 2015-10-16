@@ -15,10 +15,5 @@ public class Bubble6Factory extends AbstractBubbleFactory {
     public AbstractBubble createBubble(float locX, float locY) {
         return new Bubble6(getResources(), locX, locY);
     }
-    
-    @Override
-    public AbstractBubble createBubble() {
-        return new Bubble6(getResources(), 0, 0);
-    }
 
 }
