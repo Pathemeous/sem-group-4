@@ -24,7 +24,6 @@ public class StartScreenState extends BasicGameState {
     private MouseOverArea mouseOverQuit;
     private MouseOverArea mouseOverHighScores;
     private Input input;
-    private boolean alreadyAdded = false;
 
     /**
      * We need this to construct the Game instances.
@@ -229,14 +228,6 @@ public class StartScreenState extends BasicGameState {
             resources.stopTitleScreen();
             container.exit();
         }
-    }
-
-    public boolean isAlreadyAdded() {
-        return alreadyAdded;
-    }
-
-    public void setAlreadyAdded(boolean alreadyAdded) {
-        this.alreadyAdded = alreadyAdded;
     }
 
     @Override
