@@ -1,5 +1,7 @@
 package nl.tudelft.semgroup4;
 
+import java.lang.Thread.State;
+
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.Player;
@@ -73,7 +75,7 @@ public class StartScreenState extends BasicGameState {
         graphics.drawImage(resources.getTitleScreenBackground(), 0, 0, container.getWidth(),
                 container.getHeight(), 0, 0, resources.getTitleScreenBackground().getWidth(),
                 resources.getTitleScreenBackground().getHeight());
-     
+
         controller.drawHighScoresButton(graphics);
     }
 
@@ -85,81 +87,151 @@ public class StartScreenState extends BasicGameState {
             resources.playTitleScreen();
         }
 
-        //
-        // checks if the left mouse button is pressed and where it was pressed to determine
-        // what action to perform
+        updateHighscoresButton(container, game);
+        updatePlayer1Button(container, game);
+        updatePlayer2Button(container, game);
+        updateOptionsButton(container, game);
+        updateExitButton(container, game);
+    }
 
-        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            if (mouseOverHighScores.isMouseOver()) {
-                game.getState(States.HighscoresState).init(container, game);
-                game.enterState(States.HighscoresState);
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
-            } else if (mouseOverOnePlayer.isMouseOver()) {
-                final ResourcesWrapper res = new ResourcesWrapper();
-                final Player player =
-                        new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                                container.getHeight() - res.getPlayerImageStill().getHeight()
-                                        - 5 * res.getWallImage().getHeight(), true);
-                final Game singleplayerGame =
-                        new SingleplayerGame(mainApp, container.getWidth(),
-                                container.getHeight(), res, player);
-                singleplayerGame.toAdd(player.getWeapon());
-                PlayerEventHandler player1Handler = new PlayerEventHandler(player);
-                Settings.getPlayer1Input().addObserver(player1Handler);
-
-                final GameState gameState = new GameState(singleplayerGame);
-
-                game.addState(gameState);
-                game.getState(States.GameState).init(container, game);
-                resources.stopTitleScreen();
-                game.enterState(States.GameState);
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
-                        "User starts a single player game");
-            } else if (mouseOverTwoPlayer.isMouseOver()) {
-
-                final ResourcesWrapper res = new ResourcesWrapper();
-                Player firstPlayer =
-                        new Player(new ResourcesWrapper(), container.getWidth() / 2,
-                                container.getHeight() - res.getPlayerImageStill().getHeight()
-                                        - 5 * res.getWallImage().getHeight(), true);
-                PlayerEventHandler player1Handler = new PlayerEventHandler(firstPlayer);
-                Settings.getPlayer1Input().addObserver(player1Handler);
-
-                Player secondPlayer =
-                        new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
-                                container.getHeight() - res.getPlayerImageStill().getHeight()
-                                        - 5 * res.getWallImage().getHeight(), false);
-                PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
-                Settings.getPlayer2Input().addObserver(player2Handler);
-
-                final Game multiplayerGame =
-                        new MultiplayerGame(mainApp, container.getWidth(),
-                                container.getHeight(), new ResourcesWrapper(), firstPlayer,
-                                secondPlayer);
-
-                multiplayerGame.toAdd(firstPlayer.getWeapon());
-                multiplayerGame.toAdd(firstPlayer.getWeapon());
-
-                final GameState gameState = new GameState(multiplayerGame);
-
-                game.addState(gameState);
-                game.getState(States.GameState).init(container, game);
-                resources.stopTitleScreen();
-                game.enterState(States.GameState);
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
-                        "User starts a multi-player game");
-            } else if (mouseOverOptions.isMouseOver()) {
-                input.clearKeyPressedRecord();
-                input.clearMousePressedRecord();
-                game.enterState(States.OptionsState);
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
-            } else if (mouseOverQuit.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
-                resources.stopTitleScreen();
-                container.exit();
-            }
+    /**
+     * Checks if the High Scores button is pressed and performs all necessary actions if it is.
+     * 
+     * @param container
+     *            {@link GameContainer} - The Slick2D GameContainer.
+     * @param game
+     *            {@link StateBasedGame} - The Slick2D StateBasedGame main class.
+     * @throws SlickException
+     *             If switching states causes an exception.
+     */
+    protected void updateHighscoresButton(GameContainer container, StateBasedGame game)
+            throws SlickException {
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverHighScores.isMouseOver()) {
+            game.getState(States.HighscoresState).init(container, game);
+            game.enterState(States.HighscoresState);
+            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters Highscores menu");
         }
+    }
 
+    /**
+     * Checks if the 1 Player button is pressed and performs all necessary actions if it is.
+     * 
+     * @param container
+     *            {@link GameContainer} - The Slick2D GameContainer.
+     * @param game
+     *            {@link StateBasedGame} - The Slick2D StateBasedGame main class.
+     * @throws SlickException
+     *             If switching states causes an exception.
+     */
+    protected void updatePlayer1Button(GameContainer container, StateBasedGame game)
+            throws SlickException {
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverOnePlayer.isMouseOver()) {
+            final Player player =
+                    new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                            container.getHeight()
+                                    - resources.getPlayerImageStill().getHeight() - 5
+                                    * resources.getWallImage().getHeight(), true);
+            final Game singleplayerGame =
+                    new SingleplayerGame(mainApp, container.getWidth(), container.getHeight(),
+                            resources, player);
+            singleplayerGame.getCurLevel().toAdd(player.getWeapon());
+            PlayerEventHandler player1Handler = new PlayerEventHandler(player);
+            Settings.getPlayer1Input().addObserver(player1Handler);
+
+            final GameState gameState = new GameState(singleplayerGame);
+
+            game.addState(gameState);
+            game.getState(States.GameState).init(container, game);
+            resources.stopTitleScreen();
+            game.enterState(States.GameState);
+            Game.LOGGER
+                    .log(LogSeverity.DEBUG, "StartMenu", "User starts a single player game");
+        }
+    }
+
+    /**
+     * Checks if the Player 2 button is pressed and performs all necessary actions if it is.
+     * 
+     * @param container
+     *            {@link GameContainer} - The Slick2D GameContainer.
+     * @param game
+     *            {@link StateBasedGame} - The Slick2D StateBasedGame main class.
+     * @throws SlickException
+     *             If switching states causes an exception.
+     */
+    protected void updatePlayer2Button(GameContainer container, StateBasedGame game)
+            throws SlickException {
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverTwoPlayer.isMouseOver()) {
+            Player firstPlayer =
+                    new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                            container.getHeight()
+                                    - resources.getPlayerImageStill().getHeight() - 5
+                                    * resources.getWallImage().getHeight(), true);
+            PlayerEventHandler player1Handler = new PlayerEventHandler(firstPlayer);
+            Settings.getPlayer1Input().addObserver(player1Handler);
+
+            Player secondPlayer =
+                    new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
+                            container.getHeight()
+                                    - resources.getPlayerImageStill().getHeight() - 5
+                                    * resources.getWallImage().getHeight(), false);
+            PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
+            Settings.getPlayer2Input().addObserver(player2Handler);
+
+            final Game multiplayerGame =
+                    new MultiplayerGame(mainApp, container.getWidth(), container.getHeight(),
+                            new ResourcesWrapper(), firstPlayer, secondPlayer);
+
+            multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
+            multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
+
+            final GameState gameState = new GameState(multiplayerGame);
+
+            game.addState(gameState);
+            game.getState(States.GameState).init(container, game);
+            resources.stopTitleScreen();
+            game.enterState(States.GameState);
+            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User starts a multi-player game");
+        }
+    }
+
+    /**
+     * Checks if the Options button is pressed and performs all necessary actions if it is.
+     * 
+     * @param container
+     *            {@link GameContainer} - The Slick2D GameContainer.
+     * @param game
+     *            {@link StateBasedGame} - The Slick2D StateBasedGame main class.
+     * @throws SlickException
+     *             If switching states causes an exception.
+     */
+    protected void updateOptionsButton(GameContainer container, StateBasedGame game)
+            throws SlickException {
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverOptions.isMouseOver()) {
+            input.clearKeyPressedRecord();
+            input.clearMousePressedRecord();
+            game.enterState(States.OptionsState);
+            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
+        }
+    }
+
+    /**
+     * Checks if the Exit button is pressed and performs all necessary actions if it is.
+     * 
+     * @param container
+     *            {@link GameContainer} - The Slick2D GameContainer.
+     * @param game
+     *            {@link StateBasedGame} - The Slick2D StateBasedGame main class.
+     * @throws SlickException
+     *             If switching states causes an exception.
+     */
+    protected void updateExitButton(GameContainer container, StateBasedGame game)
+            throws SlickException {
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && mouseOverQuit.isMouseOver()) {
+            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
+            resources.stopTitleScreen();
+            container.exit();
+        }
     }
 
     public boolean isAlreadyAdded() {
