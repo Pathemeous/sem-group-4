@@ -1,6 +1,5 @@
 package nl.tudelft.semgroup4;
 
-import nl.tudelft.model.CollisionController;
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
