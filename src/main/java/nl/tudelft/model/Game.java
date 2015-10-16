@@ -42,7 +42,7 @@ public abstract class Game implements Renderable {
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
     private boolean paused = false;
-    private Countdown countdown;
+    private CountdownController countdown;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -72,7 +72,7 @@ public abstract class Game implements Renderable {
         this.levelIt = levels.iterator();
 
         this.curLevel = this.levelIt.next();
-        countdown = new Countdown(this, wrapper);
+        countdown = new CountdownController(this, wrapper);
     }
 
 
@@ -273,7 +273,7 @@ public abstract class Game implements Renderable {
         return paused;
     }
     
-    public Countdown getCountdown() {
+    public CountdownController getCountdown() {
         return countdown;
     }
 

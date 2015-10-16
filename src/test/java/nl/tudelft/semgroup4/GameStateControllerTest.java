@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.CollisionController;
-import nl.tudelft.model.Countdown;
+import nl.tudelft.model.CountdownController;
 import nl.tudelft.model.Game;
 
 import org.junit.Before;
@@ -83,7 +83,7 @@ public class GameStateControllerTest {
     public void testUpdateGameWhenGameIsPaused() throws SlickException {
         int delta = 0;
         
-        Countdown mockedCountdown = Mockito.mock(Countdown.class);
+        CountdownController mockedCountdown = Mockito.mock(CountdownController.class);
         when(mockedGame.getCountdown()).thenReturn(mockedCountdown);
         when(mockedGame.isPaused()).thenReturn(true);
         
@@ -95,7 +95,7 @@ public class GameStateControllerTest {
     
     @Test
     public void testUpdateGameIsNotPaused() throws SlickException {
-        Countdown mockedCountdown = Mockito.mock(Countdown.class);
+        CountdownController mockedCountdown = Mockito.mock(CountdownController.class);
         when(mockedGame.getCountdown()).thenReturn(mockedCountdown);
         when(mockedGame.isPaused()).thenReturn(false);
         
