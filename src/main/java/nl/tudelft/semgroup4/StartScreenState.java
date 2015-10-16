@@ -199,5 +199,49 @@ public class StartScreenState extends BasicGameState {
     public int getID() {
         return States.StartScreenState;
     }
+    
+    protected StartScreenStateController getController() {
+        return this.controller;
+    }
+    
+    protected void setController(StartScreenStateController controller) {
+        this.controller = controller;
+    }
+
+    protected MouseOverArea getMouseOverOnePlayer() {
+        return mouseOverOnePlayer;
+    }
+
+    protected MouseOverArea getMouseOverTwoPlayer() {
+        return mouseOverTwoPlayer;
+    }
+
+    protected MouseOverArea getMouseOverOptions() {
+        return mouseOverOptions;
+    }
+
+    protected MouseOverArea getMouseOverQuit() {
+        return mouseOverQuit;
+    }
+
+    protected MouseOverArea getMouseOverHighScores() {
+        return mouseOverHighScores;
+    }
+
+    protected Input getInput() {
+        return input;
+    }
+
+    protected StateBasedGame getMainApp() {
+        return mainApp;
+    }
+
+    protected ResourcesWrapper getResources() {
+        return resources;
+    }
+
+    protected void setResources(ResourcesWrapper resources) {
+        this.resources = resources;
+    }
 
 }
