@@ -5,23 +5,17 @@ import java.util.Iterator;
 import java.util.LinkedList;
 
 import nl.tudelft.semgroup4.GameEndedState;
-import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.States;
-import nl.tudelft.semgroup4.collision.CollisionHelper;
-import nl.tudelft.semgroup4.collision.CollisionMap;
-import nl.tudelft.semgroup4.collision.DefaultPlayerInteractionMap;
 import nl.tudelft.semgroup4.logger.DefaultLogger;
 import nl.tudelft.semgroup4.logger.Logger;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.QuadTree;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -44,7 +38,6 @@ public abstract class Game implements Renderable {
     private final int containerHeight;
     private final Iterator<Level> levelIt;
     private Level curLevel;
-    private final CollisionMap collisionHandler;
     private final LevelFactory levelFact;
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
@@ -80,8 +73,6 @@ public abstract class Game implements Renderable {
 
         this.curLevel = this.levelIt.next();
         countdown = new Countdown(this, wrapper);
-
-        collisionHandler = getNewCollisionMap();
     }
 
 
@@ -99,16 +90,6 @@ public abstract class Game implements Renderable {
      *             - If the game engines crashes.
      */
     public void update(int delta) throws SlickException {
-        final QuadTree quad =
-                new QuadTree(0, new Rectangle(0, 0, containerWidth, containerHeight));
-        // collision: QuadTree
-        quadFill(quad);
-
-        // collision : CollisionMap
-        bubbleCollision(quad);
-        pickupCollision(quad);
-        wallCollision(quad);
-
         // updates
         playerUpdate(delta);
         getCurLevel().update(getCurLevel(), delta);
@@ -129,21 +110,6 @@ public abstract class Game implements Renderable {
         }
 
         countdown.render(container, graphics);
-    }
-
-    /**
-     * Adds collidable objects to the quad tree.
-     */
-    private void quadFill(QuadTree quad) {
-        for (AbstractGameObject obj : getPlayers()) {
-            quad.insert(obj);
-        }
-        for (AbstractGameObject obj : curLevel.getProjectiles()) {
-            quad.insert(obj);
-        }
-        for (AbstractGameObject obj : curLevel.getWalls()) {
-            quad.insert(obj);
-        }
     }
 
     /**
@@ -186,44 +152,6 @@ public abstract class Game implements Renderable {
         for (Player player : getPlayers()) {
             if (player.isAlive()) {
                 player.update(getCurLevel(), delta);
-            }
-        }
-    }
-
-    /**
-     * Checks for every pickup if it collides with anything a pickup can collide with.
-     */
-    private void pickupCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : curLevel.getPickups()) {
-            // collision with walls and players
-            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
-                    collidesWithA, quad)) {
-                collisionHandler.collide(this, collidesWithA, collidesWithB);
-            }
-        }
-    }
-
-    /**
-     * Checks for every wall if it collides with anything a wall can collide with.
-     */
-    private void wallCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : curLevel.getWalls()) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
-                    collidesWithA, quad)) {
-                collisionHandler.collide(this, collidesWithA, collidesWithB);
-            }
-        }
-    }
-
-    /**
-     * Checks for every player if it collides with anything a bubble can collide with.
-     */
-    private void bubbleCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : curLevel.getBubbles()) {
-            // bubbles check against walls, players and projectiles
-            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
-                    collidesWithA, quad)) {
-                collisionHandler.collide(this, collidesWithA, collidesWithB);
             }
         }
     }
@@ -329,15 +257,6 @@ public abstract class Game implements Renderable {
         mainApp.enterState(States.GameEndedState);
     }
 
-    /**
-     * game will use CollisionHandler returned in this method.
-     * 
-     * @return the CollisionHandler that will be used.
-     */
-    protected final CollisionMap getNewCollisionMap() {
-        return new DefaultPlayerInteractionMap();
-    }
-
     public int getContainerWidth() {
         return this.containerWidth;
     }
@@ -345,31 +264,6 @@ public abstract class Game implements Renderable {
     public int getContainerHeight() {
         return this.containerHeight;
     }
-
-    /**
-     * Addition of anything to the Game object is prohibited. Calling this method will delegate any
-     * non-player objects to the current level.
-     *
-     * @deprecated use getCurLevel().toAdd(obj)
-     */
-//    @Deprecated
-//    @Override
-//    public void toAdd(AbstractGameObject obj) {
-//        getCurLevel().toAdd(obj);
-//    }
-//
-//    /**
-//     * Can be used to remove Players from the Game object. This is the only type of GameObject
-//     * stored in Game.
-//     *
-//     * @deprecated use getCurLevel().toAdd(obj)
-//     */
-//    @Deprecated
-//    @Override
-//    public void toRemove(AbstractGameObject obj) {
-//        getCurLevel().toRemove(obj);
-//
-//    }
     
     public void setPaused(boolean paused) {
         this.paused = paused;

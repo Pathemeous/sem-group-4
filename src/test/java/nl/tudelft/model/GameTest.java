@@ -2,7 +2,6 @@ package nl.tudelft.model;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertFalse;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
@@ -11,8 +10,6 @@ import static org.mockito.Mockito.when;
 import nl.tudelft.semgroup4.GameEndedState;
 import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.States;
-import nl.tudelft.semgroup4.collision.CollisionHandler;
-import nl.tudelft.semgroup4.collision.CollisionMap;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
@@ -162,18 +159,6 @@ public class GameTest {
         
         game.nextLevel();
         verify(mockedSbg, times(1)).enterState(States.GameEndedState);
-    }
-
-    /**
-     * Test to check the new Collisionhandler getter.
-     */
-    @Test
-    public void testGetNewCollisionHandler() {
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
-        CollisionMap handler = null;
-        assertEquals(handler, null);
-        handler = game.getNewCollisionMap();
-        assertFalse(handler == null);
     }
 
     /**
