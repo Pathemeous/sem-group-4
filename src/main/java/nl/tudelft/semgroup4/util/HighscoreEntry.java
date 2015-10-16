@@ -17,4 +17,16 @@ public class HighscoreEntry {
     public String getName() {
         return name;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+
+        if (getClass().equals(obj.getClass())) {
+            HighscoreEntry that = (HighscoreEntry) obj;
+            return this.score == that.score
+                    && this.name.equals(that.name);
+        }
+
+        return super.equals(obj);
+    }
 }
