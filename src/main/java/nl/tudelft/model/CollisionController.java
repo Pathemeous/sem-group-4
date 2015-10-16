@@ -53,6 +53,18 @@ public class CollisionController {
      */
     private void bubbleCollision(QuadTree quad) {
         for (AbstractGameObject collidesWithA : game.getCurLevel().getBubbles()) {
+            
+            // Remove a bubble when it goes out of bounds
+            boolean outOfBounds = collidesWithA.getLocX() < 0 || collidesWithA.getLocX() 
+                    + collidesWithA.getWidth() > game.getContainerWidth() 
+                    || collidesWithA.getLocY() < 0 || collidesWithA.getLocY() 
+                    + collidesWithA.getHeight() > game.getContainerHeight();
+            
+            if (outOfBounds) {
+                game.getCurLevel().toRemove(collidesWithA);
+                continue;
+            }
+            
             // bubbles check against walls, players and projectiles
             for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
