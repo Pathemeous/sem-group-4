@@ -32,7 +32,7 @@ public class StartScreenStateController {
 
     private ResourcesWrapper resources;
 
-    private final String highScoreText = "HIGHSCORES";
+    private static final String highScoreText = "HIGHSCORES";
     private TrueTypeFont typeFont;
 
     /**
