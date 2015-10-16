@@ -2,17 +2,18 @@ package nl.tudelft.model;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
+import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Updateable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -25,20 +26,23 @@ import org.newdawn.slick.SlickException;
  */
 public class Level implements Updateable, Renderable, Modifiable {
 
-    private final LinkedList<Wall> walls;
+    private final LinkedList<AbstractWall> walls;
     private final LinkedList<Projectile> projectiles;
     private final LinkedList<Pickup> pickups;
-    private final LinkedList<Bubble> bubbles;
+    private final LinkedList<AbstractBubble> bubbles;
     private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
+    private final Image backgroundImage;
     private int time;
-    private final int maxTime;
+    private int maxTime;
     private final int id;
     private boolean shopSlow = false;
 
     /**
      * Creates a level object with an object list, a timer and a speed.
-     *
+     * 
+     * @param backgroundImage
+     *            {@link Image} - The image to render as background.
      * @param walls
      *            LinkedList - list containing all walls in this level.
      * @param projectiles
@@ -52,8 +56,10 @@ public class Level implements Updateable, Renderable, Modifiable {
      * @param id
      *            int - the number of this level.
      */
-    public Level(LinkedList<Wall> walls, LinkedList<Projectile> projectiles,
-            LinkedList<Pickup> pickups, LinkedList<Bubble> bubbles, int time, int id) {
+    public Level(Image backgroundImage, LinkedList<AbstractWall> walls,
+            LinkedList<Projectile> projectiles, LinkedList<Pickup> pickups,
+            LinkedList<AbstractBubble> bubbles, int time, int id) {
+        this.backgroundImage = backgroundImage;
         this.walls = walls;
         this.projectiles = projectiles;
         this.bubbles = bubbles;
@@ -78,7 +84,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             gameObject.update(this, delta);
         }
         if (shopSlow) {
-            for (Bubble gameObject : bubbles) {
+            for (AbstractBubble gameObject : bubbles) {
                 gameObject.setSlow(true);
             }
         }
@@ -88,14 +94,14 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof Projectile) {
                 projectiles.add((Projectile) obj);
             }
-            if (obj instanceof Bubble) {
-                bubbles.add((Bubble) obj);
+            if (obj instanceof AbstractBubble) {
+                bubbles.add((AbstractBubble) obj);
             }
             if (obj instanceof Pickup) {
                 pickups.add((Pickup) obj);
             }
-            if (obj instanceof Wall) {
-                walls.add((Wall) obj);
+            if (obj instanceof AbstractWall) {
+                walls.add((AbstractWall) obj);
             }
         }
 
@@ -103,13 +109,13 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof Projectile) {
                 projectiles.remove(obj);
             }
-            if (obj instanceof Bubble) {
+            if (obj instanceof AbstractBubble) {
                 bubbles.remove(obj);
             }
             if (obj instanceof Pickup) {
                 pickups.remove(obj);
             }
-            if (obj instanceof Wall) {
+            if (obj instanceof AbstractWall) {
                 walls.remove(obj);
             }
         }
@@ -122,10 +128,8 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        final ResourcesWrapper resources = new ResourcesWrapper();
-        graphics.drawImage(resources.getBackgroundImage(), 0, 0, container.getWidth(),
-                container.getHeight(), 0, 0, resources.getBackgroundImage().getWidth(),
-                resources.getBackgroundImage().getHeight());
+        graphics.drawImage(backgroundImage, 0, 0, container.getWidth(), container.getHeight(),
+                0, 0, backgroundImage.getWidth(), backgroundImage.getHeight());
 
         for (AbstractGameObject gameObject : projectiles) {
             gameObject.render(container, graphics);
@@ -160,10 +164,10 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            : boolean that indicates if the all the bubbles need to be split, or that bubbles
      *            need to be split until they are of size 1.
      */
-    public void splitAllBubbles(LinkedList<Bubble> bubbles, boolean endLevel) {
-        for (Bubble bubble : bubbles) {
-            if (bubble.getBubbleFactory() != null || endLevel) {
-                LinkedList<Bubble> newBubbles = bubble.split(this, Helpers.randInt(1, 10));
+    public void splitAllBubbles(LinkedList<AbstractBubble> bubbles, boolean endLevel) {
+        for (AbstractBubble bubble : bubbles) {
+            if (!bubble.getNext().isEmpty() || endLevel) {
+                LinkedList<AbstractBubble> newBubbles = bubble.split(this);
                 splitAllBubbles(newBubbles, endLevel);
             }
         }
@@ -174,7 +178,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      * 
      * @return {@link LinkedList} of {@link Wall}s - The walls in this level.
      */
-    public LinkedList<Wall> getWalls() {
+    public LinkedList<AbstractWall> getWalls() {
         return this.walls;
     }
 
@@ -190,9 +194,9 @@ public class Level implements Updateable, Renderable, Modifiable {
     /**
      * Gets the bubbles in this level.
      * 
-     * @return {@link LinkedList} of {@link Bubble}s - The walls in this level.
+     * @return {@link LinkedList} of {@link AbstractBubble}s - The walls in this level.
      */
-    public LinkedList<Bubble> getBubbles() {
+    public LinkedList<AbstractBubble> getBubbles() {
         return this.bubbles;
     }
 
@@ -249,7 +253,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            int - the total amount of time in milliseconds.
      */
     public void setMaxTime(int time) {
-        this.time = time;
+        this.maxTime = time;
     }
 
     /**

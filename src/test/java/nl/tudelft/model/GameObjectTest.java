@@ -2,6 +2,8 @@ package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
 
+import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
@@ -15,7 +17,7 @@ import org.newdawn.slick.SlickException;
  * @author Damian, Wouter
  *
  */
-public class GameObjectTest extends AbstractOpenGLTestCase {
+public class GameObjectTest {
 
     /**
      * tests the getbounds method of the gameObject,
@@ -31,7 +33,7 @@ public class GameObjectTest extends AbstractOpenGLTestCase {
         Mockito.when(mockedRes.getVwallImage()).thenReturn(mockedImage);
         
         Mockito.when(mockedRes.getVwallImage()).thenReturn(mockedImage);
-        Wall wall = new Wall(mockedRes.getVwallImage(), 0, 0);
+        AbstractWall wall = new RegularWall(mockedRes.getVwallImage(), 0, 0);
         assertEquals(wall.getHeight(),
                 (int) wall.getBounds().getHeight());
         assertEquals(wall.getWidth(),

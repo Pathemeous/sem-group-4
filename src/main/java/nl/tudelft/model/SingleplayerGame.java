@@ -1,7 +1,10 @@
 package nl.tudelft.model;
 
+import nl.tudelft.semgroup4.Settings;
+import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
@@ -10,6 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class SingleplayerGame extends Game {
 
     private final Player player;
+    private final PlayerInput player1Input;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -32,10 +36,18 @@ public class SingleplayerGame extends Game {
             ResourcesWrapper wrapper, Player player) throws IllegalArgumentException {
         super(mainApp, containerWidth, containerHeight, wrapper);
         this.player = player;
+        player1Input = Settings.getPlayer1Input();
     }
 
     @Override
     public Player[] getPlayers() {
         return new Player[] { player };
+    }
+    
+    @Override
+    public void update(int delta) throws SlickException {
+        super.update(delta);
+
+        player1Input.poll();
     }
 }

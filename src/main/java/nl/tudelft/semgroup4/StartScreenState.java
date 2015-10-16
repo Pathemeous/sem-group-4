@@ -113,7 +113,7 @@ public class StartScreenState extends BasicGameState {
                 final Game singleplayerGame =
                         new SingleplayerGame(mainApp, container.getWidth(),
                                 container.getHeight(), res, player);
-                singleplayerGame.toAdd(player.getWeapon());
+                singleplayerGame.getCurLevel().toAdd(player.getWeapon());
                 PlayerEventHandler player1Handler = new PlayerEventHandler(player);
                 Settings.getPlayer1Input().addObserver(player1Handler);
 
@@ -147,8 +147,8 @@ public class StartScreenState extends BasicGameState {
                                 container.getHeight(), new ResourcesWrapper(), firstPlayer,
                                 secondPlayer);
 
-                multiplayerGame.toAdd(firstPlayer.getWeapon());
-                multiplayerGame.toAdd(firstPlayer.getWeapon());
+                multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
+                multiplayerGame.getCurLevel().toAdd(firstPlayer.getWeapon());
 
                 final GameState gameState = new GameState(multiplayerGame);
 

@@ -3,6 +3,8 @@ package nl.tudelft.semgroup4;
 import java.io.File;
 
 import nl.tudelft.semgroup4.resources.Resources;
+import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;
@@ -61,7 +63,7 @@ public class MainApp extends StateBasedGame {
         Settings.init();
         addState(new StartScreenState());
         addState(new OptionsState());
-        addState(new ShopState());
+        addState(new ShopState(new ResourcesWrapper()));
         addState(new HighscoresState());
         addState(new GameEndedState());
         addState(new KeyBindState());

@@ -9,9 +9,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import nl.tudelft.model.pickups.powerup.LifePowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.utility.Utility;
-import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
@@ -103,17 +100,5 @@ public class PickupTest {
         assertFalse(pickup.isActive());
         pickup.setActive(true);
         assertTrue(pickup.isActive());
-    }
-    
-    @Test
-    public void testPickupGenerator() {
-        Pickup pickup1 = Pickup.generateRandomPickup(0, 0, 0);
-        assertTrue(pickup1 instanceof Weapon);
-        
-        Pickup pickup2 = Pickup.generateRandomPickup(5, 0, 0);
-        assertTrue(pickup2 instanceof Powerup);
-        
-        Pickup pickup3 = Pickup.generateRandomPickup(8, 0, 0);
-        assertTrue(pickup3 instanceof Utility);
     }
 }

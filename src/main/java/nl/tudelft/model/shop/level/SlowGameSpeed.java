@@ -4,7 +4,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
-import nl.tudelft.model.bubble.Bubble;
+import nl.tudelft.model.bubble.AbstractBubble;
 
 
 public class SlowGameSpeed extends LevelShopItem {
@@ -23,8 +23,8 @@ public class SlowGameSpeed extends LevelShopItem {
      * @param buyer : The person who is buying the item.
      */
     public void applyTo(Player buyer) {
-        LinkedList<Bubble> bubbles = nextLevel.getBubbles();
-        for (Bubble x : bubbles) {
+        LinkedList<AbstractBubble> bubbles = nextLevel.getBubbles();
+        for (AbstractBubble x : bubbles) {
             x.setSlow(true);
         }
         nextLevel.setShopSlow(true);

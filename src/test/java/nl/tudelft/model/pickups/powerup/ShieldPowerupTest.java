@@ -3,14 +3,21 @@ package nl.tudelft.model.pickups.powerup;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.never;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Player;
 import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+import nl.tudelft.semgroup4.util.SemRectangle;
 import org.junit.Test;
+import org.newdawn.slick.GameContainer;
+import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
@@ -92,6 +99,31 @@ public class ShieldPowerupTest {
         assertTrue(powerup2.isActive());
         assertTrue(powerup.willBeRemoved());
     }
+
+    @Test
+    public void testActivate4() {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
+
+        Player player = new Player(mockedResources, 0, 0, true);
+
+        assertFalse(player.hasPowerup(Powerup.SHIELD));
+        assertFalse(powerup.isActive());
+
+        powerup.activate(player);
+
+        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        assertTrue(powerup.isActive());
+
+        ShieldPowerup powerup2 = new ShieldPowerup(mockedResources, 0, 0);
+
+        assertTrue(player.hasPowerup(Powerup.SHOPSHIELD));
+
+        powerup2.activate(player);
+
+        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        assertTrue(powerup2.willBeRemoved());
+    }
     
     @Test
     public void testUpdate1() throws SlickException {
@@ -133,5 +165,48 @@ public class ShieldPowerupTest {
         assertTrue(powerup.willBeRemoved());
         assertFalse(player.hasShield());
         assertFalse(player.hasPowerup(Powerup.SHIELD));
+    }
+
+    @Test
+    public void testRender1() throws SlickException {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
+        Graphics mockedGraphics = mock(Graphics.class);
+        GameContainer mockedGameContainer = mock(GameContainer.class);
+        powerup.render(mockedGameContainer, mockedGraphics);
+        verify(mockedGraphics, never()).setColor(any());
+        verify(mockedGraphics, never()).draw(any());
+    }
+
+    @Test
+    public void testRender2() throws SlickException {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
+        Player mockedPlayer = mock(Player.class);
+        powerup.activate(mockedPlayer);
+        SemRectangle mockedBounds = mock(SemRectangle.class);
+        when(mockedPlayer.getBounds()).thenReturn(mockedBounds);
+        powerup.setRemovalCounter(2);
+        Graphics mockedGraphics = mock(Graphics.class);
+        GameContainer mockedGameContainer = mock(GameContainer.class);
+        powerup.render(mockedGameContainer, mockedGraphics);
+        verify(mockedGraphics, times(2)).setColor(any());
+        verify(mockedGraphics, times(1)).draw(any());
+    }
+
+    @Test
+    public void testRender3() throws SlickException {
+        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+        ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
+        Player mockedPlayer = mock(Player.class);
+        powerup.activate(mockedPlayer);
+        SemRectangle mockedBounds = mock(SemRectangle.class);
+        when(mockedPlayer.getBounds()).thenReturn(mockedBounds);
+        powerup.setRemovalCounter(3);
+        Graphics mockedGraphics = mock(Graphics.class);
+        GameContainer mockedGameContainer = mock(GameContainer.class);
+        powerup.render(mockedGameContainer, mockedGraphics);
+        verify(mockedGraphics, never()).setColor(any());
+        verify(mockedGraphics, never()).draw(any());
     }
 }
