@@ -5,8 +5,10 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
+import nl.tudelft.model.Level;
 import nl.tudelft.model.Player;
 
 import org.junit.Test;
@@ -25,10 +27,12 @@ public class ShopShieldTest {
     @Test
     public void testApplyTo() {
         Player mockedPlayer = mock(Player.class);
+        Level mockedLevel = mock(Level.class);
         Game mockedGame = mock(Game.class);
+        when(mockedGame.getCurLevel()).thenReturn(mockedLevel);
         ShopShield shopShield = new ShopShield(10, mockedGame);
         shopShield.applyTo(mockedPlayer);
-        verify(mockedGame, times(1)).toAdd(any());
+        verify(mockedLevel, times(1)).toAdd(any());
     }
 
 

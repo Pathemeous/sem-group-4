@@ -391,21 +391,21 @@ public class PlayerTest {
 
     @Test
     public final void testUpdate1() throws SlickException {
-        Game mockedGame = mock(Game.class);
+        Level mockedLevel = mock(Level.class);
 
         player.setLives(0);
-        player.update(mockedGame, 1);
+        player.update(mockedLevel, 1);
 
-        verify(mockedGame, times(1)).toRemove(player);
+        verify(mockedLevel, times(1)).toRemove(player);
     }
 
     @Test
     public final void testUpdate2() throws SlickException {
-        Game mockedGame = mock(Game.class);
+        Level mockedLevel = mock(Level.class);
 
-        player.update(mockedGame, 1);
+        player.update(mockedLevel, 1);
 
-        verify(mockedGame, times(1)).toAdd(any());
+        verify(mockedLevel, times(1)).toAdd(any());
     }
 
 }

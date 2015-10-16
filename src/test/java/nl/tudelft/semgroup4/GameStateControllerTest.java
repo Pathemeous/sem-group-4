@@ -5,9 +5,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import nl.tudelft.model.CollisionController;
 import nl.tudelft.model.Countdown;
 import nl.tudelft.model.Game;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -16,7 +16,6 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.Sound;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameStateControllerTest {
@@ -96,12 +95,14 @@ public class GameStateControllerTest {
     
     @Test
     public void testUpdateGameIsNotPaused() throws SlickException {
-        int delta = 0;
-        
         Countdown mockedCountdown = Mockito.mock(Countdown.class);
         when(mockedGame.getCountdown()).thenReturn(mockedCountdown);
         when(mockedGame.isPaused()).thenReturn(false);
         
+        CollisionController mockedCollisions = Mockito.mock(CollisionController.class);
+        gsController.setCollisionController(mockedCollisions);
+        
+        int delta = 0;
         gsController.updateGame(delta);
         
         verify(mockedGame, times(1)).update(delta);
