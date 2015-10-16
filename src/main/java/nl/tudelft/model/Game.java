@@ -188,10 +188,6 @@ public abstract class Game implements Renderable, Modifiable {
                 player.update(this, delta);
             }
         }
-//        for (Player player : playerToDelete) {
-//            players.remove(player);
-//        }
-//        playerToDelete.clear();
     }
 
     /**
@@ -261,7 +257,7 @@ public abstract class Game implements Renderable, Modifiable {
      * 
      * @return int - the total amount of lives left until the game is over.
      */
-    public int getPlayerLives() {
+    protected int getPlayerLives() {
         int result = 0;
         for (Player player : getPlayers()) {
             result += player.getLives();
@@ -272,7 +268,7 @@ public abstract class Game implements Renderable, Modifiable {
     /**
      * Calls {@link Player#reset()} on all players in the game.
      */
-    public void resetPlayers() {
+    protected void resetPlayers() {
         for (Player player : getPlayers()) {
             player.reset();
         }
@@ -295,7 +291,7 @@ public abstract class Game implements Renderable, Modifiable {
      * Tries to set the next level as the current level. If there is no next level, the game is
      * completed and {@link #gameCompleted()} is called.
      */
-    public void nextLevel() {
+    protected void nextLevel() {
         if (levelIt.hasNext()) {
             resetPlayers();
             int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
@@ -327,7 +323,7 @@ public abstract class Game implements Renderable, Modifiable {
      * This happens when the players run out of lives.
      * </p>
      */
-    public void gameOver() {
+    private void gameOver() {
         Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
         ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), false);
         mainApp.enterState(States.GameEndedState);
@@ -393,14 +389,4 @@ public abstract class Game implements Renderable, Modifiable {
      * @return Player[] - player(s) of the game.
      */
     public abstract Player[] getPlayers();
-
-//    /**
-//     * Gets the 'PlayerToDelete' list. This list servers as a buffer to the Players list to avoid
-//     * aysnchronized access
-//     *
-//     * @return {@link LinkedList} of {@link Player}s - the buffer list.
-//     */
-//    public LinkedList<Player> getPlayerToDelete() {
-//        return playerToDelete;
-//    }
 }
