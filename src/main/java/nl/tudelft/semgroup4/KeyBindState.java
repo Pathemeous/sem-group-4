@@ -168,7 +168,9 @@ public class KeyBindState extends BasicGameState {
      *              the area to which to set
      */
     protected void setAreasForTesting(MouseOverArea overArea) {
-        areas[0] = overArea;
+        for (int i = 0; i < areas.length; i++) {
+            areas[i] = overArea;
+        }
     }
 
     /**
@@ -190,14 +192,22 @@ public class KeyBindState extends BasicGameState {
     }
 
     /**
-     * Set all MouseOverAreas to the same area (only used for testing).
+     * Set the MouseOverArea for back (only used for testing).
      * @param area
      *                  the mocked area which will be set.
      */
-    protected void setAreas(MouseOverArea area) {
-        defButton = area;
+    protected void setBack(MouseOverArea area) {
         backButton = area;
+    }
+
+    /**
+     * Set the MouseOverAreas for save and defaults (only used for testing).
+     * @param area
+     *                  the mocked area which will be set.
+     */
+    protected void setSaveAndDefault(MouseOverArea area) {
         saveButton = area;
+        defButton = area;
     }
 
     /**
