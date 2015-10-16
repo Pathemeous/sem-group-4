@@ -5,7 +5,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.CollisionController;
 import nl.tudelft.model.Game;
 
 import org.junit.Before;
@@ -71,9 +70,6 @@ public class GameStateTest {
         Input mockedInput = Mockito.mock(Input.class);
         gameState.setInput(mockedInput);
         
-        CollisionController mockedCollisions = Mockito.mock(CollisionController.class);
-        gameState.setCollisionController(mockedCollisions);
-        
         GameContainer mockedContainer = Mockito.mock(GameContainer.class);
         StateBasedGame mockedSlickGame = Mockito.mock(StateBasedGame.class);
         int delta = 0;
@@ -92,9 +88,6 @@ public class GameStateTest {
         Input mockedInput = Mockito.mock(Input.class);
         when(mockedInput.isKeyPressed(Input.KEY_ESCAPE)).thenReturn(true);
         gameState.setInput(mockedInput);
-        
-        CollisionController mockedCollisions = Mockito.mock(CollisionController.class);
-        gameState.setCollisionController(mockedCollisions);
         
         GameContainer mockedContainer = Mockito.mock(GameContainer.class);
         StateBasedGame mockedSlickGame = Mockito.mock(StateBasedGame.class);

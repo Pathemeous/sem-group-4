@@ -19,7 +19,6 @@ public class GameState extends BasicGameState {
     private PauseScreen pauseScreen;
     private Input input;
     private final Game currentGame;
-    private CollisionController collisions;
     private Dashboard dashboard;
     private boolean pauseScreenOpened = false;
 
@@ -36,7 +35,6 @@ public class GameState extends BasicGameState {
     public GameState(Game game) {
         controller = new GameStateController(game);
         currentGame = game;
-        collisions = new CollisionController(currentGame);
     }
 
     /**
@@ -110,7 +108,6 @@ public class GameState extends BasicGameState {
         }
 
         controller.updateGame(delta);
-        collisions.updateCollisions();
         dashboard.update(delta);
     }
     
@@ -121,10 +118,6 @@ public class GameState extends BasicGameState {
 
     protected Game getGame() {
         return currentGame;
-    }
-    
-    protected void setCollisionController(CollisionController controller) {
-        this.collisions = controller;
     }
     
     protected void setGameStateController(GameStateController controller) {
