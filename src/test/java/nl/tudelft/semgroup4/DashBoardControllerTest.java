@@ -43,8 +43,8 @@ public class DashBoardControllerTest {
 
         when(mockedGame.getCurLevel()).thenReturn((Level) mockedLevel);
         when(mockedGame.getPlayers()).thenReturn(mockedPlayers);
-        dashboardController = new DashboardController(mockedGame,
-                mockedDashboard);
+        dashboardController = new DashboardController(mockedDashboard);
+        dashboardController.setGame(mockedGame);
     }
 
     @Test

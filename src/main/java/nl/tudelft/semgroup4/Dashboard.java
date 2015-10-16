@@ -45,13 +45,16 @@ public class Dashboard implements Renderable {
     private final int left;
     private final int right;
     private final int bottom;
-
+    
+    private Game game;
     private DashboardController controller;
 
     /* package */Dashboard(ResourcesWrapper resources, Game game, int left,
                      int right, int bottom) {
-        controller = new DashboardController(game, this);
-
+        this.game = game;
+        controller = new DashboardController(this);
+        
+        
         ttf = resources.createFont(new Font("Verdana", Font.BOLD, 30), true);
         this.left = left;
         this.right = right;
@@ -363,5 +366,15 @@ public class Dashboard implements Renderable {
     public void setController(DashboardController controller) {
         this.controller = controller;
     }
+
+    /**
+     * Returns the game.
+     * @return the game
+     */
+    public Game getGame() {
+        return game;
+    }
+    
+    
 
 }

@@ -18,9 +18,9 @@ public class DashboardController {
      * @param dashboard
      *            dashboard on which the controller makes changes
      */
-    public DashboardController(Game game, Dashboard dashboard) {
-        this.game = game;
+    protected DashboardController(Dashboard dashboard) {
         this.dashboard = dashboard;
+        this.game = dashboard.getGame();
     }
 
     /**
@@ -35,7 +35,7 @@ public class DashboardController {
      * @param margin
      *            margin for positioning the bar
      */
-    public void setTimeBar(Rectangle timeBar, int right, int left, float margin) {
+    protected void setTimeBar(Rectangle timeBar, int right, int left, float margin) {
         timeBar.setWidth((right - left - margin * 2)
                 * ((float) game.getCurLevel().getTime() / game.getCurLevel()
                         .getMaxTime()));
@@ -46,7 +46,7 @@ public class DashboardController {
      * current information provided by the game. This includes score, lives and
      * money for both players.
      */
-    public void setPlayerInfo() {
+    protected void setPlayerInfo() {
         Player[] players = game.getPlayers();
 
         for (int i = 0; i < players.length; i++) {
@@ -69,7 +69,7 @@ public class DashboardController {
     /**
      * sets the current level to be displayed on the dashboard.
      */
-    public void setLevel() {
+    protected void setLevel() {
         Level level = game.getCurLevel();
         if (level != null) {
             dashboard.setLevelId(level.getId());
@@ -80,7 +80,7 @@ public class DashboardController {
      * Returns the game.
      * @return the game
      */
-    public Game getGame() {
+    protected Game getGame() {
         return game;
     }
 
@@ -88,8 +88,16 @@ public class DashboardController {
      * Returns the dashboard.
      * @return the dashboard
      */
-    public Dashboard getDashboard() {
+    protected Dashboard getDashboard() {
         return dashboard;
+    }
+
+    /**
+     * Sets the game.
+     * @param game the game to set
+     */
+    protected void setGame(Game game) {
+        this.game = game;
     }
     
     
