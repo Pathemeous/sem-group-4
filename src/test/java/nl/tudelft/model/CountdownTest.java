@@ -1,18 +1,17 @@
-package nl.tudelft.semgroup4;
+package nl.tudelft.model;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.atLeast;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
-import nl.tudelft.model.Game;
-import nl.tudelft.semgroup4.CountdownController;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
 
-public class CountdownControllerTest {
+public class CountdownTest {
 
     private Game game;
     private CountdownController countdown;

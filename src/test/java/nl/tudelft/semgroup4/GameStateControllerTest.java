@@ -4,7 +4,9 @@ import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+
 import nl.tudelft.model.CollisionController;
+import nl.tudelft.model.CountdownController;
 import nl.tudelft.model.Game;
 
 import org.junit.Before;
