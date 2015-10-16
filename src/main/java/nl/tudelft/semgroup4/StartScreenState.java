@@ -27,7 +27,7 @@ public class StartScreenState extends BasicGameState {
     private StateBasedGame mainApp;
 
     private StartScreenStateController controller;
-    private ResourcesWrapper resources = new ResourcesWrapper();
+    private ResourcesWrapper resources;
 
     /**
      * Starts a new {@link StartScreenState} and its controller.
@@ -35,8 +35,9 @@ public class StartScreenState extends BasicGameState {
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this object may use.
      */
-    public StartScreenState() {
+    public StartScreenState(ResourcesWrapper resources) {
         controller = new StartScreenStateController(resources);
+        this.resources = resources;
     }
 
     @Override

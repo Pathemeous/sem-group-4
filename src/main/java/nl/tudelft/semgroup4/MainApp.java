@@ -61,7 +61,9 @@ public class MainApp extends StateBasedGame {
     public void initStatesList(GameContainer container) throws SlickException {
         Resources.init();
         Settings.init();
-        addState(new StartScreenState());
+        StartScreenState startState = new StartScreenState(new ResourcesWrapper());
+        startState.init(container, this);
+        addState(startState);
         addState(new OptionsState());
         addState(new ShopState(new ResourcesWrapper()));
         addState(new HighscoresState());

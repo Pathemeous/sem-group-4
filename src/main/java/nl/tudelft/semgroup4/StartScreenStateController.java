@@ -43,6 +43,9 @@ public class StartScreenStateController {
      */
     public StartScreenStateController(ResourcesWrapper resources) {
         this.resources = resources;
+
+        Font font = new Font("Verdana", Font.BOLD, 36);
+        typeFont = resources.createFont(font, true);
     }
 
     /**
@@ -56,8 +59,6 @@ public class StartScreenStateController {
         Shape shape =
                 new Rectangle(650, 650, typeFont.getWidth(highScoreText), typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
-        Font font = new Font("Verdana", Font.BOLD, 36);
-        typeFont = resources.createFont(font, true);
         Image highScoreButton =
                 new Image(typeFont.getWidth(highScoreText), typeFont.getHeight());
 

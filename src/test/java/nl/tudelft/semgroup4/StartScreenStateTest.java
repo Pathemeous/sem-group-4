@@ -3,6 +3,8 @@ package nl.tudelft.semgroup4;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
+import java.awt.Font;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
@@ -14,6 +16,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class StartScreenStateTest {
@@ -24,6 +27,7 @@ public class StartScreenStateTest {
     private Input mockedInput;
     private GameContainer mockedContainer;
     private StateBasedGame mockedSBG;
+    private TrueTypeFont mockedFont;
 
     /**
      * Sets up all dependencies.
@@ -31,10 +35,19 @@ public class StartScreenStateTest {
      */
     @Before
     public void setUp() {
-        state = new StartScreenState();
+
+        Image mockedImage = Mockito.mock(Image.class);
+        Mockito.when(mockedImage.getWidth()).thenReturn(5);
+        Mockito.when(mockedImage.getHeight()).thenReturn(5);
+        mockedResources = Mockito.mock(ResourcesWrapper.class);
+        Mockito.when(mockedResources.getTitleScreenBackground()).thenReturn(mockedImage);
+        
+        state = new StartScreenState(mockedResources);
         mockedController = Mockito.mock(StartScreenStateController.class);
         state.setController(mockedController);
-        mockedResources = Mockito.mock(ResourcesWrapper.class);
+        mockedFont = Mockito.mock(TrueTypeFont.class);
+        Mockito.when(mockedResources.createFont(new Font("Verdana", Font.BOLD, 36), true))
+                .thenReturn(mockedFont);
         state.setResources(mockedResources);
         mockedInput = Mockito.mock(Input.class);
         state.setInput(mockedInput);
