@@ -1,7 +1,6 @@
 package nl.tudelft.semgroup4;
 
 import java.awt.Font;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -11,8 +10,8 @@ import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 import nl.tudelft.semgroup4.util.CompareHighscores;
 import nl.tudelft.semgroup4.util.HighscoreEntry;
-
 import nl.tudelft.semgroup4.util.HighscoresHelper;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
