@@ -1,5 +1,6 @@
 package nl.tudelft.semgroup4;
 
+import nl.tudelft.model.CollisionController;
 import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.logger.LogSeverity;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
@@ -18,6 +19,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameStateController {
     
     private final Game currentGame;
+    private CollisionController collisions;
     
     /**
      * Creates a game state controller, which controls the logic for the 
@@ -26,6 +28,7 @@ public class GameStateController {
      */
     protected GameStateController(Game game) {
         this.currentGame = game;
+        collisions = new CollisionController(currentGame);
     }
     
     /**
@@ -65,6 +68,7 @@ public class GameStateController {
             currentGame.getCountdown().update();
         } else {
             currentGame.update(delta);
+            collisions.updateCollisions();
         }
     }
     
@@ -94,5 +98,9 @@ public class GameStateController {
     
     protected Game getGame() {
         return currentGame;
+    }
+    
+    protected void setCollisionController(CollisionController controller) {
+        this.collisions = controller;
     }
 }
