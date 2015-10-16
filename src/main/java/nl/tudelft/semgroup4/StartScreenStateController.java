@@ -189,4 +189,12 @@ public class StartScreenStateController {
         return input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
     }
 
+    protected ResourcesWrapper getResources() {
+        return resources;
+    }
+
+    protected void setResources(ResourcesWrapper resources) {
+        this.resources = resources;
+    }
+
 }

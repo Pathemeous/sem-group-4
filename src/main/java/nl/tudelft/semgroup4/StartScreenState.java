@@ -36,7 +36,7 @@ public class StartScreenState extends BasicGameState {
      *            {@link ResourcesWrapper} - The resources that this object may use.
      */
     public StartScreenState() {
-        controller = new StartScreenStateController(this, resources);
+        controller = new StartScreenStateController(resources);
     }
 
     @Override

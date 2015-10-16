@@ -2,7 +2,7 @@ package nl.tudelft.semgroup4;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
-import static org.junit.Assert.fail;
+
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
@@ -14,7 +14,6 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
-import org.newdawn.slick.gui.MouseOverArea;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class StartScreenStateTest {
@@ -26,8 +25,12 @@ public class StartScreenStateTest {
     private GameContainer mockedContainer;
     private StateBasedGame mockedSBG;
 
+    /**
+     * Sets up all dependencies.
+     * 
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         state = new StartScreenState();
         mockedController = Mockito.mock(StartScreenStateController.class);
         state.setController(mockedController);
@@ -53,7 +56,7 @@ public class StartScreenStateTest {
     @Test
     public void testInit() throws SlickException {
         state.init(mockedContainer, mockedSBG);
-        
+
         Mockito.verify(mockedController).createPlayer1Button(mockedContainer);
         Mockito.verify(mockedController).createPlayer2Button(mockedContainer);
         Mockito.verify(mockedController).createOptionsButton(mockedContainer);
@@ -65,12 +68,13 @@ public class StartScreenStateTest {
     public void testRender() throws SlickException {
         Mockito.when(mockedContainer.getWidth()).thenReturn(5);
         Mockito.when(mockedContainer.getHeight()).thenReturn(5);
-        Graphics mockedGraphics = Mockito.mock(Graphics.class);
 
         Image mockedImage = Mockito.mock(Image.class);
         Mockito.when(mockedImage.getWidth()).thenReturn(5);
         Mockito.when(mockedImage.getHeight()).thenReturn(5);
         Mockito.when(mockedResources.getTitleScreenBackground()).thenReturn(mockedImage);
+
+        Graphics mockedGraphics = Mockito.mock(Graphics.class);
 
         state.render(mockedContainer, mockedSBG, mockedGraphics);
 
@@ -153,9 +157,9 @@ public class StartScreenStateTest {
     public void testUpdateHighscoresButtonClick() throws SlickException {
         Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
                 true);
-        GameState mockedNewState = Mockito.mock(GameState.class); 
+        GameState mockedNewState = Mockito.mock(GameState.class);
         Mockito.when(mockedSBG.getState(States.HighscoresState)).thenReturn(mockedNewState);
-        
+
         state.updateHighscoresButton(mockedContainer, mockedSBG);
         Mockito.verify(mockedSBG).enterState(States.HighscoresState);
     }
@@ -164,9 +168,9 @@ public class StartScreenStateTest {
     public void testUpdatePlayer1ButtonClick() throws SlickException {
         Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
                 true);
-        GameState mockedNewState = Mockito.mock(GameState.class); 
+        GameState mockedNewState = Mockito.mock(GameState.class);
         Mockito.when(mockedSBG.getState(States.GameState)).thenReturn(mockedNewState);
-        
+
         state.updatePlayer1Button(mockedContainer, mockedSBG);
         Mockito.verify(mockedSBG).enterState(States.GameState);
     }
@@ -175,23 +179,24 @@ public class StartScreenStateTest {
     public void testUpdatePlayer2ButtonClick() throws SlickException {
         Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
                 true);
-        GameState mockedNewState = Mockito.mock(GameState.class); 
+        GameState mockedNewState = Mockito.mock(GameState.class);
         Mockito.when(mockedSBG.getState(States.GameState)).thenReturn(mockedNewState);
-        
+
         state.updatePlayer2Button(mockedContainer, mockedSBG);
         Mockito.verify(mockedSBG).enterState(States.GameState);
     }
-//
-//    @Test
-//    public void testUpdateOptionsButtonClick() throws SlickException {
-//        Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
-//                true);
-//        GameState mockedNewState = Mockito.mock(GameState.class); 
-//        Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
-//        
-//        state.updateOptionsButton(mockedContainer, mockedSBG);
-//        Mockito.verify(mockedSBG).enterState(States.OptionsState);
-//    }
+
+    //
+    // @Test
+    // public void testUpdateOptionsButtonClick() throws SlickException {
+    // Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
+    // true);
+    // GameState mockedNewState = Mockito.mock(GameState.class);
+    // Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
+    //
+    // state.updateOptionsButton(mockedContainer, mockedSBG);
+    // Mockito.verify(mockedSBG).enterState(States.OptionsState);
+    // }
 
     @Test
     public void testUpdateExitButtonClick() throws SlickException {
