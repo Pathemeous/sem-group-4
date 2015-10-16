@@ -13,6 +13,7 @@ import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
+import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
@@ -29,22 +30,18 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class StartScreenStateController {
 
-    private StartScreenState state;
     private ResourcesWrapper resources;
 
     private final String highScoreText = "HIGHSCORES";
     private TrueTypeFont typeFont;
 
     /**
-     * Creates a new controler for a specific {@link StartScreenState}.
+     * Creates a new controller for a specific {@link StartScreenState}.
      * 
-     * @param state
-     *            {@link StartScreenState} - The state that this controller is assigned to.
      * @param resources
      *            {@link ResourcesWrapper} - The resources that this controller may use.
      */
-    public StartScreenStateController(StartScreenState state, ResourcesWrapper resources) {
-        this.state = state;
+    public StartScreenStateController(ResourcesWrapper resources) {
         this.resources = resources;
     }
 
@@ -186,6 +183,10 @@ public class StartScreenStateController {
     protected MouseOverArea createQuitButton(GameContainer container) {
         return new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
                 364, 88);
+    }
+    
+    protected boolean isAreaClicked(MouseOverArea buttonArea, Input input) {
+        return input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
     }
 
 }
