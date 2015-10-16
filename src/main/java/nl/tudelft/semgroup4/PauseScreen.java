@@ -57,8 +57,11 @@ public class PauseScreen {
      * location, which will unpause the screen.
      * 
      * @param input
+     *            input to chec for mouse clicks
      * @param game
+     *            game to enter an other state
      * @param gameState
+     *            gamestate to set to false
      */
     private void update(Input input, StateBasedGame game, GameState gameState) {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
