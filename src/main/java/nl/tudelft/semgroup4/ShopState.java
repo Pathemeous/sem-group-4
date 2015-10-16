@@ -72,11 +72,12 @@ public class ShopState extends BasicGameState {
      *            used to get resources
      */
     public ShopState(ResourcesWrapper wrapper) {
+        this.wrapper = wrapper;
         controller = new ShopStateController(this);
         Font font = new Font("Verdana", Font.BOLD, 30);
         ttf = wrapper.createFont(font, true);
 
-        this.wrapper = wrapper;
+        
         backGround = wrapper.getShopBackGround();
         continueText = wrapper.getContinueText();
         shopText = wrapper.getShopText();
