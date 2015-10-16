@@ -9,7 +9,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
-public class CountdownController implements Renderable {
+public class Countdown implements Renderable {
     
     private Game game;
     private int countdown = 180;
@@ -20,7 +20,7 @@ public class CountdownController implements Renderable {
      * @param game : the game that this countdown belongs to.
      * @param resources : resources wrapper.
      */
-    public CountdownController(Game game, ResourcesWrapper resources) {
+    public Countdown(Game game, ResourcesWrapper resources) {
         this.game = game;
         game.setPaused(true);
         typeFont = resources.getCountdownFont();
