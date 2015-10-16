@@ -21,7 +21,7 @@ public class HighscoreEntry {
     @Override
     public boolean equals(Object obj) {
 
-        if (getClass().equals(obj.getClass())) {
+        if (obj != null && getClass().equals(obj.getClass())) {
             HighscoreEntry that = (HighscoreEntry) obj;
             return this.score == that.score
                     && this.name.equals(that.name);
