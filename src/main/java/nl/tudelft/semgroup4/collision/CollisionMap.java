@@ -19,7 +19,6 @@ public interface CollisionMap {
      *            The collider type.
      * @param <C2>
      *            The collidee (AbstractGameObject that was moved into) type.
-     * 
      * @param collider
      *            The AbstractGameObject that causes the collision by occupying a square with
      *            another AbstractGameObject already on it.

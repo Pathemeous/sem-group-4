@@ -38,7 +38,6 @@ public class CollisionInteractionMap implements CollisionMap {
      *            The collider type.
      * @param <C2>
      *            The collidee (AbstractGameObject that was moved into) type.
-     * 
      * @param collider
      *            The collider type.
      * @param collidee
@@ -59,7 +58,6 @@ public class CollisionInteractionMap implements CollisionMap {
      *            The collider type.
      * @param <C2>
      *            The collidee (AbstractGameObject that was moved into) type.
-     * 
      * @param collider
      *            The collider type.
      * @param collidee
@@ -109,7 +107,6 @@ public class CollisionInteractionMap implements CollisionMap {
      *            The collider type.
      * @param <C2>
      *            The collidee (AbstractGameObject that was moved into) type.
-     * 
      * @param collider
      *            The collider.
      * @param collidee
@@ -200,7 +197,6 @@ public class CollisionInteractionMap implements CollisionMap {
      * An symmetrical copy of a collision hander.
      * 
      * @author Michael de Jong
-     * 
      * @param <C1>
      *            The collider type.
      * @param <C2>
