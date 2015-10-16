@@ -2,42 +2,66 @@ package nl.tudelft.semgroup4;
 
 import org.newdawn.slick.state.StateBasedGame;
 
-import nl.tudelft.model.Player;
-import nl.tudelft.model.shop.ShopItem;
-
 public class ShopStateController {
 
     private ShopState shopState;
-    private Player selectedPlayer;
-    private ShopItem selectedItem;
 
+    /**
+     * Creates the controller for the shopState.
+     * 
+     * @param shopState
+     *            shopstate to create a controller for
+     */
     public ShopStateController(ShopState shopState) {
         this.shopState = shopState;
-        this.selectedPlayer = shopState.getSelectedPlayer();
-        this.selectedItem = shopState.getSelectedItem();
     }
 
+    /**
+     * Checks if the selected player has enough money and an item is selected,
+     * buys the item and aplies it to the selected player.
+     */
     public void applyUpgrade() {
-        if (selectedItem != null
-                && selectedItem.getPrice() <= selectedPlayer.getMoney()) {
+        if (shopState.getSelectedItem() != null
+                && shopState.getSelectedItem().getPrice() <= shopState
+                        .getSelectedPlayer().getMoney()) {
 
-            selectedItem.applyTo(selectedPlayer);
-            selectedPlayer.setMoney(selectedPlayer.getMoney()
-                    - selectedItem.getPrice());
+            shopState.getSelectedItem().applyTo(shopState.getSelectedPlayer());
+            shopState.getSelectedPlayer().setMoney(
+                    shopState.getSelectedPlayer().getMoney()
+                            - shopState.getSelectedItem().getPrice());
         }
     }
 
-    public void selectPlayer(int i) {
-        selectedPlayer = shopState.getShop().getGame().getPlayers()[i];
+    /**
+     * Selects the player according to the which player was clicked on.
+     * 
+     * @param i
+     *            which player to select
+     */
+    public void selectPlayer(int selectedPlayer) {
+        shopState
+                .setSelectedPlayer(shopState.getShop().getGame().getPlayers()[selectedPlayer]);
     }
 
-    public void selectItem(int i) {
-        selectedItem = shopState.getShop().getInventory().get(i);
-        
+    /**
+     * Selects the item according to the which item was clicked on.
+     * 
+     * @param i
+     *            which item to select
+     */
+    public void selectItem(int selectedItem) {
+        shopState.setSelectedItem(shopState.getShop().getInventory().get(selectedItem));
+
     }
 
+    /**
+     * Enters an other state.
+     * 
+     * @param game
+     *            game in which to enter a different state.
+     */
     public void enterState(StateBasedGame game) {
         game.enterState(States.GameState);
-        
+
     }
 }
