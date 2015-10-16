@@ -120,7 +120,6 @@ public class ShopState extends BasicGameState {
         shop = new Shop(game);
 
         selectedPlayer = shop.getGame().getPlayers()[0];
-        selectedPlayer.setMoney(1000);
     }
 
     @Override
@@ -507,7 +506,7 @@ public class ShopState extends BasicGameState {
      * 
      * @return the shop
      */
-    public Shop getShop() {
+    protected Shop getShop() {
         return shop;
     }
 
@@ -517,7 +516,7 @@ public class ShopState extends BasicGameState {
      * @param shop
      *            the shop to set
      */
-    public void setShop(Shop shop) {
+    protected void setShop(Shop shop) {
         this.shop = shop;
     }
 
@@ -526,7 +525,7 @@ public class ShopState extends BasicGameState {
      * 
      * @return the selectedItem
      */
-    public ShopItem getSelectedItem() {
+    protected ShopItem getSelectedItem() {
         return selectedItem;
     }
 
@@ -536,7 +535,7 @@ public class ShopState extends BasicGameState {
      * @param selectedItem
      *            the selectedItem to set
      */
-    public void setSelectedItem(ShopItem selectedItem) {
+    protected void setSelectedItem(ShopItem selectedItem) {
         this.selectedItem = selectedItem;
     }
 
@@ -545,7 +544,7 @@ public class ShopState extends BasicGameState {
      * 
      * @return the selectedPlayer
      */
-    public Player getSelectedPlayer() {
+    protected Player getSelectedPlayer() {
         return selectedPlayer;
     }
 
@@ -555,7 +554,7 @@ public class ShopState extends BasicGameState {
      * @param selectedPlayer
      *            the selectedPlayer to set
      */
-    public void setSelectedPlayer(Player selectedPlayer) {
+    protected void setSelectedPlayer(Player selectedPlayer) {
         this.selectedPlayer = selectedPlayer;
     }
 
@@ -565,7 +564,7 @@ public class ShopState extends BasicGameState {
      * @param wrapper
      *            the wrapper to set
      */
-    public void setWrapper(ResourcesWrapper wrapper) {
+    protected void setWrapper(ResourcesWrapper wrapper) {
         this.wrapper = wrapper;
     }
 
@@ -585,7 +584,7 @@ public class ShopState extends BasicGameState {
      * @param mouseOverArea
      *            mouseover to set all mouseOvers to, useful for testing
      */
-    public void setMouseOvers(MouseOverArea mouseOverArea) {
+    protected void setMouseOvers(MouseOverArea mouseOverArea) {
         item1AreaSlow = mouseOverArea;
         item2AreaLife = mouseOverArea;
         item3AreaSpeed = mouseOverArea;
@@ -607,7 +606,7 @@ public class ShopState extends BasicGameState {
      * @param controller
      *            the controller to set
      */
-    public void setController(ShopStateController controller) {
+    protected void setController(ShopStateController controller) {
         this.controller = controller;
     }
 

@@ -12,7 +12,7 @@ public class ShopStateController {
      * @param shopState
      *            shopstate to create a controller for
      */
-    public ShopStateController(ShopState shopState) {
+    protected ShopStateController(ShopState shopState) {
         this.shopState = shopState;
     }
 
@@ -20,7 +20,7 @@ public class ShopStateController {
      * Checks if the selected player has enough money and an item is selected,
      * buys the item and aplies it to the selected player.
      */
-    public void applyUpgrade() {
+    protected void applyUpgrade() {
         if (shopState.getSelectedItem() != null
                 && shopState.getSelectedItem().getPrice() <= shopState
                         .getSelectedPlayer().getMoney()) {
@@ -38,7 +38,7 @@ public class ShopStateController {
      * @param i
      *            which player to select
      */
-    public void selectPlayer(int selectedPlayer) {
+    protected void selectPlayer(int selectedPlayer) {
         shopState
                 .setSelectedPlayer(shopState.getShop().getGame().getPlayers()[selectedPlayer]);
     }
@@ -49,8 +49,9 @@ public class ShopStateController {
      * @param i
      *            which item to select
      */
-    public void selectItem(int selectedItem) {
-        shopState.setSelectedItem(shopState.getShop().getInventory().get(selectedItem));
+    protected void selectItem(int selectedItem) {
+        shopState.setSelectedItem(shopState.getShop().getInventory()
+                .get(selectedItem));
 
     }
 
@@ -60,8 +61,17 @@ public class ShopStateController {
      * @param game
      *            game in which to enter a different state.
      */
-    public void enterState(StateBasedGame game) {
+    protected void enterState(StateBasedGame game) {
         game.enterState(States.GameState);
 
+    }
+
+    /**
+     * Returns the shopState.
+     * 
+     * @return the shopState
+     */
+    protected ShopState getShopState() {
+        return shopState;
     }
 }
