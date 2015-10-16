@@ -10,7 +10,12 @@ import nl.tudelft.semgroup4.util.HighscoresHelper;
 
 
 public class HighscoresStateController {
+    
+    private HighscoresHelper highscoresHelper;
 
+    public HighscoresStateController() {
+        this.highscoresHelper = new HighscoresHelper();
+    }
     /**
      * Get all scores which are saved to file.
      * @return
@@ -19,7 +24,7 @@ public class HighscoresStateController {
     protected List<HighscoreEntry> getScores() {
         List<HighscoreEntry> scores = new ArrayList<>();
         try {
-            scores.addAll(HighscoresHelper.load());
+            scores.addAll(highscoresHelper.load());
         } catch (IOException e) {
             e.printStackTrace();
         }
