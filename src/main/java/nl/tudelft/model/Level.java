@@ -10,10 +10,10 @@ import nl.tudelft.semgroup4.Modifiable;
 import nl.tudelft.semgroup4.Renderable;
 import nl.tudelft.semgroup4.Updateable;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Helpers;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -32,14 +32,17 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<AbstractBubble> bubbles;
     private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
+    private final Image backgroundImage;
     private int time;
-    private final int maxTime;
+    private int maxTime;
     private final int id;
     private boolean shopSlow = false;
 
     /**
      * Creates a level object with an object list, a timer and a speed.
-     *
+     * 
+     * @param backgroundImage
+     *            {@link Image} - The image to render as background.
      * @param walls
      *            LinkedList - list containing all walls in this level.
      * @param projectiles
@@ -53,8 +56,10 @@ public class Level implements Updateable, Renderable, Modifiable {
      * @param id
      *            int - the number of this level.
      */
-    public Level(LinkedList<AbstractWall> walls, LinkedList<Projectile> projectiles,
-            LinkedList<Pickup> pickups, LinkedList<AbstractBubble> bubbles, int time, int id) {
+    public Level(Image backgroundImage, LinkedList<AbstractWall> walls,
+            LinkedList<Projectile> projectiles, LinkedList<Pickup> pickups,
+            LinkedList<AbstractBubble> bubbles, int time, int id) {
+        this.backgroundImage = backgroundImage;
         this.walls = walls;
         this.projectiles = projectiles;
         this.bubbles = bubbles;
@@ -123,10 +128,8 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        final ResourcesWrapper resources = new ResourcesWrapper();
-        graphics.drawImage(resources.getBackgroundImage(), 0, 0, container.getWidth(),
-                container.getHeight(), 0, 0, resources.getBackgroundImage().getWidth(),
-                resources.getBackgroundImage().getHeight());
+        graphics.drawImage(backgroundImage, 0, 0, container.getWidth(), container.getHeight(),
+                0, 0, backgroundImage.getWidth(), backgroundImage.getHeight());
 
         for (AbstractGameObject gameObject : projectiles) {
             gameObject.render(container, graphics);
@@ -250,7 +253,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            int - the total amount of time in milliseconds.
      */
     public void setMaxTime(int time) {
-        this.time = time;
+        this.maxTime = time;
     }
 
     /**

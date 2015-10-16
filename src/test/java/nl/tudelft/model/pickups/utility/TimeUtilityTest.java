@@ -6,49 +6,62 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import java.util.LinkedList;
-
 import nl.tudelft.model.Level;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
+import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.newdawn.slick.Image;
 
 public class TimeUtilityTest {
-    
-    @Test
-    public void testConstructor() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
+
+    private ResourcesWrapper mockedResources;
+    private TimeUtility utility;
+
+    /**
+     * Sets up all mocks.
+     */
+    @Before
+    public void setUp() {
+        mockedResources = mock(ResourcesWrapper.class);
         Image mockedImg = mock(Image.class);
         when(mockedResources.getPickupUtilityTime()).thenReturn(mockedImg);
-        TimeUtility utility = new TimeUtility(mockedResources, 0, 0);
-        
+        utility = new TimeUtility(mockedResources, 0, 0);
+    }
+
+    @Test
+    public void testConstructor() {
         assertEquals(mockedResources.getPickupUtilityTime(), utility.getImage());
         assertEquals(0.0f, utility.getLocX(), 0.0f);
         assertEquals(0.0f, utility.getLocY(), 0.0f);
     }
-    
+
     @Test
-    public void testActivate1() {
-        ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        TimeUtility utility = new TimeUtility(mockedResources, 0, 0);
-        
-        Level level = new Level(new LinkedList<>(), new LinkedList<>(), new LinkedList<>(), 
-                new LinkedList<>(), 50000, 0);
+    public void testActivateMaxTimeRemaining() {
+        final int maxTime = 50000;
+        Level level = Mockito.mock(Level.class);
+        Mockito.when(level.getTime()).thenReturn(maxTime);
+        Mockito.when(level.getMaxTime()).thenReturn(maxTime);
+
+        assertFalse(utility.isActive());
+
+        utility.activate(level);
+
+        assertTrue(utility.isActive());
+        Mockito.verify(level).setTime(maxTime);
+    }
+
+    @Test
+    public void testActivateLessThanMaxTimeRemaining() {
+        Level level = Mockito.mock(Level.class);
+        Mockito.when(level.getTime()).thenReturn(0);
+        Mockito.when(level.getMaxTime()).thenReturn(50000);
         
         assertFalse(utility.isActive());
-        assertEquals(50000, level.getTime());
         
         utility.activate(level);
-        
-        assertTrue(utility.isActive());
-        assertEquals(50000, level.getTime());
-        
-        level.setTime(20000);
-        
-        TimeUtility utility2 = new TimeUtility(mockedResources, 0, 0);
-        utility2.activate(level);
-        
-        assertEquals(40000, level.getTime());
+
+        Mockito.verify(level).setTime(20000);
     }
 }

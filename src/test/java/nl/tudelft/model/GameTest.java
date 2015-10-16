@@ -12,6 +12,7 @@ import nl.tudelft.semgroup4.GameEndedState;
 import nl.tudelft.semgroup4.ShopState;
 import nl.tudelft.semgroup4.States;
 import nl.tudelft.semgroup4.collision.CollisionHandler;
+import nl.tudelft.semgroup4.collision.CollisionMap;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
@@ -169,9 +170,9 @@ public class GameTest {
     @Test
     public void testGetNewCollisionHandler() {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
-        CollisionHandler<AbstractGameObject, AbstractGameObject> handler = null;
+        CollisionMap handler = null;
         assertEquals(handler, null);
-        handler = game.getNewCollisionHandler();
+        handler = game.getNewCollisionMap();
         assertFalse(handler == null);
     }
 
