@@ -31,9 +31,6 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
 
-/**
- * Created by justin on 11/09/15.
- */
 public class BubbleTest {
 
     private ResourcesWrapper mockedResources;
@@ -43,8 +40,8 @@ public class BubbleTest {
     /**
      * sets up the test.
      *
-     * Note the mockedRandom, this is set to a new (non-mocked)
-     * instance in the teardown to ensure not leaking into other tests.
+     * <p>Note the mockedRandom, this is set to a new (non-mocked)
+     * instance in the teardown to ensure not leaking into other tests.</p>
      */
     @Before
     public void setUp() {
@@ -198,7 +195,6 @@ public class BubbleTest {
         verify(mockedRandom, times(2)).nextInt(10); // one for type, one for yes/no
 
     }
-
     
     @Test
     public void testSplitWithBubble1() throws SlickException {        
@@ -333,8 +329,6 @@ public class BubbleTest {
         bubble2.setLocX(51);
 
         assertFalse(bubble1.getBounds().intersects(bubble2.getBounds()));
-
-
 
     }
 
