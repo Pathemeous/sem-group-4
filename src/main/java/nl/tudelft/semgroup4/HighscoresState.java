@@ -47,6 +47,7 @@ public class HighscoresState extends BasicGameState {
         Font font = new Font("Calibri", Font.BOLD, 46);
         typeFont = resources.createFont(font, true);
 
+
     }
 
     @Override

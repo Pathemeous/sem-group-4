@@ -24,15 +24,15 @@ import org.json.JSONObject;
  */
 public class HighscoresHelper {
 
-    public static final String FILENAME = "scores.json";
-    public static final Charset encoding = Charset.forName("UTF-8");
+    public static String FILENAME = "scores.json";
+    public static Charset encoding = Charset.forName("UTF-8");
 
     /**
      * Loads the highscores from the highscores file (see FILENAME).
      * @return a list of {@link HighscoreEntry}s
      * @throws IOException When reading fails, this exception is thrown.
      */
-    public static List<HighscoreEntry> load() throws IOException {
+    public List<HighscoreEntry> load() throws IOException {
 
         // when file does not exist, create empty one
         if (!new File(FILENAME).exists()) {
@@ -63,7 +63,7 @@ public class HighscoresHelper {
      * @param highscores a list of {@link HighscoreEntry}
      * @throws IOException When writing fails somehow.
      */
-    public static void save(List<HighscoreEntry> highscores) throws IOException {
+    public void save(List<HighscoreEntry> highscores) throws IOException {
 
         JSONArray array = new JSONArray();
         for (HighscoreEntry entry : highscores) {
