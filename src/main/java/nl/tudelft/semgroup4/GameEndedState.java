@@ -150,7 +150,7 @@ public class GameEndedState extends BasicGameState {
     /**
      * Initializes fonts and strings for texts on screen.
      */
-    public void initializeTextUtilities() {
+    private void initializeTextUtilities() {
         fontTitle = new Font("Calibri", Font.BOLD, 60);
         typeFontTitle = new TrueTypeFont(fontTitle, true);
 
@@ -318,6 +318,7 @@ public class GameEndedState extends BasicGameState {
      * @param input
      *            the input to set
      */
+    @Override
     public void setInput(Input input) {
         this.input = input;
     }

@@ -30,7 +30,7 @@ public class GameEndedController {
      *            the players which have played the game and have entered their
      *            names
      */
-    public void saveScore(TextField textFieldPlayer1,
+    protected void saveScore(TextField textFieldPlayer1,
             TextField textFieldPlayer2, Player[] players) {
         try {
             List<HighscoreEntry> highscores = highscoresHelper.load();
