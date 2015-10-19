@@ -187,7 +187,7 @@ public class StartScreenStateController {
     }
     
     protected boolean isAreaClicked(MouseOverArea buttonArea, Input input) {
-        return input.isMousePressed(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
+        return input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
     }
 
     protected ResourcesWrapper getResources() {
