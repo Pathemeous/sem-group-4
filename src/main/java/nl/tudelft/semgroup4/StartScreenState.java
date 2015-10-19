@@ -21,11 +21,6 @@ public class StartScreenState extends BasicGameState {
     private MouseOverArea mouseOverHighScores;
     private Input input;
 
-    /**
-     * We need this to construct the Game instances.
-     */
-    private StateBasedGame mainApp;
-
     private StartScreenStateController controller;
     private ResourcesWrapper resources;
 
@@ -42,7 +37,6 @@ public class StartScreenState extends BasicGameState {
 
     @Override
     public void init(GameContainer container, StateBasedGame mainApp) throws SlickException {
-        this.mainApp = mainApp;
         this.input = container.getInput();
 
         mouseOverOnePlayer = controller.createPlayer1Button(container);

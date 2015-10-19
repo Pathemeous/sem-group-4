@@ -32,8 +32,8 @@ public class StartScreenStateController {
 
     private ResourcesWrapper resources;
 
-    private static final String highScoreText = "HIGHSCORES";
-    private TrueTypeFont typeFont;
+    private static final String HIGHSCORE_TEXT = "HIGHSCORES";
+    private final TrueTypeFont typeFont;
 
     /**
      * Creates a new controller for a specific {@link StartScreenState}.
@@ -57,13 +57,15 @@ public class StartScreenStateController {
     protected MouseOverArea createHighscoresButton(GameContainer container)
             throws SlickException {
         Shape shape =
-                new Rectangle(650, 650, typeFont.getWidth(highScoreText), typeFont.getHeight());
+                new Rectangle(650, 650, typeFont.getWidth(HIGHSCORE_TEXT),
+                        typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
         Image highScoreButton =
-                new Image(typeFont.getWidth(highScoreText), typeFont.getHeight());
+                new Image(typeFont.getWidth(HIGHSCORE_TEXT), typeFont.getHeight());
 
         shape =
-                new Rectangle(650, 650, typeFont.getWidth(highScoreText), typeFont.getHeight());
+                new Rectangle(650, 650, typeFont.getWidth(HIGHSCORE_TEXT),
+                        typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
 
         return new MouseOverArea(container, highScoreButton, shape);
@@ -77,7 +79,7 @@ public class StartScreenStateController {
      */
     protected void drawHighScoresButton(Graphics graphics) {
         graphics.rotate(650, 650, 340);
-        typeFont.drawString(650, 650, highScoreText, Color.red);
+        typeFont.drawString(650, 650, HIGHSCORE_TEXT, Color.red);
     }
 
     /**
@@ -185,7 +187,7 @@ public class StartScreenStateController {
         return new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
                 364, 88);
     }
-    
+
     protected boolean isAreaClicked(MouseOverArea buttonArea, Input input) {
         return input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
     }
