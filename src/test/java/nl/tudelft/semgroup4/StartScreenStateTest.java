@@ -199,17 +199,21 @@ public class StartScreenStateTest {
         Mockito.verify(mockedSBG).enterState(States.GameState);
     }
 
-    //
-    // @Test
-    // public void testUpdateOptionsButtonClick() throws SlickException {
-    // Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
-    // true);
-    // GameState mockedNewState = Mockito.mock(GameState.class);
-    // Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
-    //
-    // state.updateOptionsButton(mockedContainer, mockedSBG);
-    // Mockito.verify(mockedSBG).enterState(States.OptionsState);
-    // }
+    // Cannot be tested due to the following calls in the method declaration:
+    // input.clearKeyPressedRecord();
+    // input.clearMousePressedRecord();
+    // This test can be uncommented after these lines have been removed.
+//    @Test
+//    public void testUpdateOptionsButtonClick() throws SlickException {
+//        Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
+//                true);
+//        GameState mockedNewState = Mockito.mock(GameState.class);
+//        Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
+//        state.setInput(mockedInput);
+//
+//        state.updateOptionsButton(mockedContainer, mockedSBG);
+//        Mockito.verify(mockedSBG).enterState(States.OptionsState);
+//    }
 
     @Test
     public void testUpdateExitButtonClick() throws SlickException {
