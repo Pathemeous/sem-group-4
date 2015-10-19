@@ -114,8 +114,8 @@ public class KeyBindHelper {
      * Updates the Settings to the defaults as specified in the DEFAULTS file.
      * 
      * <p>
-     * Overwrites any custom keybindings that were specified in the FILENAME file with their
-     * default values.
+     * Does not overwrite any custom keybindings that were specified in the FILENAME file. To
+     * achieve this, a separate {@link KeyBindHelper#save()} call must be made.
      * </p>
      * 
      * @throws IOException
@@ -125,7 +125,5 @@ public class KeyBindHelper {
         File defaultFile = new File(DEFAULTS);
         JSONObject json = JSONParser.loadJSON(defaultFile);
         updateSettings(json);
-        File saveFile = new File(FILENAME);
-        JSONParser.save(json, saveFile);
     }
 }
