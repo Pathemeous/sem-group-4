@@ -45,14 +45,11 @@ public class StartScreenState extends BasicGameState {
         this.mainApp = mainApp;
         this.input = container.getInput();
 
-        mouseOverHighScores = controller.createHighscoresButton(container);
-
-        // initializes all the areas where the buttons are to see if the mouse is on one of those
-        // areas
         mouseOverOnePlayer = controller.createPlayer1Button(container);
         mouseOverTwoPlayer = controller.createPlayer2Button(container);
         mouseOverOptions = controller.createOptionsButton(container);
         mouseOverQuit = controller.createQuitButton(container);
+        mouseOverHighScores = controller.createHighscoresButton(container);
     }
 
     @Override
@@ -72,11 +69,11 @@ public class StartScreenState extends BasicGameState {
             resources.playTitleScreen();
         }
 
-        updateHighscoresButton(container, game);
         updatePlayer1Button(container, game);
         updatePlayer2Button(container, game);
         updateOptionsButton(container, game);
         updateExitButton(container, game);
+        updateHighscoresButton(container, game);
     }
 
     /**
