@@ -23,7 +23,7 @@ import nl.tudelft.model.Player;
  * @author Pathemeous
  *
  */
-public class PlayerInput extends Observable implements Observer {
+public class PlayerInput extends AbstractPlayerInput implements Observer {
 
     /**
      * Represents the actions that a {@link Player} can perform.
@@ -65,30 +65,27 @@ public class PlayerInput extends Observable implements Observer {
         }
 
         if (observable.equals(leftInput) && (Boolean) argument) {
-            setChanged();
-            notifyObservers(PlayerEvent.LEFT);
+            notifyLeftInput();
         }
 
         if (observable.equals(rightInput) && (Boolean) argument) {
-            setChanged();
-            notifyObservers(PlayerEvent.RIGHT);
+            notifyRightInput();
         }
 
         if ((observable.equals(leftInput) || observable.equals(rightInput))
                 && !(Boolean) argument) {
-            setChanged();
-            notifyObservers(PlayerEvent.STILL);
+            notifyStopInput();
         }
 
         if (observable.equals(shootInput) && (Boolean) argument) {
-            setChanged();
-            notifyObservers(PlayerEvent.SHOOT);
+            notifyShootInput();
         }
     }
 
     /**
      * polls its {@link InputKey}s for input.
      */
+    @Override
     public void poll() {
         leftInput.poll();
         rightInput.poll();
