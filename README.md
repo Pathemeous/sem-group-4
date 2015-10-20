@@ -10,7 +10,7 @@ To guarentee that the game will run properly, use the following Maven build goal
 
 This will ensure that all natives are downloaded properly.<br />
 The command also clears all natives and the site before starting the game.<br />
-As a result the game takes a little longer to start, but all tests will run propely.
+As a result the game takes a little longer to start, but all tests will run properly.
 
 ## Playing the game
 You can start the game by either clicking "1 Player" or "2 Players" on the menu screen.<br />
