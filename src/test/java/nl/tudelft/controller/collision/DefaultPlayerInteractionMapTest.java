@@ -1,5 +1,6 @@
 package nl.tudelft.controller.collision;
 
+import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyBoolean;
 import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
@@ -9,7 +10,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
+import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.wall.AbstractWall;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,6 +23,7 @@ import org.newdawn.slick.geom.Shape;
 public class DefaultPlayerInteractionMapTest {
 
     private DefaultPlayerInteractionMap map;
+    private Game mockedGame;
 
     /**
      * Create the interaction map used for testing.
@@ -27,6 +31,7 @@ public class DefaultPlayerInteractionMapTest {
     @Before
     public void setUp() {
         map = new DefaultPlayerInteractionMap();
+        mockedGame = mock(Game.class);
     }
 
     @Test
@@ -43,7 +48,6 @@ public class DefaultPlayerInteractionMapTest {
         Pickup mockedPickup = mock(Pickup.class);
         when(mockedPickup.getBounds()).thenReturn(mockedShape2);
 
-        Game mockedGame = mock(Game.class);
         map.collide(mockedGame, mockedPickup, mockedWall);
 
         verify(mockedPickup, never()).setLocY(anyInt());
@@ -64,7 +68,6 @@ public class DefaultPlayerInteractionMapTest {
         Pickup mockedPickup = mock(Pickup.class);
         when(mockedPickup.getBounds()).thenReturn(mockedShape2);
 
-        Game mockedGame = mock(Game.class);
         map.collide(mockedGame, mockedPickup, mockedWall);
 
         verify(mockedPickup, times(1)).setLocY(anyInt());
@@ -85,11 +88,20 @@ public class DefaultPlayerInteractionMapTest {
         Pickup mockedPickup = mock(Pickup.class);
         when(mockedPickup.getBounds()).thenReturn(mockedShape2);
 
-        Game mockedGame = mock(Game.class);
         map.collide(mockedGame, mockedPickup, mockedWall);
 
         verify(mockedPickup, times(1)).setLocY(anyInt());
         verify(mockedPickup, times(1)).setOnGround(anyBoolean());
+    }
+
+    @Test
+    public void testUtilPlayerCollision() {
+        Utility mockedUtility = mock(Utility.class);
+        Player mockedPlayer = mock(Player.class);
+
+        map.collide(mockedGame, mockedUtility, mockedPlayer);
+
+        verify(mockedUtility, times(1)).activate(any());
     }
 
 }
