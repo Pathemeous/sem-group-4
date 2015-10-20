@@ -33,7 +33,7 @@ public class StartScreenStateController {
     private ResourcesWrapper resources;
 
     private static final String HIGHSCORE_TEXT = "HIGHSCORES";
-    private final TrueTypeFont typeFont;
+    private TrueTypeFont typeFont;
 
     /**
      * Creates a new controller for a specific {@link StartScreenState}.
@@ -61,7 +61,7 @@ public class StartScreenStateController {
                         typeFont.getHeight());
         shape = shape.transform(Transform.createRotateTransform(6, 650, 650));
         Image highScoreButton =
-                new Image(typeFont.getWidth(HIGHSCORE_TEXT), typeFont.getHeight());
+                resources.createImage(typeFont.getWidth(HIGHSCORE_TEXT), typeFont.getHeight());
 
         shape =
                 new Rectangle(650, 650, typeFont.getWidth(HIGHSCORE_TEXT),
@@ -198,6 +198,10 @@ public class StartScreenStateController {
 
     protected void setResources(ResourcesWrapper resources) {
         this.resources = resources;
+    }
+    
+    protected void setFont(TrueTypeFont font) {
+        this.typeFont = font;
     }
 
 }
