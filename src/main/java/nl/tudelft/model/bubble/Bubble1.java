@@ -3,7 +3,7 @@ package nl.tudelft.model.bubble;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 1.

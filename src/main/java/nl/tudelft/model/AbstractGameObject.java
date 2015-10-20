@@ -1,9 +1,9 @@
 package nl.tudelft.model;
 
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Updateable;
-import nl.tudelft.semgroup4.util.SemRectangle;
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.Renderable;
+import nl.tudelft.controller.Updateable;
+import nl.tudelft.controller.util.SemRectangle;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

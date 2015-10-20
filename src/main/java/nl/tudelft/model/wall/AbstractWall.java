@@ -1,7 +1,7 @@
 package nl.tudelft.model.wall;
 
+import nl.tudelft.controller.Modifiable;
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.semgroup4.Modifiable;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

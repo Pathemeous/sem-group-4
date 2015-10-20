@@ -2,13 +2,13 @@ package nl.tudelft.model;
 
 import java.util.HashMap;
 
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.SemRectangle;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;

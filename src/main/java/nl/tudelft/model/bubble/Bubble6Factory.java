@@ -1,6 +1,6 @@
 package nl.tudelft.model.bubble;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 /**
  * Created by justin on 08/10/15.

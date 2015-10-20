@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups;
 
+import nl.tudelft.controller.Modifiable;
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.semgroup4.Modifiable;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-import nl.tudelft.semgroup4.GameEndedState;
-import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.ShopState;
-import nl.tudelft.semgroup4.States;
-import nl.tudelft.semgroup4.logger.DefaultLogger;
-import nl.tudelft.semgroup4.logger.Logger;
-import nl.tudelft.semgroup4.logger.LogSeverity;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.Renderable;
+import nl.tudelft.controller.logger.DefaultLogger;
+import nl.tudelft.controller.logger.Logger;
+import nl.tudelft.controller.logger.LogSeverity;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.view.GameEndedState;
+import nl.tudelft.view.ShopState;
+import nl.tudelft.view.States;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
