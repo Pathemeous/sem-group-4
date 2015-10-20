@@ -25,16 +25,6 @@ import nl.tudelft.model.Player;
  */
 public class PlayerInput extends AbstractPlayerInput implements Observer {
 
-    /**
-     * Represents the actions that a {@link Player} can perform.
-     * 
-     * @author Pathemeous
-     *
-     */
-    public enum PlayerEvent {
-        LEFT, RIGHT, SHOOT, STILL
-    }
-
     private InputKey leftInput;
     private InputKey rightInput;
     private InputKey shootInput;

@@ -3,6 +3,7 @@ package nl.tudelft.model;
 import java.util.HashMap;
 
 import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
@@ -116,6 +117,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     public void moveLeft() {
         setAnimationCurrent(animationLeft);
         setLocX(locX - speed);
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
     }
 
     /**
@@ -125,6 +127,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     public void moveRight() {
         setAnimationCurrent(animationRight);
         setLocX(locX + speed);
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 
     /**
@@ -133,6 +136,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     @Override
     public void stopMoving() {
         setAnimationCurrent(null);
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player stops moving.");
     }
 
     /**
@@ -142,6 +146,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     public void shoot() {
         weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                 this.getHeight());
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
     }
 
     /**

@@ -2,7 +2,6 @@ package nl.tudelft.controller;
 
 import java.awt.Font;
 
-import nl.tudelft.controller.eventhandlers.PlayerEventHandler;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
