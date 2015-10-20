@@ -236,6 +236,18 @@ public class StartScreenStateTest {
     }
 
     @Test
+    public void testUpdateOptionsButtonHover() throws SlickException {
+        state.init(mockedContainer, mockedSBG);
+        Mockito.when(mockedMouseOverArea.isMouseOver()).thenReturn(true);
+        GameState mockedNewState = Mockito.mock(GameState.class);
+        Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
+        state.setInput(mockedInput);
+
+        state.updateOptionsButton(mockedContainer, mockedSBG);
+        Mockito.verify(mockedSBG).enterState(States.OptionsState);
+    }
+
+    @Test
     public void testUpdateExitButtonHover() throws SlickException {
         state.init(mockedContainer, mockedSBG);
         Mockito.when(mockedMouseOverArea.isMouseOver()).thenReturn(true);
