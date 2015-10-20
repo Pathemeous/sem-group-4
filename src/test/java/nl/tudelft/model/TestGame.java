@@ -1,6 +1,6 @@
 package nl.tudelft.model;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**

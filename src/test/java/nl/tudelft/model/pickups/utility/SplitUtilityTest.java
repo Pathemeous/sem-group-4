@@ -10,9 +10,9 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;

@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups.utility;
 
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class LevelWonUtility extends Utility {
     

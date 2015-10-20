@@ -1,9 +1,9 @@
 package nl.tudelft.model.shop.player;
 
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 public class ShopShield extends PlayerShopItem {
     private Game game;

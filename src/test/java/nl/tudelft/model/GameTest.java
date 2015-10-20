@@ -7,10 +7,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.semgroup4.GameEndedState;
-import nl.tudelft.semgroup4.ShopState;
-import nl.tudelft.semgroup4.States;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.view.GameEndedState;
+import nl.tudelft.view.ShopState;
+import nl.tudelft.view.States;
 
 import org.junit.Before;
 import org.junit.Test;

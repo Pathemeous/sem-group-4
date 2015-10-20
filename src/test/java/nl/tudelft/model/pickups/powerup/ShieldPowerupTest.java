@@ -10,11 +10,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
-import nl.tudelft.semgroup4.util.SemRectangle;
 import org.junit.Test;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

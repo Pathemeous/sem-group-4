@@ -3,11 +3,11 @@ package nl.tudelft.model.bubble;
 import java.util.LinkedList;
 import java.util.List;
 
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.RandomPickupFactory;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

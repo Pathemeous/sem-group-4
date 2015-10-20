@@ -2,6 +2,7 @@ package nl.tudelft.model;
 
 import java.util.LinkedList;
 
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.bubble.Bubble1Factory;
 import nl.tudelft.model.bubble.Bubble2Factory;
@@ -15,7 +16,6 @@ import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.HorMovingWall;
 import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.model.wall.VerMovingWall;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 /**
  * A factory that can return full-fledged {@link Level}s on demand.

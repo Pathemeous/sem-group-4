@@ -1,8 +1,8 @@
 package nl.tudelft.model.pickups.weapon;
 
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

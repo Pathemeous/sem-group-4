@@ -4,7 +4,7 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;

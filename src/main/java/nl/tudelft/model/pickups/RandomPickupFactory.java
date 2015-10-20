@@ -1,9 +1,9 @@
 package nl.tudelft.model.pickups;
 
+import nl.tudelft.controller.util.Helpers;
 import nl.tudelft.model.pickups.powerup.RandomPowerupFactory;
 import nl.tudelft.model.pickups.utility.RandomUtilityFactory;
 import nl.tudelft.model.pickups.weapon.RandomWeaponFactory;
-import nl.tudelft.semgroup4.util.Helpers;
 
 /**
  * Class in which a random pickup can be generated.

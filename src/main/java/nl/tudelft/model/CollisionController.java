@@ -1,9 +1,9 @@
 package nl.tudelft.model;
 
-import nl.tudelft.semgroup4.collision.CollisionHelper;
-import nl.tudelft.semgroup4.collision.CollisionMap;
-import nl.tudelft.semgroup4.collision.DefaultPlayerInteractionMap;
-import nl.tudelft.semgroup4.util.QuadTree;
+import nl.tudelft.controller.collision.CollisionHelper;
+import nl.tudelft.controller.collision.CollisionMap;
+import nl.tudelft.controller.collision.DefaultPlayerInteractionMap;
+import nl.tudelft.controller.util.QuadTree;
 
 import org.newdawn.slick.geom.Rectangle;
 

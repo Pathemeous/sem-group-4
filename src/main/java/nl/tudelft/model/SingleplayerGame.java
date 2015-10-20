@@ -1,8 +1,8 @@
 package nl.tudelft.model;
 
-import nl.tudelft.semgroup4.Settings;
-import nl.tudelft.semgroup4.eventhandlers.PlayerInput;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.Settings;
+import nl.tudelft.controller.eventhandlers.PlayerInput;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;

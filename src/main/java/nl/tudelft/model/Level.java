@@ -2,14 +2,13 @@ package nl.tudelft.model;
 
 import java.util.LinkedList;
 
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.Renderable;
+import nl.tudelft.controller.Updateable;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Updateable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
