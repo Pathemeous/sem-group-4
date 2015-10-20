@@ -9,15 +9,14 @@ import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
 
 /**
- *
  * This class was inspired by CollisionInteractionMap of jpacman.
  *
- * The different lies in the way handlers are matched to two classes.
+ * <p>The different lies in the way handlers are matched to two classes.
  * Our version doesn't stop at the first match, it recursively walks through the
- * hierarchy and calls every handler that is matched.
+ * hierarchy and calls every handler that is matched.</p>
  *
- * original comment:
- * A map of possible collisions and their handlers.
+ * <p>original comment:</p>
+ * <p>A map of possible collisions and their handlers.</p>
  *
  * @author Michael de Jong
  * @author Jeroen Roosen
@@ -99,7 +98,8 @@ public class CollisionInteractionMap implements CollisionMap {
      *            The handler that handles the collision.
      */
     private void addHandler(Class<? extends AbstractGameObject> collider,
-                            Class<? extends AbstractGameObject> collidee, CollisionHandler<?, ?> handler) {
+                            Class<? extends AbstractGameObject> collidee,
+                            CollisionHandler<?, ?> handler) {
         if (!handlers.containsKey(collider)) {
             handlers.put(collider, new HashMap<>());
         }
