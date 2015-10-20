@@ -3,12 +3,14 @@ package nl.tudelft.model;
 import java.util.HashMap;
 
 import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.settings.PlayerInputListener;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -16,7 +18,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
-public class Player extends AbstractGameObject {
+public class Player extends AbstractGameObject implements PlayerInputListener {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score;
@@ -111,32 +113,40 @@ public class Player extends AbstractGameObject {
     /**
      * Moves the {@link Player} left according to its speed and sets the correct animation.
      */
+    @Override
     public void moveLeft() {
         setAnimationCurrent(animationLeft);
         setLocX(locX - speed);
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
     }
 
     /**
      * Moves the {@link Player} right according to its speed and sets the correct animation.
      */
+    @Override
     public void moveRight() {
         setAnimationCurrent(animationRight);
         setLocX(locX + speed);
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 
     /**
      * Makes the {@link Player} stop moving by stopping the animation.
      */
+    @Override
     public void stopMoving() {
         setAnimationCurrent(null);
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player stops moving.");
     }
 
     /**
      * Fires the {@link Player#weapon}.
      */
-    public void fireWeapon() {
+    @Override
+    public void shoot() {
         weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                 this.getHeight());
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
     }
 
     /**

@@ -1,10 +1,10 @@
 package nl.tudelft.view;
 
 import nl.tudelft.controller.GameStateController;
-import nl.tudelft.controller.Settings;
-import nl.tudelft.controller.eventhandlers.PlayerInput;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
+import nl.tudelft.settings.PlayerInput;
+import nl.tudelft.settings.Settings;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;

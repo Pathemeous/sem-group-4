@@ -140,7 +140,7 @@ public class PlayerTest {
 
         player.setWeapon(weapon);
 
-        player.fireWeapon();
+        player.shoot();
 
 
         verify(weapon, times(1)).fire(any(), anyInt(), anyInt(), anyInt(), anyInt());

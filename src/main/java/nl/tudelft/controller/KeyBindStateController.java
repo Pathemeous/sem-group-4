@@ -1,10 +1,12 @@
 package nl.tudelft.controller;
 
-import nl.tudelft.controller.eventhandlers.InputKey;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
+import nl.tudelft.settings.InputKey;
+import nl.tudelft.settings.Settings;
 import nl.tudelft.view.States;
+
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;

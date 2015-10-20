@@ -2,12 +2,12 @@ package nl.tudelft.controller;
 
 import java.awt.Font;
 
-import nl.tudelft.controller.eventhandlers.PlayerEventHandler;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.SingleplayerGame;
+import nl.tudelft.settings.Settings;
 import nl.tudelft.view.StartScreenState;
 
 import org.newdawn.slick.Color;
@@ -105,8 +105,7 @@ public class StartScreenStateController {
                 new SingleplayerGame(mainApp, container.getWidth(), container.getHeight(),
                         resources, player);
         singleplayerGame.getCurLevel().toAdd(player.getWeapon());
-        PlayerEventHandler player1Handler = new PlayerEventHandler(player);
-        Settings.getPlayer1Input().addObserver(player1Handler);
+        Settings.getPlayer1Input().addListener(player);
 
         return singleplayerGame;
     }
@@ -125,15 +124,13 @@ public class StartScreenStateController {
                 new Player(new ResourcesWrapper(), container.getWidth() / 2,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), true);
-        PlayerEventHandler player1Handler = new PlayerEventHandler(firstPlayer);
-        Settings.getPlayer1Input().addObserver(player1Handler);
+        Settings.getPlayer1Input().addListener(firstPlayer);
 
         Player secondPlayer =
                 new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), false);
-        PlayerEventHandler player2Handler = new PlayerEventHandler(secondPlayer);
-        Settings.getPlayer2Input().addObserver(player2Handler);
+        Settings.getPlayer2Input().addListener(secondPlayer);
 
         final Game multiplayerGame =
                 new MultiplayerGame(mainApp, container.getWidth(), container.getHeight(),

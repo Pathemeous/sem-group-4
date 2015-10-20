@@ -3,9 +3,9 @@ package nl.tudelft.controller.util;
 import java.io.File;
 import java.io.IOException;
 
-import nl.tudelft.controller.Settings;
-import nl.tudelft.controller.eventhandlers.InputKey;
-import nl.tudelft.controller.eventhandlers.PlayerInput;
+import nl.tudelft.settings.InputKey;
+import nl.tudelft.settings.PlayerInput;
+import nl.tudelft.settings.Settings;
 
 import org.json.JSONObject;
 
