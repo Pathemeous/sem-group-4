@@ -3,12 +3,12 @@ package nl.tudelft.view;
 import java.awt.Font;
 
 import nl.tudelft.controller.KeyBindStateController;
-import nl.tudelft.controller.Settings;
-import nl.tudelft.controller.eventhandlers.InputKey;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.KeyBindHelper;
 import nl.tudelft.model.Game;
+import nl.tudelft.settings.InputKey;
+import nl.tudelft.settings.Settings;
 
 import org.lwjgl.input.Keyboard;
 import org.newdawn.slick.Color;

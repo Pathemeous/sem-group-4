@@ -4,7 +4,7 @@ import java.io.File;
 
 import nl.tudelft.controller.resources.Resources;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-
+import nl.tudelft.settings.Settings;
 import nl.tudelft.view.GameEndedState;
 import nl.tudelft.view.HighscoresState;
 import nl.tudelft.view.KeyBindState;
@@ -12,6 +12,7 @@ import nl.tudelft.view.OptionsState;
 import nl.tudelft.view.ShopState;
 import nl.tudelft.view.StartScreenState;
 import nl.tudelft.view.States;
+
 import org.lwjgl.LWJGLUtil;
 import org.newdawn.slick.AppGameContainer;
 import org.newdawn.slick.GameContainer;

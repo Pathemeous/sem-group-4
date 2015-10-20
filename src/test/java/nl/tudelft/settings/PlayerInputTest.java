@@ -1,12 +1,10 @@
-package nl.tudelft.controller.eventhandlers;
+package nl.tudelft.settings;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.util.Observable;
 import java.util.Observer;
-
-import nl.tudelft.controller.eventhandlers.PlayerInput.PlayerEvent;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -41,77 +39,87 @@ public class PlayerInputTest {
 
     @Test
     public void testUpdateWrongObservableNoEvent() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        Observable wrongObservable = Mockito.mock(InputKey.class);
-        defaultInstance.addObserver(mockedObserver);
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        Observable wrongObservable = Mockito.mock(Observable.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(wrongObservable, null);
         defaultInstance.update(wrongObservable, false);
         defaultInstance.update(wrongObservable, true);
-        Mockito.verify(mockedObserver, Mockito.never()).update(Mockito.any(), Mockito.any());
+        Mockito.verifyZeroInteractions(mockedListener);
     }
 
     @Test
-    public void testUpdateNullArgument() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultInstance.addObserver(mockedObserver);
+    public void testUpdateNullArgumentNoEvent() {
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(mockedLeftKey, null);
-        Mockito.verify(mockedObserver, Mockito.never()).update(Mockito.any(), Mockito.any());
+        Mockito.verifyZeroInteractions(mockedListener);
     }
 
     @Test
     public void testUpdateLeftEvent() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultInstance.addObserver(mockedObserver);
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(mockedLeftKey, true);
-        Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.LEFT);
+
+        Mockito.verify(mockedListener).moveLeft();
+        Mockito.verifyNoMoreInteractions(mockedListener);
     }
 
     @Test
     public void testUpdateRightEvent() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultInstance.addObserver(mockedObserver);
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(mockedRightKey, true);
-        Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.RIGHT);
+
+        Mockito.verify(mockedListener).moveRight();
+        Mockito.verifyNoMoreInteractions(mockedListener);
     }
 
     @Test
     public void testUpdateShootEvent() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultInstance.addObserver(mockedObserver);
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(mockedShootKey, true);
-        Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.SHOOT);
+
+        Mockito.verify(mockedListener).shoot();
+        Mockito.verifyNoMoreInteractions(mockedListener);
     }
 
     @Test
     public void testUpdateStillEventOnLeftKeyUp() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultInstance.addObserver(mockedObserver);
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(mockedLeftKey, false);
-        Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.STILL);
+
+        Mockito.verify(mockedListener).stopMoving();
+        Mockito.verifyNoMoreInteractions(mockedListener);
     }
 
     @Test
     public void testUpdateStillEventOnRightKeyUp() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultInstance.addObserver(mockedObserver);
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(mockedRightKey, false);
-        Mockito.verify(mockedObserver).update(defaultInstance, PlayerEvent.STILL);
+
+        Mockito.verify(mockedListener).stopMoving();
+        Mockito.verifyNoMoreInteractions(mockedListener);
     }
 
     @Test
     public void testUpdateNoEventOnShootKeyUp() {
-        Observer mockedObserver = Mockito.mock(PlayerInput.class);
-        defaultInstance.addObserver(mockedObserver);
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
 
         defaultInstance.update(mockedShootKey, false);
-        Mockito.verify(mockedObserver, Mockito.never()).update(Mockito.any(), Mockito.any());
+        Mockito.verifyZeroInteractions(mockedListener);
     }
 
     @Test
@@ -164,6 +172,20 @@ public class PlayerInputTest {
     @Test
     public void testGetShootInput() {
         assertEquals(mockedShootKey, defaultInstance.getShootInput());
+    }
+    
+    @Test
+    public void testRemoveListener() {
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
+        
+        defaultInstance.notifyLeftInput();
+        Mockito.verify(mockedListener).moveLeft();
+        
+        defaultInstance.removeListener(mockedListener);
+
+        defaultInstance.notifyLeftInput();
+        Mockito.verifyNoMoreInteractions(mockedListener);
     }
 
 }
