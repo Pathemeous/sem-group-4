@@ -51,7 +51,7 @@ public class PlayerEventHandlerTest {
     @Test
     public void testUpdateShootEvent() {
         defaultHandler.update(mockedObservable, PlayerEvent.SHOOT);
-        Mockito.verify(mockedPlayer).fireWeapon();
+        Mockito.verify(mockedPlayer).shoot();
     }
 
     @Test

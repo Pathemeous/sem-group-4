@@ -24,5 +24,4 @@ public interface PlayerInputListener {
      * This method is called whenever the PlayerInput notifies about a user input of shooting.
      */
     public void shoot();
-
 }

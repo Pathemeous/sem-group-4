@@ -35,7 +35,7 @@ public class PlayerEventHandler implements Observer {
         }
         if (event == PlayerEvent.SHOOT) {
             Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
-            player.fireWeapon();
+            player.shoot();
         }
         if (event == PlayerEvent.STILL) {
             Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player stops moving.");
