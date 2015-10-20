@@ -308,4 +308,61 @@ public class DefaultPlayerInteractionMapTest {
 
         verify(mockedHorWall, times(1)).setSpeed(anyFloat());
     }
+
+    @Test
+    public void testWallPlayerCollision1() {
+        Shape mockedShape1 = mock(Shape.class);
+        when(mockedShape1.getX()).thenReturn(11f);
+
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getBounds()).thenReturn(mockedShape1);
+
+        Shape mockedShape2 = mock(Shape.class);
+        when(mockedShape2.getX()).thenReturn(11f);
+
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.getBounds()).thenReturn(mockedShape2);
+
+        map.collide(mockedGame, mockedWall, mockedPlayer);
+
+        verify(mockedPlayer, times(1)).setLocX(anyFloat());
+    }
+
+    @Test
+    public void testWallPlayerCollision2() {
+        Shape mockedShape1 = mock(Shape.class);
+        when(mockedShape1.getX()).thenReturn(1f);
+
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getBounds()).thenReturn(mockedShape1);
+
+        Shape mockedShape2 = mock(Shape.class);
+        when(mockedShape2.getX()).thenReturn(11f);
+
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.getBounds()).thenReturn(mockedShape2);
+
+        map.collide(mockedGame, mockedWall, mockedPlayer);
+
+        verify(mockedPlayer, times(1)).setLocX(anyFloat());
+    }
+
+    @Test
+    public void testWallPlayerCollision3() {
+        Shape mockedShape1 = mock(Shape.class);
+        when(mockedShape1.getX()).thenReturn(11f);
+
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getBounds()).thenReturn(mockedShape1);
+
+        Shape mockedShape2 = mock(Shape.class);
+        when(mockedShape2.getX()).thenReturn(1f);
+
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.getBounds()).thenReturn(mockedShape2);
+
+        map.collide(mockedGame, mockedWall, mockedPlayer);
+
+        verify(mockedPlayer, times(1)).setLocX(anyFloat());
+    }
 }
