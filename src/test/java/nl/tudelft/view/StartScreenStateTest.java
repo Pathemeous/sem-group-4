@@ -37,6 +37,8 @@ public class StartScreenStateTest {
     /**
      * Sets up all dependencies.
      * 
+     * @throws SlickException
+     *             If the setup goes wrong.
      */
     @Before
     public void setUp() throws SlickException {
@@ -151,7 +153,7 @@ public class StartScreenStateTest {
         Mockito.when(mockedMusic.playing()).thenReturn(true);
 
         Mockito.when(mockedInput.isMousePressed(Mockito.anyInt())).thenReturn(true);
-        
+
         state.init(mockedContainer, mockedSBG);
         Mockito.when(mockedMouseOverArea.isMouseOver()).thenReturn(false);
 
