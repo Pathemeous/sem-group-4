@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
+import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.utility.Utility;
@@ -364,5 +365,45 @@ public class DefaultPlayerInteractionMapTest {
         map.collide(mockedGame, mockedWall, mockedPlayer);
 
         verify(mockedPlayer, times(1)).setLocX(anyFloat());
+    }
+
+    @Test
+    public void testBubbleProjectileCollision1() {
+        Projectile mockedProjectile = mock(Projectile.class);
+        when(mockedProjectile.isHitBubble()).thenReturn(true);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+
+        Player mockedPlayer = mock(Player.class);
+        Weapon mockedWeapon = mock(Weapon.class);
+        when(mockedWeapon.getPlayer()).thenReturn(mockedPlayer);
+        when(mockedProjectile.getWeapon()).thenReturn(mockedWeapon);
+
+        map.collide(mockedGame, mockedBubble, mockedProjectile);
+
+        verify(mockedProjectile, never()).setHitBubble();
+        verify(mockedBubble, never()).setIsHit();
+        verify(mockedWeapon, never()).getPlayer();
+        verify(mockedPlayer, never()).setScore(anyInt());
+    }
+
+    @Test
+    public void testBubbleProjectileCollision2() {
+        Projectile mockedProjectile = mock(Projectile.class);
+        when(mockedProjectile.isHitBubble()).thenReturn(false);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+
+        Player mockedPlayer = mock(Player.class);
+        Weapon mockedWeapon = mock(Weapon.class);
+        when(mockedWeapon.getPlayer()).thenReturn(mockedPlayer);
+        when(mockedProjectile.getWeapon()).thenReturn(mockedWeapon);
+
+        map.collide(mockedGame, mockedBubble, mockedProjectile);
+
+        verify(mockedProjectile, times(1)).setHitBubble();
+        verify(mockedBubble, times(1)).setIsHit();
+        verify(mockedWeapon, times(1)).getPlayer();
+        verify(mockedPlayer, times(1)).setScore(anyInt());
     }
 }
