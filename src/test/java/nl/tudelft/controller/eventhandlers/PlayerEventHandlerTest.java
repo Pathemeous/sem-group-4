@@ -5,8 +5,9 @@ import static org.junit.Assert.assertNotEquals;
 
 import java.util.Observable;
 
-import nl.tudelft.controller.eventhandlers.PlayerInput.PlayerEvent;
 import nl.tudelft.model.Player;
+import nl.tudelft.settings.PlayerInput;
+import nl.tudelft.settings.PlayerInput.PlayerEvent;
 
 import org.junit.Before;
 import org.junit.Test;

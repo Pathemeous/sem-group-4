@@ -3,10 +3,10 @@ package nl.tudelft.controller.eventhandlers;
 import java.util.Observable;
 import java.util.Observer;
 
-import nl.tudelft.controller.eventhandlers.PlayerInput.PlayerEvent;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
+import nl.tudelft.settings.PlayerInput.PlayerEvent;
 
 public class PlayerEventHandler implements Observer {
 

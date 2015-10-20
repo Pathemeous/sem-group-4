@@ -9,6 +9,8 @@ import static org.junit.Assert.assertTrue;
 import java.util.Observer;
 
 import nl.tudelft.model.wall.RegularWall;
+import nl.tudelft.settings.InputKey;
+import nl.tudelft.settings.PlayerInput;
 
 import org.junit.After;
 import org.junit.Before;

@@ -1,4 +1,4 @@
-package nl.tudelft.controller.eventhandlers;
+package nl.tudelft.settings;
 
 import java.util.Observable;
 

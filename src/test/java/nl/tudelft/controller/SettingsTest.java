@@ -2,9 +2,9 @@ package nl.tudelft.controller;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-
-import nl.tudelft.controller.eventhandlers.InputKey;
-import nl.tudelft.controller.eventhandlers.PlayerInput;
+import nl.tudelft.settings.InputKey;
+import nl.tudelft.settings.PlayerInput;
+import nl.tudelft.settings.Settings;
 
 import org.junit.Before;
 import org.junit.Test;

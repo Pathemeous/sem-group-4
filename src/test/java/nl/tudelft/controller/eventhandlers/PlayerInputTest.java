@@ -6,7 +6,9 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Observable;
 import java.util.Observer;
 
-import nl.tudelft.controller.eventhandlers.PlayerInput.PlayerEvent;
+import nl.tudelft.settings.InputKey;
+import nl.tudelft.settings.PlayerInput;
+import nl.tudelft.settings.PlayerInput.PlayerEvent;
 
 import org.junit.Before;
 import org.junit.Test;

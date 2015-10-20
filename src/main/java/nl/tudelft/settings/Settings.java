@@ -1,9 +1,7 @@
-package nl.tudelft.controller;
+package nl.tudelft.settings;
 
 import java.io.IOException;
 
-import nl.tudelft.controller.eventhandlers.InputKey;
-import nl.tudelft.controller.eventhandlers.PlayerInput;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.util.KeyBindHelper;
 import nl.tudelft.model.Game;
