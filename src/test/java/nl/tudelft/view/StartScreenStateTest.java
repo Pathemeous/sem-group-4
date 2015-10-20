@@ -66,7 +66,7 @@ public class StartScreenStateTest {
                 mockedMouseOverArea);
 
         mockedFont = Mockito.mock(TrueTypeFont.class);
-        Mockito.when(mockedResources.createFont(new Font("Verdana", Font.BOLD, 36), true))
+        Mockito.when(mockedResources.createFont(Mockito.any(), Mockito.anyBoolean()))
                 .thenReturn(mockedFont);
         state.setResources(mockedResources);
         mockedInput = Mockito.mock(Input.class);
@@ -234,23 +234,6 @@ public class StartScreenStateTest {
         state.updatePlayer2Button(mockedContainer, mockedSBG);
         Mockito.verify(mockedSBG).enterState(States.GameState);
     }
-
-    // Cannot be tested due to the following calls in the method declaration:
-    // input.clearKeyPressedRecord();
-    // input.clearMousePressedRecord();
-    // This test can be uncommented after these lines have been removed.
-    // @Test
-    // public void testUpdateOptionsButtonHover() throws SlickException {
-    // state.init(mockedContainer, mockedSBG);
-    // Mockito.when(mockedMouseOverArea.isMouseOver()).thenReturn(
-    // true);
-    // GameState mockedNewState = Mockito.mock(GameState.class);
-    // Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
-    // state.setInput(mockedInput);
-    //
-    // state.updateOptionsButton(mockedContainer, mockedSBG);
-    // Mockito.verify(mockedSBG).enterState(States.OptionsState);
-    // }
 
     @Test
     public void testUpdateExitButtonHover() throws SlickException {

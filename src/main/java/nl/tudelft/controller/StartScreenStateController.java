@@ -52,15 +52,13 @@ public class StartScreenStateController {
      * Creates the HighScore button with the appropriate text.
      *
      * @param container
-     *                  the container
+     *            the container
      *
-     * @return
-     *                  the HighscoresButton
+     * @return the HighscoresButton
      * @throws SlickException
      *             If creating the {@link Image} goes wrong.
      */
-    public MouseOverArea createHighscoresButton(GameContainer container)
-            throws SlickException {
+    public MouseOverArea createHighscoresButton(GameContainer container) throws SlickException {
         Shape shape =
                 new Rectangle(650, 650, typeFont.getWidth(HIGHSCORE_TEXT),
                         typeFont.getHeight());
@@ -189,10 +187,6 @@ public class StartScreenStateController {
         return new MouseOverArea(container, resources.getTitleScreenBackground(), 211, 672,
                 364, 88);
     }
-
-//    public boolean isAreaClicked(MouseOverArea buttonArea, Input input) {
-//        return input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
-//    }
 
     public ResourcesWrapper getResources() {
         return resources;
