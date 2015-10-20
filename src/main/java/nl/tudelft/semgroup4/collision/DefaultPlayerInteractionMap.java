@@ -30,9 +30,6 @@ import org.newdawn.slick.geom.Shape;
  * and declaratively extended when new types of AbstractGameObjects (ghosts, players, ...) are
  * added.</p>
  *
- * @author Arie van Deursen
- * @author Jeroen Roosen
- *
  */
 public class DefaultPlayerInteractionMap implements CollisionMap {
 
@@ -44,32 +41,12 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
     }
 
     /**
-     * Creates the default collisions Player-Ghost and Player-Pellet.
+     * Creates the default collisions for the bubble trouble game.
      *
-     * @return The collision map containing collisions for Player-Ghost and
-     *         Player-Pellet.
+     * @return The collision map containing the default collisions.
      */
     private static CollisionInteractionMap defaultCollisions() {
         CollisionInteractionMap collisionMap = new CollisionInteractionMap();
-
-//        collisionMap.onCollision(Player.class, Ghost.class,
-//                new CollisionHandler<Player, Ghost>() {
-//
-//                    @Override
-//                    public void handleCollision(Player player, Ghost ghost) {
-//                        player.setAlive(false);
-//                    }
-//                });
-//
-//        collisionMap.onCollision(Player.class, Pellet.class,
-//                new CollisionHandler<Player, Pellet>() {
-//
-//                    @Override
-//                    public void handleCollision(Player player, Pellet pellet) {
-//                        pellet.leaveSquare();
-//                        player.addPoints(pellet.getValue());
-//                    }
-//                });
 
         collisionMap.onCollision(AbstractBubble.class, AbstractWall.class, false,
                 bubbleWallHandler);
