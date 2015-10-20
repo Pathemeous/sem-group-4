@@ -506,4 +506,86 @@ public class DefaultPlayerInteractionMapTest {
         verify(mockedShield, times(1)).incrementHit();
         verify(mockedBubble, times(1)).setIsHit();
     }
+
+    @Test
+    public void testBubbleWallCollision1() {
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getLocX()).thenReturn(1f);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.getMaxSpeed()).thenReturn(1f);
+        when(mockedBubble.getLocX()).thenReturn(10f);
+
+        Shape mockedShape = mock(Shape.class);
+        when(mockedWall.getBounds()).thenReturn(mockedShape);
+        when(mockedShape.getHeight()).thenReturn(0f);
+
+        map.collide(mockedGame, mockedBubble, mockedWall);
+
+        verify(mockedBubble, times(1)).setHorizontalSpeed(anyFloat());
+    }
+
+    @Test
+    public void testBubbleWallCollision2() {
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getLocX()).thenReturn(0f);
+        when(mockedWall.getLocY()).thenReturn(1f);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.getMaxSpeed()).thenReturn(0f);
+        when(mockedBubble.getLocX()).thenReturn(0f);
+        when(mockedBubble.getLocY()).thenReturn(10f);
+
+        Shape mockedShape = mock(Shape.class);
+        when(mockedWall.getBounds()).thenReturn(mockedShape);
+        when(mockedShape.getHeight()).thenReturn(0f);
+
+        map.collide(mockedGame, mockedBubble, mockedWall);
+
+        verify(mockedBubble, times(1)).setVerticalSpeed(anyFloat());
+    }
+
+    @Test
+    public void testBubbleWallCollision3() {
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getLocX()).thenReturn(0f);
+        when(mockedWall.getLocY()).thenReturn(10f);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.getMaxSpeed()).thenReturn(0f);
+        when(mockedBubble.getLocX()).thenReturn(0f);
+        when(mockedBubble.getLocY()).thenReturn(1f);
+
+        Shape mockedShape = mock(Shape.class);
+        when(mockedBubble.getBounds()).thenReturn(mockedShape);
+        when(mockedShape.getWidth()).thenReturn(0f);
+
+        map.collide(mockedGame, mockedBubble, mockedWall);
+
+        verify(mockedBubble, times(1)).setVerticalSpeed(anyFloat());
+    }
+
+    @Test
+    public void testBubbleWallCollision4() {
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getLocX()).thenReturn(1f);
+        when(mockedWall.getLocY()).thenReturn(0f);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.getMaxSpeed()).thenReturn(0f);
+        when(mockedBubble.getLocX()).thenReturn(0f);
+        when(mockedBubble.getLocY()).thenReturn(0f);
+
+        Shape mockedShape1 = mock(Shape.class);
+        when(mockedBubble.getBounds()).thenReturn(mockedShape1);
+        when(mockedShape1.getWidth()).thenReturn(0f);
+
+        Shape mockedShape2 = mock(Shape.class);
+        when(mockedWall.getBounds()).thenReturn(mockedShape2);
+        when(mockedShape2.getWidth()).thenReturn(1f);
+
+        map.collide(mockedGame, mockedBubble, mockedWall);
+
+        verify(mockedBubble, times(1)).setHorizontalSpeed(anyFloat());
+    }
 }
