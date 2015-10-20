@@ -12,6 +12,7 @@ import static org.mockito.Mockito.when;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.model.wall.AbstractWall;
@@ -127,5 +128,15 @@ public class DefaultPlayerInteractionMapTest {
         map.collide(mockedGame, mockedWeapon, mockedPlayer);
 
         verify(mockedWeapon, times(1)).activate(any());
+    }
+
+    @Test
+    public void testPowerupPlayerCollision() {
+        Powerup mockedPowerup = mock(Powerup.class);
+        Player mockedPlayer = mock(Player.class);
+
+        map.collide(mockedGame, mockedPowerup, mockedPlayer);
+
+        verify(mockedPowerup, times(1)).activate(any());
     }
 }
