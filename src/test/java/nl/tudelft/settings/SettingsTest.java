@@ -1,10 +1,7 @@
-package nl.tudelft.controller;
+package nl.tudelft.settings;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotEquals;
-import nl.tudelft.settings.InputKey;
-import nl.tudelft.settings.PlayerInput;
-import nl.tudelft.settings.Settings;
 
 import org.junit.Before;
 import org.junit.Test;

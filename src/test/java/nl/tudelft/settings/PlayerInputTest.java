@@ -1,4 +1,4 @@
-package nl.tudelft.controller.eventhandlers;
+package nl.tudelft.settings;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -6,8 +6,6 @@ import static org.junit.Assert.assertNotNull;
 import java.util.Observable;
 import java.util.Observer;
 
-import nl.tudelft.settings.InputKey;
-import nl.tudelft.settings.PlayerInput;
 import nl.tudelft.settings.PlayerInput.PlayerEvent;
 
 import org.junit.Before;

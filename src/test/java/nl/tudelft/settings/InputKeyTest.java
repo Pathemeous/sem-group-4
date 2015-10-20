@@ -1,4 +1,4 @@
-package nl.tudelft.controller.eventhandlers;
+package nl.tudelft.settings;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -9,8 +9,6 @@ import static org.junit.Assert.assertTrue;
 import java.util.Observer;
 
 import nl.tudelft.model.wall.RegularWall;
-import nl.tudelft.settings.InputKey;
-import nl.tudelft.settings.PlayerInput;
 
 import org.junit.After;
 import org.junit.Before;
