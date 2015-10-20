@@ -173,5 +173,19 @@ public class PlayerInputTest {
     public void testGetShootInput() {
         assertEquals(mockedShootKey, defaultInstance.getShootInput());
     }
+    
+    @Test
+    public void testRemoveListener() {
+        PlayerInputListener mockedListener = Mockito.mock(PlayerInputListener.class);
+        defaultInstance.addListener(mockedListener);
+        
+        defaultInstance.notifyLeftInput();
+        Mockito.verify(mockedListener).moveLeft();
+        
+        defaultInstance.removeListener(mockedListener);
+
+        defaultInstance.notifyLeftInput();
+        Mockito.verifyNoMoreInteractions(mockedListener);
+    }
 
 }
