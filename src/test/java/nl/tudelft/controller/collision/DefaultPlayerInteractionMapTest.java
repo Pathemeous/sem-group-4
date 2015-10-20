@@ -14,7 +14,9 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
@@ -405,5 +407,103 @@ public class DefaultPlayerInteractionMapTest {
         verify(mockedBubble, times(1)).setIsHit();
         verify(mockedWeapon, times(1)).getPlayer();
         verify(mockedPlayer, times(1)).setScore(anyInt());
+    }
+
+    @Test
+    public void testBubblePlayerCollision1() {
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.isAlive()).thenReturn(false);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+
+        map.collide(mockedGame, mockedBubble, mockedPlayer);
+
+        verify(mockedPlayer, times(1)).isAlive();
+    }
+
+    @Test
+         public void testBubblePlayerCollision2() {
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.isAlive()).thenReturn(true);
+        when(mockedPlayer.isInvincible()).thenReturn(true);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.isFrozen()).thenReturn(true);
+
+        map.collide(mockedGame, mockedBubble, mockedPlayer);
+
+        verify(mockedPlayer, times(1)).isAlive();
+        verify(mockedPlayer, times(1)).isInvincible();
+        verify(mockedBubble, never()).isFrozen();
+    }
+
+    @Test
+    public void testBubblePlayerCollision3() {
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.isAlive()).thenReturn(true);
+        when(mockedPlayer.isInvincible()).thenReturn(true);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.isFrozen()).thenReturn(false);
+
+        map.collide(mockedGame, mockedBubble, mockedPlayer);
+
+        verify(mockedPlayer, times(1)).isAlive();
+        verify(mockedPlayer, times(1)).isInvincible();
+        verify(mockedBubble, never()).isFrozen();
+    }
+
+    @Test
+    public void testBubblePlayerCollision4() {
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.isAlive()).thenReturn(true);
+        when(mockedPlayer.isInvincible()).thenReturn(false);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.isFrozen()).thenReturn(true);
+
+        map.collide(mockedGame, mockedBubble, mockedPlayer);
+
+        verify(mockedPlayer, times(1)).isAlive();
+        verify(mockedBubble, times(1)).isFrozen();
+    }
+
+    @Test
+    public void testBubblePlayerCollision5() {
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.isAlive()).thenReturn(true);
+        when(mockedPlayer.isInvincible()).thenReturn(false);
+        when(mockedPlayer.hasShield()).thenReturn(true);
+
+        ShieldPowerup mockedShield = mock(ShieldPowerup.class);
+        when(mockedPlayer.getPowerup(Powerup.SHIELD)).thenReturn(mockedShield);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.isFrozen()).thenReturn(false);
+
+        map.collide(mockedGame, mockedBubble, mockedPlayer);
+
+        verify(mockedShield, times(1)).setHit(true);
+        verify(mockedBubble, times(1)).setIsHit();
+    }
+
+    @Test
+    public void testBubblePlayerCollision6() {
+        Player mockedPlayer = mock(Player.class);
+        when(mockedPlayer.isAlive()).thenReturn(true);
+        when(mockedPlayer.isInvincible()).thenReturn(false);
+        when(mockedPlayer.hasShield()).thenReturn(false);
+        when(mockedPlayer.hasShopShield()).thenReturn(true);
+
+        Hit3ShieldPowerup mockedShield = mock(Hit3ShieldPowerup.class);
+        when(mockedPlayer.getPowerup(Powerup.SHOPSHIELD)).thenReturn(mockedShield);
+
+        AbstractBubble mockedBubble = mock(AbstractBubble.class);
+        when(mockedBubble.isFrozen()).thenReturn(false);
+
+        map.collide(mockedGame, mockedBubble, mockedPlayer);
+
+        verify(mockedShield, times(1)).incrementHit();
+        verify(mockedBubble, times(1)).setIsHit();
     }
 }
