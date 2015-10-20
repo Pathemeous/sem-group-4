@@ -104,50 +104,6 @@ public class StartScreenStateControllerTest {
     }
 
     @Test
-    public void testIsAreaClickedClickAndHoverReturnsTrue() {
-        MouseOverArea mockedMouseOver = Mockito.mock(MouseOverArea.class);
-        Input mockedInput = Mockito.mock(Input.class);
-
-        Mockito.when(mockedMouseOver.isMouseOver()).thenReturn(true);
-        Mockito.when(mockedInput.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)).thenReturn(true);
-
-        assertTrue(defaultInstance.isAreaClicked(mockedMouseOver, mockedInput));
-    }
-
-    @Test
-    public void testIsAreaClickedClickButNoHoverReturnsFalse() {
-        MouseOverArea mockedMouseOver = Mockito.mock(MouseOverArea.class);
-        Input mockedInput = Mockito.mock(Input.class);
-
-        Mockito.when(mockedMouseOver.isMouseOver()).thenReturn(false);
-        Mockito.when(mockedInput.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)).thenReturn(true);
-
-        assertFalse(defaultInstance.isAreaClicked(mockedMouseOver, mockedInput));
-    }
-
-    @Test
-    public void testIsAreaClickedHoverButNoClickReturnsTrue() {
-        MouseOverArea mockedMouseOver = Mockito.mock(MouseOverArea.class);
-        Input mockedInput = Mockito.mock(Input.class);
-
-        Mockito.when(mockedMouseOver.isMouseOver()).thenReturn(true);
-        Mockito.when(mockedInput.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)).thenReturn(false);
-
-        assertFalse(defaultInstance.isAreaClicked(mockedMouseOver, mockedInput));
-    }
-
-    @Test
-    public void testIsAreaClickedNoHoverAndNoClickReturnsFalse() {
-        MouseOverArea mockedMouseOver = Mockito.mock(MouseOverArea.class);
-        Input mockedInput = Mockito.mock(Input.class);
-
-        Mockito.when(mockedMouseOver.isMouseOver()).thenReturn(false);
-        Mockito.when(mockedInput.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON)).thenReturn(false);
-
-        assertFalse(defaultInstance.isAreaClicked(mockedMouseOver, mockedInput));
-    }
-
-    @Test
     public void testGetSetResources() {
         assertEquals(mockedResources, defaultInstance.getResources());
         ResourcesWrapper newResources = Mockito.mock(ResourcesWrapper.class);
