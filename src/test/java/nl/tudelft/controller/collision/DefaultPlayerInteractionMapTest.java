@@ -13,6 +13,7 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.utility.Utility;
+import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.model.wall.AbstractWall;
 import org.junit.Before;
 import org.junit.Test;
@@ -104,4 +105,27 @@ public class DefaultPlayerInteractionMapTest {
         verify(mockedUtility, times(1)).activate(any());
     }
 
+    @Test
+    public void testWeaponPlayerCollision1() {
+        Weapon mockedWeapon = mock(Weapon.class);
+        Player mockedPlayer = mock(Player.class);
+
+        when(mockedPlayer.isShopWeapon()).thenReturn(true);
+
+        map.collide(mockedGame, mockedWeapon, mockedPlayer);
+
+        verify(mockedWeapon, never()).activate(any());
+    }
+
+    @Test
+    public void testWeaponPlayerCollision2() {
+        Weapon mockedWeapon = mock(Weapon.class);
+        Player mockedPlayer = mock(Player.class);
+
+        when(mockedPlayer.isShopWeapon()).thenReturn(false);
+
+        map.collide(mockedGame, mockedWeapon, mockedPlayer);
+
+        verify(mockedWeapon, times(1)).activate(any());
+    }
 }
