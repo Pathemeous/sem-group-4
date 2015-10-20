@@ -103,13 +103,7 @@ public class StartScreenState extends BasicGameState {
             throws SlickException {
         if (controller.isAreaClicked(mouseOverOnePlayer, input)) {
             Game singleplayerGame = controller.createSingleplayerGame(container, game);
-
-            final GameState gameState = new GameState(singleplayerGame);
-
-            game.addState(gameState);
-            game.getState(States.GameState).init(container, game);
-            resources.stopTitleScreen();
-            game.enterState(States.GameState);
+            enterGameState(container, game, singleplayerGame);
             Game.LOGGER
                     .log(LogSeverity.DEBUG, "StartMenu", "User starts a single player game");
         }
@@ -129,15 +123,30 @@ public class StartScreenState extends BasicGameState {
             throws SlickException {
         if (controller.isAreaClicked(mouseOverTwoPlayer, input)) {
             Game multiplayerGame = controller.createMultiplayerGame(container, game);
-
-            final GameState gameState = new GameState(multiplayerGame);
-
-            game.addState(gameState);
-            game.getState(States.GameState).init(container, game);
-            resources.stopTitleScreen();
-            game.enterState(States.GameState);
+            enterGameState(container, game, multiplayerGame);
             Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User starts a multi-player game");
         }
+    }
+
+    /**
+     * Adds a new {@link GameState} and enters it.
+     * 
+     * @param container
+     *            {@link GameContainer} - This session's GameContainer.
+     * @param game
+     *            {@link StateBasedGame} - The Main Game object of Slick2D.
+     * @param createdGame
+     *            {@link Game} - The Game to enter the {@link GameState} with.
+     * @throws SlickException
+     *             When state switching goes wrong.
+     */
+    protected void enterGameState(GameContainer container, StateBasedGame game,
+            Game createdGame) throws SlickException {
+        final GameState gameState = new GameState(createdGame);
+        game.addState(gameState);
+        game.getState(States.GameState).init(container, game);
+        resources.stopTitleScreen();
+        game.enterState(States.GameState);
     }
 
     /**
