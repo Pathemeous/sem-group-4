@@ -24,8 +24,11 @@ public class StartScreenStateControllerTest {
     private StartScreenStateController defaultInstance;
     private TrueTypeFont mockedFont;
 
+    /**
+     * Mock dependencies.
+     */
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
         mockedResources = Mockito.mock(ResourcesWrapper.class);
         defaultInstance = new StartScreenStateController(mockedResources);
         mockedFont = Mockito.mock(TrueTypeFont.class);
@@ -85,11 +88,12 @@ public class StartScreenStateControllerTest {
     @Test
     public void testCreateHighscoresButton() throws SlickException {
         Image mockedImage = Mockito.mock(Image.class);
-        
+
         Mockito.when(mockedFont.getWidth(Mockito.any())).thenReturn(5);
         Mockito.when(mockedFont.getHeight()).thenReturn(5);
-        Mockito.when(mockedResources.createImage(Mockito.anyInt(), Mockito.anyInt())).thenReturn(mockedImage);
-        
+        Mockito.when(mockedResources.createImage(Mockito.anyInt(), Mockito.anyInt()))
+                .thenReturn(mockedImage);
+
         Input mockedInput = Mockito.mock(Input.class);
         GameContainer mockedContainer = Mockito.mock(GameContainer.class);
         Mockito.when(mockedContainer.getInput()).thenReturn(mockedInput);

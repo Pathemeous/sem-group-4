@@ -199,7 +199,7 @@ public class StartScreenStateController {
     protected void setResources(ResourcesWrapper resources) {
         this.resources = resources;
     }
-    
+
     protected void setFont(TrueTypeFont font) {
         this.typeFont = font;
     }
