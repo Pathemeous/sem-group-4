@@ -5,6 +5,7 @@ import static org.junit.Assert.assertNotNull;
 
 import java.awt.Font;
 
+import nl.tudelft.model.Game;
 import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.junit.Before;
@@ -17,6 +18,7 @@ import org.newdawn.slick.Input;
 import org.newdawn.slick.Music;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
+import org.newdawn.slick.state.BasicGameState;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class StartScreenStateTest {
@@ -41,7 +43,7 @@ public class StartScreenStateTest {
         Mockito.when(mockedImage.getHeight()).thenReturn(5);
         mockedResources = Mockito.mock(ResourcesWrapper.class);
         Mockito.when(mockedResources.getTitleScreenBackground()).thenReturn(mockedImage);
-        
+
         state = new StartScreenState(mockedResources);
         mockedController = Mockito.mock(StartScreenStateController.class);
         state.setController(mockedController);
@@ -203,17 +205,17 @@ public class StartScreenStateTest {
     // input.clearKeyPressedRecord();
     // input.clearMousePressedRecord();
     // This test can be uncommented after these lines have been removed.
-//    @Test
-//    public void testUpdateOptionsButtonClick() throws SlickException {
-//        Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
-//                true);
-//        GameState mockedNewState = Mockito.mock(GameState.class);
-//        Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
-//        state.setInput(mockedInput);
-//
-//        state.updateOptionsButton(mockedContainer, mockedSBG);
-//        Mockito.verify(mockedSBG).enterState(States.OptionsState);
-//    }
+    // @Test
+    // public void testUpdateOptionsButtonClick() throws SlickException {
+    // Mockito.when(mockedController.isAreaClicked(Mockito.any(), Mockito.any())).thenReturn(
+    // true);
+    // GameState mockedNewState = Mockito.mock(GameState.class);
+    // Mockito.when(mockedSBG.getState(States.OptionsState)).thenReturn(mockedNewState);
+    // state.setInput(mockedInput);
+    //
+    // state.updateOptionsButton(mockedContainer, mockedSBG);
+    // Mockito.verify(mockedSBG).enterState(States.OptionsState);
+    // }
 
     @Test
     public void testUpdateExitButtonClick() throws SlickException {
@@ -223,4 +225,12 @@ public class StartScreenStateTest {
         Mockito.verify(mockedContainer).exit();
     }
 
+    @Test
+    public void testEnterGameState() throws SlickException {
+        BasicGameState mockedState = Mockito.mock(BasicGameState.class);
+        Mockito.when(mockedSBG.getState(States.GameState)).thenReturn(mockedState);
+        Game mockedGame = Mockito.mock(Game.class);
+        state.enterGameState(mockedContainer, mockedSBG, mockedGame);
+        Mockito.verify(mockedSBG).enterState(Mockito.anyInt());
+    }
 }
