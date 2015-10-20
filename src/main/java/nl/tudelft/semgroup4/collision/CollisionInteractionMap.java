@@ -9,10 +9,19 @@ import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
 
 /**
- * A map of possible collisions and their handlers.
- * 
+ * This class was inspired by CollisionInteractionMap of jpacman.
+ *
+ * <p>The different lies in the way handlers are matched to two classes.
+ * Our version doesn't stop at the first match, it recursively walks through the
+ * hierarchy and calls every handler that is matched.</p>
+ *
+ * <p>original comment:</p>
+ * <p>A map of possible collisions and their handlers.</p>
+ *
  * @author Michael de Jong
- * @author Jeroen Roosen 
+ * @author Jeroen Roosen
+ *
+ * @see <a href="https://github.com/SERG-Delft/jpacman-framework">jpacman github</a>
  */
 public class CollisionInteractionMap implements CollisionMap {
 
@@ -20,8 +29,8 @@ public class CollisionInteractionMap implements CollisionMap {
      * The collection of collision handlers.
      */
     private final Map<
-        Class<? extends AbstractGameObject>,
-        Map<Class<? extends AbstractGameObject>, CollisionHandler<?, ?>>> handlers;
+            Class<? extends AbstractGameObject>,
+            Map<Class<? extends AbstractGameObject>, CollisionHandler<?, ?>>> handlers;
 
     /**
      * Creates a new, empty collision map.
@@ -33,7 +42,7 @@ public class CollisionInteractionMap implements CollisionMap {
     /**
      * Adds a two-way collision interaction to this collection, i.e. the
      * collision handler will be used for both C1 versus C2 and C2 versus C1.
-     * 
+     *
      * @param <C1>
      *            The collider type.
      * @param <C2>
@@ -53,7 +62,7 @@ public class CollisionInteractionMap implements CollisionMap {
 
     /**
      * Adds a collision interaction to this collection.
-     * 
+     *
      * @param <C1>
      *            The collider type.
      * @param <C2>
@@ -80,7 +89,7 @@ public class CollisionInteractionMap implements CollisionMap {
 
     /**
      * Adds the collision interaction..
-     * 
+     *
      * @param collider
      *            The collider type.
      * @param collidee
@@ -89,7 +98,8 @@ public class CollisionInteractionMap implements CollisionMap {
      *            The handler that handles the collision.
      */
     private void addHandler(Class<? extends AbstractGameObject> collider,
-            Class<? extends AbstractGameObject> collidee, CollisionHandler<?, ?> handler) {
+                            Class<? extends AbstractGameObject> collidee,
+                            CollisionHandler<?, ?> handler) {
         if (!handlers.containsKey(collider)) {
             handlers.put(collider, new HashMap<>());
         }
@@ -100,9 +110,9 @@ public class CollisionInteractionMap implements CollisionMap {
     }
 
     /**
-     * Handles the collision between two colliding parties, if a suitable
-     * collision handler is listed.
-     * 
+     * Handles the collision between two colliding parties, all suitable
+     * collision handlers are used.
+     *
      * @param <C1>
      *            The collider type.
      * @param <C2>
@@ -127,8 +137,6 @@ public class CollisionInteractionMap implements CollisionMap {
             if (handlers.get(colliderKey) != null) {
                 Map<Class<? extends AbstractGameObject>, CollisionHandler<?, ?>> colliderMap =
                         handlers.get(colliderKey);
-//                    colliderMaps.add(colliderMap);
-
                 for (Class<? extends AbstractGameObject> collideeKey : collideeInheritance) {
                     if (colliderMap.get(collideeKey) != null) {
                         ((CollisionHandler<C1, C2>)colliderMap.get(collideeKey))
@@ -140,30 +148,8 @@ public class CollisionInteractionMap implements CollisionMap {
     }
 
     /**
-     * Figures out the most specific class that is listed in the map. I.e. if A
-     * extends B and B is listed while requesting A, then B will be returned.
-     * 
-     * @param map
-     *            The map with the key collection to find a matching class in.
-     * @param key
-     *            The class to search the most suitable key for.
-     * @return The most specific class from the key collection.
-     */
-    private Class<? extends AbstractGameObject> getMostSpecificClass(
-            Map<Class<? extends AbstractGameObject>, ?> map,
-            Class<? extends AbstractGameObject> key) {
-        List<Class<? extends AbstractGameObject>> collideeInheritance = getInheritance(key);
-        for (Class<? extends AbstractGameObject> pointer : collideeInheritance) {
-            if (map.containsKey(pointer)) {
-                return pointer;
-            }
-        }
-        return null;
-    }
-
-    /**
      * Returns a list of all classes and interfaces the class inherits.
-     * 
+     *
      * @param clazz
      *            The class to create a list of super classes and interfaces
      *            for.
@@ -195,7 +181,7 @@ public class CollisionInteractionMap implements CollisionMap {
 
     /**
      * An symmetrical copy of a collision hander.
-     * 
+     *
      * @author Michael de Jong
      * @param <C1>
      *            The collider type.
@@ -214,7 +200,7 @@ public class CollisionInteractionMap implements CollisionMap {
 
         /**
          * Creates a new collision handler.
-         * 
+         *
          * @param handler
          *            The symmetric handler for this collision.
          */
