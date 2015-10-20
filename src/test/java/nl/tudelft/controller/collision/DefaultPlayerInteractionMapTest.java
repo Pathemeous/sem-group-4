@@ -14,7 +14,9 @@ import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.utility.Utility;
+import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.wall.AbstractMovingWall;
 import nl.tudelft.model.wall.AbstractWall;
 import org.junit.Before;
 import org.junit.Test;
@@ -138,5 +140,15 @@ public class DefaultPlayerInteractionMapTest {
         map.collide(mockedGame, mockedPowerup, mockedPlayer);
 
         verify(mockedPowerup, times(1)).activate(any());
+    }
+
+    @Test
+    public void testMovingWallProjectileCollision() {
+        AbstractMovingWall mockedWall = mock(AbstractMovingWall.class);
+        Projectile mockedProjectile = mock(Projectile.class);
+
+        map.collide(mockedGame, mockedWall, mockedProjectile);
+
+        verify(mockedProjectile, times(1)).setHitWall();
     }
 }
