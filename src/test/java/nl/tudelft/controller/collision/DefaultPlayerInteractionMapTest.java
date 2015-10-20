@@ -19,6 +19,7 @@ import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.model.wall.AbstractMovingWall;
 import nl.tudelft.model.wall.AbstractWall;
+import nl.tudelft.model.wall.HorMovingWall;
 import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.model.wall.VerMovingWall;
 import org.junit.Before;
@@ -258,5 +259,53 @@ public class DefaultPlayerInteractionMapTest {
         map.collide(mockedGame, mockedVerWall, mockedWall);
 
         verify(mockedVerWall, times(1)).setSpeed(anyFloat());
+    }
+
+    @Test
+    public void testHorMovingWallWallCollision1() {
+        HorMovingWall mockedHorWall = mock(HorMovingWall.class);
+        when(mockedHorWall.getSpeed()).thenReturn(1f);
+        when(mockedHorWall.getLocX()).thenReturn(1f);
+        when(mockedHorWall.getWidth()).thenReturn(1);
+
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getLocX()).thenReturn(1f);
+        when(mockedWall.getWidth()).thenReturn(1);
+
+        map.collide(mockedGame, mockedHorWall, mockedWall);
+
+        verify(mockedHorWall, never()).setSpeed(anyFloat());
+    }
+
+    @Test
+    public void testHorMovingWallWallCollision2() {
+        HorMovingWall mockedHorWall = mock(HorMovingWall.class);
+        when(mockedHorWall.getSpeed()).thenReturn(1f);
+        when(mockedHorWall.getLocX()).thenReturn(2f);
+        when(mockedHorWall.getWidth()).thenReturn(1);
+
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getLocX()).thenReturn(1f);
+        when(mockedWall.getWidth()).thenReturn(1);
+
+        map.collide(mockedGame, mockedHorWall, mockedWall);
+
+        verify(mockedHorWall, times(1)).setSpeed(anyFloat());
+    }
+
+    @Test
+    public void testHorMovingWallWallCollision3() {
+        HorMovingWall mockedHorWall = mock(HorMovingWall.class);
+        when(mockedHorWall.getSpeed()).thenReturn(1f);
+        when(mockedHorWall.getLocX()).thenReturn(1f);
+        when(mockedHorWall.getWidth()).thenReturn(1);
+
+        AbstractWall mockedWall = mock(AbstractWall.class);
+        when(mockedWall.getLocX()).thenReturn(5f);
+        when(mockedWall.getWidth()).thenReturn(1);
+
+        map.collide(mockedGame, mockedHorWall, mockedWall);
+
+        verify(mockedHorWall, times(1)).setSpeed(anyFloat());
     }
 }
