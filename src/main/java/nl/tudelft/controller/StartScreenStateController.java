@@ -8,13 +8,12 @@ import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.Player;
 import nl.tudelft.model.SingleplayerGame;
-
 import nl.tudelft.view.StartScreenState;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Input;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 import org.newdawn.slick.geom.Rectangle;
@@ -194,9 +193,9 @@ public class StartScreenStateController {
                 364, 88);
     }
 
-    public boolean isAreaClicked(MouseOverArea buttonArea, Input input) {
-        return input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
-    }
+//    public boolean isAreaClicked(MouseOverArea buttonArea, Input input) {
+//        return input.isMouseButtonDown(Input.MOUSE_LEFT_BUTTON) && buttonArea.isMouseOver();
+//    }
 
     public ResourcesWrapper getResources() {
         return resources;

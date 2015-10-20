@@ -57,6 +57,10 @@ public class StartScreenState extends BasicGameState {
         controller.drawHighScoresButton(graphics);
     }
 
+    /**
+     * Turns on the music if it wasn't on yet and checks which button was pressed if a mouse click
+     * is registered.
+     */
     @Override
     public void update(GameContainer container, StateBasedGame game, int ticks)
             throws SlickException {
@@ -64,11 +68,13 @@ public class StartScreenState extends BasicGameState {
             resources.playTitleScreen();
         }
 
-        updatePlayer1Button(container, game);
-        updatePlayer2Button(container, game);
-        updateOptionsButton(container, game);
-        updateExitButton(container, game);
-        updateHighscoresButton(container, game);
+        if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
+            updatePlayer1Button(container, game);
+            updatePlayer2Button(container, game);
+            updateOptionsButton(container, game);
+            updateExitButton(container, game);
+            updateHighscoresButton(container, game);
+        }
     }
 
     /**
@@ -83,7 +89,7 @@ public class StartScreenState extends BasicGameState {
      */
     public void updateHighscoresButton(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (controller.isAreaClicked(mouseOverHighScores, input)) {
+        if (mouseOverHighScores.isMouseOver()) {
             game.getState(States.HighscoresState).init(container, game);
             game.enterState(States.HighscoresState);
             Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters Highscores menu");
@@ -102,7 +108,7 @@ public class StartScreenState extends BasicGameState {
      */
     public void updatePlayer1Button(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (controller.isAreaClicked(mouseOverOnePlayer, input)) {
+        if (mouseOverOnePlayer.isMouseOver()) {
             Game singleplayerGame = controller.createSingleplayerGame(container, game);
             enterGameState(container, game, singleplayerGame);
             Game.LOGGER
@@ -122,7 +128,7 @@ public class StartScreenState extends BasicGameState {
      */
     public void updatePlayer2Button(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (controller.isAreaClicked(mouseOverTwoPlayer, input)) {
+        if (mouseOverTwoPlayer.isMouseOver()) {
             Game multiplayerGame = controller.createMultiplayerGame(container, game);
             enterGameState(container, game, multiplayerGame);
             Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User starts a multi-player game");
@@ -141,8 +147,8 @@ public class StartScreenState extends BasicGameState {
      * @throws SlickException
      *             When state switching goes wrong.
      */
-    public void enterGameState(GameContainer container, StateBasedGame game,
-            Game createdGame) throws SlickException {
+    public void enterGameState(GameContainer container, StateBasedGame game, Game createdGame)
+            throws SlickException {
         final GameState gameState = new GameState(createdGame);
         game.addState(gameState);
         game.getState(States.GameState).init(container, game);
@@ -162,7 +168,7 @@ public class StartScreenState extends BasicGameState {
      */
     public void updateOptionsButton(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (controller.isAreaClicked(mouseOverOptions, input)) {
+        if (mouseOverOptions.isMouseOver()) {
             input.clearKeyPressedRecord();
             input.clearMousePressedRecord();
             game.enterState(States.OptionsState);
@@ -182,7 +188,7 @@ public class StartScreenState extends BasicGameState {
      */
     public void updateExitButton(GameContainer container, StateBasedGame game)
             throws SlickException {
-        if (controller.isAreaClicked(mouseOverQuit, input)) {
+        if (mouseOverQuit.isMouseOver()) {
             Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
             resources.stopTitleScreen();
             container.exit();
@@ -204,6 +210,16 @@ public class StartScreenState extends BasicGameState {
 
     public void setResources(ResourcesWrapper resources) {
         this.resources = resources;
+    }
+
+    /**
+     * Sets the new input for testing purposes only.
+     * 
+     * @param input
+     *            {@link Input} - A mock to use as input.
+     */
+    protected void setInputForTesting(Input input) {
+        this.input = input;
     }
 
 }
