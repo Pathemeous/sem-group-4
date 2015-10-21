@@ -262,10 +262,11 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
      * @return the maximum speed the bubble can have at any time in any direction
      */
     public float getMaxSpeed() {
-        if (horizontalSpeed > maxVerticalSpeed) {
-            return horizontalSpeed;
+
+        if (Math.abs(horizontalSpeed) > Math.abs(maxVerticalSpeed)) {
+            return Math.abs(horizontalSpeed);
         }
-        return maxVerticalSpeed;
+        return Math.abs(maxVerticalSpeed);
     }
 
     /**
