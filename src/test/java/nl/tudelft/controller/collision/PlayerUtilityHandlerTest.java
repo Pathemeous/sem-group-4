@@ -13,7 +13,7 @@ import org.junit.Test;
 public class PlayerUtilityHandlerTest {
 
     @Test
-    public void testUtilPlayerCollision() {
+    public void testCollision() {
         DefaultPlayerInteractionMap map = new DefaultPlayerInteractionMap();
         Game mockedGame = mock(Game.class);
         Utility mockedUtility = mock(Utility.class);

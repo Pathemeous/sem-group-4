@@ -36,7 +36,7 @@ public class BubbleWallHandlerTest {
     }
 
     @Test
-    public void testBubbleWallCollision1() {
+    public void testCollisionLeft() {
         when(mockedWall.getLocX()).thenReturn(1f);
 
         when(mockedBubble.getMaxSpeed()).thenReturn(1f);
@@ -51,7 +51,7 @@ public class BubbleWallHandlerTest {
     }
 
     @Test
-    public void testBubbleWallCollision2() {
+    public void testCollisionTop() {
         when(mockedWall.getLocX()).thenReturn(0f);
         when(mockedWall.getLocY()).thenReturn(1f);
 
@@ -68,7 +68,7 @@ public class BubbleWallHandlerTest {
     }
 
     @Test
-    public void testBubbleWallCollision3() {
+    public void testCollisionBottom() {
         when(mockedWall.getLocX()).thenReturn(0f);
         when(mockedWall.getLocY()).thenReturn(10f);
 
@@ -85,7 +85,7 @@ public class BubbleWallHandlerTest {
     }
 
     @Test
-    public void testBubbleWallCollision4() {
+    public void testCollisionRight() {
         when(mockedWall.getLocX()).thenReturn(1f);
         when(mockedWall.getLocY()).thenReturn(0f);
 

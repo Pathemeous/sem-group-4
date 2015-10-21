@@ -32,7 +32,7 @@ public class PlayerWeaponHandlerTest {
     }
 
     @Test
-    public void testWeaponPlayerCollision1() {
+    public void testCollisionHasShopweapon() {
         when(mockedPlayer.isShopWeapon()).thenReturn(true);
 
         map.collide(mockedGame, mockedWeapon, mockedPlayer);
@@ -41,7 +41,7 @@ public class PlayerWeaponHandlerTest {
     }
 
     @Test
-    public void testWeaponPlayerCollision2() {
+    public void testCollisionNormal() {
         when(mockedPlayer.isShopWeapon()).thenReturn(false);
 
         map.collide(mockedGame, mockedWeapon, mockedPlayer);

@@ -13,7 +13,7 @@ public class MovingWallProjectileHandlerTest {
 
 
     @Test
-    public void testMovingWallProjectileCollision() {
+    public void testCollision() {
         DefaultPlayerInteractionMap map = new DefaultPlayerInteractionMap();
         Game mockedGame = mock(Game.class);
         AbstractMovingWall mockedWall = mock(AbstractMovingWall.class);

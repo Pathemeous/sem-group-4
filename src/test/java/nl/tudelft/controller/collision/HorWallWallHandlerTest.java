@@ -13,6 +13,7 @@ import nl.tudelft.model.wall.HorMovingWall;
 import org.junit.Before;
 import org.junit.Test;
 
+
 public class HorWallWallHandlerTest {
 
     private DefaultPlayerInteractionMap map;
@@ -32,7 +33,7 @@ public class HorWallWallHandlerTest {
     }
 
     @Test
-    public void testHorMovingWallWallCollision1() {
+    public void testCollisionSame() {
         when(mockedHorWall.getSpeed()).thenReturn(1f);
         when(mockedHorWall.getLocX()).thenReturn(1f);
         when(mockedHorWall.getWidth()).thenReturn(1);
@@ -45,8 +46,11 @@ public class HorWallWallHandlerTest {
         verify(mockedHorWall, never()).setSpeed(anyFloat());
     }
 
+    /**
+     * Moving wall is to the left of static wall.
+     */
     @Test
-    public void testHorMovingWallWallCollision2() {
+    public void testCollisionLeft() {
         when(mockedHorWall.getSpeed()).thenReturn(1f);
         when(mockedHorWall.getLocX()).thenReturn(2f);
         when(mockedHorWall.getWidth()).thenReturn(1);
@@ -59,8 +63,11 @@ public class HorWallWallHandlerTest {
         verify(mockedHorWall, times(1)).setSpeed(anyFloat());
     }
 
+    /**
+     * Moving wall is to the right of static wall.
+     */
     @Test
-    public void testHorMovingWallWallCollision3() {
+    public void testCollisionRight() {
         when(mockedHorWall.getSpeed()).thenReturn(1f);
         when(mockedHorWall.getLocX()).thenReturn(1f);
         when(mockedHorWall.getWidth()).thenReturn(1);

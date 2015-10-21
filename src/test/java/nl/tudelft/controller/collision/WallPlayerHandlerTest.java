@@ -36,7 +36,7 @@ public class WallPlayerHandlerTest {
     }
 
     @Test
-    public void testWallPlayerCollision1() {
+    public void testCollisionSame() {
         when(mockedShape1.getX()).thenReturn(11f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);
@@ -51,7 +51,7 @@ public class WallPlayerHandlerTest {
     }
 
     @Test
-    public void testWallPlayerCollision2() {
+    public void testCollisionLeft() {
         when(mockedShape1.getX()).thenReturn(1f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);
@@ -66,7 +66,7 @@ public class WallPlayerHandlerTest {
     }
 
     @Test
-    public void testWallPlayerCollision3() {
+    public void testCollisionRight() {
         when(mockedShape1.getX()).thenReturn(11f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);

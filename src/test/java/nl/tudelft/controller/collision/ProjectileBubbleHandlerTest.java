@@ -38,7 +38,7 @@ public class ProjectileBubbleHandlerTest {
     }
 
     @Test
-    public void testBubbleProjectileCollision1() {
+    public void testCollisionAlreadyHit() {
         when(mockedProjectile.isHitBubble()).thenReturn(true);
 
         when(mockedWeapon.getPlayer()).thenReturn(mockedPlayer);
@@ -53,7 +53,7 @@ public class ProjectileBubbleHandlerTest {
     }
 
     @Test
-    public void testBubbleProjectileCollision2() {
+    public void testCollisionNotAlreadyHit() {
         when(mockedProjectile.isHitBubble()).thenReturn(false);
 
         when(mockedWeapon.getPlayer()).thenReturn(mockedPlayer);

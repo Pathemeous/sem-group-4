@@ -36,9 +36,11 @@ public class WallProjectileHandlerTest {
         mockedProjectile = mock(Projectile.class);
     }
 
-
+    /**
+     * Projectile over wall.
+     */
     @Test
-    public void testWallProjectileCollsion1() {
+    public void testCollisionHigher() {
         when(mockedShape1.getY()).thenReturn(11f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);
@@ -53,7 +55,7 @@ public class WallProjectileHandlerTest {
     }
 
     @Test
-    public void testWallProjectileCollsion2() {
+    public void testCollisionSame() {
         when(mockedShape1.getY()).thenReturn(10f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);
@@ -67,8 +69,11 @@ public class WallProjectileHandlerTest {
         verify(mockedProjectile, never()).setHitWall();
     }
 
+    /**
+     * Projectile under wall.
+     */
     @Test
-    public void testWallProjectileCollsion3() {
+    public void testCollisionLower() {
         when(mockedShape1.getY()).thenReturn(1f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);

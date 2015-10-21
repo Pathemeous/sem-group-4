@@ -39,8 +39,11 @@ public class PickupWallHandlerTest {
         mockedPickup = mock(Pickup.class);
     }
 
+    /**
+     * Pickup is under wall.
+     */
     @Test
-    public void testPickupWallCollision1() {
+    public void testCollisionUnder() {
         when(mockedShape1.getY()).thenReturn(9f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);
@@ -56,7 +59,7 @@ public class PickupWallHandlerTest {
     }
 
     @Test
-    public void testPickupWallCollision2() {
+    public void testCollisionSame() {
         when(mockedShape1.getY()).thenReturn(10f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);
@@ -71,8 +74,11 @@ public class PickupWallHandlerTest {
         verify(mockedPickup, times(1)).setOnGround(anyBoolean());
     }
 
+    /**
+     * Pickup is over wall.
+     */
     @Test
-    public void testPickupWallCollision3() {
+    public void testCollisionOver() {
         when(mockedShape1.getY()).thenReturn(11f);
 
         when(mockedWall.getBounds()).thenReturn(mockedShape1);

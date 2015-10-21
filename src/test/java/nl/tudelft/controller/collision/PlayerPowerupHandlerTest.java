@@ -13,7 +13,7 @@ import org.junit.Test;
 public class PlayerPowerupHandlerTest {
 
     @Test
-    public void testPowerupPlayerCollision() {
+    public void testCollision() {
         DefaultPlayerInteractionMap map = new DefaultPlayerInteractionMap();
         Game mockedGame = mock(Game.class);
         Powerup mockedPowerup = mock(Powerup.class);

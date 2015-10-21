@@ -32,7 +32,7 @@ public class VerWallWallHandlerTest {
     }
 
     @Test
-    public void testVerMovingWallWallCollision1() {
+    public void testCollisionSame() {
         when(mockedVerWall.getSpeed()).thenReturn(1f);
         when(mockedVerWall.getLocY()).thenReturn(1f);
         when(mockedVerWall.getHeight()).thenReturn(1);
@@ -45,8 +45,11 @@ public class VerWallWallHandlerTest {
         verify(mockedVerWall, never()).setSpeed(anyFloat());
     }
 
+    /**
+     * Moving wall is lower than the static wall.
+     */
     @Test
-    public void testVerMovingWallWallCollision2() {
+    public void testCollisionLower() {
         when(mockedVerWall.getSpeed()).thenReturn(1f);
         when(mockedVerWall.getLocY()).thenReturn(2f);
         when(mockedVerWall.getHeight()).thenReturn(1);
@@ -59,8 +62,11 @@ public class VerWallWallHandlerTest {
         verify(mockedVerWall, times(1)).setSpeed(anyFloat());
     }
 
+    /**
+     * Moving wall is higher than the static wall.
+     */
     @Test
-    public void testVerMovingWallWallCollision3() {
+    public void testCollisionHigher() {
         when(mockedVerWall.getSpeed()).thenReturn(1f);
         when(mockedVerWall.getLocY()).thenReturn(1f);
         when(mockedVerWall.getHeight()).thenReturn(1);

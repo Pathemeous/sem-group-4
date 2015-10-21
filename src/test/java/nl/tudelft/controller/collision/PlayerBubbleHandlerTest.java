@@ -33,8 +33,11 @@ public class PlayerBubbleHandlerTest {
         mockedBubble = mock(AbstractBubble.class);
     }
 
+    /**
+     * Test a collision when the player is already dead.
+     */
     @Test
-    public void testBubblePlayerCollision1() {
+    public void testCollisionDead() {
         when(mockedPlayer.isAlive()).thenReturn(false);
 
         map.collide(mockedGame, mockedBubble, mockedPlayer);
@@ -42,8 +45,12 @@ public class PlayerBubbleHandlerTest {
         verify(mockedPlayer, times(1)).isAlive();
     }
 
+    /**
+     * Test a collision when the player is invincible.
+     * Bubbles are frozen.
+     */
     @Test
-    public void testBubblePlayerCollision2() {
+    public void testCollisionInvincible1() {
         when(mockedPlayer.isAlive()).thenReturn(true);
         when(mockedPlayer.isInvincible()).thenReturn(true);
 
@@ -56,8 +63,12 @@ public class PlayerBubbleHandlerTest {
         verify(mockedBubble, never()).isFrozen();
     }
 
+    /**
+     * Test a collision when the player is invincible.
+     * Bubbles aren't frozen.
+     */
     @Test
-    public void testBubblePlayerCollision3() {
+    public void testCollisionInvincible2() {
         when(mockedPlayer.isAlive()).thenReturn(true);
         when(mockedPlayer.isInvincible()).thenReturn(true);
 
@@ -70,8 +81,12 @@ public class PlayerBubbleHandlerTest {
         verify(mockedBubble, never()).isFrozen();
     }
 
+    /**
+     * Test a collision when the bubbles are frozen.
+     * Player isn't invincible.
+     */
     @Test
-    public void testBubblePlayerCollision4() {
+    public void testCollisionFrozen() {
         when(mockedPlayer.isAlive()).thenReturn(true);
         when(mockedPlayer.isInvincible()).thenReturn(false);
 
@@ -84,7 +99,7 @@ public class PlayerBubbleHandlerTest {
     }
 
     @Test
-    public void testBubblePlayerCollision5() {
+    public void testCollisionShield() {
         when(mockedPlayer.isAlive()).thenReturn(true);
         when(mockedPlayer.isInvincible()).thenReturn(false);
         when(mockedPlayer.hasShield()).thenReturn(true);
@@ -101,7 +116,7 @@ public class PlayerBubbleHandlerTest {
     }
 
     @Test
-    public void testBubblePlayerCollision6() {
+    public void testCollisionHit3Shield() {
         when(mockedPlayer.isAlive()).thenReturn(true);
         when(mockedPlayer.isInvincible()).thenReturn(false);
         when(mockedPlayer.hasShield()).thenReturn(false);
