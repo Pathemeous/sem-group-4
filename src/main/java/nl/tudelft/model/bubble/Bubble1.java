@@ -21,17 +21,17 @@ public class Bubble1 extends AbstractBubble {
      * @param locY
      *            : the starting y-location of the bubble.
      */
-    protected Bubble1(ResourcesWrapper resources, float locX, float locY) {
+    public Bubble1(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage1(), locX, locY, resources);
     }
     
     @Override
-    protected List<AbstractBubble> createNextBubbles() {
+    public List<AbstractBubble> createNextBubbles() {
         return new ArrayList<>();
     }
     
     @Override
-    protected float initMaxVerticalSpeed() {
+    public float initMaxVerticalSpeed() {
         return 5.0f;
     }
 

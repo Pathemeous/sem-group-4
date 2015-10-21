@@ -51,10 +51,10 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
      */
     public AbstractBubble(Image bubbleImg, float locX, float locY, ResourcesWrapper resources) {
         super(bubbleImg, locX, locY);
-
+        this.resources = resources;
         nextBubbles = createNextBubbles();
         maxVerticalSpeed = initMaxVerticalSpeed();
-        this.resources = resources;
+        
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
     }
@@ -283,5 +283,14 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
 
         return new Circle(centerPointX, centerPointY, radius);
     }
+
+    /**
+     * Returns the resources.
+     * @return the resources
+     */
+    public ResourcesWrapper getResources() {
+        return resources;
+    }
+    
 
 }

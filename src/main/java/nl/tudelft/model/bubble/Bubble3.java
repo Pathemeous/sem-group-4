@@ -22,25 +22,24 @@ public class Bubble3 extends AbstractBubble {
      * @param locY
      *            : the starting y-location of the bubble.
      */
-    protected Bubble3(ResourcesWrapper resources, float locX, float locY) {
+    public Bubble3(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage3(), locX, locY, resources);
     }
     
     @Override
-    protected List<AbstractBubble> createNextBubbles() {
+    public List<AbstractBubble> createNextBubbles() {
         List<AbstractBubble> next = new ArrayList<>();
         
         // Create 2 new bubbles, that will come free when this bubble splits
-        BubbleFactory bubbleFactory = new Bubble2Factory(new ResourcesWrapper());
         for (int i = 0; i < 2; i++) {
-            next.add(bubbleFactory.createBubble()); 
+            next.add(new Bubble2(getResources(), 0, 0)); 
         }
         
         return next;
     }
     
     @Override
-    protected float initMaxVerticalSpeed() {
+    public float initMaxVerticalSpeed() {
         return 7.0f;
     }
 
