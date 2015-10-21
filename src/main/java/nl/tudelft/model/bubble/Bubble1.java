@@ -26,12 +26,12 @@ public class Bubble1 extends AbstractBubble {
     }
     
     @Override
-    public List<AbstractBubble> createNextBubbles() {
+    protected List<AbstractBubble> createNextBubbles() {
         return new ArrayList<>();
     }
     
     @Override
-    public float initMaxVerticalSpeed() {
+    protected float initMaxVerticalSpeed() {
         return 5.0f;
     }
 

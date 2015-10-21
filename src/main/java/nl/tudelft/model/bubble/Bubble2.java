@@ -28,7 +28,7 @@ public class Bubble2 extends AbstractBubble {
     }
 
     @Override
-    public List<AbstractBubble> createNextBubbles() {
+    protected List<AbstractBubble> createNextBubbles() {
         List<AbstractBubble> next = new ArrayList<>();
 
         // Create 2 new bubbles, that will come free when this bubble splits
@@ -40,7 +40,7 @@ public class Bubble2 extends AbstractBubble {
     }
 
     @Override
-    public float initMaxVerticalSpeed() {
+    protected float initMaxVerticalSpeed() {
         return 6.0f;
     }
 
