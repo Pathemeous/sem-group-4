@@ -44,7 +44,7 @@ public class CollisionHelperTest {
     }
 
     @Test
-    public void testGetCollisionFor1() {
+    public void testGetCollisionNullQuad() {
         thrown.expect(IllegalArgumentException.class);
 
         AbstractGameObject mockedObject = mock(AbstractGameObject.class);
@@ -52,7 +52,7 @@ public class CollisionHelperTest {
     }
 
     @Test
-    public void testGetCollisionFor2() {
+    public void testGetCollisionSameObject() {
         AbstractGameObject mockedObject = mock(AbstractGameObject.class);
         List<AbstractGameObject> returnObjects = new ArrayList<>();
         returnObjects.add(mockedObject);
@@ -67,7 +67,7 @@ public class CollisionHelperTest {
     }
 
     @Test
-    public void testGetCollisionFor3() {
+    public void testGetCollisionDifferentObjects() {
         AbstractGameObject mockedObject1 = mock(AbstractGameObject.class);
         Shape mockedShape1 = mock(Shape.class);
         when(mockedObject1.getBounds()).thenReturn(mockedShape1);
