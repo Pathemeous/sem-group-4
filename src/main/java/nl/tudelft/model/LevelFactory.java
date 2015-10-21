@@ -3,13 +3,7 @@ package nl.tudelft.model;
 import java.util.LinkedList;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.bubble.Bubble1Factory;
-import nl.tudelft.model.bubble.Bubble2Factory;
-import nl.tudelft.model.bubble.Bubble3Factory;
-import nl.tudelft.model.bubble.Bubble4Factory;
-import nl.tudelft.model.bubble.Bubble5Factory;
-import nl.tudelft.model.bubble.Bubble6Factory;
+import nl.tudelft.model.bubble.*;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
@@ -82,7 +76,8 @@ public class LevelFactory {
     public Level getLevel(int id) throws IllegalArgumentException {
         switch (id) {
             case 1:
-                return getLevel1();
+                return getBossLevel();
+//                return getLevel1();
             case 2:
                 return getLevel2();
             case 3:
@@ -92,6 +87,36 @@ public class LevelFactory {
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    private Level getBossLevel() {
+
+        // Create Bubbles for level
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
+
+        AbstractBubble bubble = new BacchelliBubble(resources,
+                200,
+                200);
+
+        bubbles.add(bubble);
+
+        LinkedList<AbstractWall> walls = wallInit();
+        {
+//            float gap = 40;
+//            for (float x = resources.getVwallImage().getWidth();
+//                 x <= game.getContainerWidth();
+//                 x += resources.getSmallHWallImage().getWidth() + gap) {
+//                walls.add(new RegularWall(resources.getSmallHWallImage(), x, 500));
+//            }
+        }
+
+        LinkedList<Projectile> projectiles = new LinkedList<>();
+        LinkedList<Pickup> pickups = new LinkedList<>();
+        int time = 200000;
+
+        return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
+                time, 1);
+
     }
 
     /**
