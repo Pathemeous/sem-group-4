@@ -29,7 +29,8 @@ public class CollisionHelper {
             throw new IllegalArgumentException();
         } else {
             List<AbstractGameObject> returnObjects = new ArrayList<>();
-            quad.retrieve(returnObjects, objectA.getBounds());
+
+            returnObjects = quad.retrieve(returnObjects, objectA.getBounds());
 
             for (AbstractGameObject objectB : returnObjects) {
 
