@@ -23,13 +23,17 @@ public class BacchelliBubble extends AbstractBubble {
     /**
      * Constructs a new instance of the {@link AbstractBubble} class.
      * <p>
-     * A bubble will be initialized moving right by default. By calling goLeft right after
-     * initialization, the bubble will start moving left.
+     * A bubble will be initialized moving right by default. By calling goLeft
+     * right after initialization, the bubble will start moving left.
      * </p>
      *
-     * @param resources {@link ResourcesWrapper} - The resources that this object may use.
-     * @param locX      float - The x-coordinate where the bubble should spawn.
-     * @param locY      float - The y-coordinate where the bubble should spawn.
+     * @param resources
+     *            {@link ResourcesWrapper} - The resources that this object may
+     *            use.
+     * @param locX
+     *            float - The x-coordinate where the bubble should spawn.
+     * @param locY
+     *            float - The y-coordinate where the bubble should spawn.
      */
     public BacchelliBubble(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImageBach(), locX, locY, resources);
@@ -43,10 +47,10 @@ public class BacchelliBubble extends AbstractBubble {
      */
     @Override
     public void setIsHit() {
-//        super.setIsHit();
+        // super.setIsHit();
         Game.LOGGER.log(LogSeverity.DEBUG, "BacchelliBubble", "bubble is hit.");
-        
-        healthCounter = 0;        
+
+        healthCounter = 0;
         lives--;
 
         if (lives == 0) {
@@ -60,42 +64,61 @@ public class BacchelliBubble extends AbstractBubble {
 
     @Override
     protected void move() {
-//        super.move();
+        // super.move();
 
         setLocX(getLocX() + getHorizontalSpeed());
 
     }
 
     int shootCounter = 0;
-    
 
     @Override
-    public <T extends Modifiable> void update(T container, int delta) throws SlickException {
+    public <T extends Modifiable> void update(T container, int delta)
+            throws SlickException {
         super.update(container, delta);
 
         int randInt = Helpers.randInt(0, 10);
         if (shootCounter > 30 && randInt == 8) {
-            shootCounter = 0;
-            boolean left = shootCounter % 2 == 0;
-            float coordX = getLocX() + getWidth() * ((left ? 21.0f : 173.0f) / 200.0f);
-            float coordY = getLocY() + getHeight() * ((left ? 70.0f : 74.0f) / 200.0f);
-
-            BacchelliBullet bullet = new BacchelliBullet(getResources(), coordX, coordY);
-            bullets.add(bullet);
-            container.toAdd(bullet);
+            shootBullet(container);
         }
         healthRegen();
-        
+
         shootCounter++;
         healthCounter++;
 
     }
 
+    /**
+     * puts the shootCounter at 0 and spawns a bullet at the eye of the
+     * bacchelli bubble.
+     * 
+     * @param container
+     *            container to add bullet to.
+     * @param <T>
+     *            Object to extend
+     */
+    public <T extends Modifiable> void shootBullet(T container) {
+        shootCounter = 0;
+        boolean left = shootCounter % 2 == 0;
+        float coordX = getLocX() + getWidth()
+                * ((left ? 21.0f : 173.0f) / 200.0f);
+        float coordY = getLocY() + getHeight()
+                * ((left ? 70.0f : 74.0f) / 200.0f);
+
+        BacchelliBullet bullet = new BacchelliBullet(getResources(), coordX,
+                coordY);
+        bullets.add(bullet);
+        container.toAdd(bullet);
+    }
+
+    /**
+     * Gives the bacchelli bubble 1 live 150 frames after it hasn't been hit.
+     * Unless the bubble is at full life.
+     */
     private void healthRegen() {
         if (healthCounter == 150 && lives < 8) {
-            System.out.println("boss gained health, now at: " + lives + "health");
             lives++;
-        }        
+        }
     }
 
     @Override
@@ -107,4 +130,61 @@ public class BacchelliBubble extends AbstractBubble {
     protected float initMaxVerticalSpeed() {
         return 0.0f;
     }
+
+    /**
+     * Returns the lives.
+     * 
+     * @return the lives
+     */
+    protected int getLives() {
+        return lives;
+    }
+
+    /**
+     * Returns the heatlhCounter.
+     * 
+     * @return the healthCounter
+     */
+    protected int getHealthCounter() {
+        return healthCounter;
+    }
+
+    /**
+     * Returns the bullets.
+     * 
+     * @return the bullets
+     */
+    protected List<BacchelliBullet> getBullets() {
+        return bullets;
+    }
+
+    /**
+     * Returns the shootCounter.
+     * 
+     * @return the shootCounter
+     */
+    protected int getShootCounter() {
+        return shootCounter;
+    }
+
+    /**
+     * Sets the lives.
+     * 
+     * @param lives
+     *            the lives to set
+     */
+    protected void setLives(int lives) {
+        this.lives = lives;
+    }
+
+    /**
+     * Sets the healtCounter.
+     * 
+     * @param healthCounter
+     *            the healthCounter to set
+     */
+    protected void setHealthCounter(int healthCounter) {
+        this.healthCounter = healthCounter;
+    }
+
 }

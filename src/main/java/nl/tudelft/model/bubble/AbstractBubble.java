@@ -295,4 +295,12 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         return new Circle(centerPointX, centerPointY, radius);
     }
 
+    /**
+     * Returns if the bubble is hit.
+     * @return the isHit
+     */
+    public boolean isHit() {
+        return isHit;
+    }
+
 }
