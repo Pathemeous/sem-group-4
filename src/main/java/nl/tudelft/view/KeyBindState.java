@@ -49,6 +49,8 @@ public class KeyBindState extends BasicGameState {
     private static final float screenCoordXName = 60;
     private static final float screenCoordXValue = 650;
 
+    private Settings settings = Settings.getInstance();
+
 
     public KeyBindState() {
         controller = new KeyBindStateController();
@@ -146,12 +148,12 @@ public class KeyBindState extends BasicGameState {
             if (defButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User resets keys to default");
-                Settings.setDefaults();
+                settings.setDefaults();
             }
             if (saveButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User saves the keybinds to file");
-                Settings.save();
+                settings.save();
             }
         }
     }
@@ -162,7 +164,7 @@ public class KeyBindState extends BasicGameState {
     }
 
     /**
-     * Set the first mouse over area (only used for testing).
+     * Set the all mouse over areas (only used for testing).
      * @param overArea
      *              the area to which to set
      */
@@ -170,6 +172,9 @@ public class KeyBindState extends BasicGameState {
         for (int i = 0; i < areas.length; i++) {
             areas[i] = overArea;
         }
+        backButton = overArea;
+        defButton = overArea;
+        saveButton = overArea;
     }
 
     /**
@@ -191,30 +196,20 @@ public class KeyBindState extends BasicGameState {
     }
 
     /**
-     * Set the MouseOverArea for back (only used for testing).
-     * @param area
-     *                  the mocked area which will be set.
-     */
-    public void setBack(MouseOverArea area) {
-        backButton = area;
-    }
-
-    /**
-     * Set the MouseOverAreas for save and defaults (only used for testing).
-     * @param area
-     *                  the mocked area which will be set.
-     */
-    public void setSaveAndDefault(MouseOverArea area) {
-        saveButton = area;
-        defButton = area;
-    }
-
-    /**
      * Set the Input for testing (only used for testing).
      * @param input
      *                  the input which will be set
      */
     public void setInputForTesting(Input input) {
         this.input = input;
+    }
+
+    /**
+     * Set the Settings for testing (only used for testing).
+     * @param settings
+     *                  the settings which will be set
+     */
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 }

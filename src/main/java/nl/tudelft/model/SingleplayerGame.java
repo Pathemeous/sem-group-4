@@ -14,6 +14,7 @@ public class SingleplayerGame extends Game {
 
     private final Player player;
     private final PlayerInput player1Input;
+    private Settings settings = Settings.getInstance();
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -36,7 +37,7 @@ public class SingleplayerGame extends Game {
             ResourcesWrapper wrapper, Player player) throws IllegalArgumentException {
         super(mainApp, containerWidth, containerHeight, wrapper);
         this.player = player;
-        player1Input = Settings.getPlayer1Input();
+        player1Input = settings.getPlayer1Input();
     }
 
     @Override

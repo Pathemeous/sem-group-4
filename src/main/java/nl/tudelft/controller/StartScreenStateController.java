@@ -31,6 +31,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class StartScreenStateController {
 
     private ResourcesWrapper resources;
+    private Settings settings = Settings.getInstance();
 
     private static final String HIGHSCORE_TEXT = "HIGHSCORES";
     private TrueTypeFont typeFont;
@@ -103,7 +104,7 @@ public class StartScreenStateController {
                 new SingleplayerGame(mainApp, container.getWidth(), container.getHeight(),
                         resources, player);
         singleplayerGame.getCurLevel().toAdd(player.getWeapon());
-        Settings.getPlayer1Input().addListener(player);
+        settings.getPlayer1Input().addListener(player);
 
         return singleplayerGame;
     }
@@ -122,13 +123,13 @@ public class StartScreenStateController {
                 new Player(new ResourcesWrapper(), container.getWidth() / 2,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), true);
-        Settings.getPlayer1Input().addListener(firstPlayer);
+        settings.getPlayer1Input().addListener(firstPlayer);
 
         Player secondPlayer =
                 new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), false);
-        Settings.getPlayer2Input().addListener(secondPlayer);
+        settings.getPlayer2Input().addListener(secondPlayer);
 
         final Game multiplayerGame =
                 new MultiplayerGame(mainApp, container.getWidth(), container.getHeight(),

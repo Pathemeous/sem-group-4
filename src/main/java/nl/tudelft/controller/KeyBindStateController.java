@@ -18,6 +18,7 @@ import org.newdawn.slick.gui.MouseOverArea;
 
 public class KeyBindStateController {
 
+    private Settings settings = Settings.getInstance();
     /**
      * Creates all the mouse over areas.
      * @param overCoordX
@@ -89,17 +90,17 @@ public class KeyBindStateController {
      */
     public void setKey(int counter, InputKey key) {
         switch (counter) {
-            case 0: Settings.setPlayer1LeftKey(key);
+            case 0: settings.setPlayer1LeftKey(key);
                     break;
-            case 1: Settings.setPlayer1RightKey(key);
+            case 1: settings.setPlayer1RightKey(key);
                     break;
-            case 2: Settings.setPlayer1ShootKey(key);
+            case 2: settings.setPlayer1ShootKey(key);
                     break;
-            case 3: Settings.setPlayer2LeftKey(key);
+            case 3: settings.setPlayer2LeftKey(key);
                     break;
-            case 4: Settings.setPlayer2RightKey(key);
+            case 4: settings.setPlayer2RightKey(key);
                     break;
-            case 5: Settings.setPlayer2ShootKey(key);
+            case 5: settings.setPlayer2ShootKey(key);
                     break;
             default:
                 Game.LOGGER.log(LogSeverity.ERROR, "KeyBindStateController",
@@ -117,17 +118,17 @@ public class KeyBindStateController {
     public String getKey(int counter) {
         switch (counter) {
             case 0: return Keyboard.getKeyName(
-                    Settings.getPlayer1Input().getLeftInput().getKeyCode());
+                    settings.getPlayer1Input().getLeftInput().getKeyCode());
             case 1: return Keyboard.getKeyName(
-                    Settings.getPlayer1Input().getRightInput().getKeyCode());
+                    settings.getPlayer1Input().getRightInput().getKeyCode());
             case 2: return Keyboard.getKeyName(
-                    Settings.getPlayer1Input().getShootInput().getKeyCode());
+                    settings.getPlayer1Input().getShootInput().getKeyCode());
             case 3: return Keyboard.getKeyName(
-                    Settings.getPlayer2Input().getLeftInput().getKeyCode());
+                    settings.getPlayer2Input().getLeftInput().getKeyCode());
             case 4: return Keyboard.getKeyName(
-                    Settings.getPlayer2Input().getRightInput().getKeyCode());
+                    settings.getPlayer2Input().getRightInput().getKeyCode());
             case 5: return Keyboard.getKeyName(
-                    Settings.getPlayer2Input().getShootInput().getKeyCode());
+                    settings.getPlayer2Input().getShootInput().getKeyCode());
             default:
                 Game.LOGGER.log(LogSeverity.ERROR, "KeyBindStateController",
                         "Something went horribly wrong");
@@ -142,5 +143,14 @@ public class KeyBindStateController {
      */
     public int getID() {
         return States.KeyBindState;
+    }
+
+    /**
+     * Set the settings. Only used for testing.
+     * @param settings
+     *                  the mocked settings
+     */
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 }
