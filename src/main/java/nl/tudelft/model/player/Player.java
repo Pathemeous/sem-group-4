@@ -394,7 +394,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
      * Removes a player life iff it has at least life remaining.
      */
     public void removeLife() {
-        if (this.lives > 0) {
+        if (this.getLives() > 0) {
             this.lives--;
         }
     }
