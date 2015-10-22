@@ -241,7 +241,9 @@ public class GameEndedState extends BasicGameState {
         }
 
         textFieldPlayer1.render(container, graphics);
-        textFieldPlayer2.render(container, graphics);
+        if (players.length == 2) {
+            textFieldPlayer2.render(container, graphics);
+        }
     }
 
     /**
@@ -370,8 +372,7 @@ public class GameEndedState extends BasicGameState {
      * @param mouseOverContinueButton
      *            the mouseOverContinueButton to set
      */
-    public void setMouseOverContinueButton(
-            MouseOverArea mouseOverContinueButton) {
+    public void setMouseOverContinueButton(MouseOverArea mouseOverContinueButton) {
         this.mouseOverContinueButton = mouseOverContinueButton;
     }
 

@@ -25,7 +25,7 @@ public class LevelFactory {
 
     private final Game game;
     private final ResourcesWrapper resources;
-    private static final int LEVEL_COUNT = 4;
+    private static final int LEVEL_COUNT = 5;
 
     /**
      * Constructs a new {@link LevelFactory} for a certain {@link Game}, using the specified
@@ -83,27 +83,27 @@ public class LevelFactory {
     public Level getLevel(int id) throws IllegalArgumentException {
         switch (id) {
             case 1:
-                return getBossLevel();
-//                return getLevel1();
+                return getLevel1();
             case 2:
                 return getLevel2();
             case 3:
                 return getLevel3();
             case 4:
                 return getLevel4();
+            case 5: 
+                return getBossLevel();
             default:
                 throw new IllegalArgumentException();
         }
     }
 
     private Level getBossLevel() {
-
+        final int id = 5;
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
 
-        AbstractBubble bubble = new BacchelliBubble(resources,
-                200,
-                200);
+        AbstractBubble bubble = new BacchelliBubble(resources, 200,
+                resources.getVwallImage().getWidth() );
 
         bubbles.add(bubble);
 
@@ -122,7 +122,7 @@ public class LevelFactory {
         int time = 200000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
-                time, 1);
+                time, id);
 
     }
 

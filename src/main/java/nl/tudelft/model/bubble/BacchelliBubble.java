@@ -16,7 +16,8 @@ import org.newdawn.slick.SlickException;
  */
 public class BacchelliBubble extends AbstractBubble {
 
-    private int lives = 3;
+    private int lives = 8;
+    private int healthCounter;
     private final List<BacchelliBullet> bullets = new LinkedList<>();
 
     /**
@@ -44,7 +45,8 @@ public class BacchelliBubble extends AbstractBubble {
     public void setIsHit() {
 //        super.setIsHit();
         Game.LOGGER.log(LogSeverity.DEBUG, "BacchelliBubble", "bubble is hit.");
-
+        
+        healthCounter = 0;        
         lives--;
 
         if (lives == 0) {
@@ -65,6 +67,7 @@ public class BacchelliBubble extends AbstractBubble {
     }
 
     int shootCounter = 0;
+    
 
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
@@ -81,9 +84,18 @@ public class BacchelliBubble extends AbstractBubble {
             bullets.add(bullet);
             container.toAdd(bullet);
         }
-
+        healthRegen();
+        
         shootCounter++;
+        healthCounter++;
 
+    }
+
+    private void healthRegen() {
+        if (healthCounter == 150 && lives < 8) {
+            System.out.println("boss gained health, now at: " + lives + "health");
+            lives++;
+        }        
     }
 
     @Override

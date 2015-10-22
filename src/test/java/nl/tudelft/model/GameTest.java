@@ -156,6 +156,8 @@ public class GameTest {
         assertEquals(game.getCurLevel().getId(), 3);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 4);
+        game.nextLevel();
+        assertEquals(game.getCurLevel().getId(), 5);
         
         game.nextLevel();
         verify(mockedSbg, times(1)).enterState(States.GameEndedState);
