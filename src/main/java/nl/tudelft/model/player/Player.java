@@ -28,6 +28,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
     private static final int BOUNDINGBOX_OFFSET_X = 10;
     private static final int BOUNDINGBOX_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
+    @Deprecated
     private static final int SPEEDUP = 2;
     private final int initialLocy;
     private final int initialLocx;
