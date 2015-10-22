@@ -27,7 +27,7 @@ public class Settings {
     /**
      * Initializes all the settings.
      */
-    public static void init() {
+    public void init() {
         try {
             KeyBindHelper.load();
         } catch (IOException e) {

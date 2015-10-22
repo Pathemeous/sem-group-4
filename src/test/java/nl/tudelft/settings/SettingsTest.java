@@ -18,15 +18,15 @@ public class SettingsTest {
      */
     @Before
     public void setUp() {
-        Settings.init();
         mockedInput = Mockito.mock(PlayerInput.class);
         mockedKey = Mockito.mock(InputKey.class);
         settings = Settings.getInstance();
+        settings.init();
     }
 
     @Test
     public void testInitNoException() {
-        Settings.init();
+        settings.init();
     }
 
     @Test
