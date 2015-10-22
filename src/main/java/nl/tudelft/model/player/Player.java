@@ -12,7 +12,6 @@ import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.settings.PlayerInputListener;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -103,8 +102,8 @@ public class Player extends AbstractGameObject implements PlayerInterface {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         this.container = container;
 
-        if (weapon != null && weapon.isActive() && !weaponActivated) {
-            container.toAdd(weapon);
+        if (getWeapon() != null && getWeapon().isActive() && !weaponActivated) {
+            container.toAdd(getWeapon());
             weaponActivated = true;
         }
 
@@ -143,11 +142,11 @@ public class Player extends AbstractGameObject implements PlayerInterface {
     }
 
     /**
-     * Fires the {@link Player#weapon}.
+     * Fires the {@link Player#getWeapon()}.
      */
     @Override
     public void shoot() {
-        weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
+        getWeapon().fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                 this.getHeight());
         Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
     }
@@ -165,9 +164,9 @@ public class Player extends AbstractGameObject implements PlayerInterface {
         if (!shopWeapon) {
             setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
         } else {
-            weapon.getProjectiles().clear();
+            getWeapon().getProjectiles().clear();
         }
-        this.weapon.activate(this);
+        this.getWeapon().activate(this);
         weaponActivated = false;
 
         locX = initialLocx;
