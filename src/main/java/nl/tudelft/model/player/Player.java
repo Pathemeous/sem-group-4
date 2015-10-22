@@ -279,6 +279,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
     /**
      * Applies the speed up pickup to the player.
      */
+    @Deprecated
     public void applySpeedup() {
         speed = REGULAR_SPEED * SPEEDUP;
     }
@@ -428,6 +429,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
      * @param bool
      *            boolean - true iff the {@link Player} currently has a shop weapon.
      */
+    @Deprecated
     public void setShopWeapon(boolean bool) {
         this.shopWeapon = bool;
     }
@@ -437,6 +439,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
      * 
      * @return boolean - true iff the {@link Player} currently has a shop weapon.
      */
+    @Deprecated
     public boolean isShopWeapon() {
         return this.shopWeapon;
     }
@@ -447,6 +450,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
      * @param bool
      *            boolean - true iff the {@link Player} currently has a shop speedUp.
      */
+    @Deprecated
     public void setShopSpeed(boolean bool) {
         this.shopSpeedup = bool;
     }
@@ -456,6 +460,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
      * 
      * @return boolean - true iff the {@link Player} currently has a shop speedUp.
      */
+    @Deprecated
     public boolean isShopSpeed() {
         return shopSpeedup;
     }

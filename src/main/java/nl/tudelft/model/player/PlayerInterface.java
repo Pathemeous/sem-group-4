@@ -35,6 +35,7 @@ public interface PlayerInterface extends Updateable, Renderable, PlayerInputList
     @Deprecated
     public boolean hasShopShield();
 
+    @Deprecated
     public void applySpeedup();
 
     public void setDefaultSpeed();
