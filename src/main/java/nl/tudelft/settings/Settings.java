@@ -18,11 +18,14 @@ public class Settings {
     private Settings() {
     }
 
+    /**
+     * Get the settings instance.
+     * @return
+     *             instance - the settings instance
+     */
     public static Settings getInstance() {
         return instance;
     }
-
-
 
     /**
      * Initializes all the settings.
