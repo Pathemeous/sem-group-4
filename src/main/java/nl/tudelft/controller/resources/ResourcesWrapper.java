@@ -22,10 +22,10 @@ import org.newdawn.slick.TrueTypeFont;
 public class ResourcesWrapper {
     
     public static boolean musicOn = true;
-    private final HashMap<String, Image> images;
-    private final HashMap<String, Sound> sounds;
-    private final HashMap<String, Animation> animations;
-    private final HashMap<String, Music> music;
+    private HashMap<String, Image> images;
+    private HashMap<String, Sound> sounds;
+    private HashMap<String, Animation> animations;
+    private HashMap<String, Music> music;
     private final String fileSeparator;
     
     /**
@@ -387,6 +387,22 @@ public class ResourcesWrapper {
 
     public void setMusicOn(boolean state) {
         musicOn = state;
+    }
+
+    /**
+     * Replace all maps with a mocked map. Used for testing.
+     * Unchecked warnings are suppressed as these aren't relevant.
+     * @param mapSound
+     *              the mocked map for sounds
+     * @param mapOther
+     *              the mocked map for all other maps
+     */
+    @SuppressWarnings("unchecked")
+    public void setMaps(HashMap mapSound, HashMap mapOther) {
+        this.images = mapOther;
+        this.animations = mapOther;
+        this.sounds = mapSound;
+        this.music = mapSound;
     }
 }
 
