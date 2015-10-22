@@ -118,7 +118,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
     @Override
     public void moveLeft() {
         setAnimationCurrent(animationLeft);
-        setLocX(locX - speed);
+        setLocX(locX - getSpeed());
         Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
     }
 
@@ -128,7 +128,7 @@ public class Player extends AbstractGameObject implements PlayerInterface {
     @Override
     public void moveRight() {
         setAnimationCurrent(animationRight);
-        setLocX(locX + speed);
+        setLocX(locX + getSpeed());
         Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 
@@ -458,5 +458,9 @@ public class Player extends AbstractGameObject implements PlayerInterface {
      */
     public boolean isShopSpeed() {
         return shopSpeedup;
+    }
+    
+    public int getRegularSpeed() {
+        return REGULAR_SPEED;
     }
 }
