@@ -37,13 +37,13 @@ public class CollisionController {
      * Adds collidable objects to the quad tree.
      */
     private void quadFill(QuadTree quad) {
-        for (AbstractGameObject obj : game.getPlayers()) {
+        for (GameObject obj : game.getPlayers()) {
             quad.insert(obj);
         }
-        for (AbstractGameObject obj : game.getCurLevel().getProjectiles()) {
+        for (GameObject obj : game.getCurLevel().getProjectiles()) {
             quad.insert(obj);
         }
-        for (AbstractGameObject obj : game.getCurLevel().getWalls()) {
+        for (GameObject obj : game.getCurLevel().getWalls()) {
             quad.insert(obj);
         }
     }
@@ -52,7 +52,7 @@ public class CollisionController {
      * Checks for every player if it collides with anything a bubble can collide with.
      */
     private void bubbleCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : game.getCurLevel().getBubbles()) {
+        for (GameObject collidesWithA : game.getCurLevel().getBubbles()) {
             
             // Remove a bubble when it goes out of bounds
             boolean outOfBounds = collidesWithA.getLocX() < 0 || collidesWithA.getLocX() 
@@ -66,7 +66,7 @@ public class CollisionController {
             }
             
             // bubbles check against walls, players and projectiles
-            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+            for (GameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
                 collisionHandler.collide(game, collidesWithA, collidesWithB);
             }
@@ -77,9 +77,9 @@ public class CollisionController {
      * Checks for every pickup if it collides with anything a pickup can collide with.
      */
     private void pickupCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : game.getCurLevel().getPickups()) {
+        for (GameObject collidesWithA : game.getCurLevel().getPickups()) {
             // collision with walls and players
-            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+            for (GameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
                 collisionHandler.collide(game, collidesWithA, collidesWithB);
             }
@@ -90,8 +90,8 @@ public class CollisionController {
      * Checks for every wall if it collides with anything a wall can collide with.
      */
     private void wallCollision(QuadTree quad) {
-        for (AbstractGameObject collidesWithA : game.getCurLevel().getWalls()) {
-            for (AbstractGameObject collidesWithB : CollisionHelper.getCollisionsFor(
+        for (GameObject collidesWithA : game.getCurLevel().getWalls()) {
+            for (GameObject collidesWithB : CollisionHelper.getCollisionsFor(
                     collidesWithA, quad)) {
                 collisionHandler.collide(game, collidesWithA, collidesWithB);
             }

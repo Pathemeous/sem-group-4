@@ -1,7 +1,7 @@
 package nl.tudelft.controller.collision;
 
-import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
+import nl.tudelft.model.GameObject;
 
 /**
  * Handles the collision between two colliding parties.
@@ -14,8 +14,8 @@ import nl.tudelft.model.Game;
  *            The collidee type.
  */
 public interface CollisionHandler<
-        C1 extends AbstractGameObject,
-        C2 extends AbstractGameObject> {
+        C1 extends GameObject,
+        C2 extends GameObject> {
 
     /**
      * Handles the collision between two colliding parties.

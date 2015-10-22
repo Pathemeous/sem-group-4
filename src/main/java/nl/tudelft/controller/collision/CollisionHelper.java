@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.tudelft.controller.util.QuadTree;
-import nl.tudelft.model.AbstractGameObject;
+import nl.tudelft.model.GameObject;
 
 /**
  * Helper class for anything Collision-related that does not deserve his own class Created by
@@ -21,18 +21,17 @@ public class CollisionHelper {
      *            Quadtree - the quadtree used to find collisions.
      * @return a Pair of which the Key is the 'objectA' colliding object and the value 'right'
      */
-    public static List<AbstractGameObject> getCollisionsFor(AbstractGameObject objectA,
-            QuadTree quad) {
-        List<AbstractGameObject> out = new ArrayList<>();
+    public static List<GameObject> getCollisionsFor(GameObject objectA, QuadTree quad) {
+        List<GameObject> out = new ArrayList<>();
 
         if (quad == null) {
             throw new IllegalArgumentException();
         } else {
-            List<AbstractGameObject> returnObjects = new ArrayList<>();
+            List<GameObject> returnObjects = new ArrayList<>();
 
             returnObjects = quad.retrieve(returnObjects, objectA.getBounds());
 
-            for (AbstractGameObject objectB : returnObjects) {
+            for (GameObject objectB : returnObjects) {
 
                 // do not collide with self
                 if (objectA == objectB) {

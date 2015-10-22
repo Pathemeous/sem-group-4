@@ -5,8 +5,8 @@ import java.util.TimerTask;
 
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
+import nl.tudelft.model.GameObject;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
@@ -37,7 +37,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
     private CollisionMap collisions = defaultCollisions();
 
     @Override
-    public void collide(Game game, AbstractGameObject mover, AbstractGameObject movedInto) {
+    public void collide(Game game, GameObject mover, GameObject movedInto) {
         collisions.collide(game, mover, movedInto);
     }
 

@@ -2,7 +2,7 @@ package nl.tudelft.model.player;
 
 public class ImprovedSpeedDecorator extends AbstractPlayerDecorator {
 
-    public ImprovedSpeedDecorator(PlayerInterface wrappedObject) {
+    public ImprovedSpeedDecorator(Player wrappedObject) {
         super(wrappedObject);
     }
 

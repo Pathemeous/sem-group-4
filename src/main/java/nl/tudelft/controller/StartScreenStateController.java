@@ -6,6 +6,7 @@ import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.SingleplayerGame;
+import nl.tudelft.model.player.ConcretePlayer;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.settings.Settings;
 import nl.tudelft.view.StartScreenState;
@@ -97,7 +98,7 @@ public class StartScreenStateController {
      */
     public Game createSingleplayerGame(GameContainer container, StateBasedGame mainApp) {
         final Player player =
-                new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                new ConcretePlayer(new ResourcesWrapper(), container.getWidth() / 2,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), true);
         final Game singleplayerGame =
@@ -120,13 +121,13 @@ public class StartScreenStateController {
      */
     public Game createMultiplayerGame(GameContainer container, StateBasedGame mainApp) {
         Player firstPlayer =
-                new Player(new ResourcesWrapper(), container.getWidth() / 2,
+                new ConcretePlayer(new ResourcesWrapper(), container.getWidth() / 2,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), true);
         settings.getPlayer1Input().addListener(firstPlayer);
 
         Player secondPlayer =
-                new Player(new ResourcesWrapper(), container.getWidth() / 2 + 100,
+                new ConcretePlayer(new ResourcesWrapper(), container.getWidth() / 2 + 100,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), false);
         settings.getPlayer2Input().addListener(secondPlayer);

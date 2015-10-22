@@ -8,7 +8,7 @@ public class DoubleWeaponDecorator extends AbstractPlayerDecorator {
 
     private final Weapon doubleWeapon = new DoubleWeapon(new ResourcesWrapper(), 0, 0);
 
-    public DoubleWeaponDecorator(PlayerInterface wrappedObject) {
+    public DoubleWeaponDecorator(Player wrappedObject) {
         super(wrappedObject);
     }
     

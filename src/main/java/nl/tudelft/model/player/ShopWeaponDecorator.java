@@ -8,7 +8,7 @@ public class ShopWeaponDecorator extends AbstractPlayerDecorator {
     
     private final Weapon shopWeapon = new ShopWeapon(new ResourcesWrapper(), 0, 0);
 
-    public ShopWeaponDecorator(PlayerInterface wrappedObject) {
+    public ShopWeaponDecorator(Player wrappedObject) {
         super(wrappedObject);
     }
     

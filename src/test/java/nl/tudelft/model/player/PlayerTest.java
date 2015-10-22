@@ -52,7 +52,7 @@ public class PlayerTest {
         mockedResources = mock(ResourcesWrapper.class);
         Image mockedImage = mock(Image.class);
         when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
-        player = new Player(mockedResources, 0, 0, true);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
     }
 
     @Test
@@ -116,7 +116,7 @@ public class PlayerTest {
         when(mockedResources.getPlayerWalkRight()).thenReturn(walkRight);
 
         // re-init player apply the mocked resources
-        player = new Player(mockedResources, 0, 0, true);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
 
 
         assertEquals(null, player.getAnimationCurrent());

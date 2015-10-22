@@ -5,12 +5,12 @@ package nl.tudelft.model.player;
  */
 public class ExtraLifeDecorator extends AbstractPlayerDecorator {
 
-    public ExtraLifeDecorator(PlayerInterface wrappedObject) {
+    public ExtraLifeDecorator(Player wrappedObject) {
         super(wrappedObject);
     }
 
     /**
-     * Adds 1 life to the {@link PlayerInterface#getLives()} method, so that it will always return
+     * Adds 1 life to the {@link Player#getLives()} method, so that it will always return
      * one more life.
      */
     @Override

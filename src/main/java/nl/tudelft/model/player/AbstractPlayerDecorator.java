@@ -7,14 +7,16 @@ import nl.tudelft.model.pickups.weapon.Weapon;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
+import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
+import org.newdawn.slick.geom.Shape;
 
 
-public class AbstractPlayerDecorator implements PlayerInterface {
+public class AbstractPlayerDecorator implements Player {
     
-    PlayerInterface wrappedObject;
+    Player wrappedObject;
     
-    public AbstractPlayerDecorator(PlayerInterface wrappedObject) {
+    public AbstractPlayerDecorator(Player wrappedObject) {
         this.wrappedObject = wrappedObject;
     }
 
@@ -228,6 +230,54 @@ public class AbstractPlayerDecorator implements PlayerInterface {
     @Override
     public int getRegularSpeed() {
         return wrappedObject.getRegularSpeed();
+    }
+
+    @Override
+    public Image getImage() {
+        return wrappedObject.getImage();
+    }
+
+    @Override
+    public void setImage(Image image) {
+        wrappedObject.setImage(image);
+        
+    }
+
+    @Override
+    public void setLocX(float locX) {
+        wrappedObject.setLocX(locX);
+        
+    }
+
+    @Override
+    public float getLocX() {
+        return wrappedObject.getLocX();
+    }
+
+    @Override
+    public float getLocY() {
+        return wrappedObject.getLocY();
+    }
+
+    @Override
+    public void setLocY(float locY) {
+        wrappedObject.setLocY(locY);
+        
+    }
+
+    @Override
+    public Shape getBounds() {
+        return wrappedObject.getBounds();
+    }
+
+    @Override
+    public int getWidth() {
+        return wrappedObject.getWidth();
+    }
+
+    @Override
+    public int getHeight() {
+        return wrappedObject.getHeight();
     }
     
 
