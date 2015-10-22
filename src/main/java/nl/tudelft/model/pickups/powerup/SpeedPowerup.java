@@ -26,7 +26,7 @@ public class SpeedPowerup extends Powerup {
             }
             
             player.setPowerup(Powerup.SPEED, this);
-            player.applySpeedup();
+            player.setSpeed(player.getRegularSpeed() * 2);
         }
     }
     
