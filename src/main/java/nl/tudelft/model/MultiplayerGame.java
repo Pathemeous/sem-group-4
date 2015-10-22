@@ -16,6 +16,7 @@ public class MultiplayerGame extends Game {
     private final Player secondPlayer;
     private final PlayerInput player1Input;
     private final PlayerInput player2Input;
+    private Settings settings = Settings.getInstance();
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -42,8 +43,8 @@ public class MultiplayerGame extends Game {
         super(mainApp, containerWidth, containerHeight, wrapper);
         this.firstPlayer = firstPlayer;
         this.secondPlayer = secondPlayer;
-        player1Input = Settings.getPlayer1Input();
-        player2Input = Settings.getPlayer2Input();
+        player1Input = settings.getPlayer1Input();
+        player2Input = settings.getPlayer2Input();
     }
 
     @Override

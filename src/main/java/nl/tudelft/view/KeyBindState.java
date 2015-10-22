@@ -49,6 +49,8 @@ public class KeyBindState extends BasicGameState {
     private static final float screenCoordXName = 60;
     private static final float screenCoordXValue = 650;
 
+    private Settings settings = Settings.getInstance();
+
 
     public KeyBindState() {
         controller = new KeyBindStateController();
@@ -146,12 +148,12 @@ public class KeyBindState extends BasicGameState {
             if (defButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User resets keys to default");
-                Settings.setDefaults();
+                settings.setDefaults();
             }
             if (saveButton.isMouseOver()) {
                 Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User saves the keybinds to file");
-                Settings.save();
+                settings.save();
             }
         }
     }
