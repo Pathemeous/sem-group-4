@@ -1,11 +1,9 @@
 package nl.tudelft.model.bubble;
 
-import nl.tudelft.controller.resources.ResourcesWrapper;
-import org.newdawn.slick.Image;
-
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 /**
  * Created by justin on 10/21/15.

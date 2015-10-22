@@ -1,14 +1,15 @@
 package nl.tudelft.model.bubble;
 
+import java.util.Collections;
+import java.util.LinkedList;
+import java.util.List;
+
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.Helpers;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.pickups.RandomFactory;
 import org.newdawn.slick.SlickException;
-
-import java.util.*;
 
 /**
  * Created by justin on 10/21/15.
@@ -35,8 +36,9 @@ public class BacchelliBubble extends AbstractBubble {
 
     /**
      * We hijack this call to prevent the bubble from splitting on every hit.
-     *
+     * <p>
      * We might want a cleaner solution but this works.
+     * </p>
      */
     @Override
     public void setIsHit() {
@@ -72,10 +74,10 @@ public class BacchelliBubble extends AbstractBubble {
         if (shootCounter > 30 && randInt == 8) {
             shootCounter = 0;
             boolean left = shootCounter % 2 == 0;
-            float x = getLocX() + getWidth() * ((left ? 21.0f : 173.0f) / 200.0f);
-            float y = getLocY() + getHeight() * ((left ? 70.0f : 74.0f) / 200.0f);
+            float coordX = getLocX() + getWidth() * ((left ? 21.0f : 173.0f) / 200.0f);
+            float coordY = getLocY() + getHeight() * ((left ? 70.0f : 74.0f) / 200.0f);
 
-            BacchelliBullet bullet = new BacchelliBullet(getResources(), x, y);
+            BacchelliBullet bullet = new BacchelliBullet(getResources(), coordX, coordY);
             bullets.add(bullet);
             container.toAdd(bullet);
         }

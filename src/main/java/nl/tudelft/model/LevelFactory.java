@@ -3,7 +3,14 @@ package nl.tudelft.model;
 import java.util.LinkedList;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.bubble.*;
+import nl.tudelft.model.bubble.AbstractBubble;
+import nl.tudelft.model.bubble.BacchelliBubble;
+import nl.tudelft.model.bubble.Bubble1Factory;
+import nl.tudelft.model.bubble.Bubble2Factory;
+import nl.tudelft.model.bubble.Bubble3Factory;
+import nl.tudelft.model.bubble.Bubble4Factory;
+import nl.tudelft.model.bubble.Bubble5Factory;
+import nl.tudelft.model.bubble.Bubble6Factory;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
