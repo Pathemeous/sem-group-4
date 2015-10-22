@@ -1,7 +1,7 @@
 package nl.tudelft.model.shop.level;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 public class ExtraTime extends LevelShopItem {
 

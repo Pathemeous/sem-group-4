@@ -5,7 +5,7 @@ import java.util.List;
 
 import nl.tudelft.controller.util.HighscoreEntry;
 import nl.tudelft.controller.util.HighscoresHelper;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.gui.TextField;
 

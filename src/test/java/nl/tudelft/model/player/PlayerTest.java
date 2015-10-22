@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.model.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
+import nl.tudelft.model.Level;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;

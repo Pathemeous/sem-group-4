@@ -9,11 +9,11 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
-
 import nl.tudelft.view.ShopState;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

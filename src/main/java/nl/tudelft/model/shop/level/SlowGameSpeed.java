@@ -3,8 +3,8 @@ package nl.tudelft.model.shop.level;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
 import nl.tudelft.model.bubble.AbstractBubble;
+import nl.tudelft.model.player.Player;
 
 
 public class SlowGameSpeed extends LevelShopItem {

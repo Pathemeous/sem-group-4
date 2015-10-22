@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import nl.tudelft.controller.Modifiable;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 /**
  * Represents an object to handle input events for a {@link Player}.

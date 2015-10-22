@@ -5,6 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;

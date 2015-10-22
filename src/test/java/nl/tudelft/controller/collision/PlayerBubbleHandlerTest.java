@@ -7,11 +7,12 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
+import nl.tudelft.model.player.Player;
+
 import org.junit.Before;
 import org.junit.Test;
 

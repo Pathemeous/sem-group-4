@@ -13,7 +13,7 @@ import static org.mockito.Mockito.when;
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 import org.junit.Test;
 import org.newdawn.slick.GameContainer;

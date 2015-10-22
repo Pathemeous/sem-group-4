@@ -9,6 +9,7 @@ import nl.tudelft.controller.logger.DefaultLogger;
 import nl.tudelft.controller.logger.Logger;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.view.GameEndedState;
 import nl.tudelft.view.ShopState;
 import nl.tudelft.view.States;

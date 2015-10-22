@@ -8,8 +8,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.player.Player;
+
 import org.junit.Before;
 import org.junit.Test;
 

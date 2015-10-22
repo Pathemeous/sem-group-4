@@ -6,8 +6,9 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.utility.Utility;
+import nl.tudelft.model.player.Player;
+
 import org.junit.Test;
 
 public class PlayerUtilityHandlerTest {

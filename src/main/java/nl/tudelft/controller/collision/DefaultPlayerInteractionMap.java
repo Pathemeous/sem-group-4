@@ -7,7 +7,6 @@ import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
@@ -16,11 +15,13 @@ import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.Utility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.wall.AbstractMovingWall;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.HorMovingWall;
 import nl.tudelft.model.wall.RegularWall;
 import nl.tudelft.model.wall.VerMovingWall;
+
 import org.newdawn.slick.geom.Shape;
 
 /**

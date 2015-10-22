@@ -5,8 +5,8 @@ import java.awt.Font;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
 import nl.tudelft.model.MultiplayerGame;
-import nl.tudelft.model.Player;
 import nl.tudelft.model.SingleplayerGame;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.settings.Settings;
 import nl.tudelft.view.StartScreenState;
 

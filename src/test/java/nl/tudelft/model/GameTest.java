@@ -8,6 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.view.GameEndedState;
 import nl.tudelft.view.ShopState;
 import nl.tudelft.view.States;

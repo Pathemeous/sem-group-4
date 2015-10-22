@@ -2,9 +2,9 @@ package nl.tudelft.controller;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
-
+import nl.tudelft.model.player.Player;
 import nl.tudelft.view.Dashboard;
+
 import org.newdawn.slick.geom.Rectangle;
 
 public class DashboardController {

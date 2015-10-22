@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 public class MoneyPowerup extends Powerup {
 

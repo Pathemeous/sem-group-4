@@ -66,7 +66,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * @param image
      *            {@link Image} - The new image to render.
      */
-    protected void setImage(Image image) {
+    public void setImage(Image image) {
         this.image = image;
     }
 

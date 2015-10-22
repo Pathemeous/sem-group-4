@@ -1,6 +1,7 @@
 package nl.tudelft.model;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.settings.PlayerInput;
 import nl.tudelft.settings.Settings;
 

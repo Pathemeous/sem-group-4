@@ -1,7 +1,7 @@
 package nl.tudelft.model.pickups.powerup;
 
-import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.Image;
 

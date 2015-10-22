@@ -1,6 +1,6 @@
 package nl.tudelft.model.shop.player;
 
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.ShopItem;
 
 public abstract class PlayerShopItem extends ShopItem {

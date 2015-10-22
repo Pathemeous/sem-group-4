@@ -1,7 +1,7 @@
 package nl.tudelft.model.shop.level;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.ShopItem;
 
 public abstract class LevelShopItem extends ShopItem {

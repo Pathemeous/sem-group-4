@@ -5,9 +5,10 @@ import java.awt.Font;
 import nl.tudelft.controller.ShopStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
