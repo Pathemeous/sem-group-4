@@ -323,7 +323,7 @@ public class ResourcesWrapperTest {
 
     @Test
     public void testGetBubbleImage3() {
-        wrapper.getBubbleImage1();
+        wrapper.getBubbleImage3();
         verify(mockedMap, times(1)).get("img" + fileSeparator + "yball3.png");
     }
 
