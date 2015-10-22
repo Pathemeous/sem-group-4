@@ -144,4 +144,13 @@ public class KeyBindStateController {
     public int getID() {
         return States.KeyBindState;
     }
+
+    /**
+     * Set the settings. Only used for testing.
+     * @param settings
+     *                  the mocked settings
+     */
+    public void setSettings(Settings settings) {
+        this.settings = settings;
+    }
 }
