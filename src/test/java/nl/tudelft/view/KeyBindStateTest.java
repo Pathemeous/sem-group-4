@@ -13,6 +13,7 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.KeyBindStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.settings.Settings;
 import nl.tudelft.view.KeyBindState;
 import org.junit.Before;
 import org.junit.Test;
@@ -36,6 +37,7 @@ public class KeyBindStateTest {
     private Image mockedImage;
     private TrueTypeFont mockedFont;
     private Graphics mockedGraphics;
+    private Settings mockedSettings;
 
     /**
      * Create an OptionsState and all needed mocks.
@@ -52,6 +54,7 @@ public class KeyBindStateTest {
         mockedImage = mock(Image.class);
         mockedFont = mock(TrueTypeFont.class);
         mockedGraphics = mock(Graphics.class);
+        mockedSettings = mock(Settings.class);
 
         when(mockedContainer.getInput()).thenReturn(mockedInput);
 
@@ -68,6 +71,7 @@ public class KeyBindStateTest {
         state.setController(mockedController);
         state.setWrapper(mockedWrapper);
         state.setInputForTesting(mockedInput);
+        state.setSettings(mockedSettings);
     }
 
     @Test
@@ -107,12 +111,12 @@ public class KeyBindStateTest {
 
         state.setInputForTesting(mockedInput);
         state.setAreasForTesting(mockedArea);
-        state.setBack(mockedArea);
-        state.setSaveAndDefault(mockedArea2);
         state.update(mockedContainer, mockedGame, 1);
 
         verify(mockedGame, never()).enterState(anyInt());
         verify(mockedController, never()).setKey(anyInt(), any());
+        verify(mockedSettings, never()).setDefaults();
+        verify(mockedSettings, never()).save();
     }
 
     @Test
@@ -125,12 +129,12 @@ public class KeyBindStateTest {
 
         state.setInputForTesting(mockedInput);
         state.setAreasForTesting(mockedArea);
-        state.setBack(mockedArea);
-        state.setSaveAndDefault(mockedArea2);
         state.update(mockedContainer, mockedGame, 1);
 
         verify(mockedGame, never()).enterState(anyInt());
         verify(mockedController, never()).setKey(anyInt(), any());
+        verify(mockedSettings, never()).setDefaults();
+        verify(mockedSettings, never()).save();
     }
 
     @Test
@@ -143,12 +147,12 @@ public class KeyBindStateTest {
 
         state.setInputForTesting(mockedInput);
         state.setAreasForTesting(mockedArea);
-        state.setBack(mockedArea);
-        state.setSaveAndDefault(mockedArea2);
         state.update(mockedContainer, mockedGame, 1);
 
         verify(mockedGame, never()).enterState(anyInt());
         verify(mockedController, never()).setKey(anyInt(), any());
+        verify(mockedSettings, never()).setDefaults();
+        verify(mockedSettings, never()).save();
     }
 
     @Test
@@ -161,11 +165,11 @@ public class KeyBindStateTest {
 
         state.setInputForTesting(mockedInput);
         state.setAreasForTesting(mockedArea);
-        state.setBack(mockedArea);
-        state.setSaveAndDefault(mockedArea2);
         state.update(mockedContainer, mockedGame, 1);
 
         verify(mockedGame, times(1)).enterState(anyInt());
         verify(mockedController, times(6)).setKey(anyInt(), any());
+        verify(mockedSettings, times(1)).setDefaults();
+        verify(mockedSettings, times(1)).save();
     }
 }
