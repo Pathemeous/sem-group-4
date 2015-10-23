@@ -9,8 +9,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;

@@ -1,8 +1,8 @@
 package nl.tudelft.model.pickups.powerup;
 
-import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

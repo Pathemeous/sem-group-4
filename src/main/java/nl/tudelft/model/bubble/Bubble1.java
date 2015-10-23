@@ -3,7 +3,7 @@ package nl.tudelft.model.bubble;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 1.
@@ -21,7 +21,7 @@ public class Bubble1 extends AbstractBubble {
      * @param locY
      *            : the starting y-location of the bubble.
      */
-    protected Bubble1(ResourcesWrapper resources, float locX, float locY) {
+    public Bubble1(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage1(), locX, locY, resources);
     }
     

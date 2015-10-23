@@ -1,9 +1,9 @@
 package nl.tudelft.model;
 
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.Updateable;
-import nl.tudelft.semgroup4.util.SemRectangle;
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.Renderable;
+import nl.tudelft.controller.Updateable;
+import nl.tudelft.controller.util.SemRectangle;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -20,7 +20,7 @@ import org.newdawn.slick.geom.Shape;
  * rendering.
  * </p>
  */
-public abstract class AbstractGameObject implements Updateable, Renderable {
+public abstract class AbstractGameObject implements GameObject {
 
     protected float locX;
     protected float locY;
@@ -56,6 +56,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * 
      * @return image {@link Image} - The image that this object is rendered with.
      */
+    @Override
     public Image getImage() {
         return image;
     }
@@ -66,7 +67,8 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * @param image
      *            {@link Image} - The new image to render.
      */
-    protected void setImage(Image image) {
+    @Override
+    public void setImage(Image image) {
         this.image = image;
     }
 
@@ -76,6 +78,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * @param locX
      *            float - The x-coordinate for the top-left corner of this object.
      */
+    @Override
     public void setLocX(float locX) {
         this.locX = locX;
     }
@@ -85,6 +88,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * 
      * @return float - The x-coordinate.
      */
+    @Override
     public float getLocX() {
         return locX;
     }
@@ -94,6 +98,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * 
      * @return float - The y-coordinate.
      */
+    @Override
     public float getLocY() {
         return locY;
     }
@@ -104,6 +109,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * @param locY
      *            float - the y-coordinate for the top-left corner of this object.
      */
+    @Override
     public void setLocY(float locY) {
         this.locY = locY;
     }
@@ -118,6 +124,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * 
      * @return {@link Shape} - The shape that represents the bounding box of this object.
      */
+    @Override
     public Shape getBounds() {
         return new SemRectangle(locX, locY, getImage().getWidth(), getImage().getHeight());
     }
@@ -127,6 +134,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * 
      * @return int - The width of this object.
      */
+    @Override
     public int getWidth() {
         return this.getImage().getWidth();
     }
@@ -136,6 +144,7 @@ public abstract class AbstractGameObject implements Updateable, Renderable {
      * 
      * @return int - The height of this object.
      */
+    @Override
     public int getHeight() {
         return this.getImage().getHeight();
     }

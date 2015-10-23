@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 import org.junit.Test;
 

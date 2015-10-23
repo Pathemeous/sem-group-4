@@ -4,11 +4,12 @@ import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;
-import org.newdawn.slick.Music;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class MultiplayerGameTest {
@@ -42,13 +43,14 @@ public class MultiplayerGameTest {
 
         StateBasedGame stateBasedGame = mock(StateBasedGame.class);
 
-        game = new MultiplayerGame(stateBasedGame, 0, 0, mockedResources,
-                mockedPlayer1, mockedPlayer2);
+        game =
+                new MultiplayerGame(stateBasedGame, 0, 0, mockedResources, mockedPlayer1,
+                        mockedPlayer2);
     }
 
     @Test
     public void testGetPlayers() {
-        assertArrayEquals(game.getPlayers(), new Player[]{mockedPlayer1, mockedPlayer2});
+        assertArrayEquals(game.getPlayers(), new Player[] { mockedPlayer1, mockedPlayer2 });
     }
 
 }

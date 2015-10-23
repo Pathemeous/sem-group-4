@@ -9,9 +9,9 @@ import static org.mockito.Mockito.when;
 import java.util.LinkedList;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
-
 import nl.tudelft.model.bubble.AbstractBubble;
+import nl.tudelft.model.player.Player;
+
 import org.junit.Test;
 
 

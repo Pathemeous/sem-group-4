@@ -10,11 +10,12 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.controller.util.SemRectangle;
+import nl.tudelft.model.player.ConcretePlayer;
+import nl.tudelft.model.player.Player;
 
-import nl.tudelft.semgroup4.util.SemRectangle;
 import org.junit.Test;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -40,7 +41,7 @@ public class Hit3ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
         assertFalse(player.hasPowerup(Powerup.SHOPSHIELD));
         assertFalse(powerup.isActive());
@@ -57,7 +58,7 @@ public class Hit3ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         InvinciblePowerup invincibleMocked = mock(InvinciblePowerup.class);
 
         assertFalse(player.hasPowerup(Powerup.SHOPSHIELD));
@@ -77,7 +78,7 @@ public class Hit3ShieldPowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         ShieldPowerup powerup = new ShieldPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
         assertFalse(player.hasPowerup(Powerup.SHIELD));
         assertFalse(powerup.isActive());
@@ -116,7 +117,7 @@ public class Hit3ShieldPowerupTest {
     public void testUpdate1() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
         powerup.activate(player);
 
@@ -141,7 +142,7 @@ public class Hit3ShieldPowerupTest {
     public void testUpdate2() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
         powerup.activate(player);
 

@@ -1,8 +1,8 @@
 package nl.tudelft.model.pickups.powerup;
 
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.controller.util.Helpers;
 import nl.tudelft.model.pickups.RandomFactory;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
-import nl.tudelft.semgroup4.util.Helpers;
 
 /**
  * Factory that can be used to create a random powerup.

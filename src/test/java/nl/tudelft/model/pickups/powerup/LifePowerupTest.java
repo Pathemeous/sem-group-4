@@ -6,8 +6,9 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Player;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.ConcretePlayer;
+import nl.tudelft.model.player.Player;
 
 import org.junit.Test;
 import org.newdawn.slick.Image;
@@ -31,7 +32,7 @@ public class LifePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         LifePowerup powerup = new LifePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         
         assertEquals(3, player.getLives());
         assertFalse(powerup.isActive());
