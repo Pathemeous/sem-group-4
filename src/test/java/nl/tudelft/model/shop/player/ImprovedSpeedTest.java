@@ -2,14 +2,11 @@ package nl.tudelft.model.shop.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
+import nl.tudelft.model.player.ImprovedSpeedDecorator;
 import nl.tudelft.model.player.Player;
 
 import org.junit.Test;
-
-
 
 public class ImprovedSpeedTest {
 
@@ -23,9 +20,8 @@ public class ImprovedSpeedTest {
     public void testApplyTo() {
         Player mockedPlayer = mock(Player.class);
         ImprovedSpeed improvedSpeed = new ImprovedSpeed(10);
-        improvedSpeed.applyTo(mockedPlayer);
-        verify(mockedPlayer, times(1)).applySpeedup();
-        verify(mockedPlayer, times(1)).setShopSpeed(true);
+        Player result = improvedSpeed.applyTo(mockedPlayer);
+        assertEquals(ImprovedSpeedDecorator.class, result.getClass());
     }
 
 }

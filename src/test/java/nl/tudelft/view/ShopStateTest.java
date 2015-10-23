@@ -100,7 +100,6 @@ public class ShopStateTest {
         when(mockedShop.getInventory()).thenReturn(mockedInventory);
         
         shopState = new ShopState(mockedWrapper);
-        shopState.setSelectedPlayer(mockedPlayer);
         shopState.setShop(mockedShop);
         shopState.setInput(mockedInput);
         shopState.setMouseOvers(mockedMouseOverArea);

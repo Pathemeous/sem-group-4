@@ -47,7 +47,7 @@ public class ShopStateControllerTest {
         mockedInventory.add(mockedShopItem);
 
         when(mockedShopState.getSelectedItem()).thenReturn(mockedShopItem);
-        when(mockedShopState.getSelectedPlayer()).thenReturn(mockedPlayer);
+        when(mockedShopState.getSelectedPlayer()).thenReturn(0);
         when(mockedShop.getInventory()).thenReturn(mockedInventory);
         when(mockedShopState.getShop()).thenReturn(mockedShop);
         when(mockedShop.getGame()).thenReturn(mockedGame);
@@ -65,7 +65,7 @@ public class ShopStateControllerTest {
     public void testApplyUpgrade() {
         shopStateController.applyUpgrade();
 
-        verify(mockedShopState, times(4)).getSelectedPlayer();
+        verify(mockedShopState, times(5)).getSelectedPlayer();
         verify(mockedShopItem, times(1)).applyTo(mockedPlayer);
         verify(mockedPlayer, times(2)).getMoney();
     }
@@ -74,7 +74,7 @@ public class ShopStateControllerTest {
     public void testSelectPlayer() {
         shopStateController.selectPlayer(0);
 
-        verify(mockedShopState, times(1)).setSelectedPlayer(any());
+        verify(mockedShopState, times(1)).setSelectedPlayer(0);
     }
 
     @Test
