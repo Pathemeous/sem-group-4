@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.model.player;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
+import nl.tudelft.model.Level;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
@@ -25,6 +26,7 @@ import nl.tudelft.model.pickups.weapon.Weapon;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -51,7 +53,7 @@ public class PlayerTest {
         mockedResources = mock(ResourcesWrapper.class);
         Image mockedImage = mock(Image.class);
         when(mockedResources.getPlayerImageStill()).thenReturn(mockedImage);
-        player = new Player(mockedResources, 0, 0, true);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
     }
 
     @Test
@@ -115,7 +117,7 @@ public class PlayerTest {
         when(mockedResources.getPlayerWalkRight()).thenReturn(walkRight);
 
         // re-init player apply the mocked resources
-        player = new Player(mockedResources, 0, 0, true);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
 
 
         assertEquals(null, player.getAnimationCurrent());
@@ -223,17 +225,8 @@ public class PlayerTest {
     }
     
     @Test
-    public final void testApplySpeedup() {
-        assertEquals(SPEED, player.getSpeed());
-        
-        player.applySpeedup();
-        
-        assertEquals(2 * SPEED, player.getSpeed());
-    }
-    
-    @Test
     public final void testDefaultSpeed() {
-        player.applySpeedup();
+        player.setSpeed(10);
         player.setDefaultSpeed();
         
         assertEquals(SPEED, player.getSpeed());
@@ -406,6 +399,27 @@ public class PlayerTest {
         player.update(mockedLevel, 1);
 
         verify(mockedLevel, times(1)).toAdd(any());
+    }
+    
+    @Test
+    public void testGetLeftAnimation() {
+        Animation mockedAnimation = Mockito.mock(Animation.class);
+        Mockito.when(mockedResources.getPlayerWalkLeft()).thenReturn(mockedAnimation);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
+        
+        Animation result = player.getAnimationLeft();
+        assertEquals(mockedAnimation, result);
+        
+    }
+    
+    @Test
+    public void testGetRightAnimation() {
+        Animation mockedAnimation = Mockito.mock(Animation.class);
+        Mockito.when(mockedResources.getPlayerWalkRight()).thenReturn(mockedAnimation);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
+        
+        Animation result = player.getAnimationRight();
+        assertEquals(mockedAnimation, result);
     }
 
 }

@@ -6,9 +6,8 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.GameEndedController;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
-import nl.tudelft.view.GameEndedState;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

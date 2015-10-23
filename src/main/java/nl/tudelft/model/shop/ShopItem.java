@@ -1,6 +1,6 @@
 package nl.tudelft.model.shop;
 
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 public abstract class ShopItem {
 
@@ -13,7 +13,7 @@ public abstract class ShopItem {
      * Method to apply a shop item.
      * @param buyer : The person who is buying the item.
      */
-    public abstract void applyTo(Player buyer);
+    public abstract Player applyTo(Player buyer);
 
     /**
      * Default constructor for ShopItem.

@@ -1,7 +1,7 @@
 package nl.tudelft.model.shop.level;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 public class ExtraTime extends LevelShopItem {
 
@@ -17,9 +17,11 @@ public class ExtraTime extends LevelShopItem {
     /**
      * Activate the extra time item.
      * @param buyer : The person who is buying the item.
+     * @return {@link Player} the player.
      */
-    public void applyTo(Player buyer) {
+    public Player applyTo(Player buyer) {
         nextLevel.setMaxTime(nextLevel.getMaxTime() + 20);
         nextLevel.setTime(nextLevel.getMaxTime() + 20);
+        return buyer;
     }
 }

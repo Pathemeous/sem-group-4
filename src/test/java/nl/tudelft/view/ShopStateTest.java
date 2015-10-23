@@ -12,7 +12,7 @@ import java.util.LinkedList;
 import nl.tudelft.controller.ShopStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
 
@@ -100,7 +100,6 @@ public class ShopStateTest {
         when(mockedShop.getInventory()).thenReturn(mockedInventory);
         
         shopState = new ShopState(mockedWrapper);
-        shopState.setSelectedPlayer(mockedPlayer);
         shopState.setShop(mockedShop);
         shopState.setInput(mockedInput);
         shopState.setMouseOvers(mockedMouseOverArea);

@@ -1,7 +1,7 @@
 package nl.tudelft.controller.collision;
 
-import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.Game;
+import nl.tudelft.model.GameObject;
 
 /**
  * A table containing all (relevant) collisions between different types of
@@ -25,7 +25,7 @@ public interface CollisionMap {
      * @param collidee
      *            The AbstractGameObject that is already on the square that is being invaded.
      */
-    <C1 extends AbstractGameObject, C2 extends AbstractGameObject> void collide(
+    <C1 extends GameObject, C2 extends GameObject> void collide(
             Game game,
             C1 collider,
             C2 collidee);

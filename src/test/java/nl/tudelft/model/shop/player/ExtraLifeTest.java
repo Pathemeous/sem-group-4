@@ -1,12 +1,10 @@
 package nl.tudelft.model.shop.player;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyInt;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.ExtraLifeDecorator;
+import nl.tudelft.model.player.Player;
 
 import org.junit.Test;
 
@@ -24,8 +22,8 @@ public class ExtraLifeTest {
     public void testApplyTo() {
         Player mockedPlayer = mock(Player.class);
         ExtraLife extraLife = new ExtraLife(10);
-        extraLife.applyTo(mockedPlayer);
-        verify(mockedPlayer, times(1)).setLives(anyInt());
+        Player decoratedresult = extraLife.applyTo(mockedPlayer);
+        assertEquals(ExtraLifeDecorator.class, decoratedresult.getClass());
     }
 
 

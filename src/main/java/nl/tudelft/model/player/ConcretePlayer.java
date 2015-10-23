@@ -1,4 +1,4 @@
-package nl.tudelft.model;
+package nl.tudelft.model.player;
 
 import java.util.HashMap;
 
@@ -6,11 +6,12 @@ import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
+import nl.tudelft.model.AbstractGameObject;
+import nl.tudelft.model.Game;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
-import nl.tudelft.settings.PlayerInputListener;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -18,7 +19,7 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
-public class Player extends AbstractGameObject implements PlayerInputListener {
+public class ConcretePlayer extends AbstractGameObject implements Player {
 
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score;
@@ -26,6 +27,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     private static final int BOUNDINGBOX_OFFSET_X = 10;
     private static final int BOUNDINGBOX_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
+    @Deprecated
     private static final int SPEEDUP = 2;
     private final int initialLocy;
     private final int initialLocx;
@@ -60,7 +62,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
      * @param isFirstPlayer
      *            boolean - checks whether the player is number one or two.
      */
-    public Player(ResourcesWrapper resources, int locX, int locY, boolean isFirstPlayer) {
+    public ConcretePlayer(ResourcesWrapper resources, int locX, int locY, boolean isFirstPlayer) {
         super(resources.getPlayerImageStill(), locX, locY);
         initialLocx = locX;
         initialLocy = locY;
@@ -100,8 +102,8 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         this.container = container;
 
-        if (weapon != null && weapon.isActive() && !weaponActivated) {
-            container.toAdd(weapon);
+        if (getWeapon() != null && getWeapon().isActive() && !weaponActivated) {
+            container.toAdd(getWeapon());
             weaponActivated = true;
         }
 
@@ -116,7 +118,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     @Override
     public void moveLeft() {
         setAnimationCurrent(animationLeft);
-        setLocX(locX - speed);
+        setLocX(locX - getSpeed());
         Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
     }
 
@@ -126,7 +128,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     @Override
     public void moveRight() {
         setAnimationCurrent(animationRight);
-        setLocX(locX + speed);
+        setLocX(locX + getSpeed());
         Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 
@@ -140,11 +142,11 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
     }
 
     /**
-     * Fires the {@link Player#weapon}.
+     * Fires the {@link Player#getWeapon()}.
      */
     @Override
     public void shoot() {
-        weapon.fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
+        getWeapon().fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                 this.getHeight());
         Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
     }
@@ -162,9 +164,9 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
         if (!shopWeapon) {
             setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
         } else {
-            weapon.getProjectiles().clear();
+            getWeapon().getProjectiles().clear();
         }
-        this.weapon.activate(this);
+        this.getWeapon().activate(this);
         weaponActivated = false;
 
         locX = initialLocx;
@@ -272,13 +274,6 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
      */
     public boolean hasShopShield() {
         return powerups.get(Powerup.SHOPSHIELD) != null;
-    }
-
-    /**
-     * Applies the speed up pickup to the player.
-     */
-    public void applySpeedup() {
-        speed = REGULAR_SPEED * SPEEDUP;
     }
 
     /**
@@ -391,7 +386,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
      * Removes a player life iff it has at least life remaining.
      */
     public void removeLife() {
-        if (this.lives > 0) {
+        if (this.getLives() > 0) {
             this.lives--;
         }
     }
@@ -426,6 +421,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
      * @param bool
      *            boolean - true iff the {@link Player} currently has a shop weapon.
      */
+    @Deprecated
     public void setShopWeapon(boolean bool) {
         this.shopWeapon = bool;
     }
@@ -435,6 +431,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
      * 
      * @return boolean - true iff the {@link Player} currently has a shop weapon.
      */
+    @Deprecated
     public boolean isShopWeapon() {
         return this.shopWeapon;
     }
@@ -445,6 +442,7 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
      * @param bool
      *            boolean - true iff the {@link Player} currently has a shop speedUp.
      */
+    @Deprecated
     public void setShopSpeed(boolean bool) {
         this.shopSpeedup = bool;
     }
@@ -454,7 +452,22 @@ public class Player extends AbstractGameObject implements PlayerInputListener {
      * 
      * @return boolean - true iff the {@link Player} currently has a shop speedUp.
      */
+    @Deprecated
     public boolean isShopSpeed() {
         return shopSpeedup;
+    }
+
+    public int getRegularSpeed() {
+        return REGULAR_SPEED;
+    }
+
+    @Override
+    public Animation getAnimationLeft() {
+        return this.animationLeft;
+    }
+
+    @Override
+    public Animation getAnimationRight() {
+        return this.animationRight;
     }
 }

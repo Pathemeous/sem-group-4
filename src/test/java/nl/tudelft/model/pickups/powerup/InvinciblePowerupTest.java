@@ -13,7 +13,8 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.ConcretePlayer;
+import nl.tudelft.model.player.Player;
 
 import org.junit.Test;
 import org.newdawn.slick.GameContainer;
@@ -40,7 +41,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         
         assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
         assertFalse(powerup.isActive());
@@ -56,7 +57,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         ShieldPowerup mockedShield = mock(ShieldPowerup.class);
         
         assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
@@ -77,7 +78,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         
         assertFalse(powerup.isActive());
         assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
@@ -103,7 +104,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         Hit3ShieldPowerup powerup = new Hit3ShieldPowerup(mockedResources, 0, 0);
 
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
         assertFalse(powerup.isActive());
         assertFalse(player.hasPowerup(Powerup.SHOPSHIELD));
@@ -146,7 +147,7 @@ public class InvinciblePowerupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         InvinciblePowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         
-        Player player = new Player(mockedResources, 0, 0, true);
+        Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         
         powerup.activate(player);
         powerup.setCounter(599);

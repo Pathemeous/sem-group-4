@@ -8,9 +8,9 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
-
+import nl.tudelft.model.player.Player;
 import nl.tudelft.view.Dashboard;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mockito;

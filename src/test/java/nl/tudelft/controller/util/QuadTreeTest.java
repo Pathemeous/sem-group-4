@@ -11,6 +11,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import nl.tudelft.model.AbstractGameObject;
+import nl.tudelft.model.GameObject;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -68,28 +69,28 @@ public class QuadTreeTest {
         testTree.clear();
         assertTrue(testTree.getObjects().isEmpty());
     }
-    
+
     @Test
     public void testClearLeafTree2() {
         Shape mockedShape = Mockito.mock(Shape.class);
         when(mockedShape.getX()).thenReturn(0.0f);
         when(mockedShape.getY()).thenReturn(0.0f);
-        
+
         for (int i = 0; i < 11; i++) {
             AbstractGameObject someBounds1 = Mockito.mock(AbstractGameObject.class);
             when(someBounds1.getBounds()).thenReturn(mockedShape);
             testTree.insert(someBounds1);
         }
-        
+
         AbstractGameObject someBounds1 = Mockito.mock(AbstractGameObject.class);
         when(someBounds1.getBounds()).thenReturn(mockedShape);
-        
-        List<AbstractGameObject> res = new ArrayList<>();
+
+        List<GameObject> res = new ArrayList<>();
         testTree.retrieve(res, mockedShape);
-        
+
         assertFalse(res.isEmpty());
         testTree.clear();
-        
+
         res.clear();
         testTree.retrieve(res, mockedShape);
         assertTrue(res.isEmpty());
@@ -117,13 +118,13 @@ public class QuadTreeTest {
         assertTrue(testTree.getObjects().contains(someBounds2));
         assertEquals(2, testTree.getObjects().size());
     }
-    
+
     @Test
     public void testInsertMultipleElements() {
         for (int i = 0; i < 24; i++) {
             AbstractGameObject someBounds1 = Mockito.mock(AbstractGameObject.class);
             Shape mockedShape = Mockito.mock(Shape.class);
-            
+
             if (i < 6) {
                 when(mockedShape.getX()).thenReturn(1.0f);
                 when(mockedShape.getY()).thenReturn(1.0f);
@@ -140,13 +141,13 @@ public class QuadTreeTest {
             when(someBounds1.getBounds()).thenReturn(mockedShape);
             testTree.insert(someBounds1);
         }
-        
+
         Shape mockedShape = Mockito.mock(Shape.class);
         when(mockedShape.getX()).thenReturn(4.0f);
         when(mockedShape.getY()).thenReturn(1.0f);
         when(mockedShape.getWidth()).thenReturn(5.0f);
-        
-        List<AbstractGameObject> res = new ArrayList<>();
+
+        List<GameObject> res = new ArrayList<>();
         testTree.retrieve(res, mockedShape);
         assertEquals(12, res.size());
     }
@@ -159,8 +160,7 @@ public class QuadTreeTest {
         testTree.insert(someObject2);
         testTree.insert(someObject3);
 
-        List<AbstractGameObject> result =
-                testTree.retrieve(new LinkedList<AbstractGameObject>(), someObject1);
+        List<GameObject> result = testTree.retrieve(new LinkedList<GameObject>(), someObject1);
         assertEquals(2, result.size());
     }
 

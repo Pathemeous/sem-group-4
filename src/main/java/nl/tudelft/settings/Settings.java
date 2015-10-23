@@ -9,8 +9,8 @@ import nl.tudelft.model.Game;
 public class Settings {
 
     private static Settings instance = new Settings();
-    private static PlayerInput player1Input;
-    private static PlayerInput player2Input;
+    private PlayerInput player1Input;
+    private PlayerInput player2Input;
 
     /**
      * Private constructor to avoid instantiation by other classes.

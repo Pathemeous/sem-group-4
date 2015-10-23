@@ -7,8 +7,9 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.wall.AbstractWall;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.geom.Shape;

@@ -1,6 +1,7 @@
 package nl.tudelft.model;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.settings.PlayerInput;
 import nl.tudelft.settings.Settings;
 
@@ -12,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class SingleplayerGame extends Game {
 
-    private final Player player;
+    private Player player;
     private final PlayerInput player1Input;
     private Settings settings = Settings.getInstance();
 
@@ -50,5 +51,12 @@ public class SingleplayerGame extends Game {
         super.update(delta);
 
         player1Input.poll();
+    }
+
+    @Override
+    public void decoratePlayer(Player player, Player decorator) {
+        settings.getPlayer1Input().removeListener(player);
+        settings.getPlayer1Input().addListener(decorator);
+        this.player = decorator;
     }
 }

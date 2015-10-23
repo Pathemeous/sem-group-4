@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 import java.io.IOException;
 
 import nl.tudelft.controller.util.HighscoresHelper;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 import org.junit.Before;
 import org.junit.Test;

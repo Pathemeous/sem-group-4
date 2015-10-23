@@ -1,6 +1,7 @@
 package nl.tudelft.model.shop.player;
 
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.ExtraLifeDecorator;
+import nl.tudelft.model.player.Player;
 
 public class ExtraLife extends PlayerShopItem {
 
@@ -15,8 +16,10 @@ public class ExtraLife extends PlayerShopItem {
     /**
      * Activate the slow item.
      * @param buyer : The person who is buying the item.
+     * @return {@link Player} the player.
      */
-    public void applyTo(Player buyer) {
-        buyer.setLives(buyer.getLives() + 1);
+    public Player applyTo(Player buyer) {
+        return new ExtraLifeDecorator(buyer);
+//        buyer.setLives(buyer.getLives() + 1);
     }
 }

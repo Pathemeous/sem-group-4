@@ -6,8 +6,6 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyListOf;
 import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
@@ -15,6 +13,8 @@ import java.util.List;
 
 import nl.tudelft.controller.util.QuadTree;
 import nl.tudelft.model.AbstractGameObject;
+import nl.tudelft.model.GameObject;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
@@ -53,14 +53,14 @@ public class CollisionHelperTest {
 
     @Test
     public void testGetCollisionSameObject() {
-        AbstractGameObject mockedObject = mock(AbstractGameObject.class);
-        List<AbstractGameObject> returnObjects = new ArrayList<>();
+        GameObject mockedObject = mock(AbstractGameObject.class);
+        List<GameObject> returnObjects = new ArrayList<>();
         returnObjects.add(mockedObject);
 
-        when(mockedQuadTree.retrieve(anyListOf(AbstractGameObject.class),
-                any())).thenReturn(returnObjects);
+        when(mockedQuadTree.retrieve(anyListOf(GameObject.class), any())).thenReturn(
+                returnObjects);
 
-        List<AbstractGameObject> resultList =
+        List<GameObject> resultList =
                 CollisionHelper.getCollisionsFor(mockedObject, mockedQuadTree);
 
         assertEquals(0, resultList.size());
@@ -76,15 +76,15 @@ public class CollisionHelperTest {
         Shape mockedShape2 = mock(Shape.class);
         when(mockedObject2.getBounds()).thenReturn(mockedShape2);
 
-        List<AbstractGameObject> returnObjects = new ArrayList<>();
+        List<GameObject> returnObjects = new ArrayList<>();
         returnObjects.add(mockedObject2);
 
         when(mockedShape1.intersects(mockedShape2)).thenReturn(true);
 
-        when(mockedQuadTree.retrieve(anyListOf(AbstractGameObject.class),
-                any())).thenReturn(returnObjects);
+        when(mockedQuadTree.retrieve(anyListOf(GameObject.class), any())).thenReturn(
+                returnObjects);
 
-        List<AbstractGameObject> resultList =
+        List<GameObject> resultList =
                 CollisionHelper.getCollisionsFor(mockedObject1, mockedQuadTree);
 
         assertEquals(1, resultList.size());

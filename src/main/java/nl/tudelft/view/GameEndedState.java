@@ -3,7 +3,7 @@ package nl.tudelft.view;
 import java.awt.Font;
 
 import nl.tudelft.controller.GameEndedController;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
