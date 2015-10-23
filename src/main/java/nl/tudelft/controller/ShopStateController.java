@@ -26,16 +26,20 @@ public class ShopStateController {
      */
     public void applyUpgrade() {
         if (shopState.getSelectedItem() != null
-                && shopState.getSelectedItem().getPrice() <= shopState.getSelectedPlayer()
-                        .getMoney()) {
+                && shopState.getSelectedItem().getPrice() <= shopState.getShop().getGame()
+                        .getPlayers()[shopState.getSelectedPlayer()].getMoney()) {
 
             Player modifiedPlayer =
-                    shopState.getSelectedItem().applyTo(shopState.getSelectedPlayer());
-            shopState.getSelectedPlayer().setMoney(
-                    shopState.getSelectedPlayer().getMoney()
+                    shopState.getSelectedItem().applyTo(
+                            shopState.getShop().getGame().getPlayers()[shopState
+                                    .getSelectedPlayer()]);
+            shopState.getShop().getGame().getPlayers()[shopState.getSelectedPlayer()]
+                    .setMoney(shopState.getShop().getGame().getPlayers()[shopState
+                            .getSelectedPlayer()].getMoney()
                             - shopState.getSelectedItem().getPrice());
 
-            Player oldPlayer = shopState.getSelectedPlayer();
+            Player oldPlayer =
+                    shopState.getShop().getGame().getPlayers()[shopState.getSelectedPlayer()];
             shopState.getShop().getGame().decoratePlayer(oldPlayer, modifiedPlayer);
         }
     }
@@ -47,8 +51,7 @@ public class ShopStateController {
      *            which player to select
      */
     public void selectPlayer(int selectedPlayer) {
-        shopState
-                .setSelectedPlayer(shopState.getShop().getGame().getPlayers()[selectedPlayer]);
+        shopState.setSelectedPlayer(selectedPlayer);
     }
 
     /**
