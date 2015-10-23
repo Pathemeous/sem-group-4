@@ -1,7 +1,6 @@
 package nl.tudelft.model;
 
 import static org.junit.Assert.assertArrayEquals;
-import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
@@ -10,7 +9,6 @@ import nl.tudelft.model.player.Player;
 
 import org.junit.Before;
 import org.junit.Test;
-import org.mockito.Mockito;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -49,12 +47,5 @@ public class SingleplayerGameTest {
     @Test
     public void testGetPlayers() {
         assertArrayEquals(game.getPlayers(), new Player[] { mockedPlayer });
-    }
-
-    @Test
-    public void testDecoratePlayer() {
-        Player mockedDecoration = Mockito.mock(Player.class);
-        game.decoratePlayer(mockedPlayer, mockedDecoration);
-        assertEquals(mockedDecoration, game.getPlayers()[0]);
     }
 }

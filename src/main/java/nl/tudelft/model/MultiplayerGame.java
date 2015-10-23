@@ -5,6 +5,7 @@ import nl.tudelft.model.player.Player;
 import nl.tudelft.settings.PlayerInput;
 import nl.tudelft.settings.Settings;
 
+import org.mockito.Mockito;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -63,7 +64,7 @@ public class MultiplayerGame extends Game {
 
     @Override
     public void decoratePlayer(Player player, Player decorator) {
-        if (player.equals(firstPlayer)) {
+        if (player.equals(firstPlayer)) {            
             settings.getPlayer1Input().removeListener(player);
             settings.getPlayer1Input().addListener(decorator);
             firstPlayer = decorator;
