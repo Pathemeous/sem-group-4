@@ -108,14 +108,6 @@ public class LevelFactory {
         bubbles.add(bubble);
 
         LinkedList<AbstractWall> walls = wallInit();
-        {
-//            float gap = 40;
-//            for (float x = resources.getVwallImage().getWidth();
-//                 x <= game.getContainerWidth();
-//                 x += resources.getSmallHWallImage().getWidth() + gap) {
-//                walls.add(new RegularWall(resources.getSmallHWallImage(), x, 500));
-//            }
-        }
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
         LinkedList<Pickup> pickups = new LinkedList<>();
