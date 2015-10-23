@@ -11,11 +11,10 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Shape;
 
-
 public class AbstractPlayerDecorator implements Player {
-    
+
     Player wrappedObject;
-    
+
     public AbstractPlayerDecorator(Player wrappedObject) {
         this.wrappedObject = wrappedObject;
     }
@@ -23,49 +22,49 @@ public class AbstractPlayerDecorator implements Player {
     @Override
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         wrappedObject.update(container, delta);
-        
+
     }
 
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         wrappedObject.render(container, graphics);
-        
+
     }
 
     @Override
     public void moveLeft() {
         wrappedObject.moveLeft();
-        
+
     }
 
     @Override
     public void moveRight() {
         wrappedObject.moveRight();
-        
+
     }
 
     @Override
     public void stopMoving() {
         wrappedObject.stopMoving();
-        
+
     }
 
     @Override
     public void shoot() {
         wrappedObject.shoot();
-        
+
     }
 
     @Override
     public void reset() {
         wrappedObject.reset();
-        
+
     }
 
     @Override
     public void die() {
         wrappedObject.die();
-        
+
     }
 
     @Override
@@ -76,13 +75,13 @@ public class AbstractPlayerDecorator implements Player {
     @Override
     public void removeLife() {
         wrappedObject.removeLife();
-        
+
     }
 
     @Override
     public void clearAllPowerups() {
         wrappedObject.clearAllPowerups();
-        
+
     }
 
     @Override
@@ -124,19 +123,19 @@ public class AbstractPlayerDecorator implements Player {
     @Override
     public void applySpeedup() {
         wrappedObject.applySpeedup();
-        
+
     }
 
     @Override
     public void setDefaultSpeed() {
         wrappedObject.setDefaultSpeed();
-        
+
     }
 
     @Override
     public void setSpeed(int newSpeed) {
         wrappedObject.setSpeed(newSpeed);
-        
+
     }
 
     @Override
@@ -152,7 +151,7 @@ public class AbstractPlayerDecorator implements Player {
     @Override
     public void setWeapon(Weapon weapon) {
         wrappedObject.setWeapon(weapon);
-        
+
     }
 
     @Override
@@ -167,7 +166,7 @@ public class AbstractPlayerDecorator implements Player {
 
     @Override
     public void setLives(int lives) {
-        wrappedObject.setLives(lives);        
+        wrappedObject.setLives(lives);
     }
 
     @Override
@@ -198,14 +197,14 @@ public class AbstractPlayerDecorator implements Player {
     @Override
     public void setAnimationCurrent(Animation animationCurrent) {
         wrappedObject.setAnimationCurrent(animationCurrent);
-        
+
     }
 
     @Override
     @Deprecated
     public void setShopWeapon(boolean bool) {
         wrappedObject.setShopWeapon(bool);
-        
+
     }
 
     @Override
@@ -218,7 +217,7 @@ public class AbstractPlayerDecorator implements Player {
     @Deprecated
     public void setShopSpeed(boolean bool) {
         wrappedObject.setShopSpeed(bool);
-        
+
     }
 
     @Override
@@ -240,13 +239,13 @@ public class AbstractPlayerDecorator implements Player {
     @Override
     public void setImage(Image image) {
         wrappedObject.setImage(image);
-        
+
     }
 
     @Override
     public void setLocX(float locX) {
         wrappedObject.setLocX(locX);
-        
+
     }
 
     @Override
@@ -262,7 +261,7 @@ public class AbstractPlayerDecorator implements Player {
     @Override
     public void setLocY(float locY) {
         wrappedObject.setLocY(locY);
-        
+
     }
 
     @Override
@@ -279,6 +278,15 @@ public class AbstractPlayerDecorator implements Player {
     public int getHeight() {
         return wrappedObject.getHeight();
     }
-    
+
+    @Override
+    public Animation getAnimationLeft() {
+        return wrappedObject.getAnimationLeft();
+    }
+
+    @Override
+    public Animation getAnimationRight() {
+        return wrappedObject.getAnimationRight();
+    }
 
 }

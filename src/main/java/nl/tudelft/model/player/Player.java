@@ -86,4 +86,8 @@ public interface Player extends Updateable, Renderable, PlayerInputListener, Gam
      * @return int - The regular speed of this player;
      */
     public int getRegularSpeed();
+    
+    public Animation getAnimationLeft();
+    
+    public Animation getAnimationRight();
 }

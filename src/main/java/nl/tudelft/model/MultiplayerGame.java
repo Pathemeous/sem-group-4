@@ -64,8 +64,12 @@ public class MultiplayerGame extends Game {
     @Override
     public void decoratePlayer(Player player, Player decorator) {
         if (player.equals(firstPlayer)) {
+            settings.getPlayer1Input().removeListener(player);
+            settings.getPlayer1Input().addListener(decorator);
             firstPlayer = decorator;
         } else {
+            settings.getPlayer2Input().removeListener(player);
+            settings.getPlayer2Input().addListener(decorator);
             secondPlayer = decorator;
         }
 

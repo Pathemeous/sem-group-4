@@ -464,8 +464,18 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     public boolean isShopSpeed() {
         return shopSpeedup;
     }
-    
+
     public int getRegularSpeed() {
         return REGULAR_SPEED;
+    }
+
+    @Override
+    public Animation getAnimationLeft() {
+        return this.animationLeft;
+    }
+
+    @Override
+    public Animation getAnimationRight() {
+        return this.animationRight;
     }
 }

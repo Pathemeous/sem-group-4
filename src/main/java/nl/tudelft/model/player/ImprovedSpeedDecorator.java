@@ -1,5 +1,8 @@
 package nl.tudelft.model.player;
 
+import nl.tudelft.controller.logger.LogSeverity;
+import nl.tudelft.model.Game;
+
 public class ImprovedSpeedDecorator extends AbstractPlayerDecorator {
 
     public ImprovedSpeedDecorator(Player wrappedObject) {
@@ -14,5 +17,22 @@ public class ImprovedSpeedDecorator extends AbstractPlayerDecorator {
     @Override
     public int getSpeed() {
         return wrappedObject.getRegularSpeed() * 2;
+    }
+
+    @Override
+    public void moveLeft() {
+        wrappedObject.setAnimationCurrent(wrappedObject.getAnimationLeft());
+        setLocX(getLocX() - getSpeed());
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
+    }
+
+    /**
+     * Moves the {@link Player} right according to its speed and sets the correct animation.
+     */
+    @Override
+    public void moveRight() {
+        wrappedObject.setAnimationCurrent(wrappedObject.getAnimationRight());
+        setLocX(getLocX() + getSpeed());
+        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 }

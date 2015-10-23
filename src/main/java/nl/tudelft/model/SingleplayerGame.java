@@ -55,6 +55,8 @@ public class SingleplayerGame extends Game {
 
     @Override
     public void decoratePlayer(Player player, Player decorator) {
+        settings.getPlayer1Input().removeListener(player);
+        settings.getPlayer1Input().addListener(decorator);
         this.player = decorator;
     }
 }
