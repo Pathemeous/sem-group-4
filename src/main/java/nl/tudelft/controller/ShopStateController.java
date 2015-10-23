@@ -1,7 +1,9 @@
 package nl.tudelft.controller;
 
+import nl.tudelft.model.player.Player;
 import nl.tudelft.view.ShopState;
 import nl.tudelft.view.States;
+
 import org.newdawn.slick.state.StateBasedGame;
 
 public class ShopStateController {
@@ -19,18 +21,30 @@ public class ShopStateController {
     }
 
     /**
-     * Checks if the selected player has enough money and an item is selected,
-     * buys the item and aplies it to the selected player.
+     * Checks if the selected player has enough money and an item is selected, buys the item and
+     * aplies it to the selected player.
      */
     public void applyUpgrade() {
         if (shopState.getSelectedItem() != null
-                && shopState.getSelectedItem().getPrice() <= shopState
-                        .getSelectedPlayer().getMoney()) {
+                && shopState.getSelectedItem().getPrice() <= shopState.getShop().getGame()
+                        .getPlayers()[shopState.getSelectedPlayer()].getMoney()) {
 
-            shopState.getSelectedItem().applyTo(shopState.getSelectedPlayer());
-            shopState.getSelectedPlayer().setMoney(
-                    shopState.getSelectedPlayer().getMoney()
+            // Gets the return value of the applyTo, which is the decorated player.
+            Player modifiedPlayer =
+                    shopState.getSelectedItem().applyTo(
+                            shopState.getShop().getGame().getPlayers()[shopState
+                                    .getSelectedPlayer()]);
+            // Deducts money from the player.
+            shopState.getShop().getGame().getPlayers()[shopState.getSelectedPlayer()]
+                    .setMoney(shopState.getShop().getGame().getPlayers()[shopState
+                            .getSelectedPlayer()].getMoney()
                             - shopState.getSelectedItem().getPrice());
+
+            // Gets the original player
+            Player oldPlayer =
+                    shopState.getShop().getGame().getPlayers()[shopState.getSelectedPlayer()];
+            // replaces the old instance of the player with the new decorated version.
+            shopState.getShop().getGame().decoratePlayer(oldPlayer, modifiedPlayer);
         }
     }
 
@@ -41,8 +55,7 @@ public class ShopStateController {
      *            which player to select
      */
     public void selectPlayer(int selectedPlayer) {
-        shopState
-                .setSelectedPlayer(shopState.getShop().getGame().getPlayers()[selectedPlayer]);
+        shopState.setSelectedPlayer(selectedPlayer);
     }
 
     /**
@@ -52,8 +65,7 @@ public class ShopStateController {
      *            which item to select
      */
     public void selectItem(int selectedItem) {
-        shopState.setSelectedItem(shopState.getShop().getInventory()
-                .get(selectedItem));
+        shopState.setSelectedItem(shopState.getShop().getInventory().get(selectedItem));
 
     }
 

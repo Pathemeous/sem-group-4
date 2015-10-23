@@ -5,9 +5,10 @@ import java.awt.Font;
 import nl.tudelft.controller.ShopStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Game;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
+
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -57,7 +58,8 @@ public class ShopState extends BasicGameState {
     private MouseOverArea buyArea;
 
     private ShopItem selectedItem;
-    private Player selectedPlayer;
+    private int selectedPlayer;
+    // private int selectedPlayerIndicator;
     private ShopStateController controller;
 
     /**
@@ -76,7 +78,6 @@ public class ShopState extends BasicGameState {
         Font font = new Font("Verdana", Font.BOLD, 30);
         ttf = wrapper.createFont(font, true);
 
-        
         backGround = wrapper.getShopBackGround();
         continueText = wrapper.getContinueText();
         shopText = wrapper.getShopText();
@@ -97,8 +98,7 @@ public class ShopState extends BasicGameState {
     }
 
     @Override
-    public void init(GameContainer container, StateBasedGame game)
-            throws SlickException {
+    public void init(GameContainer container, StateBasedGame game) throws SlickException {
 
         input = container.getInput();
         initContinueButton(container);
@@ -109,9 +109,8 @@ public class ShopState extends BasicGameState {
     }
 
     /**
-     * The ShopState is initialized together with all other states. This method
-     * should be called right before the state is brought forward, to setup the
-     * shop for the current session.
+     * The ShopState is initialized together with all other states. This method should be called
+     * right before the state is brought forward, to setup the shop for the current session.
      * 
      * @param game
      *            the game that the players play in.
@@ -119,12 +118,12 @@ public class ShopState extends BasicGameState {
     public void setup(Game game) {
         shop = new Shop(game);
 
-        selectedPlayer = shop.getGame().getPlayers()[0];
+        selectedPlayer = 0;
     }
 
     @Override
-    public void render(GameContainer container, StateBasedGame game,
-            Graphics graphics) throws SlickException {
+    public void render(GameContainer container, StateBasedGame game, Graphics graphics)
+            throws SlickException {
         drawBackground(container, graphics);
         drawButtons(container, graphics);
         drawPlayerIndicators(container, graphics);
@@ -162,20 +161,27 @@ public class ShopState extends BasicGameState {
      *            container in which to init the items in
      */
     private void initItems(GameContainer container) {
-        item1AreaSlow = new MouseOverArea(container, item1Slow,
-                container.getWidth() / 10 * 5, container.getHeight() / 2);
-        item2AreaLife = new MouseOverArea(container, item2Life,
-                container.getWidth() / 10 * 7, container.getHeight() / 2);
-        item3AreaSpeed = new MouseOverArea(container, item3Speed,
-                container.getWidth() / 10 * 9, container.getHeight() / 2);
-        item4AreaDoubleShot = new MouseOverArea(container, item4DoubleShot,
-                container.getWidth() / 10 * 5, container.getHeight() / 10 * 7);
-        item5AreaShield = new MouseOverArea(container, item5Shield,
-                container.getWidth() / 10 * 7, container.getHeight() / 10 * 7);
-        item6AreaTime = new MouseOverArea(container, item6Time,
-                container.getWidth() / 10 * 9, container.getHeight() / 10 * 7);
-        item7AreaSpecial = new MouseOverArea(container, item7Special,
-                container.getWidth() / 10 * 7, container.getHeight() / 10 * 3);
+        item1AreaSlow =
+                new MouseOverArea(container, item1Slow, container.getWidth() / 10 * 5,
+                        container.getHeight() / 2);
+        item2AreaLife =
+                new MouseOverArea(container, item2Life, container.getWidth() / 10 * 7,
+                        container.getHeight() / 2);
+        item3AreaSpeed =
+                new MouseOverArea(container, item3Speed, container.getWidth() / 10 * 9,
+                        container.getHeight() / 2);
+        item4AreaDoubleShot =
+                new MouseOverArea(container, item4DoubleShot, container.getWidth() / 10 * 5,
+                        container.getHeight() / 10 * 7);
+        item5AreaShield =
+                new MouseOverArea(container, item5Shield, container.getWidth() / 10 * 7,
+                        container.getHeight() / 10 * 7);
+        item6AreaTime =
+                new MouseOverArea(container, item6Time, container.getWidth() / 10 * 9,
+                        container.getHeight() / 10 * 7);
+        item7AreaSpecial =
+                new MouseOverArea(container, item7Special, container.getWidth() / 10 * 7,
+                        container.getHeight() / 10 * 3);
 
     }
 
@@ -186,9 +192,9 @@ public class ShopState extends BasicGameState {
      *            container in which to init the button
      */
     private void initBuyButton(GameContainer container) {
-        buyArea = new MouseOverArea(container, buyText,
-                container.getWidth() / 10 * 7, container.getHeight()
-                        - buyText.getHeight());
+        buyArea =
+                new MouseOverArea(container, buyText, container.getWidth() / 10 * 7,
+                        container.getHeight() - buyText.getHeight());
     }
 
     /**
@@ -198,10 +204,12 @@ public class ShopState extends BasicGameState {
      *            container in which to init the player buttons
      */
     private void initPlayerButtons(GameContainer container) {
-        player1Area = new MouseOverArea(container, player1On,
-                container.getWidth() / 10, container.getHeight() / 10 * 3);
-        player2Area = new MouseOverArea(container, player2On,
-                container.getWidth() / 10, container.getHeight() / 10 * 4);
+        player1Area =
+                new MouseOverArea(container, player1On, container.getWidth() / 10,
+                        container.getHeight() / 10 * 3);
+        player2Area =
+                new MouseOverArea(container, player2On, container.getWidth() / 10,
+                        container.getHeight() / 10 * 4);
 
     }
 
@@ -214,9 +222,9 @@ public class ShopState extends BasicGameState {
     private void initContinueButton(GameContainer container) {
         System.out.println(continueText);
         System.out.println(container);
-        continueArea = new MouseOverArea(container, continueText,
-                container.getWidth() / 10 * 8, container.getHeight()
-                        - continueText.getHeight());
+        continueArea =
+                new MouseOverArea(container, continueText, container.getWidth() / 10 * 8,
+                        container.getHeight() - continueText.getHeight());
     }
 
     /**
@@ -228,17 +236,12 @@ public class ShopState extends BasicGameState {
      *            graphics used to draw the upgrade
      */
     private void drawItemSlow(GameContainer container, Graphics graphics) {
-        graphics.drawImage(item1Slow, container.getWidth() / 10 * 5,
-                container.getHeight() / 2);
-        final String item1SlowPrice = String.format("$ %d", shop.getInventory()
-                .get(0).getPrice());
-        ttf.drawString(
-                container.getWidth() / 10 * 5
-                        - (ttf.getWidth(item1SlowPrice) / 2),
-                container.getHeight() / 2 + item1Slow.getHeight(),
-                item1SlowPrice,
-                selectedItem == shop.getInventory().get(0) ? Color.red
-                        : Color.white);
+        graphics.drawImage(item1Slow, container.getWidth() / 10 * 5, container.getHeight() / 2);
+        final String item1SlowPrice =
+                String.format("$ %d", shop.getInventory().get(0).getPrice());
+        ttf.drawString(container.getWidth() / 10 * 5 - (ttf.getWidth(item1SlowPrice) / 2),
+                container.getHeight() / 2 + item1Slow.getHeight(), item1SlowPrice,
+                selectedItem == shop.getInventory().get(0) ? Color.red : Color.white);
     }
 
     /**
@@ -250,17 +253,12 @@ public class ShopState extends BasicGameState {
      *            graphics used to draw the upgrade
      */
     private void drawItem2Life(GameContainer container, Graphics graphics) {
-        graphics.drawImage(item2Life, container.getWidth() / 10 * 7,
-                container.getHeight() / 2);
-        final String item2LifePrice = String.format("$ %d", shop.getInventory()
-                .get(2).getPrice());
-        ttf.drawString(
-                container.getWidth() / 10 * 7
-                        - (ttf.getWidth(item2LifePrice) / 2),
-                container.getHeight() / 2 + item1Slow.getHeight(),
-                item2LifePrice,
-                selectedItem == shop.getInventory().get(2) ? Color.red
-                        : Color.white);
+        graphics.drawImage(item2Life, container.getWidth() / 10 * 7, container.getHeight() / 2);
+        final String item2LifePrice =
+                String.format("$ %d", shop.getInventory().get(2).getPrice());
+        ttf.drawString(container.getWidth() / 10 * 7 - (ttf.getWidth(item2LifePrice) / 2),
+                container.getHeight() / 2 + item1Slow.getHeight(), item2LifePrice,
+                selectedItem == shop.getInventory().get(2) ? Color.red : Color.white);
     }
 
     /**
@@ -274,15 +272,11 @@ public class ShopState extends BasicGameState {
     private void drawItem3Speed(GameContainer container, Graphics graphics) {
         graphics.drawImage(item3Speed, container.getWidth() / 10 * 9,
                 container.getHeight() / 2);
-        final String item3SpeedPrice = String.format("$ %d", shop
-                .getInventory().get(3).getPrice());
-        ttf.drawString(
-                container.getWidth() / 10 * 9
-                        - (ttf.getWidth(item3SpeedPrice) / 2),
-                container.getHeight() / 2 + item1Slow.getHeight(),
-                item3SpeedPrice,
-                selectedItem == shop.getInventory().get(3) ? Color.red
-                        : Color.white);
+        final String item3SpeedPrice =
+                String.format("$ %d", shop.getInventory().get(3).getPrice());
+        ttf.drawString(container.getWidth() / 10 * 9 - (ttf.getWidth(item3SpeedPrice) / 2),
+                container.getHeight() / 2 + item1Slow.getHeight(), item3SpeedPrice,
+                selectedItem == shop.getInventory().get(3) ? Color.red : Color.white);
     }
 
     /**
@@ -296,14 +290,12 @@ public class ShopState extends BasicGameState {
     private void drawItem4Double(GameContainer container, Graphics graphics) {
         graphics.drawImage(item4DoubleShot, container.getWidth() / 10 * 5,
                 container.getHeight() / 10 * 7);
-        final String item4DoubleShotPrice = String.format("$ %d", shop
-                .getInventory().get(4).getPrice());
-        ttf.drawString(
-                container.getWidth() / 10 * 5
-                        - (ttf.getWidth(item4DoubleShotPrice) / 2),
-                container.getHeight() / 10 * 7 + item1Slow.getHeight(),
-                item4DoubleShotPrice, selectedItem == shop.getInventory()
-                        .get(4) ? Color.red : Color.white);
+        final String item4DoubleShotPrice =
+                String.format("$ %d", shop.getInventory().get(4).getPrice());
+        ttf.drawString(container.getWidth() / 10 * 5
+                - (ttf.getWidth(item4DoubleShotPrice) / 2), container.getHeight() / 10 * 7
+                + item1Slow.getHeight(), item4DoubleShotPrice, selectedItem == shop
+                .getInventory().get(4) ? Color.red : Color.white);
     }
 
     /**
@@ -317,15 +309,11 @@ public class ShopState extends BasicGameState {
     private void drawItem5Shield(GameContainer container, Graphics graphics) {
         graphics.drawImage(item5Shield, container.getWidth() / 10 * 7,
                 container.getHeight() / 10 * 7);
-        final String item5ShieldPrice = String.format("$ %d", shop
-                .getInventory().get(6).getPrice());
-        ttf.drawString(
-                container.getWidth() / 10 * 7
-                        - (ttf.getWidth(item5ShieldPrice) / 2),
-                container.getHeight() / 10 * 7 + item1Slow.getHeight(),
-                item5ShieldPrice,
-                selectedItem == shop.getInventory().get(6) ? Color.red
-                        : Color.white);
+        final String item5ShieldPrice =
+                String.format("$ %d", shop.getInventory().get(6).getPrice());
+        ttf.drawString(container.getWidth() / 10 * 7 - (ttf.getWidth(item5ShieldPrice) / 2),
+                container.getHeight() / 10 * 7 + item1Slow.getHeight(), item5ShieldPrice,
+                selectedItem == shop.getInventory().get(6) ? Color.red : Color.white);
     }
 
     /**
@@ -340,15 +328,11 @@ public class ShopState extends BasicGameState {
         graphics.drawImage(item6Time, container.getWidth() / 10 * 9,
                 container.getHeight() / 10 * 7);
 
-        final String item6TimePrice = String.format("$ %d", shop.getInventory()
-                .get(1).getPrice());
-        ttf.drawString(
-                container.getWidth() / 10 * 9
-                        - (ttf.getWidth(item6TimePrice) / 2),
-                container.getHeight() / 10 * 7 + item1Slow.getHeight(),
-                item6TimePrice,
-                selectedItem == shop.getInventory().get(1) ? Color.red
-                        : Color.white);
+        final String item6TimePrice =
+                String.format("$ %d", shop.getInventory().get(1).getPrice());
+        ttf.drawString(container.getWidth() / 10 * 9 - (ttf.getWidth(item6TimePrice) / 2),
+                container.getHeight() / 10 * 7 + item1Slow.getHeight(), item6TimePrice,
+                selectedItem == shop.getInventory().get(1) ? Color.red : Color.white);
     }
 
     /**
@@ -362,15 +346,11 @@ public class ShopState extends BasicGameState {
     private void drawItem7Special(GameContainer container, Graphics graphics) {
         graphics.drawImage(item7Special, container.getWidth() / 10 * 7,
                 container.getHeight() / 10 * 3);
-        final String item7SpecialPrice = String.format("$ %d", shop
-                .getInventory().get(5).getPrice());
-        ttf.drawString(
-                container.getWidth() / 10 * 7
-                        - (ttf.getWidth(item7SpecialPrice) / 2),
-                container.getHeight() / 10 * 3 + item1Slow.getHeight(),
-                item7SpecialPrice,
-                selectedItem == shop.getInventory().get(5) ? Color.red
-                        : Color.white);
+        final String item7SpecialPrice =
+                String.format("$ %d", shop.getInventory().get(5).getPrice());
+        ttf.drawString(container.getWidth() / 10 * 7 - (ttf.getWidth(item7SpecialPrice) / 2),
+                container.getHeight() / 10 * 3 + item1Slow.getHeight(), item7SpecialPrice,
+                selectedItem == shop.getInventory().get(5) ? Color.red : Color.white);
     }
 
     /**
@@ -382,22 +362,21 @@ public class ShopState extends BasicGameState {
      *            graphics used to display the elements
      */
     private void drawPlayersMoney(GameContainer container, Graphics graphics) {
-        final String playerOneMoney = String.format("$ %d", shop.getGame()
-                .getPlayers()[0].getMoney());
+        final String playerOneMoney =
+                String.format("$ %d", shop.getGame().getPlayers()[0].getMoney());
         ttf.drawString(
                 container.getWidth() / 10 - (ttf.getWidth(playerOneMoney)),
                 (container.getHeight() / 10 * 3) + player1Off.getHeight() / 2
-                        - (ttf.getHeight(playerOneMoney) / 2), playerOneMoney,
-                Color.yellow);
+                        - (ttf.getHeight(playerOneMoney) / 2), playerOneMoney, Color.yellow);
 
         if (shop.getGame().getPlayers().length == 2) {
-            final String playerTwoMoney = String.format("$ %d", shop.getGame()
-                    .getPlayers()[1].getMoney());
+            final String playerTwoMoney =
+                    String.format("$ %d", shop.getGame().getPlayers()[1].getMoney());
             ttf.drawString(
                     container.getWidth() / 10 - (ttf.getWidth(playerTwoMoney)),
-                    (container.getHeight() / 10 * 4) + player1Off.getHeight()
-                            / 2 - (ttf.getHeight(playerTwoMoney) / 2),
-                    playerTwoMoney, Color.yellow);
+                    (container.getHeight() / 10 * 4) + player1Off.getHeight() / 2
+                            - (ttf.getHeight(playerTwoMoney) / 2), playerTwoMoney,
+                    Color.yellow);
         }
     }
 
@@ -410,7 +389,7 @@ public class ShopState extends BasicGameState {
      *            graphics use to draw the indicators
      */
     private void drawPlayerIndicators(GameContainer container, Graphics graphics) {
-        if (selectedPlayer.isFirstPlayer()) {
+        if (this.getShop().getGame().getPlayers()[selectedPlayer].isFirstPlayer()) {
             graphics.drawImage(player1On, container.getWidth() / 10,
                     container.getHeight() / 10 * 3);
             if (shop.getGame().getPlayers().length == 2) {
@@ -434,12 +413,11 @@ public class ShopState extends BasicGameState {
      *            graphics used to draw the buttons
      */
     private void drawButtons(GameContainer container, Graphics graphics) {
-        graphics.drawImage(continueText, container.getWidth() / 10 * 8,
-                container.getHeight() - continueText.getHeight());
-        graphics.drawImage(buyText, container.getWidth() / 10 * 7,
-                container.getHeight() - buyText.getHeight());
-        graphics.drawImage(shopText,
-                container.getWidth() / 2 - shopText.getWidth() / 2,
+        graphics.drawImage(continueText, container.getWidth() / 10 * 8, container.getHeight()
+                - continueText.getHeight());
+        graphics.drawImage(buyText, container.getWidth() / 10 * 7, container.getHeight()
+                - buyText.getHeight());
+        graphics.drawImage(shopText, container.getWidth() / 2 - shopText.getWidth() / 2,
                 container.getHeight() / 10);
     }
 
@@ -452,10 +430,9 @@ public class ShopState extends BasicGameState {
      *            graphics used to draw background in
      */
     private void drawBackground(GameContainer container, Graphics graphics) {
-        graphics.drawImage(wrapper.getShopBackGround(), 0, 0, container
-                .getWidth(), container.getHeight(), 0, 0, wrapper
-                .getShopBackGround().getWidth(), wrapper.getShopBackGround()
-                .getHeight());
+        graphics.drawImage(wrapper.getShopBackGround(), 0, 0, container.getWidth(), container
+                .getHeight(), 0, 0, wrapper.getShopBackGround().getWidth(), wrapper
+                .getShopBackGround().getHeight());
 
     }
 
@@ -544,18 +521,18 @@ public class ShopState extends BasicGameState {
      * 
      * @return the selectedPlayer
      */
-    public Player getSelectedPlayer() {
+    public int getSelectedPlayer() {
         return selectedPlayer;
     }
 
     /**
      * Sets the selected player.
      * 
-     * @param selectedPlayer
-     *            the selectedPlayer to set
+     * @param int - selectedPlayer the selectedPlayer to set
      */
-    public void setSelectedPlayer(Player selectedPlayer) {
+    public void setSelectedPlayer(int selectedPlayer) {
         this.selectedPlayer = selectedPlayer;
+        this.shop.getGame().getPlayers()[selectedPlayer].setMoney(1000);
     }
 
     /**

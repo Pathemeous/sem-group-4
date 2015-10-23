@@ -29,6 +29,7 @@ public class KeyBindHelper {
     public static final String PLAYER2_RIGHT_KEY = "Player2Right";
     public static final String PLAYER1_SHOOT_KEY = "Player1Shoot";
     public static final String PLAYER2_SHOOT_KEY = "Player2Shoot";
+    private static Settings settings = Settings.getInstance();
 
     /**
      * Attempts to load the input settings as specified in the FILENAME file. If this file is not
@@ -78,8 +79,8 @@ public class KeyBindHelper {
      * @return {@link JSONObject} - the JSON representation of the input settings.
      */
     private static JSONObject toJSON() {
-        PlayerInput player1Input = Settings.getPlayer1Input();
-        PlayerInput player2Input = Settings.getPlayer2Input();
+        PlayerInput player1Input = settings.getPlayer1Input();
+        PlayerInput player2Input = settings.getPlayer2Input();
 
         JSONObject json = new JSONObject();
         json.put(PLAYER1_LEFT_KEY, player1Input.getLeftInput().getKeyCode());
@@ -94,8 +95,8 @@ public class KeyBindHelper {
     }
 
     private static void updateSettings(JSONObject json) {
-        Settings.setPlayer1Input(getPlayer1Input(json));
-        Settings.setPlayer2Input(getPlayer2Input(json));
+        settings.setPlayer1Input(getPlayer1Input(json));
+        settings.setPlayer2Input(getPlayer2Input(json));
     }
 
     /**

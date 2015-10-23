@@ -4,7 +4,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 import nl.tudelft.controller.Modifiable;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 /**
  * Represents an object to handle input events for a {@link Player}.
@@ -93,7 +93,7 @@ public class PlayerInput extends AbstractPlayerInput implements Observer {
      * @param leftInput
      *            {@link InputKey} - The leftInput to set.
      */
-    public final void setLeftInput(InputKey leftInput) {
+    public void setLeftInput(InputKey leftInput) {
         this.leftInput.deleteObserver(this);
         this.leftInput = leftInput;
         this.leftInput.addObserver(this);
@@ -110,7 +110,7 @@ public class PlayerInput extends AbstractPlayerInput implements Observer {
      * @param rightInput
      *            {@link InputKey} - The rightInput to set.
      */
-    public final void setRightInput(InputKey rightInput) {
+    public void setRightInput(InputKey rightInput) {
         this.rightInput.deleteObserver(this);
         this.rightInput = rightInput;
         this.rightInput.addObserver(this);
@@ -127,7 +127,7 @@ public class PlayerInput extends AbstractPlayerInput implements Observer {
      * @param shootInput
      *            {@link InputKey} - The shootInput to set.
      */
-    public final void setShootInput(InputKey shootInput) {
+    public void setShootInput(InputKey shootInput) {
         this.shootInput.deleteObserver(this);
         this.shootInput = shootInput;
         this.shootInput.addObserver(this);
@@ -138,7 +138,7 @@ public class PlayerInput extends AbstractPlayerInput implements Observer {
      * 
      * @return {@link InputKey} - The leftInput of this instance.
      */
-    public final InputKey getLeftInput() {
+    public InputKey getLeftInput() {
         return leftInput;
     }
 
@@ -147,7 +147,7 @@ public class PlayerInput extends AbstractPlayerInput implements Observer {
      * 
      * @return {@link InputKey} - The rightInput of this instance.
      */
-    public final InputKey getRightInput() {
+    public InputKey getRightInput() {
         return rightInput;
     }
 
@@ -156,7 +156,7 @@ public class PlayerInput extends AbstractPlayerInput implements Observer {
      * 
      * @return {@link InputKey} - The shootInput of this instance.
      */
-    public final InputKey getShootInput() {
+    public InputKey getShootInput() {
         return shootInput;
     }
 

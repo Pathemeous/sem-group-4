@@ -12,7 +12,7 @@ import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.bubble.Bubble6Factory;
+import nl.tudelft.model.bubble.Bubble6;
 
 import org.junit.Test;
 import org.mockito.Mockito;
@@ -53,7 +53,7 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        AbstractBubble bubble = new Bubble6Factory(mockedResources).createBubble();
+        AbstractBubble bubble = new Bubble6(mockedResources, 0, 0);
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);
         
@@ -77,7 +77,7 @@ public class FreezeUtilityTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         FreezeUtility utility = new FreezeUtility(mockedResources, 0, 0);
         
-        AbstractBubble bubble = new Bubble6Factory(mockedResources).createBubble();
+        AbstractBubble bubble = new Bubble6(mockedResources, 0, 0);
         bubble.setFrozen(true);
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
         bubbles.add(bubble);

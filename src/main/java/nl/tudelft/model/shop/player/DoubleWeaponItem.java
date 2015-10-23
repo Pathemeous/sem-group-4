@@ -1,15 +1,18 @@
 package nl.tudelft.model.shop.player;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Player;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.player.DoubleWeaponDecorator;
+import nl.tudelft.model.player.Player;
 
 public class DoubleWeaponItem extends PlayerShopItem {
 
     /**
      * Constructor for ShopWeaponItem.
-     * @param price - The price of the item.
+     * 
+     * @param price
+     *            - The price of the item.
      */
     public DoubleWeaponItem(int price) {
         super(price);
@@ -17,12 +20,16 @@ public class DoubleWeaponItem extends PlayerShopItem {
 
     /**
      * Activate the weapon item.
-     * @param buyer : The person who is buying the item.
+     * 
+     * @param buyer
+     *            : The person who is buying the item.
+     * @return {@link Player} the player.
      */
-    public void applyTo(Player buyer) {
-        Weapon weapon = new DoubleWeapon(new ResourcesWrapper(), 0, 0);
-        buyer.setWeapon(weapon);
-        buyer.setShopWeapon(true);
-        weapon.activate(buyer);
+    public Player applyTo(Player buyer) {
+        // Weapon weapon = new DoubleWeapon(new ResourcesWrapper(), 0, 0);
+        // buyer.setWeapon(weapon);
+        // buyer.setShopWeapon(true);
+        // weapon.activate(buyer);
+        return new DoubleWeaponDecorator(buyer);
     }
 }

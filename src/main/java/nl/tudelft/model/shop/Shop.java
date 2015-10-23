@@ -6,7 +6,7 @@ import java.util.Random;
 
 import nl.tudelft.model.Game;
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.level.ExtraTime;
 import nl.tudelft.model.shop.level.SlowGameSpeed;
 import nl.tudelft.model.shop.player.DoubleWeaponItem;

@@ -9,6 +9,8 @@ import nl.tudelft.controller.logger.DefaultLogger;
 import nl.tudelft.controller.logger.Logger;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.AbstractPlayerDecorator;
+import nl.tudelft.model.player.Player;
 import nl.tudelft.view.GameEndedState;
 import nl.tudelft.view.ShopState;
 import nl.tudelft.view.States;
@@ -59,8 +61,8 @@ public abstract class Game implements Renderable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(StateBasedGame mainApp, int containerWidth,
-                int containerHeight, ResourcesWrapper wrapper) {
+    public Game(StateBasedGame mainApp, int containerWidth, int containerHeight,
+            ResourcesWrapper wrapper) {
         // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
@@ -74,7 +76,6 @@ public abstract class Game implements Renderable {
         this.curLevel = this.levelIt.next();
         countdown = new Countdown(this, wrapper);
     }
-
 
     /**
      * Performs updates and logic on the Game object. This makes sure the game continues to
@@ -121,7 +122,7 @@ public abstract class Game implements Renderable {
             Game.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
             nextLevel();
-        } 
+        }
     }
 
     /**
@@ -227,9 +228,9 @@ public abstract class Game implements Renderable {
                 player.setScore(player.getScore() + score);
             }
             setCurLevel(levelIt.next());
-            
+
             ((ShopState) mainApp.getState(States.ShopState)).setup(this);
-            mainApp.enterState(States.ShopState); 
+            mainApp.enterState(States.ShopState);
         } else {
             gameCompleted();
         }
@@ -264,18 +265,29 @@ public abstract class Game implements Renderable {
     public int getContainerHeight() {
         return this.containerHeight;
     }
-    
+
     public void setPaused(boolean paused) {
         this.paused = paused;
     }
-    
+
     public boolean isPaused() {
         return paused;
     }
-    
+
     public Countdown getCountdown() {
         return countdown;
     }
+
+    /**
+     * Decorates the specified player with the specified decorator, by replacing the player
+     * attribute in the Game class with the decorated one.
+     * 
+     * @param player
+     *            {@link Player} - The player that must be decorated.
+     * @param decorator
+     *            {@link Player} - A new instance of Player that will replace the old one.
+     */
+    public abstract void decoratePlayer(Player player, Player decorator);
 
     /**
      * Gets the players.

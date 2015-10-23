@@ -12,7 +12,7 @@ import static org.mockito.Mockito.verify;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 import org.junit.Before;
 import org.junit.Test;

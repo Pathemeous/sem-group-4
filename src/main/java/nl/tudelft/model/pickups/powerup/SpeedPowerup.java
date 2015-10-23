@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.powerup;
 
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Player;
+import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.SlickException;
 
@@ -26,7 +26,7 @@ public class SpeedPowerup extends Powerup {
             }
             
             player.setPowerup(Powerup.SPEED, this);
-            player.applySpeedup();
+            player.setSpeed(player.getRegularSpeed() * 2);
         }
     }
     

@@ -78,7 +78,7 @@ public class InputKey extends Observable {
      * 
      * @return int - the keyCode of the key that this object checks for.
      */
-    public final int getKeyCode() {
+    public int getKeyCode() {
         return keyCode;
     }
 
@@ -91,7 +91,7 @@ public class InputKey extends Observable {
      * 
      * @return the input
      */
-    protected static final Input getInput() {
+    protected static Input getInput() {
         return input;
     }
 
@@ -105,7 +105,7 @@ public class InputKey extends Observable {
      * @param input
      *            {@link Input} - The input to set.
      */
-    protected static final void setInput(Input input) {
+    protected static void setInput(Input input) {
         InputKey.input = input;
     }
 
@@ -115,7 +115,7 @@ public class InputKey extends Observable {
      * @param Boolean
      *            down - The key is considered to be pressed when true, and false otherwise
      */
-    protected final void setDown(Boolean down) {
+    protected void setDown(Boolean down) {
         this.down = down;
     }
 

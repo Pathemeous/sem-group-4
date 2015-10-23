@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import nl.tudelft.model.AbstractGameObject;
+import nl.tudelft.model.GameObject;
 
 import org.newdawn.slick.geom.Rectangle;
 import org.newdawn.slick.geom.Shape;
@@ -14,7 +15,7 @@ public class QuadTree {
     private static final int MAX_LEVELS = 3;
 
     private final int depthLevel;
-    private final List<AbstractGameObject> objects;
+    private final List<GameObject> objects;
     private final Rectangle bounds;
     private QuadTree[] nodes;
 
@@ -58,8 +59,8 @@ public class QuadTree {
     protected final Rectangle getBounds() {
         return bounds;
     }
-    
-    protected final List<AbstractGameObject> getObjects() {
+
+    protected final List<GameObject> getObjects() {
         return objects;
     }
 
@@ -136,15 +137,17 @@ public class QuadTree {
 
         return index;
     }
-    
+
     /**
-     * Check for each quadrant of the current node, if a Shape lies (partly) within it. 
-     * @param rect : the Shape for which the quadrants it lies in is checked.
+     * Check for each quadrant of the current node, if a Shape lies (partly) within it.
+     * 
+     * @param rect
+     *            : the Shape for which the quadrants it lies in is checked.
      * @return : a List defining the quadrants this Shape lies in.
      */
     private List<Integer> getIndices(Shape rect) {
         List<Integer> indices = new ArrayList<>();
-        
+
         double verticalMidpoint = bounds.getX() + (bounds.getWidth() / 2);
         double horizontalMid = bounds.getY() + (bounds.getHeight() / 2);
 
@@ -153,36 +156,35 @@ public class QuadTree {
 
         return indices;
     }
-    
-    private void checkLeftQuadrants(List<Integer> indices, Shape rect, 
+
+    private void checkLeftQuadrants(List<Integer> indices, Shape rect,
             double verticalMidpoint, double horizontalMid) {
         // Object lies (partly) in topQuadrant
         boolean topQuadrant = rect.getY() < horizontalMid;
         // Object lies (partly) within the bottom quadrants
-        boolean bottomQuadrant = rect.getY() > horizontalMid 
-                || rect.getY() + rect.getHeight() > horizontalMid;
-        
+        boolean bottomQuadrant =
+                rect.getY() > horizontalMid || rect.getY() + rect.getHeight() > horizontalMid;
+
         // Object lies (partly) within the left quadrants
         if (rect.getX() < verticalMidpoint) {
             if (topQuadrant) {
                 indices.add(1);
-            } 
+            }
             if (bottomQuadrant) {
                 indices.add(2);
             }
         }
     }
-    
-    private void checkRightQuadrants(List<Integer> indices, Shape rect, 
+
+    private void checkRightQuadrants(List<Integer> indices, Shape rect,
             double verticalMidpoint, double horizontalMid) {
         // Object lies (partly) in topQuadrant
         boolean topQuadrant = rect.getY() < horizontalMid;
         // Object lies (partly) within the bottom quadrants
-        boolean bottomQuadrant = rect.getY() > horizontalMid 
-                || rect.getY() + rect.getHeight() > horizontalMid;
-        
-        if (rect.getX() > verticalMidpoint 
-                || rect.getX() + rect.getWidth() > verticalMidpoint) {
+        boolean bottomQuadrant =
+                rect.getY() > horizontalMid || rect.getY() + rect.getHeight() > horizontalMid;
+
+        if (rect.getX() > verticalMidpoint || rect.getX() + rect.getWidth() > verticalMidpoint) {
             // Object lies (partly) within right quadrants
             if (topQuadrant) {
                 indices.add(0);
@@ -200,7 +202,7 @@ public class QuadTree {
      * @param rect
      *            GameObject - the object to insert.
      */
-    public void insert(AbstractGameObject rect) {
+    public void insert(GameObject rect) {
         if (nodes[0] != null) {
             int index = getIndex(rect.getBounds());
 
@@ -239,13 +241,12 @@ public class QuadTree {
      *            Shape - the given shape.
      * @return List - the list of collidable objects.
      */
-    public List<AbstractGameObject>
-            retrieve(List<AbstractGameObject> returnObjects, Shape rect) {
+    public List<GameObject> retrieve(List<GameObject> returnObjects, Shape rect) {
         int index = getIndex(rect);
         if (index != -1 && nodes[0] != null) {
             nodes[index].retrieve(returnObjects, rect);
         } else if (index == -1 && nodes[0] != null) {
-            // The node is not in one quadrant, so instead, find all quadrants the node 
+            // The node is not in one quadrant, so instead, find all quadrants the node
             // is partly in.
             for (int indexValue : getIndices(rect)) {
                 nodes[indexValue].retrieve(returnObjects, rect);

@@ -29,8 +29,8 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final LinkedList<Projectile> projectiles;
     private final LinkedList<Pickup> pickups;
     private final LinkedList<AbstractBubble> bubbles;
-    private final LinkedList<AbstractGameObject> pendingRemoval = new LinkedList<>();
-    private final LinkedList<AbstractGameObject> pendingAddition = new LinkedList<>();
+    private final LinkedList<GameObject> pendingRemoval = new LinkedList<>();
+    private final LinkedList<GameObject> pendingAddition = new LinkedList<>();
     private final Image backgroundImage;
     private int time;
     private int maxTime;
@@ -89,7 +89,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         }
 
         // Update the object lists.
-        for (AbstractGameObject obj : pendingAddition) {
+        for (GameObject obj : pendingAddition) {
             if (obj instanceof Projectile) {
                 projectiles.add((Projectile) obj);
             }
@@ -104,7 +104,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             }
         }
 
-        for (AbstractGameObject obj : pendingRemoval) {
+        for (GameObject obj : pendingRemoval) {
             if (obj instanceof Projectile) {
                 projectiles.remove(obj);
             }
@@ -145,12 +145,12 @@ public class Level implements Updateable, Renderable, Modifiable {
     }
 
     @Override
-    public void toAdd(AbstractGameObject obj) {
+    public void toAdd(GameObject obj) {
         pendingAddition.add(obj);
     }
 
     @Override
-    public void toRemove(AbstractGameObject obj) {
+    public void toRemove(GameObject obj) {
         pendingRemoval.add(obj);
     }
 
@@ -282,7 +282,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      * 
      * @return {@link LinkedList} of {@link AbstractGameObject}s - the buffer.
      */
-    public LinkedList<AbstractGameObject> getToRemove() {
+    public LinkedList<GameObject> getToRemove() {
         return pendingRemoval;
     }
 
@@ -291,7 +291,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      * 
      * @return {@link LinkedList} of {@link AbstractGameObject}s - the buffer.
      */
-    public LinkedList<AbstractGameObject> getToAdd() {
+    public LinkedList<GameObject> getToAdd() {
         return pendingAddition;
     }
 

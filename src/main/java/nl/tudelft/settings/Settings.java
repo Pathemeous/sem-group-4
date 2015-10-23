@@ -8,19 +8,29 @@ import nl.tudelft.model.Game;
 
 public class Settings {
 
-    static PlayerInput player1Input;
-    static PlayerInput player2Input;
+    private static Settings instance = new Settings();
+    private PlayerInput player1Input;
+    private PlayerInput player2Input;
 
     /**
-     * Private constructor to avoid instantiation.
+     * Private constructor to avoid instantiation by other classes.
      */
     private Settings() {
     }
 
     /**
+     * Get the settings instance.
+     * @return
+     *             instance - the settings instance
+     */
+    public static Settings getInstance() {
+        return instance;
+    }
+
+    /**
      * Initializes all the settings.
      */
-    public static void init() {
+    public void init() {
         try {
             KeyBindHelper.load();
         } catch (IOException e) {
@@ -34,7 +44,7 @@ public class Settings {
      * 
      * @return {@link PlayerInput} - The input for player 1.
      */
-    public static PlayerInput getPlayer1Input() {
+    public PlayerInput getPlayer1Input() {
         return player1Input;
     }
 
@@ -44,7 +54,7 @@ public class Settings {
      * @param input
      *            {@link PlayerInput} - The new input for player 1.
      */
-    public static void setPlayer1Input(PlayerInput input) {
+    public void setPlayer1Input(PlayerInput input) {
         player1Input = input;
     }
 
@@ -53,7 +63,7 @@ public class Settings {
      * 
      * @return {@link PlayerInput} - The input for player 2.
      */
-    public static PlayerInput getPlayer2Input() {
+    public PlayerInput getPlayer2Input() {
         return player2Input;
     }
 
@@ -63,7 +73,7 @@ public class Settings {
      * @param input
      *            {@link PlayerInput} - The new input for player 2.
      */
-    public static void setPlayer2Input(PlayerInput input) {
+    public void setPlayer2Input(PlayerInput input) {
         player2Input = input;
     }
 
@@ -73,7 +83,7 @@ public class Settings {
      * @param newInput
      *            {@link InputKey} - The new key to use.
      */
-    public static void setPlayer1LeftKey(InputKey newInput) {
+    public void setPlayer1LeftKey(InputKey newInput) {
         player1Input.setLeftInput(newInput);
     }
 
@@ -83,7 +93,7 @@ public class Settings {
      * @param newInput
      *            {@link InputKey} - The new key to use.
      */
-    public static void setPlayer1RightKey(InputKey newInput) {
+    public void setPlayer1RightKey(InputKey newInput) {
         player1Input.setRightInput(newInput);
     }
 
@@ -93,7 +103,7 @@ public class Settings {
      * @param newInput
      *            {@link InputKey} - The new key to use.
      */
-    public static void setPlayer1ShootKey(InputKey newInput) {
+    public void setPlayer1ShootKey(InputKey newInput) {
         player1Input.setShootInput(newInput);
     }
 
@@ -103,7 +113,7 @@ public class Settings {
      * @param newInput
      *            {@link InputKey} - The new key to use.
      */
-    public static void setPlayer2LeftKey(InputKey newInput) {
+    public void setPlayer2LeftKey(InputKey newInput) {
         player2Input.setLeftInput(newInput);
     }
 
@@ -113,7 +123,7 @@ public class Settings {
      * @param newInput
      *            {@link InputKey} - The new key to use.
      */
-    public static void setPlayer2RightKey(InputKey newInput) {
+    public void setPlayer2RightKey(InputKey newInput) {
         player2Input.setRightInput(newInput);
     }
 
@@ -123,7 +133,7 @@ public class Settings {
      * @param newInput
      *            {@link InputKey} - The new key to use.
      */
-    public static void setPlayer2ShootKey(InputKey newInput) {
+    public void setPlayer2ShootKey(InputKey newInput) {
         player2Input.setShootInput(newInput);
     }
 
@@ -134,7 +144,7 @@ public class Settings {
      * This saves the settings in between sessions.
      * </p>
      */
-    public static void save() {
+    public void save() {
         try {
             KeyBindHelper.save();
         } catch (IOException e) {
@@ -146,7 +156,7 @@ public class Settings {
     /**
      * Reset the settings to their defaults.
      */
-    public static void setDefaults() {
+    public void setDefaults() {
         try {
             KeyBindHelper.loadDefaults();
         } catch (IOException e) {
