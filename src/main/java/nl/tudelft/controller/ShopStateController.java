@@ -29,17 +29,21 @@ public class ShopStateController {
                 && shopState.getSelectedItem().getPrice() <= shopState.getShop().getGame()
                         .getPlayers()[shopState.getSelectedPlayer()].getMoney()) {
 
+            // Gets the return value of the applyTo, which is the decorated player.
             Player modifiedPlayer =
                     shopState.getSelectedItem().applyTo(
                             shopState.getShop().getGame().getPlayers()[shopState
                                     .getSelectedPlayer()]);
+            // Deducts money from the player.
             shopState.getShop().getGame().getPlayers()[shopState.getSelectedPlayer()]
                     .setMoney(shopState.getShop().getGame().getPlayers()[shopState
                             .getSelectedPlayer()].getMoney()
                             - shopState.getSelectedItem().getPrice());
 
+            // Gets the original player
             Player oldPlayer =
                     shopState.getShop().getGame().getPlayers()[shopState.getSelectedPlayer()];
+            // replaces the old instance of the player with the new decorated version.
             shopState.getShop().getGame().decoratePlayer(oldPlayer, modifiedPlayer);
         }
     }
