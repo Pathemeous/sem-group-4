@@ -13,8 +13,8 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class MultiplayerGame extends Game {
 
-    private final Player firstPlayer;
-    private final Player secondPlayer;
+    private Player firstPlayer;
+    private Player secondPlayer;
     private final PlayerInput player1Input;
     private final PlayerInput player2Input;
     private Settings settings = Settings.getInstance();
@@ -52,12 +52,22 @@ public class MultiplayerGame extends Game {
     public Player[] getPlayers() {
         return new Player[] { firstPlayer, secondPlayer };
     }
-    
+
     @Override
     public void update(int delta) throws SlickException {
         super.update(delta);
-        
+
         player1Input.poll();
         player2Input.poll();
+    }
+
+    @Override
+    public void decoratePlayer(Player player, Player decorator) {
+        if (player.equals(firstPlayer)) {
+            firstPlayer = decorator;
+        } else {
+            secondPlayer = decorator;
+        }
+
     }
 }

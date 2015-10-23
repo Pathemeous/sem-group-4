@@ -29,17 +29,14 @@ public class ShopStateController {
                 && shopState.getSelectedItem().getPrice() <= shopState.getSelectedPlayer()
                         .getMoney()) {
 
-            Player modifiedplayer =
+            Player modifiedPlayer =
                     shopState.getSelectedItem().applyTo(shopState.getSelectedPlayer());
             shopState.getSelectedPlayer().setMoney(
                     shopState.getSelectedPlayer().getMoney()
                             - shopState.getSelectedItem().getPrice());
 
-            if (shopState.getSelectedPlayer().isFirstPlayer()) {
-                shopState.getShop().getGame().getPlayers()[0] = modifiedplayer;
-            } else {
-                shopState.getShop().getGame().getPlayers()[1] = modifiedplayer;
-            }
+            Player oldPlayer = shopState.getSelectedPlayer();
+            shopState.getShop().getGame().decoratePlayer(oldPlayer, modifiedPlayer);
         }
     }
 

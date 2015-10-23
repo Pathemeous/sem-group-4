@@ -13,7 +13,7 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class SingleplayerGame extends Game {
 
-    private final Player player;
+    private Player player;
     private final PlayerInput player1Input;
     private Settings settings = Settings.getInstance();
 
@@ -51,5 +51,10 @@ public class SingleplayerGame extends Game {
         super.update(delta);
 
         player1Input.poll();
+    }
+
+    @Override
+    public void decoratePlayer(Player player, Player decorator) {
+        this.player = decorator;
     }
 }
