@@ -241,6 +241,10 @@ public class ResourcesWrapper {
         return images.get("img" + fileSeparator + "rball6.png");
     }
 
+    public Image getBubbleImageBach() {
+        return images.get("img" + fileSeparator + "bachball.png");
+    }
+
     public Image getPickupWeaponRegular() {
         return images.get("img" + fileSeparator + "pickup_regular_weapon.png");
     }

@@ -4,6 +4,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.bubble.AbstractBubble;
+import nl.tudelft.model.bubble.BacchelliBubble;
 import nl.tudelft.model.bubble.Bubble1;
 import nl.tudelft.model.bubble.Bubble2;
 import nl.tudelft.model.bubble.Bubble3;
@@ -24,7 +25,7 @@ public class LevelFactory {
 
     private final Game game;
     private final ResourcesWrapper resources;
-    private static final int LEVEL_COUNT = 4;
+    private static final int LEVEL_COUNT = 5;
 
     /**
      * Constructs a new {@link LevelFactory} for a certain {@link Game}, using the specified
@@ -84,14 +85,37 @@ public class LevelFactory {
             case 1:
                 return getLevel1();
             case 2:
-                return getLevel2();
+                return getBossLevel();
             case 3:
                 return getLevel3();
             case 4:
                 return getLevel4();
+            case 5:
+                return getLevel2();
             default:
                 throw new IllegalArgumentException();
         }
+    }
+
+    private Level getBossLevel() {
+        final int id = 2;
+        // Create Bubbles for level
+        LinkedList<AbstractBubble> bubbles = new LinkedList<>();
+
+        AbstractBubble bubble = new BacchelliBubble(resources, 200,
+                resources.getVwallImage().getWidth() );
+
+        bubbles.add(bubble);
+
+        LinkedList<AbstractWall> walls = wallInit();
+
+        LinkedList<Projectile> projectiles = new LinkedList<>();
+        LinkedList<Pickup> pickups = new LinkedList<>();
+        int time = 200000;
+
+        return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
+                time, id);
+
     }
 
     /**
@@ -159,7 +183,7 @@ public class LevelFactory {
      * @return {@link Level} - level 2.
      */
     private Level getLevel2() {
-        final int id = 2;
+        final int id = 5;
 
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();

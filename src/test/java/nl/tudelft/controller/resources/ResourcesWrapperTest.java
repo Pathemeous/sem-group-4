@@ -346,6 +346,12 @@ public class ResourcesWrapperTest {
     }
 
     @Test
+    public void testGetBubbleBacchelliImage() {
+        wrapper.getBubbleImageBach();
+        verify(mockedMap, times(1)).get("img" + fileSeparator + "bachball.png");
+    }
+
+    @Test
     public void testGetPowerShield() {
         wrapper.getPowerShield();
         verify(mockedMap, times(1)).get("img" + fileSeparator + "powerup_shield.png");

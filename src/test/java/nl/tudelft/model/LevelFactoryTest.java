@@ -55,7 +55,7 @@ public class LevelFactoryTest {
         LinkedList<Level> list = new LinkedList<Level>();
         assertEquals(list.size(), 0);
         list = factory.getAllLevels();
-        assertEquals(list.size(), 4);
+        assertEquals(list.size(), 5);
     }
 
     /**
