@@ -10,6 +10,7 @@ public class ShopWeaponDecorator extends AbstractPlayerDecorator {
 
     public ShopWeaponDecorator(Player wrappedObject) {
         super(wrappedObject);
+        shopWeapon.activate(wrappedObject);
     }
     
     @Override

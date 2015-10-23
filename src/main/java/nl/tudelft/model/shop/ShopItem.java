@@ -13,7 +13,7 @@ public abstract class ShopItem {
      * Method to apply a shop item.
      * @param buyer : The person who is buying the item.
      */
-    public abstract void applyTo(Player buyer);
+    public abstract Player applyTo(Player buyer);
 
     /**
      * Default constructor for ShopItem.

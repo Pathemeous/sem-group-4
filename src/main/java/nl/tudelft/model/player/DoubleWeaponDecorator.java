@@ -10,6 +10,7 @@ public class DoubleWeaponDecorator extends AbstractPlayerDecorator {
 
     public DoubleWeaponDecorator(Player wrappedObject) {
         super(wrappedObject);
+        doubleWeapon.activate(wrappedObject);
     }
     
     @Override

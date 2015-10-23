@@ -1,7 +1,9 @@
 package nl.tudelft.controller;
 
+import nl.tudelft.model.player.Player;
 import nl.tudelft.view.ShopState;
 import nl.tudelft.view.States;
+
 import org.newdawn.slick.state.StateBasedGame;
 
 public class ShopStateController {
@@ -19,18 +21,25 @@ public class ShopStateController {
     }
 
     /**
-     * Checks if the selected player has enough money and an item is selected,
-     * buys the item and aplies it to the selected player.
+     * Checks if the selected player has enough money and an item is selected, buys the item and
+     * aplies it to the selected player.
      */
     public void applyUpgrade() {
         if (shopState.getSelectedItem() != null
-                && shopState.getSelectedItem().getPrice() <= shopState
-                        .getSelectedPlayer().getMoney()) {
+                && shopState.getSelectedItem().getPrice() <= shopState.getSelectedPlayer()
+                        .getMoney()) {
 
-            shopState.getSelectedItem().applyTo(shopState.getSelectedPlayer());
+            Player modifiedplayer =
+                    shopState.getSelectedItem().applyTo(shopState.getSelectedPlayer());
             shopState.getSelectedPlayer().setMoney(
                     shopState.getSelectedPlayer().getMoney()
                             - shopState.getSelectedItem().getPrice());
+
+            if (shopState.getSelectedPlayer().isFirstPlayer()) {
+                shopState.getShop().getGame().getPlayers()[0] = modifiedplayer;
+            } else {
+                shopState.getShop().getGame().getPlayers()[1] = modifiedplayer;
+            }
         }
     }
 
@@ -52,8 +61,7 @@ public class ShopStateController {
      *            which item to select
      */
     public void selectItem(int selectedItem) {
-        shopState.setSelectedItem(shopState.getShop().getInventory()
-                .get(selectedItem));
+        shopState.setSelectedItem(shopState.getShop().getInventory().get(selectedItem));
 
     }
 

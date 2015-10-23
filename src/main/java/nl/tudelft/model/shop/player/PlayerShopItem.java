@@ -8,8 +8,9 @@ public abstract class PlayerShopItem extends ShopItem {
     /**
      * Method to apply a shop item.
      * @param buyer : The person who is buying the item.
+     * @return {@link Player} the player.
      */
-    public abstract void applyTo(Player buyer);
+    public abstract Player applyTo(Player buyer);
 
     /**
      * Default constructor for PlayerShopItem.

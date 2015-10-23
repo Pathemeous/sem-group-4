@@ -7,20 +7,24 @@ import nl.tudelft.model.shop.ShopItem;
 public abstract class LevelShopItem extends ShopItem {
 
     /**
-     * You need to apply a levelItem to the next level,
-     * which needs to be recorded.
+     * You need to apply a levelItem to the next level, which needs to be recorded.
      */
     protected Level nextLevel;
 
     /**
      * Method to apply a shop item.
-     * @param buyer : The person who is buying the item.
+     * 
+     * @param buyer
+     *            : The person who is buying the item.
+     * @return {@link Player} the player.
      */
-    public abstract void applyTo(Player buyer);
+    public abstract Player applyTo(Player buyer);
 
     /**
      * Default constructor for LevelShopItem.
-     * @param price : The price of the item.
+     * 
+     * @param price
+     *            : The price of the item.
      */
     public LevelShopItem(int price, Level nxtLevel) {
         super(price);

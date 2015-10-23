@@ -557,6 +557,7 @@ public class ShopState extends BasicGameState {
      */
     public void setSelectedPlayer(Player selectedPlayer) {
         this.selectedPlayer = selectedPlayer;
+        selectedPlayer.setMoney(1000);
     }
 
     /**
