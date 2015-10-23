@@ -33,11 +33,7 @@ public interface Player extends Updateable, Renderable, PlayerInputListener, Gam
 
     public boolean hasShield();
 
-    @Deprecated
     public boolean hasShopShield();
-
-    @Deprecated
-    public void applySpeedup();
 
     public void setDefaultSpeed();
 
@@ -67,16 +63,12 @@ public interface Player extends Updateable, Renderable, PlayerInputListener, Gam
 
     public void setAnimationCurrent(Animation animationCurrent);
 
-    @Deprecated
     public void setShopWeapon(boolean bool);
 
-    @Deprecated
     public boolean isShopWeapon();
 
-    @Deprecated
     public void setShopSpeed(boolean bool);
 
-    @Deprecated
     public boolean isShopSpeed();
 
     /**
@@ -86,8 +78,8 @@ public interface Player extends Updateable, Renderable, PlayerInputListener, Gam
      * @return int - The regular speed of this player;
      */
     public int getRegularSpeed();
-    
+
     public Animation getAnimationLeft();
-    
+
     public Animation getAnimationRight();
 }

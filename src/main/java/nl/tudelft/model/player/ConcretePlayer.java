@@ -277,14 +277,6 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     }
 
     /**
-     * Applies the speed up pickup to the player.
-     */
-    @Deprecated
-    public void applySpeedup() {
-        speed = REGULAR_SPEED * SPEEDUP;
-    }
-
-    /**
      * Sets the speed of the player to the default speed.
      */
     public void setDefaultSpeed() {

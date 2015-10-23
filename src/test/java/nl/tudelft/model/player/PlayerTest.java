@@ -225,17 +225,8 @@ public class PlayerTest {
     }
     
     @Test
-    public final void testApplySpeedup() {
-        assertEquals(SPEED, player.getSpeed());
-        
-        player.applySpeedup();
-        
-        assertEquals(2 * SPEED, player.getSpeed());
-    }
-    
-    @Test
     public final void testDefaultSpeed() {
-        player.applySpeedup();
+        player.setSpeed(10);
         player.setDefaultSpeed();
         
         assertEquals(SPEED, player.getSpeed());

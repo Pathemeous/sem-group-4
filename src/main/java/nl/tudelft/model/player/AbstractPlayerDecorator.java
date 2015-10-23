@@ -115,15 +115,8 @@ public class AbstractPlayerDecorator implements Player {
     }
 
     @Override
-    @Deprecated
     public boolean hasShopShield() {
         return wrappedObject.hasShopShield();
-    }
-
-    @Override
-    public void applySpeedup() {
-        wrappedObject.applySpeedup();
-
     }
 
     @Override
@@ -201,27 +194,23 @@ public class AbstractPlayerDecorator implements Player {
     }
 
     @Override
-    @Deprecated
     public void setShopWeapon(boolean bool) {
         wrappedObject.setShopWeapon(bool);
 
     }
 
     @Override
-    @Deprecated
     public boolean isShopWeapon() {
         return wrappedObject.isShopWeapon();
     }
 
     @Override
-    @Deprecated
     public void setShopSpeed(boolean bool) {
         wrappedObject.setShopSpeed(bool);
 
     }
 
     @Override
-    @Deprecated
     public boolean isShopSpeed() {
         return wrappedObject.isShopSpeed();
     }
