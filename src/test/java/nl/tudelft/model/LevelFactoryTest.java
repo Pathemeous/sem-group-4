@@ -6,7 +6,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -55,7 +55,7 @@ public class LevelFactoryTest {
         LinkedList<Level> list = new LinkedList<Level>();
         assertEquals(list.size(), 0);
         list = factory.getAllLevels();
-        assertEquals(list.size(), 4);
+        assertEquals(list.size(), 5);
     }
 
     /**

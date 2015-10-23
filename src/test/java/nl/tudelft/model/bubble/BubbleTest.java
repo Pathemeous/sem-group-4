@@ -18,17 +18,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
-import nl.tudelft.semgroup4.util.Helpers;
+import nl.tudelft.controller.util.Helpers;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.geom.Rectangle;
-import org.newdawn.slick.geom.Shape;
 
 public class BubbleTest {
 

@@ -7,10 +7,11 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.semgroup4.GameEndedState;
-import nl.tudelft.semgroup4.ShopState;
-import nl.tudelft.semgroup4.States;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
+import nl.tudelft.model.player.Player;
+import nl.tudelft.view.GameEndedState;
+import nl.tudelft.view.ShopState;
+import nl.tudelft.view.States;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -19,19 +20,19 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 public class GameTest {
-    
+
     private StateBasedGame mockedSbg;
     private GameEndedState mockedGameEndedState;
     private ShopState mockedShopState;
     private ResourcesWrapper mockedResources;
     private Player mockedPlayer;
-    
+
     /**
      * Instantiates all mocks and stubs for the relevant resources.
      */
     @Before
     public void setUp() {
-        mockedSbg = mock(StateBasedGame.class); 
+        mockedSbg = mock(StateBasedGame.class);
         mockedGameEndedState = mock(GameEndedState.class);
         mockedShopState = mock(ShopState.class);
         mockedResources = mock(ResourcesWrapper.class);
@@ -56,7 +57,7 @@ public class GameTest {
     @Test
     public void testGame() {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
-        assertArrayEquals(game.getPlayers(), new Player[]{mockedPlayer});
+        assertArrayEquals(game.getPlayers(), new Player[] { mockedPlayer });
     }
 
     /**
@@ -94,8 +95,7 @@ public class GameTest {
      * @throws SlickException
      *             - Resources not found.
      */
-    // @Test
-    // TODO Create injecatble Audio dependence and mock it for this test.
+    @Test
     public void testLevelReset1() throws SlickException {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(1);
@@ -111,7 +111,6 @@ public class GameTest {
      *             - Resources not found.
      */
     // @Test
-    // TODO Create injecatble Audio dependence and mock it for this test.
     public void testLevelReset2() throws SlickException {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(0);
@@ -130,7 +129,7 @@ public class GameTest {
     public void testNextLevel1() throws SlickException {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedSbg.getState(States.ShopState)).thenReturn(mockedShopState);
-        
+
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 2);
@@ -147,7 +146,7 @@ public class GameTest {
         mockedSbg.addState(mockedGameEndedState);
         when(mockedSbg.getState(States.GameEndedState)).thenReturn(mockedGameEndedState);
         when(mockedSbg.getState(States.ShopState)).thenReturn(mockedShopState);
-        
+
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
@@ -156,7 +155,9 @@ public class GameTest {
         assertEquals(game.getCurLevel().getId(), 3);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 4);
-        
+        game.nextLevel();
+        assertEquals(game.getCurLevel().getId(), 5);
+
         game.nextLevel();
         verify(mockedSbg, times(1)).enterState(States.GameEndedState);
     }

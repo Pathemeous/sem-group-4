@@ -3,7 +3,7 @@ package nl.tudelft.model.bubble;
 import java.util.ArrayList;
 import java.util.List;
 
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 /**
  * One of the Bubble types. This is a regular bubble of size 3.
@@ -22,7 +22,7 @@ public class Bubble3 extends AbstractBubble {
      * @param locY
      *            : the starting y-location of the bubble.
      */
-    protected Bubble3(ResourcesWrapper resources, float locX, float locY) {
+    public Bubble3(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getBubbleImage3(), locX, locY, resources);
     }
     
@@ -31,9 +31,8 @@ public class Bubble3 extends AbstractBubble {
         List<AbstractBubble> next = new ArrayList<>();
         
         // Create 2 new bubbles, that will come free when this bubble splits
-        BubbleFactory bubbleFactory = new Bubble2Factory(new ResourcesWrapper());
         for (int i = 0; i < 2; i++) {
-            next.add(bubbleFactory.createBubble()); 
+            next.add(new Bubble2(getResources(), 0, 0)); 
         }
         
         return next;

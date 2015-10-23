@@ -3,11 +3,12 @@ package nl.tudelft.model.bubble;
 import java.util.LinkedList;
 import java.util.List;
 
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.Resources;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.AbstractEnvironmentObject;
 import nl.tudelft.model.pickups.Pickup;
 import nl.tudelft.model.pickups.RandomPickupFactory;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
@@ -51,10 +52,10 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
      */
     public AbstractBubble(Image bubbleImg, float locX, float locY, ResourcesWrapper resources) {
         super(bubbleImg, locX, locY);
-
+        this.resources = resources;
         nextBubbles = createNextBubbles();
         maxVerticalSpeed = initMaxVerticalSpeed();
-        this.resources = resources;
+        
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
     }
@@ -170,7 +171,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
      * afterwards decreased with the gravity.
      * </p>
      */
-    private void move() {
+    protected void move() {
         float locX = getLocX();
         float locY = getLocY();
 
@@ -262,10 +263,20 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
      * @return the maximum speed the bubble can have at any time in any direction
      */
     public float getMaxSpeed() {
-        if (horizontalSpeed > maxVerticalSpeed) {
-            return horizontalSpeed;
+
+        if (Math.abs(horizontalSpeed) > Math.abs(maxVerticalSpeed)) {
+            return Math.abs(horizontalSpeed);
         }
-        return maxVerticalSpeed;
+        return Math.abs(maxVerticalSpeed);
+    }
+
+    /**
+     * Accesses the resourceWrapper.
+     *
+     * @return the resource wrapper that is used to init this class.
+     */
+    public ResourcesWrapper getResources() {
+        return resources;
     }
 
     /**
@@ -282,6 +293,14 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         float radius = (float) 0.5 * width;
 
         return new Circle(centerPointX, centerPointY, radius);
+    }
+
+    /**
+     * Returns if the bubble is hit.
+     * @return the isHit
+     */
+    public boolean isHit() {
+        return isHit;
     }
 
 }

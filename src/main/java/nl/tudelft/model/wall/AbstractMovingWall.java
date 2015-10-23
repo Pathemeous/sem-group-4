@@ -1,6 +1,6 @@
 package nl.tudelft.model.wall;
 
-import nl.tudelft.semgroup4.Modifiable;
+import nl.tudelft.controller.Modifiable;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;

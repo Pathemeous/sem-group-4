@@ -1,7 +1,7 @@
 package nl.tudelft.model;
 
-import nl.tudelft.semgroup4.Renderable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
+import nl.tudelft.controller.Renderable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;

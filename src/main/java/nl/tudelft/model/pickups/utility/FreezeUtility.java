@@ -1,9 +1,9 @@
 package nl.tudelft.model.pickups.utility;
 
+import nl.tudelft.controller.Modifiable;
+import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.semgroup4.Modifiable;
-import nl.tudelft.semgroup4.resources.ResourcesWrapper;
 
 import org.newdawn.slick.SlickException;
 
