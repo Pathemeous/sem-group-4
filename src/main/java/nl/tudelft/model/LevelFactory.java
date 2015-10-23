@@ -85,20 +85,20 @@ public class LevelFactory {
             case 1:
                 return getLevel1();
             case 2:
-                return getLevel2();
+                return getBossLevel();
             case 3:
                 return getLevel3();
             case 4:
                 return getLevel4();
-            case 5: 
-                return getBossLevel();
+            case 5:
+                return getLevel2();
             default:
                 throw new IllegalArgumentException();
         }
     }
 
     private Level getBossLevel() {
-        final int id = 5;
+        final int id = 2;
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
 
@@ -191,7 +191,7 @@ public class LevelFactory {
      * @return {@link Level} - level 2.
      */
     private Level getLevel2() {
-        final int id = 2;
+        final int id = 5;
 
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
