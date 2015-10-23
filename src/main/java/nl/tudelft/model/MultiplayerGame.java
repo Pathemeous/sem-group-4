@@ -67,7 +67,7 @@ public class MultiplayerGame extends Game {
             settings.getPlayer1Input().removeListener(player);
             settings.getPlayer1Input().addListener(decorator);
             firstPlayer = decorator;
-        } else {
+        } else if (player.equals(secondPlayer)) {
             settings.getPlayer2Input().removeListener(player);
             settings.getPlayer2Input().addListener(decorator);
             secondPlayer = decorator;

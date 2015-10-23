@@ -95,8 +95,7 @@ public class GameTest {
      * @throws SlickException
      *             - Resources not found.
      */
-    // @Test
-    // TODO Create injecatble Audio dependence and mock it for this test.
+     @Test
     public void testLevelReset1() throws SlickException {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(1);
@@ -111,8 +110,7 @@ public class GameTest {
      * @throws SlickException
      *             - Resources not found.
      */
-    // @Test
-    // TODO Create injecatble Audio dependence and mock it for this test.
+//     @Test
     public void testLevelReset2() throws SlickException {
         Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(0);

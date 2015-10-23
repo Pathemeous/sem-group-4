@@ -26,6 +26,7 @@ import nl.tudelft.model.pickups.weapon.Weapon;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -407,6 +408,27 @@ public class PlayerTest {
         player.update(mockedLevel, 1);
 
         verify(mockedLevel, times(1)).toAdd(any());
+    }
+    
+    @Test
+    public void testGetLeftAnimation() {
+        Animation mockedAnimation = Mockito.mock(Animation.class);
+        Mockito.when(mockedResources.getPlayerWalkLeft()).thenReturn(mockedAnimation);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
+        
+        Animation result = player.getAnimationLeft();
+        assertEquals(mockedAnimation, result);
+        
+    }
+    
+    @Test
+    public void testGetRightAnimation() {
+        Animation mockedAnimation = Mockito.mock(Animation.class);
+        Mockito.when(mockedResources.getPlayerWalkRight()).thenReturn(mockedAnimation);
+        player = new ConcretePlayer(mockedResources, 0, 0, true);
+        
+        Animation result = player.getAnimationRight();
+        assertEquals(mockedAnimation, result);
     }
 
 }

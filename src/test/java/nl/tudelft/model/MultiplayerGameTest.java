@@ -1,14 +1,17 @@
 package nl.tudelft.model;
 
+import static org.junit.Assert.assertFalse;
+
 import static org.junit.Assert.assertArrayEquals;
+import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.player.Player;
 
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mockito;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.state.StateBasedGame;
 
@@ -43,13 +46,36 @@ public class MultiplayerGameTest {
 
         StateBasedGame stateBasedGame = mock(StateBasedGame.class);
 
-        game = new MultiplayerGame(stateBasedGame, 0, 0, mockedResources,
-                mockedPlayer1, mockedPlayer2);
+        game =
+                new MultiplayerGame(stateBasedGame, 0, 0, mockedResources, mockedPlayer1,
+                        mockedPlayer2);
     }
 
     @Test
     public void testGetPlayers() {
-        assertArrayEquals(game.getPlayers(), new Player[]{mockedPlayer1, mockedPlayer2});
+        assertArrayEquals(game.getPlayers(), new Player[] { mockedPlayer1, mockedPlayer2 });
+    }
+
+    @Test
+    public void testDecoratePlayerOne() {
+        Player mockedDecoration = Mockito.mock(Player.class);
+        game.decoratePlayer(mockedPlayer1, mockedDecoration);
+        assertEquals(mockedDecoration, game.getPlayers()[0]);
+    }
+
+    @Test
+    public void testDecoratePlayerTwo() {
+        Player mockedDecoration = Mockito.mock(Player.class);
+        game.decoratePlayer(mockedPlayer2, mockedDecoration);
+        assertEquals(mockedDecoration, game.getPlayers()[1]);
+    }
+
+    @Test
+    public void testDecorateWrongPlayer() {
+        Player mockedDecoration = Mockito.mock(Player.class);
+        Player mockedPlayer = Mockito.mock(Player.class);
+        game.decoratePlayer(mockedPlayer, mockedDecoration);
+        assertFalse(game.getPlayers()[1].equals(mockedDecoration));
     }
 
 }
