@@ -24,6 +24,6 @@ public interface Renderable {
      * @throws SlickException
      *             - If the implementation of this method fails to render.
      */
-    public void render(GameContainer container, Graphics graphics) throws SlickException;
+    void render(GameContainer container, Graphics graphics) throws SlickException;
 
 }

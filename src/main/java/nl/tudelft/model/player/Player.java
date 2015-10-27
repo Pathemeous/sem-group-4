@@ -11,65 +11,65 @@ import org.newdawn.slick.Animation;
 
 public interface Player extends Updateable, Renderable, PlayerInputListener, GameObject {
 
-    public void reset();
+    void reset();
 
-    public void die();
+    void die();
 
-    public boolean isAlive();
+    boolean isAlive();
 
-    public void removeLife();
+    void removeLife();
 
-    public void clearAllPowerups();
+    void clearAllPowerups();
 
-    public boolean hasPowerup(String key);
+    boolean hasPowerup(String key);
 
-    public Powerup removePowerup(String key);
+    Powerup removePowerup(String key);
 
-    public void setPowerup(String key, Powerup value);
+    void setPowerup(String key, Powerup value);
 
-    public Powerup getPowerup(String key);
+    Powerup getPowerup(String key);
 
-    public boolean isInvincible();
+    boolean isInvincible();
 
-    public boolean hasShield();
+    boolean hasShield();
 
-    public boolean hasShopShield();
+    boolean hasShopShield();
 
-    public void setDefaultSpeed();
+    void setDefaultSpeed();
 
-    public void setSpeed(int newSpeed);
+    void setSpeed(int newSpeed);
 
-    public int getSpeed();
+    int getSpeed();
 
-    public boolean isFirstPlayer();
+    boolean isFirstPlayer();
 
-    public void setWeapon(Weapon weapon);
+    void setWeapon(Weapon weapon);
 
-    public Weapon getWeapon();
+    Weapon getWeapon();
 
-    public int getLives();
+    int getLives();
 
-    public void setLives(int lives);
+    void setLives(int lives);
 
-    public void setScore(int score);
+    void setScore(int score);
 
-    public void setMoney(int money);
+    void setMoney(int money);
 
-    public int getMoney();
+    int getMoney();
 
-    public int getScore();
+    int getScore();
 
-    public Animation getAnimationCurrent();
+    Animation getAnimationCurrent();
 
-    public void setAnimationCurrent(Animation animationCurrent);
+    void setAnimationCurrent(Animation animationCurrent);
 
-    public void setShopWeapon(boolean bool);
+    void setShopWeapon(boolean bool);
 
-    public boolean isShopWeapon();
+    boolean isShopWeapon();
 
-    public void setShopSpeed(boolean bool);
+    void setShopSpeed(boolean bool);
 
-    public boolean isShopSpeed();
+    boolean isShopSpeed();
 
     /**
      * Returns the regular speed of this player. This is defined as the normal movement speed,
@@ -77,9 +77,9 @@ public interface Player extends Updateable, Renderable, PlayerInputListener, Gam
      * 
      * @return int - The regular speed of this player;
      */
-    public int getRegularSpeed();
+    int getRegularSpeed();
 
-    public Animation getAnimationLeft();
+    Animation getAnimationLeft();
 
-    public Animation getAnimationRight();
+    Animation getAnimationRight();
 }
