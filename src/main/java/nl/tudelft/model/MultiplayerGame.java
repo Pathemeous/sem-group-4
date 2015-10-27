@@ -56,10 +56,10 @@ public class MultiplayerGame extends Game {
 
     @Override
     public void update(int delta) throws SlickException {
-        super.update(delta);
-
         player1Input.poll();
         player2Input.poll();
+        
+        super.update(delta);
     }
 
     @Override

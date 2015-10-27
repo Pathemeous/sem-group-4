@@ -48,9 +48,9 @@ public class SingleplayerGame extends Game {
     
     @Override
     public void update(int delta) throws SlickException {
-        super.update(delta);
-
         player1Input.poll();
+        
+        super.update(delta);
     }
 
     @Override
