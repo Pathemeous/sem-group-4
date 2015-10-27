@@ -18,6 +18,8 @@ public class BacchelliBubble extends AbstractBubble {
 
     private int lives = 8;
     private int healthCounter;
+    private int shootCounter = 0;
+
     private final List<BacchelliBullet> bullets = new LinkedList<>();
 
     /**
@@ -69,8 +71,6 @@ public class BacchelliBubble extends AbstractBubble {
         setLocX(getLocX() + getHorizontalSpeed());
 
     }
-
-    int shootCounter = 0;
 
     @Override
     public <T extends Modifiable> void update(T container, int delta)

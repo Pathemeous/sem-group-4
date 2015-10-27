@@ -23,6 +23,6 @@ public interface Updateable {
      * @throws SlickException
      *             - If the implementation of this method fails to update.
      */
-    public <T extends Modifiable> void update(T container, int delta) throws SlickException;
+    <T extends Modifiable> void update(T container, int delta) throws SlickException;
 
 }

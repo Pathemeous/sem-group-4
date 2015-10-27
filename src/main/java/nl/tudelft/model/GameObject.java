@@ -8,21 +8,21 @@ import org.newdawn.slick.geom.Shape;
 
 public interface GameObject extends Updateable, Renderable {
 
-    public Image getImage();
+    Image getImage();
     
-    public void setImage(Image image);
+    void setImage(Image image);
     
-    public void setLocX(float locX);
+    void setLocX(float locX);
     
-    public float getLocX();
+    float getLocX();
     
-    public float getLocY();
+    float getLocY();
     
-    public void setLocY(float locY);
+    void setLocY(float locY);
     
-    public Shape getBounds();
+    Shape getBounds();
     
-    public int getWidth();
+    int getWidth();
     
-    public int getHeight();
+    int getHeight();
 }
