@@ -12,7 +12,7 @@ import org.newdawn.slick.Input;
 public class OptionsStateController {
 
     private final OptionsState state;
-    private final ResourcesWrapper res;
+    private final ResourcesWrapper resources;
 
     /**
      * Create a new controller
@@ -23,7 +23,7 @@ public class OptionsStateController {
      */
     public OptionsStateController(OptionsState state, ResourcesWrapper res) {
         this.state = state;
-        this.res = res;
+        this.resources = res;
     }
 
     /**
@@ -32,10 +32,10 @@ public class OptionsStateController {
      *              the image belonging to the curront state of the sound
      */
     public Image getMusicImage() {
-        if (res.isMusicOn()) {
-            return res.getOn();
+        if (resources.isMusicOn()) {
+            return resources.getOn();
         } else {
-            return res.getOff();
+            return resources.getOff();
         }
     }
 
@@ -79,7 +79,7 @@ public class OptionsStateController {
      * Toggles the music on and off.
      */
     public void toggleMusic() {
-        res.setMusicOn(!res.isMusicOn());
+        resources.setMusicOn(!resources.isMusicOn());
     }
 
     /**
@@ -88,6 +88,6 @@ public class OptionsStateController {
      *              the ResourcesWrapper used by the controller
      */
     public ResourcesWrapper getResources() {
-        return res;
+        return resources;
     }
 }

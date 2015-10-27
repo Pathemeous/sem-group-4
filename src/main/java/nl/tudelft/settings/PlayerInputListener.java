@@ -8,20 +8,20 @@ public interface PlayerInputListener {
     /**
      * This method is called whenever the PlayerInput notifies about a user input of going left.
      */
-    public void moveLeft();
+    void moveLeft();
 
     /**
      * This method is called whenever the PlayerInput notifies about a user input of going right.
      */
-    public void moveRight();
+    void moveRight();
 
     /**
      * This method is called whenever the PlayerInput notifies about a user input of stopping.
      */
-    public void stopMoving();
+    void stopMoving();
 
     /**
      * This method is called whenever the PlayerInput notifies about a user input of shooting.
      */
-    public void shoot();
+    void shoot();
 }
