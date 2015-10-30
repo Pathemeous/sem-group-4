@@ -10,7 +10,7 @@ import nl.tudelft.model.GameObject;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.AbstractUtility;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
@@ -65,7 +65,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
                 wallProjectileHandler);
         collisionMap.onCollision(AbstractMovingWall.class, Projectile.class, false,
                 movingwallProjectileHandler);
-        collisionMap.onCollision(Powerup.class, Player.class, false,
+        collisionMap.onCollision(AbstractPowerup.class, Player.class, false,
                 playerPowerupHandler);
         collisionMap.onCollision(AbstractWeapon.class, Player.class, false,
                 playerWeaponHandler);
@@ -129,7 +129,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
                   "Player hit bubble, but has a shield");
 
             // The shield is removed and the bubble is split (tagged as isHit).
-            ShieldPowerup shield = (ShieldPowerup)player.getPowerup(Powerup.SHIELD);
+            ShieldPowerup shield = (ShieldPowerup)player.getPowerup(AbstractPowerup.SHIELD);
             if (!shield.isHit()) {
                 shield.setHit(true);
                 bubble.setIsHit();
@@ -137,7 +137,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         } else if (player.hasShopShield()) {
             AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
                     "Player hit bubble, but has a shopshield");
-            Hit3ShieldPowerup shield = (Hit3ShieldPowerup)player.getPowerup(Powerup.SHOPSHIELD);
+            Hit3ShieldPowerup shield = (Hit3ShieldPowerup)player.getPowerup(AbstractPowerup.SHOPSHIELD);
             if (!shield.isHit()) {
                 shield.incrementHit();
                 bubble.setIsHit();
@@ -247,7 +247,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         projectile.setHitWall();
     };
 
-    private static CollisionHandler<Powerup, Player> playerPowerupHandler =
+    private static CollisionHandler<AbstractPowerup, Player> playerPowerupHandler =
             (game, powerup, player) -> {
         AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
         powerup.activate(player);

@@ -9,22 +9,22 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class ShieldPowerup extends Powerup {
+public class ShieldPowerup extends AbstractPowerup {
     
     private Player player;
-    private int removingShieldCounter = 0;
-    private boolean isHit = false;
+    private int timeoutCounter = 0;
+    private boolean hit = false;
     
     public ShieldPowerup(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupPowerShield(), locX, locY);
     }
     
     public boolean isHit() {
-        return isHit;
+        return hit;
     }
     
     public void setHit(boolean hit) {
-        isHit = hit;
+        this.hit = hit;
     }
     
     @Override
@@ -33,19 +33,19 @@ public class ShieldPowerup extends Powerup {
             setActive(true);
             this.player = player;
 
-            if (player.hasPowerup(Powerup.SHOPSHIELD)) {
+            if (player.hasPowerup(AbstractPowerup.SHOPSHIELD)) {
                 setToRemove();
                 return;
             }
 
-            if (player.hasPowerup(Powerup.SHIELD)) {
-                player.removePowerup(Powerup.SHIELD).setToRemove();
+            if (player.hasPowerup(AbstractPowerup.SHIELD)) {
+                player.removePowerup(AbstractPowerup.SHIELD).setToRemove();
             }
             
-            if (!player.hasPowerup(Powerup.INVINCIBLE)) {
-                player.setPowerup(Powerup.SHIELD, this);
-            } else {
+            if (player.hasPowerup(AbstractPowerup.INVINCIBLE)) {
                 setToRemove();
+            } else {
+                player.setPowerup(AbstractPowerup.SHIELD, this);
             }
         }
     }
@@ -54,12 +54,12 @@ public class ShieldPowerup extends Powerup {
     public <T extends Modifiable> void update(T container, int delta) throws SlickException {
         super.update(container, delta);
         
-        if (isHit) {
-            removingShieldCounter++;
+        if (hit) {
+            timeoutCounter++;
         }
         
-        if (removingShieldCounter == 120) {
-            player.removePowerup(Powerup.SHIELD).setToRemove();
+        if (timeoutCounter == 120) {
+            player.removePowerup(AbstractPowerup.SHIELD).setToRemove();
         }
     }
     
@@ -67,7 +67,7 @@ public class ShieldPowerup extends Powerup {
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         super.render(container, graphics);
         
-        if (isActive() && removingShieldCounter % 2 == 0) {
+        if (isActive() && timeoutCounter % 2 == 0) {
             graphics.setColor(Color.yellow);
             graphics.draw(player.getBounds());
             graphics.setColor(Color.green);
@@ -75,10 +75,10 @@ public class ShieldPowerup extends Powerup {
     }
     
     protected int getRemovalCounter() {
-        return removingShieldCounter;
+        return timeoutCounter;
     }
     
     protected void setRemovalCounter(int counter) {
-        removingShieldCounter = counter;
+        timeoutCounter = counter;
     }
 }

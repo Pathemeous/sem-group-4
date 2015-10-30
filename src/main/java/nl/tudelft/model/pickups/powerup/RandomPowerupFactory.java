@@ -29,7 +29,7 @@ public class RandomPowerupFactory implements RandomFactory {
      * @return : a powerup.
      */
     @Override
-    public Powerup createPickup(float locX, float locY) {
+    public AbstractPowerup createPickup(float locX, float locY) {
         ResourcesWrapper res = new ResourcesWrapper();
         
         if (randomNumber == 12) {

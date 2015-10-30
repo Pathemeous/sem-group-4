@@ -1,12 +1,9 @@
 package nl.tudelft.model.shop;
 
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 import nl.tudelft.model.AbstractGame;
-import nl.tudelft.model.Level;
-import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.level.ExtraTime;
 import nl.tudelft.model.shop.level.SlowGameSpeed;
 import nl.tudelft.model.shop.player.DoubleWeaponItem;

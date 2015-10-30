@@ -9,7 +9,7 @@ import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 
@@ -31,7 +31,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     private int speed;
     private int lives;
     private final boolean firstPlayer;
-    private final HashMap<String, Powerup> powerups = new HashMap<>();
+    private final HashMap<String, AbstractPowerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
@@ -147,7 +147,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
-     * This means that a player loses all his {@link Powerup}s and his {@link AbstractWeapon} and
+     * This means that a player loses all his {@link AbstractPowerup}s and his {@link AbstractWeapon} and
      * makes sure that the weapon fire delay is set to zero.
      * </p>
      */
@@ -179,65 +179,65 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     }
 
     /**
-     * Removes all {@link Powerup}s from this {@link Player}.
+     * Removes all {@link AbstractPowerup}s from this {@link Player}.
      */
     public void clearAllPowerups() {
-        if (hasPowerup(Powerup.SPEED)) {
-            powerups.remove(Powerup.SPEED).setToRemove();
+        if (hasPowerup(AbstractPowerup.SPEED)) {
+            powerups.remove(AbstractPowerup.SPEED).setToRemove();
         }
-        if (hasPowerup(Powerup.SHIELD)) {
-            powerups.remove(Powerup.SHIELD).setToRemove();
+        if (hasPowerup(AbstractPowerup.SHIELD)) {
+            powerups.remove(AbstractPowerup.SHIELD).setToRemove();
         }
-        if (hasPowerup(Powerup.INVINCIBLE)) {
-            powerups.remove(Powerup.INVINCIBLE).setToRemove();
+        if (hasPowerup(AbstractPowerup.INVINCIBLE)) {
+            powerups.remove(AbstractPowerup.INVINCIBLE).setToRemove();
         }
-        if (hasPowerup(Powerup.SHOPSHIELD)) {
-            powerups.remove(Powerup.SHOPSHIELD).setToRemove();
+        if (hasPowerup(AbstractPowerup.SHOPSHIELD)) {
+            powerups.remove(AbstractPowerup.SHOPSHIELD).setToRemove();
         }
     }
 
     /**
-     * Returns true if the player has a {@link Powerup} with the specified key.
+     * Returns true if the player has a {@link AbstractPowerup} with the specified key.
      * 
      * @param key
      *            {@link String} - Key which specifies the type of powerup.
-     * @return boolean - True iff the player has a {@link Powerup} with the specified key.
+     * @return boolean - True iff the player has a {@link AbstractPowerup} with the specified key.
      */
     public boolean hasPowerup(String key) {
         return powerups.get(key) != null;
     }
 
     /**
-     * Removes the {@link Powerup} specified by the key.
+     * Removes the {@link AbstractPowerup} specified by the key.
      * 
      * @param key
      *            {@link String} - the key to remove.
      * @return boolean - True iff the key is successfully removed.
      */
-    public Powerup removePowerup(String key) {
+    public AbstractPowerup removePowerup(String key) {
         return powerups.remove(key);
     }
 
     /**
-     * Adds the {@link Powerup} specified by the key.
+     * Adds the {@link AbstractPowerup} specified by the key.
      * 
      * @param key
      *            {@link String} - the key to add.
      * @param value
-     *            {@link Powerup} - the powerup to put in the hasmap.
+     *            {@link AbstractPowerup} - the powerup to put in the hasmap.
      */
-    public void setPowerup(String key, Powerup value) {
+    public void setPowerup(String key, AbstractPowerup value) {
         powerups.put(key, value);
     }
 
     /**
-     * Gets the desired {@link Powerup} based on its key.
+     * Gets the desired {@link AbstractPowerup} based on its key.
      * 
      * @param key
-     *            {@link String} - the key associated with the {@link Powerup}.
-     * @return {@link Powerup} - the desired {@link Powerup}.
+     *            {@link String} - the key associated with the {@link AbstractPowerup}.
+     * @return {@link AbstractPowerup} - the desired {@link AbstractPowerup}.
      */
-    public Powerup getPowerup(String key) {
+    public AbstractPowerup getPowerup(String key) {
         return powerups.get(key);
     }
 
@@ -247,7 +247,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * @return true if he does, false if not.
      */
     public boolean isInvincible() {
-        return powerups.get(Powerup.INVINCIBLE) != null;
+        return powerups.get(AbstractPowerup.INVINCIBLE) != null;
     }
 
     /**
@@ -256,7 +256,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * @return true if the player has a shield, false if not.
      */
     public boolean hasShield() {
-        return powerups.get(Powerup.SHIELD) != null;
+        return powerups.get(AbstractPowerup.SHIELD) != null;
     }
 
     /**
@@ -265,7 +265,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * @return true if the player has a shopshield, false if not.
      */
     public boolean hasShopShield() {
-        return powerups.get(Powerup.SHOPSHIELD) != null;
+        return powerups.get(AbstractPowerup.SHOPSHIELD) != null;
     }
 
     /**

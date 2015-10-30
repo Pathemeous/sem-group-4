@@ -43,13 +43,13 @@ public class ShieldPowerupTest {
 
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
-        assertFalse(player.hasPowerup(Powerup.SHIELD));
+        assertFalse(player.hasPowerup(AbstractPowerup.SHIELD));
         assertFalse(powerup.isActive());
-        assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
+        assertFalse(player.hasPowerup(AbstractPowerup.INVINCIBLE));
 
         powerup.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SHIELD));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHIELD));
         assertTrue(powerup.isActive());
     }
 
@@ -61,11 +61,11 @@ public class ShieldPowerupTest {
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         InvinciblePowerup invincibleMocked = mock(InvinciblePowerup.class);
 
-        assertFalse(player.hasPowerup(Powerup.SHIELD));
+        assertFalse(player.hasPowerup(AbstractPowerup.SHIELD));
         assertFalse(powerup.isActive());
 
-        player.setPowerup(Powerup.INVINCIBLE, invincibleMocked);
-        assertTrue(player.hasPowerup(Powerup.INVINCIBLE));
+        player.setPowerup(AbstractPowerup.INVINCIBLE, invincibleMocked);
+        assertTrue(player.hasPowerup(AbstractPowerup.INVINCIBLE));
 
         powerup.activate(player);
 
@@ -81,22 +81,22 @@ public class ShieldPowerupTest {
 
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
-        assertFalse(player.hasPowerup(Powerup.SHIELD));
+        assertFalse(player.hasPowerup(AbstractPowerup.SHIELD));
         assertFalse(powerup.isActive());
-        assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
+        assertFalse(player.hasPowerup(AbstractPowerup.INVINCIBLE));
 
         powerup.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SHIELD));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHIELD));
         assertTrue(powerup.isActive());
 
         ShieldPowerup powerup2 = new ShieldPowerup(mockedResources, 0, 0);
 
-        assertTrue(player.hasPowerup(Powerup.SHIELD));
+        assertTrue(player.hasPowerup(AbstractPowerup.SHIELD));
 
         powerup2.activate(player);
 
-        assertEquals(powerup2, player.getPowerup(Powerup.SHIELD));
+        assertEquals(powerup2, player.getPowerup(AbstractPowerup.SHIELD));
         assertTrue(powerup2.isActive());
         assertTrue(powerup.willBeRemoved());
     }
@@ -108,21 +108,21 @@ public class ShieldPowerupTest {
 
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
-        assertFalse(player.hasPowerup(Powerup.SHIELD));
+        assertFalse(player.hasPowerup(AbstractPowerup.SHIELD));
         assertFalse(powerup.isActive());
 
         powerup.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHOPSHIELD));
         assertTrue(powerup.isActive());
 
         ShieldPowerup powerup2 = new ShieldPowerup(mockedResources, 0, 0);
 
-        assertTrue(player.hasPowerup(Powerup.SHOPSHIELD));
+        assertTrue(player.hasPowerup(AbstractPowerup.SHOPSHIELD));
 
         powerup2.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHOPSHIELD));
         assertTrue(powerup2.willBeRemoved());
     }
 
@@ -165,7 +165,7 @@ public class ShieldPowerupTest {
 
         assertTrue(powerup.willBeRemoved());
         assertFalse(player.hasShield());
-        assertFalse(player.hasPowerup(Powerup.SHIELD));
+        assertFalse(player.hasPowerup(AbstractPowerup.SHIELD));
     }
 
     @Test

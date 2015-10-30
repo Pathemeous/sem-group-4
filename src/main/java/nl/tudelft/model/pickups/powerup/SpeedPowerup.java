@@ -6,7 +6,7 @@ import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.SlickException;
 
-public class SpeedPowerup extends Powerup {
+public class SpeedPowerup extends AbstractPowerup {
     
     private Player player;
     private int speedCount = 0;
@@ -21,11 +21,11 @@ public class SpeedPowerup extends Powerup {
             setActive(true);
             this.player = player;
             
-            if (player.hasPowerup(Powerup.SPEED)) {
-                player.removePowerup(Powerup.SPEED).setToRemove();
+            if (player.hasPowerup(AbstractPowerup.SPEED)) {
+                player.removePowerup(AbstractPowerup.SPEED).setToRemove();
             }
             
-            player.setPowerup(Powerup.SPEED, this);
+            player.setPowerup(AbstractPowerup.SPEED, this);
             player.setSpeed(player.getRegularSpeed() * 2);
         }
     }
@@ -39,7 +39,7 @@ public class SpeedPowerup extends Powerup {
         }
         
         if (speedCount == 600) {
-            player.removePowerup(Powerup.SPEED).setToRemove();
+            player.removePowerup(AbstractPowerup.SPEED).setToRemove();
             if (!player.isShopSpeed()) {
                 player.setDefaultSpeed();
             }

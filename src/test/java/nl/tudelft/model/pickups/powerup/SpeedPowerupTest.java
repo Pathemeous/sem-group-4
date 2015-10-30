@@ -36,12 +36,12 @@ public class SpeedPowerupTest {
 
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
-        assertFalse(player.hasPowerup(Powerup.SPEED));
+        assertFalse(player.hasPowerup(AbstractPowerup.SPEED));
         assertFalse(powerup.isActive());
 
         powerup.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SPEED));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SPEED));
         assertTrue(powerup.isActive());
         assertEquals(8, player.getSpeed());
     }
@@ -53,12 +53,12 @@ public class SpeedPowerupTest {
 
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
-        assertFalse(player.hasPowerup(Powerup.SPEED));
+        assertFalse(player.hasPowerup(AbstractPowerup.SPEED));
         assertFalse(powerup.isActive());
 
         powerup.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SPEED));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SPEED));
         assertTrue(powerup.isActive());
         assertEquals(8, player.getSpeed());
 
@@ -68,7 +68,7 @@ public class SpeedPowerupTest {
 
         assertTrue(powerup.willBeRemoved());
 
-        assertEquals(powerup2, player.getPowerup(Powerup.SPEED));
+        assertEquals(powerup2, player.getPowerup(AbstractPowerup.SPEED));
         assertTrue(powerup2.isActive());
         assertEquals(8, player.getSpeed());
     }
@@ -110,6 +110,6 @@ public class SpeedPowerupTest {
         assertEquals(600, powerup.getSpeedCount());
         assertTrue(powerup.willBeRemoved());
         assertEquals(4, player.getSpeed());
-        assertFalse(player.hasPowerup(Powerup.SPEED));
+        assertFalse(player.hasPowerup(AbstractPowerup.SPEED));
     }
 }

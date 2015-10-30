@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.player.Player;
 
@@ -106,7 +106,7 @@ public class PlayerBubbleHandlerTest {
         when(mockedPlayer.hasShield()).thenReturn(true);
 
         ShieldPowerup mockedShield = mock(ShieldPowerup.class);
-        when(mockedPlayer.getPowerup(Powerup.SHIELD)).thenReturn(mockedShield);
+        when(mockedPlayer.getPowerup(AbstractPowerup.SHIELD)).thenReturn(mockedShield);
 
         when(mockedBubble.isFrozen()).thenReturn(false);
 
@@ -124,7 +124,7 @@ public class PlayerBubbleHandlerTest {
         when(mockedPlayer.hasShopShield()).thenReturn(true);
 
         Hit3ShieldPowerup mockedShield = mock(Hit3ShieldPowerup.class);
-        when(mockedPlayer.getPowerup(Powerup.SHOPSHIELD)).thenReturn(mockedShield);
+        when(mockedPlayer.getPowerup(AbstractPowerup.SHOPSHIELD)).thenReturn(mockedShield);
 
         when(mockedBubble.isFrozen()).thenReturn(false);
 

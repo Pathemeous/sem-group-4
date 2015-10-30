@@ -3,7 +3,7 @@ package nl.tudelft.model.player;
 import nl.tudelft.controller.Renderable;
 import nl.tudelft.controller.Updateable;
 import nl.tudelft.model.GameObject;
-import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.settings.PlayerInputListener;
 
@@ -23,11 +23,11 @@ public interface Player extends Updateable, Renderable, PlayerInputListener, Gam
 
     boolean hasPowerup(String key);
 
-    Powerup removePowerup(String key);
+    AbstractPowerup removePowerup(String key);
 
-    void setPowerup(String key, Powerup value);
+    void setPowerup(String key, AbstractPowerup value);
 
-    Powerup getPowerup(String key);
+    AbstractPowerup getPowerup(String key);
 
     boolean isInvincible();
 

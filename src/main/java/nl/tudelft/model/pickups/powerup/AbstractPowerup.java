@@ -6,7 +6,7 @@ import nl.tudelft.model.player.Player;
 import org.newdawn.slick.Image;
 
 
-public abstract class Powerup extends AbstractPickup {
+public abstract class AbstractPowerup extends AbstractPickup {
     
     public static final String SPEED = "speedup";
     public static final String INVINCIBLE  = "invincible";
@@ -19,7 +19,7 @@ public abstract class Powerup extends AbstractPickup {
      * @param locX : the xloc of the powerup.
      * @param locY : the yloc of the powerup.
      */
-    public Powerup(Image img, float locX, float locY) {
+    public AbstractPowerup(Image img, float locX, float locY) {
         super(img, locX, locY);
     }
     
