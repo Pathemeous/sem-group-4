@@ -8,8 +8,8 @@ import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.AbstractGameObject;
-import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.AbstractPowerup;
+import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
 
@@ -147,8 +147,8 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
-     * This means that a player loses all his {@link AbstractPowerup}s and his {@link AbstractWeapon} and
-     * makes sure that the weapon fire delay is set to zero.
+     * This means that a player loses all his {@link AbstractPowerup}s and his
+     * {@link AbstractWeapon} and makes sure that the weapon fire delay is set to zero.
      * </p>
      */
     public void reset() {

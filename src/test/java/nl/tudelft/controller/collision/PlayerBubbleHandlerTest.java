@@ -8,8 +8,8 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.AbstractPowerup;
+import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.player.Player;
 

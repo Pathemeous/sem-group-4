@@ -9,8 +9,8 @@ import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.AbstractPickup;
-import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.AbstractPowerup;
+import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.AbstractUtility;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
@@ -137,7 +137,8 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         } else if (player.hasShopShield()) {
             AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
                     "Player hit bubble, but has a shopshield");
-            Hit3ShieldPowerup shield = (Hit3ShieldPowerup)player.getPowerup(AbstractPowerup.SHOPSHIELD);
+            Hit3ShieldPowerup shield =
+                    (Hit3ShieldPowerup)player.getPowerup(AbstractPowerup.SHOPSHIELD);
             if (!shield.isHit()) {
                 shield.incrementHit();
                 bubble.setIsHit();
