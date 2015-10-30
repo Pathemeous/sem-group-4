@@ -24,8 +24,8 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score;
     private int money;
-    private static final int BOUNDINGBOX_OFFSET_X = 10;
-    private static final int BOUNDINGBOX_OFFSET_Y = 15;
+    private static final int BOUNDS_OFFSET_X = 10;
+    private static final int BOUNDs_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
     @Deprecated
     private static final int SPEEDUP = 2;
@@ -93,9 +93,9 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
 
     @Override
     public Shape getBounds() {
-        return new SemRectangle(locX + BOUNDINGBOX_OFFSET_X, locY + BOUNDINGBOX_OFFSET_Y,
-                getImage().getWidth() - (2 * BOUNDINGBOX_OFFSET_X), getImage().getHeight()
-                        - BOUNDINGBOX_OFFSET_Y);
+        return new SemRectangle(locX + BOUNDS_OFFSET_X, locY + BOUNDs_OFFSET_Y,
+                getImage().getWidth() - (2 * BOUNDS_OFFSET_X), getImage().getHeight()
+                        - BOUNDs_OFFSET_Y);
     }
 
     @Override
