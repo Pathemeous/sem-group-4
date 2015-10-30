@@ -153,10 +153,10 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      */
     public void reset() {
         clearAllPowerups();
-        if (!shopWeapon) {
-            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
-        } else {
+        if (shopWeapon) {
             getWeapon().getProjectiles().clear();
+        } else {
+            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
         }
         this.getWeapon().activate(this);
         weaponActivated = false;
