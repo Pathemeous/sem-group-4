@@ -14,7 +14,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
 
@@ -30,12 +30,12 @@ public class LevelTest {
 
     private LinkedList<AbstractWall> walls = new LinkedList<AbstractWall>();
     private LinkedList<Projectile> projectiles = new LinkedList<Projectile>();
-    private LinkedList<Pickup> pickups = new LinkedList<Pickup>();
+    private LinkedList<AbstractPickup> pickups = new LinkedList<AbstractPickup>();
     private LinkedList<AbstractBubble> bubbles = new LinkedList<AbstractBubble>();
     private AbstractBubble bubble;
     private AbstractWall wall;
     private Projectile projectile;
-    private Pickup pickup;
+    private AbstractPickup pickup;
     private Image mockedImage;
     private Level level;
 
@@ -48,7 +48,7 @@ public class LevelTest {
         walls.add(wall);
         projectile = mock(Projectile.class);
         projectiles.add(projectile);
-        pickup = mock(Pickup.class);
+        pickup = mock(AbstractPickup.class);
         pickups.add(pickup);
         bubble = mock(AbstractBubble.class);
         bubbles.add(bubble);
@@ -134,7 +134,7 @@ public class LevelTest {
         level.toAdd(mockedWall);
         AbstractBubble mockedBubble = mock(AbstractBubble.class);
         level.toAdd(mockedBubble);
-        Pickup mockedPickup = mock(Pickup.class);
+        AbstractPickup mockedPickup = mock(AbstractPickup.class);
         level.toAdd(mockedPickup);
         Projectile mockedProjectile = mock(Projectile.class);
         level.toAdd(mockedProjectile);
@@ -158,7 +158,7 @@ public class LevelTest {
         level.toAdd(mockedWall);
         AbstractBubble mockedBubble = mock(AbstractBubble.class);
         level.toAdd(mockedBubble);
-        Pickup mockedPickup = mock(Pickup.class);
+        AbstractPickup mockedPickup = mock(AbstractPickup.class);
         level.toAdd(mockedPickup);
         Projectile mockedProjectile = mock(Projectile.class);
         level.toAdd(mockedProjectile);

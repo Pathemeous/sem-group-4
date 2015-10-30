@@ -19,7 +19,7 @@ public class TimeUtility extends Utility {
             int time = (level.getTime() + EXTRA_TIME < level.getMaxTime()) 
                     ? level.getTime() + EXTRA_TIME : level.getMaxTime();
             level.setTime(time);
-            toRemove();
+            isToRemove();
         }
     }
 

@@ -14,7 +14,7 @@ public class LifePowerup extends Powerup {
         if (!isActive()) {
             setActive(true);
             player.setLives(player.getLives() + 1);
-            toRemove();
+            isToRemove();
         }
     }
 }

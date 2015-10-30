@@ -8,7 +8,7 @@ import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
@@ -71,7 +71,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
                 playerWeaponHandler);
         collisionMap.onCollision(Utility.class, Player.class, false,
                 playerUtilityHandler);
-        collisionMap.onCollision(Pickup.class, AbstractWall.class, false,
+        collisionMap.onCollision(AbstractPickup.class, AbstractWall.class, false,
                 pickupWallHandler);
 
         return collisionMap;
@@ -267,7 +267,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         util.activate(game.getCurLevel());
     };
 
-    private static CollisionHandler<Pickup, AbstractWall> pickupWallHandler =
+    private static CollisionHandler<AbstractPickup, AbstractWall> pickupWallHandler =
             (game, pickup, wall) -> {
         AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Pickup - Wall collision");
 

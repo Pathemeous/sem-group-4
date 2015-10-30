@@ -27,7 +27,7 @@ public class RandomPickupFactoryTest {
         
         factory.setCreateNumber(7);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertEquals(null, pickup);
     }
@@ -39,7 +39,7 @@ public class RandomPickupFactoryTest {
         factory.setCreateNumber(8);
         factory.setPickupTypeNumber(3);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof Weapon);
     }
@@ -51,7 +51,7 @@ public class RandomPickupFactoryTest {
         factory.setCreateNumber(8);
         factory.setPickupTypeNumber(4);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof Powerup);
     }
@@ -63,7 +63,7 @@ public class RandomPickupFactoryTest {
         factory.setCreateNumber(8);
         factory.setPickupTypeNumber(7);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof Utility);
     }

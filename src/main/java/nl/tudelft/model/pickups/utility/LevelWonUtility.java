@@ -15,7 +15,7 @@ public class LevelWonUtility extends Utility {
             setActive(true);
             
             level.splitAllBubbles(level.getBubbles(), true);
-            toRemove();
+            isToRemove();
         }
     }
 }

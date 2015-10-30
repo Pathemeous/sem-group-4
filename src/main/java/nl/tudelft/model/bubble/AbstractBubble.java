@@ -6,7 +6,7 @@ import java.util.List;
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.RandomPickupFactory;
 
 import org.newdawn.slick.Image;
@@ -115,7 +115,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         container.toRemove(this);
 
         if (!nextBubbles.isEmpty()) {
-            Pickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
+            AbstractPickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
             if (pickup != null) {
                 container.toAdd(pickup);
             }

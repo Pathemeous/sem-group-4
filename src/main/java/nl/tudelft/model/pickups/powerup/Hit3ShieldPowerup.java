@@ -34,10 +34,10 @@ public class Hit3ShieldPowerup extends Powerup {
             this.player = player;
 
             if (player.hasPowerup(Powerup.INVINCIBLE)) {
-                player.removePowerup(Powerup.INVINCIBLE).toRemove();
+                player.removePowerup(Powerup.INVINCIBLE).isToRemove();
             }
             if (player.hasPowerup(Powerup.SHIELD)) {
-                player.removePowerup(Powerup.SHIELD).toRemove();
+                player.removePowerup(Powerup.SHIELD).isToRemove();
             }
 
             player.setPowerup(Powerup.SHOPSHIELD, this);
@@ -53,7 +53,7 @@ public class Hit3ShieldPowerup extends Powerup {
         }
 
         if (removingShieldCounter == 120) {
-            player.removePowerup(Powerup.SHOPSHIELD).toRemove();
+            player.removePowerup(Powerup.SHOPSHIELD).isToRemove();
         }
     }
 

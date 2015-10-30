@@ -24,7 +24,7 @@ public class PickupTest {
     @Test
     public void testPickup1() {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        Pickup pickup = new LifePowerup(mockedResources, 0, 0);
+        AbstractPickup pickup = new LifePowerup(mockedResources, 0, 0);
         assertFalse(pickup.isOnGround());
         assertFalse(pickup.isActive());
         assertFalse(pickup.willBeRemoved());
@@ -37,7 +37,7 @@ public class PickupTest {
     @Test
     public void testUpdateLocation() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        Pickup pickup = new LifePowerup(mockedResources, 0, 0);
+        AbstractPickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         float locY = pickup.getLocY();
         pickup.update(null, 0);
@@ -51,7 +51,7 @@ public class PickupTest {
     @Test
     public void testUpdate1() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        Pickup pickup = new LifePowerup(mockedResources, 0, 0);
+        AbstractPickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         pickup.setOnGround(true);
         assertEquals(pickup.getTickCount(), 0);
@@ -66,9 +66,9 @@ public class PickupTest {
     @Test
     public void testUpdate2() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        Pickup pickup = new LifePowerup(mockedResources, 0, 0);
+        AbstractPickup pickup = new LifePowerup(mockedResources, 0, 0);
         
-        pickup.toRemove();
+        pickup.isToRemove();
         
         Modifiable mockedContainer = mock(Modifiable.class);
         pickup.update(mockedContainer, 0);
@@ -82,7 +82,7 @@ public class PickupTest {
     @Test
     public void testUpdate3() throws SlickException {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        Pickup pickup = new LifePowerup(mockedResources, 0, 0);
+        AbstractPickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         pickup.setOnGround(true);
         pickup.setTickCount(179);
@@ -95,7 +95,7 @@ public class PickupTest {
     @Test
     public void testSetActive() {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
-        Pickup pickup = new LifePowerup(mockedResources, 0, 0);
+        AbstractPickup pickup = new LifePowerup(mockedResources, 0, 0);
         
         assertFalse(pickup.isActive());
         pickup.setActive(true);

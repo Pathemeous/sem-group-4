@@ -41,7 +41,7 @@ public class SlowUtility extends Utility {
             for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setSlow(false);
             }
-            toRemove();
+            isToRemove();
         }
     }
     

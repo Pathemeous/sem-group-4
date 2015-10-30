@@ -14,7 +14,7 @@ public class MoneyPowerup extends Powerup {
         if (!isActive()) {
             setActive(true);
             player.setMoney(player.getMoney() + 50);
-            toRemove();
+            isToRemove();
         }
     }
 }

@@ -6,7 +6,7 @@ import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.Renderable;
 import nl.tudelft.controller.Updateable;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
 
@@ -27,7 +27,7 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     private final LinkedList<AbstractWall> walls;
     private final LinkedList<Projectile> projectiles;
-    private final LinkedList<Pickup> pickups;
+    private final LinkedList<AbstractPickup> pickups;
     private final LinkedList<AbstractBubble> bubbles;
     private final LinkedList<GameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<GameObject> pendingAddition = new LinkedList<>();
@@ -56,7 +56,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            int - the number of this level.
      */
     public Level(Image backgroundImage, LinkedList<AbstractWall> walls,
-            LinkedList<Projectile> projectiles, LinkedList<Pickup> pickups,
+            LinkedList<Projectile> projectiles, LinkedList<AbstractPickup> pickups,
             LinkedList<AbstractBubble> bubbles, int time, int levelId) {
         this.backgroundImage = backgroundImage;
         this.walls = walls;
@@ -96,8 +96,8 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof AbstractBubble) {
                 bubbles.add((AbstractBubble) obj);
             }
-            if (obj instanceof Pickup) {
-                pickups.add((Pickup) obj);
+            if (obj instanceof AbstractPickup) {
+                pickups.add((AbstractPickup) obj);
             }
             if (obj instanceof AbstractWall) {
                 walls.add((AbstractWall) obj);
@@ -111,7 +111,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof AbstractBubble) {
                 bubbles.remove(obj);
             }
-            if (obj instanceof Pickup) {
+            if (obj instanceof AbstractPickup) {
                 pickups.remove(obj);
             }
             if (obj instanceof AbstractWall) {
@@ -202,9 +202,9 @@ public class Level implements Updateable, Renderable, Modifiable {
     /**
      * Gets the pickups in this level.
      * 
-     * @return {@link LinkedList} of {@link Pickup}s - The walls in this level.
+     * @return {@link LinkedList} of {@link AbstractPickup}s - The walls in this level.
      */
-    public LinkedList<Pickup> getPickups() {
+    public LinkedList<AbstractPickup> getPickups() {
         return this.pickups;
     }
 

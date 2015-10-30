@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.utility;
 
 import static org.junit.Assert.assertTrue;
 
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class RandomUtilityFactoryTest {
         
         factory.setRandomNumber(20);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof LevelWonUtility);
     }
@@ -33,7 +33,7 @@ public class RandomUtilityFactoryTest {
         
         factory.setRandomNumber(17);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof SplitUtility);
     }
@@ -44,7 +44,7 @@ public class RandomUtilityFactoryTest {
         
         factory.setRandomNumber(16);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof SlowUtility);
     }
@@ -55,7 +55,7 @@ public class RandomUtilityFactoryTest {
         
         factory.setRandomNumber(11);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof FreezeUtility);
     }
@@ -66,7 +66,7 @@ public class RandomUtilityFactoryTest {
         
         factory.setRandomNumber(6);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof TimeUtility);
     }

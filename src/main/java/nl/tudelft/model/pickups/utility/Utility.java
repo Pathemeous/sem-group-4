@@ -1,12 +1,12 @@
 package nl.tudelft.model.pickups.utility;
 
 import nl.tudelft.model.Level;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 
 import org.newdawn.slick.Image;
 
 
-public abstract class Utility extends Pickup {
+public abstract class Utility extends AbstractPickup {
     
     
     

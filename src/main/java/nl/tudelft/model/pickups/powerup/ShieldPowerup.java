@@ -34,18 +34,18 @@ public class ShieldPowerup extends Powerup {
             this.player = player;
 
             if (player.hasPowerup(Powerup.SHOPSHIELD)) {
-                toRemove();
+                isToRemove();
                 return;
             }
 
             if (player.hasPowerup(Powerup.SHIELD)) {
-                player.removePowerup(Powerup.SHIELD).toRemove();
+                player.removePowerup(Powerup.SHIELD).isToRemove();
             }
             
             if (!player.hasPowerup(Powerup.INVINCIBLE)) {
                 player.setPowerup(Powerup.SHIELD, this);
             } else {
-                toRemove();
+                isToRemove();
             }
         }
     }
@@ -59,7 +59,7 @@ public class ShieldPowerup extends Powerup {
         }
         
         if (removingShieldCounter == 120) {
-            player.removePowerup(Powerup.SHIELD).toRemove();
+            player.removePowerup(Powerup.SHIELD).isToRemove();
         }
     }
     

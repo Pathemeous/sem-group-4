@@ -1,12 +1,12 @@
 package nl.tudelft.model.pickups.powerup;
 
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.Image;
 
 
-public abstract class Powerup extends Pickup {
+public abstract class Powerup extends AbstractPickup {
     
     public static final String SPEED = "speedup";
     public static final String INVINCIBLE  = "invincible";

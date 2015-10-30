@@ -8,10 +8,10 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class Pickup extends AbstractEnvironmentObject {
+public abstract class AbstractPickup extends AbstractEnvironmentObject {
 
     private boolean onGround;
-    private boolean isActive;
+    private boolean active;
     private boolean toRemove;
     private int tickCount;
     
@@ -21,16 +21,16 @@ public abstract class Pickup extends AbstractEnvironmentObject {
      * @param locX float - the x-coordinate.
      * @param locY float - the y-coordinate.
      */
-    public Pickup(Image image, float locX, float locY) {
+    public AbstractPickup(Image image, float locX, float locY) {
         super(image, locX, locY);
         onGround = false;  
-        isActive = false;
+        active = false;
         toRemove = false;
     }
     
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        if (!isActive) {
+        if (!active) {
             graphics.drawImage(getImage(), locX, locY);
         }
     }
@@ -41,7 +41,7 @@ public abstract class Pickup extends AbstractEnvironmentObject {
         
         if (toRemove) {
             container.toRemove(this);
-        } else if (onGround && !isActive) {
+        } else if (onGround && !active) {
             tickCount++;
 
             if (tickCount == 180) {
@@ -70,15 +70,15 @@ public abstract class Pickup extends AbstractEnvironmentObject {
         return toRemove;
     }
     
-    public void toRemove() {
+    public void isToRemove() {
         toRemove = true;
     }
     
     public boolean isActive() {
-        return isActive;
+        return active;
     }
     
     public void setActive(boolean active) {
-        isActive = active;
+        this.active = active;
     }
 }

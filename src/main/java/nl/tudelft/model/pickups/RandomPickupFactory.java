@@ -37,7 +37,7 @@ public class RandomPickupFactory implements RandomFactory {
      * @return : Either a Pickup or null.
      */
     @Override
-    public Pickup createPickup(float locX, float locY) {
+    public AbstractPickup createPickup(float locX, float locY) {
         // Doesn't create pickup
         if (pickupNumber <= 7) {
             return null;

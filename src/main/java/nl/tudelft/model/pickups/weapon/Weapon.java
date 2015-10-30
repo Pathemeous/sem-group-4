@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class Weapon extends Pickup {
+public abstract class Weapon extends AbstractPickup {
 
     private Player player;
     private final ArrayList<Projectile> projectiles;
@@ -61,7 +61,7 @@ public abstract class Weapon extends Pickup {
         Weapon oldWeapon = player.getWeapon();
 
         if (oldWeapon != null && oldWeapon != this) {
-            oldWeapon.toRemove();
+            oldWeapon.isToRemove();
         }
 
         player.setWeapon(this);

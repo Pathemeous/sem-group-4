@@ -9,7 +9,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.AbstractGame;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.wall.AbstractWall;
 import org.junit.Before;
 import org.junit.Test;
@@ -24,7 +24,7 @@ public class PickupWallHandlerTest {
     private Shape mockedShape1;
     private Shape mockedShape2;
     private AbstractWall mockedWall;
-    private Pickup mockedPickup;
+    private AbstractPickup mockedPickup;
 
     /**
      * Create the interaction map used for testing.
@@ -36,7 +36,7 @@ public class PickupWallHandlerTest {
         mockedShape1 = mock(Shape.class);
         mockedShape2 = mock(Shape.class);
         mockedWall = mock(AbstractWall.class);
-        mockedPickup = mock(Pickup.class);
+        mockedPickup = mock(AbstractPickup.class);
     }
 
     /**

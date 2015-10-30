@@ -11,7 +11,7 @@ import nl.tudelft.model.bubble.Bubble3;
 import nl.tudelft.model.bubble.Bubble4;
 import nl.tudelft.model.bubble.Bubble5;
 import nl.tudelft.model.bubble.Bubble6;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.HorMovingWall;
@@ -119,7 +119,7 @@ public class LevelFactory {
         LinkedList<AbstractWall> walls = wallInit();
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 200000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
@@ -179,7 +179,7 @@ public class LevelFactory {
         walls.add(movingWall3);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 120000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
@@ -220,7 +220,7 @@ public class LevelFactory {
         walls.add(movingWall4);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 120000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
@@ -257,7 +257,7 @@ public class LevelFactory {
         bubbles.add(bubble3);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 120000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
@@ -309,7 +309,7 @@ public class LevelFactory {
         bubbles.add(bubble6);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 240000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
