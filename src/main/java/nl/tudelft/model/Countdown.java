@@ -9,57 +9,77 @@ import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.TrueTypeFont;
 
+/**
+ * This class represents the countdown that happens at the start of each level.
+ */
 public class Countdown implements Renderable {
-    
-    private Game game;
-    private int countdown = 180;
-    private TrueTypeFont typeFont;
-    
+
+    private final AbstractGame game;
+    private int countdownTimer = 180;
+    private final TrueTypeFont typeFont;
+
     /**
-     * Constructor of this class. Creates a countdown object.
-     * @param game : the game that this countdown belongs to.
-     * @param resources : resources wrapper.
+     * Constructs a new instance of {@link Countdown}.
+     * 
+     * @param game
+     *            {@link AbstractGame} - The game that this countdown belongs to.
+     * @param resources
+     *            {@link ResourcesWrapper} - The resourceswrapper used in this instance.
      */
-    public Countdown(Game game, ResourcesWrapper resources) {
+    public Countdown(AbstractGame game, ResourcesWrapper resources) {
         this.game = game;
         game.setPaused(true);
         typeFont = resources.getCountdownFont();
     }
-    
+
     /**
      * Resets the countdown, so that it starts over.
      */
     public void reset() {
         game.setPaused(true);
-        countdown = 180;
+        countdownTimer = 180;
     }
-    
+
+    /**
+     * Renders the rounded integer value of the countdown on the screen.
+     */
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        if (countdown > 0) {
-            String count = Integer.toString(countdown / 60 + 1);
+        if (countdownTimer > 0) {
+            String count = Integer.toString(countdownTimer / 60 + 1);
             typeFont.drawString(container.getWidth() / 2 - 25, 100.0f, count, Color.black);
         }
     }
-    
+
     /**
      * Updates the countdown. As long as the counter is higher than 0, one is subtracted from it.
      * When the counter equals 0, the game is unpaused.
      */
     public void update() {
-        if (countdown > 0) {
-            countdown--;
-        } else if (countdown == 0) {
+        if (countdownTimer > 0) {
+            countdownTimer--;
+        } else if (countdownTimer == 0) {
             game.setPaused(false);
-            countdown--;
-        } 
+            countdownTimer--;
+        }
     }
-    
+
+    /**
+     * Returns the current countdown value.
+     * 
+     * @return int - The amount of clocks until the countdown is finished.
+     */
     protected int getCounter() {
-        return countdown;
+        return countdownTimer;
     }
-    
+
+    /**
+     * Sets the countdown value to the specified value.
+     * 
+     * @param counter
+     *            int - The amount of clocks to count until the countdown is finished.
+     */
     protected void setCounter(int counter) {
-        countdown = counter;
+        countdownTimer = counter;
     }
 }

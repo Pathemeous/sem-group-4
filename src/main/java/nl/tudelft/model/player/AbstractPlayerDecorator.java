@@ -1,8 +1,8 @@
 package nl.tudelft.model.player;
 
 import nl.tudelft.controller.Modifiable;
-import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -90,17 +90,17 @@ public class AbstractPlayerDecorator implements Player {
     }
 
     @Override
-    public Powerup removePowerup(String key) {
+    public AbstractPowerup removePowerup(String key) {
         return wrappedObject.removePowerup(key);
     }
 
     @Override
-    public void setPowerup(String key, Powerup value) {
+    public void setPowerup(String key, AbstractPowerup value) {
         wrappedObject.setPowerup(key, value);
     }
 
     @Override
-    public Powerup getPowerup(String key) {
+    public AbstractPowerup getPowerup(String key) {
         return wrappedObject.getPowerup(key);
     }
 
@@ -142,13 +142,13 @@ public class AbstractPlayerDecorator implements Player {
     }
 
     @Override
-    public void setWeapon(Weapon weapon) {
+    public void setWeapon(AbstractWeapon weapon) {
         wrappedObject.setWeapon(weapon);
 
     }
 
     @Override
-    public Weapon getWeapon() {
+    public AbstractWeapon getWeapon() {
         return wrappedObject.getWeapon();
     }
 

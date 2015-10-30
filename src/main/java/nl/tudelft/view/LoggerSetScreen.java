@@ -5,7 +5,7 @@ import java.awt.Font;
 import nl.tudelft.controller.LoggerSetScreenController;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -73,9 +73,9 @@ public class LoggerSetScreen {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             for (int i = 0; i < areas.length; i++) {
                 if (areas[i].isMouseOver()) {
-                    Game.LOGGER.log(LogSeverity.DEBUG, "LoggerSetScreen",
+                    AbstractGame.LOGGER.log(LogSeverity.DEBUG, "LoggerSetScreen",
                             "Player has set the logger to " + text[i]);
-                    Game.LOGGER.setSeverity(severities[i]);
+                    AbstractGame.LOGGER.setSeverity(severities[i]);
                     optionsState.toggleLoggerSet();
                 }
             }

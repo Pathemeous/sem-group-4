@@ -6,7 +6,7 @@ import nl.tudelft.controller.KeyBindStateController;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.KeyBindHelper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.settings.InputKey;
 import nl.tudelft.settings.Settings;
 
@@ -135,23 +135,23 @@ public class KeyBindState extends BasicGameState {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             for (int i = 0; i < areas.length; i++) {
                 if (areas[i].isMouseOver()) {
-                    Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
+                    AbstractGame.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                             "User set" + keyStrings[i]);
                     controller.setKey(i, new InputKey(Keyboard.getEventKey()));
                 }
             }
             if (backButton.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
+                AbstractGame.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User goes back to options menu");
                 game.enterState(States.OptionsState);
             }
             if (defButton.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
+                AbstractGame.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User resets keys to default");
                 settings.setDefaults();
             }
             if (saveButton.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
+                AbstractGame.LOGGER.log(LogSeverity.DEBUG, "KeyBindMenu",
                         "User saves the keybinds to file");
                 settings.save();
             }

@@ -2,7 +2,7 @@ package nl.tudelft.controller;
 
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.settings.InputKey;
 import nl.tudelft.settings.Settings;
 import nl.tudelft.view.States;
@@ -103,7 +103,7 @@ public class KeyBindStateController {
             case 5: settings.setPlayer2ShootKey(key);
                     break;
             default:
-                Game.LOGGER.log(LogSeverity.ERROR, "KeyBindStateController",
+                AbstractGame.LOGGER.log(LogSeverity.ERROR, "KeyBindStateController",
                     "Something went horribly wrong");
         }
     }
@@ -130,7 +130,7 @@ public class KeyBindStateController {
             case 5: return Keyboard.getKeyName(
                     settings.getPlayer2Input().getShootInput().getKeyCode());
             default:
-                Game.LOGGER.log(LogSeverity.ERROR, "KeyBindStateController",
+                AbstractGame.LOGGER.log(LogSeverity.ERROR, "KeyBindStateController",
                         "Something went horribly wrong");
                 return "ERROR";
         }

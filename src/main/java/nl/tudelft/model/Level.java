@@ -6,7 +6,7 @@ import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.Renderable;
 import nl.tudelft.controller.Updateable;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
 
@@ -16,7 +16,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- * This class represents a single level within the {@link Game}.
+ * This class represents a single level within the {@link AbstractGame}.
  * 
  * <p>
  * A level contains the {@link AbstractEnvironmentObject}s specific to this level and the level
@@ -27,14 +27,14 @@ public class Level implements Updateable, Renderable, Modifiable {
 
     private final LinkedList<AbstractWall> walls;
     private final LinkedList<Projectile> projectiles;
-    private final LinkedList<Pickup> pickups;
+    private final LinkedList<AbstractPickup> pickups;
     private final LinkedList<AbstractBubble> bubbles;
     private final LinkedList<GameObject> pendingRemoval = new LinkedList<>();
     private final LinkedList<GameObject> pendingAddition = new LinkedList<>();
     private final Image backgroundImage;
     private int time;
     private int maxTime;
-    private final int id;
+    private final int levelId;
     private boolean shopSlow = false;
 
     /**
@@ -52,12 +52,12 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            LinkedList - list containing all bubbles in this level.
      * @param time
      *            double - the time the player has to complete the level in seconds.
-     * @param id
+     * @param levelId
      *            int - the number of this level.
      */
     public Level(Image backgroundImage, LinkedList<AbstractWall> walls,
-            LinkedList<Projectile> projectiles, LinkedList<Pickup> pickups,
-            LinkedList<AbstractBubble> bubbles, int time, int id) {
+            LinkedList<Projectile> projectiles, LinkedList<AbstractPickup> pickups,
+            LinkedList<AbstractBubble> bubbles, int time, int levelId) {
         this.backgroundImage = backgroundImage;
         this.walls = walls;
         this.projectiles = projectiles;
@@ -65,7 +65,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         this.pickups = pickups;
         this.time = time;
         this.maxTime = time;
-        this.id = id;
+        this.levelId = levelId;
     }
 
     @Override
@@ -96,8 +96,8 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof AbstractBubble) {
                 bubbles.add((AbstractBubble) obj);
             }
-            if (obj instanceof Pickup) {
-                pickups.add((Pickup) obj);
+            if (obj instanceof AbstractPickup) {
+                pickups.add((AbstractPickup) obj);
             }
             if (obj instanceof AbstractWall) {
                 walls.add((AbstractWall) obj);
@@ -111,7 +111,7 @@ public class Level implements Updateable, Renderable, Modifiable {
             if (obj instanceof AbstractBubble) {
                 bubbles.remove(obj);
             }
-            if (obj instanceof Pickup) {
+            if (obj instanceof AbstractPickup) {
                 pickups.remove(obj);
             }
             if (obj instanceof AbstractWall) {
@@ -202,9 +202,9 @@ public class Level implements Updateable, Renderable, Modifiable {
     /**
      * Gets the pickups in this level.
      * 
-     * @return {@link LinkedList} of {@link Pickup}s - The walls in this level.
+     * @return {@link LinkedList} of {@link AbstractPickup}s - The walls in this level.
      */
-    public LinkedList<Pickup> getPickups() {
+    public LinkedList<AbstractPickup> getPickups() {
         return this.pickups;
     }
 
@@ -214,7 +214,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      * @return int - the id of this level.
      */
     public int getId() {
-        return this.id;
+        return this.levelId;
     }
 
     /**

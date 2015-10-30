@@ -8,7 +8,7 @@ import org.newdawn.slick.state.StateBasedGame;
 /**
  * Created by justin on 07/10/15.
  */
-public class TestGame extends Game {
+public class TestGame extends AbstractGame {
 
     private Player player;
 

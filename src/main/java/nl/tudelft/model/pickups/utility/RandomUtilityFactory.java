@@ -29,7 +29,7 @@ public class RandomUtilityFactory implements RandomFactory {
      * @return : a utility.
      */
     @Override
-    public Utility createPickup(float locX, float locY) {
+    public AbstractUtility createPickup(float locX, float locY) {
         ResourcesWrapper res = new ResourcesWrapper();
         
         if (randomNumber == 20) {

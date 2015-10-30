@@ -4,10 +4,9 @@ import java.util.LinkedList;
 import java.util.List;
 
 import nl.tudelft.controller.Modifiable;
-import nl.tudelft.controller.resources.Resources;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.AbstractEnvironmentObject;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.RandomPickupFactory;
 
 import org.newdawn.slick.Image;
@@ -26,7 +25,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
     private static final float GRAVITY = 0.1f;
     private float verticalSpeed;
     private float horizontalSpeed;
-    private boolean isHit = false;
+    private boolean hit = false;
     private float maxVerticalSpeed;
     private boolean slow = false;
     private boolean frozen = false;
@@ -55,7 +54,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         this.resources = resources;
         nextBubbles = createNextBubbles();
         maxVerticalSpeed = initMaxVerticalSpeed();
-        
+
         verticalSpeed = 0.0f;
         horizontalSpeed = 2.0f;
     }
@@ -75,29 +74,12 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
     protected abstract float initMaxVerticalSpeed();
 
     /**
-     * Set list of bubbles that will appear when this bubble splits.
-     * 
-     * @param next
-     *            : List with bubbles.
-     */
-    protected void setNext(List<AbstractBubble> next) {
-        this.nextBubbles = next;
-    }
-
-    /**
      * Returns the list with bubbles that will appear when this bubble splits.
      * 
      * @return {@link List} of {@link AbstractBubble}s - A list containing the bubbles.
      */
     public List<AbstractBubble> getNext() {
         return nextBubbles;
-    }
-
-    /**
-     * Makes the bubble go left.
-     */
-    protected void goLeft() {
-        horizontalSpeed = -Math.abs(horizontalSpeed);
     }
 
     /**
@@ -109,7 +91,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
             move();
         }
 
-        if (isHit) {
+        if (hit) {
             split(container);
         }
 
@@ -131,9 +113,9 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         LinkedList<AbstractBubble> newBubbles = new LinkedList<>();
         resources.playBubbleSplit();
         container.toRemove(this);
-        
+
         if (!nextBubbles.isEmpty()) {
-            Pickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
+            AbstractPickup pickup = new RandomPickupFactory().createPickup(getLocX(), getLocY());
             if (pickup != null) {
                 container.toAdd(pickup);
             }
@@ -186,6 +168,23 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
         verticalSpeed -= GRAVITY;
     }
 
+    /**
+     * Makes the bubble go left.
+     */
+    protected void goLeft() {
+        horizontalSpeed = -Math.abs(horizontalSpeed);
+    }
+
+    /**
+     * Set list of bubbles that will appear when this bubble splits.
+     * 
+     * @param next
+     *            : List with bubbles.
+     */
+    protected void setNext(List<AbstractBubble> next) {
+        this.nextBubbles = next;
+    }
+
     public void setSlow(boolean slowDown) {
         slow = slowDown;
     }
@@ -203,7 +202,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
     }
 
     public void setIsHit() {
-        this.isHit = true;
+        this.hit = true;
     }
 
     /**
@@ -281,7 +280,7 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
 
     /**
      * Returns a {@link Circle} object instead of a {@link Rectangle} object. This allows for more
-     * dynamic collisions, because bubbles have circular shapes.
+     * accurate collisions, because bubbles have circular shapes.
      */
     @Override
     public Shape getBounds() {
@@ -297,10 +296,11 @@ public abstract class AbstractBubble extends AbstractEnvironmentObject {
 
     /**
      * Returns if the bubble is hit.
+     * 
      * @return the isHit
      */
     public boolean isHit() {
-        return isHit;
+        return hit;
     }
 
 }

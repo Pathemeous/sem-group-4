@@ -4,13 +4,13 @@ import java.util.ArrayList;
 
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.player.Player;
 
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class Weapon extends Pickup {
+public abstract class AbstractWeapon extends AbstractPickup {
 
     private Player player;
     private final ArrayList<Projectile> projectiles;
@@ -39,8 +39,8 @@ public abstract class Weapon extends Pickup {
      * @param maxCount
      *            - the maximum amount of projectiles this weapon can shoot.
      */
-    public Weapon(Image pickupImage, Image projImage, ResourcesWrapper resources, float locX,
-            float locY, boolean sticky, int maxCount) {
+    public AbstractWeapon(Image pickupImage, Image projImage, ResourcesWrapper resources,
+            float locX, float locY, boolean sticky, int maxCount) {
         super(pickupImage, locX, locY);
         this.resources = resources;
         this.sticky = sticky;
@@ -58,10 +58,10 @@ public abstract class Weapon extends Pickup {
     public void activate(Player player) {
         setActive(true);
         this.player = player;
-        Weapon oldWeapon = player.getWeapon();
+        AbstractWeapon oldWeapon = player.getWeapon();
 
         if (oldWeapon != null && oldWeapon != this) {
-            oldWeapon.toRemove();
+            oldWeapon.setToRemove();
         }
 
         player.setWeapon(this);

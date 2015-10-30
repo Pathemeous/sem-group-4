@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.Shape;
 public class Projectile extends AbstractEnvironmentObject {
 
     private final int speed;
-    private final Weapon weapon;
+    private final AbstractWeapon weapon;
     private boolean hitBubble;
     private int tickCount;
     private boolean hitWall;
@@ -38,7 +38,7 @@ public class Projectile extends AbstractEnvironmentObject {
      *            - The height of the player
      * @param speed
      *            - The speed
-     * @param wp
+     * @param weapon
      *            Weapon - The weapon that this projectile was shot by.
      *
      *            Constructor for the class "Projectile". New in this class: fired - Is the
@@ -47,19 +47,19 @@ public class Projectile extends AbstractEnvironmentObject {
      *            hit the top
      */
     public Projectile(ResourcesWrapper resources, Image image, int locX, int locY,
-            int playerWidth, int playerHeight, int speed, Weapon wp) {
+            int playerWidth, int playerHeight, int speed, AbstractWeapon weapon) {
         super(image, locX, locY);
         this.speed = speed;
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
-        this.weapon = wp;
+        this.weapon = weapon;
         this.resources = resources;
         hitBubble = false;
         hitWall = false;
         tickCount = 0;
         startHeight = locY;
 
-        if (wp.getNumberOfProjectiles() == 0 && !resources.getWeaponFire().playing()) {
+        if (weapon.getNumberOfProjectiles() == 0 && !resources.getWeaponFire().playing()) {
             resources.playFireSound();
         }
     }
@@ -151,7 +151,7 @@ public class Projectile extends AbstractEnvironmentObject {
         return new Rectangle(getLocX(), getLocY(), getWidth(), getActualHeight());
     }
 
-    public Weapon getWeapon() {
+    public AbstractWeapon getWeapon() {
         return this.weapon;
     }
 

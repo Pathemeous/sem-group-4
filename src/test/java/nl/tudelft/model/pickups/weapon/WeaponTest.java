@@ -34,11 +34,11 @@ public class WeaponTest {
     
     @Test
     public void testActivate() {        
-        Weapon weapon1 = new RegularWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon1 = new RegularWeapon(mockedResources, 0, 0);
         weapon1.activate(mockedPlayer);
 
         verify(mockedPlayer, times(1)).setWeapon(weapon1);
-        Weapon weapon2 = new DoubleWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon2 = new DoubleWeapon(mockedResources, 0, 0);
         weapon2.activate(mockedPlayer);
 
         verify(mockedPlayer, times(1)).setWeapon(weapon2);
@@ -46,7 +46,7 @@ public class WeaponTest {
 
     @Test
     public void testUpdate() throws SlickException {
-        Weapon weapon = new RegularWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon = new RegularWeapon(mockedResources, 0, 0);
         assertEquals(0, weapon.getFireCounter());
         weapon.update(null, 0);
         assertEquals(0, weapon.getFireCounter());
@@ -63,7 +63,7 @@ public class WeaponTest {
     public void testGetPlayer() {
         Player player = mock(Player.class);
         assertNotNull(player);
-        Weapon weapon = new RegularWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon = new RegularWeapon(mockedResources, 0, 0);
         assertEquals(weapon.getPlayer(), null);
         weapon.setPlayer(player);
         assertEquals(weapon.getPlayer(), player);
@@ -74,13 +74,13 @@ public class WeaponTest {
      */
     @Test
     public void testGetMaxCount() {
-        Weapon weapon = new RegularWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon = new RegularWeapon(mockedResources, 0, 0);
         assertEquals(weapon.getMaxCount(), 1);
-        Weapon weapon2 = new FlowerWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon2 = new FlowerWeapon(mockedResources, 0, 0);
         assertEquals(weapon2.getMaxCount(), 10);
-        Weapon weapon3 = new DoubleWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon3 = new DoubleWeapon(mockedResources, 0, 0);
         assertEquals(weapon3.getMaxCount(), 2);
-        Weapon weapon4 = new StickyWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon4 = new StickyWeapon(mockedResources, 0, 0);
         assertEquals(weapon4.getMaxCount(), 1);
     }
 
@@ -89,9 +89,9 @@ public class WeaponTest {
      */
     @Test
     public void testIsSticky() {
-        Weapon weapon = new DoubleWeapon(mockedResources, 0, 0);
-        Weapon weapon1 = new StickyWeapon(mockedResources, 0, 0);
-        Weapon weapon2 = new ShopWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon = new DoubleWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon1 = new StickyWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon2 = new ShopWeapon(mockedResources, 0, 0);
         assertFalse(weapon.isSticky());
         assertTrue(weapon1.isSticky());
         assertTrue(weapon2.isSticky());
@@ -102,7 +102,7 @@ public class WeaponTest {
      */
     @Test
     public void testFire1() {
-        Weapon weapon = new RegularWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon = new RegularWeapon(mockedResources, 0, 0);
         Projectile projectile = mock(Projectile.class);
         assertEquals(weapon.getNumberOfProjectiles(), 0);
         assertEquals(weapon.getMaxCount(), 1);
@@ -133,7 +133,7 @@ public class WeaponTest {
      */
     @Test
     public void testRemove() {
-        Weapon weapon = new RegularWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon = new RegularWeapon(mockedResources, 0, 0);
         Projectile projectile = mock(Projectile.class);
         assertFalse(weapon.getProjectiles().contains(projectile));
         weapon.getProjectiles().add(projectile);

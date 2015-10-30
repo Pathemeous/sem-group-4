@@ -2,7 +2,7 @@ package nl.tudelft.view;
 
 import nl.tudelft.controller.GameStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.settings.PlayerInput;
 import nl.tudelft.settings.Settings;
 
@@ -19,21 +19,21 @@ public class GameState extends BasicGameState {
     private GameStateController controller;
     private PauseScreen pauseScreen;
     private Input input;
-    private final Game currentGame;
+    private final AbstractGame currentGame;
     private Dashboard dashboard;
     private boolean pauseScreenOpened = false;
 
     /**
-     * Creates a new {@link GameState} with a specified {@link Game}.
+     * Creates a new {@link GameState} with a specified {@link AbstractGame}.
      * 
      * <p>
      * Also gets the {@link PlayerInput} configuration from the {@link Settings} class.
      * </p>
      * 
      * @param game
-     *            {@link Game} - The game that this GameState will manage.
+     *            {@link AbstractGame} - The game that this GameState will manage.
      */
-    public GameState(Game game) {
+    public GameState(AbstractGame game) {
         controller = new GameStateController(game);
         currentGame = game;
     }
@@ -117,7 +117,7 @@ public class GameState extends BasicGameState {
         return States.GameState;
     }
 
-    public Game getGame() {
+    public AbstractGame getGame() {
         return currentGame;
     }
 

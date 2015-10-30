@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.powerup;
 
 import static org.junit.Assert.assertTrue;
 
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class RandomPowerupFactoryTest {
         
         factory.setRandomNumber(12);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof LifePowerup);
     }
@@ -33,7 +33,7 @@ public class RandomPowerupFactoryTest {
         
         factory.setRandomNumber(11);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof MoneyPowerup);
     }
@@ -44,7 +44,7 @@ public class RandomPowerupFactoryTest {
         
         factory.setRandomNumber(10);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof InvinciblePowerup);
     }
@@ -55,7 +55,7 @@ public class RandomPowerupFactoryTest {
         
         factory.setRandomNumber(8);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof ShieldPowerup);
     }
@@ -66,7 +66,7 @@ public class RandomPowerupFactoryTest {
         
         factory.setRandomNumber(6);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof SpeedPowerup);
     }
@@ -77,7 +77,7 @@ public class RandomPowerupFactoryTest {
         
         factory.setRandomNumber(4);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof PointsPowerup);
     }

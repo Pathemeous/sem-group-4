@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.wall.AbstractWall;
 import org.junit.Before;
@@ -16,7 +16,7 @@ import org.newdawn.slick.geom.Shape;
 public class BubbleWallHandlerTest {
 
     private DefaultPlayerInteractionMap map;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private AbstractWall mockedWall;
     private AbstractBubble mockedBubble;
     private Shape mockedShape1;
@@ -28,7 +28,7 @@ public class BubbleWallHandlerTest {
     @Before
     public void setUp() {
         map = new DefaultPlayerInteractionMap();
-        mockedGame = mock(Game.class);
+        mockedGame = mock(AbstractGame.class);
         mockedWall = mock(AbstractWall.class);
         mockedBubble = mock(AbstractBubble.class);
         mockedShape1 = mock(Shape.class);

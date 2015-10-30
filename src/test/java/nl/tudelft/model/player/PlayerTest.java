@@ -16,13 +16,13 @@ import java.util.ArrayList;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.Level;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.SpeedPowerup;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
-import nl.tudelft.model.pickups.weapon.Weapon;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,18 +66,18 @@ public class PlayerTest {
 
     @Test
     public final void testReset() {
-        Weapon weapon = new DoubleWeapon(mockedResources, 0, 0);
-        Powerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
+        AbstractWeapon weapon = new DoubleWeapon(mockedResources, 0, 0);
+        AbstractPowerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         player.setWeapon(weapon);
-        player.setPowerup(Powerup.INVINCIBLE, powerup);
+        player.setPowerup(AbstractPowerup.INVINCIBLE, powerup);
         player.reset();
-        assertTrue(player.getPowerup(Powerup.INVINCIBLE) == null);
+        assertTrue(player.getPowerup(AbstractPowerup.INVINCIBLE) == null);
         assertTrue(player.getWeapon() instanceof RegularWeapon);
     }
 
     @Test
     public final void testResetShopWeapon() {
-        Weapon weapon = mock(Weapon.class);
+        AbstractWeapon weapon = mock(AbstractWeapon.class);
         ArrayList projectiles = mock(ArrayList.class);
 
         when(weapon.getProjectiles()).thenReturn(projectiles);
@@ -138,7 +138,7 @@ public class PlayerTest {
 
     @Test
     public final void testFireWeapon() {
-        Weapon weapon = mock(Weapon.class);
+        AbstractWeapon weapon = mock(AbstractWeapon.class);
 
         player.setWeapon(weapon);
 
@@ -151,65 +151,65 @@ public class PlayerTest {
 
     @Test
     public final void testClearPowerups() {
-        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
-        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
-        Powerup speed = new SpeedPowerup(mockedResources, 0, 0);
+        AbstractPowerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
+        AbstractPowerup shield = new ShieldPowerup(mockedResources, 0, 0);
+        AbstractPowerup speed = new SpeedPowerup(mockedResources, 0, 0);
         
-        player.setPowerup(Powerup.INVINCIBLE, invincible);
-        player.setPowerup(Powerup.SHIELD, shield);
-        player.setPowerup(Powerup.SPEED, speed);
+        player.setPowerup(AbstractPowerup.INVINCIBLE, invincible);
+        player.setPowerup(AbstractPowerup.SHIELD, shield);
+        player.setPowerup(AbstractPowerup.SPEED, speed);
         
-        assertEquals(invincible, player.getPowerup(Powerup.INVINCIBLE));
-        assertEquals(shield, player.getPowerup(Powerup.SHIELD));
-        assertEquals(speed, player.getPowerup(Powerup.SPEED));
+        assertEquals(invincible, player.getPowerup(AbstractPowerup.INVINCIBLE));
+        assertEquals(shield, player.getPowerup(AbstractPowerup.SHIELD));
+        assertEquals(speed, player.getPowerup(AbstractPowerup.SPEED));
         
         player.clearAllPowerups();
         
-        assertEquals(null, player.getPowerup(Powerup.INVINCIBLE));
-        assertEquals(null, player.getPowerup(Powerup.SHIELD));
-        assertEquals(null, player.getPowerup(Powerup.SPEED));
+        assertEquals(null, player.getPowerup(AbstractPowerup.INVINCIBLE));
+        assertEquals(null, player.getPowerup(AbstractPowerup.SHIELD));
+        assertEquals(null, player.getPowerup(AbstractPowerup.SPEED));
     }
     
     @Test
     public final void testHasPowerup() {
-        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
-        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
-        Powerup speed = new SpeedPowerup(mockedResources, 0, 0);
+        AbstractPowerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
+        AbstractPowerup shield = new ShieldPowerup(mockedResources, 0, 0);
+        AbstractPowerup speed = new SpeedPowerup(mockedResources, 0, 0);
         
-        player.setPowerup(Powerup.INVINCIBLE, invincible);
-        player.setPowerup(Powerup.SHIELD, shield);
-        player.setPowerup(Powerup.SPEED, speed);
+        player.setPowerup(AbstractPowerup.INVINCIBLE, invincible);
+        player.setPowerup(AbstractPowerup.SHIELD, shield);
+        player.setPowerup(AbstractPowerup.SPEED, speed);
         
-        assertTrue(player.hasPowerup(Powerup.INVINCIBLE));
-        assertTrue(player.hasPowerup(Powerup.SHIELD));
-        assertTrue(player.hasPowerup(Powerup.SPEED));
+        assertTrue(player.hasPowerup(AbstractPowerup.INVINCIBLE));
+        assertTrue(player.hasPowerup(AbstractPowerup.SHIELD));
+        assertTrue(player.hasPowerup(AbstractPowerup.SPEED));
     }
     
     @Test
     public final void testRemovePowerup() {
-        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
-        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
-        Powerup speed = new SpeedPowerup(mockedResources, 0, 0);
+        AbstractPowerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
+        AbstractPowerup shield = new ShieldPowerup(mockedResources, 0, 0);
+        AbstractPowerup speed = new SpeedPowerup(mockedResources, 0, 0);
         
-        player.setPowerup(Powerup.INVINCIBLE, invincible);
-        player.setPowerup(Powerup.SHIELD, shield);
-        player.setPowerup(Powerup.SPEED, speed);
+        player.setPowerup(AbstractPowerup.INVINCIBLE, invincible);
+        player.setPowerup(AbstractPowerup.SHIELD, shield);
+        player.setPowerup(AbstractPowerup.SPEED, speed);
         
-        player.removePowerup(Powerup.INVINCIBLE);
-        player.removePowerup(Powerup.SHIELD);
-        player.removePowerup(Powerup.SPEED);
+        player.removePowerup(AbstractPowerup.INVINCIBLE);
+        player.removePowerup(AbstractPowerup.SHIELD);
+        player.removePowerup(AbstractPowerup.SPEED);
         
-        assertEquals(null, player.getPowerup(Powerup.INVINCIBLE));
-        assertEquals(null, player.getPowerup(Powerup.SHIELD));
-        assertEquals(null, player.getPowerup(Powerup.SPEED));
+        assertEquals(null, player.getPowerup(AbstractPowerup.INVINCIBLE));
+        assertEquals(null, player.getPowerup(AbstractPowerup.SHIELD));
+        assertEquals(null, player.getPowerup(AbstractPowerup.SPEED));
     }
     
     @Test
     public final void testIsInvincible() {
         assertFalse(player.isInvincible());
         
-        Powerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
-        player.setPowerup(Powerup.INVINCIBLE, invincible);
+        AbstractPowerup invincible = new InvinciblePowerup(mockedResources, 0, 0);
+        player.setPowerup(AbstractPowerup.INVINCIBLE, invincible);
         
         assertTrue(player.isInvincible());
     }
@@ -218,8 +218,8 @@ public class PlayerTest {
     public final void testHasShield() {
         assertFalse(player.hasShield());
         
-        Powerup shield = new ShieldPowerup(mockedResources, 0, 0);
-        player.setPowerup(Powerup.SHIELD, shield);
+        AbstractPowerup shield = new ShieldPowerup(mockedResources, 0, 0);
+        player.setPowerup(AbstractPowerup.SHIELD, shield);
         
         assertTrue(player.hasShield());
     }
@@ -281,51 +281,51 @@ public class PlayerTest {
 
     @Test
     public final void testClearSpeed() {
-        Powerup powerup = mock(Powerup.class);
-        player.setPowerup(Powerup.SPEED, powerup);
-        assertEquals(powerup, player.getPowerup(Powerup.SPEED));
+        AbstractPowerup powerup = mock(AbstractPowerup.class);
+        player.setPowerup(AbstractPowerup.SPEED, powerup);
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SPEED));
 
         player.clearAllPowerups();
 
-        assertEquals(null, player.getPowerup(Powerup.SPEED));
+        assertEquals(null, player.getPowerup(AbstractPowerup.SPEED));
     }
 
     @Test
     public final void testClearShield() {
-        Powerup powerup = mock(Powerup.class);
-        player.setPowerup(Powerup.SHIELD, powerup);
-        assertEquals(powerup, player.getPowerup(Powerup.SHIELD));
+        AbstractPowerup powerup = mock(AbstractPowerup.class);
+        player.setPowerup(AbstractPowerup.SHIELD, powerup);
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHIELD));
         assertTrue(player.hasShield());
 
         player.clearAllPowerups();
 
-        assertEquals(null, player.getPowerup(Powerup.SHIELD));
+        assertEquals(null, player.getPowerup(AbstractPowerup.SHIELD));
         assertFalse(player.hasShield());
     }
 
     @Test
     public final void testClearInvincible() {
-        Powerup powerup = mock(Powerup.class);
-        player.setPowerup(Powerup.INVINCIBLE, powerup);
-        assertEquals(powerup, player.getPowerup(Powerup.INVINCIBLE));
+        AbstractPowerup powerup = mock(AbstractPowerup.class);
+        player.setPowerup(AbstractPowerup.INVINCIBLE, powerup);
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.INVINCIBLE));
         assertTrue(player.isInvincible());
 
         player.clearAllPowerups();
 
-        assertEquals(null, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(null, player.getPowerup(AbstractPowerup.INVINCIBLE));
         assertFalse(player.isInvincible());
     }
 
     @Test
     public final void testClearShopSield() {
-        Powerup powerup = mock(Powerup.class);
-        player.setPowerup(Powerup.SHOPSHIELD, powerup);
-        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        AbstractPowerup powerup = mock(AbstractPowerup.class);
+        player.setPowerup(AbstractPowerup.SHOPSHIELD, powerup);
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHOPSHIELD));
         assertTrue(player.hasShopShield());
 
         player.clearAllPowerups();
 
-        assertEquals(null, player.getPowerup(Powerup.SHOPSHIELD));
+        assertEquals(null, player.getPowerup(AbstractPowerup.SHOPSHIELD));
         assertFalse(player.hasShopShield());
     }
 

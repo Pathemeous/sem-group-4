@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.view.Dashboard;
@@ -19,7 +19,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class DashBoardControllerTest {
 
     private DashboardController dashboardController;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private Dashboard mockedDashboard;
     private Rectangle mockedRectangle;
     private Object mockedLevel;
@@ -32,7 +32,7 @@ public class DashBoardControllerTest {
      */
     @Before
     public void setup() {
-        mockedGame = Mockito.mock(Game.class);
+        mockedGame = Mockito.mock(AbstractGame.class);
         mockedDashboard = Mockito.mock(Dashboard.class);
         mockedRectangle = Mockito.mock(Rectangle.class);
         mockedLevel = Mockito.mock(Level.class);

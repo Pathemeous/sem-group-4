@@ -2,7 +2,7 @@ package nl.tudelft.model.pickups.weapon;
 
 import static org.junit.Assert.assertTrue;
 
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 
 import org.junit.Test;
 
@@ -22,7 +22,7 @@ public class RandomWeaponFactoryTest {
         
         factory.setRandomNumber(1);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof RegularWeapon);
     }
@@ -33,7 +33,7 @@ public class RandomWeaponFactoryTest {
         
         factory.setRandomNumber(2);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof DoubleWeapon);
     }
@@ -44,7 +44,7 @@ public class RandomWeaponFactoryTest {
         
         factory.setRandomNumber(3);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof StickyWeapon);
     }
@@ -55,7 +55,7 @@ public class RandomWeaponFactoryTest {
         
         factory.setRandomNumber(4);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof FlowerWeapon);
     }
@@ -66,7 +66,7 @@ public class RandomWeaponFactoryTest {
         
         factory.setRandomNumber(100);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertTrue(pickup instanceof RegularWeapon);
     }

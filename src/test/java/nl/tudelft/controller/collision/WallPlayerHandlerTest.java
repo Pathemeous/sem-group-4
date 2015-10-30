@@ -6,7 +6,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.model.wall.AbstractWall;
 
@@ -17,7 +17,7 @@ import org.newdawn.slick.geom.Shape;
 public class WallPlayerHandlerTest {
 
     private DefaultPlayerInteractionMap map;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private Shape mockedShape1;
     private Shape mockedShape2;
     private Player mockedPlayer;
@@ -29,7 +29,7 @@ public class WallPlayerHandlerTest {
     @Before
     public void setUp() {
         map = new DefaultPlayerInteractionMap();
-        mockedGame = mock(Game.class);
+        mockedGame = mock(AbstractGame.class);
         mockedShape1 = mock(Shape.class);
         mockedShape2 = mock(Shape.class);
         mockedPlayer = mock(Player.class);

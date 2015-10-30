@@ -4,7 +4,7 @@ import java.awt.Font;
 
 import nl.tudelft.controller.ShopStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
@@ -115,7 +115,7 @@ public class ShopState extends BasicGameState {
      * @param game
      *            the game that the players play in.
      */
-    public void setup(Game game) {
+    public void setup(AbstractGame game) {
         shop = new Shop(game);
 
         selectedPlayer = 0;

@@ -4,8 +4,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.fail;
 
 import nl.tudelft.controller.Modifiable;
-import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -116,7 +116,7 @@ public class AbstractPlayerDecoratorTest {
 
     @Test
     public void testSetPowerup() {
-        Powerup mockedPowerup = Mockito.mock(Powerup.class);
+        AbstractPowerup mockedPowerup = Mockito.mock(AbstractPowerup.class);
         decorator.setPowerup("test", mockedPowerup);
         Mockito.verify(mockedWrappee).setPowerup("test", mockedPowerup);
     }
@@ -172,7 +172,7 @@ public class AbstractPlayerDecoratorTest {
 
     @Test
     public void testSetWeapon() {
-        Weapon mockedWeapon = Mockito.mock(Weapon.class);
+        AbstractWeapon mockedWeapon = Mockito.mock(AbstractWeapon.class);
         decorator.setWeapon(mockedWeapon);
         Mockito.verify(mockedWrappee).setWeapon(mockedWeapon);
 

@@ -11,7 +11,7 @@ import nl.tudelft.model.bubble.Bubble3;
 import nl.tudelft.model.bubble.Bubble4;
 import nl.tudelft.model.bubble.Bubble5;
 import nl.tudelft.model.bubble.Bubble6;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.HorMovingWall;
@@ -23,30 +23,35 @@ import nl.tudelft.model.wall.VerMovingWall;
  */
 public class LevelFactory {
 
-    private final Game game;
+    private final AbstractGame game;
     private final ResourcesWrapper resources;
     private static final int LEVEL_COUNT = 5;
 
+    private final int leftWallWidth;
+    private final int topWallHeight;
+
     /**
-     * Constructs a new {@link LevelFactory} for a certain {@link Game}, using the specified
-     * {@link ResourcesWrapper}.
+     * Constructs a new {@link LevelFactory} for a certain {@link AbstractGame}, using the
+     * specified {@link ResourcesWrapper}.
      * 
      * @param game
-     *            {@link Game} - the game that this factory belongs to.
+     *            {@link AbstractGame} - the game that this factory belongs to.
      * @param wrapper
      *            {@link ResourcesWrapper} - the resources that this factory will use.
      */
-    public LevelFactory(Game game, ResourcesWrapper wrapper) {
+    public LevelFactory(AbstractGame game, ResourcesWrapper wrapper) {
         this.game = game;
         this.resources = wrapper;
+        this.leftWallWidth = resources.getVwallImage().getWidth();
+        this.topWallHeight = game.getContainerHeight() - resources.getWallImage().getHeight();
     }
 
     /**
-     * Gets the {@link Game} instance that this factory returns to.
+     * Gets the {@link AbstractGame} instance that this factory returns to.
      * 
-     * @return {@link Game} - the Game instance that this factory belongs to.
+     * @return {@link AbstractGame} - the Game instance that this factory belongs to.
      */
-    public Game getGame() {
+    public AbstractGame getGame() {
         return this.game;
     }
 
@@ -74,47 +79,51 @@ public class LevelFactory {
      * If the ID provided is not a level, an {@link IllegalArgumentException} is thrown.
      * </p>
      * 
-     * @param id
+     * @param levelId
      *            int - the ID for the level.
      * @return Level - the Level object ready for use.
      * @throws IllegalArgumentException
      *             - If the ID is out of range.
      */
-    public Level getLevel(int id) throws IllegalArgumentException {
-        switch (id) {
+    public Level getLevel(int levelId) throws IllegalArgumentException {
+        switch (levelId) {
             case 1:
                 return getLevel1();
             case 2:
-                return getBossLevel();
+                return getLevel2();
             case 3:
                 return getLevel3();
             case 4:
                 return getLevel4();
             case 5:
-                return getLevel2();
+                return getBossLevel();
             default:
                 throw new IllegalArgumentException();
         }
     }
 
+    /**
+     * Returns the fifth level, which is the boss level.
+     * 
+     * @return {@link Level} - The level.
+     */
     private Level getBossLevel() {
-        final int id = 2;
+        final int levelId = 5;
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
 
-        AbstractBubble bubble = new BacchelliBubble(resources, 200,
-                resources.getVwallImage().getWidth() );
+        AbstractBubble bubble = new BacchelliBubble(resources, 200, leftWallWidth);
 
         bubbles.add(bubble);
 
         LinkedList<AbstractWall> walls = wallInit();
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 200000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
-                time, id);
+                time, levelId);
 
     }
 
@@ -145,15 +154,15 @@ public class LevelFactory {
      * @return {@link Level} - level 1.
      */
     private Level getLevel1() {
-        final int id = 1;
+        final int levelId = 1;
 
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
 
-        Bubble2 bubble1 = new Bubble2(resources, resources.getVwallImage().getWidth() + 100,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage2().getHeight() - 400);
-       
+        Bubble2 bubble1 =
+                new Bubble2(resources, leftWallWidth + 100, topWallHeight
+                        - resources.getBubbleImage2().getHeight() - 400);
+
         bubbles.add(bubble1);
 
         LinkedList<AbstractWall> walls = wallInit();
@@ -170,11 +179,11 @@ public class LevelFactory {
         walls.add(movingWall3);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 120000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
-                time, id);
+                time, levelId);
     }
 
     /**
@@ -183,14 +192,14 @@ public class LevelFactory {
      * @return {@link Level} - level 2.
      */
     private Level getLevel2() {
-        final int id = 5;
+        final int levelId = 2;
 
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
 
-        Bubble6 bubble1 = new Bubble6(resources, resources.getVwallImage().getWidth() + 100,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage6().getHeight() - 400);
+        Bubble6 bubble1 =
+                new Bubble6(resources, leftWallWidth + 100, topWallHeight
+                        - resources.getBubbleImage6().getHeight() - 400);
 
         bubbles.add(bubble1);
 
@@ -211,11 +220,11 @@ public class LevelFactory {
         walls.add(movingWall4);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 120000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
-                time, id);
+                time, levelId);
 
     }
 
@@ -225,34 +234,34 @@ public class LevelFactory {
      * @return {@link Level} - level 3.
      */
     private Level getLevel3() {
-        final int id = 3;
+        final int levelId = 3;
 
         final LinkedList<AbstractWall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
-        
-        Bubble3 bubble1 = new Bubble3(resources, resources.getVwallImage().getWidth() + 100,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage3().getHeight() - 400);        
+
+        Bubble3 bubble1 =
+                new Bubble3(resources, leftWallWidth + 100, topWallHeight
+                        - resources.getBubbleImage3().getHeight() - 400);
         bubbles.add(bubble1);
-        
-        Bubble3 bubble2 = new Bubble3(resources, resources.getVwallImage().getWidth() + 200,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage3().getHeight() - 400);       
+
+        Bubble3 bubble2 =
+                new Bubble3(resources, leftWallWidth + 200, topWallHeight
+                        - resources.getBubbleImage3().getHeight() - 400);
         bubbles.add(bubble2);
-        
-        Bubble3 bubble3 = new Bubble3(resources, resources.getVwallImage().getWidth() + 300,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage3().getHeight() - 400);        
+
+        Bubble3 bubble3 =
+                new Bubble3(resources, leftWallWidth + 300, topWallHeight
+                        - resources.getBubbleImage3().getHeight() - 400);
         bubbles.add(bubble3);
 
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 120000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
-                time, id);
+                time, levelId);
 
     }
 
@@ -262,49 +271,48 @@ public class LevelFactory {
      * @return {@link Level} - level 4.
      */
     private Level getLevel4() {
-        final int id = 4;
+        final int levelId = 4;
 
         final LinkedList<AbstractWall> walls = wallInit();
 
         // Create Bubbles for level
         LinkedList<AbstractBubble> bubbles = new LinkedList<>();
-        
-        Bubble1 bubble1 = new Bubble1(resources, resources.getVwallImage().getWidth() + 100,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage1().getHeight() - 400);        
+
+        Bubble1 bubble1 =
+                new Bubble1(resources, leftWallWidth + 100, topWallHeight
+                        - resources.getBubbleImage1().getHeight() - 400);
         bubbles.add(bubble1);
-        
-        Bubble2 bubble2 = new Bubble2(resources, resources.getVwallImage().getWidth() + 200,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage2().getHeight() - 400);        
+
+        Bubble2 bubble2 =
+                new Bubble2(resources, leftWallWidth + 200, topWallHeight
+                        - resources.getBubbleImage2().getHeight() - 400);
         bubbles.add(bubble2);
-        
-        Bubble3 bubble3 = new Bubble3(resources, resources.getVwallImage().getWidth() + 300,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage3().getHeight() - 400);        
+
+        Bubble3 bubble3 =
+                new Bubble3(resources, leftWallWidth + 300, topWallHeight
+                        - resources.getBubbleImage3().getHeight() - 400);
         bubbles.add(bubble3);
-        
-        Bubble4 bubble4 = new Bubble4(resources, resources.getVwallImage().getWidth() + 400,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage4().getHeight() - 400);        
+
+        Bubble4 bubble4 =
+                new Bubble4(resources, leftWallWidth + 400, topWallHeight
+                        - resources.getBubbleImage4().getHeight() - 400);
         bubbles.add(bubble4);
-        
-        Bubble5 bubble5 = new Bubble5(resources, resources.getVwallImage().getWidth() + 500,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage5().getHeight() - 400);        
+
+        Bubble5 bubble5 =
+                new Bubble5(resources, leftWallWidth + 500, topWallHeight
+                        - resources.getBubbleImage5().getHeight() - 400);
         bubbles.add(bubble5);
-        
-        Bubble6 bubble6 = new Bubble6(resources, resources.getVwallImage().getWidth() + 600,
-                game.getContainerHeight() - resources.getWallImage().getHeight()
-                - resources.getBubbleImage6().getHeight() - 400);        
+
+        Bubble6 bubble6 =
+                new Bubble6(resources, leftWallWidth + 600, topWallHeight
+                        - resources.getBubbleImage6().getHeight() - 400);
         bubbles.add(bubble6);
 
-
         LinkedList<Projectile> projectiles = new LinkedList<>();
-        LinkedList<Pickup> pickups = new LinkedList<>();
+        LinkedList<AbstractPickup> pickups = new LinkedList<>();
         int time = 240000;
 
         return new Level(resources.getBackgroundImage(), walls, projectiles, pickups, bubbles,
-                time, id);
+                time, levelId);
     }
 }

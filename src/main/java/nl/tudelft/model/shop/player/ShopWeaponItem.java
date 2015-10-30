@@ -1,8 +1,5 @@
 package nl.tudelft.model.shop.player;
 
-import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.pickups.weapon.ShopWeapon;
-import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.model.player.ShopWeaponDecorator;
 

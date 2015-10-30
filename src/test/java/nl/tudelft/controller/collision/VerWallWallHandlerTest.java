@@ -7,7 +7,7 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.wall.AbstractWall;
 import nl.tudelft.model.wall.VerMovingWall;
 import org.junit.Before;
@@ -16,7 +16,7 @@ import org.junit.Test;
 public class VerWallWallHandlerTest {
 
     private DefaultPlayerInteractionMap map;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private VerMovingWall mockedVerWall;
     private AbstractWall mockedWall;
 
@@ -26,7 +26,7 @@ public class VerWallWallHandlerTest {
     @Before
     public void setUp() {
         map = new DefaultPlayerInteractionMap();
-        mockedGame = mock(Game.class);
+        mockedGame = mock(AbstractGame.class);
         mockedVerWall = mock(VerMovingWall.class);
         mockedWall = mock(AbstractWall.class);
     }

@@ -254,19 +254,19 @@ public final class Resources {
         return filePath.split(fileSeparator);
     }
 
-    static final HashMap<String, Image> getImages() {
+    static HashMap<String, Image> getImages() {
         return images;
     }
 
-    static final HashMap<String, Sound> getSounds() {
+    static HashMap<String, Sound> getSounds() {
         return sounds;
     }
 
-    static final HashMap<String, Music> getMusic() {
+    static HashMap<String, Music> getMusic() {
         return music;
     }
 
-    static final HashMap<String, Animation> getAnimations() {
+    static HashMap<String, Animation> getAnimations() {
         return animations;
     }
 

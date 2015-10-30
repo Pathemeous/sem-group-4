@@ -15,7 +15,7 @@ import org.newdawn.slick.SlickException;
 
 public class LevelFactoryTest {
     
-    Game mockedGame;
+    AbstractGame mockedGame;
     ResourcesWrapper mockedResources;
     
     /**
@@ -23,7 +23,7 @@ public class LevelFactoryTest {
      */
     @Before
     public void setUp() {
-        mockedGame = mock(Game.class);
+        mockedGame = mock(AbstractGame.class);
         mockedResources = mock(ResourcesWrapper.class);
         Image mockedImage = mock(Image.class);
         when(mockedResources.getVwallImage()).thenReturn(mockedImage);
