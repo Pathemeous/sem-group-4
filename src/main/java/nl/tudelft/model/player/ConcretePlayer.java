@@ -10,8 +10,8 @@ import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.weapon.RegularWeapon;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
+import nl.tudelft.model.pickups.weapon.RegularWeapon;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -147,8 +147,8 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
-     * This means that a player loses all his {@link Powerup}s and his {@link AbstractWeapon} and makes
-     * sure that the weapon fire delay is set to zero.
+     * This means that a player loses all his {@link Powerup}s and his {@link AbstractWeapon} and
+     * makes sure that the weapon fire delay is set to zero.
      * </p>
      */
     public void reset() {
@@ -407,8 +407,8 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     }
 
     /**
-     * Sets the state of this {@link Player} to determine whether his {@link AbstractWeapon} is a shop
-     * weapon.
+     * Sets the state of this {@link Player} to determine whether his {@link AbstractWeapon} is a
+     * shop weapon.
      * 
      * @param bool
      *            boolean - true iff the {@link Player} currently has a shop weapon.

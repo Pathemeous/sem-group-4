@@ -39,8 +39,8 @@ public abstract class AbstractWeapon extends AbstractPickup {
      * @param maxCount
      *            - the maximum amount of projectiles this weapon can shoot.
      */
-    public AbstractWeapon(Image pickupImage, Image projImage, ResourcesWrapper resources, float locX,
-            float locY, boolean sticky, int maxCount) {
+    public AbstractWeapon(Image pickupImage, Image projImage, ResourcesWrapper resources,
+            float locX, float locY, boolean sticky, int maxCount) {
         super(pickupImage, locX, locY);
         this.resources = resources;
         this.sticky = sticky;

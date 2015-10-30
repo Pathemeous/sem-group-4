@@ -9,8 +9,8 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.bubble.AbstractBubble;
-import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
+import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.player.Player;
 
 import org.junit.Before;

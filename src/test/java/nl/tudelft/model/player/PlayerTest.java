@@ -20,9 +20,9 @@ import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.SpeedPowerup;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
-import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 import org.junit.Before;
 import org.junit.Test;

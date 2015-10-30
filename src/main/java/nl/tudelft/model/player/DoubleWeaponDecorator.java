@@ -1,8 +1,8 @@
 package nl.tudelft.model.player;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.AbstractWeapon;
+import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 
 public class DoubleWeaponDecorator extends AbstractPlayerDecorator {
 
