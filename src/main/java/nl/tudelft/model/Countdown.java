@@ -11,9 +11,9 @@ import org.newdawn.slick.TrueTypeFont;
 
 public class Countdown implements Renderable {
     
-    private Game game;
-    private int countdown = 180;
-    private TrueTypeFont typeFont;
+    private final Game game;
+    private int countdownTimer = 180;
+    private final TrueTypeFont typeFont;
     
     /**
      * Constructor of this class. Creates a countdown object.
@@ -31,13 +31,13 @@ public class Countdown implements Renderable {
      */
     public void reset() {
         game.setPaused(true);
-        countdown = 180;
+        countdownTimer = 180;
     }
     
     @Override
     public void render(GameContainer container, Graphics graphics) throws SlickException {
-        if (countdown > 0) {
-            String count = Integer.toString(countdown / 60 + 1);
+        if (countdownTimer > 0) {
+            String count = Integer.toString(countdownTimer / 60 + 1);
             typeFont.drawString(container.getWidth() / 2 - 25, 100.0f, count, Color.black);
         }
     }
@@ -47,19 +47,19 @@ public class Countdown implements Renderable {
      * When the counter equals 0, the game is unpaused.
      */
     public void update() {
-        if (countdown > 0) {
-            countdown--;
-        } else if (countdown == 0) {
+        if (countdownTimer > 0) {
+            countdownTimer--;
+        } else if (countdownTimer == 0) {
             game.setPaused(false);
-            countdown--;
+            countdownTimer--;
         } 
     }
     
     protected int getCounter() {
-        return countdown;
+        return countdownTimer;
     }
     
     protected void setCounter(int counter) {
-        countdown = counter;
+        countdownTimer = counter;
     }
 }
