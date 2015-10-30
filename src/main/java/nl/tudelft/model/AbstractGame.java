@@ -28,6 +28,16 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public abstract class AbstractGame implements Renderable {
 
+    private final int containerWidth;
+    private final int containerHeight;
+    private final Iterator<Level> levelIt;
+    private Level curLevel;
+    private final LevelFactory levelFact;
+    private final StateBasedGame mainApp;
+    private final ResourcesWrapper resources;
+    private boolean paused = false;
+    private final Countdown countdown;
+
     /**
      * The global logger object for the game.
      */
@@ -40,16 +50,6 @@ public abstract class AbstractGame implements Renderable {
             throw new IllegalStateException("This shouldn't happen", e);
         }
     }
-
-    private final int containerWidth;
-    private final int containerHeight;
-    private final Iterator<Level> levelIt;
-    private Level curLevel;
-    private final LevelFactory levelFact;
-    private final StateBasedGame mainApp;
-    private final ResourcesWrapper resources;
-    private boolean paused = false;
-    private final Countdown countdown;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
