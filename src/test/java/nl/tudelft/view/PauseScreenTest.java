@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -28,7 +28,7 @@ public class PauseScreenTest {
     private Graphics mockedGraphics;
     private GameContainer mockedContainer;
     private Input mockedInput;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private GameState mockedGameState;
     private Image mockedImage;
     private StateBasedGame mockedStateBasedGame;
@@ -45,7 +45,7 @@ public class PauseScreenTest {
         mockedContainer = Mockito.mock(GameContainer.class);
         mockedInput = Mockito.mock(Input.class);
         mockedStateBasedGame = Mockito.mock(StateBasedGame.class);
-        mockedGame = Mockito.mock(Game.class);
+        mockedGame = Mockito.mock(AbstractGame.class);
         mockedGameState = Mockito.mock(GameState.class);
         mockedImage = Mockito.mock(Image.class);
 

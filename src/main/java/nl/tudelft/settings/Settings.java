@@ -4,7 +4,7 @@ import java.io.IOException;
 
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.util.KeyBindHelper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 public class Settings {
 
@@ -34,7 +34,7 @@ public class Settings {
         try {
             KeyBindHelper.load();
         } catch (IOException e) {
-            Game.LOGGER.log(LogSeverity.CRITICAL, "Initialization",
+            AbstractGame.LOGGER.log(LogSeverity.CRITICAL, "Initialization",
                     "Default keybinds were not found.");
         }
     }
@@ -148,7 +148,7 @@ public class Settings {
         try {
             KeyBindHelper.save();
         } catch (IOException e) {
-            Game.LOGGER.log(LogSeverity.CRITICAL, "File",
+            AbstractGame.LOGGER.log(LogSeverity.CRITICAL, "File",
                     "Saving the settings to a file failed.");
         }
     }
@@ -160,7 +160,7 @@ public class Settings {
         try {
             KeyBindHelper.loadDefaults();
         } catch (IOException e) {
-            Game.LOGGER.log(LogSeverity.CRITICAL, "File",
+            AbstractGame.LOGGER.log(LogSeverity.CRITICAL, "File",
                     "Loading the default settings failed.");
         }
     }

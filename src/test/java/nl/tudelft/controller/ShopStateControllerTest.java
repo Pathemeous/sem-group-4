@@ -8,7 +8,7 @@ import static org.mockito.Mockito.when;
 
 import java.util.LinkedList;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
@@ -26,7 +26,7 @@ public class ShopStateControllerTest {
     private Player mockedPlayer;
     private Shop mockedShop;
     private LinkedList<ShopItem> mockedInventory;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private Player[] mockedPlayers;
 
     /**
@@ -39,7 +39,7 @@ public class ShopStateControllerTest {
         mockedShopItem = Mockito.mock(ShopItem.class);
         mockedPlayer = Mockito.mock(Player.class);
         mockedShop = Mockito.mock(Shop.class);
-        mockedGame = Mockito.mock(Game.class);
+        mockedGame = Mockito.mock(AbstractGame.class);
 
         mockedPlayers = new Player[1];
         mockedPlayers[0] = mockedPlayer;

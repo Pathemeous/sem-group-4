@@ -3,9 +3,9 @@ package nl.tudelft.model.pickups;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
-import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.utility.Utility;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
+import nl.tudelft.model.pickups.utility.AbstractUtility;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 import org.junit.Test;
 
@@ -27,7 +27,7 @@ public class RandomPickupFactoryTest {
         
         factory.setCreateNumber(7);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
         assertEquals(null, pickup);
     }
@@ -39,9 +39,9 @@ public class RandomPickupFactoryTest {
         factory.setCreateNumber(8);
         factory.setPickupTypeNumber(3);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
-        assertTrue(pickup instanceof Weapon);
+        assertTrue(pickup instanceof AbstractWeapon);
     }
     
     @Test
@@ -51,9 +51,9 @@ public class RandomPickupFactoryTest {
         factory.setCreateNumber(8);
         factory.setPickupTypeNumber(4);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
-        assertTrue(pickup instanceof Powerup);
+        assertTrue(pickup instanceof AbstractPowerup);
     }
     
     @Test
@@ -63,8 +63,8 @@ public class RandomPickupFactoryTest {
         factory.setCreateNumber(8);
         factory.setPickupTypeNumber(7);
         
-        Pickup pickup = factory.createPickup(0, 0);
+        AbstractPickup pickup = factory.createPickup(0, 0);
         
-        assertTrue(pickup instanceof Utility);
+        assertTrue(pickup instanceof AbstractUtility);
     }
 }

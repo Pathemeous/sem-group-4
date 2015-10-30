@@ -9,13 +9,13 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Created by justin on 07/10/15.
+ * This class represents a singleplayer game.
  */
-public class SingleplayerGame extends Game {
+public class SingleplayerGame extends AbstractGame {
 
     private Player player;
     private final PlayerInput player1Input;
-    private Settings settings = Settings.getInstance();
+    private final Settings settings = Settings.getInstance();
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -45,14 +45,26 @@ public class SingleplayerGame extends Game {
     public Player[] getPlayers() {
         return new Player[] { player };
     }
-    
+
+    /**
+     * Updates the player inputs necessary for all players of this game and calls the
+     * {@link AbstractGame#update(int)}.
+     */
     @Override
     public void update(int delta) throws SlickException {
         player1Input.poll();
-        
+
         super.update(delta);
     }
 
+    /**
+     * Decorates the player in the game.
+     * 
+     * <p>
+     * Does not perform any checks to verify that the specified player is the same as the player in
+     * this game.
+     * </p>
+     */
     @Override
     public void decoratePlayer(Player player, Player decorator) {
         settings.getPlayer1Input().removeListener(player);

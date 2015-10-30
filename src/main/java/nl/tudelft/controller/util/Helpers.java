@@ -26,7 +26,7 @@ public final class Helpers {
      *            int - maximum value
      * @return int - a random int
      */
-    public static final int randInt(int min, int max) {
+    public static int randInt(int min, int max) {
         return random.nextInt((max - min) + 1) + min;
     }
 }

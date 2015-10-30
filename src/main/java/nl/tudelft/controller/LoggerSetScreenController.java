@@ -2,7 +2,7 @@ package nl.tudelft.controller;
 
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Image;
@@ -28,7 +28,7 @@ public class LoggerSetScreenController {
      *                  The color to which the button will be set
      */
     public Color decideColor(LogSeverity logSeverity) {
-        if (logSeverity == Game.LOGGER.getSeverity()) {
+        if (logSeverity == AbstractGame.LOGGER.getSeverity()) {
             return Color.green;
         } else {
             return Color.yellow;

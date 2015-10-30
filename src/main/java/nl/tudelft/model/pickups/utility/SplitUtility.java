@@ -3,7 +3,7 @@ package nl.tudelft.model.pickups.utility;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
 
-public class SplitUtility extends Utility {
+public class SplitUtility extends AbstractUtility {
     
     public SplitUtility(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilitySplit(), locX, locY);
@@ -15,7 +15,7 @@ public class SplitUtility extends Utility {
             setActive(true);
             
             level.splitAllBubbles(level.getBubbles(), false);
-            toRemove();
+            setToRemove();
         }
     }
 }

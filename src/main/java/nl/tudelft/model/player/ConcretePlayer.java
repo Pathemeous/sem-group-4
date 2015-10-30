@@ -6,12 +6,12 @@ import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.AbstractGameObject;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
-import nl.tudelft.model.pickups.weapon.Weapon;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -21,29 +21,23 @@ import org.newdawn.slick.geom.Shape;
 
 public class ConcretePlayer extends AbstractGameObject implements Player {
 
-    // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score;
     private int money;
-    private static final int BOUNDINGBOX_OFFSET_X = 10;
-    private static final int BOUNDINGBOX_OFFSET_Y = 15;
+    private static final int BOUNDS_OFFSET_X = 10;
+    private static final int BOUNDS_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
-    @Deprecated
-    private static final int SPEEDUP = 2;
     private final int initialLocy;
     private final int initialLocx;
     private int speed;
     private int lives;
     private final boolean firstPlayer;
-    private final HashMap<String, Powerup> powerups = new HashMap<>();
+    private final HashMap<String, AbstractPowerup> powerups = new HashMap<>();
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
-    private final ResourcesWrapper resources;
-    // TODO: Remove container when Observer projectiles can be managed within Weapon (and no longer
-    // in Level).
     private Modifiable container;
 
-    private Weapon weapon;
+    private AbstractWeapon weapon;
 
     private Animation animationCurrent;
     private final Animation animationLeft;
@@ -71,7 +65,6 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
         score = 0;
         money = 0;
         this.firstPlayer = isFirstPlayer;
-        this.resources = resources;
 
         this.weapon = new RegularWeapon(new ResourcesWrapper(), 0, 0);
         this.weapon.activate(this);
@@ -93,9 +86,8 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
 
     @Override
     public Shape getBounds() {
-        return new SemRectangle(locX + BOUNDINGBOX_OFFSET_X, locY + BOUNDINGBOX_OFFSET_Y,
-                getImage().getWidth() - (2 * BOUNDINGBOX_OFFSET_X), getImage().getHeight()
-                        - BOUNDINGBOX_OFFSET_Y);
+        return new SemRectangle(locX + BOUNDS_OFFSET_X, locY + BOUNDS_OFFSET_Y, getImage()
+                .getWidth() - (2 * BOUNDS_OFFSET_X), getImage().getHeight() - BOUNDS_OFFSET_Y);
     }
 
     @Override
@@ -119,7 +111,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     public void moveLeft() {
         setAnimationCurrent(animationLeft);
         setLocX(locX - getSpeed());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
     }
 
     /**
@@ -129,7 +121,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     public void moveRight() {
         setAnimationCurrent(animationRight);
         setLocX(locX + getSpeed());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 
     /**
@@ -138,7 +130,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     @Override
     public void stopMoving() {
         setAnimationCurrent(null);
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player stops moving.");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player stops moving.");
     }
 
     /**
@@ -148,23 +140,23 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     public void shoot() {
         getWeapon().fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                 this.getHeight());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
     }
 
     /**
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
-     * This means that a player loses all his {@link Powerup}s and his {@link Weapon} and makes
-     * sure that the weapon fire delay is set to zero.
+     * This means that a player loses all his {@link AbstractPowerup}s and his
+     * {@link AbstractWeapon} and makes sure that the weapon fire delay is set to zero.
      * </p>
      */
     public void reset() {
         clearAllPowerups();
-        if (!shopWeapon) {
-            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
-        } else {
+        if (shopWeapon) {
             getWeapon().getProjectiles().clear();
+        } else {
+            setWeapon(new RegularWeapon(new ResourcesWrapper(), 0, 0));
         }
         this.getWeapon().activate(this);
         weaponActivated = false;
@@ -187,65 +179,65 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     }
 
     /**
-     * Removes all {@link Powerup}s from this {@link Player}.
+     * Removes all {@link AbstractPowerup}s from this {@link Player}.
      */
     public void clearAllPowerups() {
-        if (hasPowerup(Powerup.SPEED)) {
-            powerups.remove(Powerup.SPEED).toRemove();
+        if (hasPowerup(AbstractPowerup.SPEED)) {
+            powerups.remove(AbstractPowerup.SPEED).setToRemove();
         }
-        if (hasPowerup(Powerup.SHIELD)) {
-            powerups.remove(Powerup.SHIELD).toRemove();
+        if (hasPowerup(AbstractPowerup.SHIELD)) {
+            powerups.remove(AbstractPowerup.SHIELD).setToRemove();
         }
-        if (hasPowerup(Powerup.INVINCIBLE)) {
-            powerups.remove(Powerup.INVINCIBLE).toRemove();
+        if (hasPowerup(AbstractPowerup.INVINCIBLE)) {
+            powerups.remove(AbstractPowerup.INVINCIBLE).setToRemove();
         }
-        if (hasPowerup(Powerup.SHOPSHIELD)) {
-            powerups.remove(Powerup.SHOPSHIELD).toRemove();
+        if (hasPowerup(AbstractPowerup.SHOPSHIELD)) {
+            powerups.remove(AbstractPowerup.SHOPSHIELD).setToRemove();
         }
     }
 
     /**
-     * Returns true if the player has a {@link Powerup} with the specified key.
+     * Returns true if the player has a {@link AbstractPowerup} with the specified key.
      * 
      * @param key
      *            {@link String} - Key which specifies the type of powerup.
-     * @return boolean - True iff the player has a {@link Powerup} with the specified key.
+     * @return boolean - True iff the player has a {@link AbstractPowerup} with the specified key.
      */
     public boolean hasPowerup(String key) {
         return powerups.get(key) != null;
     }
 
     /**
-     * Removes the {@link Powerup} specified by the key.
+     * Removes the {@link AbstractPowerup} specified by the key.
      * 
      * @param key
      *            {@link String} - the key to remove.
      * @return boolean - True iff the key is successfully removed.
      */
-    public Powerup removePowerup(String key) {
+    public AbstractPowerup removePowerup(String key) {
         return powerups.remove(key);
     }
 
     /**
-     * Adds the {@link Powerup} specified by the key.
+     * Adds the {@link AbstractPowerup} specified by the key.
      * 
      * @param key
      *            {@link String} - the key to add.
      * @param value
-     *            {@link Powerup} - the powerup to put in the hasmap.
+     *            {@link AbstractPowerup} - the powerup to put in the hasmap.
      */
-    public void setPowerup(String key, Powerup value) {
+    public void setPowerup(String key, AbstractPowerup value) {
         powerups.put(key, value);
     }
 
     /**
-     * Gets the desired {@link Powerup} based on its key.
+     * Gets the desired {@link AbstractPowerup} based on its key.
      * 
      * @param key
-     *            {@link String} - the key associated with the {@link Powerup}.
-     * @return {@link Powerup} - the desired {@link Powerup}.
+     *            {@link String} - the key associated with the {@link AbstractPowerup}.
+     * @return {@link AbstractPowerup} - the desired {@link AbstractPowerup}.
      */
-    public Powerup getPowerup(String key) {
+    public AbstractPowerup getPowerup(String key) {
         return powerups.get(key);
     }
 
@@ -255,7 +247,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * @return true if he does, false if not.
      */
     public boolean isInvincible() {
-        return powerups.get(Powerup.INVINCIBLE) != null;
+        return powerups.get(AbstractPowerup.INVINCIBLE) != null;
     }
 
     /**
@@ -264,7 +256,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * @return true if the player has a shield, false if not.
      */
     public boolean hasShield() {
-        return powerups.get(Powerup.SHIELD) != null;
+        return powerups.get(AbstractPowerup.SHIELD) != null;
     }
 
     /**
@@ -273,7 +265,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * @return true if the player has a shopshield, false if not.
      */
     public boolean hasShopShield() {
-        return powerups.get(Powerup.SHOPSHIELD) != null;
+        return powerups.get(AbstractPowerup.SHOPSHIELD) != null;
     }
 
     /**
@@ -315,18 +307,18 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * Sets the weapon of the player.
      * 
      * @param weapon
-     *            {@link Weapon} - the Weapon to use.
+     *            {@link AbstractWeapon} - the Weapon to use.
      */
-    public void setWeapon(Weapon weapon) {
+    public void setWeapon(AbstractWeapon weapon) {
         this.weapon = weapon;
     }
 
     /**
      * Returns the weapon of the player.
      * 
-     * @return {@link Weapon} - The current weapon
+     * @return {@link AbstractWeapon} - The current weapon
      */
-    public Weapon getWeapon() {
+    public AbstractWeapon getWeapon() {
         return this.weapon;
     }
 
@@ -415,8 +407,8 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     }
 
     /**
-     * Sets the state of this {@link Player} to determine whether his {@link Weapon} is a shop
-     * weapon.
+     * Sets the state of this {@link Player} to determine whether his {@link AbstractWeapon} is a
+     * shop weapon.
      * 
      * @param bool
      *            boolean - true iff the {@link Player} currently has a shop weapon.

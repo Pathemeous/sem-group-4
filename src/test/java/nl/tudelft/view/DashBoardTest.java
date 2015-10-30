@@ -9,7 +9,7 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.DashboardController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import nl.tudelft.view.Dashboard;
 import org.junit.Before;
@@ -25,7 +25,7 @@ import org.newdawn.slick.geom.Rectangle;
 public class DashBoardTest {
 
     private Dashboard dashboard;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private ResourcesWrapper mockedWrapper;
     private TrueTypeFont mockedTtf;
     private Graphics mockedGraphics;
@@ -40,7 +40,7 @@ public class DashBoardTest {
     @Before
     public void setup() {
         mockedWrapper = Mockito.mock(ResourcesWrapper.class);
-        mockedGame = Mockito.mock(Game.class);
+        mockedGame = Mockito.mock(AbstractGame.class);
         mockedTtf = Mockito.mock(TrueTypeFont.class);
         mockedGraphics = Mockito.mock(Graphics.class);
         mockedContainer = Mockito.mock(Container.class);

@@ -6,10 +6,10 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.bubble.AbstractBubble;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
-import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.player.Player;
 
@@ -19,7 +19,7 @@ import org.junit.Test;
 public class PlayerBubbleHandlerTest {
 
     private DefaultPlayerInteractionMap map;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private Player mockedPlayer;
     private AbstractBubble mockedBubble;
 
@@ -29,7 +29,7 @@ public class PlayerBubbleHandlerTest {
     @Before
     public void setUp() {
         map = new DefaultPlayerInteractionMap();
-        mockedGame = mock(Game.class);
+        mockedGame = mock(AbstractGame.class);
         mockedPlayer = mock(Player.class);
         mockedBubble = mock(AbstractBubble.class);
     }
@@ -106,7 +106,7 @@ public class PlayerBubbleHandlerTest {
         when(mockedPlayer.hasShield()).thenReturn(true);
 
         ShieldPowerup mockedShield = mock(ShieldPowerup.class);
-        when(mockedPlayer.getPowerup(Powerup.SHIELD)).thenReturn(mockedShield);
+        when(mockedPlayer.getPowerup(AbstractPowerup.SHIELD)).thenReturn(mockedShield);
 
         when(mockedBubble.isFrozen()).thenReturn(false);
 
@@ -124,7 +124,7 @@ public class PlayerBubbleHandlerTest {
         when(mockedPlayer.hasShopShield()).thenReturn(true);
 
         Hit3ShieldPowerup mockedShield = mock(Hit3ShieldPowerup.class);
-        when(mockedPlayer.getPowerup(Powerup.SHOPSHIELD)).thenReturn(mockedShield);
+        when(mockedPlayer.getPowerup(AbstractPowerup.SHOPSHIELD)).thenReturn(mockedShield);
 
         when(mockedBubble.isFrozen()).thenReturn(false);
 

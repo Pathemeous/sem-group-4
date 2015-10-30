@@ -1,6 +1,6 @@
 package nl.tudelft.controller;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.view.Dashboard;
@@ -8,7 +8,7 @@ import nl.tudelft.view.Dashboard;
 import org.newdawn.slick.geom.Rectangle;
 
 public class DashboardController {
-    private Game game;
+    private AbstractGame game;
     private Dashboard dashboard;
 
     /**
@@ -81,7 +81,7 @@ public class DashboardController {
      * Returns the game.
      * @return the game
      */
-    public Game getGame() {
+    public AbstractGame getGame() {
         return game;
     }
 
@@ -97,7 +97,7 @@ public class DashboardController {
      * Sets the game.
      * @param game the game to set
      */
-    public void setGame(Game game) {
+    public void setGame(AbstractGame game) {
         this.game = game;
     }
     

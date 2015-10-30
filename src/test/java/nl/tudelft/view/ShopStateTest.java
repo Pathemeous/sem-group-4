@@ -11,7 +11,7 @@ import java.util.LinkedList;
 
 import nl.tudelft.controller.ShopStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.Shop;
 import nl.tudelft.model.shop.ShopItem;
@@ -39,7 +39,7 @@ public class ShopStateTest {
     private Graphics mockedGraphics;
     private Player mockedPlayer;
     private Shop mockedShop;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private Player[] mockedPlayers;
     private LinkedList<ShopItem> mockedInventory;
     private ShopItem mockedShopItem;
@@ -60,7 +60,7 @@ public class ShopStateTest {
         mockedGraphics = Mockito.mock(Graphics.class);
         mockedPlayer = Mockito.mock(Player.class);
         mockedShop = Mockito.mock(Shop.class);
-        mockedGame = Mockito.mock(Game.class);
+        mockedGame = Mockito.mock(AbstractGame.class);
         mockedShopItem = Mockito.mock(ShopItem.class);
         mockedInput = Mockito.mock(Input.class);
         mockedMouseOverArea = Mockito.mock(MouseOverArea.class);

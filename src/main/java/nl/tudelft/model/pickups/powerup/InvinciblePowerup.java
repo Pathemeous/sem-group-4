@@ -8,10 +8,10 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class InvinciblePowerup extends Powerup {
+public class InvinciblePowerup extends AbstractPowerup {
 
     private Player player;
-    private int invincibilityCounter = 0;
+    private int timeoutCounter = 0;
 
     public InvinciblePowerup(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupPowerInvincible(), locX, locY);
@@ -23,19 +23,19 @@ public class InvinciblePowerup extends Powerup {
             setActive(true);
             this.player = player;
 
-            if (player.hasPowerup(Powerup.SHOPSHIELD)) {
-                toRemove();
+            if (player.hasPowerup(AbstractPowerup.SHOPSHIELD)) {
+                setToRemove();
                 return;
             }
 
-            if (player.hasPowerup(Powerup.INVINCIBLE)) {
-                player.removePowerup(Powerup.INVINCIBLE).toRemove();
+            if (player.hasPowerup(AbstractPowerup.INVINCIBLE)) {
+                player.removePowerup(AbstractPowerup.INVINCIBLE).setToRemove();
             }
-            if (player.hasPowerup(Powerup.SHIELD)) {
-                player.removePowerup(Powerup.SHIELD).toRemove();
+            if (player.hasPowerup(AbstractPowerup.SHIELD)) {
+                player.removePowerup(AbstractPowerup.SHIELD).setToRemove();
             }
 
-            player.setPowerup(Powerup.INVINCIBLE, this);
+            player.setPowerup(AbstractPowerup.INVINCIBLE, this);
         }
     }
 
@@ -44,11 +44,11 @@ public class InvinciblePowerup extends Powerup {
         super.update(container, delta);
 
         if (isActive()) {
-            invincibilityCounter++;
+            timeoutCounter++;
         }
 
-        if (invincibilityCounter == 600) {
-            player.removePowerup(Powerup.INVINCIBLE).toRemove();
+        if (timeoutCounter == 600) {
+            player.removePowerup(AbstractPowerup.INVINCIBLE).setToRemove();
         }
     }
 
@@ -57,17 +57,17 @@ public class InvinciblePowerup extends Powerup {
         super.render(container, graphics);
         final ResourcesWrapper res = new ResourcesWrapper();
 
-        if (isActive() && ((invincibilityCounter > 540 && invincibilityCounter % 2 == 0) 
-                || invincibilityCounter < 540)) {
+        if (isActive() && ((timeoutCounter > 540 && timeoutCounter % 2 == 0) 
+                || timeoutCounter < 540)) {
             graphics.drawImage(res.getPowerInvincible(), player.getLocX(), player.getLocY());
         }
     }
     
     protected int getCounter() {
-        return invincibilityCounter;
+        return timeoutCounter;
     }
     
     protected void setCounter(int counter) {
-        invincibilityCounter = counter;
+        timeoutCounter = counter;
     }
 }

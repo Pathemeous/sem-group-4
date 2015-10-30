@@ -43,12 +43,12 @@ public class InvinciblePowerupTest {
         
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         
-        assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
+        assertFalse(player.hasPowerup(AbstractPowerup.INVINCIBLE));
         assertFalse(powerup.isActive());
         
         powerup.activate(player);
         
-        assertEquals(powerup, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.INVINCIBLE));
         assertTrue(powerup.isActive());
     }
     
@@ -60,17 +60,17 @@ public class InvinciblePowerupTest {
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         ShieldPowerup mockedShield = mock(ShieldPowerup.class);
         
-        assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
+        assertFalse(player.hasPowerup(AbstractPowerup.INVINCIBLE));
         assertFalse(powerup.isActive());
         
-        player.setPowerup(Powerup.SHIELD, mockedShield);
-        assertTrue(player.hasPowerup(Powerup.SHIELD));
+        player.setPowerup(AbstractPowerup.SHIELD, mockedShield);
+        assertTrue(player.hasPowerup(AbstractPowerup.SHIELD));
         
         powerup.activate(player);
         
-        assertFalse(player.hasPowerup(Powerup.SHIELD));
+        assertFalse(player.hasPowerup(AbstractPowerup.SHIELD));
         assertTrue(powerup.isActive());
-        assertEquals(powerup, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.INVINCIBLE));
     }
     
     @Test
@@ -81,20 +81,20 @@ public class InvinciblePowerupTest {
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
         
         assertFalse(powerup.isActive());
-        assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
+        assertFalse(player.hasPowerup(AbstractPowerup.INVINCIBLE));
         
         powerup.activate(player);
         
-        assertEquals(powerup, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.INVINCIBLE));
         assertTrue(powerup.isActive());
         
         InvinciblePowerup powerup2 = new InvinciblePowerup(mockedResources, 0, 0);
         
-        assertTrue(player.hasPowerup(Powerup.INVINCIBLE));
+        assertTrue(player.hasPowerup(AbstractPowerup.INVINCIBLE));
         
         powerup2.activate(player);
         
-        assertEquals(powerup2, player.getPowerup(Powerup.INVINCIBLE));
+        assertEquals(powerup2, player.getPowerup(AbstractPowerup.INVINCIBLE));
         assertTrue(powerup2.isActive());
         assertTrue(powerup.willBeRemoved());
     }
@@ -107,20 +107,20 @@ public class InvinciblePowerupTest {
         Player player = new ConcretePlayer(mockedResources, 0, 0, true);
 
         assertFalse(powerup.isActive());
-        assertFalse(player.hasPowerup(Powerup.SHOPSHIELD));
+        assertFalse(player.hasPowerup(AbstractPowerup.SHOPSHIELD));
 
         powerup.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHOPSHIELD));
         assertTrue(powerup.isActive());
 
         InvinciblePowerup powerup2 = new InvinciblePowerup(mockedResources, 0, 0);
 
-        assertTrue(player.hasPowerup(Powerup.SHOPSHIELD));
+        assertTrue(player.hasPowerup(AbstractPowerup.SHOPSHIELD));
 
         powerup2.activate(player);
 
-        assertEquals(powerup, player.getPowerup(Powerup.SHOPSHIELD));
+        assertEquals(powerup, player.getPowerup(AbstractPowerup.SHOPSHIELD));
         assertTrue(powerup2.willBeRemoved());
     }
     
@@ -161,7 +161,7 @@ public class InvinciblePowerupTest {
         assertEquals(600, powerup.getCounter());
         assertTrue(powerup.willBeRemoved());
         assertFalse(player.isInvincible());
-        assertFalse(player.hasPowerup(Powerup.INVINCIBLE));
+        assertFalse(player.hasPowerup(AbstractPowerup.INVINCIBLE));
     }
 
     @Test

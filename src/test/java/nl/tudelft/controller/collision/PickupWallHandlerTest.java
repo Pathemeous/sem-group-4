@@ -8,8 +8,8 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Game;
-import nl.tudelft.model.pickups.Pickup;
+import nl.tudelft.model.AbstractGame;
+import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.wall.AbstractWall;
 import org.junit.Before;
 import org.junit.Test;
@@ -20,11 +20,11 @@ import org.newdawn.slick.geom.Shape;
 public class PickupWallHandlerTest {
 
     private DefaultPlayerInteractionMap map;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private Shape mockedShape1;
     private Shape mockedShape2;
     private AbstractWall mockedWall;
-    private Pickup mockedPickup;
+    private AbstractPickup mockedPickup;
 
     /**
      * Create the interaction map used for testing.
@@ -32,11 +32,11 @@ public class PickupWallHandlerTest {
     @Before
     public void setUp() {
         map = new DefaultPlayerInteractionMap();
-        mockedGame = mock(Game.class);
+        mockedGame = mock(AbstractGame.class);
         mockedShape1 = mock(Shape.class);
         mockedShape2 = mock(Shape.class);
         mockedWall = mock(AbstractWall.class);
-        mockedPickup = mock(Pickup.class);
+        mockedPickup = mock(AbstractPickup.class);
     }
 
     /**

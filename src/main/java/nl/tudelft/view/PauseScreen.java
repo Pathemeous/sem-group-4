@@ -2,7 +2,7 @@ package nl.tudelft.view;
 
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -66,7 +66,7 @@ public class PauseScreen {
     private void update(Input input, StateBasedGame game, GameState gameState) {
         if (input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
             if (mouseOver.isMouseOver()) {
-                Game.LOGGER.log(LogSeverity.DEBUG, "Game",
+                AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game",
                         "Player left the game, to the main menu");
                 gameState.getGame().setPaused(false);
                 game.enterState(States.StartScreenState);

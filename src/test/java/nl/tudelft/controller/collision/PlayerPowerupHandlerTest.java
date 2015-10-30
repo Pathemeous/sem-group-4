@@ -5,8 +5,8 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
-import nl.tudelft.model.Game;
-import nl.tudelft.model.pickups.powerup.Powerup;
+import nl.tudelft.model.AbstractGame;
+import nl.tudelft.model.pickups.powerup.AbstractPowerup;
 import nl.tudelft.model.player.Player;
 
 import org.junit.Test;
@@ -16,8 +16,8 @@ public class PlayerPowerupHandlerTest {
     @Test
     public void testCollision() {
         DefaultPlayerInteractionMap map = new DefaultPlayerInteractionMap();
-        Game mockedGame = mock(Game.class);
-        Powerup mockedPowerup = mock(Powerup.class);
+        AbstractGame mockedGame = mock(AbstractGame.class);
+        AbstractPowerup mockedPowerup = mock(AbstractPowerup.class);
         Player mockedPlayer = mock(Player.class);
 
         map.collide(mockedGame, mockedPowerup, mockedPlayer);

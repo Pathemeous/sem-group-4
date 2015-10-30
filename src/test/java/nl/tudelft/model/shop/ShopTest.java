@@ -6,7 +6,7 @@ import static org.junit.Assert.assertTrue;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.Level;
 
 import org.junit.Test;
@@ -16,7 +16,7 @@ public class ShopTest {
 
     @Test
     public void testConstructor() {
-        Game mockedGame = mock(Game.class);
+        AbstractGame mockedGame = mock(AbstractGame.class);
         Level mockedLevel = mock(Level.class);
         when(mockedGame.getCurLevel()).thenReturn(mockedLevel);
         Shop shop = new Shop(mockedGame);
@@ -26,7 +26,7 @@ public class ShopTest {
 
     @Test
     public void testDiscount() {
-        Game mockedGame = mock(Game.class);
+        AbstractGame mockedGame = mock(AbstractGame.class);
         Level mockedLevel = mock(Level.class);
         when(mockedGame.getCurLevel()).thenReturn(mockedLevel);
         Shop shop = new Shop(mockedGame);

@@ -56,7 +56,7 @@ public class GameTest {
      */
     @Test
     public void testGame() {
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertArrayEquals(game.getPlayers(), new Player[] { mockedPlayer });
     }
 
@@ -65,7 +65,7 @@ public class GameTest {
      */
     @Test
     public void testGetCurLevel() {
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
     }
 
@@ -75,7 +75,7 @@ public class GameTest {
     @Test
     public void testGetPlayerLives() {
         when(mockedPlayer.getLives()).thenReturn(1);
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getPlayerLives(), 1);
     }
 
@@ -84,7 +84,7 @@ public class GameTest {
      */
     @Test
     public void testResetPlayers() {
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         game.resetPlayers();
         verify(mockedPlayer, times(1)).reset();
     }
@@ -97,7 +97,7 @@ public class GameTest {
      */
     @Test
     public void testLevelReset1() throws SlickException {
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(1);
         assertEquals(game.getCurLevel().getId(), 1);
         game.levelReset();
@@ -112,7 +112,7 @@ public class GameTest {
      */
     // @Test
     public void testLevelReset2() throws SlickException {
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedPlayer.getLives()).thenReturn(0);
         assertEquals(game.getCurLevel().getId(), 1);
         game.levelReset();
@@ -127,7 +127,7 @@ public class GameTest {
      */
     @Test
     public void testNextLevel1() throws SlickException {
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         when(mockedSbg.getState(States.ShopState)).thenReturn(mockedShopState);
 
         assertEquals(game.getCurLevel().getId(), 1);
@@ -147,7 +147,7 @@ public class GameTest {
         when(mockedSbg.getState(States.GameEndedState)).thenReturn(mockedGameEndedState);
         when(mockedSbg.getState(States.ShopState)).thenReturn(mockedShopState);
 
-        Game game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 0, 0, mockedResources, mockedPlayer);
         assertEquals(game.getCurLevel().getId(), 1);
         game.nextLevel();
         assertEquals(game.getCurLevel().getId(), 2);
@@ -167,7 +167,7 @@ public class GameTest {
      */
     @Test
     public void testGetContainerWidth() {
-        Game game = new TestGame(mockedSbg, 1, 0, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 1, 0, mockedResources, mockedPlayer);
         assertEquals(game.getContainerWidth(), 1);
     }
 
@@ -176,7 +176,7 @@ public class GameTest {
      */
     @Test
     public void testGetContainerHeight() {
-        Game game = new TestGame(mockedSbg, 1, 1, mockedResources, mockedPlayer);
+        AbstractGame game = new TestGame(mockedSbg, 1, 1, mockedResources, mockedPlayer);
         assertEquals(game.getContainerWidth(), 1);
     }
 

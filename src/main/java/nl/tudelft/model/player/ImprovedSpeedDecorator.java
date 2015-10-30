@@ -1,7 +1,7 @@
 package nl.tudelft.model.player;
 
 import nl.tudelft.controller.logger.LogSeverity;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 public class ImprovedSpeedDecorator extends AbstractPlayerDecorator {
 
@@ -23,7 +23,7 @@ public class ImprovedSpeedDecorator extends AbstractPlayerDecorator {
     public void moveLeft() {
         wrappedObject.setAnimationCurrent(wrappedObject.getAnimationLeft());
         setLocX(getLocX() - getSpeed());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
     }
 
     /**
@@ -33,6 +33,6 @@ public class ImprovedSpeedDecorator extends AbstractPlayerDecorator {
     public void moveRight() {
         wrappedObject.setAnimationCurrent(wrappedObject.getAnimationRight());
         setLocX(getLocX() + getSpeed());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 }

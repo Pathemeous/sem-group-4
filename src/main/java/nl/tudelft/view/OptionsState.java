@@ -4,7 +4,7 @@ package nl.tudelft.view;
 import nl.tudelft.controller.OptionsStateController;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -144,7 +144,7 @@ public class OptionsState extends BasicGameState {
      */
     private void soundUpdate() {
         if (soundOnOff.isMouseOver() && input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
                     "User toggled sound " + (ResourcesWrapper.musicOn ? "off" : "on") );
             controller.toggleMusic();
         }
@@ -157,7 +157,7 @@ public class OptionsState extends BasicGameState {
      */
     private void backUpdate(StateBasedGame game) {
         if (backButton.isMouseOver() && input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
                     "User goes back to main menu" );
             game.enterState(States.StartScreenState);
         }
@@ -168,7 +168,7 @@ public class OptionsState extends BasicGameState {
      */
     private void loggerUpdate() {
         if (loggerButton.isMouseOver() && input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
                     "User goes to logger settings");
             toggleLoggerSet();
         }
@@ -181,7 +181,7 @@ public class OptionsState extends BasicGameState {
      */
     private void keyUpdate(StateBasedGame game) {
         if (keyButton.isMouseOver() && input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "OptionsMenu",
                     "User goes to key binding settings");
             game.enterState(States.KeyBindState);
         }

@@ -9,22 +9,22 @@ import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
 import org.newdawn.slick.SlickException;
 
-public class Hit3ShieldPowerup extends Powerup {
+public class Hit3ShieldPowerup extends AbstractPowerup {
 
     private Player player;
-    private int removingShieldCounter = 0;
-    private int isHit = 0;
+    private int timeoutCounter = 0;
+    private int hit = 0;
 
     public Hit3ShieldPowerup(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupPowerShield(), locX, locY);
     }
 
     public boolean isHit() {
-        return isHit >= 3;
+        return hit >= 3;
     }
 
     public void incrementHit() {
-        isHit++;
+        hit++;
     }
 
     @Override
@@ -33,14 +33,14 @@ public class Hit3ShieldPowerup extends Powerup {
             setActive(true);
             this.player = player;
 
-            if (player.hasPowerup(Powerup.INVINCIBLE)) {
-                player.removePowerup(Powerup.INVINCIBLE).toRemove();
+            if (player.hasPowerup(AbstractPowerup.INVINCIBLE)) {
+                player.removePowerup(AbstractPowerup.INVINCIBLE).setToRemove();
             }
-            if (player.hasPowerup(Powerup.SHIELD)) {
-                player.removePowerup(Powerup.SHIELD).toRemove();
+            if (player.hasPowerup(AbstractPowerup.SHIELD)) {
+                player.removePowerup(AbstractPowerup.SHIELD).setToRemove();
             }
 
-            player.setPowerup(Powerup.SHOPSHIELD, this);
+            player.setPowerup(AbstractPowerup.SHOPSHIELD, this);
         }
     }
 
@@ -49,11 +49,11 @@ public class Hit3ShieldPowerup extends Powerup {
         super.update(container, delta);
 
         if (isHit()) {
-            removingShieldCounter++;
+            timeoutCounter++;
         }
 
-        if (removingShieldCounter == 120) {
-            player.removePowerup(Powerup.SHOPSHIELD).toRemove();
+        if (timeoutCounter == 120) {
+            player.removePowerup(AbstractPowerup.SHOPSHIELD).setToRemove();
         }
     }
 
@@ -61,7 +61,7 @@ public class Hit3ShieldPowerup extends Powerup {
     public void render(GameContainer container, Graphics graphics) throws SlickException {
         super.render(container, graphics);
 
-        if (isActive() && removingShieldCounter % 2 == 0) {
+        if (isActive() && timeoutCounter % 2 == 0) {
             graphics.setColor(Color.green);
             graphics.draw(player.getBounds());
             graphics.setColor(Color.blue);
@@ -69,10 +69,10 @@ public class Hit3ShieldPowerup extends Powerup {
     }
 
     protected int getRemovalCounter() {
-        return removingShieldCounter;
+        return timeoutCounter;
     }
 
     protected void setRemovalCounter(int counter) {
-        removingShieldCounter = counter;
+        timeoutCounter = counter;
     }
 }

@@ -29,7 +29,7 @@ public class RandomWeaponFactory implements RandomFactory {
      * @return : a weapon.
      */
     @Override
-    public Weapon createPickup(float locX, float locY) {
+    public AbstractWeapon createPickup(float locX, float locY) {
         ResourcesWrapper res = new ResourcesWrapper();
         
         switch (randomNumber) {
