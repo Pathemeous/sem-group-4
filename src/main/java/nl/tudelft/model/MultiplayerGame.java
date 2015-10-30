@@ -5,12 +5,11 @@ import nl.tudelft.model.player.Player;
 import nl.tudelft.settings.PlayerInput;
 import nl.tudelft.settings.Settings;
 
-import org.mockito.Mockito;
 import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * Created by justin on 07/10/15.
+ * This class represents a multiplayer game with two players.
  */
 public class MultiplayerGame extends AbstractGame {
 
@@ -18,7 +17,7 @@ public class MultiplayerGame extends AbstractGame {
     private Player secondPlayer;
     private final PlayerInput player1Input;
     private final PlayerInput player2Input;
-    private Settings settings = Settings.getInstance();
+    private final Settings settings = Settings.getInstance();
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -58,13 +57,21 @@ public class MultiplayerGame extends AbstractGame {
     public void update(int delta) throws SlickException {
         player1Input.poll();
         player2Input.poll();
-        
+
         super.update(delta);
     }
 
+    /**
+     * Decorates the specified player.
+     * 
+     * <p>
+     * Performs checks to verify that only the player equal to the player in this game is
+     * decorated.
+     * </p>
+     */
     @Override
     public void decoratePlayer(Player player, Player decorator) {
-        if (player.equals(firstPlayer)) {            
+        if (player.equals(firstPlayer)) {
             settings.getPlayer1Input().removeListener(player);
             settings.getPlayer1Input().addListener(decorator);
             firstPlayer = decorator;
