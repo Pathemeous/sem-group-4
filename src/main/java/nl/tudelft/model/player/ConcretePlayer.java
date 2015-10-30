@@ -191,16 +191,16 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      */
     public void clearAllPowerups() {
         if (hasPowerup(Powerup.SPEED)) {
-            powerups.remove(Powerup.SPEED).isToRemove();
+            powerups.remove(Powerup.SPEED).setToRemove();
         }
         if (hasPowerup(Powerup.SHIELD)) {
-            powerups.remove(Powerup.SHIELD).isToRemove();
+            powerups.remove(Powerup.SHIELD).setToRemove();
         }
         if (hasPowerup(Powerup.INVINCIBLE)) {
-            powerups.remove(Powerup.INVINCIBLE).isToRemove();
+            powerups.remove(Powerup.INVINCIBLE).setToRemove();
         }
         if (hasPowerup(Powerup.SHOPSHIELD)) {
-            powerups.remove(Powerup.SHOPSHIELD).isToRemove();
+            powerups.remove(Powerup.SHOPSHIELD).setToRemove();
         }
     }
 

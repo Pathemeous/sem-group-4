@@ -14,7 +14,7 @@ public class PointsPowerup extends Powerup {
         if (!isActive()) {
             setActive(true);
             player.setScore(player.getScore() + 100);
-            isToRemove();
+            setToRemove();
         }
     }
 }

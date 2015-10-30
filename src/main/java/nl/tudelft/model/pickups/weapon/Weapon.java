@@ -61,7 +61,7 @@ public abstract class Weapon extends AbstractPickup {
         Weapon oldWeapon = player.getWeapon();
 
         if (oldWeapon != null && oldWeapon != this) {
-            oldWeapon.isToRemove();
+            oldWeapon.setToRemove();
         }
 
         player.setWeapon(this);

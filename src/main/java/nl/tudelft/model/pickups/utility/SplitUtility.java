@@ -15,7 +15,7 @@ public class SplitUtility extends Utility {
             setActive(true);
             
             level.splitAllBubbles(level.getBubbles(), false);
-            isToRemove();
+            setToRemove();
         }
     }
 }

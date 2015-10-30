@@ -24,15 +24,15 @@ public class InvinciblePowerup extends Powerup {
             this.player = player;
 
             if (player.hasPowerup(Powerup.SHOPSHIELD)) {
-                isToRemove();
+                setToRemove();
                 return;
             }
 
             if (player.hasPowerup(Powerup.INVINCIBLE)) {
-                player.removePowerup(Powerup.INVINCIBLE).isToRemove();
+                player.removePowerup(Powerup.INVINCIBLE).setToRemove();
             }
             if (player.hasPowerup(Powerup.SHIELD)) {
-                player.removePowerup(Powerup.SHIELD).isToRemove();
+                player.removePowerup(Powerup.SHIELD).setToRemove();
             }
 
             player.setPowerup(Powerup.INVINCIBLE, this);
@@ -48,7 +48,7 @@ public class InvinciblePowerup extends Powerup {
         }
 
         if (invincibilityCounter == 600) {
-            player.removePowerup(Powerup.INVINCIBLE).isToRemove();
+            player.removePowerup(Powerup.INVINCIBLE).setToRemove();
         }
     }
 

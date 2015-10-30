@@ -41,7 +41,7 @@ public class FreezeUtility extends Utility {
             for (AbstractBubble bubble : level.getBubbles()) {
                 bubble.setFrozen(false);
             }
-            isToRemove();
+            setToRemove();
         }
     }
     

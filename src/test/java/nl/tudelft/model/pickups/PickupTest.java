@@ -68,7 +68,7 @@ public class PickupTest {
         ResourcesWrapper mockedResources = mock(ResourcesWrapper.class);
         AbstractPickup pickup = new LifePowerup(mockedResources, 0, 0);
         
-        pickup.isToRemove();
+        pickup.setToRemove();
         
         Modifiable mockedContainer = mock(Modifiable.class);
         pickup.update(mockedContainer, 0);
