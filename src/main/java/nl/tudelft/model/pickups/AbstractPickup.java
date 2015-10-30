@@ -61,46 +61,6 @@ public abstract class AbstractPickup extends AbstractEnvironmentObject {
     }
 
     /**
-     * Sets the ground-timeout to the specified value.
-     * 
-     * @param tick
-     *            int - the amount of clock cycles until the pickup disappears from the ground.
-     */
-    protected void setTickCount(int tick) {
-        tickCount = tick;
-    }
-
-    /**
-     * Returns the amount of clock cycles the pickup will remain on the ground until it disappears.
-     * 
-     * @return int - the amount of cycles.
-     */
-    protected int getTickCount() {
-        return tickCount;
-    }
-
-    /**
-     * Sets the boolean that represents the state of the Pickup being on the ground or not (still
-     * falling).
-     * 
-     * @param onGround
-     *            boolean - True iff the {@link AbstractPickup} is on the ground, false otherwise.
-     */
-    public void setOnGround(boolean onGround) {
-        this.onGround = onGround;
-    }
-
-    /**
-     * Returns the boolean that represents the state of the Pickup being on the ground or not
-     * (still falling).
-     * 
-     * @return boolean - True iff the {@link AbstractPickup} is on the ground, false otherwise.
-     */
-    protected boolean isOnGround() {
-        return onGround;
-    }
-
-    /**
      * Flags the {@link AbstractPickup} to be removed from the game field (because it has ran out).
      */
     public void setToRemove() {
@@ -134,5 +94,45 @@ public abstract class AbstractPickup extends AbstractEnvironmentObject {
      */
     public boolean isActive() {
         return active;
+    }
+
+    /**
+     * Sets the boolean that represents the state of the Pickup being on the ground or not (still
+     * falling).
+     * 
+     * @param onGround
+     *            boolean - True iff the {@link AbstractPickup} is on the ground, false otherwise.
+     */
+    public void setOnGround(boolean onGround) {
+        this.onGround = onGround;
+    }
+
+    /**
+     * Returns the boolean that represents the state of the Pickup being on the ground or not
+     * (still falling).
+     * 
+     * @return boolean - True iff the {@link AbstractPickup} is on the ground, false otherwise.
+     */
+    protected boolean isOnGround() {
+        return onGround;
+    }
+
+    /**
+     * Sets the ground-timeout to the specified value.
+     * 
+     * @param tick
+     *            int - the amount of clock cycles until the pickup disappears from the ground.
+     */
+    protected void setTickCount(int tick) {
+        tickCount = tick;
+    }
+
+    /**
+     * Returns the amount of clock cycles the pickup will remain on the ground until it disappears.
+     * 
+     * @return int - the amount of cycles.
+     */
+    protected int getTickCount() {
+        return tickCount;
     }
 }
