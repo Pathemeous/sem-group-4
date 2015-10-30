@@ -21,14 +21,11 @@ import org.newdawn.slick.geom.Shape;
 
 public class ConcretePlayer extends AbstractGameObject implements Player {
 
-    // TODO: Remove magic numbers and at them to a general file for setup/config.
     private int score;
     private int money;
     private static final int BOUNDS_OFFSET_X = 10;
     private static final int BOUNDS_OFFSET_Y = 15;
     private static final int REGULAR_SPEED = 4;
-    @Deprecated
-    private static final int SPEEDUP = 2;
     private final int initialLocy;
     private final int initialLocx;
     private int speed;
@@ -38,9 +35,6 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     private boolean weaponActivated = false;
     private boolean shopWeapon = false;
     private boolean shopSpeedup = false;
-    private final ResourcesWrapper resources;
-    // TODO: Remove container when Observer projectiles can be managed within Weapon (and no longer
-    // in Level).
     private Modifiable container;
 
     private Weapon weapon;
@@ -71,7 +65,6 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
         score = 0;
         money = 0;
         this.firstPlayer = isFirstPlayer;
-        this.resources = resources;
 
         this.weapon = new RegularWeapon(new ResourcesWrapper(), 0, 0);
         this.weapon.activate(this);
@@ -93,9 +86,8 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
 
     @Override
     public Shape getBounds() {
-        return new SemRectangle(locX + BOUNDS_OFFSET_X, locY + BOUNDS_OFFSET_Y,
-                getImage().getWidth() - (2 * BOUNDS_OFFSET_X), getImage().getHeight()
-                        - BOUNDS_OFFSET_Y);
+        return new SemRectangle(locX + BOUNDS_OFFSET_X, locY + BOUNDS_OFFSET_Y, getImage()
+                .getWidth() - (2 * BOUNDS_OFFSET_X), getImage().getHeight() - BOUNDS_OFFSET_Y);
     }
 
     @Override
