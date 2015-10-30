@@ -4,7 +4,7 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
 import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.utility.Utility;
+import nl.tudelft.model.pickups.utility.AbstractUtility;
 import nl.tudelft.model.pickups.weapon.Weapon;
 
 import org.junit.Test;
@@ -65,6 +65,6 @@ public class RandomPickupFactoryTest {
         
         AbstractPickup pickup = factory.createPickup(0, 0);
         
-        assertTrue(pickup instanceof Utility);
+        assertTrue(pickup instanceof AbstractUtility);
     }
 }

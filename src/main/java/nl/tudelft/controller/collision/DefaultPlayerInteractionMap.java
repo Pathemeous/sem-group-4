@@ -12,7 +12,7 @@ import nl.tudelft.model.pickups.AbstractPickup;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
-import nl.tudelft.model.pickups.utility.Utility;
+import nl.tudelft.model.pickups.utility.AbstractUtility;
 import nl.tudelft.model.pickups.weapon.Projectile;
 import nl.tudelft.model.pickups.weapon.Weapon;
 import nl.tudelft.model.player.Player;
@@ -69,7 +69,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
                 playerPowerupHandler);
         collisionMap.onCollision(Weapon.class, Player.class, false,
                 playerWeaponHandler);
-        collisionMap.onCollision(Utility.class, Player.class, false,
+        collisionMap.onCollision(AbstractUtility.class, Player.class, false,
                 playerUtilityHandler);
         collisionMap.onCollision(AbstractPickup.class, AbstractWall.class, false,
                 pickupWallHandler);
@@ -261,7 +261,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
     };
 
-    private static CollisionHandler<Utility, Player> playerUtilityHandler =
+    private static CollisionHandler<AbstractUtility, Player> playerUtilityHandler =
             (game, util, player) -> {
         AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
         util.activate(game.getCurLevel());

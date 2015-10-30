@@ -3,7 +3,7 @@ package nl.tudelft.model.pickups.utility;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
 
-public class TimeUtility extends Utility {
+public class TimeUtility extends AbstractUtility {
 
     private static final int EXTRA_TIME = 20000;
     

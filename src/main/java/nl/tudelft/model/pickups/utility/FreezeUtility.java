@@ -7,7 +7,7 @@ import nl.tudelft.model.bubble.AbstractBubble;
 
 import org.newdawn.slick.SlickException;
 
-public class FreezeUtility extends Utility {
+public class FreezeUtility extends AbstractUtility {
     
     private Level level;
     private int freezeCounter = 0;

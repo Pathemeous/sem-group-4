@@ -3,7 +3,7 @@ package nl.tudelft.model.pickups.utility;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.Level;
 
-public class LevelWonUtility extends Utility {
+public class LevelWonUtility extends AbstractUtility {
     
     public LevelWonUtility(ResourcesWrapper resources, float locX, float locY) {
         super(resources.getPickupUtilityLevelwon(), locX, locY);

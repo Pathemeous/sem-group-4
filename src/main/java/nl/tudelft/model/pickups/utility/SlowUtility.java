@@ -7,7 +7,7 @@ import nl.tudelft.model.bubble.AbstractBubble;
 
 import org.newdawn.slick.SlickException;
 
-public class SlowUtility extends Utility {
+public class SlowUtility extends AbstractUtility {
     
     private Level level;
     private int slowCounter = 0;
