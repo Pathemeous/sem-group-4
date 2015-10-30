@@ -126,7 +126,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         }
         if (player.hasShield()) {
             AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
-                    "Player hit bubble, but has a shield");
+                  "Player hit bubble, but has a shield");
 
             // The shield is removed and the bubble is split (tagged as isHit).
             ShieldPowerup shield = (ShieldPowerup)player.getPowerup(Powerup.SHIELD);
