@@ -8,7 +8,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.AbstractGame;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.player.Player;
 
 import org.junit.Before;
@@ -18,7 +18,7 @@ public class PlayerWeaponHandlerTest {
 
     private DefaultPlayerInteractionMap map;
     private AbstractGame mockedGame;
-    private Weapon mockedWeapon;
+    private AbstractWeapon mockedWeapon;
     private Player mockedPlayer;
 
     /**
@@ -28,7 +28,7 @@ public class PlayerWeaponHandlerTest {
     public void setUp() {
         map = new DefaultPlayerInteractionMap();
         mockedGame = mock(AbstractGame.class);
-        mockedWeapon = mock(Weapon.class);
+        mockedWeapon = mock(AbstractWeapon.class);
         mockedPlayer = mock(Player.class);
     }
 

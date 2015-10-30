@@ -11,7 +11,7 @@ import nl.tudelft.model.AbstractGameObject;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -37,7 +37,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     private boolean shopSpeedup = false;
     private Modifiable container;
 
-    private Weapon weapon;
+    private AbstractWeapon weapon;
 
     private Animation animationCurrent;
     private final Animation animationLeft;
@@ -147,7 +147,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * Resets the player state to reflect the clean start of a level.
      * 
      * <p>
-     * This means that a player loses all his {@link Powerup}s and his {@link Weapon} and makes
+     * This means that a player loses all his {@link Powerup}s and his {@link AbstractWeapon} and makes
      * sure that the weapon fire delay is set to zero.
      * </p>
      */
@@ -307,18 +307,18 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
      * Sets the weapon of the player.
      * 
      * @param weapon
-     *            {@link Weapon} - the Weapon to use.
+     *            {@link AbstractWeapon} - the Weapon to use.
      */
-    public void setWeapon(Weapon weapon) {
+    public void setWeapon(AbstractWeapon weapon) {
         this.weapon = weapon;
     }
 
     /**
      * Returns the weapon of the player.
      * 
-     * @return {@link Weapon} - The current weapon
+     * @return {@link AbstractWeapon} - The current weapon
      */
-    public Weapon getWeapon() {
+    public AbstractWeapon getWeapon() {
         return this.weapon;
     }
 
@@ -407,7 +407,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     }
 
     /**
-     * Sets the state of this {@link Player} to determine whether his {@link Weapon} is a shop
+     * Sets the state of this {@link Player} to determine whether his {@link AbstractWeapon} is a shop
      * weapon.
      * 
      * @param bool

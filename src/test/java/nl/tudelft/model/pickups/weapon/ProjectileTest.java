@@ -22,7 +22,7 @@ import org.newdawn.slick.Sound;
 
 public class ProjectileTest {
 
-    private Weapon mockedWeapon;
+    private AbstractWeapon mockedWeapon;
     private ResourcesWrapper mockedResources;
     private Image mockedImage;
     
@@ -31,7 +31,7 @@ public class ProjectileTest {
      */
     @Before
     public void setUp() {
-        mockedWeapon = mock(Weapon.class);
+        mockedWeapon = mock(AbstractWeapon.class);
         mockedResources = mock(ResourcesWrapper.class);
         Sound mockedSound = mock(Sound.class);
         when(mockedResources.getWeaponFire()).thenReturn(mockedSound);

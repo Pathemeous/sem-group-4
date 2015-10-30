@@ -2,11 +2,11 @@ package nl.tudelft.model.player;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.pickups.weapon.ShopWeapon;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 public class ShopWeaponDecorator extends AbstractPlayerDecorator {
     
-    private final Weapon shopWeapon = new ShopWeapon(new ResourcesWrapper(), 0, 0);
+    private final AbstractWeapon shopWeapon = new ShopWeapon(new ResourcesWrapper(), 0, 0);
 
     public ShopWeaponDecorator(Player wrappedObject) {
         super(wrappedObject);
@@ -14,7 +14,7 @@ public class ShopWeaponDecorator extends AbstractPlayerDecorator {
     }
     
     @Override
-    public Weapon getWeapon() {
+    public AbstractWeapon getWeapon() {
         return shopWeapon;
     }
 

@@ -14,7 +14,7 @@ import org.newdawn.slick.geom.Shape;
 public class Projectile extends AbstractEnvironmentObject {
 
     private final int speed;
-    private final Weapon weapon;
+    private final AbstractWeapon weapon;
     private boolean hitBubble;
     private int tickCount;
     private boolean hitWall;
@@ -47,7 +47,7 @@ public class Projectile extends AbstractEnvironmentObject {
      *            hit the top
      */
     public Projectile(ResourcesWrapper resources, Image image, int locX, int locY,
-            int playerWidth, int playerHeight, int speed, Weapon weapon) {
+            int playerWidth, int playerHeight, int speed, AbstractWeapon weapon) {
         super(image, locX, locY);
         this.speed = speed;
         this.playerWidth = playerWidth;
@@ -151,7 +151,7 @@ public class Projectile extends AbstractEnvironmentObject {
         return new Rectangle(getLocX(), getLocY(), getWidth(), getActualHeight());
     }
 
-    public Weapon getWeapon() {
+    public AbstractWeapon getWeapon() {
         return this.weapon;
     }
 

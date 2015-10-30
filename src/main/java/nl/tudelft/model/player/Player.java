@@ -4,7 +4,7 @@ import nl.tudelft.controller.Renderable;
 import nl.tudelft.controller.Updateable;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.settings.PlayerInputListener;
 
 import org.newdawn.slick.Animation;
@@ -43,9 +43,9 @@ public interface Player extends Updateable, Renderable, PlayerInputListener, Gam
 
     boolean isFirstPlayer();
 
-    void setWeapon(Weapon weapon);
+    void setWeapon(AbstractWeapon weapon);
 
-    Weapon getWeapon();
+    AbstractWeapon getWeapon();
 
     int getLives();
 

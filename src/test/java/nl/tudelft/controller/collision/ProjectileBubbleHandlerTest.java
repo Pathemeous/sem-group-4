@@ -10,7 +10,7 @@ import static org.mockito.Mockito.when;
 import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.weapon.Projectile;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.player.Player;
 
 import org.junit.Before;
@@ -23,7 +23,7 @@ public class ProjectileBubbleHandlerTest {
     private Projectile mockedProjectile;
     private AbstractBubble mockedBubble;
     private Player mockedPlayer;
-    private Weapon mockedWeapon;
+    private AbstractWeapon mockedWeapon;
 
     /**
      * Create the interaction map and mocks used for testing.
@@ -35,7 +35,7 @@ public class ProjectileBubbleHandlerTest {
         mockedProjectile = mock(Projectile.class);
         mockedBubble = mock(AbstractBubble.class);
         mockedPlayer = mock(Player.class);
-        mockedWeapon = mock(Weapon.class);
+        mockedWeapon = mock(AbstractWeapon.class);
     }
 
     @Test

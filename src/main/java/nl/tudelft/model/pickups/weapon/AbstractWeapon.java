@@ -10,7 +10,7 @@ import nl.tudelft.model.player.Player;
 import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
-public abstract class Weapon extends AbstractPickup {
+public abstract class AbstractWeapon extends AbstractPickup {
 
     private Player player;
     private final ArrayList<Projectile> projectiles;
@@ -39,7 +39,7 @@ public abstract class Weapon extends AbstractPickup {
      * @param maxCount
      *            - the maximum amount of projectiles this weapon can shoot.
      */
-    public Weapon(Image pickupImage, Image projImage, ResourcesWrapper resources, float locX,
+    public AbstractWeapon(Image pickupImage, Image projImage, ResourcesWrapper resources, float locX,
             float locY, boolean sticky, int maxCount) {
         super(pickupImage, locX, locY);
         this.resources = resources;
@@ -58,7 +58,7 @@ public abstract class Weapon extends AbstractPickup {
     public void activate(Player player) {
         setActive(true);
         this.player = player;
-        Weapon oldWeapon = player.getWeapon();
+        AbstractWeapon oldWeapon = player.getWeapon();
 
         if (oldWeapon != null && oldWeapon != this) {
             oldWeapon.setToRemove();

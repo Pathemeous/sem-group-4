@@ -22,7 +22,7 @@ import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.powerup.SpeedPowerup;
 import nl.tudelft.model.pickups.weapon.DoubleWeapon;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -66,7 +66,7 @@ public class PlayerTest {
 
     @Test
     public final void testReset() {
-        Weapon weapon = new DoubleWeapon(mockedResources, 0, 0);
+        AbstractWeapon weapon = new DoubleWeapon(mockedResources, 0, 0);
         Powerup powerup = new InvinciblePowerup(mockedResources, 0, 0);
         player.setWeapon(weapon);
         player.setPowerup(Powerup.INVINCIBLE, powerup);
@@ -77,7 +77,7 @@ public class PlayerTest {
 
     @Test
     public final void testResetShopWeapon() {
-        Weapon weapon = mock(Weapon.class);
+        AbstractWeapon weapon = mock(AbstractWeapon.class);
         ArrayList projectiles = mock(ArrayList.class);
 
         when(weapon.getProjectiles()).thenReturn(projectiles);
@@ -138,7 +138,7 @@ public class PlayerTest {
 
     @Test
     public final void testFireWeapon() {
-        Weapon weapon = mock(Weapon.class);
+        AbstractWeapon weapon = mock(AbstractWeapon.class);
 
         player.setWeapon(weapon);
 

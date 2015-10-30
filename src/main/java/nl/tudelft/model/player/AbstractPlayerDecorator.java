@@ -2,7 +2,7 @@ package nl.tudelft.model.player;
 
 import nl.tudelft.controller.Modifiable;
 import nl.tudelft.model.pickups.powerup.Powerup;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 
 import org.newdawn.slick.Animation;
 import org.newdawn.slick.GameContainer;
@@ -142,13 +142,13 @@ public class AbstractPlayerDecorator implements Player {
     }
 
     @Override
-    public void setWeapon(Weapon weapon) {
+    public void setWeapon(AbstractWeapon weapon) {
         wrappedObject.setWeapon(weapon);
 
     }
 
     @Override
-    public Weapon getWeapon() {
+    public AbstractWeapon getWeapon() {
         return wrappedObject.getWeapon();
     }
 

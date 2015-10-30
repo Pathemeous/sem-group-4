@@ -14,7 +14,7 @@ import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.powerup.ShieldPowerup;
 import nl.tudelft.model.pickups.utility.AbstractUtility;
 import nl.tudelft.model.pickups.weapon.Projectile;
-import nl.tudelft.model.pickups.weapon.Weapon;
+import nl.tudelft.model.pickups.weapon.AbstractWeapon;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.model.wall.AbstractMovingWall;
 import nl.tudelft.model.wall.AbstractWall;
@@ -67,7 +67,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
                 movingwallProjectileHandler);
         collisionMap.onCollision(Powerup.class, Player.class, false,
                 playerPowerupHandler);
-        collisionMap.onCollision(Weapon.class, Player.class, false,
+        collisionMap.onCollision(AbstractWeapon.class, Player.class, false,
                 playerWeaponHandler);
         collisionMap.onCollision(AbstractUtility.class, Player.class, false,
                 playerUtilityHandler);
@@ -253,7 +253,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         powerup.activate(player);
     };
 
-    private static CollisionHandler<Weapon, Player> playerWeaponHandler =
+    private static CollisionHandler<AbstractWeapon, Player> playerWeaponHandler =
             (game, weapon, player) -> {
         AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
         if (!player.isShopWeapon()) {
