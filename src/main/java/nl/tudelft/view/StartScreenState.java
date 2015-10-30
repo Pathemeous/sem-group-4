@@ -92,7 +92,8 @@ public class StartScreenState extends BasicGameState {
         if (mouseOverHighScores.isMouseOver()) {
             game.getState(States.HighscoresState).init(container, game);
             game.enterState(States.HighscoresState);
-            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters Highscores menu");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
+                    "User enters Highscores menu");
         }
     }
 
@@ -111,8 +112,8 @@ public class StartScreenState extends BasicGameState {
         if (mouseOverOnePlayer.isMouseOver()) {
             AbstractGame singleplayerGame = controller.createSingleplayerGame(container, game);
             enterGameState(container, game, singleplayerGame);
-            AbstractGame.LOGGER
-                    .log(LogSeverity.DEBUG, "StartMenu", "User starts a single player game");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
+                    "User starts a single player game");
         }
     }
 
@@ -131,7 +132,8 @@ public class StartScreenState extends BasicGameState {
         if (mouseOverTwoPlayer.isMouseOver()) {
             AbstractGame multiplayerGame = controller.createMultiplayerGame(container, game);
             enterGameState(container, game, multiplayerGame);
-            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User starts a multi-player game");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
+                    "User starts a multi-player game");
         }
     }
 
@@ -147,8 +149,8 @@ public class StartScreenState extends BasicGameState {
      * @throws SlickException
      *             When state switching goes wrong.
      */
-    public void enterGameState(GameContainer container, StateBasedGame game, AbstractGame createdGame)
-            throws SlickException {
+    public void enterGameState(GameContainer container, StateBasedGame game,
+            AbstractGame createdGame) throws SlickException {
         final GameState gameState = new GameState(createdGame);
         game.addState(gameState);
         game.getState(States.GameState).init(container, game);
@@ -172,7 +174,8 @@ public class StartScreenState extends BasicGameState {
             input.clearKeyPressedRecord();
             input.clearMousePressedRecord();
             game.enterState(States.OptionsState);
-            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
+            AbstractGame.LOGGER
+                    .log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
         }
     }
 
@@ -189,7 +192,8 @@ public class StartScreenState extends BasicGameState {
     public void updateExitButton(GameContainer container, StateBasedGame game)
             throws SlickException {
         if (mouseOverQuit.isMouseOver()) {
-            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu",
+                    "User quits the application");
             resources.stopTitleScreen();
             container.exit();
         }

@@ -124,8 +124,8 @@ public class CollisionInteractionMap implements CollisionMap {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public <C1 extends GameObject, C2 extends GameObject> void collide(AbstractGame game, C1 collider,
-            C2 collidee) {
+    public <C1 extends GameObject, C2 extends GameObject> void collide(AbstractGame game,
+            C1 collider, C2 collidee) {
         List<Class<? extends GameObject>> colliderInheritance =
                 getInheritance(collider.getClass());
         List<Class<? extends GameObject>> collideeInheritance =

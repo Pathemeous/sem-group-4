@@ -90,7 +90,8 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
             bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
         } else if (wall.getLocY() < bubble.getLocY()
                 && (wall.getLocY() + wall.getBounds().getHeight() - offset) <= bubble.getLocY()) {
-            AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble collided with wall above it");
+            AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision",
+                    "Bubble collided with wall above it");
             // top collision
             bubble.setVerticalSpeed(-Math.abs(bubble.getVerticalSpeed()));
         } else if ((wall.getLocY() + offset) >= bubble.getLocY()
@@ -118,12 +119,14 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
             return;
         }
         if (player.isInvincible() || bubble.isFrozen()) {
-            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
+                    "Player hit bubble, but is invincible");
             // nothing happens
             return;
         }
         if (player.hasShield()) {
-            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but has a shield");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
+                    "Player hit bubble, but has a shield");
 
             // The shield is removed and the bubble is split (tagged as isHit).
             ShieldPowerup shield = (ShieldPowerup)player.getPowerup(Powerup.SHIELD);
