@@ -38,7 +38,7 @@ public class Projectile extends AbstractEnvironmentObject {
      *            - The height of the player
      * @param speed
      *            - The speed
-     * @param wp
+     * @param weapon
      *            Weapon - The weapon that this projectile was shot by.
      *
      *            Constructor for the class "Projectile". New in this class: fired - Is the
@@ -47,19 +47,19 @@ public class Projectile extends AbstractEnvironmentObject {
      *            hit the top
      */
     public Projectile(ResourcesWrapper resources, Image image, int locX, int locY,
-            int playerWidth, int playerHeight, int speed, Weapon wp) {
+            int playerWidth, int playerHeight, int speed, Weapon weapon) {
         super(image, locX, locY);
         this.speed = speed;
         this.playerWidth = playerWidth;
         this.playerHeight = playerHeight;
-        this.weapon = wp;
+        this.weapon = weapon;
         this.resources = resources;
         hitBubble = false;
         hitWall = false;
         tickCount = 0;
         startHeight = locY;
 
-        if (wp.getNumberOfProjectiles() == 0 && !resources.getWeaponFire().playing()) {
+        if (weapon.getNumberOfProjectiles() == 0 && !resources.getWeaponFire().playing()) {
             resources.playFireSound();
         }
     }
