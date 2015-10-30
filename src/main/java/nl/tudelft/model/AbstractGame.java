@@ -9,7 +9,6 @@ import nl.tudelft.controller.logger.DefaultLogger;
 import nl.tudelft.controller.logger.Logger;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.player.AbstractPlayerDecorator;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.view.GameEndedState;
 import nl.tudelft.view.ShopState;
@@ -21,11 +20,17 @@ import org.newdawn.slick.SlickException;
 import org.newdawn.slick.state.StateBasedGame;
 
 /**
- * The Game class represents a game session. A game can be single player or multiplayer, and
- * contains a list of levels and players.
+ * The Game class represents a game session.
+ * 
+ * <p>
+ * Each game consists of levels and players.
+ * </p>
  */
 public abstract class AbstractGame implements Renderable {
 
+    /**
+     * The global logger object for the game.
+     */
     public static final Logger LOGGER;
 
     static {
@@ -44,7 +49,7 @@ public abstract class AbstractGame implements Renderable {
     private final StateBasedGame mainApp;
     private final ResourcesWrapper resources;
     private boolean paused = false;
-    private Countdown countdown;
+    private final Countdown countdown;
 
     /**
      * Creates a Game with its levels and players. Note that the levels and players must both
@@ -56,26 +61,43 @@ public abstract class AbstractGame implements Renderable {
      *            int - width of the game field.
      * @param containerHeight
      *            int - height of the game field.
-     * @param wrapper
+     * @param resources
      *            {@link ResourcesWrapper} - The resources that Game can inject into LevelFactory.
      * @throws IllegalArgumentException
-     *             - If <code>levels</code> or <code>players</code> is empty.
+     *             If <code>levels</code> or <code>players</code> is empty.
      */
     public AbstractGame(StateBasedGame mainApp, int containerWidth, int containerHeight,
-            ResourcesWrapper wrapper) {
-        // LOGGER.log(VERBOSE, "Game", "constructor called");
+            ResourcesWrapper resources) {
         this.mainApp = mainApp;
         this.containerWidth = containerWidth;
         this.containerHeight = containerHeight;
-        this.levelFact = new LevelFactory(this, wrapper);
+        this.levelFact = new LevelFactory(this, resources);
         LinkedList<Level> levels = levelFact.getAllLevels();
 
-        this.resources = wrapper;
+        this.resources = resources;
         this.levelIt = levels.iterator();
 
         this.curLevel = this.levelIt.next();
-        countdown = new Countdown(this, wrapper);
+        countdown = new Countdown(this, resources);
     }
+
+    /**
+     * Decorates the specified player with the specified decorator, by replacing the player
+     * attribute in the Game class with the decorated one.
+     * 
+     * @param player
+     *            {@link Player} - The player that must be decorated.
+     * @param decorator
+     *            {@link Player} - A new instance of Player that will replace the old one.
+     */
+    public abstract void decoratePlayer(Player player, Player decorator);
+
+    /**
+     * Gets the players.
+     *
+     * @return Player[] - player(s) of the game.
+     */
+    public abstract Player[] getPlayers();
 
     /**
      * Performs updates and logic on the Game object. This makes sure the game continues to
@@ -88,7 +110,7 @@ public abstract class AbstractGame implements Renderable {
      * @param delta
      *            int - the amount of milliseconds since this method was last called.
      * @throws SlickException
-     *             - If the game engines crashes.
+     *             If the game engines crashes.
      */
     public void update(int delta) throws SlickException {
         // updates
@@ -111,6 +133,83 @@ public abstract class AbstractGame implements Renderable {
         }
 
         countdown.render(container, graphics);
+    }
+
+    /**
+     * Resets the current level if the players have lives left, ends the game if they do not.
+     */
+    public void levelReset() {
+        resources.stopFireSound();
+        if (getPlayerLives() > 0) {
+            resetPlayers();
+            setCurLevel(levelFact.getLevel(getCurLevel().getId()));
+        } else {
+            gameOver();
+        }
+    }
+
+    /**
+     * Returns the amount of lives that the players have left.
+     * 
+     * <p>
+     * When the players run out of lives, the game is over.
+     * </p>
+     * 
+     * @return int - the total amount of lives left until the game is over.
+     */
+    protected int getPlayerLives() {
+        int result = 0;
+        for (Player player : getPlayers()) {
+            result += player.getLives();
+        }
+        return result;
+    }
+
+    /**
+     * Calls {@link Player#reset()} on all players in the game.
+     */
+    protected void resetPlayers() {
+        for (Player player : getPlayers()) {
+            player.reset();
+        }
+    }
+
+    /**
+     * Tries to set the next level as the current level. If there is no next level, the game is
+     * completed and {@link #gameCompleted()} is called.
+     */
+    protected void nextLevel() {
+        if (levelIt.hasNext()) {
+            resetPlayers();
+            int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
+            for (Player player : getPlayers()) {
+                player.setScore(player.getScore() + score);
+            }
+            setCurLevel(levelIt.next());
+
+            ((ShopState) mainApp.getState(States.ShopState)).setup(this);
+            mainApp.enterState(States.ShopState);
+        } else {
+            gameCompleted();
+        }
+    }
+
+    /**
+     * Performs all logic needed when game has been completed.
+     */
+    private void gameCompleted() {
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
+        ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), true);
+        mainApp.enterState(States.GameEndedState);
+    }
+
+    /**
+     * Performs all logic needed when the game has been lost.
+     */
+    private void gameOver() {
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
+        ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), false);
+        mainApp.enterState(States.GameEndedState);
     }
 
     /**
@@ -145,7 +244,7 @@ public abstract class AbstractGame implements Renderable {
      * Performs updates for the player, checks the collisions and manages the player list.
      * 
      * @param delta
-     *            the time between updates.
+     *            int - the time between updates.
      * @throws SlickException
      *             exception from Slick if something goes wrong.
      */
@@ -155,107 +254,6 @@ public abstract class AbstractGame implements Renderable {
                 player.update(getCurLevel(), delta);
             }
         }
-    }
-
-    /**
-     * Sets the current level.
-     * 
-     * @param level
-     *            Level object to set as the current level.
-     */
-    private void setCurLevel(Level level) {
-        this.curLevel = level;
-        countdown.reset();
-    }
-
-    /**
-     * Returns the current level.
-     * 
-     * @return Level - the current level.
-     */
-    public Level getCurLevel() {
-        return this.curLevel;
-    }
-
-    /**
-     * Returns the amount of lives that the players have left.
-     * 
-     * <p>
-     * When the players run out of lives, the game is over.
-     * </p>
-     * 
-     * @return int - the total amount of lives left until the game is over.
-     */
-    protected int getPlayerLives() {
-        int result = 0;
-        for (Player player : getPlayers()) {
-            result += player.getLives();
-        }
-        return result;
-    }
-
-    /**
-     * Calls {@link Player#reset()} on all players in the game.
-     */
-    protected void resetPlayers() {
-        for (Player player : getPlayers()) {
-            player.reset();
-        }
-    }
-
-    /**
-     * Resets the current level if the players have lives left, ends the game if they do not.
-     */
-    public void levelReset() {
-        resources.stopFireSound();
-        if (getPlayerLives() > 0) {
-            resetPlayers();
-            setCurLevel(levelFact.getLevel(getCurLevel().getId()));
-        } else {
-            gameOver();
-        }
-    }
-
-    /**
-     * Tries to set the next level as the current level. If there is no next level, the game is
-     * completed and {@link #gameCompleted()} is called.
-     */
-    protected void nextLevel() {
-        if (levelIt.hasNext()) {
-            resetPlayers();
-            int score = (getCurLevel().getTime() / getCurLevel().getMaxTime()) * 500;
-            for (Player player : getPlayers()) {
-                player.setScore(player.getScore() + score);
-            }
-            setCurLevel(levelIt.next());
-
-            ((ShopState) mainApp.getState(States.ShopState)).setup(this);
-            mainApp.enterState(States.ShopState);
-        } else {
-            gameCompleted();
-        }
-    }
-
-    /**
-     * The game has been completed.
-     */
-    private void gameCompleted() {
-        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
-        ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), true);
-        mainApp.enterState(States.GameEndedState);
-    }
-
-    /**
-     * The game has been lost. Returns to the main screen.
-     * 
-     * <p>
-     * This happens when the players run out of lives.
-     * </p>
-     */
-    private void gameOver() {
-        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
-        ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), false);
-        mainApp.enterState(States.GameEndedState);
     }
 
     public int getContainerWidth() {
@@ -278,21 +276,12 @@ public abstract class AbstractGame implements Renderable {
         return countdown;
     }
 
-    /**
-     * Decorates the specified player with the specified decorator, by replacing the player
-     * attribute in the Game class with the decorated one.
-     * 
-     * @param player
-     *            {@link Player} - The player that must be decorated.
-     * @param decorator
-     *            {@link Player} - A new instance of Player that will replace the old one.
-     */
-    public abstract void decoratePlayer(Player player, Player decorator);
+    public void setCurLevel(Level level) {
+        this.curLevel = level;
+        countdown.reset();
+    }
 
-    /**
-     * Gets the players.
-     *
-     * @return Player[] - player(s) of the game.
-     */
-    public abstract Player[] getPlayers();
+    public Level getCurLevel() {
+        return this.curLevel;
+    }
 }
