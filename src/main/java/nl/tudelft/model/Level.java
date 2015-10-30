@@ -34,7 +34,7 @@ public class Level implements Updateable, Renderable, Modifiable {
     private final Image backgroundImage;
     private int time;
     private int maxTime;
-    private final int id;
+    private final int levelId;
     private boolean shopSlow = false;
 
     /**
@@ -52,12 +52,12 @@ public class Level implements Updateable, Renderable, Modifiable {
      *            LinkedList - list containing all bubbles in this level.
      * @param time
      *            double - the time the player has to complete the level in seconds.
-     * @param id
+     * @param levelId
      *            int - the number of this level.
      */
     public Level(Image backgroundImage, LinkedList<AbstractWall> walls,
             LinkedList<Projectile> projectiles, LinkedList<Pickup> pickups,
-            LinkedList<AbstractBubble> bubbles, int time, int id) {
+            LinkedList<AbstractBubble> bubbles, int time, int levelId) {
         this.backgroundImage = backgroundImage;
         this.walls = walls;
         this.projectiles = projectiles;
@@ -65,7 +65,7 @@ public class Level implements Updateable, Renderable, Modifiable {
         this.pickups = pickups;
         this.time = time;
         this.maxTime = time;
-        this.id = id;
+        this.levelId = levelId;
     }
 
     @Override
@@ -214,7 +214,7 @@ public class Level implements Updateable, Renderable, Modifiable {
      * @return int - the id of this level.
      */
     public int getId() {
-        return this.id;
+        return this.levelId;
     }
 
     /**
