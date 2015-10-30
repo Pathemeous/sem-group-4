@@ -7,7 +7,7 @@ import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.SemRectangle;
 import nl.tudelft.model.AbstractGameObject;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.pickups.powerup.InvinciblePowerup;
 import nl.tudelft.model.pickups.powerup.Powerup;
 import nl.tudelft.model.pickups.weapon.RegularWeapon;
@@ -119,7 +119,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     public void moveLeft() {
         setAnimationCurrent(animationLeft);
         setLocX(locX - getSpeed());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the left");
     }
 
     /**
@@ -129,7 +129,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     public void moveRight() {
         setAnimationCurrent(animationRight);
         setLocX(locX + getSpeed());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player moves to the right");
     }
 
     /**
@@ -138,7 +138,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     @Override
     public void stopMoving() {
         setAnimationCurrent(null);
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player stops moving.");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player stops moving.");
     }
 
     /**
@@ -148,7 +148,7 @@ public class ConcretePlayer extends AbstractGameObject implements Player {
     public void shoot() {
         getWeapon().fire(container, (int) this.locX, (int) this.locY, this.getWidth(),
                 this.getHeight());
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Player", "Player shoots");
     }
 
     /**

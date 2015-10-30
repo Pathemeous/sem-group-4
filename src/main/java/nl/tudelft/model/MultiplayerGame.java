@@ -12,7 +12,7 @@ import org.newdawn.slick.state.StateBasedGame;
 /**
  * Created by justin on 07/10/15.
  */
-public class MultiplayerGame extends Game {
+public class MultiplayerGame extends AbstractGame {
 
     private Player firstPlayer;
     private Player secondPlayer;

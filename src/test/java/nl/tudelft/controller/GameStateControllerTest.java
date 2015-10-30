@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.model.CollisionController;
 import nl.tudelft.model.Countdown;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import nl.tudelft.view.GameState;
 import nl.tudelft.view.PauseScreen;
@@ -23,14 +23,14 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameStateControllerTest {
     
     private GameStateController gsController;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     
     /**
      * Creates a gamestatecontroller with a mocked game before every test.
      */
     @Before
     public void setUp() {
-        mockedGame = Mockito.mock(Game.class);
+        mockedGame = Mockito.mock(AbstractGame.class);
         gsController = new GameStateController(mockedGame);
     }
     

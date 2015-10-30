@@ -23,30 +23,30 @@ import nl.tudelft.model.wall.VerMovingWall;
  */
 public class LevelFactory {
 
-    private final Game game;
+    private final AbstractGame game;
     private final ResourcesWrapper resources;
     private static final int LEVEL_COUNT = 5;
 
     /**
-     * Constructs a new {@link LevelFactory} for a certain {@link Game}, using the specified
+     * Constructs a new {@link LevelFactory} for a certain {@link AbstractGame}, using the specified
      * {@link ResourcesWrapper}.
      * 
      * @param game
-     *            {@link Game} - the game that this factory belongs to.
+     *            {@link AbstractGame} - the game that this factory belongs to.
      * @param wrapper
      *            {@link ResourcesWrapper} - the resources that this factory will use.
      */
-    public LevelFactory(Game game, ResourcesWrapper wrapper) {
+    public LevelFactory(AbstractGame game, ResourcesWrapper wrapper) {
         this.game = game;
         this.resources = wrapper;
     }
 
     /**
-     * Gets the {@link Game} instance that this factory returns to.
+     * Gets the {@link AbstractGame} instance that this factory returns to.
      * 
-     * @return {@link Game} - the Game instance that this factory belongs to.
+     * @return {@link AbstractGame} - the Game instance that this factory belongs to.
      */
-    public Game getGame() {
+    public AbstractGame getGame() {
         return this.game;
     }
 

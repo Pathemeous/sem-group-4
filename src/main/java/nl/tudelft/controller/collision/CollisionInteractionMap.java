@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.GameObject;
 
 /**
@@ -124,7 +124,7 @@ public class CollisionInteractionMap implements CollisionMap {
      */
     @SuppressWarnings("unchecked")
     @Override
-    public <C1 extends GameObject, C2 extends GameObject> void collide(Game game, C1 collider,
+    public <C1 extends GameObject, C2 extends GameObject> void collide(AbstractGame game, C1 collider,
             C2 collidee) {
         List<Class<? extends GameObject>> colliderInheritance =
                 getInheritance(collider.getClass());
@@ -208,7 +208,7 @@ public class CollisionInteractionMap implements CollisionMap {
          * the initial collision.
          */
         @Override
-        public void handleCollision(Game game, C1 collider, C2 collidee) {
+        public void handleCollision(AbstractGame game, C1 collider, C2 collidee) {
             handler.handleCollision(game, collidee, collider);
         }
     }

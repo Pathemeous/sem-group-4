@@ -3,7 +3,7 @@ package nl.tudelft.controller;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.model.CollisionController;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import nl.tudelft.view.GameState;
 import nl.tudelft.view.PauseScreen;
@@ -20,7 +20,7 @@ import org.newdawn.slick.state.StateBasedGame;
  */
 public class GameStateController {
     
-    private final Game currentGame;
+    private final AbstractGame currentGame;
     private CollisionController collisions;
     
     /**
@@ -28,7 +28,7 @@ public class GameStateController {
      * GameState.
      * @param game : the current game this GameState is based on.
      */
-    public GameStateController(Game game) {
+    public GameStateController(AbstractGame game) {
         this.currentGame = game;
         collisions = new CollisionController(currentGame);
     }
@@ -48,7 +48,7 @@ public class GameStateController {
         // the game is paused without the pause screen being open)
         if (currentGame.isPaused() && pauseScreenOpened
                 || !(currentGame.isPaused() || pauseScreenOpened)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Player "
                     + (currentGame.isPaused() ? "resumed" : "paused") + " the game");
             input.disableKeyRepeat();
             currentGame.setPaused(!currentGame.isPaused());
@@ -98,7 +98,7 @@ public class GameStateController {
         }
     }
 
-    public Game getGame() {
+    public AbstractGame getGame() {
         return currentGame;
     }
 

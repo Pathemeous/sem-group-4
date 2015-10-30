@@ -7,7 +7,7 @@ import java.awt.Font;
 
 import nl.tudelft.controller.StartScreenStateController;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -259,7 +259,7 @@ public class StartScreenStateTest {
     public void testEnterGameState() throws SlickException {
         BasicGameState mockedState = Mockito.mock(BasicGameState.class);
         Mockito.when(mockedSBG.getState(States.GameState)).thenReturn(mockedState);
-        Game mockedGame = Mockito.mock(Game.class);
+        AbstractGame mockedGame = Mockito.mock(AbstractGame.class);
         state.enterGameState(mockedContainer, mockedSBG, mockedGame);
         Mockito.verify(mockedSBG).enterState(Mockito.anyInt());
     }

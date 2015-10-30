@@ -3,7 +3,7 @@ package nl.tudelft.controller;
 import java.awt.Font;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.MultiplayerGame;
 import nl.tudelft.model.SingleplayerGame;
 import nl.tudelft.model.player.ConcretePlayer;
@@ -94,14 +94,14 @@ public class StartScreenStateController {
      *            {@link GameContainer} - The state's Gamecontainer.
      * @param mainApp
      *            - {@link StateBasedGame} - The StateBasedGame to pass to the Game object.
-     * @return {@link Game} - A game object.
+     * @return {@link AbstractGame} - A game object.
      */
-    public Game createSingleplayerGame(GameContainer container, StateBasedGame mainApp) {
+    public AbstractGame createSingleplayerGame(GameContainer container, StateBasedGame mainApp) {
         final Player player =
                 new ConcretePlayer(new ResourcesWrapper(), container.getWidth() / 2,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
                                 - 5 * resources.getWallImage().getHeight(), true);
-        final Game singleplayerGame =
+        final AbstractGame singleplayerGame =
                 new SingleplayerGame(mainApp, container.getWidth(), container.getHeight(),
                         resources, player);
         singleplayerGame.getCurLevel().toAdd(player.getWeapon());
@@ -117,9 +117,9 @@ public class StartScreenStateController {
      *            {@link GameContainer} - The state's Gamecontainer.
      * @param mainApp
      *            - {@link StateBasedGame} - The StateBasedGame to pass to the Game object.
-     * @return {@link Game} - A game object.
+     * @return {@link AbstractGame} - A game object.
      */
-    public Game createMultiplayerGame(GameContainer container, StateBasedGame mainApp) {
+    public AbstractGame createMultiplayerGame(GameContainer container, StateBasedGame mainApp) {
         Player firstPlayer =
                 new ConcretePlayer(new ResourcesWrapper(), container.getWidth() / 2,
                         container.getHeight() - resources.getPlayerImageStill().getHeight()
@@ -132,7 +132,7 @@ public class StartScreenStateController {
                                 - 5 * resources.getWallImage().getHeight(), false);
         settings.getPlayer2Input().addListener(secondPlayer);
 
-        final Game multiplayerGame =
+        final AbstractGame multiplayerGame =
                 new MultiplayerGame(mainApp, container.getWidth(), container.getHeight(),
                         new ResourcesWrapper(), firstPlayer, secondPlayer);
 

@@ -14,7 +14,7 @@ import org.newdawn.slick.TrueTypeFont;
  */
 public class Countdown implements Renderable {
 
-    private final Game game;
+    private final AbstractGame game;
     private int countdownTimer = 180;
     private final TrueTypeFont typeFont;
 
@@ -22,11 +22,11 @@ public class Countdown implements Renderable {
      * Constructs a new instance of {@link Countdown}.
      * 
      * @param game
-     *            {@link Game} - The game that this countdown belongs to.
+     *            {@link AbstractGame} - The game that this countdown belongs to.
      * @param resources
      *            {@link ResourcesWrapper} - The resourceswrapper used in this instance.
      */
-    public Countdown(Game game, ResourcesWrapper resources) {
+    public Countdown(AbstractGame game, ResourcesWrapper resources) {
         this.game = game;
         game.setPaused(true);
         typeFont = resources.getCountdownFont();

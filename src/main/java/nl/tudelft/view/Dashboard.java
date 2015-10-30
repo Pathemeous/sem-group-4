@@ -5,7 +5,7 @@ import java.awt.Font;
 import nl.tudelft.controller.DashboardController;
 import nl.tudelft.controller.Renderable;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -48,10 +48,10 @@ public class Dashboard implements Renderable {
     private final int right;
     private final int bottom;
     
-    private Game game;
+    private AbstractGame game;
     private DashboardController controller;
 
-    /* package */Dashboard(ResourcesWrapper resources, Game game, int left,
+    /* package */Dashboard(ResourcesWrapper resources, AbstractGame game, int left,
                      int right, int bottom) {
         this.game = game;
         controller = new DashboardController(this);
@@ -373,7 +373,7 @@ public class Dashboard implements Renderable {
      * Returns the game.
      * @return the game
      */
-    public Game getGame() {
+    public AbstractGame getGame() {
         return game;
     }
     

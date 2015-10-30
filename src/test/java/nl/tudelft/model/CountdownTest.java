@@ -13,12 +13,12 @@ import org.junit.Test;
 
 public class CountdownTest {
 
-    private Game game;
+    private AbstractGame game;
     private Countdown countdown;
 
     @Before
     public void setUp() {
-        game = mock(Game.class);
+        game = mock(AbstractGame.class);
         countdown = new Countdown(game, new ResourcesWrapper());
     }
 

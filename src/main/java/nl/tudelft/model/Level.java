@@ -16,7 +16,7 @@ import org.newdawn.slick.Image;
 import org.newdawn.slick.SlickException;
 
 /**
- * This class represents a single level within the {@link Game}.
+ * This class represents a single level within the {@link AbstractGame}.
  * 
  * <p>
  * A level contains the {@link AbstractEnvironmentObject}s specific to this level and the level

@@ -5,7 +5,7 @@ import java.util.TimerTask;
 
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.GameObject;
 import nl.tudelft.model.bubble.AbstractBubble;
 import nl.tudelft.model.pickups.Pickup;
@@ -37,7 +37,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
     private CollisionMap collisions = defaultCollisions();
 
     @Override
-    public void collide(Game game, GameObject mover, GameObject movedInto) {
+    public void collide(AbstractGame game, GameObject mover, GameObject movedInto) {
         collisions.collide(game, mover, movedInto);
     }
 
@@ -84,24 +84,24 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
         if (wall.getLocX() < bubble.getLocX()
                 && (wall.getLocX() + wall.getBounds().getWidth() - offset) <= bubble.getLocX()) {
             // left collision
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Collision",
+            AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision",
                     "Bubble collided with wall to its left");
 
             bubble.setHorizontalSpeed(Math.abs(bubble.getHorizontalSpeed()));
         } else if (wall.getLocY() < bubble.getLocY()
                 && (wall.getLocY() + wall.getBounds().getHeight() - offset) <= bubble.getLocY()) {
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble collided with wall above it");
+            AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble collided with wall above it");
             // top collision
             bubble.setVerticalSpeed(-Math.abs(bubble.getVerticalSpeed()));
         } else if ((wall.getLocY() + offset) >= bubble.getLocY()
                 && (bubble.getLocX() + bubble.getBounds().getWidth()) >= wall.getLocX() + offset) {
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Collision",
+            AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision",
                     "Bubble collided with wall underneath it");
             // bottom collision
             bubble.setVerticalSpeed(Math.abs(bubble.getMaxVerticalSpeed()));
         } else {
             // right collision
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Collision",
+            AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision",
                     "Bubble collided with wall to its right");
             bubble.setHorizontalSpeed(-Math.abs(bubble.getHorizontalSpeed()));
         }
@@ -109,21 +109,21 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
 
     private static CollisionHandler<AbstractBubble, Player> playerBubbleHandler
             = (game, bubble, player) -> {
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "bubble - player collision");
 
         if (!player.isAlive()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
                     "Player is not alive, no collision checked");
             // nothing happens
             return;
         }
         if (player.isInvincible() || bubble.isFrozen()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but is invincible");
             // nothing happens
             return;
         }
         if (player.hasShield()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but has a shield");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, but has a shield");
 
             // The shield is removed and the bubble is split (tagged as isHit).
             ShieldPowerup shield = (ShieldPowerup)player.getPowerup(Powerup.SHIELD);
@@ -132,7 +132,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
                 bubble.setIsHit();
             }
         } else if (player.hasShopShield()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
                     "Player hit bubble, but has a shopshield");
             Hit3ShieldPowerup shield = (Hit3ShieldPowerup)player.getPowerup(Powerup.SHOPSHIELD);
             if (!shield.isHit()) {
@@ -140,7 +140,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
                 bubble.setIsHit();
             }
         } else {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, and died");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player hit bubble, and died");
             game.setPaused(true);
             new ResourcesWrapper().playDeath();
 
@@ -157,10 +157,10 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
 
     private static CollisionHandler<AbstractBubble, Projectile> projectileBubbleHandler =
             (game, bubble, projectile) -> {
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble - Projectile collision");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Bubble - Projectile collision");
 
         if (!projectile.isHitBubble()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Collision",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision",
                     "Projectile hit bubble, and the bubble is split");
             projectile.setHitBubble();
             Player player = projectile.getWeapon().getPlayer();
@@ -171,7 +171,7 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
 
     private static CollisionHandler<AbstractWall, Player> wallPlayerHandler =
             (game, wall, player) -> {
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Player - wall collision");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Player - wall collision");
 
         Shape playerRect = player.getBounds();
         Shape wallRect = wall.getBounds();
@@ -226,33 +226,33 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
 
     private static CollisionHandler<RegularWall, Projectile> wallProjectileHandler =
             (game, wall, projectile) -> {
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile - wall collision");
 
         Shape projectileRect = projectile.getBounds();
         Shape wallRect = wall.getBounds();
         // This structure makes the projectile ignore any walls below it (such as the floor wall).
 
         if (wallRect.getY() < projectileRect.getY()) {
-            Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit the ceiling");
+            AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit the ceiling");
             projectile.setHitWall();
         }
     };
 
     private static CollisionHandler<AbstractMovingWall, Projectile> movingwallProjectileHandler =
             (game, wall, projectile) -> {
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit a moving wall");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Projectile hit a moving wall");
         projectile.setHitWall();
     };
 
     private static CollisionHandler<Powerup, Player> playerPowerupHandler =
             (game, powerup, player) -> {
-        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a powerup");
         powerup.activate(player);
     };
 
     private static CollisionHandler<Weapon, Player> playerWeaponHandler =
             (game, weapon, player) -> {
-        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a new weapon");
         if (!player.isShopWeapon()) {
             weapon.activate(player);
         }
@@ -260,13 +260,13 @@ public class DefaultPlayerInteractionMap implements CollisionMap {
 
     private static CollisionHandler<Utility, Player> playerUtilityHandler =
             (game, util, player) -> {
-        Game.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Collision", "Player picked up a utility");
         util.activate(game.getCurLevel());
     };
 
     private static CollisionHandler<Pickup, AbstractWall> pickupWallHandler =
             (game, pickup, wall) -> {
-        Game.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Pickup - Wall collision");
+        AbstractGame.LOGGER.log(LogSeverity.VERBOSE, "Collision", "Pickup - Wall collision");
 
         Shape pickupRect = pickup.getBounds();
         Shape wallRect = wall.getBounds();

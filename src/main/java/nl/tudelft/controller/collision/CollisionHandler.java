@@ -1,6 +1,6 @@
 package nl.tudelft.controller.collision;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.GameObject;
 
 /**
@@ -25,5 +25,5 @@ public interface CollisionHandler<
      * @param collidee
      *            The collidee.
      */
-    void handleCollision(Game game, C1 collider, C2 collidee);
+    void handleCollision(AbstractGame game, C1 collider, C2 collidee);
 }

@@ -8,7 +8,7 @@ import nl.tudelft.controller.Modifiable;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.Helpers;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import org.newdawn.slick.SlickException;
 
 /**
@@ -50,7 +50,7 @@ public class BacchelliBubble extends AbstractBubble {
     @Override
     public void setIsHit() {
         // super.setIsHit();
-        Game.LOGGER.log(LogSeverity.DEBUG, "BacchelliBubble", "bubble is hit.");
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "BacchelliBubble", "bubble is hit.");
 
         healthCounter = 0;
         lives--;

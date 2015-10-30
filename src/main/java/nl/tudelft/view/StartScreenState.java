@@ -3,7 +3,7 @@ package nl.tudelft.view;
 import nl.tudelft.controller.StartScreenStateController;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.newdawn.slick.GameContainer;
 import org.newdawn.slick.Graphics;
@@ -92,7 +92,7 @@ public class StartScreenState extends BasicGameState {
         if (mouseOverHighScores.isMouseOver()) {
             game.getState(States.HighscoresState).init(container, game);
             game.enterState(States.HighscoresState);
-            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters Highscores menu");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters Highscores menu");
         }
     }
 
@@ -109,9 +109,9 @@ public class StartScreenState extends BasicGameState {
     public void updatePlayer1Button(GameContainer container, StateBasedGame game)
             throws SlickException {
         if (mouseOverOnePlayer.isMouseOver()) {
-            Game singleplayerGame = controller.createSingleplayerGame(container, game);
+            AbstractGame singleplayerGame = controller.createSingleplayerGame(container, game);
             enterGameState(container, game, singleplayerGame);
-            Game.LOGGER
+            AbstractGame.LOGGER
                     .log(LogSeverity.DEBUG, "StartMenu", "User starts a single player game");
         }
     }
@@ -129,9 +129,9 @@ public class StartScreenState extends BasicGameState {
     public void updatePlayer2Button(GameContainer container, StateBasedGame game)
             throws SlickException {
         if (mouseOverTwoPlayer.isMouseOver()) {
-            Game multiplayerGame = controller.createMultiplayerGame(container, game);
+            AbstractGame multiplayerGame = controller.createMultiplayerGame(container, game);
             enterGameState(container, game, multiplayerGame);
-            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User starts a multi-player game");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User starts a multi-player game");
         }
     }
 
@@ -143,11 +143,11 @@ public class StartScreenState extends BasicGameState {
      * @param game
      *            {@link StateBasedGame} - The Main Game object of Slick2D.
      * @param createdGame
-     *            {@link Game} - The Game to enter the {@link GameState} with.
+     *            {@link AbstractGame} - The Game to enter the {@link GameState} with.
      * @throws SlickException
      *             When state switching goes wrong.
      */
-    public void enterGameState(GameContainer container, StateBasedGame game, Game createdGame)
+    public void enterGameState(GameContainer container, StateBasedGame game, AbstractGame createdGame)
             throws SlickException {
         final GameState gameState = new GameState(createdGame);
         game.addState(gameState);
@@ -172,7 +172,7 @@ public class StartScreenState extends BasicGameState {
             input.clearKeyPressedRecord();
             input.clearMousePressedRecord();
             game.enterState(States.OptionsState);
-            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User enters options menu");
         }
     }
 
@@ -189,7 +189,7 @@ public class StartScreenState extends BasicGameState {
     public void updateExitButton(GameContainer container, StateBasedGame game)
             throws SlickException {
         if (mouseOverQuit.isMouseOver()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "StartMenu", "User quits the application");
             resources.stopTitleScreen();
             container.exit();
         }

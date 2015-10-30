@@ -12,16 +12,16 @@ import org.newdawn.slick.geom.Rectangle;
  */
 public class CollisionController {
 
-    private final Game game;
+    private final AbstractGame game;
     private final CollisionMap collisionHandler;
 
     /**
      * Creates a new {@link CollisionController} for the specified game.
      * 
      * @param game
-     *            {@link Game} - The game that this controller will handle collisions for.
+     *            {@link AbstractGame} - The game that this controller will handle collisions for.
      */
-    public CollisionController(Game game) {
+    public CollisionController(AbstractGame game) {
         this.game = game;
         collisionHandler = getNewCollisionMap();
     }

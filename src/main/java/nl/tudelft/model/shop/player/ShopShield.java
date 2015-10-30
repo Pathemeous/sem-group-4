@@ -1,17 +1,17 @@
 package nl.tudelft.model.shop.player;
 
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.pickups.powerup.Hit3ShieldPowerup;
 import nl.tudelft.model.player.Player;
 
 public class ShopShield extends PlayerShopItem {
-    private Game game;
+    private AbstractGame game;
     /**
      * Constructor for ShopShield.
      * @param price - The price of the item.
      */
-    public ShopShield(int price, Game game) {
+    public ShopShield(int price, AbstractGame game) {
         super(price);
         this.game = game;
     }

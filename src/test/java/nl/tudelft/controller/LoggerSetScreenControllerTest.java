@@ -7,7 +7,7 @@ import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -36,13 +36,13 @@ public class LoggerSetScreenControllerTest {
 
     @Test
     public void testDecideColor1() {
-        Game.LOGGER.setSeverity(LogSeverity.CRITICAL);
+        AbstractGame.LOGGER.setSeverity(LogSeverity.CRITICAL);
         assertEquals(Color.green, controller.decideColor(LogSeverity.CRITICAL));
     }
 
     @Test
     public void testDecideColor2() {
-        Game.LOGGER.setSeverity(LogSeverity.CRITICAL);
+        AbstractGame.LOGGER.setSeverity(LogSeverity.CRITICAL);
         assertEquals(Color.yellow, controller.decideColor(LogSeverity.ERROR));
     }
 

@@ -11,7 +11,7 @@ import org.newdawn.slick.state.StateBasedGame;
 /**
  * Created by justin on 07/10/15.
  */
-public class SingleplayerGame extends Game {
+public class SingleplayerGame extends AbstractGame {
 
     private Player player;
     private final PlayerInput player1Input;

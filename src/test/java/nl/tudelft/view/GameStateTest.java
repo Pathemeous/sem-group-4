@@ -6,7 +6,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
 import nl.tudelft.controller.GameStateController;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import nl.tudelft.view.Dashboard;
 import nl.tudelft.view.GameState;
@@ -23,7 +23,7 @@ import org.newdawn.slick.state.StateBasedGame;
 public class GameStateTest {
     
     private GameState gameState;
-    private Game mockedGame;
+    private AbstractGame mockedGame;
     private GameStateController gamestateController;
     
     /**
@@ -32,7 +32,7 @@ public class GameStateTest {
      */
     @Before
     public void setUp() {
-        mockedGame = Mockito.mock(Game.class);
+        mockedGame = Mockito.mock(AbstractGame.class);
         gamestateController = Mockito.mock(GameStateController.class);
         gameState = new GameState(mockedGame);
         gameState.setGameStateController(gamestateController);

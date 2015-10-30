@@ -8,7 +8,7 @@ import nl.tudelft.controller.HighscoresStateController;
 import nl.tudelft.controller.logger.LogSeverity;
 import nl.tudelft.controller.resources.ResourcesWrapper;
 import nl.tudelft.controller.util.HighscoreEntry;
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 
 import org.newdawn.slick.Color;
 import org.newdawn.slick.GameContainer;
@@ -113,7 +113,7 @@ public class HighscoresState extends BasicGameState {
             throws SlickException {
         if (backButton.isMouseOver() 
                 && input.isMousePressed(Input.MOUSE_LEFT_BUTTON)) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "HighscoresMenu", 
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "HighscoresMenu", 
                     "User goes back to main menu" );
             game.enterState(States.StartScreenState);
         }

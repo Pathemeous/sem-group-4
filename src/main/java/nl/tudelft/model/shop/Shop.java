@@ -4,7 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
 
-import nl.tudelft.model.Game;
+import nl.tudelft.model.AbstractGame;
 import nl.tudelft.model.Level;
 import nl.tudelft.model.player.Player;
 import nl.tudelft.model.shop.level.ExtraTime;
@@ -19,13 +19,13 @@ import nl.tudelft.model.shop.player.ShopWeaponItem;
 public class Shop {
 
     private LinkedList<ShopItem> inventory;
-    private Game game;
+    private AbstractGame game;
 
     /**
      * Default constructor for a Shop.
      * @param game the game that the shop lives in.
      */
-    public Shop(Game game) {
+    public Shop(AbstractGame game) {
         this.game = game;
         inventory = new LinkedList<>();
         inventory.add(new SlowGameSpeed(80, game.getCurLevel()));
@@ -54,7 +54,7 @@ public class Shop {
      *
      * @return the associated Game object.
      */
-    public Game getGame() {
+    public AbstractGame getGame() {
         return this.game;
     }
 

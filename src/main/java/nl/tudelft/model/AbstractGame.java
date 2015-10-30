@@ -24,7 +24,7 @@ import org.newdawn.slick.state.StateBasedGame;
  * The Game class represents a game session. A game can be single player or multiplayer, and
  * contains a list of levels and players.
  */
-public abstract class Game implements Renderable {
+public abstract class AbstractGame implements Renderable {
 
     public static final Logger LOGGER;
 
@@ -61,7 +61,7 @@ public abstract class Game implements Renderable {
      * @throws IllegalArgumentException
      *             - If <code>levels</code> or <code>players</code> is empty.
      */
-    public Game(StateBasedGame mainApp, int containerWidth, int containerHeight,
+    public AbstractGame(StateBasedGame mainApp, int containerWidth, int containerHeight,
             ResourcesWrapper wrapper) {
         // LOGGER.log(VERBOSE, "Game", "constructor called");
         this.mainApp = mainApp;
@@ -119,7 +119,7 @@ public abstract class Game implements Renderable {
      */
     private void levelCompleted() {
         if (getCurLevel().isCompleted()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game",
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game",
                     "Level has been completed. Go to next level!");
             nextLevel();
         }
@@ -131,7 +131,7 @@ public abstract class Game implements Renderable {
      */
     private void levelTimeExpired() {
         if (getCurLevel().timerExpired()) {
-            Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
+            AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Time has expired");
 
             resources.playTimeUp();
             for (Player player : getPlayers()) {
@@ -240,7 +240,7 @@ public abstract class Game implements Renderable {
      * The game has been completed.
      */
     private void gameCompleted() {
-        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Player has won the game!");
         ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), true);
         mainApp.enterState(States.GameEndedState);
     }
@@ -253,7 +253,7 @@ public abstract class Game implements Renderable {
      * </p>
      */
     private void gameOver() {
-        Game.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
+        AbstractGame.LOGGER.log(LogSeverity.DEBUG, "Game", "Game over for the player");
         ((GameEndedState) mainApp.getState(States.GameEndedState)).setup(getPlayers(), false);
         mainApp.enterState(States.GameEndedState);
     }
