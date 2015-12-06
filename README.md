@@ -4,7 +4,6 @@ Made by Group 4 for the course Software Engineering Methods 2015-2016.
 
 ## Starting the game
 To guarentee that the game will run properly, use the following Maven build goals:<br />
-**THIS HAS BEEN CHANGED**
 
 <code>clean package exec:java -Dexec.mainClass=nl.tudelft.controller.MainApp</code>
 
